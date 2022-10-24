@@ -4,6 +4,8 @@ import argparse
 import base64
 from unicodedata import category
 import pandas as pd
+import requests
+import time
 import yaml
 import xml.etree.ElementTree as et
 
@@ -22,6 +24,8 @@ def read_file(filepath):
     if fp.is_file():
         with fp.open('r') as f:
             return [x.rstrip() for x in f.readlines()]
+    else:
+        return []
 
 
 def get_string_content(cf):
@@ -65,17 +69,18 @@ def get_github_repo(url, g):
     return g.get_user(u_split[-2]).get_repo(u_split[-1])
 
 
-def get_shed_attribute(attrib, shed_content):
+def get_shed_attribute(attrib, shed_content, empty_value=None):
     '''
     Get a shed attribute
 
     :param attrib: attribute to extract
     :param shed_content: content of the .shed.yml
+    :param empty_value: value to return if attribute not found
     '''
     if attrib in shed_content:
         return shed_content[attrib]
     else:
-        return None
+        return empty_value
 
 
 def get_biotools(el):
@@ -129,7 +134,7 @@ def get_tool_metadata(tool, repo):
     '''
     metadata = {
         'Description': None,
-        'Toolshed Categories': None,
+        'Toolshed Categories': [],
         'Source': None,
         'ToolShed id': None,
         'Wrapper owner': None,
@@ -143,16 +148,18 @@ def get_tool_metadata(tool, repo):
         if file.name == '.shed.yml':
             file_content = get_string_content(file)
             yaml_content = yaml.load(file_content, Loader=yaml.FullLoader)
-
             metadata['Description'] = get_shed_attribute('description', yaml_content)
-            metadata['Toolshed Categories'] = get_shed_attribute('categories', yaml_content)
+            if metadata['Description'] is None:
+                metadata['Description'] = get_shed_attribute('long_description', yaml_content)
+            if metadata['Description'] is not None:
+                metadata['Description'] = metadata['Description'].replace("\n","")
+            metadata['Toolshed Categories'] = get_shed_attribute('categories', yaml_content, [])
             metadata['ToolShed id'] = get_shed_attribute('name', yaml_content)
             metadata['Wrapper owner'] = get_shed_attribute('owner', yaml_content)
             metadata['Wrapper source'] = get_shed_attribute('remote_repository_url', yaml_content)
             if 'homepage_url' in yaml_content:
                 metadata['Source'] = yaml_content['homepage_url']
         elif 'macro' in file.name and file.name.endswith('xml'):
-            print(file.path)
             file_content = get_string_content(file)
             root = et.fromstring(file_content)
             for child in root:
@@ -167,7 +174,6 @@ def get_tool_metadata(tool, repo):
     if metadata['Wrapper version'] is None or metadata['bio.tool id'] is None or metadata['conda id'] is None:
         for file in repo.get_contents(tool.path):
             if file.name.endswith('xml') and 'macro' not in file.name:
-                print(file.path)
                 file_content = get_string_content(file)
                 root = et.fromstring(file_content)
                 # version
@@ -194,7 +200,7 @@ def get_tool_metadata(tool, repo):
     return metadata
 
 
-def parse_tools(repo, ts_cat, excluded_tools):
+def parse_tools(repo, ts_cat=[], excluded_tools=[]):
     '''
     Parse tools in a GitHub repository to expact
 
@@ -204,27 +210,55 @@ def parse_tools(repo, ts_cat, excluded_tools):
     '''
     tools = []
     for tool in repo.get_contents("tools"):
+        # avoid extracting information from excluded tools
         if tool.name in excluded_tools:
             continue
+        # to avoid API request limit issue, wait for one hour
+        if g.get_rate_limit().core.remaining < 200:
+            print("WAITING for 1 hour to retrieve GitHub API request access !!!")
+            print()
+            time.sleep(60*60)
+
         if tool.type == 'dir':
             print(tool.name)
             metadata = get_tool_metadata(tool, repo)
             # filter categories
-            if metadata['Toolshed Categories'] is not None and ts_cat is not None:
+            if ts_cat is not None:
                 to_keep = False
                 for cat in metadata['Toolshed Categories']:
                     if cat in ts_cat:
                         to_keep = True
-                if to_keep:
-                    tools.append(metadata)
-                    print("added")
-                    print(metadata)
-            else:
-                tools.append(metadata)
-                print("added")
-                print(metadata)
+                if not to_keep:
+                    continue
+            # get latest conda version
+            metadata['conda version'] = None
+            if metadata["conda id"] is not None:
+                r = requests.get(f'https://api.anaconda.org/package/bioconda/{metadata["conda id"]}')
+                if r.status_code == requests.codes.ok:
+                    conda_info = r.json()
+                    if "latest_version" in conda_info:
+                        metadata['conda version'] = conda_info['latest_version']
+            tools.append(metadata)
+            # get bio.tool information
+            metadata['edam operation'] = []
+            metadata['edam topic'] = []
+            metadata['bio.tool name'] = None
+            metadata['bio.tool description'] = None
+            if metadata["bio.tool id"] is not None:
+                r = requests.get(f'https://bio.tools/api/tool/{metadata["bio.tool id"]}/?format=json')
+                if r.status_code == requests.codes.ok:
+                    biotool_info = r.json()
+                    if "function" in biotool_info and 'operation' in biotool_info['function']:
+                        for op in biotool_info['function']['operation']:
+                            metadata['edam operation'].append(op['term'])
+                    if "topic" in biotool_info:
+                        for t in biotool_info['topic']:
+                            metadata['edam topic'].append(t['term'])
+                    if "name" in biotool_info:
+                        metadata['bio.tool name'] = biotool_info['name']
+                    if "description" in biotool_info:
+                        metadata['bio.tool description'] = biotool_info['description']
     return tools
-
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Extract a GitHub project to CSV')
@@ -242,8 +276,6 @@ if __name__ == '__main__':
     # get categories and tools to exclude
     categories = read_file(args.categories)
     excl_tools = read_file(args.excluded)
-    print(categories)
-    print(excl_tools)
 
     # parse tools in GitHub repositories to extract metada and filter by TS categories
     tools = []
@@ -258,5 +290,8 @@ if __name__ == '__main__':
 
     # export tool metadata to tsv output file
     df = pd.DataFrame(tools)
+    df['Toolshed Categories'] = df['Toolshed Categories'].apply(lambda x: ', '.join([str(i) for i in x]))
+    df['edam operation'] = df['edam operation'].apply(lambda x: ', '.join([str(i) for i in x]))
+    df['edam topic'] = df['edam topic'].apply(lambda x: ', '.join([str(i) for i in x]))
     df.to_csv(args.output, sep="\t", index=False)
 
