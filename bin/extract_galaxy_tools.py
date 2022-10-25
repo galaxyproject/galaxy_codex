@@ -32,7 +32,7 @@ def get_string_content(cf):
     '''
     Get string of the content from a ContentFile
 
-    param cf: GitHub ContentFile object
+    :param cf: GitHub ContentFile object
     '''
     return base64.b64decode(cf.content).decode('utf-8')
 
@@ -41,7 +41,7 @@ def get_tool_github_repositories(g):
     '''
     Get list of tool GitHub repositories to parse
 
-    param g: GitHub instance
+    :param g: GitHub instance
     '''
     repo = g.get_user("galaxyproject").get_repo("planemo-monitor")
     repo_list = []
@@ -56,8 +56,8 @@ def get_github_repo(url, g):
     '''
     Get a GitHub Repository object from an URL
 
-    param url: URL to a GitHub repository
-    param g: GitHub instance
+    :param url: URL to a GitHub repository
+    :param g: GitHub instance
     '''
     if not url.startswith("https://github.com/"):
         raise ValueError
@@ -120,7 +120,22 @@ def get_conda_package(el):
     return None
 
 
-def get_tool_metadata(tool, repo):
+def check_categories(ts_categories, ts_cat):
+    '''
+    Check if tool fit in ToolShed categories to keep
+
+    :param ts_categories: tool ToolShed categories
+    :param ts_cat: list of ToolShed categories to keep in the extraction
+    '''
+    if len(ts_cat) > 0:
+        to_keep = False
+        for cat in ts_categories:
+            if cat in ts_cat:
+                to_keep = True
+        return to_keep
+    return True
+
+def get_tool_metadata(tool, repo, ts_cat=[]):
     '''
     Get tool information
     - Check the `.shed.yaml` file
@@ -129,8 +144,9 @@ def get_tool_metadata(tool, repo):
     - Extract the requirements in the macros or xml file to get tool version supported in Galaxy
     - Extract bio.tools information if available in the macros or xml
 
-    param tool: GitHub ContentFile object
-    param repo: GitHub Repository object
+    :param tool: GitHub ContentFile object
+    :param repo: GitHub Repository object
+    :param ts_cat: list of ToolShed categories to keep in the extraction
     '''
     metadata = {
         'Description': None,
@@ -143,23 +159,28 @@ def get_tool_metadata(tool, repo):
         'bio.tool id': None,
         'conda id': None,
     }
-    # extract .shed.yml and check macros.xml
+    # extract .shed.yml information and check macros.xml
+    shed = repo.get_contents(f"{tool.path}/.shed.yml")
+    if shed is not None:
+        file_content = get_string_content(shed)
+        yaml_content = yaml.load(file_content, Loader=yaml.FullLoader)
+        metadata['Description'] = get_shed_attribute('description', yaml_content)
+        if metadata['Description'] is None:
+            metadata['Description'] = get_shed_attribute('long_description', yaml_content)
+        if metadata['Description'] is not None:
+            metadata['Description'] = metadata['Description'].replace("\n","")
+        metadata['ToolShed id'] = get_shed_attribute('name', yaml_content)
+        metadata['Wrapper owner'] = get_shed_attribute('owner', yaml_content)
+        metadata['Wrapper source'] = get_shed_attribute('remote_repository_url', yaml_content)
+        if 'homepage_url' in yaml_content:
+            metadata['Source'] = yaml_content['homepage_url']
+        metadata['Toolshed Categories'] = get_shed_attribute('categories', yaml_content, [])
+        # filter ToolShed categories and leave function if not in expected categories
+        if not check_categories(metadata['Toolshed Categories'], ts_cat):
+            return None
+    # find and parse macro file
     for file in repo.get_contents(tool.path):
-        if file.name == '.shed.yml':
-            file_content = get_string_content(file)
-            yaml_content = yaml.load(file_content, Loader=yaml.FullLoader)
-            metadata['Description'] = get_shed_attribute('description', yaml_content)
-            if metadata['Description'] is None:
-                metadata['Description'] = get_shed_attribute('long_description', yaml_content)
-            if metadata['Description'] is not None:
-                metadata['Description'] = metadata['Description'].replace("\n","")
-            metadata['Toolshed Categories'] = get_shed_attribute('categories', yaml_content, [])
-            metadata['ToolShed id'] = get_shed_attribute('name', yaml_content)
-            metadata['Wrapper owner'] = get_shed_attribute('owner', yaml_content)
-            metadata['Wrapper source'] = get_shed_attribute('remote_repository_url', yaml_content)
-            if 'homepage_url' in yaml_content:
-                metadata['Source'] = yaml_content['homepage_url']
-        elif 'macro' in file.name and file.name.endswith('xml'):
+        if 'macro' in file.name and file.name.endswith('xml'):
             file_content = get_string_content(file)
             root = et.fromstring(file_content)
             for child in root:
@@ -204,9 +225,9 @@ def parse_tools(repo, ts_cat=[], excluded_tools=[]):
     '''
     Parse tools in a GitHub repository to expact
 
-    param repo: GitHub Repository object
-    param ts_cat: list of ToolShed categories to keep in the extraction
-    param excluded_tools: list of tools to skip
+    :param repo: GitHub Repository object
+    :param ts_cat: list of ToolShed categories to keep in the extraction
+    :param excluded_tools: list of tools to skip
     '''
     tools = []
     for tool in repo.get_contents("tools"):
@@ -221,15 +242,13 @@ def parse_tools(repo, ts_cat=[], excluded_tools=[]):
 
         if tool.type == 'dir':
             print(tool.name)
-            metadata = get_tool_metadata(tool, repo)
+            metadata = get_tool_metadata(tool, repo, ts_cat)
+            # check metadata is not empty
+            if metadata is None:
+                continue
             # filter categories
-            if ts_cat is not None:
-                to_keep = False
-                for cat in metadata['Toolshed Categories']:
-                    if cat in ts_cat:
-                        to_keep = True
-                if not to_keep:
-                    continue
+            if not check_categories(metadata['Toolshed Categories'], ts_cat):
+                continue
             # get latest conda version
             metadata['conda version'] = None
             if metadata["conda id"] is not None:
@@ -257,7 +276,7 @@ def parse_tools(repo, ts_cat=[], excluded_tools=[]):
                     if "name" in biotool_info:
                         metadata['bio.tool name'] = biotool_info['name']
                     if "description" in biotool_info:
-                        metadata['bio.tool description'] = biotool_info['description']
+                        metadata['bio.tool description'] = biotool_info['description'].replace("\n","")
     return tools
 
 if __name__ == '__main__':
