@@ -19,7 +19,8 @@ def read_file(filepath):
 
     :param filepath: path to a file
     '''
-
+    if filepath is None:
+        return []
     fp = Path(filepath)
     if fp.is_file():
         with fp.open('r') as f:
@@ -69,7 +70,7 @@ def get_github_repo(url, g):
     return g.get_user(u_split[-2]).get_repo(u_split[-1])
 
 
-def get_shed_attribute(attrib, shed_content, empty_value=None):
+def get_shed_attribute(attrib, shed_content, empty_value):
     '''
     Get a shed attribute
 
@@ -127,7 +128,7 @@ def check_categories(ts_categories, ts_cat):
     :param ts_categories: tool ToolShed categories
     :param ts_cat: list of ToolShed categories to keep in the extraction
     '''
-    if len(ts_cat) > 0:
+    if ts_categories is not None and len(ts_cat) > 0:
         to_keep = False
         for cat in ts_categories:
             if cat in ts_cat:
@@ -135,7 +136,7 @@ def check_categories(ts_categories, ts_cat):
         return to_keep
     return True
 
-def get_tool_metadata(tool, repo, ts_cat=[]):
+def get_tool_metadata(tool, repo, ts_cat, excluded_tools):
     '''
     Get tool information
     - Check the `.shed.yaml` file
@@ -147,7 +148,14 @@ def get_tool_metadata(tool, repo, ts_cat=[]):
     :param tool: GitHub ContentFile object
     :param repo: GitHub Repository object
     :param ts_cat: list of ToolShed categories to keep in the extraction
+    :param excluded_tools: list of tools to skip
     '''
+    if tool.type != 'dir':
+        return None
+    # avoid extracting information from excluded tools
+    if tool.name in excluded_tools:
+        return None
+    print(tool.name)
     metadata = {
         'Galaxy wrapper id': tool.name,
         'Description': None,
@@ -171,23 +179,23 @@ def get_tool_metadata(tool, repo, ts_cat=[]):
     try:
         shed = repo.get_contents(f"{tool.path}/.shed.yml")
     except:
-        for content in repo.get_contents(tool.path):
-            if content.type == 'dir' and 'core' in content.name:
-                return get_tool_metadata(content, repo, ts_cat)
+        return None
     else:
         file_content = get_string_content(shed)
         yaml_content = yaml.load(file_content, Loader=yaml.FullLoader)
-        metadata['Description'] = get_shed_attribute('description', yaml_content)
+        metadata['Description'] = get_shed_attribute('description', yaml_content, None)
         if metadata['Description'] is None:
-            metadata['Description'] = get_shed_attribute('long_description', yaml_content)
+            metadata['Description'] = get_shed_attribute('long_description', yaml_content, None)
         if metadata['Description'] is not None:
             metadata['Description'] = metadata['Description'].replace("\n","")
-        metadata['ToolShed id'] = get_shed_attribute('name', yaml_content)
-        metadata['Galaxy wrapper owner'] = get_shed_attribute('owner', yaml_content)
-        metadata['Galaxy wrapper source'] = get_shed_attribute('remote_repository_url', yaml_content)
+        metadata['ToolShed id'] = get_shed_attribute('name', yaml_content, None)
+        metadata['Galaxy wrapper owner'] = get_shed_attribute('owner', yaml_content, None)
+        metadata['Galaxy wrapper source'] = get_shed_attribute('remote_repository_url', yaml_content, None)
         if 'homepage_url' in yaml_content:
             metadata['Source'] = yaml_content['homepage_url']
         metadata['ToolShed categories'] = get_shed_attribute('categories', yaml_content, [])
+        if metadata['ToolShed categories'] is None:
+            metadata['ToolShed categories'] = []
     # filter ToolShed categories and leave function if not in expected categories
     if not check_categories(metadata['ToolShed categories'], ts_cat):
         return None
@@ -212,15 +220,16 @@ def get_tool_metadata(tool, repo, ts_cat=[]):
                 root = et.fromstring(file_content)
                 # version
                 if metadata['Galaxy wrapper version'] is None:
-                    version = root.attrib['version']
-                    if 'VERSION@' not in version:
-                        metadata['Galaxy wrapper version'] = version
-                    else:
-                        macros = root.find('macros')
-                        if macros is not None:
-                            for child in macros:
-                                if 'name' in child.attrib and (child.attrib['name'] == '@TOOL_VERSION@' or child.attrib['name'] == '@VERSION@'):
-                                    metadata['Galaxy wrapper version'] = child.text
+                    if 'version' in root.attrib:
+                        version = root.attrib['version']
+                        if 'VERSION@' not in version:
+                            metadata['Galaxy wrapper version'] = version
+                        else:
+                            macros = root.find('macros')
+                            if macros is not None:
+                                for child in macros:
+                                    if 'name' in child.attrib and (child.attrib['name'] == '@TOOL_VERSION@' or child.attrib['name'] == '@VERSION@'):
+                                        metadata['Galaxy wrapper version'] = child.text
                 # bio.tools
                 if metadata['bio.tool id'] is None:
                     biotools = get_biotools(root)
@@ -266,20 +275,33 @@ def parse_tools(repo, ts_cat=[], excluded_tools=[]):
     :param ts_cat: list of ToolShed categories to keep in the extraction
     :param excluded_tools: list of tools to skip
     '''
+    try:
+        repo_tools = repo.get_contents("tools")
+    except:
+        try:
+            repo_tools = repo.get_contents("wrappers")
+        except:
+            print("No tool folder found")
+            return []
     tools = []
-    for tool in repo.get_contents("tools"):
-        # avoid extracting information from excluded tools
-        if tool.name in excluded_tools:
-            continue
+    for tool in repo_tools:
         # to avoid API request limit issue, wait for one hour
         if g.get_rate_limit().core.remaining < 200:
             print("WAITING for 1 hour to retrieve GitHub API request access !!!")
             print()
             time.sleep(60*60)
-        # tool to parse
-        if tool.type == 'dir':
-            print(tool.name)
-            metadata = get_tool_metadata(tool, repo, ts_cat)
+        # parse tool
+        try:
+            shed = repo.get_contents(f"{tool.path}/.shed.yml")
+        except:
+            if tool.type != 'dir':
+                continue
+            for content in repo.get_contents(tool.path):
+                metadata = get_tool_metadata(content, repo, ts_cat, excluded_tools)
+                if metadata is not None:
+                    tools.append(metadata)
+        else:
+            metadata = get_tool_metadata(tool, repo, ts_cat, excluded_tools)
             if metadata is not None:
                 tools.append(metadata)
     return tools
@@ -304,13 +326,12 @@ if __name__ == '__main__':
     # parse tools in GitHub repositories to extract metada and filter by TS categories
     tools = []
     for r in repo_list:
-        if r != 'https://github.com/galaxyproject/tools-iuc':
-            continue
         print(r)
         if "github" not in r:
             continue
         repo = get_github_repo(r, g)
         tools += parse_tools(repo, categories, excl_tools)
+        print()
 
     # export tool metadata to tsv output file
     df = pd.DataFrame(tools)
@@ -318,4 +339,3 @@ if __name__ == '__main__':
     df['EDAM operation'] = df['EDAM operation'].apply(lambda x: ', '.join([str(i) for i in x]))
     df['EDAM topic'] = df['EDAM topic'].apply(lambda x: ', '.join([str(i) for i in x]))
     df.to_csv(args.output, sep="\t", index=False)
-
