@@ -149,19 +149,32 @@ def get_tool_metadata(tool, repo, ts_cat=[]):
     :param ts_cat: list of ToolShed categories to keep in the extraction
     '''
     metadata = {
+        'Galaxy wrapper id': tool.name,
         'Description': None,
-        'Toolshed Categories': [],
-        'Source': None,
-        'ToolShed id': None,
-        'Wrapper owner': None,
-        'Wrapper source': None,
-        'Wrapper version': None,
         'bio.tool id': None,
-        'conda id': None,
+        'bio.tool name': None,
+        'bio.tool description': None,
+        'EDAM operation': [],
+        'EDAM topic': [],
+        'Status': "To update",
+        'Source': None,
+        'ToolShed categories': [],
+        'ToolShed id': None,
+        'Galaxy wrapper owner': None,
+        'Galaxy wrapper source': None,
+        'Galaxy wrapper version': None,
+        'bio.tool id': None,
+        'Conda id': None,
+        'Conda version': None
     }
     # extract .shed.yml information and check macros.xml
-    shed = repo.get_contents(f"{tool.path}/.shed.yml")
-    if shed is not None:
+    try:
+        shed = repo.get_contents(f"{tool.path}/.shed.yml")
+    except:
+        for content in repo.get_contents(tool.path):
+            if content.type == 'dir' and 'core' in content.name:
+                return get_tool_metadata(content, repo, ts_cat)
+    else:
         file_content = get_string_content(shed)
         yaml_content = yaml.load(file_content, Loader=yaml.FullLoader)
         metadata['Description'] = get_shed_attribute('description', yaml_content)
@@ -170,14 +183,14 @@ def get_tool_metadata(tool, repo, ts_cat=[]):
         if metadata['Description'] is not None:
             metadata['Description'] = metadata['Description'].replace("\n","")
         metadata['ToolShed id'] = get_shed_attribute('name', yaml_content)
-        metadata['Wrapper owner'] = get_shed_attribute('owner', yaml_content)
-        metadata['Wrapper source'] = get_shed_attribute('remote_repository_url', yaml_content)
+        metadata['Galaxy wrapper owner'] = get_shed_attribute('owner', yaml_content)
+        metadata['Galaxy wrapper source'] = get_shed_attribute('remote_repository_url', yaml_content)
         if 'homepage_url' in yaml_content:
             metadata['Source'] = yaml_content['homepage_url']
-        metadata['Toolshed Categories'] = get_shed_attribute('categories', yaml_content, [])
-        # filter ToolShed categories and leave function if not in expected categories
-        if not check_categories(metadata['Toolshed Categories'], ts_cat):
-            return None
+        metadata['ToolShed categories'] = get_shed_attribute('categories', yaml_content, [])
+    # filter ToolShed categories and leave function if not in expected categories
+    if not check_categories(metadata['ToolShed categories'], ts_cat):
+        return None
     # find and parse macro file
     for file in repo.get_contents(tool.path):
         if 'macro' in file.name and file.name.endswith('xml'):
@@ -186,38 +199,62 @@ def get_tool_metadata(tool, repo, ts_cat=[]):
             for child in root:
                 if 'name' in child.attrib:
                     if child.attrib['name'] == '@TOOL_VERSION@' or child.attrib['name'] == '@VERSION@':
-                        metadata['Wrapper version'] = child.text
+                        metadata['Galaxy wrapper version'] = child.text
                     elif child.attrib['name'] == 'bio_tools':
                         metadata['bio.tool id'] = get_biotools(child)
                     elif child.attrib['name'] == 'requirements':
-                        metadata['conda id'] = get_conda_package(child)
+                        metadata['Conda id'] = get_conda_package(child)
     # parse XML file if metadata not found in the macro file
-    if metadata['Wrapper version'] is None or metadata['bio.tool id'] is None or metadata['conda id'] is None:
+    if metadata['Galaxy wrapper version'] is None or metadata['bio.tool id'] is None or metadata['Conda id'] is None:
         for file in repo.get_contents(tool.path):
             if file.name.endswith('xml') and 'macro' not in file.name:
                 file_content = get_string_content(file)
                 root = et.fromstring(file_content)
                 # version
-                if metadata['Wrapper version'] is None:
+                if metadata['Galaxy wrapper version'] is None:
                     version = root.attrib['version']
                     if 'VERSION@' not in version:
-                        metadata['Wrapper version'] = version
+                        metadata['Galaxy wrapper version'] = version
                     else:
                         macros = root.find('macros')
                         if macros is not None:
                             for child in macros:
                                 if 'name' in child.attrib and (child.attrib['name'] == '@TOOL_VERSION@' or child.attrib['name'] == '@VERSION@'):
-                                    metadata['Wrapper version'] = child.text
+                                    metadata['Galaxy wrapper version'] = child.text
                 # bio.tools
                 if metadata['bio.tool id'] is None:
                     biotools = get_biotools(root)
                     if biotools is not None:
                         metadata['bio.tool id'] = biotools
                 # conda package
-                if metadata['conda id'] is None:
+                if metadata['Conda id'] is None:
                     reqs = get_conda_package(root)
                     if reqs is not None:
-                        metadata['conda id'] = reqs
+                        metadata['Conda id'] = reqs
+    # get latest conda version and compare to the wrapper version
+    if metadata["Conda id"] is not None:
+        r = requests.get(f'https://api.anaconda.org/package/bioconda/{metadata["Conda id"]}')
+        if r.status_code == requests.codes.ok:
+            conda_info = r.json()
+            if "latest_version" in conda_info:
+                metadata['Conda version'] = conda_info['latest_version']
+                if metadata['Conda version'] == metadata['Galaxy wrapper version']:
+                    metadata['Status'] = 'Up-to-date'
+    # get bio.tool information
+    if metadata["bio.tool id"] is not None:
+        r = requests.get(f'https://bio.tools/api/tool/{metadata["bio.tool id"]}/?format=json')
+        if r.status_code == requests.codes.ok:
+            biotool_info = r.json()
+            if "function" in biotool_info and 'operation' in biotool_info['function']:
+                for op in biotool_info['function']['operation']:
+                    metadata['EDAM operation'].append(op['term'])
+            if "topic" in biotool_info:
+                for t in biotool_info['topic']:
+                    metadata['EDAM topic'].append(t['term'])
+            if "name" in biotool_info:
+                metadata['bio.tool name'] = biotool_info['name']
+            if "description" in biotool_info:
+                metadata['bio.tool description'] = biotool_info['description'].replace("\n","")
     return metadata
 
 
@@ -239,44 +276,12 @@ def parse_tools(repo, ts_cat=[], excluded_tools=[]):
             print("WAITING for 1 hour to retrieve GitHub API request access !!!")
             print()
             time.sleep(60*60)
-
+        # tool to parse
         if tool.type == 'dir':
             print(tool.name)
             metadata = get_tool_metadata(tool, repo, ts_cat)
-            # check metadata is not empty
-            if metadata is None:
-                continue
-            # filter categories
-            if not check_categories(metadata['Toolshed Categories'], ts_cat):
-                continue
-            # get latest conda version
-            metadata['conda version'] = None
-            if metadata["conda id"] is not None:
-                r = requests.get(f'https://api.anaconda.org/package/bioconda/{metadata["conda id"]}')
-                if r.status_code == requests.codes.ok:
-                    conda_info = r.json()
-                    if "latest_version" in conda_info:
-                        metadata['conda version'] = conda_info['latest_version']
-            tools.append(metadata)
-            # get bio.tool information
-            metadata['edam operation'] = []
-            metadata['edam topic'] = []
-            metadata['bio.tool name'] = None
-            metadata['bio.tool description'] = None
-            if metadata["bio.tool id"] is not None:
-                r = requests.get(f'https://bio.tools/api/tool/{metadata["bio.tool id"]}/?format=json')
-                if r.status_code == requests.codes.ok:
-                    biotool_info = r.json()
-                    if "function" in biotool_info and 'operation' in biotool_info['function']:
-                        for op in biotool_info['function']['operation']:
-                            metadata['edam operation'].append(op['term'])
-                    if "topic" in biotool_info:
-                        for t in biotool_info['topic']:
-                            metadata['edam topic'].append(t['term'])
-                    if "name" in biotool_info:
-                        metadata['bio.tool name'] = biotool_info['name']
-                    if "description" in biotool_info:
-                        metadata['bio.tool description'] = biotool_info['description'].replace("\n","")
+            if metadata is not None:
+                tools.append(metadata)
     return tools
 
 if __name__ == '__main__':
@@ -309,8 +314,8 @@ if __name__ == '__main__':
 
     # export tool metadata to tsv output file
     df = pd.DataFrame(tools)
-    df['Toolshed Categories'] = df['Toolshed Categories'].apply(lambda x: ', '.join([str(i) for i in x]))
-    df['edam operation'] = df['edam operation'].apply(lambda x: ', '.join([str(i) for i in x]))
-    df['edam topic'] = df['edam topic'].apply(lambda x: ', '.join([str(i) for i in x]))
+    df['ToolShed categories'] = df['ToolShed categories'].apply(lambda x: ', '.join([str(i) for i in x]))
+    df['EDAM operation'] = df['EDAM operation'].apply(lambda x: ', '.join([str(i) for i in x]))
+    df['EDAM topic'] = df['EDAM topic'].apply(lambda x: ', '.join([str(i) for i in x]))
     df.to_csv(args.output, sep="\t", index=False)
 
