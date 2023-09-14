@@ -52,6 +52,7 @@ $ python bin/...
 * Improve conda lookup 
     * Only one requirement is checked
     * If the tool has no requirement (only script, set to up-to-date ?)
+* How to handle suits ? 
 
 # Proposal for the BH 2023
 
@@ -60,4 +61,6 @@ $ python bin/...
     * That would allow for a nice comparison of bio.tool improvement 
 * It would be interesting to see how many of the tools parsed from github are in the toolshed if all then probably 
     * Could the toolshed be used as initial source ?
-
+* Cron job
+* Data Table Output
+* How to allow community to add comments to tools ? 
