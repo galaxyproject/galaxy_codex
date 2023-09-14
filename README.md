@@ -31,7 +31,6 @@ Galaxy Tool extractor
     ```
     $ source env/bin/activate
     ```
-
 - Install requirements
 
     ```
@@ -43,3 +42,22 @@ Galaxy Tool extractor
 ```
 $ python bin/...
 ```
+
+# Proposed improvements for the tool
+
+* Check toolshed if tool is deployed and up-to-date
+* Check on galaxy instances if tool is deployed and up-to-date
+* Check duplicated tools (maybe increment if already found: tool1, tool2 ...)
+* Walk trough complete git repository and check all folders with .shed file
+* Improve conda lookup 
+    * Only one requirement is checked
+    * If the tool has no requirement (only script, set to up-to-date ?)
+
+# Proposal for the BH 2023
+
+* Update an already existing csv with the newly loaded data (i.e. keep the added columns)
+* Maybe the logic could be changed so that all tools are extracted and then subsequently only the bio.tools annotation is used for filtering
+    * That would allow for a nice comparison of bio.tool improvement 
+* It would be interesting to see how many of the tools parsed from github are in the toolshed if all then probably 
+    * Could the toolshed be used as initial source ?
+

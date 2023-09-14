@@ -2,15 +2,15 @@
 
 import argparse
 import base64
+import time
+import xml.etree.ElementTree as et
+from pathlib import Path
 from unicodedata import category
+
 import pandas as pd
 import requests
-import time
 import yaml
-import xml.etree.ElementTree as et
-
 from github import Github
-from pathlib import Path
 
 
 def read_file(filepath):
@@ -46,7 +46,7 @@ def get_tool_github_repositories(g):
     '''
     repo = g.get_user("galaxyproject").get_repo("planemo-monitor")
     repo_list = []
-    for i in range(1, 5):
+    for i in range(1, 5): #this could become more in the future
         repo_f = repo.get_contents(f"repositories0{i}.list")
         repo_l = get_string_content(repo_f).rstrip()
         repo_list += repo_l.split("\n")
@@ -87,6 +87,7 @@ def get_shed_attribute(attrib, shed_content, empty_value):
 def get_biotools(el):
     '''
     Get bio.tools information
+    TODO: Check if there is always only one bio.tools per tool
 
     :param el: Element object
     '''
@@ -101,6 +102,9 @@ def get_biotools(el):
 def get_conda_package(el):
     '''
     Get conda package information
+    TODO: This only returns one requirement, it does not catch multiple. 
+    Option 1: Maybe use findall and adapt the downstream conda lookup.
+    Option 2: Use the package name that is closes to the tool name (sometime python / perl dependency might interfere)
 
     :param el: Element object
     '''
@@ -157,7 +161,7 @@ def get_tool_metadata(tool, repo, ts_cat, excluded_tools):
         return None
     print(tool.name)
     metadata = {
-        'Galaxy wrapper id': tool.name,
+        'Galaxy wrapper id': tool.name, #is that always the folder name ?
         'Description': None,
         'bio.tool id': None,
         'bio.tool name': None,
@@ -190,9 +194,12 @@ def get_tool_metadata(tool, repo, ts_cat, excluded_tools):
             metadata['Description'] = metadata['Description'].replace("\n","")
         metadata['ToolShed id'] = get_shed_attribute('name', yaml_content, None)
         metadata['Galaxy wrapper owner'] = get_shed_attribute('owner', yaml_content, None)
+        # possible improvement: check if the urls work
         metadata['Galaxy wrapper source'] = get_shed_attribute('remote_repository_url', yaml_content, None)
-        if 'homepage_url' in yaml_content:
-            metadata['Source'] = yaml_content['homepage_url']
+        metadata['Source'] = get_shed_attribute('homepage_url', yaml_content, None)
+        # get_shed_attribute checks that
+        # if 'homepage_url' in yaml_content:
+        #     metadata['Source'] = yaml_content['homepage_url']
         metadata['ToolShed categories'] = get_shed_attribute('categories', yaml_content, [])
         if metadata['ToolShed categories'] is None:
             metadata['ToolShed categories'] = []
@@ -201,7 +208,7 @@ def get_tool_metadata(tool, repo, ts_cat, excluded_tools):
         return None
     # find and parse macro file
     for file in repo.get_contents(tool.path):
-        if 'macro' in file.name and file.name.endswith('xml'):
+        if 'macro' in file.name and file.name.endswith('xml'): #there might be macro files not called macro (but probably negligible)
             file_content = get_string_content(file)
             root = et.fromstring(file_content)
             for child in root:
@@ -269,13 +276,18 @@ def get_tool_metadata(tool, repo, ts_cat, excluded_tools):
 
 def parse_tools(repo, ts_cat=[], excluded_tools=[]):
     '''
-    Parse tools in a GitHub repository to expact
+    Parse tools in a GitHub repository 
+    Expect the tools to be stored in a folder called tools or wrappers in the top folder
+    Only tools in folders or 1 level sub-folders are extracted
 
     :param repo: GitHub Repository object
     :param ts_cat: list of ToolShed categories to keep in the extraction
     :param excluded_tools: list of tools to skip
     '''
-    try:
+
+    #maybe rather walk trough all files and check if they end with .shed.yml ?
+    #then forward the containing folder to get_tool_metadata
+    try: 
         repo_tools = repo.get_contents("tools")
     except:
         try:
@@ -284,7 +296,11 @@ def parse_tools(repo, ts_cat=[], excluded_tools=[]):
             print("No tool folder found")
             return []
     tools = []
-    for tool in repo_tools:
+
+    # this takes either folders in tools/wrappers or
+    # subfolders 
+    # why not go deeper if needed
+    for tool in repo_tools: 
         # to avoid API request limit issue, wait for one hour
         if g.get_rate_limit().core.remaining < 200:
             print("WAITING for 1 hour to retrieve GitHub API request access !!!")
@@ -292,10 +308,11 @@ def parse_tools(repo, ts_cat=[], excluded_tools=[]):
             time.sleep(60*60)
         # parse tool
         try:
-            shed = repo.get_contents(f"{tool.path}/.shed.yml")
+            shed = repo.get_contents(f"{tool.path}/.shed.yml") #what is the purpose of this ?
         except:
-            if tool.type != 'dir':
-                continue
+            # not needed since get_tool_metadata checks that
+            # if tool.type != 'dir': 
+            #     continue
             for content in repo.get_contents(tool.path):
                 metadata = get_tool_metadata(content, repo, ts_cat, excluded_tools)
                 if metadata is not None:
@@ -323,7 +340,7 @@ if __name__ == '__main__':
     categories = read_file(args.categories)
     excl_tools = read_file(args.excluded)
 
-    # parse tools in GitHub repositories to extract metada and filter by TS categories
+    # parse tools in GitHub repositories to extract metadata and filter by TS categories
     tools = []
     for r in repo_list:
         print(r)
@@ -335,6 +352,7 @@ if __name__ == '__main__':
 
     # export tool metadata to tsv output file
     df = pd.DataFrame(tools)
+    # transform list to stings
     df['ToolShed categories'] = df['ToolShed categories'].apply(lambda x: ', '.join([str(i) for i in x]))
     df['EDAM operation'] = df['EDAM operation'].apply(lambda x: ', '.join([str(i) for i in x]))
     df['EDAM topic'] = df['EDAM topic'].apply(lambda x: ', '.join([str(i) for i in x]))
