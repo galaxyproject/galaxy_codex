@@ -41,8 +41,8 @@ Galaxy Tool extractor
 # Extract tools for categories in the ToolShed
 
 1. Get an API key ([personal token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)) for GitHub
-2. (Optional) Create a text file with ToolShed categories for which tools need to be extracted: 1 ToolShed category per row
-3. (Optional) Create a text file with list of tools to exclude: 1 tool id per row
+2. (Optional) Create a text file with ToolShed categories for which tools need to be extracted: 1 ToolShed category per row ([example for microbial data analysis](data/microgalaxy/categories))
+3. (Optional) Create a text file with list of tools to exclude: 1 tool id per row ([example for microbial data analysis](data/microgalaxy/tools_to_exclude))
 4. Run the tool extractor script
 
     ```
@@ -52,3 +52,4 @@ Galaxy Tool extractor
         [--categories <Path to ToolShed category file>] \
         [--excluded <Path to excluded tool file category file>]
     ```
+
