@@ -38,8 +38,17 @@ Galaxy Tool extractor
     $ python3 -m pip install -r requirements.txt
     ```
 
-# Run
+# Extract tools for categories in the ToolShed
 
-```
-$ python bin/...
-```
+1. Get an API key ([personal token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)) for GitHub
+2. (Optional) Create a text file with ToolShed categories for which tools need to be extracted: 1 ToolShed category per row
+3. (Optional) Create a text file with list of tools to exclude: 1 tool id per row
+4. Run the tool extractor script
+
+    ```
+    $ python bin/extract_galaxy_tools.py \
+        --api <GitHub API key> \
+        --output <Path to output file> \
+        [--categories <Path to ToolShed category file>] \
+        [--excluded <Path to excluded tool file category file>]
+    ```
