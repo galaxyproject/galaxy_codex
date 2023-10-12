@@ -217,29 +217,33 @@ def get_tool_metadata(tool, repo, ts_cat, excluded_tools):
         for file in repo.get_contents(tool.path):
             if file.name.endswith('xml') and 'macro' not in file.name:
                 file_content = get_string_content(file)
-                root = et.fromstring(file_content)
-                # version
-                if metadata['Galaxy wrapper version'] is None:
-                    if 'version' in root.attrib:
-                        version = root.attrib['version']
-                        if 'VERSION@' not in version:
-                            metadata['Galaxy wrapper version'] = version
-                        else:
-                            macros = root.find('macros')
-                            if macros is not None:
-                                for child in macros:
-                                    if 'name' in child.attrib and (child.attrib['name'] == '@TOOL_VERSION@' or child.attrib['name'] == '@VERSION@'):
-                                        metadata['Galaxy wrapper version'] = child.text
-                # bio.tools
-                if metadata['bio.tool id'] is None:
-                    biotools = get_biotools(root)
-                    if biotools is not None:
-                        metadata['bio.tool id'] = biotools
-                # conda package
-                if metadata['Conda id'] is None:
-                    reqs = get_conda_package(root)
-                    if reqs is not None:
-                        metadata['Conda id'] = reqs
+                try:
+                    root = et.fromstring(file_content)
+                except:
+                    print(file_content)
+                else:
+                    # version
+                    if metadata['Galaxy wrapper version'] is None:
+                        if 'version' in root.attrib:
+                            version = root.attrib['version']
+                            if 'VERSION@' not in version:
+                                metadata['Galaxy wrapper version'] = version
+                            else:
+                                macros = root.find('macros')
+                                if macros is not None:
+                                    for child in macros:
+                                        if 'name' in child.attrib and (child.attrib['name'] == '@TOOL_VERSION@' or child.attrib['name'] == '@VERSION@'):
+                                            metadata['Galaxy wrapper version'] = child.text
+                    # bio.tools
+                    if metadata['bio.tool id'] is None:
+                        biotools = get_biotools(root)
+                        if biotools is not None:
+                            metadata['bio.tool id'] = biotools
+                    # conda package
+                    if metadata['Conda id'] is None:
+                        reqs = get_conda_package(root)
+                        if reqs is not None:
+                            metadata['Conda id'] = reqs
     # get latest conda version and compare to the wrapper version
     if metadata["Conda id"] is not None:
         r = requests.get(f'https://api.anaconda.org/package/bioconda/{metadata["Conda id"]}')
@@ -289,8 +293,8 @@ def parse_tools(repo, ts_cat=[], excluded_tools=[]):
     try:
         repo_tools = repo.get_contents("tool_collections")
     except:
-        print("No tool collection folder found")
-    finally:
+        pass
+    else:
         tool_folders.append(repo_tools)
     # parse folders
     tools = []
@@ -317,6 +321,21 @@ def parse_tools(repo, ts_cat=[], excluded_tools=[]):
                     tools.append(metadata)
     return tools
 
+
+def export_tools(tools, output_fp):
+    '''
+    Export tool metadata to tsv output file
+
+    :param tools: dictionary with tools
+    :param output_fp: path to output file
+    '''
+    df = pd.DataFrame(tools)
+    df['ToolShed categories'] = df['ToolShed categories'].apply(lambda x: ', '.join([str(i) for i in x]))
+    df['EDAM operation'] = df['EDAM operation'].apply(lambda x: ', '.join([str(i) for i in x]))
+    df['EDAM topic'] = df['EDAM topic'].apply(lambda x: ', '.join([str(i) for i in x]))
+    df.to_csv(output_fp, sep="\t", index=False)
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Extract a GitHub project to CSV')
     parser.add_argument('--api', '-a', required=True, help="GitHub access token")
@@ -334,7 +353,7 @@ if __name__ == '__main__':
     categories = read_file(args.categories)
     excl_tools = read_file(args.excluded)
 
-    # parse tools in GitHub repositories to extract metada and filter by TS categories
+    # parse tools in GitHub repositories to extract metada, filter by TS categories and export to output file
     tools = []
     for r in repo_list:
         print(r)
@@ -342,11 +361,5 @@ if __name__ == '__main__':
             continue
         repo = get_github_repo(r, g)
         tools += parse_tools(repo, categories, excl_tools)
+        export_tools(tools, args.output)
         print()
-
-    # export tool metadata to tsv output file
-    df = pd.DataFrame(tools)
-    df['ToolShed categories'] = df['ToolShed categories'].apply(lambda x: ', '.join([str(i) for i in x]))
-    df['EDAM operation'] = df['EDAM operation'].apply(lambda x: ', '.join([str(i) for i in x]))
-    df['EDAM topic'] = df['EDAM topic'].apply(lambda x: ', '.join([str(i) for i in x]))
-    df.to_csv(args.output, sep="\t", index=False)
