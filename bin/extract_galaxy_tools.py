@@ -136,6 +136,7 @@ def check_categories(ts_categories, ts_cat):
         return to_keep
     return True
 
+
 def get_tool_metadata(tool, repo, ts_cat, excluded_tools):
     '''
     Get tool information
@@ -155,7 +156,6 @@ def get_tool_metadata(tool, repo, ts_cat, excluded_tools):
     # avoid extracting information from excluded tools
     if tool.name in excluded_tools:
         return None
-    print(tool.name)
     metadata = {
         'Galaxy wrapper id': tool.name,
         'Description': None,
@@ -275,6 +275,8 @@ def parse_tools(repo, ts_cat=[], excluded_tools=[]):
     :param ts_cat: list of ToolShed categories to keep in the extraction
     :param excluded_tools: list of tools to skip
     '''
+    # get tool folders
+    tool_folders = []
     try:
         repo_tools = repo.get_contents("tools")
     except:
@@ -283,27 +285,36 @@ def parse_tools(repo, ts_cat=[], excluded_tools=[]):
         except:
             print("No tool folder found")
             return []
+    tool_folders.append(repo_tools)
+    try:
+        repo_tools = repo.get_contents("tool_collections")
+    except:
+        print("No tool collection folder found")
+    finally:
+        tool_folders.append(repo_tools)
+    # parse folders
     tools = []
-    for tool in repo_tools:
-        # to avoid API request limit issue, wait for one hour
-        if g.get_rate_limit().core.remaining < 200:
-            print("WAITING for 1 hour to retrieve GitHub API request access !!!")
-            print()
-            time.sleep(60*60)
-        # parse tool
-        try:
-            shed = repo.get_contents(f"{tool.path}/.shed.yml")
-        except:
-            if tool.type != 'dir':
-                continue
-            for content in repo.get_contents(tool.path):
-                metadata = get_tool_metadata(content, repo, ts_cat, excluded_tools)
+    for folder in tool_folders:
+        for tool in folder:
+            # to avoid API request limit issue, wait for one hour
+            if g.get_rate_limit().core.remaining < 200:
+                print("WAITING for 1 hour to retrieve GitHub API request access !!!")
+                print()
+                time.sleep(60*60)
+            # parse tool
+            try:
+                shed = repo.get_contents(f"{tool.path}/.shed.yml")
+            except:
+                if tool.type != 'dir':
+                    continue
+                for content in repo.get_contents(tool.path):
+                    metadata = get_tool_metadata(content, repo, ts_cat, excluded_tools)
+                    if metadata is not None:
+                        tools.append(metadata)
+            else:
+                metadata = get_tool_metadata(tool, repo, ts_cat, excluded_tools)
                 if metadata is not None:
                     tools.append(metadata)
-        else:
-            metadata = get_tool_metadata(tool, repo, ts_cat, excluded_tools)
-            if metadata is not None:
-                tools.append(metadata)
     return tools
 
 if __name__ == '__main__':
