@@ -70,3 +70,24 @@ Galaxy Tool extractor
 
         It will take the files in the `data/microgalaxy` folder and export the tools into `microgalaxy_tools.csv`
 
+
+The script will generate a CSV file with each tool found in the list of GitHub repository and several information for these tools:
+
+1. Galaxy wrapper id
+2. Description
+3. bio.tool id
+4. bio.tool name
+5. bio.tool description
+6. EDAM operation
+7. EDAM topic
+8. Status
+9. Source
+10. ToolShed categories
+11. ToolShed id
+12. Galaxy wrapper owner
+13. Galaxy wrapper source
+14. Galaxy wrapper version
+15. Conda id
+16. Conda version
+17. Reviewed
+18. To keep
