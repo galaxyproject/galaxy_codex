@@ -137,7 +137,7 @@ def check_categories(ts_categories, ts_cat):
     return True
 
 
-def get_tool_metadata(tool, repo, ts_cat, excluded_tools):
+def get_tool_metadata(tool, repo, ts_cat, excluded_tools, keep_tools):
     '''
     Get tool information
     - Check the `.shed.yaml` file
@@ -150,6 +150,7 @@ def get_tool_metadata(tool, repo, ts_cat, excluded_tools):
     :param repo: GitHub Repository object
     :param ts_cat: list of ToolShed categories to keep in the extraction
     :param excluded_tools: list of tools to skip
+    :param keep_tools: list of tools to keep
     '''
     if tool.type != 'dir':
         return None
@@ -173,7 +174,8 @@ def get_tool_metadata(tool, repo, ts_cat, excluded_tools):
         'Galaxy wrapper version': None,
         'bio.tool id': None,
         'Conda id': None,
-        'Conda version': None
+        'Conda version': None,
+        'Reviewed': tool.name in keep_tools
     }
     # extract .shed.yml information and check macros.xml
     try:
@@ -271,13 +273,14 @@ def get_tool_metadata(tool, repo, ts_cat, excluded_tools):
     return metadata
 
 
-def parse_tools(repo, ts_cat=[], excluded_tools=[]):
+def parse_tools(repo, ts_cat=[], excluded_tools=[], keep_tools=[]):
     '''
     Parse tools in a GitHub repository to expact
 
     :param repo: GitHub Repository object
     :param ts_cat: list of ToolShed categories to keep in the extraction
     :param excluded_tools: list of tools to skip
+    :param keep_tools: list of tools to keep
     '''
     # get tool folders
     tool_folders = []
@@ -312,11 +315,11 @@ def parse_tools(repo, ts_cat=[], excluded_tools=[]):
                 if tool.type != 'dir':
                     continue
                 for content in repo.get_contents(tool.path):
-                    metadata = get_tool_metadata(content, repo, ts_cat, excluded_tools)
+                    metadata = get_tool_metadata(content, repo, ts_cat, excluded_tools, keep_tools)
                     if metadata is not None:
                         tools.append(metadata)
             else:
-                metadata = get_tool_metadata(tool, repo, ts_cat, excluded_tools)
+                metadata = get_tool_metadata(tool, repo, ts_cat, excluded_tools, keep_tools)
                 if metadata is not None:
                     tools.append(metadata)
     return tools
@@ -342,6 +345,7 @@ if __name__ == '__main__':
     parser.add_argument('--output', '-o', required=True, help="Output filepath")
     parser.add_argument('--categories', '-c', help="Path to a file with ToolShed category to keep in the extraction (one per line)")
     parser.add_argument('--excluded', '-e', help="Path to a file with ToolShed ids of tools to exclude (one per line)")
+    parser.add_argument('--keep', '-ek', help="Path to a file with ToolShed ids of tools to keep (one per line)")
     args = parser.parse_args()
 
     # connect to GitHub
@@ -352,6 +356,7 @@ if __name__ == '__main__':
     # get categories and tools to exclude
     categories = read_file(args.categories)
     excl_tools = read_file(args.excluded)
+    keep_tools = read_file(args.keep)
 
     # parse tools in GitHub repositories to extract metada, filter by TS categories and export to output file
     tools = []
@@ -360,6 +365,6 @@ if __name__ == '__main__':
         if "github" not in r:
             continue
         repo = get_github_repo(r, g)
-        tools += parse_tools(repo, categories, excl_tools)
+        tools += parse_tools(repo, categories, excl_tools, keep_tools)
         export_tools(tools, args.output)
         print()
