@@ -154,9 +154,6 @@ def get_tool_metadata(tool, repo, ts_cat, excluded_tools, keep_tools):
     '''
     if tool.type != 'dir':
         return None
-    # avoid extracting information from excluded tools
-    if tool.name in excluded_tools:
-        return None
     metadata = {
         'Galaxy wrapper id': tool.name,
         'Description': None,
@@ -175,8 +172,13 @@ def get_tool_metadata(tool, repo, ts_cat, excluded_tools, keep_tools):
         'bio.tool id': None,
         'Conda id': None,
         'Conda version': None,
-        'Reviewed': tool.name in keep_tools
+        'Reviewed': tool.name in keep_tools,
+        'To keep':''
     }
+    if tool.name in keep_tools:
+        metadata['To keep'] = True
+    elif tool.name in excluded_tools:
+        metadata['To keep'] = False
     # extract .shed.yml information and check macros.xml
     try:
         shed = repo.get_contents(f"{tool.path}/.shed.yml")
