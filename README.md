@@ -55,3 +55,18 @@ Galaxy Tool extractor
         [--keep <Path to to-keep tool file category file>]
     ```
 
+    For microGalaxy, a Bash script in `bin` can used by:
+    1. Exporting the GitHub API key as an environment variable:
+
+        ```
+        $ export GITHUB_API_KEY=<your GitHub API key>
+        ```
+
+    2. Running the script
+
+        ```
+        $ bash bin/extract_microgalaxy_tools.sh
+        ```
+
+        It will take the files in the `data/microgalaxy` folder and export the tools into `microgalaxy_tools.csv`
+
