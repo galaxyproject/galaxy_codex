@@ -172,7 +172,7 @@ def get_tool_metadata(tool, repo, ts_cat, excluded_tools, keep_tools):
         'bio.tool id': None,
         'Conda id': None,
         'Conda version': None,
-        'Reviewed': tool.name in keep_tools,
+        'Reviewed': tool.name in keep_tools or tool.name in excluded_tools,
         'To keep':''
     }
     if tool.name in keep_tools:
