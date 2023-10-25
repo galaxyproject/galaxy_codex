@@ -2,15 +2,15 @@
 
 import argparse
 import base64
+import time
+import xml.etree.ElementTree as et
+from pathlib import Path
 from unicodedata import category
+
 import pandas as pd
 import requests
-import time
 import yaml
-import xml.etree.ElementTree as et
-
 from github import Github
-from pathlib import Path
 
 
 def read_file(filepath):
@@ -262,9 +262,11 @@ def get_tool_metadata(tool, repo, ts_cat, excluded_tools, keep_tools):
         r = requests.get(f'https://bio.tools/api/tool/{metadata["bio.tool id"]}/?format=json')
         if r.status_code == requests.codes.ok:
             biotool_info = r.json()
-            if "function" in biotool_info and 'operation' in biotool_info['function']:
-                for op in biotool_info['function']['operation']:
-                    metadata['EDAM operation'].append(op['term'])
+            if "function" in biotool_info:
+                for func in biotool_info['function']:
+                    if 'operation' in func:
+                        for op in func['operation']:
+                            metadata['EDAM operation'].append(op['term'])
             if "topic" in biotool_info:
                 for t in biotool_info['topic']:
                     metadata['EDAM topic'].append(t['term'])
