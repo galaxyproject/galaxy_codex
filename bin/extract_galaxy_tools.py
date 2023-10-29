@@ -97,7 +97,6 @@ def get_biotools(el):
             return xref.text
     return None
 
-
 def get_conda_package(el):
     '''
     Get conda package information
@@ -156,6 +155,7 @@ def get_tool_metadata(tool, repo, ts_cat, excluded_tools, keep_tools):
         return None
     metadata = {
         'Galaxy wrapper id': tool.name,
+        'Galaxy tool ids': [],
         'Description': None,
         'bio.tool id': None,
         'bio.tool name': None,
@@ -216,38 +216,42 @@ def get_tool_metadata(tool, repo, ts_cat, excluded_tools, keep_tools):
                         metadata['bio.tool id'] = get_biotools(child)
                     elif child.attrib['name'] == 'requirements':
                         metadata['Conda id'] = get_conda_package(child)
-    # parse XML file if metadata not found in the macro file
-    if metadata['Galaxy wrapper version'] is None or metadata['bio.tool id'] is None or metadata['Conda id'] is None:
-        for file in repo.get_contents(tool.path):
-            if file.name.endswith('xml') and 'macro' not in file.name:
-                file_content = get_string_content(file)
-                try:
-                    root = et.fromstring(file_content)
-                except:
-                    print(file_content)
-                else:
-                    # version
-                    if metadata['Galaxy wrapper version'] is None:
-                        if 'version' in root.attrib:
-                            version = root.attrib['version']
-                            if 'VERSION@' not in version:
-                                metadata['Galaxy wrapper version'] = version
-                            else:
-                                macros = root.find('macros')
-                                if macros is not None:
-                                    for child in macros:
-                                        if 'name' in child.attrib and (child.attrib['name'] == '@TOOL_VERSION@' or child.attrib['name'] == '@VERSION@'):
-                                            metadata['Galaxy wrapper version'] = child.text
-                    # bio.tools
-                    if metadata['bio.tool id'] is None:
-                        biotools = get_biotools(root)
-                        if biotools is not None:
-                            metadata['bio.tool id'] = biotools
-                    # conda package
-                    if metadata['Conda id'] is None:
-                        reqs = get_conda_package(root)
-                        if reqs is not None:
-                            metadata['Conda id'] = reqs
+
+    # parse XML file and get meta data from there, also tool ids
+    for file in repo.get_contents(tool.path):
+        if file.name.endswith('xml') and 'macro' not in file.name:
+            file_content = get_string_content(file)
+            try:
+                root = et.fromstring(file_content)
+            except:
+                print(file_content)
+            else:
+                # version
+                if metadata['Galaxy wrapper version'] is None:
+                    if 'version' in root.attrib:
+                        version = root.attrib['version']
+                        if 'VERSION@' not in version:
+                            metadata['Galaxy wrapper version'] = version
+                        else:
+                            macros = root.find('macros')
+                            if macros is not None:
+                                for child in macros:
+                                    if 'name' in child.attrib and (child.attrib['name'] == '@TOOL_VERSION@' or child.attrib['name'] == '@VERSION@'):
+                                        metadata['Galaxy wrapper version'] = child.text
+                # bio.tools
+                if metadata['bio.tool id'] is None:
+                    biotools = get_biotools(root)
+                    if biotools is not None:
+                        metadata['bio.tool id'] = biotools
+                # conda package
+                if metadata['Conda id'] is None:
+                    reqs = get_conda_package(root)
+                    if reqs is not None:
+                        metadata['Conda id'] = reqs
+                # tool ids
+                if 'id' in root.attrib:
+                    metadata['Conda id'].append(root.attrib['id'])
+
     # get latest conda version and compare to the wrapper version
     if metadata["Conda id"] is not None:
         r = requests.get(f'https://api.anaconda.org/package/bioconda/{metadata["Conda id"]}')
@@ -338,6 +342,7 @@ def export_tools(tools, output_fp):
     df['ToolShed categories'] = df['ToolShed categories'].apply(lambda x: ', '.join([str(i) for i in x]))
     df['EDAM operation'] = df['EDAM operation'].apply(lambda x: ', '.join([str(i) for i in x]))
     df['EDAM topic'] = df['EDAM topic'].apply(lambda x: ', '.join([str(i) for i in x]))
+    df['Galaxy tool ids'] = df['Galaxy tool ids'].apply(lambda x: ', '.join([str(i) for i in x]))
     df.to_csv(output_fp, sep="\t", index=False)
 
 
