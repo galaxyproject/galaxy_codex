@@ -250,7 +250,7 @@ def get_tool_metadata(tool, repo, ts_cat, excluded_tools, keep_tools):
                         metadata['Conda id'] = reqs
                 # tool ids
                 if 'id' in root.attrib:
-                    metadata['Conda id'].append(root.attrib['id'])
+                    metadata['Galaxy tool ids'].append(root.attrib['id'])
 
     # get latest conda version and compare to the wrapper version
     if metadata["Conda id"] is not None:
