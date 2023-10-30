@@ -12,30 +12,36 @@ Galaxy Tool extractor
 
 # Usage
 
-## Prepare environment
+## Prepare environment (virtualenv)
 
 - Install virtualenv (if not already there)
 
-    ```
+    ```bash
     $ python3 -m pip install --user virtualenv
     ```
 
 - Create virtual environment
 
-    ```
+    ```bash
     $ python3 -m venv env
     ```
 
 - Activate virtual environment
 
-    ```
+    ```bash
     $ source env/bin/activate
     ```
 
 - Install requirements
 
-    ```
+    ```bash
     $ python3 -m pip install -r requirements.txt
+    ```
+
+## Prepare environment (conda/mamba)
+
+    ```bash
+    $ mamba create -n galaxy_tool_extractor --file requirements.txt
     ```
 
 ## Extract all tools
@@ -43,13 +49,13 @@ Galaxy Tool extractor
 1. Get an API key ([personal token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)) for GitHub
 2. Export the GitHub API key as an environment variable:
 
-    ```
+    ```bash
     $ export GITHUB_API_KEY=<your GitHub API key>
     ```
 
 3. Run the script
 
-    ```
+    ```bash
     $ python bin/extract_all_tools.sh
     ```
 
@@ -72,15 +78,31 @@ The script will generate a TSV file with each tool found in the list of GitHub r
 15. Conda id
 16. Conda version
 
+## Add tool usage statistics of galaxy instance to the tool list
+
+1. The actual usage statistics need to be queried from the DB of the galaxy instance using a SQL query like:
+
+```sql
+select tool_name, count(*) as count from (select distinct regexp_replace(tool_id, '(.*)/(.*)', '\1') as tool_name, user_id from job where create_time >= '2022-01-01 00:00:00.000000' group by tool_name, user_id) as subquery group by tool_name order by count desc;
+```
+
+Any Galaxy admin can query this data.
+
+5. Run the add tool stats bash script
+
+```
+$ bash bin/add_tool_stats.sh
+```
+
 ## Filter tools based on their categories in the ToolShed
 
 1. Run the extraction as explained before
 2. (Optional) Create a text file with ToolShed categories for which tools need to be extracted: 1 ToolShed category per row ([example for microbial data analysis](data/microgalaxy/categories))
 3. (Optional) Create a text file with list of tools to exclude: 1 tool id per row ([example for microbial data analysis](data/microgalaxy/tools_to_exclude))
 4. (Optional) Create a text file with list of tools to really keep (already reviewed): 1 tool id per row ([example for microbial data analysis](data/microgalaxy/tools_to_keep))
-4. Run the tool extractor script
+5. Run the tool extractor script
 
-    ```
+    ```bash
     $ python bin/extract_galaxy_tools.py \
         --tools <Path to CSV file with all extracted tools> \
         --filtered_tools <Path to output CSV file with filtered tools> \
@@ -93,7 +115,7 @@ The script will generate a TSV file with each tool found in the list of GitHub r
 
 For microGalaxy, a Bash script in `bin` can used by running the script
 
-```
+```bash
 $ bash bin/extract_microgalaxy_tools.sh
 ```
 
