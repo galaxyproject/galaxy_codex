@@ -20,8 +20,8 @@ from github.ContentFile import ContentFile
 from github.Repository import Repository
 
 # Config variables
-# BIOTOOLS_API_URL = "https://bio.tools"
-BIOTOOLS_API_URL = "https://130.226.25.21"
+BIOTOOLS_API_URL = "https://bio.tools"
+# BIOTOOLS_API_URL = "https://130.226.25.21"
 
 
 def read_file(filepath) -> List[str]:
@@ -261,7 +261,7 @@ def get_tool_metadata(tool: ContentFile, repo: Repository) -> Optional[Dict[str,
                     metadata["Status"] = "Up-to-date"
     # get bio.tool information
     if metadata["bio.tool id"] is not None:
-        r = requests.get(f'{BIOTOOLS_API_URL}/api/tool/{metadata["bio.tool id"]}/?format=json', verify=False)
+        r = requests.get(f'{BIOTOOLS_API_URL}/api/tool/{metadata["bio.tool id"]}/?format=json')
         if r.status_code == requests.codes.ok:
             biotool_info = r.json()
             if "function" in biotool_info:
