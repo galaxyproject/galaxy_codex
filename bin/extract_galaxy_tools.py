@@ -12,6 +12,10 @@ import requests
 import yaml
 from github import Github
 
+# config variables
+
+# BIOTOOLS_API_URL = "https://bio.tools"
+BIOTOOLS_API_URL = "https://130.226.25.21"
 
 def read_file(filepath):
     '''
@@ -263,7 +267,7 @@ def get_tool_metadata(tool, repo, ts_cat, excluded_tools, keep_tools):
                     metadata['Status'] = 'Up-to-date'
     # get bio.tool information
     if metadata["bio.tool id"] is not None:
-        r = requests.get(f'https://bio.tools/api/tool/{metadata["bio.tool id"]}/?format=json')
+        r = requests.get(f'{BIOTOOLS_API_URL}/api/tool/{metadata["bio.tool id"]}/?format=json')
         if r.status_code == requests.codes.ok:
             biotool_info = r.json()
             if "function" in biotool_info:
