@@ -358,7 +358,7 @@ if __name__ == '__main__':
     parser.add_argument('--api', '-a', required=True, help="GitHub access token")
     parser.add_argument('--output', '-o', required=True, help="Output filepath")
     parser.add_argument('--categories', '-c', help="Path to a file with ToolShed category to keep in the extraction (one per line)")
-    parser.add_argument('--excluded', '-e', help="Path to a file with ToolShed ids of tools to exclude (one per line)")
+    parser.add_argument('--exclude', '-e', help="Path to a file with ToolShed ids of tools to exclude (one per line)")
     parser.add_argument('--keep', '-ek', help="Path to a file with ToolShed ids of tools to keep (one per line)")
     args = parser.parse_args()
 
@@ -369,7 +369,7 @@ if __name__ == '__main__':
 
     # get categories and tools to exclude
     categories = read_file(args.categories)
-    excl_tools = read_file(args.excluded)
+    excl_tools = read_file(args.exclude)
     keep_tools = read_file(args.keep)
 
     # parse tools in GitHub repositories to extract metada, filter by TS categories and export to output file

@@ -51,25 +51,9 @@ Galaxy Tool extractor
         --api <GitHub API key> \
         --output <Path to output file> \
         [--categories <Path to ToolShed category file>] \
-        [--excluded <Path to excluded tool file category file>]\
+        [--exclude <Path to excluded tool file category file>]\
         [--keep <Path to to-keep tool file category file>]
     ```
-
-    For microGalaxy, a Bash script in `bin` can used by:
-    1. Exporting the GitHub API key as an environment variable:
-
-        ```
-        $ export GITHUB_API_KEY=<your GitHub API key>
-        ```
-
-    2. Running the script
-
-        ```
-        $ bash bin/extract_microgalaxy_tools.sh
-        ```
-
-        It will take the files in the `data/microgalaxy` folder and export the tools into `microgalaxy_tools.csv`
-
 
 The script will generate a CSV file with each tool found in the list of GitHub repository and several information for these tools:
 
@@ -91,3 +75,25 @@ The script will generate a CSV file with each tool found in the list of GitHub r
 16. Conda version
 17. Reviewed
 18. To keep
+
+## For microbial related tools
+
+For microGalaxy, a Bash script in `bin` can used by:
+
+1. Exporting the GitHub API key as an environment variable:
+
+    ```
+    $ export GITHUB_API_KEY=<your GitHub API key>
+    ```
+
+2. Running the script
+
+    ```
+    $ bash bin/extract_microgalaxy_tools.sh
+    ```
+
+    It will:
+    1. Update the files in the `data/microgalaxy` folder
+    2. Export the tools into `microgalaxy_tools.csv`
+
+
