@@ -14,8 +14,8 @@ mkdir -p 'results/microgalaxy'
 
 python bin/extract_galaxy_tools.py \
         filtertools \
-        --tools 'results/all_tools.csv' \
-        --filtered_tools 'results/microgalaxy/tools.csv' \
+        --tools 'results/all_tools.tsv' \
+        --filtered_tools 'results/microgalaxy/tools.tsv' \
         --categories "data/microgalaxy/categories" \
         --exclude "data/microgalaxy/tools_to_exclude" \
         --keep "data/microgalaxy/tools_to_keep"

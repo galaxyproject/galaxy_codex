@@ -3,4 +3,4 @@
 python bin/extract_galaxy_tools.py \
         extractools \
         --api $GITHUB_API_KEY \
-        --all_tools 'results/all_tools.csv'
+        --all_tools 'results/all_tools.tsv'
