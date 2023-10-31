@@ -134,14 +134,12 @@ def check_categories(ts_categories, ts_cat):
     :param ts_categories: tool ToolShed categories
     :param ts_cat: list of ToolShed categories to keep in the extraction
     """
-    if ts_categories is not None and len(ts_cat) > 0:
+    if not ts_cat:
+        return True
+    if not ts_categories:
+        return False
         ts_cats = ts_categories.split(", ")
-        to_keep = False
-        for cat in ts_cats:
-            if cat in ts_cat:
-                to_keep = True
-        return to_keep
-    return True
+    return bool(set(ts_cat) & set(ts_cats))
 
 
 def get_tool_metadata(tool: ContentFile, repo: Repository) -> :
