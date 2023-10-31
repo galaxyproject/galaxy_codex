@@ -17,6 +17,7 @@ from github import Github
 # BIOTOOLS_API_URL = "https://bio.tools"
 BIOTOOLS_API_URL = "https://130.226.25.21"
 
+
 def read_file(filepath):
     '''
     Read an optional file with 1 element per line
@@ -101,6 +102,7 @@ def get_biotools(el):
             return xref.text
     return None
 
+
 def get_conda_package(el):
     '''
     Get conda package information
@@ -132,28 +134,25 @@ def check_categories(ts_categories, ts_cat):
     :param ts_cat: list of ToolShed categories to keep in the extraction
     '''
     if ts_categories is not None and len(ts_cat) > 0:
+        ts_cats = ts_categories.split(', ')
         to_keep = False
-        for cat in ts_categories:
+        for cat in ts_cats:
             if cat in ts_cat:
                 to_keep = True
         return to_keep
     return True
 
 
-def get_tool_metadata(tool, repo, ts_cat, excluded_tools, keep_tools):
+def get_tool_metadata(tool, repo):
     '''
     Get tool information
     - Check the `.shed.yaml` file
     - Extract metadata from the `.shed.yaml`
-    - Filter for specific ToolShed categories
     - Extract the requirements in the macros or xml file to get tool version supported in Galaxy
     - Extract bio.tools information if available in the macros or xml
 
     :param tool: GitHub ContentFile object
     :param repo: GitHub Repository object
-    :param ts_cat: list of ToolShed categories to keep in the extraction
-    :param excluded_tools: list of tools to skip
-    :param keep_tools: list of tools to keep
     '''
     if tool.type != 'dir':
         return None
@@ -176,13 +175,7 @@ def get_tool_metadata(tool, repo, ts_cat, excluded_tools, keep_tools):
         'bio.tool id': None,
         'Conda id': None,
         'Conda version': None,
-        'Reviewed': tool.name in keep_tools or tool.name in excluded_tools,
-        'To keep':''
     }
-    if tool.name in keep_tools:
-        metadata['To keep'] = True
-    elif tool.name in excluded_tools:
-        metadata['To keep'] = False
     # extract .shed.yml information and check macros.xml
     try:
         shed = repo.get_contents(f"{tool.path}/.shed.yml")
@@ -203,10 +196,7 @@ def get_tool_metadata(tool, repo, ts_cat, excluded_tools, keep_tools):
             metadata['Source'] = yaml_content['homepage_url']
         metadata['ToolShed categories'] = get_shed_attribute('categories', yaml_content, [])
         if metadata['ToolShed categories'] is None:
-            metadata['ToolShed categories'] = []
-    # filter ToolShed categories and leave function if not in expected categories
-    if not check_categories(metadata['ToolShed categories'], ts_cat):
-        return None
+            metadata['ToolShed categories'] = [] 
     # find and parse macro file
     for file in repo.get_contents(tool.path):
         if 'macro' in file.name and file.name.endswith('xml'):
@@ -221,7 +211,6 @@ def get_tool_metadata(tool, repo, ts_cat, excluded_tools, keep_tools):
                     biotools = get_biotools(child)
                     if biotools is not None:
                         metadata['bio.tool id'] = biotools
-
     # parse XML file and get meta data from there, also tool ids
     for file in repo.get_contents(tool.path):
         if file.name.endswith('xml') and 'macro' not in file.name:
@@ -256,7 +245,6 @@ def get_tool_metadata(tool, repo, ts_cat, excluded_tools, keep_tools):
                 # tool ids
                 if 'id' in root.attrib:
                     metadata['Galaxy tool ids'].append(root.attrib['id'])
-
     # get latest conda version and compare to the wrapper version
     if metadata["Conda id"] is not None:
         r = requests.get(f'https://api.anaconda.org/package/bioconda/{metadata["Conda id"]}')
@@ -286,14 +274,11 @@ def get_tool_metadata(tool, repo, ts_cat, excluded_tools, keep_tools):
     return metadata
 
 
-def parse_tools(repo, ts_cat=[], excluded_tools=[], keep_tools=[]):
+def parse_tools(repo):
     '''
-    Parse tools in a GitHub repository to expact
+    Parse tools in a GitHub repository, extract them and their metadata
 
     :param repo: GitHub Repository object
-    :param ts_cat: list of ToolShed categories to keep in the extraction
-    :param excluded_tools: list of tools to skip
-    :param keep_tools: list of tools to keep
     '''
     # get tool folders
     tool_folders = []
@@ -328,11 +313,11 @@ def parse_tools(repo, ts_cat=[], excluded_tools=[], keep_tools=[]):
                 if tool.type != 'dir':
                     continue
                 for content in repo.get_contents(tool.path):
-                    metadata = get_tool_metadata(content, repo, ts_cat, excluded_tools, keep_tools)
+                    metadata = get_tool_metadata(content, repo)
                     if metadata is not None:
                         tools.append(metadata)
             else:
-                metadata = get_tool_metadata(tool, repo, ts_cat, excluded_tools, keep_tools)
+                metadata = get_tool_metadata(tool, repo)
                 if metadata is not None:
                     tools.append(metadata)
     return tools
@@ -353,32 +338,67 @@ def export_tools(tools, output_fp):
     df.to_csv(output_fp, sep="\t", index=False)
 
 
+def filter_tools(tools, ts_cat, excluded_tools, keep_tools):
+    '''
+    Filter tools for specific ToolShed categories and add information if to keep or to exclude
+
+    :param tools: dictionary with tools and their metadata
+    :param ts_cat: list of ToolShed categories to keep in the extraction
+    :param excluded_tools: list of tools to skip
+    :param keep_tools: list of tools to keep
+    '''
+    filtered_tools = []
+    for tool in tools:
+        # filter ToolShed categories and leave function if not in expected categories
+        if check_categories(tool['ToolShed categories'], ts_cat):
+            name = tool['Galaxy wrapper id']
+            tool['Reviewed'] = tool.name in keep_tools or tool.name in excluded_tools
+            tool['To keep'] = None
+            if name in keep_tools:
+                tool['To keep'] = True
+            elif name in excluded_tools:
+                tool['To keep'] = False
+            filtered_tools.append(tool)
+
+
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Extract a GitHub project to CSV')
-    parser.add_argument('--api', '-a', required=True, help="GitHub access token")
-    parser.add_argument('--output', '-o', required=True, help="Output filepath")
-    parser.add_argument('--categories', '-c', help="Path to a file with ToolShed category to keep in the extraction (one per line)")
-    parser.add_argument('--excluded', '-e', help="Path to a file with ToolShed ids of tools to exclude (one per line)")
-    parser.add_argument('--keep', '-ek', help="Path to a file with ToolShed ids of tools to keep (one per line)")
+    parser = argparse.ArgumentParser(description='Extract Galaxy tools from GitHub repositories together with biotools and conda metadata')
+    subparser = parser.add_subparsers(dest='command')
+    # Extract tools
+    extractools = subparser.add_parser('extractools', help="Extract tools")
+    extractools.add_argument('--api', '-a', required=True, help="GitHub access token")
+    extractools.add_argument('--all_tools', '-o', required=True, help="Filepath to CSV with all extracted tools")
+    # Filter tools
+    filtertools = subparser.add_parser('filtertools', help="Filter tools")
+    filtertools.add_argument('--tools', '-t', required=True, help="Filepath to CSV with all extracted tools, generated by extractools command")
+    filtertools.add_argument('--filtered_tools', '-f', required=True, help="Filepath to CSV with filtered tools")
+    filtertools.add_argument('--categories', '-c', help="Path to a file with ToolShed category to keep in the extraction (one per line)")
+    filtertools.add_argument('--exclude', '-e', help="Path to a file with ToolShed ids of tools to exclude (one per line)")
+    filtertools.add_argument('--keep', '-k', help="Path to a file with ToolShed ids of tools to keep (one per line)")
     args = parser.parse_args()
 
-    # connect to GitHub
-    g = Github(args.api)
-    # get list of GitHub repositories to parse
-    repo_list = get_tool_github_repositories(g)
-
-    # get categories and tools to exclude
-    categories = read_file(args.categories)
-    excl_tools = read_file(args.excluded)
-    keep_tools = read_file(args.keep)
-
-    # parse tools in GitHub repositories to extract metada, filter by TS categories and export to output file
-    tools = []
-    for r in repo_list:
-        print(r)
-        if "github" not in r:
-            continue
-        repo = get_github_repo(r, g)
-        tools += parse_tools(repo, categories, excl_tools, keep_tools)
-        export_tools(tools, args.output)
-        print()
+    if args.command == 'extractools':
+        # connect to GitHub
+        g = Github(args.api)
+        # get list of GitHub repositories to parse
+        repo_list = get_tool_github_repositories(g)
+        # parse tools in GitHub repositories to extract metada, filter by TS categories and export to output file
+        tools = []
+        for r in repo_list:
+            print(r)
+            if "github" not in r:
+                continue
+            repo = get_github_repo(r, g)
+            tools += parse_tools(repo)
+            export_tools(tools, args.all_tools)
+            print()
+    elif args.command == 'filtertools':
+        tools = pd.read_csv(Path(args.tools)).to_dict('records')
+        # get categories and tools to exclude
+        categories = read_file(args.categories)
+        excl_tools = read_file(args.exclude)
+        keep_tools = read_file(args.keep)
+        # filter tool lists
+        filtered_tools = filter_tools(tools, categories, excl_tools, keep_tools)
+        export_tools(filtered_tools, args.filtered_tools)
+   
