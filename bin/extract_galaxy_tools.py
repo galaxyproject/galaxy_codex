@@ -336,24 +336,23 @@ def format_list_column(col):
     """
     Format a column that could be a list before exporting
     """
-    if isinstance(col, list):
-        return col.apply(lambda x: ", ".join([str(i) for i in x]))
-    else:
-        return col
+    return col.apply(lambda x: ", ".join([str(i) for i in x]))
 
 
-def export_tools(tools: List[Dict], output_fp: str) -> None:
+def export_tools(tools: List[Dict], output_fp: str, format_list_col=False) -> None:
     """
     Export tool metadata to tsv output file
 
     :param tools: dictionary with tools
     :param output_fp: path to output file
+    :param format_list_col: boolean indicating if list columns should be formatting
     """
     df = pd.DataFrame(tools)
-    df["ToolShed categories"] = format_list_column(df["ToolShed categories"])
-    df["EDAM operation"] = format_list_column(df["EDAM operation"])
-    df["EDAM topic"] = format_list_column(df["EDAM topic"])
-    df["Galaxy tool ids"] = format_list_column(df["Galaxy tool ids"])
+    if format_list_col:
+        df["ToolShed categories"] = format_list_column(df["ToolShed categories"])
+        df["EDAM operation"] = format_list_column(df["EDAM operation"])
+        df["EDAM topic"] = format_list_column(df["EDAM topic"])
+        df["Galaxy tool ids"] = format_list_column(df["Galaxy tool ids"])
     df.to_csv(output_fp, sep="\t", index=False)
 
 
@@ -421,7 +420,7 @@ if __name__ == "__main__":
                 continue
             repo = get_github_repo(r, g)
             tools += parse_tools(repo)
-            export_tools(tools, args.all_tools)
+            export_tools(tools, args.all_tools, format_col=True)
             print()
     elif args.command == "filtertools":
         tools = pd.read_csv(Path(args.tools), sep="\t", keep_default_na=False).to_dict("records")
