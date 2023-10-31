@@ -142,7 +142,7 @@ def check_categories(ts_categories, ts_cat):
     return bool(set(ts_cat) & set(ts_cats))
 
 
-def get_tool_metadata(tool: ContentFile, repo: Repository) -> :
+def get_tool_metadata(tool: ContentFile, repo: Repository) -> Optional[Dict[str, Any]]:
     """
     Get tool metadata from the .shed.yaml, requirements in the macros or xml
     file,  bio.tools information if available in the macros or xml, EDAM
