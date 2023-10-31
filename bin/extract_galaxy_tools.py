@@ -5,7 +5,12 @@ import base64
 import time
 import xml.etree.ElementTree as et
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import (
+    Any,
+    Dict,
+    List,
+    Optional,
+)
 
 import pandas as pd
 import requests
@@ -19,7 +24,7 @@ from github.Repository import Repository
 BIOTOOLS_API_URL = "https://130.226.25.21"
 
 
-def read_file(filepath):
+def read_file(filepath) -> List[str]:
     """
     Read an optional file with 1 element per line
 
@@ -194,7 +199,9 @@ def get_tool_metadata(tool: ContentFile, repo: Repository) -> Optional[Dict[str,
         if metadata["ToolShed categories"] is None:
             metadata["ToolShed categories"] = []
     # find and parse macro file
-    for file in repo.get_contents(tool.path):
+    file_list = repo.get_contents(tool.path)
+    assert isinstance(file_list, list)
+    for file in file_list:
         if "macro" in file.name and file.name.endswith("xml"):
             file_content = get_string_content(file)
             root = et.fromstring(file_content)
@@ -208,7 +215,7 @@ def get_tool_metadata(tool: ContentFile, repo: Repository) -> Optional[Dict[str,
                     if biotools is not None:
                         metadata["bio.tool id"] = biotools
     # parse XML file and get meta data from there, also tool ids
-    for file in repo.get_contents(tool.path):
+    for file in file_list:
         if file.name.endswith("xml") and "macro" not in file.name:
             file_content = get_string_content(file)
             try:
@@ -272,7 +279,7 @@ def get_tool_metadata(tool: ContentFile, repo: Repository) -> Optional[Dict[str,
     return metadata
 
 
-def parse_tools(repo: Repository):
+def parse_tools(repo: Repository) -> List[Dict[str, Any]]:
     """
     Parse tools in a GitHub repository, extract them and their metadata
 
@@ -335,7 +342,7 @@ def format_list_column(col):
         return col
 
 
-def export_tools(tools: list, output_fp: str) -> None:
+def export_tools(tools: List[Dict], output_fp: str) -> None:
     """
     Export tool metadata to tsv output file
 
@@ -350,7 +357,7 @@ def export_tools(tools: list, output_fp: str) -> None:
     df.to_csv(output_fp, sep="\t", index=False)
 
 
-def filter_tools(tools, ts_cat: List[str], excluded_tools: List[str], keep_tools: List[str]):
+def filter_tools(tools: List[Dict], ts_cat: List[str], excluded_tools: List[str], keep_tools: List[str]) -> List[Dict]:
     """
     Filter tools for specific ToolShed categories and add information if to keep or to exclude
 
@@ -407,7 +414,7 @@ if __name__ == "__main__":
         # get list of GitHub repositories to parse
         repo_list = get_tool_github_repositories(g)
         # parse tools in GitHub repositories to extract metada, filter by TS categories and export to output file
-        tools = []
+        tools: List[Dict] = []
         for r in repo_list:
             print(r)
             if "github" not in r:
