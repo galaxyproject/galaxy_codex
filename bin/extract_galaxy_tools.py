@@ -258,7 +258,7 @@ def get_tool_metadata(tool, repo):
                     metadata["Status"] = "Up-to-date"
     # get bio.tool information
     if metadata["bio.tool id"] is not None:
-        r = requests.get(f'{BIOTOOLS_API_URL}/api/tool/{metadata["bio.tool id"]}/?format=json')
+        r = requests.get(f'{BIOTOOLS_API_URL}/api/tool/{metadata["bio.tool id"]}/?format=json', verify=False)
         if r.status_code == requests.codes.ok:
             biotool_info = r.json()
             if "function" in biotool_info:
@@ -319,7 +319,7 @@ def parse_tools(repo):
                 file_list = repo.get_contents(tool.path)
                 assert isinstance(file_list, list)
                 for content in file_list:
-                    metadata = get_tool_metadata(content, repo, ts_cat, excluded_tools, keep_tools)
+                    metadata = get_tool_metadata(content, repo)
                     if metadata is not None:
                         tools.append(metadata)
             else:
