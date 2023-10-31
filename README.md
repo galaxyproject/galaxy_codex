@@ -53,7 +53,7 @@ Galaxy Tool extractor
     $ python bin/extract_all_tools.sh
     ```
 
-The script will generate a CSV file with each tool found in the list of GitHub repositories and metadata for these tools:
+The script will generate a TSV file with each tool found in the list of GitHub repositories and metadata for these tools:
 
 1. Galaxy wrapper id
 2. Description
