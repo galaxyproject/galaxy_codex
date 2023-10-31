@@ -138,7 +138,7 @@ def check_categories(ts_categories, ts_cat):
         return True
     if not ts_categories:
         return False
-        ts_cats = ts_categories.split(", ")
+    ts_cats = ts_categories.split(", ")
     return bool(set(ts_cat) & set(ts_cats))
 
 
