@@ -144,8 +144,8 @@ def check_categories(ts_categories, ts_cat):
     return True
 
 
-def get_tool_metadata(tool, repo):
-    """" "
+def get_tool_metadata(tool: ContentFile, repo: Repository) -> :
+    """
     Get tool metadata from the .shed.yaml, requirements in the macros or xml
     file,  bio.tools information if available in the macros or xml, EDAM
     annotations using bio.tools API, recent conda version using conda API
@@ -274,7 +274,7 @@ def get_tool_metadata(tool, repo):
     return metadata
 
 
-def parse_tools(repo):
+def parse_tools(repo: Repository):
     """
     Parse tools in a GitHub repository, extract them and their metadata
 
@@ -352,7 +352,7 @@ def export_tools(tools: list, output_fp: str) -> None:
     df.to_csv(output_fp, sep="\t", index=False)
 
 
-def filter_tools(tools, ts_cat, excluded_tools, keep_tools):
+def filter_tools(tools, ts_cat: List[str], excluded_tools: List[str], keep_tools: List[str]):
     """
     Filter tools for specific ToolShed categories and add information if to keep or to exclude
 
