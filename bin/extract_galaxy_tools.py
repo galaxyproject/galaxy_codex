@@ -24,7 +24,7 @@ BIOTOOLS_API_URL = "https://bio.tools"
 # BIOTOOLS_API_URL = "https://130.226.25.21"
 
 
-def read_file(filepath) -> List[str]:
+def read_file(filepath: Optional[str]) -> List[str]:
     """
     Read an optional file with 1 element per line
 
@@ -40,7 +40,7 @@ def read_file(filepath) -> List[str]:
         return []
 
 
-def get_string_content(cf):
+def get_string_content(cf: ContentFile) -> str:
     """
     Get string of the content from a ContentFile
 
@@ -81,7 +81,7 @@ def get_github_repo(url: str, g: Github) -> Repository:
     return g.get_user(u_split[-2]).get_repo(u_split[-1])
 
 
-def get_shed_attribute(attrib, shed_content, empty_value):
+def get_shed_attribute(attrib: str, shed_content: Dict[str, Any], empty_value: Any) -> Any:
     """
     Get a shed attribute
 
@@ -95,7 +95,7 @@ def get_shed_attribute(attrib, shed_content, empty_value):
         return empty_value
 
 
-def get_biotools(el):
+def get_biotools(el: et.Element) -> Optional[str]:
     """
     Get bio.tools information
 
@@ -109,7 +109,7 @@ def get_biotools(el):
     return None
 
 
-def get_conda_package(el):
+def get_conda_package(el: et.Element) -> Optional[str]:
     """
     Get conda package information
 
@@ -132,7 +132,7 @@ def get_conda_package(el):
     return None
 
 
-def check_categories(ts_categories, ts_cat):
+def check_categories(ts_categories: str, ts_cat: List[str]) -> bool:
     """
     Check if tool fit in ToolShed categories to keep
 
@@ -332,14 +332,14 @@ def parse_tools(repo: Repository) -> List[Dict[str, Any]]:
     return tools
 
 
-def format_list_column(col):
+def format_list_column(col: pd.Series) -> pd.Series:
     """
     Format a column that could be a list before exporting
     """
-    return col.apply(lambda x: ", ".join([str(i) for i in x]))
+    return col.apply(lambda x: ", ".join(str(i) for i in x))
 
 
-def export_tools(tools: List[Dict], output_fp: str, format_list_col=False) -> None:
+def export_tools(tools: List[Dict], output_fp: str, format_list_col: bool = False) -> None:
     """
     Export tool metadata to tsv output file
 
