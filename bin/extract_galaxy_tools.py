@@ -327,6 +327,16 @@ def parse_tools(repo):
     return tools
 
 
+def format_list_column(col):
+    """
+    Format a column that could be a list before exporting
+    """
+    if isinstance(col, list):
+        return col.apply(lambda x: ", ".join([str(i) for i in x]))
+    else:
+        return col
+
+
 def export_tools(tools: list, output_fp: str) -> None:
     """
     Export tool metadata to tsv output file
@@ -335,10 +345,10 @@ def export_tools(tools: list, output_fp: str) -> None:
     :param output_fp: path to output file
     """
     df = pd.DataFrame(tools)
-    df["ToolShed categories"] = df["ToolShed categories"].apply(lambda x: ", ".join([str(i) for i in x]))
-    df["EDAM operation"] = df["EDAM operation"].apply(lambda x: ", ".join([str(i) for i in x]))
-    df["EDAM topic"] = df["EDAM topic"].apply(lambda x: ", ".join([str(i) for i in x]))
-    df["Galaxy tool ids"] = df["Galaxy tool ids"].apply(lambda x: ", ".join([str(i) for i in x]))
+    df["ToolShed categories"] = format_list_column(df["ToolShed categories"])
+    df["EDAM operation"] = format_list_column(df["EDAM operation"])
+    df["EDAM topic"] = format_list_column(df["EDAM topic"])
+    df["Galaxy tool ids"] = format_list_column(df["Galaxy tool ids"])
     df.to_csv(output_fp, sep="\t", index=False)
 
 
@@ -356,13 +366,14 @@ def filter_tools(tools, ts_cat, excluded_tools, keep_tools):
         # filter ToolShed categories and leave function if not in expected categories
         if check_categories(tool["ToolShed categories"], ts_cat):
             name = tool["Galaxy wrapper id"]
-            tool["Reviewed"] = tool.name in keep_tools or tool.name in excluded_tools
+            tool["Reviewed"] = name in keep_tools or name in excluded_tools
             tool["To keep"] = None
             if name in keep_tools:
                 tool["To keep"] = True
             elif name in excluded_tools:
                 tool["To keep"] = False
             filtered_tools.append(tool)
+    return filtered_tools
 
 
 if __name__ == "__main__":
@@ -408,7 +419,7 @@ if __name__ == "__main__":
             export_tools(tools, args.all_tools)
             print()
     elif args.command == "filtertools":
-        tools = pd.read_csv(Path(args.tools)).to_dict("records")
+        tools = pd.read_csv(Path(args.tools), sep="\t", keep_default_na=False).to_dict("records")
         # get categories and tools to exclude
         categories = read_file(args.categories)
         excl_tools = read_file(args.exclude)
