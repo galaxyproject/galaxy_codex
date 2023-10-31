@@ -5,7 +5,12 @@ import base64
 import time
 import xml.etree.ElementTree as et
 from pathlib import Path
-from typing import List
+from typing import (
+    Any,
+    Dict,
+    List,
+    Optional,
+)
 
 import pandas as pd
 import requests
