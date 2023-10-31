@@ -420,7 +420,7 @@ if __name__ == "__main__":
                 continue
             repo = get_github_repo(r, g)
             tools += parse_tools(repo)
-            export_tools(tools, args.all_tools, format_col=True)
+            export_tools(tools, args.all_tools, format_list_col=True)
             print()
     elif args.command == "filtertools":
         tools = pd.read_csv(Path(args.tools), sep="\t", keep_default_na=False).to_dict("records")
