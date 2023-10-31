@@ -216,10 +216,11 @@ def get_tool_metadata(tool, repo, ts_cat, excluded_tools, keep_tools):
                 if 'name' in child.attrib:
                     if child.attrib['name'] == '@TOOL_VERSION@' or child.attrib['name'] == '@VERSION@':
                         metadata['Galaxy wrapper version'] = child.text
-                    elif child.attrib['name'] == 'bio_tools':
-                        metadata['bio.tool id'] = get_biotools(child)
                     elif child.attrib['name'] == 'requirements':
                         metadata['Conda id'] = get_conda_package(child)
+                    biotools = get_biotools(child)
+                    if biotools is not None:
+                        metadata['bio.tool id'] = biotools
 
     # parse XML file and get meta data from there, also tool ids
     for file in repo.get_contents(tool.path):
