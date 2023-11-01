@@ -44,11 +44,11 @@ def generate_table(
 
     df.to_html("temp_tools_table.html", border=0, table_id="dataframe", classes=["display", "nowrap"], index=False)
 
-    with open(template_path) as template:
-        template = template.read()
+    with open(template_path) as template_file:
+        template = template_file.read()
 
-    with open("temp_tools_table.html") as table:
-        table = table.read()
+    with open("temp_tools_table.html") as table_file:
+        table = table_file.read()
 
     final_html_output = template.replace("COMMUNITY_TABLE", table)
 
