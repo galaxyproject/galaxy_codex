@@ -60,7 +60,7 @@ def add_tool_stats_to_tools(tool_stats_path: str, tools_path: str, output_path: 
     return community_tool_stats
 
 
-def get_wordcloud(community_tool_stats: pd.DataFrame, mask_figure: str, wordcloud_output_path: str):
+def get_wordcloud(community_tool_stats: pd.DataFrame, mask_figure: str, wordcloud_output_path: str) -> None: 
     """
     Generate a wordcloud based on the counts for each Galaxy wrapper id
 
