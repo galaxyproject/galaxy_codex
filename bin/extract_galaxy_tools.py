@@ -2,6 +2,7 @@
 
 import argparse
 import base64
+import sys
 import time
 import xml.etree.ElementTree as et
 from pathlib import Path
@@ -60,7 +61,7 @@ def get_tool_github_repositories(g: Github) -> List[str]:
     for i in range(1, 5):
         repo_f = repo.get_contents(f"repositories0{i}.list")
         repo_l = get_string_content(repo_f).rstrip()
-        repo_list += repo_l.split("\n")
+        repo_list.extend(repo_l.split("\n"))
     return repo_list
 
 
@@ -221,7 +222,7 @@ def get_tool_metadata(tool: ContentFile, repo: Repository) -> Optional[Dict[str,
             try:
                 root = et.fromstring(file_content)
             except Exception:
-                print(file_content)
+                print(file_content, sys.stderr)
             else:
                 # version
                 if metadata["Galaxy wrapper version"] is None:
@@ -293,7 +294,7 @@ def parse_tools(repo: Repository) -> List[Dict[str, Any]]:
         try:
             repo_tools = repo.get_contents("wrappers")
         except Exception:
-            print("No tool folder found")
+            print("No tool folder found", sys.stderr)
             return []
     assert isinstance(repo_tools, list)
     tool_folders.append(repo_tools)
@@ -418,10 +419,12 @@ if __name__ == "__main__":
             print(r)
             if "github" not in r:
                 continue
-            repo = get_github_repo(r, g)
-            tools += parse_tools(repo)
-            export_tools(tools, args.all_tools, format_list_col=True)
-            print()
+            try:
+                repo = get_github_repo(r, g)
+                tools.extend(parse_tools(repo))
+            except Exception as e:
+                print(f"Error while extracting tools from repo {r}: {e}", file=sys.stderr)
+        export_tools(tools, args.all_tools, format_list_col=True)
     elif args.command == "filtertools":
         tools = pd.read_csv(Path(args.tools), sep="\t", keep_default_na=False).to_dict("records")
         # get categories and tools to exclude
