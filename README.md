@@ -38,24 +38,22 @@ Galaxy Tool extractor
     $ python3 -m pip install -r requirements.txt
     ```
 
-# Extract tools for categories in the ToolShed
+## Extract all tools
 
 1. Get an API key ([personal token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)) for GitHub
-2. (Optional) Create a text file with ToolShed categories for which tools need to be extracted: 1 ToolShed category per row ([example for microbial data analysis](data/microgalaxy/categories))
-3. (Optional) Create a text file with list of tools to exclude: 1 tool id per row ([example for microbial data analysis](data/microgalaxy/tools_to_exclude))
-4. (Optional) Create a text file with list of tools to really keep (already reviewed): 1 tool id per row ([example for microbial data analysis](data/microgalaxy/tools_to_keep))
-4. Run the tool extractor script
+2. Export the GitHub API key as an environment variable:
 
     ```
-    $ python bin/extract_galaxy_tools.py \
-        --api <GitHub API key> \
-        --output <Path to output file> \
-        [--categories <Path to ToolShed category file>] \
-        [--exclude <Path to excluded tool file category file>]\
-        [--keep <Path to to-keep tool file category file>]
+    $ export GITHUB_API_KEY=<your GitHub API key>
     ```
 
-The script will generate a CSV file with each tool found in the list of GitHub repository and several information for these tools:
+3. Run the script
+
+    ```
+    $ python bin/extract_all_tools.sh
+    ```
+
+The script will generate a TSV file with each tool found in the list of GitHub repositories and metadata for these tools:
 
 1. Galaxy wrapper id
 2. Description
@@ -73,27 +71,30 @@ The script will generate a CSV file with each tool found in the list of GitHub r
 14. Galaxy wrapper version
 15. Conda id
 16. Conda version
-17. Reviewed
-18. To keep
 
-## For microbial related tools
+## Filter tools based on their categories in the ToolShed
 
-For microGalaxy, a Bash script in `bin` can used by:
-
-1. Exporting the GitHub API key as an environment variable:
-
-    ```
-    $ export GITHUB_API_KEY=<your GitHub API key>
-    ```
-
-2. Running the script
+1. Run the extraction as explained before
+2. (Optional) Create a text file with ToolShed categories for which tools need to be extracted: 1 ToolShed category per row ([example for microbial data analysis](data/microgalaxy/categories))
+3. (Optional) Create a text file with list of tools to exclude: 1 tool id per row ([example for microbial data analysis](data/microgalaxy/tools_to_exclude))
+4. (Optional) Create a text file with list of tools to really keep (already reviewed): 1 tool id per row ([example for microbial data analysis](data/microgalaxy/tools_to_keep))
+4. Run the tool extractor script
 
     ```
-    $ bash bin/extract_microgalaxy_tools.sh
+    $ python bin/extract_galaxy_tools.py \
+        --tools <Path to CSV file with all extracted tools> \
+        --filtered_tools <Path to output CSV file with filtered tools> \
+        [--categories <Path to ToolShed category file>] \
+        [--excluded <Path to excluded tool file category file>]\
+        [--keep <Path to to-keep tool file category file>]
     ```
 
-    It will:
-    1. Update the files in the `data/microgalaxy` folder
-    2. Export the tools into `microgalaxy_tools.csv`
+### Filter tools for microbial data analysis
 
+For microGalaxy, a Bash script in `bin` can used by running the script
 
+```
+$ bash bin/extract_microgalaxy_tools.sh
+```
+
+It will take the files in the `data/microgalaxy` folder and export the tools into `microgalaxy_tools.csv`
