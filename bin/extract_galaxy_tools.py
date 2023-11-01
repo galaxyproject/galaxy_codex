@@ -24,6 +24,12 @@ from github.Repository import Repository
 BIOTOOLS_API_URL = "https://bio.tools"
 # BIOTOOLS_API_URL = "https://130.226.25.21"
 
+GALAXY_SERVER_URLS = [
+    "https://usegalaxy.org",
+    "https://usegalaxy.org.au",
+    "https://usegalaxy.eu",
+]
+
 
 def read_file(filepath: Optional[str]) -> List[str]:
     """
@@ -331,6 +337,30 @@ def parse_tools(repo: Repository) -> List[Dict[str, Any]]:
                 if metadata is not None:
                     tools.append(metadata)
     return tools
+
+
+def get_all_installed_tool_ids(galaxy_url: str) -> List[str]:
+    galaxy_url = galaxy_url.rstrip("/")
+    base_url = f"{galaxy_url}/api"
+    r = requests.get(f"{base_url}/tools", params={"in_panel": False})
+    r.raise_for_status()
+    tool_dict_list = r.json()
+    return [tool_dict["id"] for tool_dict in tool_dict_list]
+
+
+def check_tools_on_servers(tool_ids: List[str]) -> pd.DataFrame:
+    assert all("/" not in tool_id for tool_id in tool_ids), "This function only works on short tool ids"
+    data: List[Dict[str, bool]] = []
+    for galaxy_url in GALAXY_SERVER_URLS:
+        installed_tool_ids = get_all_installed_tool_ids(galaxy_url)
+        installed_tool_short_ids = [
+            tool_id.split("/")[4] if "/" in tool_id else tool_id for tool_id in installed_tool_ids
+        ]
+        d: Dict[str, bool] = {}
+        for tool_id in tool_ids:
+            d[tool_id] = tool_id in installed_tool_short_ids
+        data.append(d)
+    return pd.DataFrame(data, index=GALAXY_SERVER_URLS)
 
 
 def format_list_column(col: pd.Series) -> pd.Series:
