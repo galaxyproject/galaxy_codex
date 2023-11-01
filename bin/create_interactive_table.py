@@ -48,10 +48,10 @@ def generate_table(
                classes=["display", "nowrap"], 
                index=False)
 
-    with open(template_path, "r") as template_path:
+    with open(template_path) as template_path:
         template = template_path.read()
 
-    with open("temp_tools_table.html", "r") as table_path:
+    with open("temp_tools_table.html") as table_path:
         table = table_path.read()
 
     final_html_output = template.replace("COMMUNITY_TABLE", table)
