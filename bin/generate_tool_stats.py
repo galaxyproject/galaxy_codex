@@ -12,20 +12,17 @@ from wordcloud import WordCloud
 def get_last_url_position(toot_id: str) -> str:
     """
     Returns the last url position of the toot_id, if the value is not a
-    url it returns the toot_id. So works for local and toolshed 
+    url it returns the toot_id. So works for local and toolshed
     installed tools.
 
     :param tool_id: galaxy tool id
     """
-    
+
     toot_id = toot_id.split("/")[-1]
     return toot_id
 
 
-def add_tool_stats_to_tools(tool_stats_path: str, 
-                            tools_path: str, 
-                            output_path: str, 
-                            column_name: str) -> pd.DataFrame:
+def add_tool_stats_to_tools(tool_stats_path: str, tools_path: str, output_path: str, column_name: str) -> pd.DataFrame:
     """
     Adds the usage statistics to the community tool table
 
@@ -45,32 +42,25 @@ def add_tool_stats_to_tools(tool_stats_path: str,
     community_tools_df = pd.read_csv(tools_path, sep="\t")
 
     # extract tool id
-    tool_stats_df["Galaxy wrapper id"] = \
-        tool_stats_df["tool_name"].apply(get_last_url_position)
+    tool_stats_df["Galaxy wrapper id"] = tool_stats_df["tool_name"].apply(get_last_url_position)
 
     # group local and toolshed tools into one entry
-    grouped_tool_stats_tools = \
-        tool_stats_df.groupby("Galaxy wrapper id",
-                              as_index=False)["count"].sum()
+    grouped_tool_stats_tools = tool_stats_df.groupby("Galaxy wrapper id", as_index=False)["count"].sum()
 
     # remove old stats entry with new stats
     if column_name in community_tools_df.columns:
         community_tools_df.drop(column_name, inplace=True, axis=1)
 
-    community_tool_stats = pd.merge(grouped_tool_stats_tools, 
-                                    community_tools_df, 
-                                    on="Galaxy wrapper id")
+    community_tool_stats = pd.merge(grouped_tool_stats_tools, community_tools_df, on="Galaxy wrapper id")
     community_tool_stats.rename(columns={"count": column_name}, inplace=True)
 
     # store the merged file
-    community_tool_stats.to_csv(output_path, sep="\t", index=False)  
+    community_tool_stats.to_csv(output_path, sep="\t", index=False)
 
     return community_tool_stats
 
 
-def get_wordcloud(community_tool_stats: pd.DataFrame, 
-                  mask_figure: str, 
-                  wordcloud_output_path: str):
+def get_wordcloud(community_tool_stats: pd.DataFrame, mask_figure: str, wordcloud_output_path: str):
     """
     Generate a wordcloud based on the counts for each Galaxy wrapper id
 
@@ -82,8 +72,7 @@ def get_wordcloud(community_tool_stats: pd.DataFrame,
     """
 
     # create the word cloud
-    frec = pd.Series(community_tool_stats["count"].values, 
-                     index=community_tool_stats["Galaxy wrapper id"]).to_dict()
+    frec = pd.Series(community_tool_stats["count"].values, index=community_tool_stats["Galaxy wrapper id"]).to_dict()
 
     mask = np.array(Image.open(args.wordcloud_mask))
     mask[mask == 0] = 255  # set 0 in array to 255 to work with wordcloud
@@ -106,8 +95,10 @@ def get_wordcloud(community_tool_stats: pd.DataFrame,
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Merge \
-                                     tools list with tool stats")
+    parser = argparse.ArgumentParser(
+        description="Merge \
+                                     tools list with tool stats"
+    )
     parser.add_argument(
         "--tools",
         "-t",
@@ -122,30 +113,19 @@ if __name__ == "__main__":
         help="Path to tool stats list in csv format (must have \
               column 'tool_name' and 'count')",
     )
-    parser.add_argument("--wordcloud_mask", 
-                        "-wcm", 
-                        required=False, 
-                        help="Mask figure to generate the wordcloud")
-    parser.add_argument("--label", 
-                        "-la", 
-                        help="Label for the added \
-                        column e.g. usegalaxy.eu tool usage")
+    parser.add_argument("--wordcloud_mask", "-wcm", required=False, help="Mask figure to generate the wordcloud")
     parser.add_argument(
-        "--stats_output", 
-        "-so", 
-        required=True, 
-        help="Output path to store the updated community list with stats"
+        "--label",
+        "-la",
+        help="Label for the added \
+                        column e.g. usegalaxy.eu tool usage",
     )
-    parser.add_argument("--wc_output", 
-                        "-wco", 
-                        required=False, 
-                        help="Output path to store the wordcloud.png")
     parser.add_argument(
-        "--wordcloud", 
-        "-wc", 
-        action="store_true", 
-        default=False, 
-        help="Flag if wordcloud should be done"
+        "--stats_output", "-so", required=True, help="Output path to store the updated community list with stats"
+    )
+    parser.add_argument("--wc_output", "-wco", required=False, help="Output path to store the wordcloud.png")
+    parser.add_argument(
+        "--wordcloud", "-wc", action="store_true", default=False, help="Flag if wordcloud should be done"
     )
     args = parser.parse_args()
 
