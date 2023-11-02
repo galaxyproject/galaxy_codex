@@ -19,3 +19,8 @@ python bin/extract_galaxy_tools.py \
         --categories "data/microgalaxy/categories" \
         --exclude "data/microgalaxy/tools_to_exclude" \
         --keep "data/microgalaxy/tools_to_keep"
+
+python bin/create_interactive_table.py \
+        --table 'results/microgalaxy/tools.tsv' \
+        --template 'data/interactive_table_template.html' \
+        --output 'results/microgalaxy/index.html'
