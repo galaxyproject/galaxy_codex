@@ -33,7 +33,10 @@ def generate_table(
     output_path: str,
 ) -> None:
     df = pd.read_csv(tsv_path, sep="\t").assign(Expand=lambda df: "").fillna("")
-    df = df[df["To keep"]].loc[:, COLUMNS].reindex(columns=COLUMNS)
+    if "To keep" in df.columns:
+        df["To keep"] = df["To keep"].replace("", True)
+        df = df.query("`To keep`")
+    df = df.loc[:, COLUMNS].reindex(columns=COLUMNS)
     table = df.to_html(border=0, table_id="dataframe", classes=["display", "nowrap"], index=False)
 
     with open(template_path) as template_file:
