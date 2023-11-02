@@ -385,7 +385,9 @@ def get_tool_count_per_server(tool_ids: str) -> pd.Series:
     if isinstance(tool_ids, str):
         series = pd.Series({key: None for key in GALAXY_SERVER_URLS})
     else:
-        tool_id_list = [x.strip(" ") for x in tool_ids.split(",")]
+        tool_id_list: list = []
+        for x in tool_ids.split(","):
+            tool_id_list.append(x.strip(" "))
         data = check_tools_on_servers(tool_id_list)
         result_df: pd.DataFrame = pd.DataFrame()
         result_df["true_count"] = data.sum(axis=1).astype(str)
