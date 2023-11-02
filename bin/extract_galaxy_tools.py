@@ -5,6 +5,7 @@ import base64
 import sys
 import time
 import xml.etree.ElementTree as et
+from functools import lru_cache
 from pathlib import Path
 from typing import (
     Any,
@@ -88,7 +89,9 @@ def get_github_repo(url: str, g: Github) -> Repository:
     return g.get_user(u_split[-2]).get_repo(u_split[-1])
 
 
-def get_shed_attribute(attrib: str, shed_content: Dict[str, Any], empty_value: Any) -> Any:
+def get_shed_attribute(
+    attrib: str, shed_content: Dict[str, Any], empty_value: Any
+) -> Any:
     """
     Get a shed attribute
 
@@ -154,7 +157,9 @@ def check_categories(ts_categories: str, ts_cat: List[str]) -> bool:
     return bool(set(ts_cat) & set(ts_cats))
 
 
-def get_tool_metadata(tool: ContentFile, repo: Repository) -> Optional[Dict[str, Any]]:
+def get_tool_metadata(
+    tool: ContentFile, repo: Repository
+) -> Optional[Dict[str, Any]]:
     """
     Get tool metadata from the .shed.yaml, requirements in the macros or xml
     file,  bio.tools information if available in the macros or xml, EDAM
@@ -192,17 +197,27 @@ def get_tool_metadata(tool: ContentFile, repo: Repository) -> Optional[Dict[str,
     else:
         file_content = get_string_content(shed)
         yaml_content = yaml.load(file_content, Loader=yaml.FullLoader)
-        metadata["Description"] = get_shed_attribute("description", yaml_content, None)
+        metadata["Description"] = get_shed_attribute(
+            "description", yaml_content, None
+        )
         if metadata["Description"] is None:
-            metadata["Description"] = get_shed_attribute("long_description", yaml_content, None)
+            metadata["Description"] = get_shed_attribute(
+                "long_description", yaml_content, None
+            )
         if metadata["Description"] is not None:
             metadata["Description"] = metadata["Description"].replace("\n", "")
         metadata["ToolShed id"] = get_shed_attribute("name", yaml_content, None)
-        metadata["Galaxy wrapper owner"] = get_shed_attribute("owner", yaml_content, None)
-        metadata["Galaxy wrapper source"] = get_shed_attribute("remote_repository_url", yaml_content, None)
+        metadata["Galaxy wrapper owner"] = get_shed_attribute(
+            "owner", yaml_content, None
+        )
+        metadata["Galaxy wrapper source"] = get_shed_attribute(
+            "remote_repository_url", yaml_content, None
+        )
         if "homepage_url" in yaml_content:
             metadata["Source"] = yaml_content["homepage_url"]
-        metadata["ToolShed categories"] = get_shed_attribute("categories", yaml_content, [])
+        metadata["ToolShed categories"] = get_shed_attribute(
+            "categories", yaml_content, []
+        )
         if metadata["ToolShed categories"] is None:
             metadata["ToolShed categories"] = []
     # find and parse macro file
@@ -214,7 +229,10 @@ def get_tool_metadata(tool: ContentFile, repo: Repository) -> Optional[Dict[str,
             root = et.fromstring(file_content)
             for child in root:
                 if "name" in child.attrib:
-                    if child.attrib["name"] == "@TOOL_VERSION@" or child.attrib["name"] == "@VERSION@":
+                    if (
+                        child.attrib["name"] == "@TOOL_VERSION@"
+                        or child.attrib["name"] == "@VERSION@"
+                    ):
                         metadata["Galaxy wrapper version"] = child.text
                     elif child.attrib["name"] == "requirements":
                         metadata["Conda id"] = get_conda_package(child)
@@ -241,9 +259,12 @@ def get_tool_metadata(tool: ContentFile, repo: Repository) -> Optional[Dict[str,
                             if macros is not None:
                                 for child in macros:
                                     if "name" in child.attrib and (
-                                        child.attrib["name"] == "@TOOL_VERSION@" or child.attrib["name"] == "@VERSION@"
+                                        child.attrib["name"] == "@TOOL_VERSION@"
+                                        or child.attrib["name"] == "@VERSION@"
                                     ):
-                                        metadata["Galaxy wrapper version"] = child.text
+                                        metadata[
+                                            "Galaxy wrapper version"
+                                        ] = child.text
                 # bio.tools
                 if metadata["bio.tool id"] is None:
                     biotools = get_biotools(root)
@@ -259,16 +280,23 @@ def get_tool_metadata(tool: ContentFile, repo: Repository) -> Optional[Dict[str,
                     metadata["Galaxy tool ids"].append(root.attrib["id"])
     # get latest conda version and compare to the wrapper version
     if metadata["Conda id"] is not None:
-        r = requests.get(f'https://api.anaconda.org/package/bioconda/{metadata["Conda id"]}')
+        r = requests.get(
+            f'https://api.anaconda.org/package/bioconda/{metadata["Conda id"]}'
+        )
         if r.status_code == requests.codes.ok:
             conda_info = r.json()
             if "latest_version" in conda_info:
                 metadata["Conda version"] = conda_info["latest_version"]
-                if metadata["Conda version"] == metadata["Galaxy wrapper version"]:
+                if (
+                    metadata["Conda version"]
+                    == metadata["Galaxy wrapper version"]
+                ):
                     metadata["Status"] = "Up-to-date"
     # get bio.tool information
     if metadata["bio.tool id"] is not None:
-        r = requests.get(f'{BIOTOOLS_API_URL}/api/tool/{metadata["bio.tool id"]}/?format=json')
+        r = requests.get(
+            f'{BIOTOOLS_API_URL}/api/tool/{metadata["bio.tool id"]}/?format=json'
+        )
         if r.status_code == requests.codes.ok:
             biotool_info = r.json()
             if "function" in biotool_info:
@@ -282,7 +310,9 @@ def get_tool_metadata(tool: ContentFile, repo: Repository) -> Optional[Dict[str,
             if "name" in biotool_info:
                 metadata["bio.tool name"] = biotool_info["name"]
             if "description" in biotool_info:
-                metadata["bio.tool description"] = biotool_info["description"].replace("\n", "")
+                metadata["bio.tool description"] = biotool_info[
+                    "description"
+                ].replace("\n", "")
     return metadata
 
 
@@ -317,7 +347,9 @@ def parse_tools(repo: Repository) -> List[Dict[str, Any]]:
         for tool in folder:
             # to avoid API request limit issue, wait for one hour
             if g.get_rate_limit().core.remaining < 200:
-                print("WAITING for 1 hour to retrieve GitHub API request access !!!")
+                print(
+                    "WAITING for 1 hour to retrieve GitHub API request access !!!"
+                )
                 print()
                 time.sleep(60 * 60)
             # parse tool
@@ -339,7 +371,13 @@ def parse_tools(repo: Repository) -> List[Dict[str, Any]]:
     return tools
 
 
+@lru_cache  # need to run this for each suite, so just cache it
 def get_all_installed_tool_ids(galaxy_url: str) -> List[str]:
+    """
+    Get all tool ids from a Galaxy server
+
+    :param galaxy_url: urs to instance
+    """
     galaxy_url = galaxy_url.rstrip("/")
     base_url = f"{galaxy_url}/api"
     r = requests.get(f"{base_url}/tools", params={"in_panel": False})
@@ -349,18 +387,65 @@ def get_all_installed_tool_ids(galaxy_url: str) -> List[str]:
 
 
 def check_tools_on_servers(tool_ids: List[str]) -> pd.DataFrame:
-    assert all("/" not in tool_id for tool_id in tool_ids), "This function only works on short tool ids"
+    """
+    Get True/False for each tool on each server
+
+    :param tool_ids: galaxy tool ids
+    """
+    assert all(
+        "/" not in tool_id for tool_id in tool_ids
+    ), "This function only works on short tool ids"
     data: List[Dict[str, bool]] = []
     for galaxy_url in GALAXY_SERVER_URLS:
         installed_tool_ids = get_all_installed_tool_ids(galaxy_url)
         installed_tool_short_ids = [
-            tool_id.split("/")[4] if "/" in tool_id else tool_id for tool_id in installed_tool_ids
+            tool_id.split("/")[4] if "/" in tool_id else tool_id
+            for tool_id in installed_tool_ids
         ]
         d: Dict[str, bool] = {}
         for tool_id in tool_ids:
             d[tool_id] = tool_id in installed_tool_short_ids
         data.append(d)
     return pd.DataFrame(data, index=GALAXY_SERVER_URLS)
+
+
+def get_tool_count_per_server(tool_ids: str) -> str:
+    """
+    Aggregate tool count for each suite for each
+    server into (Number of tools on server/Total number of tools)
+
+    :param tool_ids: string of tools ids for one suite
+    """
+    if type(tool_ids) != str:
+        fallback_series = pd.Series({key: None for key in GALAXY_SERVER_URLS})
+        return fallback_series
+
+    tool_id_list = [x.strip(" ") for x in tool_ids.split(",")]
+    data = check_tools_on_servers(tool_id_list)
+    result_df: pd.DataFrame = pd.DataFrame()
+    result_df["true_count"] = data.sum(axis=1).astype(str)
+    result_df["false_count"] = len(data.columns)
+    result_df["counts"] = result_df.apply(
+        lambda x: "({0}/{1})".format(x["true_count"], x["false_count"]), axis=1
+    )
+
+    count_row = result_df["counts"].T
+    return count_row
+
+
+def add_instances_to_table(
+    table: pd.DataFrame,
+) -> None:
+    """
+    Add tool availability to table
+
+    :param table_path: path to tool table (must include
+    "Galaxy tool ids" column)
+    """
+    new_table = table.join(
+        table["Galaxy tool ids"].apply(get_tool_count_per_server)
+    )
+    return new_table
 
 
 def format_list_column(col: pd.Series) -> pd.Series:
@@ -370,7 +455,9 @@ def format_list_column(col: pd.Series) -> pd.Series:
     return col.apply(lambda x: ", ".join(str(i) for i in x))
 
 
-def export_tools(tools: List[Dict], output_fp: str, format_list_col: bool = False) -> None:
+def export_tools(
+    tools: List[Dict], output_fp: str, format_list_col: bool = False
+) -> None:
     """
     Export tool metadata to tsv output file
 
@@ -380,14 +467,24 @@ def export_tools(tools: List[Dict], output_fp: str, format_list_col: bool = Fals
     """
     df = pd.DataFrame(tools)
     if format_list_col:
-        df["ToolShed categories"] = format_list_column(df["ToolShed categories"])
+        df["ToolShed categories"] = format_list_column(
+            df["ToolShed categories"]
+        )
         df["EDAM operation"] = format_list_column(df["EDAM operation"])
         df["EDAM topic"] = format_list_column(df["EDAM topic"])
-        df["Galaxy tool ids"] = format_list_column(df["Galaxy tool ids"])
+
+    # the Galaxy tools need to be formatted for the add_instances_to_table to work
+    df["Galaxy tool ids"] = format_list_column(df["Galaxy tool ids"])
+    df = add_instances_to_table(df)
     df.to_csv(output_fp, sep="\t", index=False)
 
 
-def filter_tools(tools: List[Dict], ts_cat: List[str], excluded_tools: List[str], keep_tools: List[str]) -> List[Dict]:
+def filter_tools(
+    tools: List[Dict],
+    ts_cat: List[str],
+    excluded_tools: List[str],
+    keep_tools: List[str],
+) -> List[Dict]:
     """
     Filter tools for specific ToolShed categories and add information if to keep or to exclude
 
@@ -418,8 +515,16 @@ if __name__ == "__main__":
     subparser = parser.add_subparsers(dest="command")
     # Extract tools
     extractools = subparser.add_parser("extractools", help="Extract tools")
-    extractools.add_argument("--api", "-a", required=True, help="GitHub access token")
-    extractools.add_argument("--all_tools", "-o", required=True, help="Filepath to TSV with all extracted tools")
+    extractools.add_argument(
+        "--api", "-a", required=True, help="GitHub access token"
+    )
+    extractools.add_argument(
+        "--all_tools",
+        "-o",
+        required=True,
+        help="Filepath to TSV with all extracted tools",
+    )
+
     # Filter tools
     filtertools = subparser.add_parser("filtertools", help="Filter tools")
     filtertools.add_argument(
@@ -428,14 +533,27 @@ if __name__ == "__main__":
         required=True,
         help="Filepath to TSV with all extracted tools, generated by extractools command",
     )
-    filtertools.add_argument("--filtered_tools", "-f", required=True, help="Filepath to TSV with filtered tools")
     filtertools.add_argument(
-        "--categories", "-c", help="Path to a file with ToolShed category to keep in the extraction (one per line)"
+        "--filtered_tools",
+        "-f",
+        required=True,
+        help="Filepath to TSV with filtered tools",
     )
     filtertools.add_argument(
-        "--exclude", "-e", help="Path to a file with ToolShed ids of tools to exclude (one per line)"
+        "--categories",
+        "-c",
+        help="Path to a file with ToolShed category to keep in the extraction (one per line)",
     )
-    filtertools.add_argument("--keep", "-k", help="Path to a file with ToolShed ids of tools to keep (one per line)")
+    filtertools.add_argument(
+        "--exclude",
+        "-e",
+        help="Path to a file with ToolShed ids of tools to exclude (one per line)",
+    )
+    filtertools.add_argument(
+        "--keep",
+        "-k",
+        help="Path to a file with ToolShed ids of tools to keep (one per line)",
+    )
     args = parser.parse_args()
 
     if args.command == "extractools":
@@ -443,6 +561,7 @@ if __name__ == "__main__":
         g = Github(args.api)
         # get list of GitHub repositories to parse
         repo_list = get_tool_github_repositories(g)
+
         # parse tools in GitHub repositories to extract metada, filter by TS categories and export to output file
         tools: List[Dict] = []
         for r in repo_list:
@@ -453,10 +572,20 @@ if __name__ == "__main__":
                 repo = get_github_repo(r, g)
                 tools.extend(parse_tools(repo))
             except Exception as e:
-                print(f"Error while extracting tools from repo {r}: {e}", file=sys.stderr)
+                print(
+                    f"Error while extracting tools from repo {r}: {e}",
+                    file=sys.stderr,
+                )
         export_tools(tools, args.all_tools, format_list_col=True)
+
+    elif args.command == "addinstances":
+        # add instances
+        add_instances_to_table(Path(args.all_tools))
+
     elif args.command == "filtertools":
-        tools = pd.read_csv(Path(args.tools), sep="\t", keep_default_na=False).to_dict("records")
+        tools = pd.read_csv(
+            Path(args.tools), sep="\t", keep_default_na=False
+        ).to_dict("records")
         # get categories and tools to exclude
         categories = read_file(args.categories)
         excl_tools = read_file(args.exclude)
