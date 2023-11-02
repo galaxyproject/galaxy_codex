@@ -15,42 +15,18 @@ def generate_table(
 
     df = df.fillna("")
 
-    # TODO maybe allow comunities to modify
-    columns = [
-        "Expand",
-        "Galaxy wrapper id",
-        "Galaxy wrapper version",
-        "Conda version",
-        "Conda id",
-        "Status",
-        "bio.tool id",
-        "bio.tool name",
-        "EDAM operation",
-        "EDAM topic",
-        "Description",
-        "bio.tool description",
-        "Status",
-        "Source",
-        "ToolShed categories",
-        "ToolShed id",
-        "Galaxy wrapper owner",
-        "Galaxy wrapper source",
-    ]
-
+    #we assume this column is here
     df = df[df["To keep"]]
 
-    df = df.loc[:, columns]
-    df = df.reindex(columns=columns)
-
-    table_str = df.to_html(border=0, table_id="dataframe", classes=["display", "nowrap"], index=False)
+    table_str = df.to_html(border=0, 
+                           table_id="dataframe", 
+                           classes=["display", "nowrap"], 
+                           index=False)
 
     with open(template_path) as template_file:
         template = template_file.read()
 
-    with open("temp_tools_table.html") as table_file:
-        table = table_file.read()
-
-    final_html_output = template.replace("COMMUNITY_TABLE", table)
+    final_html_output = template.replace("COMMUNITY_TABLE", table_str)
 
     with open(output_path, "w") as output:
         output.write(final_html_output)
