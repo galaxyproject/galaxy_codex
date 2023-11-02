@@ -385,16 +385,16 @@ def get_tool_count_per_server(tool_ids: str) -> pd.Series:
     if isinstance(tool_ids, str):
         fallback_series = pd.Series({key: None for key in GALAXY_SERVER_URLS})
         return fallback_series
+    else:
+        tool_id_list = [x.strip(" ") for x in tool_ids.split(",")]
+        data = check_tools_on_servers(tool_id_list)
+        result_df: pd.DataFrame = pd.DataFrame()
+        result_df["true_count"] = data.sum(axis=1).astype(str)
+        result_df["false_count"] = len(data.columns)
+        result_df["counts"] = result_df.apply(lambda x: "({}/{})".format(x["true_count"], x["false_count"]), axis=1)
 
-    tool_id_list = [x.strip(" ") for x in tool_ids.split(",")]
-    data = check_tools_on_servers(tool_id_list)
-    result_df: pd.DataFrame = pd.DataFrame()
-    result_df["true_count"] = data.sum(axis=1).astype(str)
-    result_df["false_count"] = len(data.columns)
-    result_df["counts"] = result_df.apply(lambda x: "({}/{})".format(x["true_count"], x["false_count"]), axis=1)
-
-    count_row = result_df["counts"].T
-    return count_row
+        count_row = result_df["counts"].T
+        return count_row
 
 
 def add_instances_to_table(
