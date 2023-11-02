@@ -42,7 +42,7 @@ def generate_table(
     df = df.loc[:, columns]
     df = df.reindex(columns=columns)
 
-    df.to_html("temp_tools_table.html", border=0, table_id="dataframe", classes=["display", "nowrap"], index=False)
+    table_str = df.to_html(border=0, table_id="dataframe", classes=["display", "nowrap"], index=False)
 
     with open(template_path) as template_file:
         template = template_file.read()
