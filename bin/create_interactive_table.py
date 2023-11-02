@@ -4,7 +4,6 @@ import argparse
 
 import pandas as pd
 
-
 # TODO maybe allow comunities to modify
 COLUMNS = [
     "Expand",
