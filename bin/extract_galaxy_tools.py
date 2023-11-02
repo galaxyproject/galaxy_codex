@@ -89,7 +89,9 @@ def get_github_repo(url: str, g: Github) -> Repository:
     return g.get_user(u_split[-2]).get_repo(u_split[-1])
 
 
-def get_shed_attribute(attrib: str, shed_content: Dict[str, Any], empty_value: Any) -> Any:
+def get_shed_attribute(
+    attrib: str, shed_content: Dict[str, Any], empty_value: Any
+) -> Any:
     """
     Get a shed attribute
 
@@ -155,7 +157,9 @@ def check_categories(ts_categories: str, ts_cat: List[str]) -> bool:
     return bool(set(ts_cat) & set(ts_cats))
 
 
-def get_tool_metadata(tool: ContentFile, repo: Repository) -> Optional[Dict[str, Any]]:
+def get_tool_metadata(
+    tool: ContentFile, repo: Repository
+) -> Optional[Dict[str, Any]]:
     """
     Get tool metadata from the .shed.yaml, requirements in the macros or xml
     file,  bio.tools information if available in the macros or xml, EDAM
@@ -193,17 +197,27 @@ def get_tool_metadata(tool: ContentFile, repo: Repository) -> Optional[Dict[str,
     else:
         file_content = get_string_content(shed)
         yaml_content = yaml.load(file_content, Loader=yaml.FullLoader)
-        metadata["Description"] = get_shed_attribute("description", yaml_content, None)
+        metadata["Description"] = get_shed_attribute(
+            "description", yaml_content, None
+        )
         if metadata["Description"] is None:
-            metadata["Description"] = get_shed_attribute("long_description", yaml_content, None)
+            metadata["Description"] = get_shed_attribute(
+                "long_description", yaml_content, None
+            )
         if metadata["Description"] is not None:
             metadata["Description"] = metadata["Description"].replace("\n", "")
         metadata["ToolShed id"] = get_shed_attribute("name", yaml_content, None)
-        metadata["Galaxy wrapper owner"] = get_shed_attribute("owner", yaml_content, None)
-        metadata["Galaxy wrapper source"] = get_shed_attribute("remote_repository_url", yaml_content, None)
+        metadata["Galaxy wrapper owner"] = get_shed_attribute(
+            "owner", yaml_content, None
+        )
+        metadata["Galaxy wrapper source"] = get_shed_attribute(
+            "remote_repository_url", yaml_content, None
+        )
         if "homepage_url" in yaml_content:
             metadata["Source"] = yaml_content["homepage_url"]
-        metadata["ToolShed categories"] = get_shed_attribute("categories", yaml_content, [])
+        metadata["ToolShed categories"] = get_shed_attribute(
+            "categories", yaml_content, []
+        )
         if metadata["ToolShed categories"] is None:
             metadata["ToolShed categories"] = []
     # find and parse macro file
@@ -215,7 +229,10 @@ def get_tool_metadata(tool: ContentFile, repo: Repository) -> Optional[Dict[str,
             root = et.fromstring(file_content)
             for child in root:
                 if "name" in child.attrib:
-                    if child.attrib["name"] == "@TOOL_VERSION@" or child.attrib["name"] == "@VERSION@":
+                    if (
+                        child.attrib["name"] == "@TOOL_VERSION@"
+                        or child.attrib["name"] == "@VERSION@"
+                    ):
                         metadata["Galaxy wrapper version"] = child.text
                     elif child.attrib["name"] == "requirements":
                         metadata["Conda id"] = get_conda_package(child)
@@ -242,9 +259,12 @@ def get_tool_metadata(tool: ContentFile, repo: Repository) -> Optional[Dict[str,
                             if macros is not None:
                                 for child in macros:
                                     if "name" in child.attrib and (
-                                        child.attrib["name"] == "@TOOL_VERSION@" or child.attrib["name"] == "@VERSION@"
+                                        child.attrib["name"] == "@TOOL_VERSION@"
+                                        or child.attrib["name"] == "@VERSION@"
                                     ):
-                                        metadata["Galaxy wrapper version"] = child.text
+                                        metadata[
+                                            "Galaxy wrapper version"
+                                        ] = child.text
                 # bio.tools
                 if metadata["bio.tool id"] is None:
                     biotools = get_biotools(root)
@@ -260,16 +280,23 @@ def get_tool_metadata(tool: ContentFile, repo: Repository) -> Optional[Dict[str,
                     metadata["Galaxy tool ids"].append(root.attrib["id"])
     # get latest conda version and compare to the wrapper version
     if metadata["Conda id"] is not None:
-        r = requests.get(f'https://api.anaconda.org/package/bioconda/{metadata["Conda id"]}')
+        r = requests.get(
+            f'https://api.anaconda.org/package/bioconda/{metadata["Conda id"]}'
+        )
         if r.status_code == requests.codes.ok:
             conda_info = r.json()
             if "latest_version" in conda_info:
                 metadata["Conda version"] = conda_info["latest_version"]
-                if metadata["Conda version"] == metadata["Galaxy wrapper version"]:
+                if (
+                    metadata["Conda version"]
+                    == metadata["Galaxy wrapper version"]
+                ):
                     metadata["Status"] = "Up-to-date"
     # get bio.tool information
     if metadata["bio.tool id"] is not None:
-        r = requests.get(f'{BIOTOOLS_API_URL}/api/tool/{metadata["bio.tool id"]}/?format=json')
+        r = requests.get(
+            f'{BIOTOOLS_API_URL}/api/tool/{metadata["bio.tool id"]}/?format=json'
+        )
         if r.status_code == requests.codes.ok:
             biotool_info = r.json()
             if "function" in biotool_info:
@@ -283,7 +310,9 @@ def get_tool_metadata(tool: ContentFile, repo: Repository) -> Optional[Dict[str,
             if "name" in biotool_info:
                 metadata["bio.tool name"] = biotool_info["name"]
             if "description" in biotool_info:
-                metadata["bio.tool description"] = biotool_info["description"].replace("\n", "")
+                metadata["bio.tool description"] = biotool_info[
+                    "description"
+                ].replace("\n", "")
     return metadata
 
 
@@ -318,7 +347,9 @@ def parse_tools(repo: Repository) -> List[Dict[str, Any]]:
         for tool in folder:
             # to avoid API request limit issue, wait for one hour
             if g.get_rate_limit().core.remaining < 200:
-                print("WAITING for 1 hour to retrieve GitHub API request access !!!")
+                print(
+                    "WAITING for 1 hour to retrieve GitHub API request access !!!"
+                )
                 print()
                 time.sleep(60 * 60)
             # parse tool
@@ -361,12 +392,15 @@ def check_tools_on_servers(tool_ids: List[str]) -> pd.DataFrame:
 
     :param tool_ids: galaxy tool ids
     """
-    assert all("/" not in tool_id for tool_id in tool_ids), "This function only works on short tool ids"
+    assert all(
+        "/" not in tool_id for tool_id in tool_ids
+    ), "This function only works on short tool ids"
     data: List[Dict[str, bool]] = []
     for galaxy_url in GALAXY_SERVER_URLS:
         installed_tool_ids = get_all_installed_tool_ids(galaxy_url)
         installed_tool_short_ids = [
-            tool_id.split("/")[4] if "/" in tool_id else tool_id for tool_id in installed_tool_ids
+            tool_id.split("/")[4] if "/" in tool_id else tool_id
+            for tool_id in installed_tool_ids
         ]
         d: Dict[str, bool] = {}
         for tool_id in tool_ids:
@@ -375,7 +409,7 @@ def check_tools_on_servers(tool_ids: List[str]) -> pd.DataFrame:
     return pd.DataFrame(data, index=GALAXY_SERVER_URLS)
 
 
-def get_tool_count_per_server(tool_ids: str) -> str:
+def get_tool_count_per_server(tool_ids: str) -> pd.Series:
     """
     Aggregate tool count for each suite for each
     server into (Number of tools on server/Total number of tools)
@@ -391,7 +425,9 @@ def get_tool_count_per_server(tool_ids: str) -> str:
     result_df: pd.DataFrame = pd.DataFrame()
     result_df["true_count"] = data.sum(axis=1).astype(str)
     result_df["false_count"] = len(data.columns)
-    result_df["counts"] = result_df.apply(lambda x: "({}/{})".format(x["true_count"], x["false_count"]), axis=1)
+    result_df["counts"] = result_df.apply(
+        lambda x: "({}/{})".format(x["true_count"], x["false_count"]), axis=1
+    )
 
     count_row = result_df["counts"].T
     return count_row
@@ -399,14 +435,16 @@ def get_tool_count_per_server(tool_ids: str) -> str:
 
 def add_instances_to_table(
     table: pd.DataFrame,
-) -> None:
+) -> pd.DataFrame:
     """
     Add tool availability to table
 
     :param table_path: path to tool table (must include
     "Galaxy tool ids" column)
     """
-    new_table = table.join(table["Galaxy tool ids"].apply(get_tool_count_per_server))
+    new_table = table.join(
+        table["Galaxy tool ids"].apply(get_tool_count_per_server)
+    )
     return new_table
 
 
@@ -417,7 +455,9 @@ def format_list_column(col: pd.Series) -> pd.Series:
     return col.apply(lambda x: ", ".join(str(i) for i in x))
 
 
-def export_tools(tools: List[Dict], output_fp: str, format_list_col: bool = False) -> None:
+def export_tools(
+    tools: List[Dict], output_fp: str, format_list_col: bool = False
+) -> None:
     """
     Export tool metadata to tsv output file
 
@@ -427,13 +467,16 @@ def export_tools(tools: List[Dict], output_fp: str, format_list_col: bool = Fals
     """
     df = pd.DataFrame(tools)
     if format_list_col:
-        df["ToolShed categories"] = format_list_column(df["ToolShed categories"])
+        df["ToolShed categories"] = format_list_column(
+            df["ToolShed categories"]
+        )
         df["EDAM operation"] = format_list_column(df["EDAM operation"])
         df["EDAM topic"] = format_list_column(df["EDAM topic"])
 
-    # the Galaxy tools need to be formatted for the add_instances_to_table to work
-    df["Galaxy tool ids"] = format_list_column(df["Galaxy tool ids"])
-    df = add_instances_to_table(df)
+        # the Galaxy tools need to be formatted for the add_instances_to_table to work
+        df["Galaxy tool ids"] = format_list_column(df["Galaxy tool ids"])
+        df = add_instances_to_table(df)
+
     df.to_csv(output_fp, sep="\t", index=False)
 
 
@@ -473,7 +516,9 @@ if __name__ == "__main__":
     subparser = parser.add_subparsers(dest="command")
     # Extract tools
     extractools = subparser.add_parser("extractools", help="Extract tools")
-    extractools.add_argument("--api", "-a", required=True, help="GitHub access token")
+    extractools.add_argument(
+        "--api", "-a", required=True, help="GitHub access token"
+    )
     extractools.add_argument(
         "--all_tools",
         "-o",
@@ -534,12 +579,10 @@ if __name__ == "__main__":
                 )
         export_tools(tools, args.all_tools, format_list_col=True)
 
-    elif args.command == "addinstances":
-        # add instances
-        add_instances_to_table(Path(args.all_tools))
-
     elif args.command == "filtertools":
-        tools = pd.read_csv(Path(args.tools), sep="\t", keep_default_na=False).to_dict("records")
+        tools = pd.read_csv(
+            Path(args.tools), sep="\t", keep_default_na=False
+        ).to_dict("records")
         # get categories and tools to exclude
         categories = read_file(args.categories)
         excl_tools = read_file(args.exclude)
