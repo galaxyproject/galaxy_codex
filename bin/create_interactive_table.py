@@ -39,7 +39,11 @@ def generate_table(
     df = (df[df["To keep"]]
         .loc[:, COLUMNS]
         .reindex(columns=COLUMNS))
-    table = df.to_html(border=0, table_id="dataframe", classes=["display", "nowrap"], index=False)
+    table = df.to_html(
+        border=0,
+        table_id="dataframe",
+        classes=["display", "nowrap"],
+        index=False)
 
     with open(template_path) as template_file:
         template = template_file.read()
