@@ -375,19 +375,17 @@ def check_tools_on_servers(tool_ids: List[str]) -> pd.DataFrame:
     return pd.DataFrame(data, index=GALAXY_SERVER_URLS)
 
 
-def get_tool_count_per_server(tool_ids: str) -> pd.Series:
+def get_tool_count_per_server(tool_ids: Any) -> pd.Series:
     """
     Aggregate tool count for each suite for each
     server into (Number of tools on server/Total number of tools)
 
     :param tool_ids: string of tools ids for one suite
     """
-    if isinstance(tool_ids, str):
+    if not isinstance(tool_ids, str):
         series = pd.Series({key: None for key in GALAXY_SERVER_URLS})
     else:
-        tool_id_list: list = []
-        for x in tool_ids.split(","):
-            tool_id_list.append(x.strip(" "))
+        tool_id_list = [x.strip(" ") for x in tool_ids.split(",")]
         data = check_tools_on_servers(tool_id_list)
         result_df: pd.DataFrame = pd.DataFrame()
         result_df["true_count"] = data.sum(axis=1).astype(str)
