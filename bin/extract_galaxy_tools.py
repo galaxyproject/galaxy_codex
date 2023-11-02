@@ -383,8 +383,7 @@ def get_tool_count_per_server(tool_ids: str) -> pd.Series:
     :param tool_ids: string of tools ids for one suite
     """
     if isinstance(tool_ids, str):
-        fallback_series = pd.Series({key: None for key in GALAXY_SERVER_URLS})
-        return fallback_series
+        series = pd.Series({key: None for key in GALAXY_SERVER_URLS})
     else:
         tool_id_list = [x.strip(" ") for x in tool_ids.split(",")]
         data = check_tools_on_servers(tool_id_list)
@@ -393,8 +392,9 @@ def get_tool_count_per_server(tool_ids: str) -> pd.Series:
         result_df["false_count"] = len(data.columns)
         result_df["counts"] = result_df.apply(lambda x: "({}/{})".format(x["true_count"], x["false_count"]), axis=1)
 
-        count_row = result_df["counts"].T
-        return count_row
+        series = result_df["counts"].T
+
+    return series
 
 
 def add_instances_to_table(
