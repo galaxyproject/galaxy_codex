@@ -2,9 +2,12 @@
 name: Deploy static content to Pages
 
 on:
-  # Runs on pushes targeting the default branch
+  # the workflow it triggered only when results are changed
   push:
+    paths:
+    - 'results'
     branches: ["main"]
+
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
