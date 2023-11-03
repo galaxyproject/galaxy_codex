@@ -345,7 +345,7 @@ def get_all_installed_tool_ids(galaxy_url: str) -> List[str]:
     """
     Get all tool ids from a Galaxy server
 
-    :param galaxy_url: urs to instance
+    :param galaxy_url: URL of Galaxy instance
     """
     galaxy_url = galaxy_url.rstrip("/")
     base_url = f"{galaxy_url}/api"
