@@ -57,18 +57,27 @@ def get_string_content(cf: ContentFile) -> str:
     return base64.b64decode(cf.content).decode("utf-8")
 
 
-def get_tool_github_repositories(g: Github) -> List[str]:
+def get_tool_github_repositories(g: Github, RepoSelection: Optional[str]) -> List[str]:
     """
     Get list of tool GitHub repositories to parse
 
     :param g: GitHub instance
+    :param RepoSelection: The selection to use from the repository (needed to split the process for CI jobs)
     """
+
     repo = g.get_user("galaxyproject").get_repo("planemo-monitor")
     repo_list: List[str] = []
     for i in range(1, 5):
-        repo_f = repo.get_contents(f"repositories0{i}.list")
-        repo_l = get_string_content(repo_f).rstrip()
-        repo_list.extend(repo_l.split("\n"))
+        repo_selection = f"repositories0{i}.list"
+        if RepoSelection:  # only get these repositories
+            if RepoSelection == repo_selection:
+                repo_f = repo.get_contents(repo_selection)
+                repo_l = get_string_content(repo_f).rstrip()
+                repo_list.extend(repo_l.split("\n"))
+        else:
+            repo_f = repo.get_contents(repo_selection)
+            repo_l = get_string_content(repo_f).rstrip()
+            repo_list.extend(repo_l.split("\n"))
     return repo_list
 
 
@@ -475,11 +484,9 @@ if __name__ == "__main__":
     # Extract tools
     extractools = subparser.add_parser("extractools", help="Extract tools")
     extractools.add_argument("--api", "-a", required=True, help="GitHub access token")
+    extractools.add_argument("--all_tools", "-o", required=True, help="Filepath to TSV with all extracted tools")
     extractools.add_argument(
-        "--all_tools",
-        "-o",
-        required=True,
-        help="Filepath to TSV with all extracted tools",
+        "--planemorepository", "-pr", required=False, help="Repository list to use from the planemo-monitor repository"
     )
 
     # Filter tools
@@ -517,8 +524,7 @@ if __name__ == "__main__":
         # connect to GitHub
         g = Github(args.api)
         # get list of GitHub repositories to parse
-        repo_list = get_tool_github_repositories(g)
-
+        repo_list = get_tool_github_repositories(g, args.planemorepository)
         # parse tools in GitHub repositories to extract metada, filter by TS categories and export to output file
         tools: List[Dict] = []
         for r in repo_list:
