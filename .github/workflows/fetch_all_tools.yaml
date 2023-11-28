@@ -30,15 +30,18 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
     - name: Install requirement
       run: python -m pip install -r requirements.txt
     - name: Run script
       # run: bash bin/extract_all_tools.sh
       run: | 
+        'ls -la'
         'bash ./bin/extract_all_tools.sh "${{ matrix.subset }}"'
       env:
         GITHUB_API_KEY:  ${{ secrets.GITHUB_TOKEN }}
-    - name: Commit all tools
+    - name: Commit all tools 
       run: |
         git config user.name github-actions
         git config user.email github-actions@github.com
