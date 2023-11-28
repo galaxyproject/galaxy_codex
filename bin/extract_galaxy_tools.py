@@ -62,7 +62,7 @@ def get_tool_github_repositories(g: Github, RepoSelection: Optional[str]) -> Lis
     repo_list: List[str] = []
     for i in range(1, 5):
         repo_selection = f"repositories0{i}.list"
-        if RepoSelection: # only get these repositories
+        if RepoSelection:  # only get these repositories
             if RepoSelection == repo_selection:
                 repo_f = repo.get_contents(repo_selection)
                 repo_l = get_string_content(repo_f).rstrip()
