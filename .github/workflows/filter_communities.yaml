@@ -19,7 +19,7 @@ permissions:
   contents: write
 
 jobs:
-  fetch-all-tools:
+  filter-all-tools:
     runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v3
@@ -32,9 +32,9 @@ jobs:
       env:
         GITHUB_API_KEY:  ${{ secrets.GITHUB_TOKEN }}
     - name: Commit results
+      # commit the new filtered data, only if stuff was changed
       run: |
         git config user.name github-actions
         git config user.email github-actions@github.com
-        git add results
-        git commit -m "filter communities bot"
+        git diff --quiet || (git add results && git commit -m "filter communities bot") 
         git push
