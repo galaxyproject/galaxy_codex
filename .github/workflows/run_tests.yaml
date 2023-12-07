@@ -1,0 +1,65 @@
+name: Run tests
+
+on:
+  workflow_dispatch:
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "tools"
+  cancel-in-progress: false
+  
+permissions:
+  contents: write
+
+jobs:
+  fetch-all-tools-stepwise:
+    runs-on: ubuntu-20.04
+    name: Fetch all tool stepwise
+    strategy:
+      matrix:
+        python-version: [3.8]
+        subset:
+         - repositories01.list
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install requirement
+        run: python -m pip install -r requirements.txt
+      - name: Run script
+        # run: bash bin/extract_all_tools.sh
+        run: | 
+          bash ./bin/extract_all_tools_test.sh "${{ matrix.subset }}"
+        env:
+          GITHUB_API_KEY:  ${{ secrets.GITHUB_TOKEN }}
+      - name: Commit all tools 
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add results
+          git commit -m "fetch all tools bot"
+          git push
+  fetch-all-tools-merge:
+    runs-on: ubuntu-20.04
+    needs: fetch-all-tools-stepwise
+    name: Fetch all tools merge
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+      - name: Install requirement
+        run: python -m pip install -r requirements.txt
+      - name: Run script
+        run: | 
+          bash ./bin/extract_all_tools_merge.sh
+          bash ./bin/extract_all_tools_downstream.sh
+        env:
+          GITHUB_API_KEY:  ${{ secrets.GITHUB_TOKEN }}
+      - name: Commit all tools
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add results
+          git commit -m "fetch all tools bot"
+          git push
