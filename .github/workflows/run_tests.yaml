@@ -32,7 +32,7 @@ jobs:
       - name: Run script
         # run: bash bin/extract_all_tools.sh
         run: | 
-          export GITHUB_API_KEY=${{ env.GH_API_TOKEN }}
+          export GITHUB_API_KEY=${{ secrets.GH_API_TOKEN }}
           echo $GITHUB_API_KEY
           bash ./bin/extract_all_tools_test.sh "${{ matrix.subset }}"
       - name: Commit all tools 
