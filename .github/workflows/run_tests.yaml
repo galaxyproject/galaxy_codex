@@ -33,7 +33,6 @@ jobs:
         # run: bash bin/extract_all_tools.sh
         run: | 
           export GITHUB_API_KEY=${{ secrets.GH_API_TOKEN }}
-          echo $GITHUB_API_KEY
           bash ./bin/extract_all_tools_test.sh "${{ matrix.subset }}"
       - name: Commit all tools 
         run: |
@@ -56,8 +55,6 @@ jobs:
         run: | 
           cat results/repositories*.list_tools.tsv > results/all_tools.tsv
           bash ./bin/extract_all_tools_downstream.sh
-        env:
-          GITHUB_API_KEY:  ${{ secrets.GITHUB_TOKEN }}
       - name: Commit all tools
         run: |
           git config user.name github-actions
