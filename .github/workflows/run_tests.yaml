@@ -43,7 +43,6 @@ jobs:
           git commit -m "fetch all tools bot"
           git push
 
-          
   fetch-all-tools-merge:
     runs-on: ubuntu-20.04
     needs: fetch-all-tools-stepwise
@@ -55,7 +54,7 @@ jobs:
         run: python -m pip install -r requirements.txt
       - name: Run script
         run: | 
-          bash ./bin/extract_all_tools_merge.sh
+          cat results/repositories*.list_tools.tsv > results/all_tools.tsv
           bash ./bin/extract_all_tools_downstream.sh
         env:
           GITHUB_API_KEY:  ${{ secrets.GITHUB_TOKEN }}
