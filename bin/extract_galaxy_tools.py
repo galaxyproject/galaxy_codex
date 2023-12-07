@@ -50,13 +50,17 @@ def get_string_content(cf: ContentFile) -> str:
     return base64.b64decode(cf.content).decode("utf-8")
 
 
-def get_tool_github_repositories(g: Github, RepoSelection: Optional[str]) -> List[str]:
+def get_tool_github_repositories(g: Github, RepoSelection: Optional[str], run_test: bool) -> List[str]:
     """
     Get list of tool GitHub repositories to parse
 
     :param g: GitHub instance
     :param RepoSelection: The selection to use from the repository (needed to split the process for CI jobs)
+    :run_test: for CI testing only use one repository
     """
+
+    if run_test:
+        return ["https://github.com/TGAC/earlham-galaxytools"]
 
     repo = g.get_user("galaxyproject").get_repo("planemo-monitor")
     repo_list: List[str] = []
@@ -408,6 +412,15 @@ if __name__ == "__main__":
         "--planemorepository", "-pr", required=False, help="Repository list to use from the planemo-monitor repository"
     )
 
+    extractools.add_argument(
+        "--test",
+        "-t",
+        action="store_true",
+        default=False,
+        required=False,
+        help="Run a small test case using only the repository: https://github.com/TGAC/earlham-galaxytools",
+    )
+
     # Filter tools
     filtertools = subparser.add_parser("filtertools", help="Filter tools")
     filtertools.add_argument(
@@ -430,7 +443,7 @@ if __name__ == "__main__":
         # connect to GitHub
         g = Github(args.api)
         # get list of GitHub repositories to parse
-        repo_list = get_tool_github_repositories(g, args.planemorepository)
+        repo_list = get_tool_github_repositories(g, args.planemorepository, args.test)
         # parse tools in GitHub repositories to extract metada, filter by TS categories and export to output file
         tools: List[Dict] = []
         for r in repo_list:
