@@ -37,8 +37,7 @@ jobs:
       - name: Run script
         # run: bash bin/extract_all_tools.sh
         run: | 
-          ls
-          bash ./bin/extract_all_tools.sh "${{ matrix.subset }}"
+          bash ./bin/extract_all_tools_stepwise.sh "${{ matrix.subset }}"
         env:
           GITHUB_API_KEY:  ${{ secrets.GITHUB_TOKEN }}
       - name: Commit all tools 

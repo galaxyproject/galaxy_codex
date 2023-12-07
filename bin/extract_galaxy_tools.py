@@ -71,6 +71,11 @@ def get_tool_github_repositories(g: Github, RepoSelection: Optional[str]) -> Lis
             repo_f = repo.get_contents(repo_selection)
             repo_l = get_string_content(repo_f).rstrip()
             repo_list.extend(repo_l.split("\n"))
+
+    print("Parsing repositories from:")
+    for repo in repo_list:
+        print("\t", repo)
+
     return repo_list
 
 
@@ -429,7 +434,7 @@ if __name__ == "__main__":
         # parse tools in GitHub repositories to extract metada, filter by TS categories and export to output file
         tools: List[Dict] = []
         for r in repo_list:
-            print(r)
+            print("Parsing tools from:", (r))
             if "github" not in r:
                 continue
             try:
