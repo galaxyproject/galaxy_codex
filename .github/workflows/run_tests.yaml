@@ -21,7 +21,7 @@ jobs:
       matrix:
         python-version: [3.8]
         subset:
-         - repositories01.list
+         - repositories02.list
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
@@ -38,25 +38,27 @@ jobs:
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git diff --quiet || (git add results && git commit -m "fetch all tools bot  - step fetch") 
+          git add results
+          git diff --quiet || (git commit -m "fetch all tools bot  - step fetch") 
+          git pull -s recursive -X ours
           git push
 
-  fetch-all-tools-merge:
-    runs-on: ubuntu-20.04
-    needs: fetch-all-tools-stepwise
-    name: Fetch all tools merge
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
-      - name: Install requirement
-        run: python -m pip install -r requirements.txt
-      - name: Run script
-        run: | 
-          cat results/repositories*.list_tools.tsv > results/all_tools.tsv
-          bash ./bin/extract_all_tools_downstream.sh
-      - name: Commit all tools
-        run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git diff --quiet || (git add results && git commit -m "fetch all tools bot  - step merge") 
-          git push
+  # fetch-all-tools-merge:
+  #   runs-on: ubuntu-20.04
+  #   needs: fetch-all-tools-stepwise
+  #   name: Fetch all tools merge
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - uses: actions/setup-python@v4
+  #     - name: Install requirement
+  #       run: python -m pip install -r requirements.txt
+  #     - name: Run script
+  #       run: | 
+  #         cat results/repositories*.list_tools.tsv > results/all_tools.tsv
+  #         bash ./bin/extract_all_tools_downstream.sh
+  #     - name: Commit all tools
+  #       run: |
+  #         git config user.name github-actions
+  #         git config user.email github-actions@github.com
+  #         git diff --quiet || (git add results && git commit -m "fetch all tools bot  - step merge") 
+  #         git push
