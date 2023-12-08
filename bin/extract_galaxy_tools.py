@@ -5,6 +5,7 @@ import base64
 import sys
 import time
 import xml.etree.ElementTree as et
+from functools import lru_cache
 from pathlib import Path
 from typing import (
     Any,
@@ -23,6 +24,12 @@ from github.Repository import Repository
 # Config variables
 BIOTOOLS_API_URL = "https://bio.tools"
 # BIOTOOLS_API_URL = "https://130.226.25.21"
+
+GALAXY_SERVER_URLS = [
+    "https://usegalaxy.org",
+    "https://usegalaxy.org.au",
+    "https://usegalaxy.eu",
+]
 
 
 def read_file(filepath: Optional[str]) -> List[str]:
@@ -351,6 +358,76 @@ def parse_tools(repo: Repository) -> List[Dict[str, Any]]:
     return tools
 
 
+@lru_cache  # need to run this for each suite, so just cache it
+def get_all_installed_tool_ids(galaxy_url: str) -> List[str]:
+    """
+    Get all tool ids from a Galaxy server
+
+    :param galaxy_url: URL of Galaxy instance
+    """
+    galaxy_url = galaxy_url.rstrip("/")
+    base_url = f"{galaxy_url}/api"
+    r = requests.get(f"{base_url}/tools", params={"in_panel": False})
+    r.raise_for_status()
+    tool_dict_list = r.json()
+    return [tool_dict["id"] for tool_dict in tool_dict_list]
+
+
+def check_tools_on_servers(tool_ids: List[str]) -> pd.DataFrame:
+    """
+    Get True/False for each tool on each server
+
+    :param tool_ids: galaxy tool ids
+    """
+    assert all("/" not in tool_id for tool_id in tool_ids), "This function only works on short tool ids"
+    data: List[Dict[str, bool]] = []
+    for galaxy_url in GALAXY_SERVER_URLS:
+        installed_tool_ids = get_all_installed_tool_ids(galaxy_url)
+        installed_tool_short_ids = [
+            tool_id.split("/")[4] if "/" in tool_id else tool_id for tool_id in installed_tool_ids
+        ]
+        d: Dict[str, bool] = {}
+        for tool_id in tool_ids:
+            d[tool_id] = tool_id in installed_tool_short_ids
+        data.append(d)
+    return pd.DataFrame(data, index=GALAXY_SERVER_URLS)
+
+
+def get_tool_count_per_server(tool_ids: Any) -> pd.Series:
+    """
+    Aggregate tool count for each suite for each
+    server into (Number of tools on server/Total number of tools)
+
+    :param tool_ids: string of tools ids for one suite
+    """
+    if not isinstance(tool_ids, str):
+        series = pd.Series({key: None for key in GALAXY_SERVER_URLS})
+    else:
+        tool_id_list = [x.strip(" ") for x in tool_ids.split(",")]
+        data = check_tools_on_servers(tool_id_list)
+        result_df: pd.DataFrame = pd.DataFrame()
+        result_df["true_count"] = data.sum(axis=1).astype(str)
+        result_df["false_count"] = len(data.columns)
+        result_df["counts"] = result_df.apply(lambda x: "({}/{})".format(x["true_count"], x["false_count"]), axis=1)
+
+        series = result_df["counts"].T
+
+    return series
+
+
+def add_instances_to_table(
+    table: pd.DataFrame,
+) -> pd.DataFrame:
+    """
+    Add tool availability to table
+
+    :param table_path: path to tool table (must include
+    "Galaxy tool ids" column)
+    """
+    new_table = table.join(table["Galaxy tool ids"].apply(get_tool_count_per_server))
+    return new_table
+
+
 def format_list_column(col: pd.Series) -> pd.Series:
     """
     Format a column that could be a list before exporting
@@ -371,11 +448,20 @@ def export_tools(tools: List[Dict], output_fp: str, format_list_col: bool = Fals
         df["ToolShed categories"] = format_list_column(df["ToolShed categories"])
         df["EDAM operation"] = format_list_column(df["EDAM operation"])
         df["EDAM topic"] = format_list_column(df["EDAM topic"])
+
+        # the Galaxy tools need to be formatted for the add_instances_to_table to work
         df["Galaxy tool ids"] = format_list_column(df["Galaxy tool ids"])
+        df = add_instances_to_table(df)
+
     df.to_csv(output_fp, sep="\t", index=False)
 
 
-def filter_tools(tools: List[Dict], ts_cat: List[str], excluded_tools: List[str], keep_tools: List[str]) -> List[Dict]:
+def filter_tools(
+    tools: List[Dict],
+    ts_cat: List[str],
+    excluded_tools: List[str],
+    keep_tools: List[str],
+) -> List[Dict]:
     """
     Filter tools for specific ToolShed categories and add information if to keep or to exclude
 
@@ -407,6 +493,7 @@ if __name__ == "__main__":
     # Extract tools
     extractools = subparser.add_parser("extractools", help="Extract tools")
     extractools.add_argument("--api", "-a", required=True, help="GitHub access token")
+
     extractools.add_argument("--all_tools", "-o", required=True, help="Filepath to TSV with all extracted tools")
     extractools.add_argument(
         "--planemorepository", "-pr", required=False, help="Repository list to use from the planemo-monitor repository"
@@ -419,6 +506,7 @@ if __name__ == "__main__":
         default=False,
         required=False,
         help="Run a small test case using only the repository: https://github.com/TGAC/earlham-galaxytools",
+
     )
 
     # Filter tools
@@ -429,21 +517,36 @@ if __name__ == "__main__":
         required=True,
         help="Filepath to TSV with all extracted tools, generated by extractools command",
     )
-    filtertools.add_argument("--filtered_tools", "-f", required=True, help="Filepath to TSV with filtered tools")
     filtertools.add_argument(
-        "--categories", "-c", help="Path to a file with ToolShed category to keep in the extraction (one per line)"
+        "--filtered_tools",
+        "-f",
+        required=True,
+        help="Filepath to TSV with filtered tools",
     )
     filtertools.add_argument(
-        "--exclude", "-e", help="Path to a file with ToolShed ids of tools to exclude (one per line)"
+        "--categories",
+        "-c",
+        help="Path to a file with ToolShed category to keep in the extraction (one per line)",
     )
-    filtertools.add_argument("--keep", "-k", help="Path to a file with ToolShed ids of tools to keep (one per line)")
+    filtertools.add_argument(
+        "--exclude",
+        "-e",
+        help="Path to a file with ToolShed ids of tools to exclude (one per line)",
+    )
+    filtertools.add_argument(
+        "--keep",
+        "-k",
+        help="Path to a file with ToolShed ids of tools to keep (one per line)",
+    )
     args = parser.parse_args()
 
     if args.command == "extractools":
         # connect to GitHub
         g = Github(args.api)
         # get list of GitHub repositories to parse
+
         repo_list = get_tool_github_repositories(g, args.planemorepository, args.test)
+
         # parse tools in GitHub repositories to extract metada, filter by TS categories and export to output file
         tools: List[Dict] = []
         for r in repo_list:
@@ -454,8 +557,12 @@ if __name__ == "__main__":
                 repo = get_github_repo(r, g)
                 tools.extend(parse_tools(repo))
             except Exception as e:
-                print(f"Error while extracting tools from repo {r}: {e}", file=sys.stderr)
+                print(
+                    f"Error while extracting tools from repo {r}: {e}",
+                    file=sys.stderr,
+                )
         export_tools(tools, args.all_tools, format_list_col=True)
+
     elif args.command == "filtertools":
         tools = pd.read_csv(Path(args.tools), sep="\t", keep_default_na=False).to_dict("records")
         # get categories and tools to exclude
