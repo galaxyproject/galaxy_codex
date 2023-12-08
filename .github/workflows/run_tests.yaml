@@ -34,14 +34,14 @@ jobs:
         run: | 
           export GITHUB_API_KEY=${{ secrets.GH_API_TOKEN }}
           bash ./bin/extract_all_tools_test.sh "${{ matrix.subset }}"
-          ls -la results
       - name: Commit all tools 
+        # add or commit any changes in results if there was a change, merge with main and push as bot
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add results
           git status
-          git diff --quiet || (git commit -m "fetch all tools bot  - step fetch") 
+          git diff --quiet && git diff --staged --quiet || (git commit -m "fetch all tools bot  - step fetch") 
           git pull -s recursive -X ours
           git push
 
