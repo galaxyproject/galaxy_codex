@@ -40,11 +40,16 @@ jobs:
           export GITHUB_API_KEY=${{ secrets.GH_API_TOKEN }}
           bash ./bin/extract_all_tools_stepwise.sh "${{ matrix.subset }}"
       - name: Commit all tools 
+        # add or commit any changes in results if there was a change, merge with main and push as bot
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git diff --quiet || (git add results && git commit -m "fetch all tools bot - step collect") 
-          git push -f
+          git add results
+          git status
+          git diff --quiet && git diff --staged --quiet || (git commit -m "fetch all tools bot  - step fetch") 
+          git pull -s recursive -X ours
+          git push
+
   fetch-all-tools-merge:
     runs-on: ubuntu-20.04
     needs: fetch-all-tools-stepwise
@@ -59,8 +64,12 @@ jobs:
           cat results/repositories*.list_tools.tsv > results/all_tools.tsv
           bash ./bin/extract_all_tools_downstream.sh
       - name: Commit all tools
+        # add or commit any changes in results if there was a change, merge with main and push as bot
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git diff --quiet || (git add results && git commit -m "fetch all tools bot  - step merge") 
-          git push -f
+          git add results
+          git status
+          git diff --quiet && git diff --staged --quiet || (git commit -m "fetch all tools bot  - step merge") 
+          git pull -s recursive -X ours
+          git push
