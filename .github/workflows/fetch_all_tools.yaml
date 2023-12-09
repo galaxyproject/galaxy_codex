@@ -44,10 +44,10 @@ jobs:
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
+          git pull --no-rebase -s recursive -X ours
           git add results
           git status
           git diff --quiet && git diff --staged --quiet || (git commit -m "fetch all tools bot  - step fetch") 
-          git pull --rebase -s recursive -X ours
           git push
 
   fetch-all-tools-merge:
