@@ -1,4 +1,4 @@
-Galaxy Tool extractor
+Galaxy Tool Metadata Extractor
 =====================
 
 # What is the tool doing?
