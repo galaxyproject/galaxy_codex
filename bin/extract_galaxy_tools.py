@@ -31,6 +31,56 @@ GALAXY_SERVER_URLS = [
     "https://usegalaxy.eu",
 ]
 
+GALAXY_TOOL_STATS = {"https://usegalaxy.eu usage": "../data/usage_stats/tool_usage_per_user_2022_23_EU.csv"}
+
+def get_last_url_position(toot_id: str) -> str:
+    """
+    Returns the last url position of the toot_id, if the value is not a
+    url it returns the toot_id. So works for local and toolshed
+    installed tools.
+
+    :param tool_id: galaxy tool id
+    """
+
+    toot_id = toot_id.split("/")[-1]
+    return toot_id
+
+
+def add_tool_stats_to_tools(tools_df: pd.DataFrame, tool_stats_path: str, column_name: str) -> pd.DataFrame:
+    """
+    Adds the usage statistics to the community tool table
+
+    :param tool_stats_path: path to the table with
+        the tool stats (csv,
+        must include "tool_name" and "count")
+    :param tools_path: path to the table with
+        the tools (csv,
+        must include "Galaxy wrapper id")
+    :param output_path: path to store the new table
+    :param column_name: column to add for the tool stats,
+        different columns could be added for the main servers
+    """
+
+    # parse csvs
+    tool_stats_df = pd.read_csv(tool_stats_path)
+
+    # extract tool id
+    tool_stats_df["Galaxy wrapper id"] = tool_stats_df["tool_name"].apply(get_last_url_position)
+
+    # group local and toolshed tools into one entry
+    grouped_tool_stats_tools = tool_stats_df.groupby("Galaxy wrapper id", as_index=False)["count"].sum()
+
+    community_tool_stats = pd.merge(grouped_tool_stats_tools, tools_df, on="Galaxy wrapper id")
+    community_tool_stats.rename(columns={"count": column_name}, inplace=True)
+
+    return community_tool_stats
+
+
+def add_usage_stats_for_all_server(tools_df):
+    for column, path in GALAXY_TOOL_STATS.items():
+        tools_df = add_tool_stats_to_tools(tools_df, path, column)
+    return tools_df
+
 
 def read_file(filepath: Optional[str]) -> List[str]:
     """
@@ -452,6 +502,8 @@ def export_tools(tools: List[Dict], output_fp: str, format_list_col: bool = Fals
         # the Galaxy tools need to be formatted for the add_instances_to_table to work
         df["Galaxy tool ids"] = format_list_column(df["Galaxy tool ids"])
         df = add_instances_to_table(df)
+
+    df = add_usage_stats_for_all_server(df)
 
     df.to_csv(output_fp, sep="\t", index=False)
 
