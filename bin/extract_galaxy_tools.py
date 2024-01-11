@@ -31,7 +31,10 @@ GALAXY_SERVER_URLS = [
     "https://usegalaxy.eu",
 ]
 
-GALAXY_TOOL_STATS = {"https://usegalaxy.eu usage": "../data/usage_stats/tool_usage_per_user_2022_23_EU.csv"}
+project_path = Path(__file__).resolve().parent.parent  # galaxy_tool_extractor folder
+usage_stats_path = project_path.joinpath("data", "usage_stats")
+
+GALAXY_TOOL_STATS = {"https://usegalaxy.eu usage": usage_stats_path.joinpath("tool_usage_per_user_2022_23_EU.csv")}
 
 def get_last_url_position(toot_id: str) -> str:
     """
