@@ -36,7 +36,6 @@ usage_stats_path = project_path.joinpath("data", "usage_stats")
 
 GALAXY_TOOL_STATS = {"https://usegalaxy.eu usage": usage_stats_path.joinpath("tool_usage_per_user_2022_23_EU.csv")}
 
-
 def get_last_url_position(toot_id: str) -> str:
     """
     Returns the last url position of the toot_id, if the value is not a
