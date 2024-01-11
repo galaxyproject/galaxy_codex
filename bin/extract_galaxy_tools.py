@@ -2,7 +2,6 @@
 
 import argparse
 import base64
-import os
 import sys
 import time
 import xml.etree.ElementTree as et
