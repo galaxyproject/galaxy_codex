@@ -7,7 +7,12 @@ import time
 import xml.etree.ElementTree as et
 from functools import lru_cache
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import (
+    Any,
+    Dict,
+    List,
+    Optional,
+)
 
 import pandas as pd
 import requests
