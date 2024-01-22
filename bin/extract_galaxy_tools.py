@@ -50,7 +50,7 @@ def get_last_url_position(toot_id: str) -> str:
     return toot_id
 
 
-def add_tool_stats_to_tools(tools_df: pd.DataFrame, tool_stats_path: str, column_name: str) -> pd.DataFrame:
+def add_tool_stats_to_tools(tools_df: pd.DataFrame, tool_stats_path: Path, column_name: str) -> pd.DataFrame:
     """
     Adds the usage statistics to the community tool table
 
@@ -80,7 +80,7 @@ def add_tool_stats_to_tools(tools_df: pd.DataFrame, tool_stats_path: str, column
     return community_tool_stats
 
 
-def add_usage_stats_for_all_server(tools_df):
+def add_usage_stats_for_all_server(tools_df: pd.DataFrame) -> pd.DataFrame:
     for column, path in GALAXY_TOOL_STATS.items():
         tools_df = add_tool_stats_to_tools(tools_df, path, column)
     return tools_df
