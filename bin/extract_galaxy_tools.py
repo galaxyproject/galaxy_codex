@@ -7,12 +7,7 @@ import time
 import xml.etree.ElementTree as et
 from functools import lru_cache
 from pathlib import Path
-from typing import (
-    Any,
-    Dict,
-    List,
-    Optional,
-)
+from typing import Any, Dict, List, Optional
 
 import pandas as pd
 import requests
@@ -35,6 +30,7 @@ project_path = Path(__file__).resolve().parent.parent  # galaxy_tool_extractor f
 usage_stats_path = project_path.joinpath("data", "usage_stats")
 
 GALAXY_TOOL_STATS = {"https://usegalaxy.eu usage": usage_stats_path.joinpath("tool_usage_per_user_2022_23_EU.csv")}
+
 
 def get_last_url_position(toot_id: str) -> str:
     """
