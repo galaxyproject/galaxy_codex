@@ -7,7 +7,6 @@ on:
   push:
     paths:
     - 'results/all_tools_tsv'
-    branches: ["main"]
 
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
 # However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
@@ -34,5 +33,8 @@ jobs:
       run: |
         git config user.name github-actions
         git config user.email github-actions@github.com
-        git diff --quiet || (git add results && git commit -m "filter communities bot") 
+        git pull --no-rebase -s recursive -X ours
+        git add results
+        git status
+        git diff --quiet && git diff --staged --quiet || (git commit -m "fetch all tools bot  - step filter") 
         git push
