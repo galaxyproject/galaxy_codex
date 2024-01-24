@@ -10,9 +10,7 @@ from PIL import Image
 from wordcloud import WordCloud
 
 
-def get_wordcloud(
-    community_tool_path: pd.DataFrame, mask_figure: str, stats_column: str, wordcloud_output_path: str
-) -> None:
+def get_wordcloud(community_tool_path: str, mask_figure: str, stats_column: str, wordcloud_output_path: str) -> None:
     """
     Generate a wordcloud based on the counts for each Galaxy wrapper id
 
@@ -25,7 +23,7 @@ def get_wordcloud(
     :param wordcloud_output_path: Path to store the wordcloud
     """
 
-    community_tool_stats = pd.read_csv(Path(community_tool_path), sep="\t")
+    community_tool_stats = pd.read_csv(community_tool_path, sep="\t")
 
     assert (
         stats_column in community_tool_stats
