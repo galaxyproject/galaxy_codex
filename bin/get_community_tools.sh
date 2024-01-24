@@ -35,5 +35,11 @@ for com_data_fp in data/communities/* ; do
                         --template "data/interactive_table_template.html" \
                         --output "results/$community/index.html"
 
+                python bin/create_wordcloud.py \
+                        --table  "results/$community/tools.tsv" \
+                        --wordcloud_mask "data/usage_stats/wordcloud_mask.png" \
+                        --output "results/$community/tools_wordcloud.png" \
+                        --stats_column "https://usegalaxy.eu usage"
+
   fi;
 done
