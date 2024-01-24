@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import argparse
+from pathlib import Path
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -22,7 +23,7 @@ def get_wordcloud(community_tool_path: str, mask_figure: str, stats_column: str,
     :param wordcloud_output_path: Path to store the wordcloud
     """
 
-    community_tool_stats = pd.read_csv(community_tool_path, sep="\t")
+    community_tool_stats = pd.read_csv(Path(community_tool_path), sep="\t")
 
     assert (
         stats_column in community_tool_stats
