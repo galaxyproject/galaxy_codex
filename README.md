@@ -3,12 +3,16 @@ Galaxy Tool Metadata Extractor
 
 # What is the tool doing?
 
+![plot](docs/images/Preprint_flowchart.png)
+
 - Parse tool GitHub repository from [Planemo monitor listed](https://github.com/galaxyproject/planemo-monitor)
-- Check in each repo, their `.shed.yaml` file and filter for metagenomics or other tag
+- Check in each repo, their `.shed.yaml` file and filter for categories, such as metagenomics 
 - Extract metadata from the `.shed.yaml`
 - Extract the requirements in the macros or xml to get version supported in Galaxy
-- Check against conda the available version
+- Check available against conda version
 - Extract bio.tools information if available in the macros or xml
+- Check available on the 3 main galaxy instances (usegalaxy.eu, usegalaxy.org, usegalaxy.org.au)
+- Get usage statistics form usegalaxy.eu
 
 # Usage
 
@@ -89,12 +93,3 @@ The script will generate a TSV file with each tool found in the list of GitHub r
         [--keep <Path to to-keep tool file category file>]
     ```
 
-### Filter tools for microbial data analysis
-
-For microGalaxy, a Bash script in `bin` can used by running the script
-
-```
-$ bash bin/extract_microgalaxy_tools.sh
-```
-
-It will take the files in the `data/microgalaxy` folder and export the tools into `microgalaxy_tools.csv`
