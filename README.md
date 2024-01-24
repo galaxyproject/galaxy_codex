@@ -3,6 +3,8 @@ Galaxy Tool Metadata Extractor
 
 # What is the tool doing?
 
+![plot](docs/Preprint_flowchart.png)
+
 - Parse tool GitHub repository from [Planemo monitor listed](https://github.com/galaxyproject/planemo-monitor)
 - Check in each repo, their `.shed.yaml` file and filter for metagenomics or other tag
 - Extract metadata from the `.shed.yaml`
