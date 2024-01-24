@@ -74,7 +74,8 @@ def add_tool_stats_to_tools(tools_df: pd.DataFrame, tool_stats_path: Path, colum
     # group local and toolshed tools into one entry
     grouped_tool_stats_tools = tool_stats_df.groupby("Galaxy wrapper id", as_index=False)["count"].sum()
 
-    community_tool_stats = pd.merge(grouped_tool_stats_tools, tools_df, on="Galaxy wrapper id")
+    # keep all rows of the tools table (how='right'), also for those where no stats are available
+    community_tool_stats = pd.merge(grouped_tool_stats_tools, tools_df, how="right", on="Galaxy wrapper id")
     community_tool_stats.rename(columns={"count": column_name}, inplace=True)
 
     return community_tool_stats
