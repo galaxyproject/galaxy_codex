@@ -1,0 +1,2423 @@
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/searchbuilder/1.6.0/js/dataTables.searchBuilder.min.js"></script>
+<script src="https://cdn.datatables.net/datetime/1.5.1/js/dataTables.dateTime.min.js"></script>
+
+<script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/searchbuilder/1.6.0/css/searchBuilder.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/datetime/1.5.1/css/dataTables.dateTime.min.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+<style type="text/css">
+  .tooltip {
+    font-family: Georgia;
+    font-size: 18px;
+  }
+  .tooltip .tooltip-inner {
+    background-color: #00FFFF;
+    color: #000000;
+    min-width: 400px;
+  }
+  </style>
+
+<script>
+    $(document).ready(function() {
+    $('#dataframe').DataTable( {
+        "sScrollX": "100%",
+        "dom": "Qlfrtip",
+
+        responsive: {
+            details: {
+                type: 'column'
+            }
+        },
+        "bAutoWidth": false,
+        columnDefs: [ {
+            className: 'control',
+            orderable: false,
+            targets:   [ 0 ],
+            width: 100,
+        },
+        { type: 'natural', targets: 1 } // allow normal sorting
+        ],
+
+    });
+});
+</script>
+
+<div class="display nowrap" style="width:80%" width="100%">
+
+<table class="dataframe display nowrap" id="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Expand</th>
+      <th>Galaxy wrapper id</th>
+      <th>Galaxy wrapper version</th>
+      <th>Conda version</th>
+      <th>Conda id</th>
+      <th>Status</th>
+      <th>bio.tool id</th>
+      <th>bio.tool name</th>
+      <th>EDAM operation</th>
+      <th>EDAM topic</th>
+      <th>Description</th>
+      <th>bio.tool description</th>
+      <th>Status</th>
+      <th>Source</th>
+      <th>ToolShed categories</th>
+      <th>ToolShed id</th>
+      <th>Galaxy wrapper owner</th>
+      <th>Galaxy wrapper source</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td></td>
+      <td>abricate</td>
+      <td>1.0.1</td>
+      <td>1.0.1</td>
+      <td>abricate</td>
+      <td>Up-to-date</td>
+      <td>ABRicate</td>
+      <td>ABRicate</td>
+      <td>Antimicrobial resistance prediction</td>
+      <td>Genomics, Microbiology</td>
+      <td>Mass screening of contigs for antiobiotic resistance genes</td>
+      <td>Mass screening of contigs for antimicrobial resistance or virulence genes.</td>
+      <td>Up-to-date</td>
+      <td>https://github.com/tseemann/abricate</td>
+      <td>Sequence Analysis</td>
+      <td>abricate</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/abricate/</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>aldex2</td>
+      <td>1.26.0</td>
+      <td>1.34.0</td>
+      <td>bioconductor-aldex2</td>
+      <td>To update</td>
+      <td>aldex2</td>
+      <td>ALDEx2</td>
+      <td>Statistical inference</td>
+      <td>Gene expression, Statistics and probability</td>
+      <td>Performs analysis Of differential abundance taking sample variation into account</td>
+      <td>A differential abundance analysis for the comparison of two or more conditions. It uses a Dirichlet-multinomial model to infer abundance from counts, that has been optimized for three or more experimental replicates. Infers sampling variation and calculates the expected FDR given the biological and sampling variation using the Wilcox rank test and Welches t-test, or the glm and Kruskal Wallis tests. Reports both P and fdr values calculated by the Benjamini Hochberg correction.</td>
+      <td>To update</td>
+      <td>https://github.com/ggloor/ALDEx_bioc</td>
+      <td>Metagenomics</td>
+      <td>aldex2</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/aldex2</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>amplican</td>
+      <td>1.14.0</td>
+      <td>1.24.0</td>
+      <td>bioconductor-amplican</td>
+      <td>To update</td>
+      <td>amplican</td>
+      <td>amplican</td>
+      <td>Alignment, Standardisation and normalisation</td>
+      <td>PCR experiment, Statistics and probability</td>
+      <td>AmpliCan is an analysis tool for genome editing.</td>
+      <td>It performs alignment of the amplicon reads, normalizes gathered data, calculates multiple statistics (e.g. cut rates, frameshifts) and presents results in form of aggregated reports. Data and statistics can be broken down by experiments, barcodes, user defined groups, guides and amplicons allowing for quick identification of potential problems.</td>
+      <td>To update</td>
+      <td>https://github.com/valenlab/amplican</td>
+      <td>Sequence Analysis</td>
+      <td>amplican</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/amplican</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>ancombc</td>
+      <td>1.4.0</td>
+      <td>2.4.0</td>
+      <td>bioconductor-ancombc</td>
+      <td>To update</td>
+      <td>ancombc</td>
+      <td>ANCOMBC</td>
+      <td>DNA barcoding</td>
+      <td>Microbial ecology, Metagenomics</td>
+      <td>Performs analysis of compositions of microbiomes with bias correction.</td>
+      <td>Determine taxa whose absolute abundances, per unit volume, of the ecosystem (e.g. gut) are significantly different with changes in the covariate of interest (e.g. group). The current version of ancombc function implements Analysis of Compositions of Microbiomes with Bias Correction (ANCOM-BC) in cross-sectional data while allowing for covariate adjustment.</td>
+      <td>To update</td>
+      <td>https://github.com/FrederickHuangLin/ANCOMBC</td>
+      <td>Metagenomics</td>
+      <td>ancombc</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/ancombc</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>antismash</td>
+      <td>6.1.1</td>
+      <td>6.1.1</td>
+      <td>antismash</td>
+      <td>Up-to-date</td>
+      <td>antismash</td>
+      <td>antiSMASH</td>
+      <td>Sequence clustering, Gene prediction, Differential gene expression analysis</td>
+      <td>Molecular interactions, pathways and networks, Gene and protein families</td>
+      <td>Antismash allows the genome-wide identification, annotation and analysis of secondary metabolite biosynthesis gene clusters</td>
+      <td>Rapid genome-wide identification, annotation and analysis of secondary metabolite biosynthesis gene clusters in bacterial and fungal genomes. It integrates and cross-links with a large number of in silico secondary metabolite analysis tools that have been published earlier.</td>
+      <td>Up-to-date</td>
+      <td>https://antismash.secondarymetabolites.org</td>
+      <td>Sequence Analysis</td>
+      <td>antismash</td>
+      <td>bgruening</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/antismash</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>bakta</td>
+      <td>1.8.2</td>
+      <td>1.9.1</td>
+      <td>bakta</td>
+      <td>To update</td>
+      <td>Bakta</td>
+      <td>Bakta</td>
+      <td>Genome annotation</td>
+      <td>Genomics, Data submission, annotation and curation, Sequence analysis</td>
+      <td>"Bakta is a tool for the rapid &amp; standardized annotation of bacterial genomes and plasmids from both isolates and MAGs.It provides dbxref-rich and sORF-including annotations in machine-readable JSON &amp; bioinformatics standard file formats for automatic downstream analysis."</td>
+      <td>Rapid &amp; standardized annotation of bacterial genomes, MAGs &amp; plasmids</td>
+      <td>To update</td>
+      <td>https://github.com/oschwengers/bakta</td>
+      <td>Sequence Analysis</td>
+      <td>bakta</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/blob/master/tools/bakta</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>bamtools</td>
+      <td>2.5.2</td>
+      <td>2.5.2</td>
+      <td>bamtools</td>
+      <td>Up-to-date</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Operate on and transform BAM datasets in various ways using bamtools</td>
+      <td></td>
+      <td>Up-to-date</td>
+      <td>https://github.com/pezmaster31/bamtools</td>
+      <td>Sequence Analysis, SAM</td>
+      <td>bamtools</td>
+      <td>devteam</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/main/tool_collections/bamtools/bamtools</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>blast2go</td>
+      <td>0.0.11</td>
+      <td></td>
+      <td>b2g4pipe</td>
+      <td>To update</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Maps BLAST results to GO annotation terms</td>
+      <td></td>
+      <td>To update</td>
+      <td>https://github.com/peterjc/galaxy_blast/tree/master/tools/blast2go</td>
+      <td>Ontology Manipulation, Sequence Analysis</td>
+      <td>blast2go</td>
+      <td>peterjc</td>
+      <td>https://github.com/peterjc/galaxy_blast/tree/master/tools/blast2go</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>blastxml_to_top_descr</td>
+      <td>0.1.2</td>
+      <td></td>
+      <td>python</td>
+      <td>To update</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Make table of top BLAST match descriptions</td>
+      <td></td>
+      <td>To update</td>
+      <td>https://github.com/peterjc/galaxy_blast/tree/master/tools/blastxml_to_top_descr</td>
+      <td>Convert Formats, Sequence Analysis, Text Manipulation</td>
+      <td>blastxml_to_top_descr</td>
+      <td>peterjc</td>
+      <td>https://github.com/peterjc/galaxy_blast/tree/master/tools/blastxml_to_top_descr</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>busco</td>
+      <td>5.5.0</td>
+      <td>5.6.1</td>
+      <td>busco</td>
+      <td>To update</td>
+      <td>busco</td>
+      <td>BUSCO</td>
+      <td>Sequence assembly validation, Scaffolding, Genome assembly, Transcriptome assembly</td>
+      <td>Sequence assembly, Genomics, Transcriptomics, Sequence analysis</td>
+      <td>BUSCO assess genome and annotation completeness</td>
+      <td>Provides measures for quantitative assessment of genome assembly, gene set, and transcriptome completeness based on evolutionarily informed expectations of gene content from near-universal single-copy orthologs.</td>
+      <td>To update</td>
+      <td>https://gitlab.com/ezlab/busco/-/releases</td>
+      <td>Sequence Analysis</td>
+      <td>busco</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/busco/</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>cemitool</td>
+      <td>1.18.1</td>
+      <td>1.26.0</td>
+      <td>bioconductor-cemitool</td>
+      <td>To update</td>
+      <td>cemitool</td>
+      <td>CEMiTool</td>
+      <td>Enrichment analysis, Pathway or network analysis</td>
+      <td>Gene expression, Transcriptomics, Microarray experiment</td>
+      <td>Gene co-expression network analysis tool</td>
+      <td>It unifies the discovery and the analysis of coexpression gene modules in a fully automatic manner, while providing a user-friendly html report with high quality graphs. Our tool evaluates if modules contain genes that are over-represented by specific pathways or that are altered in a specific sample group. Additionally, CEMiTool is able to integrate transcriptomic data with interactome information, identifying the potential hubs on each network.</td>
+      <td>To update</td>
+      <td>https://www.bioconductor.org/packages/release/bioc/html/CEMiTool.html</td>
+      <td>Transcriptomics, RNA, Statistics</td>
+      <td>cemitool</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/cemitool</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>clustalw</td>
+      <td>2.1</td>
+      <td>2.1</td>
+      <td>clustalw</td>
+      <td>Up-to-date</td>
+      <td>\n                clustal2\n</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>ClustalW multiple sequence alignment program for DNA or proteins</td>
+      <td></td>
+      <td>Up-to-date</td>
+      <td>http://www.clustal.org/clustal2/</td>
+      <td>Phylogenetics, Sequence Analysis</td>
+      <td>clustalw</td>
+      <td>devteam</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/clustalw</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>codeml</td>
+      <td>4.9</td>
+      <td>4.10.7</td>
+      <td>paml</td>
+      <td>To update</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Detects positive selection</td>
+      <td></td>
+      <td>To update</td>
+      <td>http://abacus.gene.ucl.ac.uk/software/paml.html</td>
+      <td>Phylogenetics</td>
+      <td>codeml</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/codeml</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>combine_metaphlan_humann</td>
+      <td>0.3.0</td>
+      <td></td>
+      <td>python</td>
+      <td>To update</td>
+      <td>combine_metaphlan_and_humann</td>
+      <td>Combine Metaphlan and HUMAnN</td>
+      <td>Aggregation</td>
+      <td>Metagenomics, Molecular interactions, pathways and networks</td>
+      <td>Combine MetaPhlAn2 and HUMAnN2 outputs to relate genus/species abundances and gene families/pathways abundances</td>
+      <td>"This tool combine MetaPhlAn outputs and HUMANnN outputs." - Galaxy tool wrapper</td>
+      <td>To update</td>
+      <td></td>
+      <td>Metagenomics</td>
+      <td>combine_metaphlan2_humann2</td>
+      <td>bebatut</td>
+      <td>https://github.com/bgruening/galaxytools/tree/master/tools/combine_metaphlan2_humann2</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>compare_humann2_output</td>
+      <td>0.2.0</td>
+      <td></td>
+      <td></td>
+      <td>To update</td>
+      <td>compare_humann2_outputs</td>
+      <td>Compare HUMAnN2 outputs</td>
+      <td>Comparison</td>
+      <td>Metagenomics, Gene and protein families</td>
+      <td>Compare outputs of HUMAnN2 for several samples and extract similar and specific information</td>
+      <td>"This tool compare HUMANnN2 outputs with gene families or pathways and their relative abundances between several samples." - Galaxy tool wrapper</td>
+      <td>To update</td>
+      <td></td>
+      <td>Metagenomics</td>
+      <td>compare_humann2_output</td>
+      <td>bebatut</td>
+      <td>https://github.com/bgruening/galaxytools/tree/master/tools/compare_humann2_output</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>concoct</td>
+      <td>1.1.0</td>
+      <td>1.1.0</td>
+      <td>concoct</td>
+      <td>Up-to-date</td>
+      <td>concoct</td>
+      <td>CONCOCT</td>
+      <td>Sequence clustering, Read binning</td>
+      <td>Metagenomics</td>
+      <td>CONCOCT (Clustering cONtigs with COverage and ComposiTion) does unsupervised binning of metagenomic contigs byusing nucleotide composition - kmer frequencies - and coverage data for multiple samples. CONCOCT can accurately(up to species level) bin metagenomic contigs.</td>
+      <td>A program for unsupervised binning of metagenomic contigs by using nucleotide composition, coverage data in multiple samples and linkage data from paired end reads.</td>
+      <td>Up-to-date</td>
+      <td>https://github.com/BinPro/CONCOCT</td>
+      <td>Metagenomics</td>
+      <td>concoct</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/concoct</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>cutadapt</td>
+      <td>4.6</td>
+      <td>4.6</td>
+      <td>cutadapt</td>
+      <td>Up-to-date</td>
+      <td>cutadapt</td>
+      <td>Cutadapt</td>
+      <td>Sequence trimming</td>
+      <td>Genomics, Probes and primers, Sequencing</td>
+      <td>Flexible tool to remove adapter sequences (and quality trim) high throughput sequencing reads (fasta/fastq).</td>
+      <td>Find and remove adapter sequences, primers, poly-A tails and other types of unwanted sequence from your high-throughput sequencing reads.</td>
+      <td>Up-to-date</td>
+      <td>https://cutadapt.readthedocs.org/en/stable/</td>
+      <td>Fasta Manipulation, Fastq Manipulation, Sequence Analysis</td>
+      <td>cutadapt</td>
+      <td>lparsons</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/cutadapt</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>das_tool</td>
+      <td>1.1.6</td>
+      <td>1.1.7</td>
+      <td>das_tool</td>
+      <td>To update</td>
+      <td>dastool</td>
+      <td>dastool</td>
+      <td>Read binning</td>
+      <td>Metagenomics</td>
+      <td>DAS Tool for genome resolved metagenomics</td>
+      <td>DAS Tool is an automated method that integrates the results of a flexible number of binning algorithms to calculate an optimized, non-redundant set of bins from a single assembly.</td>
+      <td>To update</td>
+      <td>https://github.com/cmks/DAS_Tool</td>
+      <td>Metagenomics</td>
+      <td>das_tool</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/das_tool</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>disco</td>
+      <td></td>
+      <td>1.2</td>
+      <td>disco</td>
+      <td>To update</td>
+      <td>disco</td>
+      <td>DISCO</td>
+      <td>Protein sequence analysis</td>
+      <td>Structure determination</td>
+      <td>DISCO is a overlap-layout-consensus (OLC) metagenome assembler</td>
+      <td>DISCO is software to perform structure determination of protein homo-oligomers with cyclic symmetry.DISCO computes oligomeric protein structures using geometric constraints derived from RDCs and intermolecular distance restraints such as NOEs or disulfide bonds. When a reliable subunit structure can be calculated from intramolecular restraints, DISCO guarantees that all satisfying oligomer structures will be discovered, yet can run in minutes to hours on only a single desktop-class computer.</td>
+      <td>To update</td>
+      <td>http://disco.omicsbio.org/</td>
+      <td>Metagenomics, Assembly</td>
+      <td>disco</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/disco/</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>ectyper</td>
+      <td>1.0.0</td>
+      <td>1.0.0</td>
+      <td>ectyper</td>
+      <td>Up-to-date</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>EC-Typer - in silico serotyping of Escherichia coli species</td>
+      <td></td>
+      <td>Up-to-date</td>
+      <td>https://github.com/phac-nml/ecoli_serotyping</td>
+      <td>Sequence Analysis</td>
+      <td>ectyper</td>
+      <td>nml</td>
+      <td>https://github.com/phac-nml/ecoli_serotyping</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>eggnog_mapper</td>
+      <td>2.1.8</td>
+      <td>2.1.12</td>
+      <td>eggnog-mapper</td>
+      <td>To update</td>
+      <td>eggnog-mapper-v2</td>
+      <td>eggNOG-mapper v2</td>
+      <td>Homology-based gene prediction, Genome annotation, Fold recognition, Information extraction, Query and retrieval</td>
+      <td>Metagenomics, Phylogeny, Transcriptomics, Workflows, Sequence analysis</td>
+      <td>eggnog-mapper fast functional annotation of novel sequences</td>
+      <td>EggNOG-mapper is a tool for fast functional annotation of novel sequences. It uses precomputed orthologous groups and phylogenies from the eggNOG database (http://eggnog5.embl.de) to transfer functional information from fine-grained orthologs only.</td>
+      <td>To update</td>
+      <td></td>
+      <td>Proteomics</td>
+      <td>eggnog_mapper</td>
+      <td>galaxyp</td>
+      <td>https://github.com/galaxyproteomics/tools-galaxyp/tree/master/tools/eggnog_mapper/eggnog_mapper</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>export2graphlan</td>
+      <td>0.20</td>
+      <td>0.22</td>
+      <td>export2graphlan</td>
+      <td>To update</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>export2graphlan is a conversion software tool for producing both annotation and tree file for GraPhlAn</td>
+      <td></td>
+      <td>To update</td>
+      <td>https://bitbucket.org/CibioCM/export2graphlan/overview</td>
+      <td>Metagenomics</td>
+      <td>export2graphlan</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/export2graphlan/</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>fargene</td>
+      <td>0.1</td>
+      <td>0.1</td>
+      <td>fargene</td>
+      <td>Up-to-date</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>fARGene (Fragmented Antibiotic Resistance Gene iENntifiEr )</td>
+      <td></td>
+      <td>Up-to-date</td>
+      <td>https://github.com/fannyhb/fargene</td>
+      <td>Sequence Analysis</td>
+      <td>fargene</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/fargene</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>fastp</td>
+      <td></td>
+      <td>0.23.4</td>
+      <td>fastp</td>
+      <td>To update</td>
+      <td>\n                fastp\n</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Fast all-in-one preprocessing for FASTQ files</td>
+      <td></td>
+      <td>To update</td>
+      <td>https://github.com/OpenGene/fastp</td>
+      <td>Sequence Analysis</td>
+      <td>fastp</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/fastp</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>fastqe</td>
+      <td>0.3.1+galaxy0</td>
+      <td>0.3.1</td>
+      <td>fastqe</td>
+      <td>To update</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>FASTQE</td>
+      <td></td>
+      <td>To update</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/fastqe</td>
+      <td>Sequence Analysis</td>
+      <td>fastqe</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/fastqe</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>fasttree</td>
+      <td>2.1.10</td>
+      <td>2.1.11</td>
+      <td>fasttree</td>
+      <td>To update</td>
+      <td>fasttree</td>
+      <td>FastTree</td>
+      <td>Phylogenetic tree generation (from molecular sequences), Phylogenetic tree generation (maximum likelihood and Bayesian methods)</td>
+      <td>Phylogenetics, Sequence analysis</td>
+      <td>FastTree infers approximately-maximum-likelihood phylogenetic trees from alignments of nucleotide or protein sequences - GVL</td>
+      <td>Infers approximately-maximum-likelihood phylogenetic trees from alignments of nucleotide or protein sequences.</td>
+      <td>To update</td>
+      <td>http://www.microbesonline.org/fasttree/</td>
+      <td>Phylogenetics</td>
+      <td>fasttree</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/fasttree</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>filtlong</td>
+      <td>0.2.1</td>
+      <td>0.2.1</td>
+      <td>filtlong</td>
+      <td>Up-to-date</td>
+      <td>\n                filtlong\n</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Filtlong - Filtering long reads by quality</td>
+      <td></td>
+      <td>Up-to-date</td>
+      <td>https://github.com/rrwick/Filtlong</td>
+      <td>Fastq Manipulation, Sequence Analysis</td>
+      <td>filtlong</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/filtlong</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>flye</td>
+      <td>2.9.1</td>
+      <td>2.9.3</td>
+      <td>flye</td>
+      <td>To update</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Assembly of long and error-prone reads.</td>
+      <td></td>
+      <td>To update</td>
+      <td>https://github.com/fenderglass/Flye/</td>
+      <td>Assembly</td>
+      <td>flye</td>
+      <td>bgruening</td>
+      <td>https://github.com/bgruening/galaxytools/tree/master/tools/flye</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>format_metaphlan2_output</td>
+      <td>0.2.0</td>
+      <td></td>
+      <td></td>
+      <td>To update</td>
+      <td>format_metaphlan2_output</td>
+      <td>Format metaphlan2 output</td>
+      <td>Formatting</td>
+      <td>Taxonomy, Metagenomics</td>
+      <td>Format MetaPhlAn2 output to extract abundance at different taxonomic levels</td>
+      <td>"This tool format output file of MetaPhlan2 containing community content (abundance) at all taxonomic levels (from kingdom to strains)." - Galaxy tool wrapper</td>
+      <td>To update</td>
+      <td></td>
+      <td>Metagenomics</td>
+      <td>format_metaphlan2_output</td>
+      <td>bebatut</td>
+      <td>https://github.com/bgruening/galaxytools/tree/master/tools/format_metaphlan2_output/</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>fraggenescan</td>
+      <td></td>
+      <td>1.31</td>
+      <td>fraggenescan</td>
+      <td>To update</td>
+      <td>fraggenescan</td>
+      <td>FragGeneScan</td>
+      <td>Gene prediction</td>
+      <td>Genetics, Sequence analysis</td>
+      <td>Tool for finding (fragmented) genes in short read</td>
+      <td>Application for finding (fragmented) genes in short reads</td>
+      <td>To update</td>
+      <td>https://sourceforge.net/projects/fraggenescan/</td>
+      <td>Sequence Analysis</td>
+      <td>fraggenescan</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/fraggenescan/</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>goenrichment</td>
+      <td>2.0.1</td>
+      <td>2.0.1</td>
+      <td>goenrichment</td>
+      <td>Up-to-date</td>
+      <td>goenrichment</td>
+      <td>GOEnrichment</td>
+      <td>Gene-set enrichment analysis</td>
+      <td>Transcriptomics</td>
+      <td>Performs GO Enrichment analysis.</td>
+      <td>GOEnrichment is a tool for performing GO enrichment analysis of gene sets, such as those obtained from RNA-seq or Microarray experiments, to help characterize them at the functional level. It is available in Galaxy Europe and as a stand-alone tool.GOEnrichment is flexible in that it allows the user to use any version of the Gene Ontology and any GO annotation file they desire. To enable the use of GO slims, it is accompanied by a sister tool GOSlimmer, which can convert annotation files from full GO to any specified GO slim.The tool features an optional graph clustering algorithm to reduce the redundancy in the set of enriched GO terms and simplify its output.It was developed by the BioData.pt / ELIXIR-PT team at the Instituto Gulbenkian de Ciência.</td>
+      <td>Up-to-date</td>
+      <td>https://github.com/DanFaria/GOEnrichment</td>
+      <td>Genome annotation</td>
+      <td></td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/goenrichment</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>goseq</td>
+      <td>1.50.0</td>
+      <td>1.54.0</td>
+      <td>bioconductor-goseq</td>
+      <td>To update</td>
+      <td>goseq</td>
+      <td>GOseq</td>
+      <td>Gene functional annotation</td>
+      <td>RNA-Seq</td>
+      <td>goseq does selection-unbiased testing for category enrichment amongst differentially expressed (DE) genes for RNA-seq data</td>
+      <td>Detect Gene Ontology and/or other user defined categories which are over/under represented in RNA-seq data.</td>
+      <td>To update</td>
+      <td>https://bioconductor.org/packages/release/bioc/html/goseq.html</td>
+      <td>Statistics, RNA, Micro-array Analysis</td>
+      <td>goseq</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/goseq</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>graphlan</td>
+      <td></td>
+      <td>1.1.3</td>
+      <td>graphlan</td>
+      <td>To update</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>GraPhlAn is a software tool for producing high-quality circular representations of taxonomic and phylogenetic trees</td>
+      <td></td>
+      <td>To update</td>
+      <td>https://bitbucket.org/nsegata/graphlan/overview</td>
+      <td>Metagenomics, Graphics, Phylogenetics</td>
+      <td>graphlan</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/humann2/</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>gubbins</td>
+      <td>3.2.1</td>
+      <td>3.3.1</td>
+      <td>gubbins</td>
+      <td>To update</td>
+      <td>gubbins</td>
+      <td>Gubbins</td>
+      <td>Genotyping, Phylogenetic inference, Ancestral reconstruction</td>
+      <td>Phylogeny, Genotype and phenotype, Whole genome sequencing</td>
+      <td>Gubbins - bacterial recombination detection</td>
+      <td>Gubbins is a tool for rapid phylogenetic analysis of large samples of recombinant bacterial whole genome sequences.</td>
+      <td>To update</td>
+      <td></td>
+      <td>Sequence Analysis</td>
+      <td>gubbins</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/gubbins</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>hifiasm_meta</td>
+      <td>0.3.1</td>
+      <td>hamtv0.3.1</td>
+      <td>hifiasm_meta</td>
+      <td>To update</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>A hifiasm fork for metagenome assembly using Hifi reads.</td>
+      <td></td>
+      <td>To update</td>
+      <td>https://github.com/xfengnefx/hifiasm-meta</td>
+      <td>Metagenomics</td>
+      <td>hifiasm_meta</td>
+      <td>galaxy-australia</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/hifiasm_meta</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>humann</td>
+      <td>3.8</td>
+      <td>3.8</td>
+      <td>humann</td>
+      <td>Up-to-date</td>
+      <td>humann</td>
+      <td>humann</td>
+      <td>Species frequency estimation, Taxonomic classification, Phylogenetic analysis</td>
+      <td>Metagenomics, Phylogenomics</td>
+      <td>HUMAnN for functionally profiling metagenomes and metatranscriptomes at species-level resolution</td>
+      <td>HUMAnN is a pipeline for efficiently and accurately profiling the presence/absence and abundance of microbial pathways in a community from metagenomic or metatranscriptomic sequencing data (typically millions of short DNA/RNA reads). This process, referred to as functional profiling, aims to describe the metabolic potential of a microbial community and its members. More generally, functional profiling answers the question “What are the microbes in my community-of-interest doing (or are capable of doing)?”</td>
+      <td>Up-to-date</td>
+      <td>http://huttenhower.sph.harvard.edu/humann</td>
+      <td>Metagenomics</td>
+      <td>humann</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/humann</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>hypo</td>
+      <td>1.0.3</td>
+      <td>1.0.3</td>
+      <td>hypo</td>
+      <td>Up-to-date</td>
+      <td>HyPo</td>
+      <td>HyPo</td>
+      <td>Optimisation and refinement, Genome assembly</td>
+      <td>Sequence assembly, Genomics</td>
+      <td>Super Fast &amp; Accurate Polisher for Long Read Genome Assemblies</td>
+      <td>HyPo, a Hybrid Polisher, utilizes short as well as long reads within a single run to polish a long reads assembly of small and large genomes.</td>
+      <td>Up-to-date</td>
+      <td>https://github.com/kensung-lab/hypo</td>
+      <td>Assembly</td>
+      <td>hypo</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/hypo</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>idba_ud</td>
+      <td></td>
+      <td>1.1.3</td>
+      <td>idba</td>
+      <td>To update</td>
+      <td>idba</td>
+      <td>IDBA</td>
+      <td>Sequence assembly</td>
+      <td>Sequence assembly</td>
+      <td>Wrappers for the idba assembler variants.</td>
+      <td>A short read assembler based on iterative De Bruijn graph. It is developed under 64-bit Linux, but should be suitable for all unix-like system.</td>
+      <td>To update</td>
+      <td>https://i.cs.hku.hk/~alse/hkubrg/projects/index.html</td>
+      <td>Assembly</td>
+      <td>idba</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/idba_ud</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>interproscan</td>
+      <td>5.59-91.0</td>
+      <td>5.59_91.0</td>
+      <td>interproscan</td>
+      <td>To update</td>
+      <td>interproscan_ebi</td>
+      <td>InterProScan (EBI)</td>
+      <td>Sequence motif recognition, Protein feature detection</td>
+      <td>Gene and protein families, Sequence analysis</td>
+      <td>Interproscan queries the interpro database and provides annotations.</td>
+      <td>Scan sequences against the InterPro protein signature databases.</td>
+      <td>To update</td>
+      <td>http://www.ebi.ac.uk/Tools/pfa/iprscan5/</td>
+      <td>Sequence Analysis</td>
+      <td>interproscan</td>
+      <td>bgruening</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/interproscan</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>iqtree</td>
+      <td>2.1.2</td>
+      <td>2.2.6</td>
+      <td>iqtree</td>
+      <td>To update</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Efficient phylogenomic software by maximum likelihood</td>
+      <td></td>
+      <td>To update</td>
+      <td>http://www.iqtree.org/</td>
+      <td>Phylogenetics</td>
+      <td>iqtree</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/iqtree/</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>itsx</td>
+      <td>1.1.3</td>
+      <td>1.1.3</td>
+      <td>itsx</td>
+      <td>Up-to-date</td>
+      <td>ITSx</td>
+      <td>ITSx</td>
+      <td>Sequence feature detection</td>
+      <td>Functional, regulatory and non-coding RNA, Microbiology</td>
+      <td>ITSx is an open source software utility to extract the highly variable ITS1 and ITS2 subregions from ITS sequences.</td>
+      <td>TSx is an open source software utility to extract the highly variable ITS1 and ITS2 subregions from ITS sequences, which is commonly used as a molecular barcode for e.g. fungi. As the inclusion of parts of the neighbouring, very conserved, ribosomal genes (SSU, 5S and LSU rRNA sequences) in the sequence identification process can lead to severely misleading results, ITSx identifies and extracts only the ITS regions themselves.</td>
+      <td>Up-to-date</td>
+      <td>https://microbiology.se/software/itsx/</td>
+      <td>Metagenomics</td>
+      <td>itsx</td>
+      <td>bgruening</td>
+      <td>https://github.com/bgruening/galaxytools/tree/master/tools/itsx</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>jbrowse</td>
+      <td>1.16.11</td>
+      <td>1.16.11</td>
+      <td>jbrowse</td>
+      <td>Up-to-date</td>
+      <td>jbrowse</td>
+      <td>JBrowse</td>
+      <td>Genome visualisation</td>
+      <td>Genomics</td>
+      <td>JBrowse Genome Browser integrated as a Galaxy Tool</td>
+      <td>Slick, speedy genome browser with a responsive and dynamic AJAX interface for visualization of genome data. Being developed by the GMOD project as a successor to GBrowse.</td>
+      <td>Up-to-date</td>
+      <td>https://jbrowse.org</td>
+      <td>Sequence Analysis</td>
+      <td>jbrowse</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/jbrowse</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>jellyfish</td>
+      <td></td>
+      <td>2.3.0</td>
+      <td>kmer-jellyfish</td>
+      <td>To update</td>
+      <td>Jellyfish</td>
+      <td>Jellyfish</td>
+      <td>k-mer counting</td>
+      <td>Sequence analysis, Genomics</td>
+      <td>Jellyfish is a tool for fast, memory-efficient counting of k-mers in DNA</td>
+      <td>A command-line algorithm for counting k-mers in DNA sequence.</td>
+      <td>To update</td>
+      <td>https://github.com/gmarcais/Jellyfish</td>
+      <td>Assembly</td>
+      <td>jellyfish</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/jellyfish</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>kc-align</td>
+      <td>1.0.2</td>
+      <td>1.0.2</td>
+      <td>kcalign</td>
+      <td>Up-to-date</td>
+      <td>kc-align</td>
+      <td>kc-align</td>
+      <td>Multiple sequence alignment</td>
+      <td>Mapping</td>
+      <td>Kc-Align custom tool</td>
+      <td>A fast and accurate tool for performing codon-aware multiple sequence alignments</td>
+      <td>Up-to-date</td>
+      <td>https://github.com/davebx/kc-align</td>
+      <td>Sequence Analysis</td>
+      <td>kc_align</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/kc-align</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>kleborate</td>
+      <td>2.3.2</td>
+      <td>2.3.2</td>
+      <td>kleborate</td>
+      <td>Up-to-date</td>
+      <td>kleborate</td>
+      <td>Kleborate</td>
+      <td>Multilocus sequence typing, Genome assembly, Virulence prediction</td>
+      <td>Public health and epidemiology, Metagenomics, Population genomics, Sequence assembly, Whole genome sequencing</td>
+      <td>Screen genome assemblies of Klebsiella pneumoniae and the Klebsiella pneumoniae species complex (KpSC)</td>
+      <td>Genomic surveillance framework and global population structure for Klebsiella pneumoniae.Kleborate is a tool to screen genome assemblies of Klebsiella pneumoniae and the Klebsiella pneumoniae species complex (KpSC) for:.A manuscript describing the Kleborate software in full is currently in preparation. In the meantime, if you use Kleborate, please cite the preprint: Lam, MMC. et al. Genomic surveillance framework and global population structure for Klebsiella pneumoniae. bioRxiv (2020).</td>
+      <td>Up-to-date</td>
+      <td>https://github.com/katholt/Kleborate/wiki</td>
+      <td>Metagenomics</td>
+      <td>kleborate</td>
+      <td>iuc</td>
+      <td>https://github.com/katholt/Kleborate</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>kofamscan</td>
+      <td>1.3.0</td>
+      <td>1.3.0</td>
+      <td>kofamscan</td>
+      <td>Up-to-date</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Gene function annotation tool based on KEGG Orthology and hidden Markov model</td>
+      <td></td>
+      <td>Up-to-date</td>
+      <td>https://github.com/takaram/kofam_scan</td>
+      <td>Sequence Analysis</td>
+      <td>kofamscan</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/kofamscan</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>kraken</td>
+      <td></td>
+      <td>1.1.1</td>
+      <td>kraken</td>
+      <td>To update</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Kraken is a system for assigning taxonomic labels to short DNAsequences, usually obtained through metagenomic studies. Previous attempts by otherbioinformatics software to accomplish this task have often used sequence alignmentor machine learning techniques that were quite slow, leading to the developmentof less sensitive but much faster abundance estimation programs. Kraken aims toachieve high sensitivity and high speed by utilizing exact alignments of k-mersand a novel classification algorithm.</td>
+      <td></td>
+      <td>To update</td>
+      <td>http://ccb.jhu.edu/software/kraken/</td>
+      <td>Metagenomics</td>
+      <td>kraken</td>
+      <td>devteam</td>
+      <td>https://github.com/galaxyproject/tools-iuc/blob/master/tool_collections/kraken/</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>kraken2</td>
+      <td>2.1.1</td>
+      <td>2.1.3</td>
+      <td>kraken2</td>
+      <td>To update</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Kraken2 for taxonomic designation.</td>
+      <td></td>
+      <td>To update</td>
+      <td>http://ccb.jhu.edu/software/kraken/</td>
+      <td>Metagenomics</td>
+      <td>kraken2</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/blob/master/tool_collections/kraken2/kraken2/</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>kraken_biom</td>
+      <td>1.2.0</td>
+      <td>1.2.0</td>
+      <td>kraken-biom</td>
+      <td>Up-to-date</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Create BIOM-format tables (http://biom-format.org) from Kraken output (http://ccb.jhu.edu/software/kraken/)</td>
+      <td></td>
+      <td>Up-to-date</td>
+      <td>https://github.com/smdabdoub/kraken-biom</td>
+      <td>Metagenomics</td>
+      <td>kraken_biom</td>
+      <td>iuc</td>
+      <td>https://github.com/smdabdoub/kraken-biom</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>kraken_taxonomy_report</td>
+      <td>0.0.3</td>
+      <td>1.70</td>
+      <td>biopython</td>
+      <td>To update</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Kraken taxonomy report</td>
+      <td></td>
+      <td>To update</td>
+      <td>https://github.com/blankenberg/Kraken-Taxonomy-Report</td>
+      <td>Metagenomics</td>
+      <td>kraken_taxonomy_report</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/kraken_taxonomy_report</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>legsta</td>
+      <td>0.5.1</td>
+      <td>0.5.1</td>
+      <td>legsta</td>
+      <td>Up-to-date</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Performs in silico Legionella pneumophila sequence based typing.</td>
+      <td></td>
+      <td>Up-to-date</td>
+      <td>https://github.com/tseemann/legsta</td>
+      <td>Sequence Analysis</td>
+      <td>legsta</td>
+      <td>iuc</td>
+      <td>https://github.com/tseemann/legsta</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>lighter</td>
+      <td>1.0</td>
+      <td>1.1.2</td>
+      <td>lighter</td>
+      <td>To update</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Lighter is a kmer-based error correction method for whole genome sequencing data</td>
+      <td></td>
+      <td>To update</td>
+      <td></td>
+      <td>Sequence Analysis, Fasta Manipulation</td>
+      <td>lighter</td>
+      <td>bgruening</td>
+      <td>https://github.com/mourisl/Lighter</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>lineagespot</td>
+      <td>1.4.0</td>
+      <td></td>
+      <td>r-base</td>
+      <td>To update</td>
+      <td>lineagespot</td>
+      <td>lineagespot</td>
+      <td>Variant calling</td>
+      <td>Metagenomics, Gene transcripts, Evolutionary biology, Sequencing, Genetic variation</td>
+      <td>Identification of SARS-CoV-2 related metagenomic mutations based on a single (or a list of) variant(s) file(s)</td>
+      <td>Lineagespot is a framework written in R, and aims to identify and assign different SARS-CoV-2 lineages based on a single variant file (i.e., variant calling format).</td>
+      <td>To update</td>
+      <td>https://www.bioconductor.org/packages/release/bioc/html/lineagespot.html</td>
+      <td>Metagenomics, Sequence Analysis</td>
+      <td>lineagespot</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/lineagespot</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>lotus2</td>
+      <td>2.30</td>
+      <td>2.32</td>
+      <td>lotus2</td>
+      <td>To update</td>
+      <td>lotus2</td>
+      <td>lotus2</td>
+      <td>Sequence feature detection</td>
+      <td>Metagenomics</td>
+      <td>LotuS2 OTU processing pipeline</td>
+      <td>LotuS2 is a lightweight and user-friendly pipeline that is fast, precise, and streamlined, using extensive pre- and post-ASV/OTU clustering steps to further increase data quality. High data usage rates and reliability enable high-throughput microbiome analysis in minutes.</td>
+      <td>To update</td>
+      <td>http://lotus2.earlham.ac.uk/</td>
+      <td>Metagenomics</td>
+      <td>lotus2</td>
+      <td>earlhaminst</td>
+      <td>https://github.com/TGAC/earlham-galaxytools/tree/master/tools/lotus2</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>maaslin2</td>
+      <td>0.99.12</td>
+      <td>0.99.12</td>
+      <td>maaslin2</td>
+      <td>Up-to-date</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>MaAsLin2 is comprehensive R package for efficiently determining multivariable association between microbial meta'omic features and clinical metadata.</td>
+      <td></td>
+      <td>Up-to-date</td>
+      <td>http://huttenhower.sph.harvard.edu/maaslin</td>
+      <td>Metagenomics</td>
+      <td>maaslin2</td>
+      <td>iuc</td>
+      <td>https://github.com/biobakery/Maaslin2</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>maker</td>
+      <td>2.31.11</td>
+      <td>3.01.03</td>
+      <td>maker</td>
+      <td>To update</td>
+      <td>maker</td>
+      <td>MAKER</td>
+      <td>Genome annotation</td>
+      <td>Genomics, DNA, Sequence analysis</td>
+      <td>MAKER is a portable and easily configurable genome annotation pipeline.Its purpose is to allow smaller eukaryotic and prokaryotic genome projects to independently annotate their genomes and to create genome databases.</td>
+      <td>Portable and easily configurable genome annotation pipeline. It’s purpose is to allow smaller eukaryotic and prokaryotic genome projects to independently annotate their genomes and to create genome databases.</td>
+      <td>To update</td>
+      <td>http://www.yandell-lab.org/software/maker.html</td>
+      <td>Sequence Analysis</td>
+      <td></td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/maker</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>mapseq</td>
+      <td>2.1.1</td>
+      <td></td>
+      <td>perl</td>
+      <td>To update</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>fast and accurate sequence read classification tool designed to assign taxonomy and OTU classifications to ribosomal RNA sequences.</td>
+      <td></td>
+      <td>To update</td>
+      <td>https://github.com/jfmrod/MAPseq</td>
+      <td>Metagenomics</td>
+      <td>mapseq</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/mapseq</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>maxbin2</td>
+      <td></td>
+      <td>2.2.7</td>
+      <td>maxbin2</td>
+      <td>To update</td>
+      <td>maxbin</td>
+      <td>MaxBin</td>
+      <td>Sequence assembly</td>
+      <td>Metagenomics, Sequence assembly, Microbiology</td>
+      <td>clusters metagenomic contigs into bins</td>
+      <td>Software for binning assembled metagenomic sequences based on an Expectation-Maximization algorithm.</td>
+      <td>To update</td>
+      <td>https://downloads.jbei.org/data/microbial_communities/MaxBin/MaxBin.html</td>
+      <td>Metagenomics</td>
+      <td>maxbin2</td>
+      <td>mbernt</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/maxbin2/</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>mcl</td>
+      <td>14.137</td>
+      <td>22.282</td>
+      <td>mcl</td>
+      <td>To update</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Markov Cluster Algorithm</td>
+      <td></td>
+      <td>To update</td>
+      <td>http://micans.org/mcl/</td>
+      <td>Sequence Analysis, Metagenomics</td>
+      <td>mcl</td>
+      <td>bgruening</td>
+      <td>https://github.com/bgruening/galaxytools/tree/master/tools/mcl</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>mcl</td>
+      <td>22.282</td>
+      <td>22.282</td>
+      <td>mcl</td>
+      <td>Up-to-date</td>
+      <td>mcl</td>
+      <td>MCL</td>
+      <td>Clustering, Network analysis, Gene regulatory network analysis</td>
+      <td>Molecular interactions, pathways and networks</td>
+      <td>The Markov Cluster Algorithm, a cluster algorithm for graphs</td>
+      <td>MCL is a clustering algorithm widely used in bioinformatics and gaining traction in other fields.</td>
+      <td>Up-to-date</td>
+      <td>https://micans.org/mcl/man/mcl.html</td>
+      <td>Sequence Analysis</td>
+      <td>mcl</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/mcl</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>megahit</td>
+      <td>1.2.9</td>
+      <td>1.2.9</td>
+      <td>megahit</td>
+      <td>Up-to-date</td>
+      <td>megahit</td>
+      <td>MEGAHIT</td>
+      <td>Genome assembly</td>
+      <td>Metagenomics, Sequencing, Ecology, Sequence assembly</td>
+      <td>An ultra-fast single-node solution for large and complex metagenomics assembly via succinct de Bruijn graph.</td>
+      <td>Single node assembler for large and complex metagenomics NGS reads, such as soil. It makes use of succinct de Bruijn graph to achieve low memory usage, whereas its goal is not to make memory usage as low as possible.</td>
+      <td>Up-to-date</td>
+      <td>https://github.com/voutcn/megahit</td>
+      <td>Sequence Analysis, Assembly, Metagenomics</td>
+      <td>megahit</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/megahit</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>megahit_contig2fastg</td>
+      <td>1.1.3</td>
+      <td>1.2.9</td>
+      <td>megahit</td>
+      <td>To update</td>
+      <td>megahit</td>
+      <td>MEGAHIT</td>
+      <td>Genome assembly</td>
+      <td>Metagenomics, Sequencing, Ecology, Sequence assembly</td>
+      <td>A subprogram within the Megahit toolkit for converting contigs to assembly graphs (fastg)</td>
+      <td>Single node assembler for large and complex metagenomics NGS reads, such as soil. It makes use of succinct de Bruijn graph to achieve low memory usage, whereas its goal is not to make memory usage as low as possible.</td>
+      <td>To update</td>
+      <td>https://github.com/voutcn/megahit/blob/master/tools/toolkit.cpp</td>
+      <td>Sequence Analysis, Assembly, Metagenomics</td>
+      <td>megahit_contig2fastg</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/megahit_contig2fastg</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>merqury</td>
+      <td>1.3</td>
+      <td>1.3</td>
+      <td>merqury</td>
+      <td>Up-to-date</td>
+      <td>merqury</td>
+      <td>Merqury</td>
+      <td>Genome assembly, k-mer counting, Scaffolding, Phasing, De-novo assembly</td>
+      <td>Sequence assembly, Whole genome sequencing, Plant biology</td>
+      <td>Merqury is a tool for evaluating genomes assemblies based of k-mer operations.</td>
+      <td>Reference-free quality, completeness, and phasing assessment for genome assemblies.Evaluate genome assemblies with k-mers and more.Often, genome assembly projects have illumina whole genome sequencing reads available for the assembled individual.Merqury provides a set of tools for this purpose.</td>
+      <td>Up-to-date</td>
+      <td>https://github.com/marbl/merqury</td>
+      <td>Assembly</td>
+      <td>merqury</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/merqury</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>meryl</td>
+      <td>1.3</td>
+      <td>1.3</td>
+      <td>merqury</td>
+      <td>Up-to-date</td>
+      <td>meryl</td>
+      <td>Meryl</td>
+      <td>k-mer counting</td>
+      <td>Whole genome sequencing, Genomics, Sequence analysis, Sequencing</td>
+      <td>Meryl a k-mer counter.</td>
+      <td>Meryl is a tool for counting and working with sets of k-mers that was originally developed for use in the Celera Assembler and has since been migrated and maintained as part of Canu.</td>
+      <td>Up-to-date</td>
+      <td>https://github.com/marbl/meryl</td>
+      <td>Assembly</td>
+      <td>meryl</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/meryl</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>metabat2</td>
+      <td>2.15</td>
+      <td>2.15</td>
+      <td>metabat2</td>
+      <td>Up-to-date</td>
+      <td>MetaBAT_2</td>
+      <td>MetaBAT 2</td>
+      <td>Read binning, Sequence assembly, Genome annotation</td>
+      <td>Metagenomics, Sequence assembly, Metagenomic sequencing</td>
+      <td>MetaBAT2 (Metagenome Binning based on Abundance and Tetranucleotide frequency) is an automated metagenome binningsoftware that integrates empirical probabilistic distances of genome abundance and tetranucleotide frequency.</td>
+      <td>an adaptive binning algorithm for robust and efficient genome reconstruction from metagenome assemblies | MetaBAT2 clusters metagenomic contigs into different "bins", each of which should correspond to a putative genome | MetaBAT2 uses nucleotide composition information and source strain abundance (measured by depth-of-coverage by aligning the reads to the contigs) to perform binning</td>
+      <td>Up-to-date</td>
+      <td>https://bitbucket.org/berkeleylab/metabat/src/master/</td>
+      <td>Metagenomics</td>
+      <td>metabat2</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/metabat2/</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>metagene_annotator</td>
+      <td>1.0.0</td>
+      <td>1.0</td>
+      <td>metagene_annotator</td>
+      <td>To update</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>MetaGeneAnnotator gene-finding program for prokaryote and phage</td>
+      <td></td>
+      <td>To update</td>
+      <td></td>
+      <td>Sequence Analysis</td>
+      <td>metagene_annotator</td>
+      <td>galaxyp</td>
+      <td>https://github.com/galaxyproteomics/tools-galaxyp/tree/master/metagene_annotator</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>metaphlan</td>
+      <td>4.0.6</td>
+      <td>4.0.6</td>
+      <td>metaphlan</td>
+      <td>Up-to-date</td>
+      <td>metaphlan</td>
+      <td>MetaPhlAn</td>
+      <td>Nucleic acid sequence analysis, Phylogenetic tree analysis</td>
+      <td>Metagenomics, Phylogenomics</td>
+      <td>MetaPhlAn for Metagenomic Phylogenetic Analysis</td>
+      <td>Computational tool for profiling the composition of microbial communities from metagenomic shotgun sequencing data.</td>
+      <td>Up-to-date</td>
+      <td>https://github.com/biobakery/MetaPhlAn</td>
+      <td>Metagenomics</td>
+      <td>metaphlan</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/metaphlan/</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>minia</td>
+      <td>3.2.6</td>
+      <td>3.2.6</td>
+      <td>minia</td>
+      <td>Up-to-date</td>
+      <td>minia</td>
+      <td>Minia</td>
+      <td>Genome assembly</td>
+      <td>Sequence assembly</td>
+      <td>Short-read assembler based on a de Bruijn graph</td>
+      <td>Short-read assembler based on a de Bruijn graph, capable of assembling a human genome on a desktop computer in a day.</td>
+      <td>Up-to-date</td>
+      <td>https://gatb.inria.fr/software/minia/</td>
+      <td>Assembly</td>
+      <td>minia</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/minia</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>miniasm</td>
+      <td>0.3_r179</td>
+      <td>0.3</td>
+      <td>miniasm</td>
+      <td>To update</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Miniasm - Ultrafast de novo assembly for long noisy reads (though having no consensus step)</td>
+      <td></td>
+      <td>To update</td>
+      <td>https://github.com/lh3/miniasm</td>
+      <td>Assembly</td>
+      <td>miniasm</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/miniasm</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>minipolish</td>
+      <td>0.1.3</td>
+      <td>0.1.3</td>
+      <td>minipolish</td>
+      <td>Up-to-date</td>
+      <td>minipolish</td>
+      <td>minipolish</td>
+      <td>Localised reassembly, Read depth analysis</td>
+      <td>Sequence assembly, Sequencing</td>
+      <td>Polishing miniasm assemblies</td>
+      <td>A tool that bridges the output of miniasm (long-read assembly) and racon (assembly polishing) together to polish a draft assembly. It also provides read depth information in contigs.</td>
+      <td>Up-to-date</td>
+      <td>https://github.com/rrwick/Minipolish</td>
+      <td>Sequence Analysis</td>
+      <td>minipolish</td>
+      <td>bgruening</td>
+      <td>https://github.com/bgruening/galaxytools/tree/master/tools/minipolish</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>miniprot</td>
+      <td>0.12</td>
+      <td>0.12</td>
+      <td>miniprot</td>
+      <td>Up-to-date</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Align a protein sequence against a genome with affine gap penalty, splicing and frameshift.</td>
+      <td></td>
+      <td>Up-to-date</td>
+      <td>https://github.com/lh3/miniprot</td>
+      <td>Sequence Analysis</td>
+      <td></td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/miniprot</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>mitos</td>
+      <td>1.1.4</td>
+      <td>2.1.6</td>
+      <td>mitos</td>
+      <td>To update</td>
+      <td>mitos</td>
+      <td>MITOS</td>
+      <td>Genome annotation</td>
+      <td>Zoology, Whole genome sequencing</td>
+      <td>de-novo annotation of metazoan mitochondrial genomes</td>
+      <td>De novo metazoan mitochondrial genome annotation.</td>
+      <td>To update</td>
+      <td>http://mitos.bioinf.uni-leipzig.de/</td>
+      <td>Sequence Analysis</td>
+      <td>mitos</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/mitos</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>mlst</td>
+      <td>2.22.0</td>
+      <td>2.23.0</td>
+      <td>mlst</td>
+      <td>To update</td>
+      <td>mlst</td>
+      <td>MLST</td>
+      <td>Taxonomic classification</td>
+      <td>Immunoproteins, genes and antigens</td>
+      <td>Scan contig files against PubMLST typing schemes</td>
+      <td>Multi Locus Sequence Typing from an assembled genome or from a set of reads.</td>
+      <td>To update</td>
+      <td>https://github.com/tseemann/mlst</td>
+      <td>Sequence Analysis</td>
+      <td>mlst</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/mlst</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>multigsea</td>
+      <td>1.8.0</td>
+      <td>1.12.0</td>
+      <td>bioconductor-multigsea</td>
+      <td>To update</td>
+      <td>multiGSEA</td>
+      <td>multiGSEA</td>
+      <td>Gene-set enrichment analysis, Aggregation, Pathway analysis</td>
+      <td>Metabolomics, Molecular interactions, pathways and networks, Proteomics, Transcriptomics, Small molecules</td>
+      <td>GSEA-based pathway enrichment analysis for multi-omics data</td>
+      <td>A GSEA-based pathway enrichment analysis for multi-omics data.multiGSEA: a GSEA-based pathway enrichment analysis for multi-omics data, BMC Bioinformatics 21, 561 (2020).Combining GSEA-based pathway enrichment with multi omics data integration.</td>
+      <td>To update</td>
+      <td>https://bioconductor.org/packages/devel/bioc/html/multiGSEA.html</td>
+      <td>Transcriptomics, Proteomics, Statistics</td>
+      <td>multigsea</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/multigsea</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>multiqc</td>
+      <td>1.11</td>
+      <td>1.19</td>
+      <td>multiqc</td>
+      <td>To update</td>
+      <td>multiqc</td>
+      <td>MultiQC</td>
+      <td>Validation</td>
+      <td>Sequencing, Bioinformatics</td>
+      <td>MultiQC aggregates results from bioinformatics analyses across many samples into a single report</td>
+      <td>MultiQC aggregates results from multiple bioinformatics analyses across many samples into a single report. It searches a given directory for analysis logs and compiles a HTML report. It's a general use tool, perfect for summarising the output from numerous bioinformatics tools.</td>
+      <td>To update</td>
+      <td>http://multiqc.info/</td>
+      <td>Fastq Manipulation, Statistics, Visualization</td>
+      <td>multiqc</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/multiqc</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>nanoplot</td>
+      <td>1.41.0</td>
+      <td>1.42.0</td>
+      <td>nanoplot</td>
+      <td>To update</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Plotting tool for long read sequencing data and alignments</td>
+      <td></td>
+      <td>To update</td>
+      <td>https://github.com/wdecoster/NanoPlot</td>
+      <td>Visualization</td>
+      <td>nanoplot</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/nanoplot/</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>nextclade</td>
+      <td>2.7.0</td>
+      <td>2.14.0</td>
+      <td>nextalign</td>
+      <td>To update</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Identify differences between your sequences and a reference sequence used by Nextstrain</td>
+      <td></td>
+      <td>To update</td>
+      <td>https://github.com/nextstrain/nextclade</td>
+      <td>Sequence Analysis</td>
+      <td></td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/nextclade</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>nextdenovo</td>
+      <td>2.5.0</td>
+      <td>2.5.2</td>
+      <td>nextdenovo</td>
+      <td>To update</td>
+      <td>nextdenovo</td>
+      <td>NextDenovo</td>
+      <td>De-novo assembly, Genome assembly</td>
+      <td>Sequencing, Sequence assembly</td>
+      <td>String graph-based de novo assembler for long reads</td>
+      <td>NextDenovo is a string graph-based de novo assembler for long reads (CLR, HiFi and ONT). It uses a "correct-then-assemble" strategy similar to canu (no correction step for PacBio Hifi reads), but requires significantly less computing resources and storages.</td>
+      <td>To update</td>
+      <td>https://github.com/Nextomics/NextDenovo</td>
+      <td>Assembly</td>
+      <td>nextdenovo</td>
+      <td>bgruening</td>
+      <td>https://github.com/bgruening/galaxytools/tree/master/tools/nextdenovo</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>nonpareil</td>
+      <td>3.1.1</td>
+      <td>3.4.1</td>
+      <td>nonpareil</td>
+      <td>To update</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Estimate average coverage in metagenomic datasets</td>
+      <td></td>
+      <td>To update</td>
+      <td>http://nonpareil.readthedocs.io</td>
+      <td>Metagenomics</td>
+      <td>nonpareil</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/nonpareil</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>obisindicators</td>
+      <td>0.0.2</td>
+      <td></td>
+      <td>r-base</td>
+      <td>To update</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Compute biodiveristy indicators for marine data from obis</td>
+      <td></td>
+      <td>To update</td>
+      <td>https://github.com/Marie59/obisindicators</td>
+      <td>Ecology</td>
+      <td></td>
+      <td>ecology</td>
+      <td>https://github.com/galaxyecology/tools-ecology/tree/master/tools/obisindicators</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>orfipy</td>
+      <td>0.0.4</td>
+      <td>0.0.4</td>
+      <td>orfipy</td>
+      <td>Up-to-date</td>
+      <td>orfipy</td>
+      <td>orfipy</td>
+      <td>Coding region prediction, Database search, Transcriptome assembly, De-novo assembly</td>
+      <td>Computer science, RNA-Seq, Transcriptomics, Small molecules</td>
+      <td>Galaxy wrapper for ORFIPY</td>
+      <td>A fast and flexible tool for extracting ORFs.orfipy is a tool written in python/cython to extract ORFs in extremely an fast and flexible manner. Other popular ORF searching tools are OrfM and getorf. Compared to OrfM and getorf, orfipy provides the most options to fine tune ORF searches. orfipy uses multiple CPU cores and is particularly faster for data containing multiple smaller fasta sequences such as de-novo transcriptome assemblies. Please read the preprint here.</td>
+      <td>Up-to-date</td>
+      <td>https://github.com/urmi-21/orfipy</td>
+      <td>Sequence Analysis</td>
+      <td>orfipy</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/orfipy</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>pfamscan</td>
+      <td>1.6</td>
+      <td>1.6</td>
+      <td>pfam_scan</td>
+      <td>Up-to-date</td>
+      <td>pfamscan</td>
+      <td>PfamScan</td>
+      <td>Protein sequence analysis</td>
+      <td>Sequence analysis</td>
+      <td>Search a FASTA sequence against a library of Pfam HMM.</td>
+      <td>This tool is used to search a FASTA sequence against a library of Pfam HMM.</td>
+      <td>Up-to-date</td>
+      <td>http://ftp.ebi.ac.uk/pub/databases/Pfam/Tools/</td>
+      <td>Sequence Analysis</td>
+      <td>pfamscan</td>
+      <td>bgruening</td>
+      <td>https://github.com/bgruening/galaxytools/tree/master/tools/pfamscan</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>pharokka</td>
+      <td>1.3.2</td>
+      <td></td>
+      <td>\n                pharokka\n</td>
+      <td>To update</td>
+      <td>\n                pharokka\n</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>rapid standardised annotation tool for bacteriophage genomes and metagenomes</td>
+      <td></td>
+      <td>To update</td>
+      <td>https://github.com/gbouras13/pharokka</td>
+      <td>Genome annotation</td>
+      <td>pharokka</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/main/tools/pharokka</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>phyml</td>
+      <td>3.3.20220408</td>
+      <td>3.3.20220408</td>
+      <td>phyml</td>
+      <td>Up-to-date</td>
+      <td>phyml</td>
+      <td>PhyML</td>
+      <td>Phylogenetic tree generation (maximum likelihood and Bayesian methods)</td>
+      <td>Phylogenetics, Bioinformatics, Phylogenetics</td>
+      <td>PhyML is a phylogeny software based on the maximum-likelihood principle.</td>
+      <td>Phylogenetic estimation software using Maximum Likelihood</td>
+      <td>Up-to-date</td>
+      <td>http://www.atgc-montpellier.fr/phyml/</td>
+      <td>Phylogenetics</td>
+      <td>phyml</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/phyml</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>plasmidfinder</td>
+      <td>2.1.6</td>
+      <td>2.1.6</td>
+      <td>plasmidfinder</td>
+      <td>Up-to-date</td>
+      <td>PlasmidFinder</td>
+      <td>PlasmidFinder</td>
+      <td>Genome assembly, Scaffolding, Multilocus sequence typing</td>
+      <td>Whole genome sequencing, Sequence assembly, Mapping, Probes and primers</td>
+      <td>"PlasmidFinder provides the detection of replicons in the WGSand assigns the plasmids under study to lineages that trace backthe information to the existing knowledge on Inc groups and suggestspossible reference plasmids for each lineage"</td>
+      <td>PlasmidFinder is a tool for the identification and typing of Plasmid Replicons in Whole-Genome Sequencing (WGS).</td>
+      <td>Up-to-date</td>
+      <td>https://bitbucket.org/genomicepidemiology/plasmidfinder/src/master/</td>
+      <td>Sequence Analysis</td>
+      <td>plasmidfinder</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/blob/master/tools/plasmidfinder</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>prokka</td>
+      <td>1.14.6</td>
+      <td>1.14.6</td>
+      <td>prokka</td>
+      <td>Up-to-date</td>
+      <td>prokka</td>
+      <td>Prokka</td>
+      <td>Gene prediction, Coding region prediction, Genome annotation</td>
+      <td>Genomics, Model organisms, Virology</td>
+      <td>Rapid annotation of prokaryotic genomes</td>
+      <td>Software tool to annotate bacterial, archaeal and viral genomes quickly and produce standards-compliant output files.</td>
+      <td>Up-to-date</td>
+      <td>http://github.com/tseemann/prokka</td>
+      <td>Sequence Analysis</td>
+      <td>prokka</td>
+      <td>crs4</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/prokka/</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>proteinortho</td>
+      <td>6.2.3</td>
+      <td>6.3.1</td>
+      <td>proteinortho</td>
+      <td>To update</td>
+      <td>proteinortho</td>
+      <td>Proteinortho</td>
+      <td>Homology-based gene prediction</td>
+      <td>Phylogeny</td>
+      <td>Proteinortho is a tool to detect orthologous proteins/genes within different species.</td>
+      <td>Proteinortho is a tool to detect orthologous genes within different species</td>
+      <td>To update</td>
+      <td>https://gitlab.com/paulklemm_PHD/proteinortho</td>
+      <td>Proteomics</td>
+      <td>proteinortho</td>
+      <td>iuc</td>
+      <td>https://gitlab.com/paulklemm_PHD/proteinortho</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>pycoqc</td>
+      <td>2.5.2</td>
+      <td>2.5.2</td>
+      <td>pycoqc</td>
+      <td>Up-to-date</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>QC metrics for ONT Basecalling</td>
+      <td></td>
+      <td>Up-to-date</td>
+      <td>https://github.com/tleonardi/pycoQC</td>
+      <td>Nanopore</td>
+      <td>pycoqc</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/pycoqc</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>quast</td>
+      <td>5.2.0</td>
+      <td>5.2.0</td>
+      <td>quast</td>
+      <td>Up-to-date</td>
+      <td>quast</td>
+      <td>QUAST</td>
+      <td>Visualisation, Sequence assembly validation</td>
+      <td>Sequence assembly</td>
+      <td>Quast (Quality ASsessment Tool) evaluates genome assemblies.</td>
+      <td>QUAST stands for QUality ASsessment Tool.  It evaluates a quality of genome assemblies by computing various metrics and providing nice reports.</td>
+      <td>Up-to-date</td>
+      <td>http://quast.bioinf.spbau.ru/</td>
+      <td>Assembly</td>
+      <td>quast</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/quast</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>racon</td>
+      <td>1.5.0</td>
+      <td>1.5.0</td>
+      <td>racon</td>
+      <td>Up-to-date</td>
+      <td>Racon</td>
+      <td>Racon</td>
+      <td>Genome assembly, Mapping assembly, Sequence trimming</td>
+      <td>Whole genome sequencing, Sequence assembly, Plant biology</td>
+      <td>Consensus module for raw de novo DNA assembly of long uncorrected reads.</td>
+      <td>The Possibility to Use Oxford Nanopore Technology | Ultrafast consensus module for raw de novo genome assembly of long uncorrected reads. http://genome.cshlp.org/content/early/2017/01/18/gr.214270.116 Note: This was the original repository which will no longer be officially maintained. Please use the new official repository here: https://github.com/isovic/racon| Racon is intended as a standalone consensus module to correct raw contigs generated by rapid assembly methods which do not include a consensus step | Consensus module for raw de novo DNA assembly of long uncorrected reads</td>
+      <td>Up-to-date</td>
+      <td>https://github.com/isovic/racon</td>
+      <td>Sequence Analysis</td>
+      <td>racon</td>
+      <td>bgruening</td>
+      <td>https://github.com/bgruening/galaxytools/tree/master/tools/racon</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>raxml</td>
+      <td>8.2.12</td>
+      <td>8.2.13</td>
+      <td>raxml</td>
+      <td>To update</td>
+      <td>raxml</td>
+      <td>RAxML</td>
+      <td>Sequence analysis, Phylogenetic tree analysis</td>
+      <td>Phylogenetics, Sequence analysis</td>
+      <td>RAxML - A Maximum Likelihood based phylogenetic inference</td>
+      <td>A tool for Phylogenetic Analysis and Post-Analysis of Large Phylogenies.</td>
+      <td>To update</td>
+      <td>http://www.exelixis-lab.org/web/software/raxml/</td>
+      <td>Phylogenetics</td>
+      <td>raxml</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/raxml</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>read_it_and_keep</td>
+      <td>0.2.2</td>
+      <td>0.3.0</td>
+      <td>read-it-and-keep</td>
+      <td>To update</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Rapid decontamination of SARS-CoV-2 sequencing reads</td>
+      <td></td>
+      <td>To update</td>
+      <td>https://github.com/GenomePathogenAnalysisService/read-it-and-keep</td>
+      <td>Sequence Analysis</td>
+      <td>read_it_and_keep</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/read-it-and-keep</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>recentrifuge</td>
+      <td>1.12.1</td>
+      <td>1.13.2</td>
+      <td>recentrifuge</td>
+      <td>To update</td>
+      <td>Recentrifuge</td>
+      <td>Recentrifuge</td>
+      <td>Taxonomic classification, Expression analysis, Cross-assembly</td>
+      <td>Metagenomics, Microbial ecology, Metagenomic sequencing</td>
+      <td>"With Recentrifuge, researchers can analyze results from taxonomic classifiers using interactive charts with emphasis on the confidence level of the classifications.In addition to contamination-subtracted samples.Recentrifuge provides shared and exclusive taxa per sample,thus enabling robust contamination removal and comparative analysis in environmental and clinical metagenomics."</td>
+      <td>Robust comparative analysis and contamination removal for metagenomics.</td>
+      <td>To update</td>
+      <td>https://github.com/khyox/recentrifuge</td>
+      <td>Metagenomics</td>
+      <td>recentrifuge</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/blob/master/tools/recentrifuge</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>roary</td>
+      <td>3.13.0</td>
+      <td>3.13.0</td>
+      <td>roary</td>
+      <td>Up-to-date</td>
+      <td>roary</td>
+      <td>Roary</td>
+      <td>Genome assembly</td>
+      <td>DNA, Genomics, Mapping</td>
+      <td>Roary the pangenome pipeline</td>
+      <td>A high speed stand alone pan genome pipeline, which takes annotated assemblies in GFF3 format (produced by Prokka (Seemann, 2014)) and calculates the pan genome.</td>
+      <td>Up-to-date</td>
+      <td>https://sanger-pathogens.github.io/Roary/</td>
+      <td>Sequence Analysis</td>
+      <td>roary</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/roary</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>salmon</td>
+      <td>1.10.1</td>
+      <td>1.10.2</td>
+      <td>salmon</td>
+      <td>To update</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Salmon is a wicked-fast program to produce a highly-accurate, transcript-level quantification estimates from RNA-seq and single-cell data.</td>
+      <td></td>
+      <td>To update</td>
+      <td>https://github.com/COMBINE-lab/salmon</td>
+      <td>Sequence Analysis, RNA, Transcriptomics</td>
+      <td></td>
+      <td>bgruening</td>
+      <td>https://github.com/bgruening/galaxytools/tree/master/tools/salmon</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>sarscov2formatter</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>sarscov2formatter</td>
+      <td>Up-to-date</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>sarscov2formatter custom script</td>
+      <td></td>
+      <td>Up-to-date</td>
+      <td>https://github.com/nickeener/sarscov2formatter</td>
+      <td>Sequence Analysis</td>
+      <td>sarscov2formatter</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/sarscov2formatter</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>sarscov2summary</td>
+      <td>0.1</td>
+      <td>0.5</td>
+      <td>sarscov2summary</td>
+      <td>To update</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>sarscov2summary custom script</td>
+      <td></td>
+      <td>To update</td>
+      <td>https://github.com/nickeener/sarscov2summary</td>
+      <td>Sequence Analysis</td>
+      <td>sarscov2summary</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/sarscov2summary</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>scoary</td>
+      <td>1.6.16</td>
+      <td>1.6.16</td>
+      <td>scoary</td>
+      <td>Up-to-date</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Scoary calculates the assocations between all genes in the accessory genome and the traits.</td>
+      <td></td>
+      <td>Up-to-date</td>
+      <td>https://github.com/AdmiralenOla/Scoary</td>
+      <td>Metagenomics</td>
+      <td>scoary</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/scoary</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>semibin</td>
+      <td>2.0.2</td>
+      <td>2.0.2</td>
+      <td>semibin</td>
+      <td>Up-to-date</td>
+      <td>semibin</td>
+      <td>SemiBin</td>
+      <td>Sequence assembly, Read binning</td>
+      <td>Metagenomics, Machine learning, Microbial ecology, Sequence assembly</td>
+      <td>SemiBin: Semi-supervised Metagenomic Binning Using Siamese Neural Networks</td>
+      <td>Command tool for metagenomic binning with semi-supervised deep learning using information from reference genomes.</td>
+      <td>Up-to-date</td>
+      <td>https://semibin.readthedocs.io/en/latest/</td>
+      <td>Metagenomics</td>
+      <td>semibin</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/semibin</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>shovill</td>
+      <td>1.1.0</td>
+      <td>1.1.0</td>
+      <td>shovill</td>
+      <td>Up-to-date</td>
+      <td>shovill</td>
+      <td>shovill</td>
+      <td>Genome assembly</td>
+      <td>Genomics, Microbiology, Sequence assembly</td>
+      <td>Faster de novo assembly pipeline based around Spades</td>
+      <td>Shovill is a pipeline for assembly of bacterial isolate genomes from Illumina paired-end reads.  Shovill uses SPAdes at its core, but alters the steps before and after the primary assembly step to get similar results in less time. Shovill also supports other assemblers like SKESA, Velvet and Megahit, so you can take advantage of the pre- and post-processing the Shovill provides with those too.</td>
+      <td>Up-to-date</td>
+      <td>https://github.com/tseemann/shovill</td>
+      <td>Assembly</td>
+      <td>shovill</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/shovill</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>sistr_cmd</td>
+      <td>1.1.1</td>
+      <td>1.1.1</td>
+      <td>sistr_cmd</td>
+      <td>Up-to-date</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>SISTR in silico serotyping tool</td>
+      <td></td>
+      <td>Up-to-date</td>
+      <td>https://github.com/phac-nml/sistr_cmd</td>
+      <td>Sequence Analysis</td>
+      <td>sistr_cmd</td>
+      <td>nml</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>snippy</td>
+      <td></td>
+      <td>4.6.0</td>
+      <td>snippy</td>
+      <td>To update</td>
+      <td>snippy</td>
+      <td>snippy</td>
+      <td>Phylogenetic tree visualisation, Phylogenetic tree generation, Variant calling</td>
+      <td>Genomics, Model organisms, DNA polymorphism, Phylogenetics</td>
+      <td>Contains the snippy tool for characterising microbial snps</td>
+      <td>Rapid haploid variant calling and core SNP phylogeny generation.</td>
+      <td>To update</td>
+      <td>https://github.com/tseemann/snippy</td>
+      <td>Sequence Analysis</td>
+      <td>snippy</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/snippy</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>sonneityping</td>
+      <td>20210201</td>
+      <td>20210201</td>
+      <td>sonneityping</td>
+      <td>Up-to-date</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Scripts for parsing Mykrobe predict results for Shigella sonnei.</td>
+      <td></td>
+      <td>Up-to-date</td>
+      <td>https://github.com/katholt/sonneityping</td>
+      <td>Sequence Analysis</td>
+      <td>sonneityping</td>
+      <td>iuc</td>
+      <td>https://github.com/katholt/sonneityping</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>spades</td>
+      <td>3.15.5</td>
+      <td>3.15.5</td>
+      <td>spades</td>
+      <td>Up-to-date</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>SPAdes is an assembly toolkit containing various assembly pipelines. It implements the following 4 stages: assembly graph construction, k-bimer adjustment, construction of paired assembly graph and contig construction.</td>
+      <td></td>
+      <td>Up-to-date</td>
+      <td>https://github.com/ablab/spades</td>
+      <td>Assembly, RNA, Metagenomics</td>
+      <td>spades</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/spades</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>spotyping</td>
+      <td>2.1</td>
+      <td>2.1</td>
+      <td>spotyping</td>
+      <td>Up-to-date</td>
+      <td>spotyping</td>
+      <td>SpoTyping</td>
+      <td>Variant pattern analysis</td>
+      <td>Microbiology, Sequencing, Sequence composition, complexity and repeats, Genetic variation</td>
+      <td>SpoTyping allows fast and accurate in silico Mycobacterium spoligotyping from sequence reads</td>
+      <td>Fast and accurate in silico Mycobacterium spoligotyping from sequence reads.</td>
+      <td>Up-to-date</td>
+      <td>https://github.com/xiaeryu/SpoTyping-v2.0</td>
+      <td>Sequence Analysis</td>
+      <td>spotyping</td>
+      <td>iuc</td>
+      <td>https://github.com/xiaeryu/SpoTyping-v2.0/tree/master/SpoTyping-v2.0-commandLine</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>srst2</td>
+      <td>0.3.7</td>
+      <td>0.2.0</td>
+      <td>srst2</td>
+      <td>To update</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Short Read Sequence Typing for Bacterial Pathogens</td>
+      <td></td>
+      <td>To update</td>
+      <td></td>
+      <td>Sequence Analysis</td>
+      <td>srst2</td>
+      <td>nml</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>srst2</td>
+      <td>0.2.0</td>
+      <td>1.19</td>
+      <td>samtools</td>
+      <td>To update</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>SRST2 Short Read Sequence Typing for Bacterial Pathogens</td>
+      <td></td>
+      <td>To update</td>
+      <td>http://katholt.github.io/srst2/</td>
+      <td>Metagenomics</td>
+      <td>srst2</td>
+      <td>iuc</td>
+      <td>https://github.com/katholt/srst2</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>structure</td>
+      <td>2.3.4</td>
+      <td>2.3.4</td>
+      <td>structure</td>
+      <td>Up-to-date</td>
+      <td>structure</td>
+      <td>Structure</td>
+      <td>Genetic variation analysis</td>
+      <td>Population genetics</td>
+      <td>for using multi-locus genotype data to investigate population structure.</td>
+      <td>The program structureis a free software package for using multi-locus genotype data to investigate population structure. Its uses include inferring the presence of distinct populations, assigning individuals to populations, studying hybrid zones, identifying migrants and admixed individuals, and estimating population allele frequencies in situations where many individuals are migrants or admixed.</td>
+      <td>Up-to-date</td>
+      <td></td>
+      <td>Phylogenetics, Variant Analysis</td>
+      <td>structure</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/structure</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>t2t_report</td>
+      <td>1.0.0</td>
+      <td>0.9.0</td>
+      <td>taxonomy</td>
+      <td>To update</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Summarize taxonomy</td>
+      <td></td>
+      <td>To update</td>
+      <td>https://bitbucket.org/natefoo/taxonomy</td>
+      <td>Metagenomics</td>
+      <td>t2t_report</td>
+      <td>devteam</td>
+      <td>https://github.com/galaxyproject/tools-devteam/tree/master/tool_collections/taxonomy/t2t_report</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>taxonomy_krona_chart</td>
+      <td>2.7.1+galaxy0</td>
+      <td>2.8.1</td>
+      <td>krona</td>
+      <td>To update</td>
+      <td>krona</td>
+      <td>Krona</td>
+      <td>Visualisation</td>
+      <td>Metagenomics</td>
+      <td>Krona pie chart from taxonomic profile</td>
+      <td>Krona creates interactive HTML5 charts of hierarchical data (such as taxonomic abundance in a metagenome).</td>
+      <td>To update</td>
+      <td>http://sourceforge.net/projects/krona/</td>
+      <td>Assembly</td>
+      <td>taxonomy_krona_chart</td>
+      <td>crs4</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/taxonomy_krona_chart</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>transtermhp</td>
+      <td></td>
+      <td>2.09</td>
+      <td>transtermhp</td>
+      <td>To update</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Finds rho-independent transcription terminators in bacterial genomes</td>
+      <td></td>
+      <td>To update</td>
+      <td></td>
+      <td>Sequence Analysis</td>
+      <td>transtermhp</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/transtermhp</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>trim_galore</td>
+      <td>0.6.7</td>
+      <td>0.6.10</td>
+      <td>trim-galore</td>
+      <td>To update</td>
+      <td>trim_galore</td>
+      <td>Trim Galore</td>
+      <td>Sequence trimming</td>
+      <td>Sequence analysis</td>
+      <td>Trim Galore adaptive quality and adapter trimmer</td>
+      <td>A wrapper tool around Cutadapt and FastQC to consistently apply quality and adapter trimming to FastQ files, with some extra functionality for MspI-digested RRBS-type (Reduced Representation Bisufite-Seq) libraries.</td>
+      <td>To update</td>
+      <td>http://www.bioinformatics.babraham.ac.uk/projects/trim_galore/</td>
+      <td>Sequence Analysis, Fastq Manipulation</td>
+      <td>trim_galore</td>
+      <td>bgruening</td>
+      <td>https://github.com/bgruening/galaxytools/tree/master/tools/trim_galore</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>unicycler</td>
+      <td>0.5.0</td>
+      <td>0.5.0</td>
+      <td>unicycler</td>
+      <td>Up-to-date</td>
+      <td>unicycler</td>
+      <td>Unicycler</td>
+      <td>Genome assembly, Aggregation</td>
+      <td>Microbiology, Genomics, Sequencing, Sequence assembly</td>
+      <td>Unicycler is a hybrid assembly pipeline for bacterial genomes.</td>
+      <td>A tool for assembling bacterial genomes from a combination of short (2nd generation) and long (3rd generation) sequencing reads.</td>
+      <td>Up-to-date</td>
+      <td>https://github.com/rrwick/Unicycler</td>
+      <td>Assembly</td>
+      <td>unicycler</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/unicycler</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>usher</td>
+      <td>0.2.1</td>
+      <td>0.6.3</td>
+      <td>usher</td>
+      <td>To update</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>UShER toolkit wrappers</td>
+      <td></td>
+      <td>To update</td>
+      <td>https://github.com/yatisht/usher</td>
+      <td>Phylogenetics</td>
+      <td>usher</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/usher</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>valet</td>
+      <td></td>
+      <td>1.0</td>
+      <td>valet</td>
+      <td>To update</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>A pipeline for detecting mis-assemblies in metagenomic assemblies.</td>
+      <td></td>
+      <td>To update</td>
+      <td>https://github.com/marbl/VALET</td>
+      <td>Metagenomics</td>
+      <td>valet</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/valet</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>vapor</td>
+      <td>1.0.2</td>
+      <td>1.0.2</td>
+      <td>vapor</td>
+      <td>Up-to-date</td>
+      <td>vapor</td>
+      <td>VAPOR</td>
+      <td>Data retrieval, De-novo assembly, Read mapping</td>
+      <td>Whole genome sequencing, Mapping, Sequence assembly</td>
+      <td>Classify Influenza samples from raw short read sequence data</td>
+      <td>VAPOR is a tool for classification of Influenza samples from raw short read sequence data for downstream bioinformatics analysis. VAPOR is provided with a fasta file of full-length sequences (&gt; 20,000) for a given segment, a set of reads, and attempts to retrieve a reference that is closest to the sample strain.</td>
+      <td>Up-to-date</td>
+      <td>https://github.com/connor-lab/vapor</td>
+      <td>Sequence Analysis</td>
+      <td>vapor</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/vapor</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>wtdbg</td>
+      <td>2.5</td>
+      <td>2.5</td>
+      <td>wtdbg</td>
+      <td>Up-to-date</td>
+      <td>wtdbg2</td>
+      <td>wtdbg2</td>
+      <td>Genome assembly, De-novo assembly</td>
+      <td>Sequence assembly, Sequencing</td>
+      <td>WTDBG is a fuzzy Bruijn graph (FBG) approach to long noisy reads assembly.</td>
+      <td>Wtdbg2 is a de novo sequence assembler for long noisy reads produced by PacBio or Oxford Nanopore Technologies (ONT). It assembles raw reads without error correction and then builds the consensus from intermediate assembly output. Wtdbg2 is able to assemble the human and even the 32Gb Axolotl genome at a speed tens of times faster than CANU and FALCON while producing contigs of comparable base accuracy.</td>
+      <td>Up-to-date</td>
+      <td>https://github.com/ruanjue/wtdbg2</td>
+      <td>Assembly</td>
+      <td>wtdbg</td>
+      <td>bgruening</td>
+      <td>https://github.com/bgruening/galaxytools/tree/master/tools/wtdbg</td>
+    </tr>
+  </tbody>
+</table>
+
+</div>
