@@ -1,0 +1,143 @@
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/searchbuilder/1.6.0/js/dataTables.searchBuilder.min.js"></script>
+<script src="https://cdn.datatables.net/datetime/1.5.1/js/dataTables.dateTime.min.js"></script>
+
+<script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/searchbuilder/1.6.0/css/searchBuilder.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/datetime/1.5.1/css/dataTables.dateTime.min.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+<style type="text/css">
+  .tooltip {
+    font-family: Georgia;
+    font-size: 18px;
+  }
+  .tooltip .tooltip-inner {
+    background-color: #00FFFF;
+    color: #000000;
+    min-width: 400px;
+  }
+  </style>
+
+<script>
+    $(document).ready(function() {
+    $('#dataframe').DataTable( {
+        "sScrollX": "100%",
+        "dom": "Qlfrtip",
+
+        responsive: {
+            details: {
+                type: 'column'
+            }
+        },
+        "bAutoWidth": false,
+        columnDefs: [ {
+            className: 'control',
+            orderable: false,
+            targets:   [ 0 ],
+            width: 100,
+        },
+        { type: 'natural', targets: 1 } // allow normal sorting
+        ],
+
+    });
+});
+</script>
+
+<div class="display nowrap" style="width:80%" width="100%">
+
+<table class="dataframe display nowrap" id="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Expand</th>
+      <th>Galaxy wrapper id</th>
+      <th>Galaxy wrapper version</th>
+      <th>Conda version</th>
+      <th>Conda id</th>
+      <th>Status</th>
+      <th>bio.tool id</th>
+      <th>bio.tool name</th>
+      <th>EDAM operation</th>
+      <th>EDAM topic</th>
+      <th>Description</th>
+      <th>bio.tool description</th>
+      <th>Status</th>
+      <th>Source</th>
+      <th>ToolShed categories</th>
+      <th>ToolShed id</th>
+      <th>Galaxy wrapper owner</th>
+      <th>Galaxy wrapper source</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td></td>
+      <td>imagecoordinates_flipaxis</td>
+      <td>0.1-2</td>
+      <td></td>
+      <td>pandas</td>
+      <td>To update</td>
+      <td>galaxy_image_analysis</td>
+      <td>Galaxy Image Analysis</td>
+      <td>Image analysis</td>
+      <td>Imaging, Bioinformatics</td>
+      <td>Flip coordinate axes</td>
+      <td>Developed within the Biomedical Computer Vision (BMCV) Group Heidelberg.</td>
+      <td>To update</td>
+      <td>https://github.com/bmcv</td>
+      <td>Imaging</td>
+      <td>imagecoordinates_flipaxis</td>
+      <td>imgteam</td>
+      <td>https://github.com/BMCV/galaxy-image-analysis/tree/master/tools/imagecoordinates_flipaxis/</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>qupath_roi_splitter</td>
+      <td>0.1.0+galaxy1</td>
+      <td></td>
+      <td>geojson</td>
+      <td>To update</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Split ROI coordinates of QuPath TMA annotation by cell type</td>
+      <td></td>
+      <td>To update</td>
+      <td>https://github.com/npinter/ROIsplitter</td>
+      <td>Imaging</td>
+      <td>qupath_roi_splitter</td>
+      <td>galaxyp</td>
+      <td>hhttps://github.com/npinter/ROIsplitter</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>spyboat</td>
+      <td>0.1.2</td>
+      <td></td>
+      <td>spyboat</td>
+      <td>To update</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Wavelet analysis for 3d-image stacks</td>
+      <td></td>
+      <td>To update</td>
+      <td>http://github.com/tensionhead/spyboat</td>
+      <td>Imaging, Graphics</td>
+      <td>spyboat</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/packages/spyboat</td>
+    </tr>
+  </tbody>
+</table>
+
+</div>
