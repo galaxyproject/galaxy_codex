@@ -61,9 +61,11 @@ jobs:
       - uses: actions/setup-python@v5
       - name: Install requirement
         run: python -m pip install -r requirements.txt
-      - name: Run script
-        run: | 
-          cat results/repositories*.list_tools.tsv > results/all_tools.tsv
+      - name: Merge all tools
+        run: | #merge files with only one header -> https://stackoverflow.com/questions/16890582/unixmerge-multiple-csv-files-with-same-header-by-keeping-the-header-of-the-firs
+          awk 'FNR==1 && NR!=1{next;}{print}' results/repositories*.list_tools.tsv > results/all_tools.tsv
+      - name: Wordcloud and interactive table
+        run: |
           bash ./bin/extract_all_tools_downstream.sh
       - name: Commit all tools
         # add or commit any changes in results if there was a change, merge with main and push as bot
