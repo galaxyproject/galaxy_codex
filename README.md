@@ -5,10 +5,12 @@ Galaxy Tool Metadata Extractor
 
 ![plot](docs/images/Preprint_flowchart.png)
 
+
 This tool automatically collects a table of all available Galaxy tools including their metadata. The created table
 can be filtered to only show the tools relevant for a specific community. **Learn [how to add your community](#add-your-community)**. 
 
 The tools performs the following steps:
+
 - Parse tool GitHub repository from [Planemo monitor listed](https://github.com/galaxyproject/planemo-monitor)
 - Check in each repo, their `.shed.yaml` file and filter for categories, such as metagenomics 
 - Extract metadata from the `.shed.yaml`
@@ -19,6 +21,7 @@ The tools performs the following steps:
 - Get usage statistics form usegalaxy.eu
 - Creates an interactive table for all tools: [All tools](https://galaxyproject.github.io/galaxy_tool_metadata_extractor/)
 - Creates an interactive table for all registered communities, e.g. [microGalaxy](https://galaxyproject.github.io/galaxy_tool_metadata_extractor/microgalaxy/)
+
 
 
 # Usage
@@ -99,6 +102,7 @@ The script will generate a TSV file with each tool found in the list of GitHub r
         [--excluded <Path to excluded tool file category file>]\
         [--keep <Path to to-keep tool file category file>]
     ```
+
 
 
 ## Add your community
