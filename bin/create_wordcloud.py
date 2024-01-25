@@ -28,6 +28,9 @@ def get_wordcloud(community_tool_path: str, mask_figure: str, stats_column: str,
         stats_column in community_tool_stats
     ), f"Stats column: {stats_column} not found in table!"  # check if the stats column is there
 
+    # some tools are not used at all
+    community_tool_stats[stats_column] = community_tool_stats[stats_column].fillna(value=0)
+
     # create the word cloud
     frec = pd.Series(
         community_tool_stats[stats_column].values, index=community_tool_stats["Galaxy wrapper id"]
