@@ -39,7 +39,7 @@ for com_data_fp in data/communities/* ; do
                         --table  "results/$community/tools.tsv" \
                         --wordcloud_mask "data/usage_stats/wordcloud_mask.png" \
                         --output "results/$community/tools_wordcloud.png" \
-                        --stats_column "https://usegalaxy.eu usage"
+                        --stats_column "No. of tool users (2022-2023) (usegalaxy.eu)"
 
   fi;
 done

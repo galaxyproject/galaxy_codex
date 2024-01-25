@@ -11,4 +11,4 @@ python bin/create_wordcloud.py \
         --table "results/all_tools.tsv" \
         --wordcloud_mask "data/usage_stats/wordcloud_mask.png" \
         --output "results/all_tools_wordcloud.png" \
-        --stats_column "https://usegalaxy.eu usage"
+        --stats_column "No. of tool users (2022-2023) (usegalaxy.eu)"
