@@ -10,10 +10,10 @@ project_path = Path(__file__).resolve().parent  # galaxy_tool_extractor folder
 tool_stats_path = project_path.joinpath(project_path, "tool_usage.csv")
 
 tool_stats_df = pd.read_csv(tool_stats_path, sep=",")
-tool_stats_df.columns = ["tool_name", "count"]
+tool_stats_df.columns = pd.Index(["tool_name", "count"])
 
 
-def remove_version(val):
+def remove_version(val: str) -> str:
     if "/" in val:
         split_val = val.split("/")
         val = "/".join(split_val[:-1])
