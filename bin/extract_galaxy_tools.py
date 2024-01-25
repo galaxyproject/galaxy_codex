@@ -34,19 +34,23 @@ GALAXY_SERVER_URLS = [
 project_path = Path(__file__).resolve().parent.parent  # galaxy_tool_extractor folder
 usage_stats_path = project_path.joinpath("data", "usage_stats")
 
-GALAXY_TOOL_STATS = {"https://usegalaxy.eu usage": usage_stats_path.joinpath("tool_usage_per_user_2022_23_EU.csv")}
+GALAXY_TOOL_STATS = {
+    "No. of tool users (2022-2023) (usegalaxy.eu)": usage_stats_path.joinpath("tool_usage_per_user_2022_23_EU.csv"),
+    "Total tool usage (usegalaxy.eu)": usage_stats_path.joinpath("total_tool_usage_EU.csv"),
+}
 
 
 def get_last_url_position(toot_id: str) -> str:
     """
-    Returns the last url position of the toot_id, if the value is not a
+    Returns the second last url position of the toot_id, if the value is not a
     url it returns the toot_id. So works for local and toolshed
     installed tools.
 
     :param tool_id: galaxy tool id
     """
 
-    toot_id = toot_id.split("/")[-1]
+    if "/" in toot_id:
+        toot_id = toot_id.split("/")[-2]
     return toot_id
 
 
