@@ -494,7 +494,9 @@ def format_list_column(col: pd.Series) -> pd.Series:
     return col.apply(lambda x: ", ".join(str(i) for i in x))
 
 
-def export_tools(tools: List[Dict], output_fp: str, format_list_col: bool = False) -> None:
+def export_tools(
+    tools: List[Dict], output_fp: str, format_list_col: bool = False, add_usage_stats: bool = False
+) -> None:
     """
     Export tool metadata to tsv output file
 
@@ -512,7 +514,8 @@ def export_tools(tools: List[Dict], output_fp: str, format_list_col: bool = Fals
         df["Galaxy tool ids"] = format_list_column(df["Galaxy tool ids"])
         df = add_instances_to_table(df)
 
-    df = add_usage_stats_for_all_server(df)
+    if add_usage_stats:
+        df = add_usage_stats_for_all_server(df)
 
     df.to_csv(output_fp, sep="\t", index=False)
 
@@ -618,7 +621,7 @@ if __name__ == "__main__":
                     f"Error while extracting tools from repo {r}: {e}",
                     file=sys.stderr,
                 )
-        export_tools(tools, args.all_tools, format_list_col=True)
+        export_tools(tools, args.all_tools, format_list_col=True, add_usage_stats=True)
 
     elif args.command == "filtertools":
         tools = pd.read_csv(Path(args.tools), sep="\t", keep_default_na=False).to_dict("records")
