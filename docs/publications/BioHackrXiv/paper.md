@@ -41,9 +41,8 @@ biohackathon_location: "Barcelona, Spain, 2023"
 group: BioHackrXiv
 git_url: https://github.com/galaxyproject/galaxy_tool_metadata_extractor/tree/e604ffd9866f9c32f797ceee45062b4d6f2a1513/docs/publications/BioHackrXiv
 authors_short: Zierep, P., Batut, B. \emph{et al.} (2024) BioHackEU23 project #25: Finding Galaxy tools
-
-
 ---
+
 
 # Introduction or Background
 
@@ -59,25 +58,7 @@ Crucially, the pipeline can filter its inputs to only include tools that are rel
 An interactive table that presents metadata is only as useful as the metadata annotations it is capturing. To improve the metadata coverage for the interactive table, the project also directly addressed the quality of tool annotations in bio.tools for the microGalaxy community: a community with a focus on tools related to microbial research. Annotation guidelines were established for this purpose, the process of updating Galaxy tool wrappers to include bio.tools identifiers was started and the outcome of these activities was evaluated using a crowdsourced approach. During the BioHackathon Europe week, the annotation practices were applied to the tools selected from the microGalaxy community. This effort allowed the team to connect more than 50 tools to their respective bio.tools entry, update the registry entry, and peer-review the result. 
 
 
-The established pipeline and the annotation guidelines can support any research community to improve the findability, visibility, comparability, and accessibility of their Galaxy tools. Here we describe the methods and processes that resulted from this project and highlight how this will now allow the microGalaxy community to confidently navigate an ever-expanding landscape of research software in the Galaxy framework. 
-
-
-## Tables, figures and so on
-
-Please remember to introduce tables (see Table 1) before they appear on the document. We recommend to center tables, formulas and figure but not the corresponding captions. Feel free to modify the table style as it better suits to your data.
-
-Table 1
-| Header 1 | Header 2 |
-| -------- | -------- |
-| item 1 | item 2 |
-| item 3 | item 4 |
-
-Remember to introduce figures (see Figure 1) before they appear on the document. 
-
-![BioHackrXiv logo](./biohackrxiv.png)
- 
-Figure 1. A figure corresponding to the logo of our BioHackrXiv preprint.
-
+The established pipeline and the annotation guidelines can support any research community to improve the findability, visibility, comparability, and accessibility of their Galaxy tools. Here we describe the methods and processes that resulted from this project and highlight how this will now allow the microGalaxy community to confidently navigate an ever-expanding landscape of research software in the Galaxy framework.
 
 
 # Methods
@@ -138,13 +119,13 @@ The project was able to successfully meet its aim of creating reusable prototype
 
 
 
-For citations of references, we prefer the use of parenthesis, last name and year. If you use a citation manager, Elsevier – Harvard or American Psychological Association (APA) will work. If you are referencing web pages, software or so, please do so in the same way. Whenever possible, add authors and year. We have included a couple of citations along this document for you to get the idea. Please remember to always add DOI whenever available, if not possible, please provide alternative URLs. You will end up with an alphabetical order list by authors’ last name.
+- For citations of references, we prefer the use of parenthesis, last name and year. 
+- If you use a citation manager, Elsevier – Harvard or American Psychological Association (APA) will work. If you are referencing web pages, software or so, please do so in the same way. 
+- Whenever possible, add authors and year. 
+- We have included a couple of citations along this document for you to get the idea. 
+- Please remember to always add DOI whenever available, if not possible, please provide alternative URLs. 
+- You will end up with an alphabetical order list by authors’ last name.
 
-# Jupyter notebooks, GitHub repositories and data repositories
-
-* Please add a list here
-* Make sure you let us know which of these correspond to Jupyter notebooks. Although not supported yet, we plan to add features for them
-* And remember, software and data need a license for them to be used by others, no license means no clear rules so nobody could legally use a non-licensed research object, whatever that object is
 
 # Acknowledgements
 
