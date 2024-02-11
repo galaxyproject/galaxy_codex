@@ -86,11 +86,37 @@ Remember to introduce figures (see Figure 1) before they appear on the document.
  
 Figure 1. A figure corresponding to the logo of our BioHackrXiv preprint.
 
-# Other main section on your manuscript level 1
 
-Feel free to use numbered lists or bullet points as you need.
-* Item 1
-* Item 2
+
+# Methods
+
+## Domain-specific interactive tools table
+
+Galaxy tool wrapper suites are first parsed from multiple GitHub repositories. In effect, the repositories monitored by the planemo-monitor [@Bray2022.03.13.483965] are scraped using a custom script. The planemo-monitor is part of the Galaxy tool update infrastructure and keeps track of the most up-to-date tool development repositories. 
+Metadata is extracted from each tool wrapper suite. This includes: wrapper suite ID, scientific category, BioConda dependency, and a bio.tools repository URL. As a tool suite can be composed of multiple individual tools, the tool IDs for each tool are also extracted.
+The bio.tools reference is used to request annotations via the bio.tools API, including bio.tools description, EDAM function, and EDAM operation[@black2021edam]. The conda package version is retrieved via the BioConda API and compared to the tool wrapper API to determine a tool’s update state (i.e. to update, no update required). 
+The Galaxy API is used to query if each tool is installed on one of the three large Galaxy servers ([usegalaxy.eu](https://usegalaxy.eu/), [usegalaxy.org](https://usegalaxy.org/), [usegalaxy.org.au](https://usegalaxy.org.au/)). Furthermore, the tool usage statistics can be retrieved from an SQL query that needs to be executed by Galaxy admins. The query used in the current implementation shows how many users executed a tool in the last 2 years on the european server ([usegalaxy.eu](https://usegalaxy.eu/)). 
+The output of the pipeline is a table that combines Galaxy wrappers with their metadata. The complete table can then be filtered to include only tools with relevance for specific communities. The initial filtering step is based on the scientific category, which is defined for every Galaxy wrapper. These categories are high-level and cannot distinguish between specific tool functions. However, they allow for the isolation of a subgroup of the initial table for further curation. The filtered table can be manually curated by community curators. The curation step involves annotating which of the extracted tools should be kept in the final table. Curators can use the EDAM annotations and tool descriptions to assist with this curation step. The labels for each tool are stored to reduce replication of effort even further. The practical outcome is that for repeat executions of the workflow, only new tools require curation. 
+The curated tools are transformed into an interactive web table using the data tables framework (**cite**). The table is hosted on GitHub and deployed via GitHub pages for each community. This implementation enables complex queries and filtering without the need for a database backend. The table can be embedded in any website via an iframe: examples include the Galaxy community Hub page for microGalaxy (**cite**) or a specific Galaxy subdomain (**cite**). Furthermore, a word cloud based on the usage statistics of the tools is created. 
+The workflow is scheduled via GitHub actions to run on a weekly basis, providing an up-to-date table for each community. The usage of an iframe enables updates for the table to propagate automatically to any website where it is  deployed. Any Galaxy community can use the pipeline by adding a folder in the [GitHub repository](https://github.com/galaxyproject/galaxy_tool_extractor/data/communities). To initialize the pipeline for a new community you need to add a list of categories to a file called categories. Additionally tools that should be excluded or included after filtering can be added to respective files as well. A working example of the community configuration files can be found in the folder for the microgalaxy community. 
+
+![Workflow of the Galaxy tool metadata extractor pipeline. Tool wrappers are parsed from different repositories and additional metadata is retrieved from bio.tools, BioConda, and the main public Galaxy servers. Upon filtering and manual curation of the data for specific scientific communities, the data is transformed into interactive web tables and a tool usage statistic-base word cloud, that can be integrated into any website. \label{metadata_extractor_pipeline}](./figures/________.png)
+
+
+## Annotation workflow
+
+The annotation process begins by selecting a tool from a Galaxy community. This step can make use of the interactive table created by the Galaxy tool extractor scripts presented above. A curator then needs to visit the development repository of the Galaxy tool wrapper and check the *.xml file for a bio.tools xref snippet (Figure \ref{xref_snippet}). 
+
+![xref snippet example for a Galaxy tool wrapper that contains the tool [Racon](https://bio.tools/Racon). \label{xref_snippet}](./figures/________.png)
+
+bio.tools is then checked to confirm that a bio.tools identifier does, or does not, exist. The reason for this is that even if a bio.tools identifier exists in a tool wrapper, it may not necessarily exist in bio.tools. This is an observation based on real-world annotation errors and serves as a useful supporting step to improve Galaxy wrapper annotations and the completeness of the bio.tools registry. In addition, if a bio.tools identifier is not included in the wrapper, this does not mean that there is not a bio.tools identifier available in the registry.
+There are then two curation paths to choose from, depending on if a bio.tools identifier exists in the XML wrapper. In both cases, if no bio.tools entry exists, a new entry should be created and updated using the bio.tools wizard. The creation and update of an entry includes adding EDAM ontology topics and operations. This annotation process can be simplified through the use of [EDAM browser](https://edamontology.github.io/edam-browser/).
+
+
+In the case where no bio.tools identifier exists in the Galaxy *.xml wrapper, the development repository needs to be forked and a new branch created. A new xref snippet can then be added, and a pull request (PR) generated against the original repository.
+Figure \ref{annotation_workflow} shows a step-by-step breakdown of the above process.
+![Step-by-step workflow for systematically improving metadata annotations across bio.tools registry entries and Galaxy tool wrappers. After selecting a Galaxy tool and checking for the presence of a bio.tools ID in its XML file, a curator needs to review bio.tools, create a new bio.tools entry (if needed), and then ensure that both this entry and the Galaxy tool XML file are up-to-date. Updating bio.tools makes use of the registry wizard, and updating a Galaxy tool wrapper to include a bio.tools xref snippet requires a pull request against the development repository. \label{annotation_workflow}](./figures/________.png)
+
 
 # Discussion and/or Conclusion
 
