@@ -47,9 +47,20 @@ authors_short: Zierep, P., Batut, B. \emph{et al.} (2024) BioHackEU23 project #2
 
 # Introduction or Background
 
-Add to this section a couple of paragraphs introducing the work done dring the BioHackathon, CodeFest, VoCamp or Sprint event. Please add references whenever needed, for instance [@Katayama:2010].
+Galaxy[@10.1093/nar/gkac247] offers almost 10,000 tools that are developed across different Git repositories. Furthermore, Galaxy also embraces granular implementation of software tools as sub-modules. In practice, this means that tool suites are separated into Galaxy tools, also known as wrappers, that capture their component operations. Some key examples of suites include [Mothur](https://bio.tools/mothur)[@doi:10.1128/AEM.01541-09] and [OpenMS](https://bio.tools/openms)[@rost2016openms], which translate to tens and even hundreds of Galaxy tools. While granularity supports the sustainable development of rich domain-specific workflows, the reality is that this decentralized development and sub-module architecture makes it difficult for Galaxy users to find and reuse tools. It may also result in Galaxy developers replicating efforts by simultaneously wrapping new tools. This is further complicated by a lack of tool metadata, which prevents filtering for all tools in a specific research community or domain, and makes it all but impossible to employ advanced filtering with ontology terms and operations like EDAM[@black2021edam]. The final challenge is also an opportunity: the global nature of Galaxy means that it is a big community. Solving the visibility of tools across this ecosystem and the potential benefits are far-reaching for global collaboration on tool and workflow development.
 
-Please separate paragraphs with a double line.
+
+To provide the research community with a comprehensive list of available Galaxy tools, a pipeline was developed at the ELIXIR BioHackathon Europe 2023 that collects Galaxy wrappers from a list of Git repositories and automatically extracts their metadata (including Conda version, bio.tools[@ison2016tools] identifiers, and EDAM annotations). The workflow also queries the availability of the tools and usage statistics from the three main Galaxy servers (usegalaxy.*). 
+
+
+Crucially, the pipeline can filter its inputs to only include tools that are relevant to a specific research community. Based on the selected filters, a community-specific interactive table is generated that can be embedded, e.g. into the respective Galaxy Hub page or Galaxy subdomain. This table allows further filtering and searching for fine-grained tool selection. The pipeline is fully automated and executes on a weekly basis. Any research community can apply the pipeline to create a table specific to their community.
+
+
+An interactive table that presents metadata is only as useful as the metadata annotations it is capturing. To improve the metadata coverage for the interactive table, the project also directly addressed the quality of tool annotations in bio.tools for the microGalaxy community: a community with a focus on tools related to microbial research. Annotation guidelines were established for this purpose, the process of updating Galaxy tool wrappers to include bio.tools identifiers was started and the outcome of these activities was evaluated using a crowdsourced approach. During the BioHackathon Europe week, the annotation practices were applied to the tools selected from the microGalaxy community. This effort allowed the team to connect more than 50 tools to their respective bio.tools entry, update the registry entry, and peer-review the result. 
+
+
+The established pipeline and the annotation guidelines can support any research community to improve the findability, visibility, comparability, and accessibility of their Galaxy tools. Here we describe the methods and processes that resulted from this project and highlight how this will now allow the microGalaxy community to confidently navigate an ever-expanding landscape of research software in the Galaxy framework. 
+
 
 ## Subsection level 2
 
