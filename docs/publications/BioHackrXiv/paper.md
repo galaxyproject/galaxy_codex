@@ -147,8 +147,11 @@ For citations of references, we prefer the use of parenthesis, last name and yea
 * And remember, software and data need a license for them to be used by others, no license means no clear rules so nobody could legally use a non-licensed research object, whatever that object is
 
 # Acknowledgements
-Please always remember to acknowledge the BioHackathon, CodeFest, VoCamp, Sprint or similar where this work was (partially) developed.
+
+This work was developed as part of BioHackathon Europe 2023.
+
+This work is supported by the Australian BioCommons which is enabled by NCRIS via Bioplatforms Australia funding.
+
 
 # References
 
-Leave thise section blank, create a paper.bib with all your references.
