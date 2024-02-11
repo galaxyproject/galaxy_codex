@@ -62,14 +62,6 @@ An interactive table that presents metadata is only as useful as the metadata an
 The established pipeline and the annotation guidelines can support any research community to improve the findability, visibility, comparability, and accessibility of their Galaxy tools. Here we describe the methods and processes that resulted from this project and highlight how this will now allow the microGalaxy community to confidently navigate an ever-expanding landscape of research software in the Galaxy framework. 
 
 
-## Subsection level 2
-
-Please keep sections to a maximum of three levels, even better if only two levels.
-
-### Subsection level 3
-
-Please keep sections to a maximum of three levels.
-
 ## Tables, figures and so on
 
 Please remember to introduce tables (see Table 1) before they appear on the document. We recommend to center tables, formulas and figure but not the corresponding captions. Feel free to modify the table style as it better suits to your data.
@@ -118,13 +110,33 @@ Figure \ref{annotation_workflow} shows a step-by-step breakdown of the above pro
 ![Step-by-step workflow for systematically improving metadata annotations across bio.tools registry entries and Galaxy tool wrappers. After selecting a Galaxy tool and checking for the presence of a bio.tools ID in its XML file, a curator needs to review bio.tools, create a new bio.tools entry (if needed), and then ensure that both this entry and the Galaxy tool XML file are up-to-date. Updating bio.tools makes use of the registry wizard, and updating a Galaxy tool wrapper to include a bio.tools xref snippet requires a pull request against the development repository. \label{annotation_workflow}](./figures/________.png)
 
 
-# Discussion and/or Conclusion
+# Outcomes and results
 
-We recommend to include some discussion or conclusion about your work. Feel free to modify the section title as it fits better to your manuscript.
+There were multiple concrete outcomes from this BioHackathon project, including the interactive Galaxy tools table, a process for updating bio.tools, an in development GTN tutorial describing this process, and an update to the Galaxy IUC standards for tool wrapping. These are described in more detail below.
 
-# Future work
 
-And maybe you want to add a sentence or two on how you plan to continue. Please keep reading to learn about citations and references.
+## Prototype interactive table for Galaxy communities
+
+The described workflow for the Galaxy tool metadata extractor (see Figure \ref{metadata_extractor_pipeline}) was successfully implemented (cite GitHub) and could collect 1,294 Galaxy tools suits (cite output). Of those tools suits, only 267 had a bio.tools identifier, which highlights the importance of performing the annotation process in parallel and complementing the tools with additional metadata. An example view of the created interactive table is shown in Figure \ref{web_table}. The filtered table for the microGalaxy community is embedded in the microGalaxy Galaxy Hub (cite) page as well as the dedicated microGalaxy subdomain (cite). 
+
+![Screenshot of the interactive web table. The table provides comprehensive metadata for all Galaxy wrappers of a specific community and allows for custom searches based on logic filters over all columns. In the shown example, the user queries for all up-to-date tools that are annotated with the EDAM Operation assembly. \label{web_table}](./figures/________.png)
+
+
+## bio.tools and EDAM annotations for microbiome community
+During the week of the Biohackathon the microGalaxy community executed the annotation workflow as described in the Methods Section (see also Figure \ref{annotation_workflow}). The initial filtered tool table of the microGalaxy included 218 tool suites, of which 61 had corresponding bio.tools identifiers. The process of the work was tracked using a GitHub project board. After the annotation process, the number of tools with bio.tools annotations was increased to 107. The added annotations for  each respective bio.tools entry was also collectively reviewed by the team. A rerun of the Galaxy tool metadata extractor pipeline collected the additional information, and the metadata is now included in the interactive microGalaxy tool table. 
+
+
+## Training materials and updates to standards
+In order to provide the Galaxy research communities with simple and straightforward how-to to annotate their respective tool stacks, the described annotation workflow is currently being transformed into a Galaxy Training Network (GTN) tutorial. The guidelines created were also used to update the [best practices of the IUC repository](https://galaxy-iuc-standards.readthedocs.io/en/latest/best_practices/tool_xml.html).
+
+
+# Conclusion and outlook
+
+The project was able to successfully meet its aim of creating reusable prototypes and processes that make the richness of the Galaxy tools ecosystem more discoverable and understandable. Central to this work was the Galaxy tool metadata extractor pipeline, which is currently generating comprehensive and interactive tabular summaries of Galaxy tools for the microbiome analysis and imaging domains within Galaxy, and which at publication can be reused by any Galaxy group or community. A set of updates to standards and processes was also created. These will support the on-going growth of the metadata hosted by the interactive tables: primarily by helping communities to maintain and extend the annotations of Galaxy tool wrappers, and the bio.tools ecosystem on which these wrapper annotations depend.
+
+
+
+
 
 For citations of references, we prefer the use of parenthesis, last name and year. If you use a citation manager, Elsevier – Harvard or American Psychological Association (APA) will work. If you are referencing web pages, software or so, please do so in the same way. Whenever possible, add authors and year. We have included a couple of citations along this document for you to get the idea. Please remember to always add DOI whenever available, if not possible, please provide alternative URLs. You will end up with an alphabetical order list by authors’ last name.
 
