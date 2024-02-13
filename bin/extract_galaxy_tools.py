@@ -20,6 +20,8 @@ import yaml
 from github import Github
 from github.ContentFile import ContentFile
 from github.Repository import Repository
+from owlready2 import get_ontology, Thing
+
 
 # Config variables
 BIOTOOLS_API_URL = "https://bio.tools"
@@ -493,6 +495,50 @@ def format_list_column(col: pd.Series) -> pd.Series:
     """
     return col.apply(lambda x: ", ".join(str(i) for i in x))
 
+def process_row(row):
+# Remove extra spaces from each column value in the row
+    cleaned_row = [str(value).strip() for value in row[1:]]  # Exclude the first column ('Galaxy tool ids')
+    
+    # Convert the cleaned row to a list of EDAM terms using the provided ontology
+    edam_ontology = get_ontology('https://edamontology.org/EDAM_1.25.owl').load()
+    
+    terms = cleaned_row
+    classes = [edam_ontology.search_one(label=term) for term in terms]
+    check_classes = [cla for cla in classes if cla is not None]  # Remove None values
+    
+    new_classes = []
+    for cla in check_classes:
+        try:
+            # get all subclasses
+            subclasses = list(cla.subclasses())
+    
+            # check if any of the other classes is a subclass
+            include_class = True
+            for subcla in subclasses:
+                for cla2 in check_classes:
+                    if subcla == cla2:
+                        include_class = False
+    
+            # only keep the class if it is not a parent class
+            if include_class:
+                new_classes.append(cla)
+        except Exception as e:
+            print(f"Error processing class {cla}: {e}")
+
+    # convert back to terms, skipping None values
+    new_terms = [cla.label[0] for cla in new_classes if cla is not None]
+    
+    # Include the first column ('Galaxy tool ids') in the returned series
+    return pd.Series([row[0], ', '.join(new_terms)])  # Combine the new terms with commas
+
+def process_dataframe(input_df):
+    # Apply the process_row function to each row in the dataframe
+    output_df = input_df.apply(process_row, axis=1)
+    
+    # Set the header of the output dataframe
+    output_df.columns = ['Galaxy tool ids', 'EDAM term']
+    
+    return output_df
 
 def export_tools(
     tools: List[Dict], output_fp: str, format_list_col: bool = False, add_usage_stats: bool = False
@@ -516,9 +562,32 @@ def export_tools(
 
     if add_usage_stats:
         df = add_usage_stats_for_all_server(df)
+    
+   # df_edam = df[df['To keep']==True]
+    df_edam1 =df[df['EDAM operation'].notna()]
+    df_edam2 =df[df['EDAM topic'].notna()]
+    df_operation = pd.concat( [df_edam1['Galaxy tool ids'], df_edam1['EDAM operation'].str.split(',', expand=True).add_prefix('SubColumn')], axis=1 )
+    df_topic = pd.concat( [df_edam2['Galaxy tool ids'], df_edam2['EDAM topic'].str.split(',', expand=True).add_prefix('SubColumn')], axis=1 )
+
+    processed_df_operation = process_dataframe(df_operation)
+    processed_df_operation = processed_df_operation.rename(columns={'EDAM term': 'EDAM reduced operation'})
+    processed_df_topic = process_dataframe(df_topic)
+    processed_df_topic = processed_df_topic.rename(columns={'EDAM term': 'EDAM reduced topic'})
+
+    if 'EDAM operation' in df.columns and 'EDAM reduced operation' in processed_df_operation:
+        # Add the column from processed_df_operation to df with a new name
+        df['EDAM reduced operation classes'] = df['EDAM operation']
+    else:
+        print("Column 'EDAM operation' not found in one or both dataframes.")
+
+    if 'EDAM topic' in df.columns and 'EDAM reduced topic' in processed_df_topic:
+        # Add the column from processed_df_topic to df with a new name
+        df['EDAM reduced topic classes'] = df['EDAM topic']
+    else:
+        print("Column 'EDAM topic' not found in one or both dataframes.")
+    
 
     df.to_csv(output_fp, sep="\t", index=False)
-
 
 def filter_tools(
     tools: List[Dict],
