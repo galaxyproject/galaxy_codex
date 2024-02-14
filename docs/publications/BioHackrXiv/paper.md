@@ -5,6 +5,10 @@ tags:
   - Findability
   - Galaxy
   - Community specific
+  - Tools
+  - EDAM
+  - bio.tools
+  - Metadata
 authors:
   - name: Paul Zierep*
 	orcid:
