@@ -90,7 +90,9 @@ There are then two curation paths to choose from, depending on if a bio.tools id
 
 
 In the case where no bio.tools identifier exists in the Galaxy *.xml wrapper, the development repository needs to be forked and a new branch created. A new xref snippet can then be added, and a pull request (PR) generated against the original repository.
+
 Figure \ref{annotation_workflow} shows a step-by-step breakdown of the above process.
+
 ![Step-by-step workflow for systematically improving metadata annotations across bio.tools registry entries and Galaxy tool wrappers. After selecting a Galaxy tool and checking for the presence of a bio.tools ID in its XML file, a curator needs to review bio.tools, create a new bio.tools entry (if needed), and then ensure that both this entry and the Galaxy tool XML file are up-to-date. Updating bio.tools makes use of the registry wizard, and updating a Galaxy tool wrapper to include a bio.tools xref snippet requires a pull request against the development repository. \label{annotation_workflow}](./figures/________.png)
 
 
