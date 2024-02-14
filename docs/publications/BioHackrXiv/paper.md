@@ -9,9 +9,9 @@ authors:
   - name: Paul Zierep*
 	orcid:
 	affiliation: 1
-  - name: Berenice Batut
-	orcid:
-	affiliation: 2
+  - name: Bérénice Batut
+	orcid: 0000-0001-9852-1987
+	affiliation: 1, 2
   - name: Nicola Soranzo
 	orcid: 0000-0003-3627-5340
 	affiliation: 3
