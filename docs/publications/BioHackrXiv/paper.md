@@ -114,7 +114,8 @@ During the week of the Biohackathon the microGalaxy community executed the annot
 
 
 ## Training materials and updates to standards
-In order to provide the Galaxy research communities with simple and straightforward how-to to annotate their respective tool stacks, the described annotation workflow is currently being transformed into a Galaxy Training Network (GTN) tutorial. The guidelines created were also used to update the [best practices of the IUC repository](https://galaxy-iuc-standards.readthedocs.io/en/latest/best_practices/tool_xml.html).
+
+To provide the Galaxy research communities with simple and straightforward how-to to annotate their respective tool stacks, the described annotation workflow is currently being transformed into a Galaxy Training Network (GTN) tutorial. The guidelines created were also used to update the [best practices of the IUC repository](https://galaxy-iuc-standards.readthedocs.io/en/latest/best_practices/tool_xml.html).
 
 
 # Conclusion and outlook
