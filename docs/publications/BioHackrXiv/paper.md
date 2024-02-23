@@ -28,7 +28,10 @@ authors:
   - name: Engy Nasr
 	orcid: 0000-0001-9047-4215
 	affiliation: 1
-  
+  - name: Tunc Kayikcioglu
+	orcid: 0000-0003-2205-8062
+	affiliation: 1
+
 affiliations:
   - name: Bioinformatics Group, Department of Computer Science, University of Freiburg, Freiburg, Germany
 	index: 1
