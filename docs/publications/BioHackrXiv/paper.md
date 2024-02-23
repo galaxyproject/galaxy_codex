@@ -25,6 +25,10 @@ authors:
   - name: Ove Johan Ragnar Gustafsson
 	orcid: 0000-0002-2977-5032
 	affiliation: 5
+  - name: Engy Nasr
+	orcid: 0000-0001-9047-4215
+	affiliation: 1
+  
 affiliations:
   - name: Bioinformatics Group, Department of Computer Science, University of Freiburg, Freiburg, Germany
 	index: 1
