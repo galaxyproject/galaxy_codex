@@ -121,7 +121,7 @@ Figure \ref{annotation_workflow} shows a step-by-step breakdown of the above pro
 
 # Outcomes and results
 
-There were multiple concrete outcomes from this BioHackathon project, including the interactive Galaxy tools table, a process for updating bio.tools, an in development GTN tutorial describing this process, and an update to the Galaxy IUC standards for tool wrapping. These are described in more detail below.
+There were multiple concrete outcomes from this BioHackathon project, including the interactive Galaxy tools table, a process for updating bio.tools, an in-development GTN tutorial describing this process, and an update to the Galaxy IUC standards for tool wrapping. These are described in more detail below.
 
 
 ## Prototype interactive table for Galaxy communities
