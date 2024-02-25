@@ -28,7 +28,7 @@ authors:
 affiliations:
   - name: Bioinformatics Group, Department of Computer Science, University of Freiburg, Freiburg, Germany
 	index: 1
-  - name: Institut français de Bioinformatique, CNRS UAR 3601, Évry, France & Mésocentre Clermont-Auvergne, Université Clermont Auvergne, Aubiere, France
+  - name: Institut Français de Bioinformatique, CNRS UAR 3601, Évry, France & Mésocentre Clermont-Auvergne, Université Clermont Auvergne, Aubiere, France
 	index: 2
   - name: Earlham Institute, Norwich Research Park, Norwich, UK
 	index: 3
