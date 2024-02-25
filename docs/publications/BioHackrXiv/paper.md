@@ -36,7 +36,7 @@ affiliations:
 	index: 4
   - name: Australian BioCommons, University of Melbourne, Melbourne, Victoria, Australia
 	index: 5
-date: 12 February 2024
+date: 23 February 2024
 bibliography: paper.bib
 event: BioHackathon Europe 2023
 biohackathon_name: "BioHackathon Europe 2023"
