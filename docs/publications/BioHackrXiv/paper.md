@@ -4,7 +4,7 @@ title_short: 'BioHackEU23 project #25: Finding Galaxy tools'
 tags:
   - Findability
   - Galaxy
-  - Community specific
+  - Community-specific Galaxy tools
   - Tools
   - EDAM
   - bio.tools
