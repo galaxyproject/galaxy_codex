@@ -92,7 +92,7 @@ The curation step involves annotating which of the extracted tools should be kep
 Curators can use the EDAM annotations and tool descriptions to assist with this curation step. 
 The labels for each tool are stored to reduce the replication of effort even further. The practical outcome is that for repeat executions of the workflow, only new tools require curation. 
 
-The curated tools are transformed into an interactive web table using the data tables framework (**cite**). The table is hosted on GitHub and deployed via GitHub pages for each community. This implementation enables complex queries and filtering without the need for a database backend. The table can be embedded in any website via an iframe: examples include the Galaxy community Hub page for microGalaxy (**cite**) or a specific Galaxy subdomain (**cite**). Furthermore, a word cloud based on the usage statistics of the tools is created. 
+The curated tools are transformed into an interactive web table using the data tables framework (**cite**). The table is hosted on GitHub and deployed via GitHub pages for each community. This implementation enables complex queries and filtering without the need for a database backend. The table can be embedded in any website via an iframe: examples include the Galaxy Community Hub page for microGalaxy (**cite**) or a specific Galaxy subdomain (**cite**). Furthermore, a word cloud based on the usage statistics of the tools is created. 
 
 The workflow is scheduled via GitHub actions to run weekly, providing an up-to-date table for each community. The usage of an iframe enables updates for the table to propagate automatically to any website where it is deployed. 
 
