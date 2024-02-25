@@ -42,7 +42,7 @@ event: BioHackathon Europe 2023
 biohackathon_name: "BioHackathon Europe 2023"
 biohackathon_url:   "https://biohackathon-europe.org/"
 biohackathon_location: "Barcelona, Spain, 2023"
-group: BioHackrXiv
+group: Project 25 - Increasing the findability, visibility, and impact of Galaxy tools for specialised scientific communities
 git_url: https://github.com/galaxyproject/galaxy_tool_metadata_extractor/tree/e604ffd9866f9c32f797ceee45062b4d6f2a1513/docs/publications/BioHackrXiv
 authors_short: Zierep, P., Batut, B. \emph{et al.} (2024) BioHackEU23 project #25: Finding Galaxy tools
 ---
