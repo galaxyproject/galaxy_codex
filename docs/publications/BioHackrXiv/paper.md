@@ -32,7 +32,7 @@ affiliations:
 	index: 2
   - name: Earlham Institute, Norwich Research Park, Norwich, UK
 	index: 3
-  - name: 
+  - name: Department of Informatics, University of Bergen, Norway; and ELIXIR Norway
 	index: 4
   - name: Australian BioCommons, University of Melbourne, Melbourne, Victoria, Australia
 	index: 5
