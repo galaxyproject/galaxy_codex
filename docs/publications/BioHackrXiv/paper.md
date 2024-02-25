@@ -149,13 +149,6 @@ The project was able to successfully meet its aim of creating reusable prototype
 
 
 
-- For citations of references, we prefer the use of parenthesis, last name and year. 
-- If you use a citation manager, Elsevier – Harvard or American Psychological Association (APA) will work. If you are referencing web pages, software or so, please do so in the same way. 
-- Whenever possible, add authors and year. 
-- We have included a couple of citations along this document for you to get the idea. 
-- Please remember to always add DOI whenever available, if not possible, please provide alternative URLs. 
-- You will end up with an alphabetical order list by authors’ last name.
-
 
 # Acknowledgements
 
