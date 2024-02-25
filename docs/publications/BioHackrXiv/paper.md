@@ -77,7 +77,7 @@ The established pipeline and the annotation guidelines can support any scientifi
 
 ## Domain-specific interactive tools table
 
-Galaxy tool wrapper suites are first parsed from multiple GitHub repositories. In effect, the repositories monitored by the planemo-monitor [@Bray2022.03.13.483965] are scraped using a custom script. The planemo-monitor is part of the Galaxy tool update infrastructure and keeps track of the most up-to-date tool development repositories. 
+Galaxy tool-wrapper suites are first parsed from multiple GitHub repositories. In effect, the repositories monitored by the planemo-monitor [@citesAsAuthority:Bray2022.03.13.483965] are scraped using a custom script. The planemo-monitor is part of the Galaxy tool-update infrastructure, and keeps track of the most up-to-date tool development repositories. 
 
 Metadata is extracted from each tool wrapper suite. This includes: wrapper suite ID, scientific category, BioConda dependency, and a bio.tools repository URL. As a tool suite can be composed of multiple individual tools, the tool IDs for each tool are also extracted.
 The bio.tools reference is used to request annotations via the bio.tools API, including bio.tools description, EDAM function, and EDAM operation[@black2021edam]. The conda package version is retrieved via the BioConda API and compared to the tool wrapper API to determine a tool’s update state (i.e. to update, no update required). 
