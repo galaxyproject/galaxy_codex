@@ -1,6 +1,6 @@
 ---
 title: 'How to increase the findability, visibility, and impact of Galaxy tools for your scientific community'
-title_short: 'BioHackEU23 project #25: Finding Galaxy tools'
+title_short: 'BioHackEU23 project 25: Finding Galaxy tools'
 tags:
   - Findability
   - Galaxy
