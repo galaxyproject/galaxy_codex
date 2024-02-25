@@ -70,7 +70,7 @@ Annotation guidelines were established for this purpose, the process of updating
 This effort allowed the team to connect more than 50 tools to their respective bio.tools entry, update the registry entry, and peer-review the result. 
 
 
-The established pipeline and the annotation guidelines can support any research community to improve the findability, visibility, comparability, and accessibility of their Galaxy tools. Here we describe the methods and processes that resulted from this project and highlight how this will now allow the microGalaxy community to confidently navigate an ever-expanding landscape of research software in the Galaxy framework.
+The established pipeline and the annotation guidelines can support any scientific community to improve the findability, visibility, comparability, and accessibility of their Galaxy tools. Here we describe the methods and processes that resulted from this project, and highlight how this will now allow the microGalaxy community to confidently navigate an ever-expanding landscape of research software in the Galaxy framework.
 
 
 # Methods
