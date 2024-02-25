@@ -98,7 +98,7 @@ The workflow is scheduled via GitHub actions to run weekly, providing an up-to-d
 
 Any Galaxy community can use the pipeline by adding a folder in the [GitHub repository](https://github.com/galaxyproject/galaxy_tool_extractor/data/communities). To initialise the pipeline for a new community you need to add a list of categories to a file called 'categories'. Additionally, tools that should be excluded or included after filtering, can be added to respective files as well. A working example of the community configuration files can be found in the folder for the microGalaxy community. 
 
-![Workflow of the Galaxy tool metadata extractor pipeline. Tool wrappers are parsed from different repositories and additional metadata is retrieved from bio.tools, BioConda, and the main public Galaxy servers. Upon filtering and manual curation of the data for specific scientific communities, the data is transformed into interactive web tables and a tool usage statistic-base word cloud, that can be integrated into any website. \label{metadata_extractor_pipeline}](./figures/flowchart.png)
+![Workflow of the Galaxy tool metadata extractor pipeline. Tool wrappers are parsed from different repositories and additional metadata is retrieved from bio.tools, Bioconda, and the main public Galaxy servers. Upon filtering and manual curation of the data for specific scientific communities, the data is transformed into interactive web tables and a tool usage statistics-based word cloud, that can be integrated into any website. \label{metadata_extractor_pipeline}](./figures/flowchart.png)
 
 
 ## Annotation workflow
