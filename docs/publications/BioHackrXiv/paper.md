@@ -197,7 +197,7 @@ The guidelines created were also used to update the [best practices of the IUC r
 
 The project was able to successfully meet its aim of creating reusable prototypes and processes that make the richness of the Galaxy tools ecosystem more discoverable and understandable.
 Central to this work was the Galaxy tool metadata extractor pipeline, which is currently generating comprehensive and interactive tabular summaries of Galaxy tools for the microbiome analysis and imaging domains within Galaxy, and which at publication can be reused by any Galaxy group or community.
-The generated tabular tool summary provides valuable information that extends beyond the use case of community tool organization, therefore an integration with the [Research Software Ecosystem (RSEc)](https://github.com/research-software-ecosystem) is currently being implemented.
+The generated tabular tool summary provides valuable information that extends beyond the use case of community tool organization, therefore an integration with the [Research Software Ecosystem (RSEc)](https://github.com/research-software-ecosystem) is currently being explored.
 Various updates of the Galaxy tool metadata extractor pipeline are also envisioned, such as the integration of comprehensive usage statistics for all large galaxy servers, additional bio.tools meta data, and a user friendly integration of manually curation steps.
 
 A set of updates to standards and processes was also created. 
