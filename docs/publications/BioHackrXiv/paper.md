@@ -207,7 +207,7 @@ These will support the on-going growth of the metadata hosted by the interactive
 # Acknowledgements
 
 This work was developed as part of BioHackathon Europe 2023.
-This work was supported by ELIXIR, the research infrastructure for life science data.
+This work was supported by [ELIXIR](https://elixir-europe.org), the research infrastructure for life science data.
 This work was supported by the Australian BioCommons which is enabled by NCRIS via Bioplatforms Australia funding.
 
 
