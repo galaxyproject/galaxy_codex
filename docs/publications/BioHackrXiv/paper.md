@@ -25,6 +25,9 @@ authors:
   - name: Ove Johan Ragnar Gustafsson
 	orcid: 0000-0002-2977-5032
 	affiliation: 5
+  - name: Joseph Wang
+	orcid:
+	affiliation: 6
 affiliations:
   - name: Bioinformatics Group, Department of Computer Science, University of Freiburg, Freiburg, Germany
 	index: 1
@@ -36,6 +39,8 @@ affiliations:
 	index: 4
   - name: Australian BioCommons, University of Melbourne, Melbourne, Victoria, Australia
 	index: 5
+  - name: Queensland Alliance for Agriculture and Food Innovation, The University of Queensland, Brisbane, Queensland, Australia
+	index: 6
 date: 23 February 2024
 bibliography: paper.bib
 event: BH23EU
