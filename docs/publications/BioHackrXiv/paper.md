@@ -130,7 +130,7 @@ The workflow is scheduled via GitHub actions to run weekly, providing an up-to-d
 The usage of an iframe enables updates for the table to propagate automatically to any website where it is deployed. 
 
 Any Galaxy community can use the pipeline by adding a folder in the [project GitHub repository](https://github.com/galaxyproject/galaxy_tool_extractor/). 
-To initialise the pipeline for a new community you need to add a list of categories to a file called 'categories'. 
+To initialise the pipeline for a new community you need to add a new subfolder of `data/communities/` , and inside it add a file called 'categories' with a list of Galaxy ToolShed (**cite** doi:10.1186/gb4161 ) categories. 
 Additionally, tools that should be excluded or included after filtering, can be added to respective files as well. 
 A working example of the community configuration files can be found in the folder for the microgalaxy community.
 
