@@ -126,7 +126,7 @@ This implementation enables complex queries and filtering without the need for a
 The table can be embedded in any website via an iframe: examples include the Galaxy community Hub page for microGalaxy [Hub page for microGalaxy](https://galaxyproject.org/community/sig/microbial#tools) or the [microGalaxy subdomain](https://microgalaxy.usegalaxy.eu/). 
 Furthermore, a word cloud based on the usage statistics of the tools is created. 
 
-The workflow is scheduled via GitHub actions to run weekly, providing an up-to-date table for each community. 
+The workflow is run weekly via GitHub Actions continuous integration, providing an up-to-date table for each community. 
 The usage of an iframe enables updates for the table to propagate automatically to any website where it is deployed. 
 
 Any Galaxy community can use the pipeline by adding a folder in the [project GitHub repository](https://github.com/galaxyproject/galaxy_tool_extractor/). 
