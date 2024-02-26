@@ -162,7 +162,7 @@ Figure \ref{annotation_workflow} shows a step-by-step breakdown of the above pro
 
 # Outcomes and results
 
-There were multiple concrete outcomes from this BioHackathon project, including the ability to create interactive Galaxy tools tables as needed for scientific communities, a process for updating bio.tools, in-development Galaxy Training Network (GTN) tutorials describing this process, and an update to the Galaxy IUC standards for tool wrapping. 
+There were multiple concrete outcomes from this BioHackathon project, including the ability to create interactive Galaxy tools tables as needed for scientific communities, a process for updating bio.tools, in-development Galaxy Training Network (GTN)[@batut_community-driven_2018] tutorials describing this process, and an update to the [Galaxy IUC](https://galaxyproject.org/iuc/) tool wrapping [standards](https://galaxy-iuc-standards.readthedocs.io/en/latest/index.html). 
 These are described in more detail below.
 
 
@@ -179,9 +179,9 @@ The process for creating a new interactive table for a community is currently be
 
 ## bio.tools and EDAM annotations for microbiome community
 
-During the week of the Biohackathon, the microGalaxy community executed the annotation workflow as described in the Methods section (see also Figure \ref{annotation_workflow}). 
+During the week of the BioHackathon, the microGalaxy community executed the annotation workflow as described in the Methods section (see also Figure \ref{annotation_workflow}). 
 The initial filtered tool table of the microGalaxy included 218 tool suites, of which 61 had corresponding bio.tools identifiers. 
-The process of the work was tracked using a GitHub project board. 
+The progress of the work was tracked using a GitHub project board. 
 After the annotation process, the number of tools with bio.tools annotations was increased to 107. 
 The added annotations for each respective bio.tools entry were also collectively reviewed by the team. 
 A rerun of the Galaxy tool metadata extractor pipeline collected the additional information, and the metadata is now included in the interactive microGalaxy tool table. 
