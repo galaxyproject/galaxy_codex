@@ -38,7 +38,7 @@ jobs:
       - name: Run script #needs PAT to access other repos
         run: | 
           bash ./bin/extract_all_tools_stepwise.sh "${{ matrix.subset }}"
-        env: 
+        env:
           GITHUB_API_KEY: ${{ secrets.GH_API_TOKEN }}
       - name: Commit all tools 
         # add or commit any changes in results if there was a change, merge with main and push as bot
@@ -59,6 +59,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: main #pull latest code produced by job 1, not the revision that started the workflow (https://github.com/actions/checkout/issues/439)
+          token:  ${{ secrets.GH_API_TOKEN }}
       - uses: actions/setup-python@v5
       - name: Install requirement
         run: python -m pip install -r requirements.txt
