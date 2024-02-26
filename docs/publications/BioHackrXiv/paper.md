@@ -67,7 +67,7 @@ In practice, this means that tool suites are separated into sets of Galaxy tools
 Some key examples of tool suites include [Mothur](https://bio.tools/mothur)[@citesAsAuthority:doi:10.1128/AEM.01541-09] and [OpenMS](https://bio.tools/openms)[@citesAsAuthority:rost2016openms], which translate to tens and even hundreds of Galaxy tools. 
 While granularity supports the composability of tools into diverse purpose-specific workflows, this decentralised development and modular architecture make it difficult for Galaxy users to find and use tools. 
 It may also result in Galaxy tool-wrapper developers duplicating efforts by simultaneously wrapping the same software. 
-This is further complicated by the lack of tool metadata, which prevents filtering of tools as relevant for a specific scientific community or domain, and makes it impossible to employ advanced filtering by ontology terms like ones from EDAM[@citesAsAuthority:black2021edam]. 
+This is further complicated by the scarcity of tool metadata, which prevents filtering of tools as relevant for a specific scientific community or domain, and makes it impossible to employ advanced filtering by ontology terms like the ones from EDAM[@citesAsAuthority:black2021edam]. 
 The final challenge is also an opportunity: the global nature of Galaxy means that it is a big community. 
 Solving the visibility of tools across this "ecosystem", and the resulting benefits, are far-reaching for the global collaborative development of data-analysis tools and workflows.
 
