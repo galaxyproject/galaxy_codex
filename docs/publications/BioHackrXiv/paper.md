@@ -176,7 +176,7 @@ The filtered table for the microGalaxy community is embedded in the [Hub page fo
 
 ## bio.tools and EDAM annotations for microbiome community
 
-During the week of the Biohackathon the microGalaxy community executed the annotation workflow as described in the Methods Section (see also Figure \ref{annotation_workflow}). The initial filtered tool table of the microGalaxy included 218 tool suites, of which 61 had corresponding bio.tools identifiers. The process of the work was tracked using a GitHub project board. After the annotation process, the number of tools with bio.tools annotations was increased to 107. The added annotations for each respective bio.tools entry were also collectively reviewed by the team. A rerun of the Galaxy tool metadata extractor pipeline collected the additional information, and the metadata is now included in the interactive microGalaxy tool table. 
+During the week of the Biohackathon, the microGalaxy community executed the annotation workflow as described in the Methods section (see also Figure \ref{annotation_workflow}). The initial filtered tool table of the microGalaxy included 218 tool suites, of which 61 had corresponding bio.tools identifiers. The process of the work was tracked using a GitHub project board. After the annotation process, the number of tools with bio.tools annotations was increased to 107. The added annotations for each respective bio.tools entry were also collectively reviewed by the team. A rerun of the Galaxy tool metadata extractor pipeline collected the additional information, and the metadata is now included in the interactive microGalaxy tool table. 
 
 ## Training materials and updates to standards
 
