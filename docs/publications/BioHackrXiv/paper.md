@@ -116,7 +116,7 @@ These categories are high-level and cannot distinguish between specific tool fun
 However, they allow for the isolation of a subgroup of the initial table for further curation. 
 The filtered table can then be manually curated by community curators. 
 This curation step involves annotating which of the extracted tools should be kept in the final table. 
-Curators can use the EDAM concept annotations and tool descriptions to assist with this curation step. 
+Curators can use the EDAM annotations and tool descriptions to assist with this curation step. 
 The `to keep` labels for each tool are stored to reduce the replication of effort even further. 
 The practical outcome is that for repeat executions of the workflow, only new tools require curation. 
 
