@@ -73,7 +73,7 @@ Solving the visibility of tools across this "ecosystem", and the resulting benef
 
 To provide the scientific community with a comprehensive list of annotated Galaxy tools, 
 we developed a pipeline at the [ELIXIR BioHackathon Europe 2023](https://2023.biohackathon-europe.org) that collects Galaxy wrappers from a list of GitHub repositories and automatically extracts their metadata (including Conda version [@citesAsAuthority:conda], bio.tools identifiers[@usesDataFrom:ison2016tools, @usesDataFrom:Ison2019], and EDAM annotations). 
-The workflow also queries the availability of the tools from the three main Galaxy servers (usegalaxy.*) as well as usage statistics from usegalaxy.eu (Note: the other servers will be queried for usage statistics in coming updates). 
+The workflow also queries the availability of the tools from the three main Galaxy servers (_usegalaxy.*_) as well as usage statistics from [usegalaxy.eu](https://usegalaxy.eu) (Note: the other main Galaxy servers, [usegalaxy.org](https://usagalaxy.org) and [usegalaxy.org.au](https://usagalaxy.org.au), will be queried for usage statistics in coming updates). 
 
 Crucially, the pipeline can filter its inputs to only include tools that are relevant to a specific research community. 
 Based on the selected filters, a community-specific interactive table is generated that can be embedded, e.g. into the respective [Galaxy Hub](https://galaxyproject.org/) webpage or [Galaxy subdomain](https://galaxyproject.org/eu/subdomains/). 
