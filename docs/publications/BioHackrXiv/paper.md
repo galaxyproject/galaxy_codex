@@ -123,7 +123,7 @@ The practical outcome is that for repeat executions of the workflow, only new to
 The curated tools are transformed into an interactive web table using the data tables framework[@datatables]. 
 The table is hosted on GitHub and deployed via GitHub pages for each community. 
 This implementation enables complex queries and filtering without the need for a database backend. 
-The table can be embedded in any website via an iframe: examples include the Galaxy community Hub page for microGalaxy [Hub page for microGalaxy](https://galaxyproject.org/community/sig/microbial#tools) or the [microGalaxy subdomain](https://microgalaxy.usegalaxy.eu/). 
+The table can be embedded in any website via an iframe: examples include the Galaxy community [Hub page for microGalaxy](https://galaxyproject.org/community/sig/microbial#tools) or the [microGalaxy subdomain](https://microgalaxy.usegalaxy.eu/). 
 Furthermore, a word cloud based on the usage statistics of the tools is created. 
 
 The workflow is run weekly via GitHub Actions continuous integration, providing an up-to-date table for each community. 
