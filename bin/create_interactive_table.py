@@ -4,7 +4,7 @@ import argparse
 
 import pandas as pd
 
-# TODO maybe allow comunities to modify
+# TODO maybe allow communities to modify
 COLUMNS = [
     "Expand",
     "Galaxy wrapper id",
@@ -18,6 +18,7 @@ COLUMNS = [
     "EDAM topic",
     "Description",
     "bio.tool description",
+    "biii",
     "Status",
     "Source",
     "ToolShed categories",
