@@ -171,7 +171,7 @@ These are described in more detail below.
 The described workflow for the Galaxy tool metadata extractor (see Figure \ref{metadata_extractor_pipeline}) was successfully implemented ([GitHub repository](https://github.com/galaxyproject/galaxy_tool_extractor)) and could more then 1,300 Galaxy tool suites (see the [GitHub repository pages](https://galaxyproject.github.io/galaxy_tool_metadata_extractor) for an up-to-date table).
 Of those tool suites, only 267 had a bio.tools identifier, which highlights the importance of performing the annotation process in parallel and complementing the tools with additional metadata. 
 An example view of the created interactive table is shown in Figure \ref{web_table}. 
-As mentioned above, the filtered table for the microGalaxy community has already been embedded in the [Hub page for microGalaxy](https://galaxyproject.org/community/sig/microbial#tools) page as well as the dedicated [microGalaxy subdomain](https://microgalaxy.usegalaxy.eu/). 
+As mentioned above, the filtered table for the microGalaxy community has already been embedded in the [Hub page for microGalaxy](https://galaxyproject.org/community/sig/microbial#tools), as well as the dedicated [microGalaxy subdomain](https://microgalaxy.usegalaxy.eu/). 
 The process for creating a new interactive table for a community is currently being transformed into a GTN tutorial.
 
 ![Screenshot of the interactive web table. The table provides comprehensive metadata for all Galaxy wrappers of a specific community and allows for custom searches based on logic filters over all columns. In the shown example, the user queries for all up-to-date tools that are annotated with an EDAM operation that includes "assembly". \label{web_table}](./figures/itable.png)
