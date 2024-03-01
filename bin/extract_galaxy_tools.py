@@ -180,16 +180,17 @@ def get_shed_attribute(attrib: str, shed_content: Dict[str, Any], empty_value: A
         return empty_value
 
 
-def get_biotools(el: et.Element) -> Optional[str]:
+def get_xref(el: et.Element, attrib_type: str) -> Optional[str]:
     """
-    Get bio.tools information
+    Get xref information
 
     :param el: Element object
+    :attrib_type: the type of the xref (e.g.: bio.tools or biii)
     """
     xrefs = el.find("xrefs")
     if xrefs is not None:
         xref = xrefs.find("xref")
-        if xref is not None and xref.attrib["type"] == "bio.tools":
+        if xref is not None and xref.attrib["type"] == attrib_type:
             return xref.text
     return None
 
@@ -248,6 +249,7 @@ def get_tool_metadata(tool: ContentFile, repo: Repository) -> Optional[Dict[str,
         "Galaxy tool ids": [],
         "Description": None,
         "bio.tool id": None,
+        "biii": None,
         "bio.tool name": None,
         "bio.tool description": None,
         "EDAM operation": [],
@@ -296,7 +298,7 @@ def get_tool_metadata(tool: ContentFile, repo: Repository) -> Optional[Dict[str,
                         metadata["Galaxy wrapper version"] = child.text
                     elif child.attrib["name"] == "requirements":
                         metadata["Conda id"] = get_conda_package(child)
-                    biotools = get_biotools(child)
+                    biotools = get_xref(child, attrib_type="bio.tools")
                     if biotools is not None:
                         metadata["bio.tool id"] = biotools
     # parse XML file and get meta data from there, also tool ids
@@ -324,7 +326,7 @@ def get_tool_metadata(tool: ContentFile, repo: Repository) -> Optional[Dict[str,
                                         metadata["Galaxy wrapper version"] = child.text
                 # bio.tools
                 if metadata["bio.tool id"] is None:
-                    biotools = get_biotools(root)
+                    biotools = get_xref(root, attrib_type="bio.tools")
                     if biotools is not None:
                         metadata["bio.tool id"] = biotools
                 # conda package
