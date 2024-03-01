@@ -180,17 +180,20 @@ def get_shed_attribute(attrib: str, shed_content: Dict[str, Any], empty_value: A
         return empty_value
 
 
-def get_biotools(el: et.Element) -> Optional[str]:
+def get_xref(el: et.Element, attrib_type: str) -> Optional[str]:
     """
-    Get bio.tools information
+    Get xref information
 
     :param el: Element object
+    :attrib_type: the type of the xref (e.g.: bio.tools or biii)
     """
+
     xrefs = el.find("xrefs")
     if xrefs is not None:
-        xref = xrefs.find("xref")
-        if xref is not None and xref.attrib["type"] == "bio.tools":
-            return xref.text
+        xref_items = xrefs.findall("xref")  # check all xref items
+        for xref in xref_items:
+            if xref is not None and xref.attrib["type"] == attrib_type:
+                return xref.text
     return None
 
 
@@ -248,6 +251,7 @@ def get_tool_metadata(tool: ContentFile, repo: Repository) -> Optional[Dict[str,
         "Galaxy tool ids": [],
         "Description": None,
         "bio.tool id": None,
+        "biii": None,
         "bio.tool name": None,
         "bio.tool description": None,
         "EDAM operation": [],
@@ -296,9 +300,14 @@ def get_tool_metadata(tool: ContentFile, repo: Repository) -> Optional[Dict[str,
                         metadata["Galaxy wrapper version"] = child.text
                     elif child.attrib["name"] == "requirements":
                         metadata["Conda id"] = get_conda_package(child)
-                    biotools = get_biotools(child)
+                    # bio.tools
+                    biotools = get_xref(child, attrib_type="bio.tools")
                     if biotools is not None:
                         metadata["bio.tool id"] = biotools
+                    # biii
+                    biii = get_xref(child, attrib_type="biii")
+                    if biii is not None:
+                        metadata["biii"] = biii
     # parse XML file and get meta data from there, also tool ids
     for file in file_list:
         if file.name.endswith("xml") and "macro" not in file.name:
@@ -324,9 +333,15 @@ def get_tool_metadata(tool: ContentFile, repo: Repository) -> Optional[Dict[str,
                                         metadata["Galaxy wrapper version"] = child.text
                 # bio.tools
                 if metadata["bio.tool id"] is None:
-                    biotools = get_biotools(root)
+                    biotools = get_xref(root, attrib_type="bio.tools")
                     if biotools is not None:
                         metadata["bio.tool id"] = biotools
+                        # bio.tools
+                # biii
+                if metadata["biii"] is None:
+                    biii = get_xref(root, attrib_type="biii")
+                    if biii is not None:
+                        metadata["biii"] = biii
                 # conda package
                 if metadata["Conda id"] is None:
                     reqs = get_conda_package(root)
