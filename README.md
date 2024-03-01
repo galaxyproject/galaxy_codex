@@ -22,8 +22,6 @@ The tools performs the following steps:
 - Creates an interactive table for all tools: [All tools](https://galaxyproject.github.io/galaxy_tool_metadata_extractor/)
 - Creates an interactive table for all registered communities, e.g. [microGalaxy](https://galaxyproject.github.io/galaxy_tool_metadata_extractor/microgalaxy/)
 
-
-
 # Usage
 
 ## Prepare environment
@@ -103,8 +101,6 @@ The script will generate a TSV file with each tool found in the list of GitHub r
         [--keep <Path to to-keep tool file category file>]
     ```
 
-
-
 ## Add your community
 
 In order to add your community you need to:
@@ -115,3 +111,12 @@ In order to add your community you need to:
 - Make a pull request to add your community.
 - The workflow will run every sunday, so on the next monday, your community table should be added to `results/<your community name>`
 
+## Development
+
+To make a test run of the tool to check its functionalities follow [Usage](#Usage) to set-up the environnement and the API key, then run
+
+```bash
+bash ./bin/extract_all_tools_test.sh test.list
+```
+
+This runs the tool, but only parses the test repository [Galaxy-Tool-Metadata-Extractor-Test-Wrapper](https://github.com/paulzierep/Galaxy-Tool-Metadata-Extractor-Test-Wrapper)
