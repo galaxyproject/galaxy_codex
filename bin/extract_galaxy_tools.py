@@ -122,11 +122,11 @@ def get_tool_github_repositories(g: Github, RepoSelection: Optional[str], run_te
 
     :param g: GitHub instance
     :param RepoSelection: The selection to use from the repository (needed to split the process for CI jobs)
-    :run_test: for CI testing only use one repository
+    :run_test: for testing only parse the repository
     """
 
     if run_test:
-        return ["https://github.com/TGAC/earlham-galaxytools"]
+        return ["https://github.com/paulzierep/Galaxy-Tool-Metadata-Extractor-Test-Wrapper"]
 
     repo = g.get_user("galaxyproject").get_repo("planemo-monitor")
     repo_list: List[str] = []
