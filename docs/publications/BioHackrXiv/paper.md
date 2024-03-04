@@ -177,7 +177,7 @@ The process for creating a new interactive table for a community is currently be
 ![Screenshot of the interactive web table. The table provides comprehensive metadata for all Galaxy wrappers of a specific community and allows for custom searches based on logic filters over all columns. In the shown example, the user queries for all up-to-date tools that are annotated with an EDAM operation that includes "assembly". \label{web_table}](./figures/itable.png)
 
 
-## bio.tools and EDAM annotations for microbiome community
+## bio.tools and EDAM annotations for microGalaxy community
 
 During the week of the BioHackathon, the microGalaxy community executed the annotation workflow as described in the Methods section (see also Figure \ref{annotation_workflow}). 
 The initial filtered tool table of the microGalaxy included 218 tool suites, of which 61 had corresponding bio.tools identifiers. 
