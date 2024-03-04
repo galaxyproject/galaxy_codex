@@ -246,6 +246,8 @@ def get_tool_metadata(tool: ContentFile, repo: Repository) -> Optional[Dict[str,
     """
     if tool.type != "dir":
         return None
+
+    # the folder of the tool is used as Galaxy wrapper id (maybe rather use the .shed.yml name)
     metadata = {
         "Galaxy wrapper id": tool.name,
         "Galaxy tool ids": [],
@@ -261,7 +263,8 @@ def get_tool_metadata(tool: ContentFile, repo: Repository) -> Optional[Dict[str,
         "ToolShed categories": [],
         "ToolShed id": None,
         "Galaxy wrapper owner": None,
-        "Galaxy wrapper source": None,
+        "Galaxy wrapper source": None,  # this is what it written in the .shed.yml
+        "Galaxy wrapper parsed folder": None,  # this is the actual parsed file
         "Galaxy wrapper version": None,
         "Conda id": None,
         "Conda version": None,
@@ -271,6 +274,7 @@ def get_tool_metadata(tool: ContentFile, repo: Repository) -> Optional[Dict[str,
         shed = repo.get_contents(f"{tool.path}/.shed.yml")
     except Exception:
         return None
+    # parse the .shed.yml
     else:
         file_content = get_string_content(shed)
         yaml_content = yaml.load(file_content, Loader=yaml.FullLoader)
@@ -287,9 +291,15 @@ def get_tool_metadata(tool: ContentFile, repo: Repository) -> Optional[Dict[str,
         metadata["ToolShed categories"] = get_shed_attribute("categories", yaml_content, [])
         if metadata["ToolShed categories"] is None:
             metadata["ToolShed categories"] = []
-    # find and parse macro file
+
+    # get all files in the folder
     file_list = repo.get_contents(tool.path)
     assert isinstance(file_list, list)
+
+    # store the github location where the folder was parsed
+    metadata["Galaxy wrapper parsed folder"] = tool.html_url
+
+    # find and parse macro file
     for file in file_list:
         if "macro" in file.name and file.name.endswith("xml"):
             file_content = get_string_content(file)
@@ -308,7 +318,8 @@ def get_tool_metadata(tool: ContentFile, repo: Repository) -> Optional[Dict[str,
                     biii = get_xref(child, attrib_type="biii")
                     if biii is not None:
                         metadata["biii"] = biii
-    # parse XML file and get meta data from there, also tool ids
+
+    # parse XML file and get meta data from there
     for file in file_list:
         if file.name.endswith("xml") and "macro" not in file.name:
             file_content = get_string_content(file)
@@ -350,6 +361,7 @@ def get_tool_metadata(tool: ContentFile, repo: Repository) -> Optional[Dict[str,
                 # tool ids
                 if "id" in root.attrib:
                     metadata["Galaxy tool ids"].append(root.attrib["id"])
+
     # get latest conda version and compare to the wrapper version
     if metadata["Conda id"] is not None:
         r = requests.get(f'https://api.anaconda.org/package/bioconda/{metadata["Conda id"]}')
@@ -396,6 +408,7 @@ def parse_tools(repo: Repository) -> List[Dict[str, Any]]:
             print("No tool folder found", sys.stderr)
             return []
     assert isinstance(repo_tools, list)
+
     tool_folders.append(repo_tools)
     try:
         repo_tools = repo.get_contents("tool_collections")
@@ -404,6 +417,10 @@ def parse_tools(repo: Repository) -> List[Dict[str, Any]]:
     else:
         assert isinstance(repo_tools, list)
         tool_folders.append(repo_tools)
+
+    # tool_folders will contain a list of all folders in the
+    # repository named wrappers/tools/tool_collections
+
     # parse folders
     tools = []
     for folder in tool_folders:
@@ -413,7 +430,10 @@ def parse_tools(repo: Repository) -> List[Dict[str, Any]]:
                 print("WAITING for 1 hour to retrieve GitHub API request access !!!")
                 print()
                 time.sleep(60 * 60)
+
             # parse tool
+            # if the folder (tool) has a .shed.yml file run get get_tool_metadata on that folder,
+            # otherwise go one level down and check if there is a .shed.yml in a subfolder
             try:
                 repo.get_contents(f"{tool.path}/.shed.yml")
             except Exception:
