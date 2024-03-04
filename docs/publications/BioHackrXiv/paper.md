@@ -150,7 +150,7 @@ The reason for this is that even if a bio.tools identifier exists in a tool wrap
 This is an observation based on real-world annotation errors and serves as a useful supporting step to improve Galaxy wrapper annotations and the completeness of the bio.tools registry. 
 In addition, if a bio.tools identifier is not included in the wrapper, this does not mean that there is not a bio.tools identifier available in the registry.
 
-There are then two curation paths to choose from, depending on whether a bio.tools identifier exists in the XML wrapper. In both cases, if no bio.tools entry exists, a new entry should be created and updated using the bio.tools wizard. The creation and update of an entry includes adding concepts from the EDAM ontology. This annotation process can be simplified through the use of [EDAM Browser](https://edamontology.github.io/edam-browser/)[@citesAsAuthority:edamBrowser].
+There are then two curation paths to choose from, depending on whether a bio.tools identifier exists in the XML wrapper. In both cases, if no bio.tools entry exists, a new entry should be created and updated using the bio.tools wizard. The creation and update of an entry includes adding concepts from the EDAM ontology. This annotation process can be simplified through the use of [EDAM Browser](https://edamontology.github.io/edam-browser/)[@citesAsAuthority:edamBrowser, @citesAsAuthority:edamBrowserCode].
 
 In the case where no bio.tools identifier exists in the Galaxy XML wrapper, the development repository needs to be forked and a new branch created. 
 A new xref snippet can then be added, and a pull request opened against the original repository.
