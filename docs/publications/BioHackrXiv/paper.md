@@ -97,7 +97,7 @@ Here, we describe the methods and processes that resulted from this project, and
 ## Domain-specific interactive tools table
 
 To create the domain-specific interactive tools table, Galaxy tool-wrapper suites are first parsed from across multiple GitHub repositories. 
-In effect, the repositories monitored by the planemo-monitor [@citesAsAuthority:Bray2022.03.13.483965] are scraped using a custom script. 
+In effect, the repositories monitored by the planemo-monitor[@citesAsAuthority:Bray2022.03.13.483965] are scraped using a custom script. 
 The planemo-monitor is part of the Galaxy tool-update infrastructure, and keeps track of the most up-to-date tool development repositories.
 
 Metadata is extracted from each parsed tool-wrapper suite. 
