@@ -2,11 +2,12 @@
 name: Deploy static content to Pages
 
 on:
-  # the workflow is triggered when any of the results are changed
-  push:
-    paths:
-    - 'results/**'
-    branches: ["main"]
+
+  # the workflow it triggered when the tools where filtered
+  workflow_run:
+    workflows: ["Filter community tools"]
+    types:
+      - completed
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
