@@ -35,10 +35,11 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Install requirement
         run: python -m pip install -r requirements.txt
-      - name: Run script
+      - name: Run script #needs PAT to access other repos
         run: | 
-          export GITHUB_API_KEY=${{ secrets.GH_API_TOKEN }}
           bash ./bin/extract_all_tools_stepwise.sh "${{ matrix.subset }}"
+        env: 
+          GITHUB_API_KEY: ${{ secrets.GH_API_TOKEN }}
       - name: Commit all tools 
         # add or commit any changes in results if there was a change, merge with main and push as bot
         run: |
