@@ -82,7 +82,7 @@ The pipeline is fully automated and executes on a weekly basis.
 Any scientific community can apply the pipeline to create a table specific to their needs.
 
 An interactive table that presents metadata is only as useful as the metadata annotations it is capturing. 
-To improve the metadata coverage for the interactive table, the project also directly addressed the quality of tool annotations in bio.tools for the microGalaxy community: 
+To improve the metadata coverage for the interactive table, the project also directly addressed the quality of tool annotations in bio.tools for the [microGalaxy community](https://galaxyproject.org/community/sig/microbial/): 
 a community with a focus on tools related to microbial research. 
 
 Annotation guidelines were established for this purpose, the process of updating Galaxy tool wrappers to include bio.tools identifiers was started and the outcome of these activities was evaluated using a crowdsourced approach. During the BioHackathon Europe 2023 week, the annotation practices were applied to the tools selected from the microGalaxy community. 
