@@ -76,7 +76,7 @@ we developed a pipeline at the [ELIXIR BioHackathon Europe 2023](https://2023.bi
 The workflow also queries the availability of the tools from the three main Galaxy servers (_usegalaxy.*_) as well as usage statistics from [usegalaxy.eu](https://usegalaxy.eu) (Note: the other main Galaxy servers, [usegalaxy.org](https://usagalaxy.org) and [usegalaxy.org.au](https://usagalaxy.org.au), will be queried for usage statistics in coming updates). 
 
 Crucially, the pipeline can filter its inputs to only include tools that are relevant to a specific research community. 
-Based on the selected filters, a community-specific interactive table is generated that can be embedded, e.g. into the respective [Galaxy Hub](https://galaxyproject.org/) webpage or [Galaxy subdomain](https://galaxyproject.org/eu/subdomains/). 
+Based on the selected filters, a community-specific interactive table is generated that can be embedded, _e.g._ into the respective [Galaxy Hub](https://galaxyproject.org/) webpage or [Galaxy subdomain](https://galaxyproject.org/eu/subdomains/). 
 This table allows further filtering and searching for fine-grained tool selection. 
 The pipeline is fully automated and executes on a weekly basis. 
 Any scientific community can apply the pipeline to create a table specific to their needs.
