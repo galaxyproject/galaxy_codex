@@ -11,42 +11,42 @@ tags:
   - Metadata
 authors:
   - name: Paul Zierep
-	orcid:
-	affiliation: 1
+    orcid:
+    affiliation: 1
   - name: Bérénice Batut
-	orcid: 0000-0001-9852-1987
-	affiliation: 1, 2
+    orcid: 0000-0001-9852-1987
+    affiliation: 1, 2
   - name: Nicola Soranzo
-	orcid: 0000-0003-3627-5340
-	affiliation: 3
+    orcid: 0000-0003-3627-5340
+    affiliation: 3
   - name: Matúš Kalaš
-	orcid: 0000-0002-1509-4981
-	affiliation: 4
+    orcid: 0000-0002-1509-4981
+    affiliation: 4
   - name: Ove Johan Ragnar Gustafsson
-	orcid: 0000-0002-2977-5032
-	affiliation: 5
+    orcid: 0000-0002-2977-5032
+    affiliation: 5
   - name: Engy Nasr
-	orcid: 0000-0001-9047-4215
-	affiliation: 1
+    orcid: 0000-0001-9047-4215
+    affiliation: 1
   - name: Tunc Kayikcioglu
-	orcid: 0000-0003-2205-8062
-	affiliation: 1
+    orcid: 0000-0003-2205-8062
+    affiliation: 1
   - name: Joseph Wang
-	orcid:
-	affiliation: 6
+    orcid:
+    affiliation: 6
 affiliations:
   - name: Bioinformatics Group, Department of Computer Science, University of Freiburg, Freiburg, Germany
-	index: 1
+    index: 1
   - name: Institut Français de Bioinformatique, CNRS UAR 3601, Évry, France & Mésocentre Clermont-Auvergne, Université Clermont Auvergne, Aubiere, France
-	index: 2
+    index: 2
   - name: Earlham Institute, Norwich Research Park, Norwich, UK
-	index: 3
+    index: 3
   - name: Department of Informatics, University of Bergen, Norway; and ELIXIR Norway
-	index: 4
+    index: 4
   - name: Australian BioCommons, University of Melbourne, Melbourne, Victoria, Australia
-	index: 5
+    index: 5
   - name: Queensland Alliance for Agriculture and Food Innovation, The University of Queensland, Brisbane, Queensland, Australia
-	index: 6
+    index: 6
 date: 23 February 2024
 bibliography: paper.bib
 event: BH23EU
