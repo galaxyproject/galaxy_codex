@@ -103,7 +103,7 @@ The planemo-monitor is part of the Galaxy tool-update infrastructure, and keeps 
 Metadata is extracted from each parsed tool-wrapper suite. 
 This includes: wrapper suite ID, scientific category, Bioconda dependency, and a repository URL from bio.tools. 
 As a tool suite can be composed of multiple individual tools, the tool IDs for each tool are also extracted.
-The bio.tools reference is used to request metadata annotations via the bio.tools API, including bio.tools description and functionality annotation (i.e. Operation(s)) using EDAM ontology concepts[@usesDataFrom:black2021edam]. 
+The bio.tools reference is used to request metadata annotations via the bio.tools API, including bio.tools description and functionality annotation using EDAM ontology concepts[@usesDataFrom:black2021edam]. 
 The latest Conda package version is retrieved via the Bioconda API and compared to the Galaxy tool version to determine the tool’s update state (_i.e._ to update, or no update required). 
 
 The Galaxy API is used to query if each tool is installed on one of the three usegalaxy.* Galaxy servers ([usegalaxy.eu](https://usegalaxy.eu/), [usegalaxy.org](https://usegalaxy.org/), [usegalaxy.org.au](https://usegalaxy.org.au/)). Furthermore, the tool usage statistics can be retrieved from an SQL query that needs to be executed by Galaxy administrators. 
