@@ -130,11 +130,11 @@ The workflow is run weekly via GitHub Actions continuous integration, providing 
 The usage of an iframe enables updates for the table to propagate automatically to any website where it is deployed. 
 
 Any Galaxy community can use the pipeline by adding a folder in the [project GitHub repository](https://github.com/galaxyproject/galaxy_tool_extractor/). 
-To initialise the pipeline for a new community you need to add a new subfolder of `data/communities/` , and inside it add a file called 'categories' with a list of Galaxy ToolShed (**cite** doi:10.1186/gb4161 ) categories. 
+To initialise the pipeline for a new community you need to add a new subfolder of `data/communities/` , and inside it add a file called 'categories' with a list of Galaxy ToolShed [@blankenberg2014dissemination] categories. 
 Additionally, tools that should be excluded or included after filtering, can be added to respective files as well. 
 A working example of the community configuration files can be found in the folder for the microGalaxy community.
 
-![Workflow of the Galaxy tool metadata extractor pipeline. Tool wrappers are parsed from different repositories and additional metadata is retrieved from bio.tools, Bioconda, and the main public Galaxy servers. Upon filtering and manual curation of the data for specific scientific communities, the data is transformed into interactive web tables and a tool usage statistics-based word cloud, that can be integrated into any website. \label{metadata_extractor_pipeline}](./figures/flowchart.png)
+![Workflow of the Galaxy tool metadata extractor pipeline. Tool wrappers are parsed from different repositories and additional metadata is retrieved from bio.tools, Bioconda, and the main public Galaxy servers. Upon filtering and manual curation of the data for specific scientific communities, the data is transformed into interactive web tables and a tool usage statistics-based word cloud, that can be integrated into any website. \label{metadata_extractor_pipeline}](./flowchart.png)
 
 
 ## Annotation workflow
@@ -174,7 +174,7 @@ An example view of the created interactive table is shown in Figure \ref{web_tab
 As mentioned above, the filtered table for the microGalaxy community has already been embedded in the [Hub page for microGalaxy](https://galaxyproject.org/community/sig/microbial#tools), as well as the dedicated [microGalaxy subdomain](https://microgalaxy.usegalaxy.eu/). 
 The process for creating a new interactive table for a community is currently being transformed into a GTN tutorial.
 
-![Screenshot of the interactive web table. The table provides comprehensive metadata for all Galaxy wrappers of a specific community and allows for custom searches based on logic filters over all columns. In the shown example, the user queries for all up-to-date tools that are annotated with an EDAM operation that includes "assembly". \label{web_table}](./figures/itable.png)
+![Screenshot of the interactive web table. The table provides comprehensive metadata for all Galaxy wrappers of a specific community and allows for custom searches based on logic filters over all columns. In the shown example, the user queries for all up-to-date tools that are annotated with an EDAM operation that includes "assembly". \label{web_table}](./itable.png)
 
 
 ## bio.tools and EDAM annotations for microGalaxy community
