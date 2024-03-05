@@ -34,6 +34,11 @@ COLUMNS_TO_DROP = [
 ]
 
 
+# COLUMNS_TO_ADD = [
+#     "Expand"
+# ]
+
+
 def generate_table(
     tsv_path: str,
     template_path: str,
@@ -44,7 +49,9 @@ def generate_table(
         df["To keep"] = df["To keep"].replace("", True)
         df = df.query("`To keep`")
 
+    df.insert(0, "Expand", None)  # the column where the expand button is shown
     df = df.drop(COLUMNS_TO_DROP, axis=1)
+
     # df = df.loc[:, COLUMNS].reindex(columns=COLUMNS)
     table = df.to_html(border=0, table_id="dataframe", classes=["display", "nowrap"], index=False)
 
