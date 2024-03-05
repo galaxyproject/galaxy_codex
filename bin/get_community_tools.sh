@@ -7,19 +7,6 @@ for com_data_fp in data/communities/* ; do
 
                 echo "$community";
 
-                if [[ "$community" == *"microgalaxy"* ]]; then
-                        curl \
-                                -L \
-                                "https://docs.google.com/spreadsheets/d/1Nq_g-CPc8t_eC4M1NAS9XFJDflA7yE3b9hfSg3zu9L4/export?format=tsv&gid=1533244711" \
-                                -o "data/communities/$community/tools_to_keep"
-
-                        curl \
-                                -L \
-                                "https://docs.google.com/spreadsheets/d/1Nq_g-CPc8t_eC4M1NAS9XFJDflA7yE3b9hfSg3zu9L4/export?format=tsv&gid=672552331" \
-                                -o "data/communities/$community/tools_to_exclude"
-                fi;
-
-
                 mkdir -p "results/$community"
 
                 python bin/extract_galaxy_tools.py \
