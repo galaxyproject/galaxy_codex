@@ -44,12 +44,14 @@ def generate_table(
     template_path: str,
     output_path: str,
 ) -> None:
-    df = pd.read_csv(tsv_path, sep="\t").assign(Expand=lambda df: "").fillna("")
+    df = pd.read_csv(tsv_path, sep="\t")
+    df.insert(0, "Expand", None)  # the column where the expand button is shown
+    df = df.fillna("")
+
     if "To keep" in df.columns:
         df["To keep"] = df["To keep"].replace("", True)
         df = df.query("`To keep`")
 
-    df.insert(0, "Expand", None)  # the column where the expand button is shown
     df = df.drop(COLUMNS_TO_DROP, axis=1)
 
     # df = df.loc[:, COLUMNS].reindex(columns=COLUMNS)
