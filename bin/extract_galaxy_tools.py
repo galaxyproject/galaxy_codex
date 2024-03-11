@@ -33,11 +33,16 @@ GALAXY_SERVER_URLS = [
 
 project_path = Path(__file__).resolve().parent.parent  # galaxy_tool_extractor folder
 usage_stats_path = project_path.joinpath("data", "usage_stats")
+conf_path = project_path.joinpath("data", "conf.yml")
 
 GALAXY_TOOL_STATS = {
     "No. of tool users (2022-2023) (usegalaxy.eu)": usage_stats_path.joinpath("tool_usage_per_user_2022_23_EU.csv"),
     "Total tool usage (usegalaxy.eu)": usage_stats_path.joinpath("total_tool_usage_EU.csv"),
 }
+
+# load the configs globally
+with open(conf_path) as f:
+    configs = yaml.safe_load(f)
 
 
 def get_last_url_position(toot_id: str) -> str:
@@ -116,7 +121,9 @@ def get_string_content(cf: ContentFile) -> str:
     return base64.b64decode(cf.content).decode("utf-8")
 
 
-def get_tool_github_repositories(g: Github, RepoSelection: Optional[str], run_test: bool) -> List[str]:
+def get_tool_github_repositories(
+    g: Github, RepoSelection: Optional[str], run_test: bool, add_extra_repositories: bool = True
+) -> List[str]:
     """
     Get list of tool GitHub repositories to parse
 
@@ -141,6 +148,9 @@ def get_tool_github_repositories(g: Github, RepoSelection: Optional[str], run_te
             repo_f = repo.get_contents(repo_selection)
             repo_l = get_string_content(repo_f).rstrip()
             repo_list.extend(repo_l.split("\n"))
+
+    if add_extra_repositories:  # add non planemo monitor repositories defined in conf
+        repo_list = repo_list + configs["extra-repositories"]
 
     print("Parsing repositories from:")
     for repo in repo_list:
