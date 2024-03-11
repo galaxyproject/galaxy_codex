@@ -194,7 +194,7 @@ def get_xref(el: et.Element, attrib_type: str) -> Optional[str]:
         for xref in xref_items:
             if xref is not None and xref.attrib["type"] == attrib_type:
                 # should not contain any space of linebreak
-                xref_sanitized = str(xref.text).replace("\n", "").replace(" ", "")
+                xref_sanitized = str(xref.text).strip()
                 return xref_sanitized
     return None
 
@@ -428,10 +428,10 @@ def parse_tools(repo: Repository) -> List[Dict[str, Any]]:
     for folder in tool_folders:
         for tool in folder:
             # to avoid API request limit issue, wait for one hour
-            if g.get_rate_limit().core.remaining < 200:
-                print("WAITING for 1 hour to retrieve GitHub API request access !!!")
-                print()
-                time.sleep(60 * 60)
+            # if g.get_rate_limit().core.remaining < 200:
+            #     print("WAITING for 1 hour to retrieve GitHub API request access !!!")
+            #     print()
+            #     time.sleep(60 * 60)
 
             # parse tool
             # if the folder (tool) has a .shed.yml file run get get_tool_metadata on that folder,
