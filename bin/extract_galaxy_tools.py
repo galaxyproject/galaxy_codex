@@ -149,7 +149,9 @@ def get_tool_github_repositories(
             repo_l = get_string_content(repo_f).rstrip()
             repo_list.extend(repo_l.split("\n"))
 
-    if add_extra_repositories:  # add non planemo monitor repositories defined in conf
+    if (
+        add_extra_repositories and "extra-repositories" in configs
+    ):  # add non planemo monitor repositories defined in conf
         repo_list = repo_list + configs["extra-repositories"]
 
     print("Parsing repositories from:")
