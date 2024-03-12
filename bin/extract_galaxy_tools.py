@@ -267,6 +267,7 @@ def get_tool_metadata(tool: ContentFile, repo: Repository) -> Optional[Dict[str,
         "Galaxy tool ids": [],
         "Description": None,
         "bio.tool id": None,
+        "bio.tool ids": set(),  # keep track of multi IDs
         "biii": None,
         "bio.tool name": None,
         "bio.tool description": None,
@@ -328,6 +329,7 @@ def get_tool_metadata(tool: ContentFile, repo: Repository) -> Optional[Dict[str,
                     biotools = get_xref(child, attrib_type="bio.tools")
                     if biotools is not None:
                         metadata["bio.tool id"] = biotools
+                        metadata["bio.tool ids"].add(biotools)
                     # biii
                     biii = get_xref(child, attrib_type="biii")
                     if biii is not None:
@@ -356,17 +358,19 @@ def get_tool_metadata(tool: ContentFile, repo: Repository) -> Optional[Dict[str,
                                         child.attrib["name"] == "@TOOL_VERSION@" or child.attrib["name"] == "@VERSION@"
                                     ):
                                         metadata["Galaxy wrapper version"] = child.text
+
                 # bio.tools
-                if metadata["bio.tool id"] is None:
-                    biotools = get_xref(root, attrib_type="bio.tools")
-                    if biotools is not None:
-                        metadata["bio.tool id"] = biotools
-                        # bio.tools
+                biotools = get_xref(root, attrib_type="bio.tools")
+                if biotools is not None:
+                    metadata["bio.tool id"] = biotools
+                    metadata["bio.tool ids"].add(biotools)
+
                 # biii
                 if metadata["biii"] is None:
                     biii = get_xref(root, attrib_type="biii")
                     if biii is not None:
                         metadata["biii"] = biii
+
                 # conda package
                 if metadata["Conda id"] is None:
                     reqs = get_conda_package(root)
@@ -385,6 +389,7 @@ def get_tool_metadata(tool: ContentFile, repo: Repository) -> Optional[Dict[str,
                 metadata["Conda version"] = conda_info["latest_version"]
                 if metadata["Conda version"] == metadata["Galaxy wrapper version"]:
                     metadata["Status"] = "Up-to-date"
+
     # get bio.tool information
     if metadata["bio.tool id"] is not None:
         r = requests.get(f'{BIOTOOLS_API_URL}/api/tool/{metadata["bio.tool id"]}/?format=json')
@@ -558,6 +563,8 @@ def export_tools(
         df["ToolShed categories"] = format_list_column(df["ToolShed categories"])
         df["EDAM operation"] = format_list_column(df["EDAM operation"])
         df["EDAM topic"] = format_list_column(df["EDAM topic"])
+
+        df["bio.tool ids"] = format_list_column(df["bio.tool ids"])
 
         # the Galaxy tools need to be formatted for the add_instances_to_table to work
         df["Galaxy tool ids"] = format_list_column(df["Galaxy tool ids"])
