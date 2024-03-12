@@ -267,7 +267,7 @@ def get_tool_metadata(tool: ContentFile, repo: Repository) -> Optional[Dict[str,
         "Galaxy tool ids": [],
         "Description": None,
         "bio.tool id": None,
-        "bio.tool ids": [],  # keep track of multi IDs
+        "bio.tool ids": set(),  # keep track of multi IDs
         "biii": None,
         "bio.tool name": None,
         "bio.tool description": None,
@@ -329,7 +329,7 @@ def get_tool_metadata(tool: ContentFile, repo: Repository) -> Optional[Dict[str,
                     biotools = get_xref(child, attrib_type="bio.tools")
                     if biotools is not None:
                         metadata["bio.tool id"] = biotools
-                        metadata["bio.tool ids"].append(biotools)
+                        metadata["bio.tool ids"].add(biotools)
                     # biii
                     biii = get_xref(child, attrib_type="biii")
                     if biii is not None:
@@ -363,7 +363,7 @@ def get_tool_metadata(tool: ContentFile, repo: Repository) -> Optional[Dict[str,
                 biotools = get_xref(root, attrib_type="bio.tools")
                 if biotools is not None:
                     metadata["bio.tool id"] = biotools
-                    metadata["bio.tool ids"].append(biotools)
+                    metadata["bio.tool ids"].add(biotools)
 
                 # biii
                 if metadata["biii"] is None:
