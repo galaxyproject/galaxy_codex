@@ -29,6 +29,7 @@ GALAXY_SERVER_URLS = [
     "https://usegalaxy.org",
     "https://usegalaxy.org.au",
     "https://usegalaxy.eu",
+    "https://usegalaxy.fr",
 ]
 
 project_path = Path(__file__).resolve().parent.parent  # galaxy_tool_extractor folder
