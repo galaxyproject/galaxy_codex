@@ -143,7 +143,7 @@ The annotation process begins by selecting a tool from a Galaxy community.
 This step can make use of the interactive table created by the Galaxy tool extractor scripts presented above. 
 A curator then needs to visit the development repository of the Galaxy tool wrapper and search the XML file for a bio.tools xref snippet (Figure \ref{xref_snippet}). 
 
-![xref snippet example for a Galaxy tool wrapper that contains the tool [Racon](https://bio.tools/Racon). \label{xref_snippet}](./xref.png)
+![xref snippet example for a Galaxy tool wrapper that contains the tool Racon. \label{xref_snippet}](./xref.png)
 
 bio.tools is then checked to confirm that a bio.tools identifier does, or does not, exist. 
 The reason for this is that even if a bio.tools identifier exists in a tool wrapper, it may not necessarily exist in bio.tools. 
