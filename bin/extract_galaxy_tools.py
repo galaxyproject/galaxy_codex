@@ -463,10 +463,10 @@ def parse_tools(repo: Repository) -> List[Dict[str, Any]]:
     for folder in tool_folders:
         for tool in folder:
             # to avoid API request limit issue, wait for one hour
-            if g.get_rate_limit().core.remaining < 200:
-                print("WAITING for 1 hour to retrieve GitHub API request access !!!")
-                print()
-                time.sleep(60 * 60)
+            # if g.get_rate_limit().core.remaining < 200:
+            #     print("WAITING for 1 hour to retrieve GitHub API request access !!!")
+            #     print()
+            #     time.sleep(60 * 60)
 
             # parse tool
             # if the folder (tool) has a .shed.yml file run get get_tool_metadata on that folder,
@@ -537,9 +537,8 @@ def get_tool_count_per_server(tool_ids: Any) -> pd.Series:
         tool_id_list = [x.strip(" ") for x in tool_ids.split(",")]
         data = check_tools_on_servers(tool_id_list)
         result_df: pd.DataFrame = pd.DataFrame()
-        result_df["true_count"] = data.sum(axis=1).astype(str)
-        result_df["false_count"] = len(data.columns)
-        result_df["counts"] = result_df.apply(lambda x: "({}/{})".format(x["true_count"], x["false_count"]), axis=1)
+        result_df["counts"] = data.sum(axis=1).astype(str)
+        result_df.loc["Tool count", "counts"] = len(data.columns)
 
         series = result_df["counts"].T
 
@@ -557,6 +556,32 @@ def add_instances_to_table(
     """
     new_table = table.join(table["Galaxy tool ids"].apply(get_tool_count_per_server))
     return new_table
+
+
+def get_server_list(row: pd.Series) -> str:
+    """
+    Returns a list of servers if at least one tool is installed there
+
+    :param row: a pandas row with tool availability stats for each server
+    """
+
+    available_servers = []
+    for name, val in row.items():
+        if int(val) > 0:
+            available_servers.append(name)
+    return ", ".join(available_servers)
+
+
+def aggregate_servers(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Aggregates a list of servers where the tools are installed
+
+    :param df: the results dataframe that already contains for each server a column
+    """
+
+    sub_df = df.loc[:, GALAXY_SERVER_URLS]
+    df["Server availability"] = sub_df.apply(get_server_list, axis=1)
+    return df
 
 
 def format_list_column(col: pd.Series) -> pd.Series:
@@ -587,6 +612,7 @@ def export_tools(
         # the Galaxy tools need to be formatted for the add_instances_to_table to work
         df["Galaxy tool ids"] = format_list_column(df["Galaxy tool ids"])
         df = add_instances_to_table(df)
+        df = aggregate_servers(df)
 
     if add_usage_stats:
         df = add_usage_stats_for_all_server(df)
