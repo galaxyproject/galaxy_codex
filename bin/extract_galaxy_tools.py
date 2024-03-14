@@ -572,7 +572,7 @@ def get_server_list(row: pd.Series) -> str:
     for name, val in row.items():
         if int(val) > 0:
             available_servers.append(name)
-    return ", ".join(cast(Iterable[Str], available_servers))
+    return ", ".join(cast(Iterable[str], available_servers))
 
 
 def aggregate_servers(df: pd.DataFrame) -> pd.DataFrame:
