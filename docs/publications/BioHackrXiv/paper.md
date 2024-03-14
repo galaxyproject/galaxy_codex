@@ -72,11 +72,11 @@ The final challenge is also an opportunity: the global and cross-domain nature o
 Solving the visibility of tools across this "ecosystem", and the resulting benefits, are far-reaching for the global collaborative development of data-analysis tools and workflows.
 
 To provide the scientific community with a comprehensive list of annotated Galaxy tools, 
-we developed a pipeline at the [ELIXIR BioHackathon Europe 2023](https://2023.biohackathon-europe.org) that collects Galaxy wrappers from a list of GitHub repositories and automatically extracts their metadata (including Conda version [@citesAsAuthority:conda], bio.tools identifier [@citesAsAuthority:biotoolsSchema][@usesDataFrom:Ison2019], BIII identifier[@citesAsAuthority:bioimageWorkflows], and EDAM annotations). 
+we developed a pipeline at the [ELIXIR BioHackathon Europe 2023](https://2023.biohackathon-europe.org) that collects Galaxy wrappers from a list of GitHub repositories and automatically extracts their metadata (including Conda version [@citesAsAuthority:conda], bio.tools identifier [@citesAsAuthority:biotoolsSchema][@usesDataFrom:Ison2019], BIII identifier [@citesAsAuthority:bioimageWorkflows], and EDAM annotations). 
 The workflow also queries the availability of the tools from the three main Galaxy servers (usegalaxy.*) as well as usage statistics from [usegalaxy.eu](https://usegalaxy.eu) (Note: the other main Galaxy servers, [usegalaxy.org](https://usagalaxy.org) and [usegalaxy.org.au](https://usagalaxy.org.au), will be queried for usage statistics in coming updates). 
 
 Crucially, the pipeline can filter its inputs to only include tools that are relevant to a specific research community. 
-Based on the selected filters, a community-specific interactive table is generated that can be embedded, _e.g._ into the respective [Galaxy Hub](https://galaxyproject.org/) webpage or [Galaxy subdomain](https://galaxyproject.org/eu/subdomains/). 
+Based on the selected filters, a community-specific interactive table is generated that can be embedded, e.g. into the respective [Galaxy Hub](https://galaxyproject.org/) webpage or [Galaxy subdomain](https://galaxyproject.org/eu/subdomains/). 
 This table allows further filtering and searching for fine-grained tool selection. 
 The pipeline is fully automated and executes on a weekly basis. 
 Any scientific community can apply the pipeline to create a table specific to their needs.
@@ -103,8 +103,8 @@ The planemo-monitor is part of the Galaxy tool-update infrastructure, and keeps 
 Metadata is extracted from each parsed tool-wrapper suite. 
 This includes: wrapper suite ID, scientific category, Bioconda dependency, and a repository URL from bio.tools. 
 As a tool suite can be composed of multiple individual tools, the tool IDs for each tool are also extracted.
-The bio.tools reference is used to request metadata annotations via the bio.tools API, including bio.tools description and functionality annotation using EDAM ontology concepts[@usesDataFrom:black2021edam]. 
-The latest Conda package version is retrieved via the Bioconda API and compared to the Galaxy tool version to determine the tool’s update state (_i.e._ to update, or no update required). 
+The bio.tools reference is used to request metadata annotations via the bio.tools API, including bio.tools description and functionality annotation using EDAM ontology concepts [@usesDataFrom:black2021edam]. 
+The latest Conda package version is retrieved via the Bioconda API and compared to the Galaxy tool version to determine the tool’s update state (i.e. to update, or no update required). 
 
 The Galaxy API is used to query if each tool is installed on one of the three usegalaxy.* Galaxy servers ([usegalaxy.eu](https://usegalaxy.eu/), [usegalaxy.org](https://usegalaxy.org/), [usegalaxy.org.au](https://usegalaxy.org.au/)). Furthermore, the tool usage statistics can be retrieved from an SQL query that needs to be executed by Galaxy administrators. 
 The query used in the current implementation shows the overall tool usage as well as how many users executed a tool in the last 2 years on the European server ([usegalaxy.eu](https://usegalaxy.eu/)). 
@@ -162,7 +162,7 @@ Figure \ref{annotation_workflow} shows a step-by-step breakdown of the above pro
 
 # Outcomes and results
 
-There were multiple concrete outcomes from this BioHackathon project, including the ability to create interactive Galaxy tools tables as needed for scientific communities, a process for updating bio.tools, in-development Galaxy Training Network (GTN) tutorials[@citesAsAuthority:batut_community-driven_2018] describing this process, and an update to the [Galaxy IUC](https://galaxyproject.org/iuc/) tool wrapping [standards](https://galaxy-iuc-standards.readthedocs.io/en/latest/index.html). 
+There were multiple concrete outcomes from this BioHackathon project, including the ability to create interactive Galaxy tools tables as needed for scientific communities, a process for updating bio.tools, in-development Galaxy Training Network (GTN) tutorials [@citesAsAuthority:batut_community-driven_2018] describing this process, and an update to the [Galaxy IUC](https://galaxyproject.org/iuc/) tool wrapping [standards](https://galaxy-iuc-standards.readthedocs.io/en/latest/index.html). 
 These are described in more detail below.
 
 
