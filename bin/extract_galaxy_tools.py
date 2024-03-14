@@ -9,11 +9,11 @@ from functools import lru_cache
 from pathlib import Path
 from typing import (
     Any,
+    cast,
     Dict,
     Iterable,
     List,
     Optional,
-    cast,
 )
 
 import numpy as np
