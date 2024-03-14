@@ -14,6 +14,7 @@ from typing import (
     Optional,
 )
 
+import numpy as np
 import pandas as pd
 import requests
 import yaml
@@ -29,7 +30,6 @@ GALAXY_SERVER_URLS = [
     "https://usegalaxy.org",
     "https://usegalaxy.org.au",
     "https://usegalaxy.eu",
-    "https://usegalaxy.fr",
 ]
 
 project_path = Path(__file__).resolve().parent.parent  # galaxy_tool_extractor folder
@@ -48,7 +48,7 @@ with open(conf_path) as f:
 
 def get_last_url_position(toot_id: str) -> str:
     """
-    Returns the second last url position of the toot_id, if the value is not a
+    Returns the last url position of the toot_id, if the value is not a
     url it returns the toot_id. So works for local and toolshed
     installed tools.
 
@@ -56,7 +56,7 @@ def get_last_url_position(toot_id: str) -> str:
     """
 
     if "/" in toot_id:
-        toot_id = toot_id.split("/")[-2]
+        toot_id = toot_id.split("/")[-1]
     return toot_id
 
 
@@ -70,7 +70,6 @@ def add_tool_stats_to_tools(tools_df: pd.DataFrame, tool_stats_path: Path, colum
     :param tools_path: path to the table with
         the tools (csv,
         must include "Galaxy wrapper id")
-    :param output_path: path to store the new table
     :param column_name: column to add for the tool stats,
         different columns could be added for the main servers
     """
@@ -82,13 +81,31 @@ def add_tool_stats_to_tools(tools_df: pd.DataFrame, tool_stats_path: Path, colum
     tool_stats_df["Galaxy wrapper id"] = tool_stats_df["tool_name"].apply(get_last_url_position)
 
     # group local and toolshed tools into one entry
-    grouped_tool_stats_tools = tool_stats_df.groupby("Galaxy wrapper id", as_index=False)["count"].sum()
+    # also group tools with different versions
+    grouped_tool_stats_tools = tool_stats_df.groupby("Galaxy wrapper id")["count"].sum()
 
-    # keep all rows of the tools table (how='right'), also for those where no stats are available
-    community_tool_stats = pd.merge(grouped_tool_stats_tools, tools_df, how="right", on="Galaxy wrapper id")
-    community_tool_stats.rename(columns={"count": column_name}, inplace=True)
+    # new column to store the stats
+    tools_df[column_name] = np.NaN
 
-    return community_tool_stats
+    # check for each tool_id if a count exists in the stats file
+    # and sum the stats for each suite
+    for row_index, row in tools_df.iterrows():
+        counts = []
+        if isinstance(row["Galaxy tool ids"], str):
+            for tool_id in row["Galaxy tool ids"].split(","):
+                tool_id = tool_id.strip()
+                if tool_id in grouped_tool_stats_tools:
+                    count = grouped_tool_stats_tools[tool_id]
+                    counts.append(count)
+
+            if len(counts) == 0:
+                summed_count = np.NaN
+            else:
+                summed_count = sum(counts)
+
+            tools_df.loc[pd.Index([row_index]), column_name] = summed_count
+
+    return tools_df
 
 
 def add_usage_stats_for_all_server(tools_df: pd.DataFrame) -> pd.DataFrame:
@@ -207,7 +224,7 @@ def get_xref(el: et.Element, attrib_type: str) -> Optional[str]:
         for xref in xref_items:
             if xref is not None and xref.attrib["type"] == attrib_type:
                 # should not contain any space of linebreak
-                xref_sanitized = str(xref.text).strip()
+                xref_sanitized = str(xref.text).replace("\n", "").replace(" ", "")
                 return xref_sanitized
     return None
 
