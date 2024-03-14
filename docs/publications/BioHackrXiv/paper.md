@@ -64,7 +64,7 @@ authors_short: Paul Zierep, Bérénice Batut, \emph{et al.}
 Galaxy [@citesAsAuthority:10.1093/nar/gkac247] is a web-based analysis platform offering almost 10,000 different tools, which are developed in various GitHub repositories.  
 Furthermore, the Galaxy community embraces granular implementation of software tools as sub-modules. 
 In practice, this means that tool suites are separated into sets of Galaxy tools, also known as Galaxy wrappers, that contain functionality of a corresponding sub-component.
-Some key examples of tool suites include [Mothur](https://bio.tools/mothur)[@citesAsAuthority:doi:10.1128/AEM.01541-09] and [OpenMS](https://bio.tools/openms)[@citesAsAuthority:rost2016openms], which translate to tens and even hundreds of Galaxy tools. 
+Some key examples of tool suites include [Mothur](https://bio.tools/mothur) [@citesAsAuthority:10.1128/AEM.01541-09] and [OpenMS](https://bio.tools/openms) [@citesAsAuthority:rost2016openms], which translate to tens and even hundreds of Galaxy tools. 
 While granularity supports the composability of tools into diverse purpose-specific workflows, this decentralised development and modular architecture can make it difficult for Galaxy users to find and use tools. 
 It may also result in Galaxy tool-wrapper developers duplicating efforts by simultaneously wrapping the same software. 
 This is further complicated by the scarcity of tool metadata, which prevents filtering of tools as relevant for a specific scientific community or domain, and makes it impossible to employ advanced filtering by ontology terms like the ones from EDAM [@citesAsAuthority:black2021edam]. 
