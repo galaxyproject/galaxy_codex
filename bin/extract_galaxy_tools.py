@@ -5,7 +5,6 @@ import base64
 import sys
 import time
 import xml.etree.ElementTree as et
-from functools import lru_cache
 from pathlib import Path
 from typing import (
     Any,
