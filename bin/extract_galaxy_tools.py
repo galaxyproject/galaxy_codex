@@ -224,7 +224,7 @@ def get_xref(el: et.Element, attrib_type: str) -> Optional[str]:
         for xref in xref_items:
             if xref is not None and xref.attrib["type"] == attrib_type:
                 # should not contain any space of linebreak
-                xref_sanitized = str(xref.text).replace("\n", "").replace(" ", "")
+                xref_sanitized = str(xref.text).strip()
                 return xref_sanitized
     return None
 
