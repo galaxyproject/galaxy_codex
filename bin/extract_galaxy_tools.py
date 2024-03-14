@@ -28,12 +28,19 @@ from github.Repository import Repository
 BIOTOOLS_API_URL = "https://bio.tools"
 # BIOTOOLS_API_URL = "https://130.226.25.21"
 
-GALAXY_SERVER_URLS = [
-    "https://usegalaxy.org",
-    "https://usegalaxy.org.au",
-    "https://usegalaxy.eu",
-    "https://usegalaxy.fr",
-]
+# GALAXY_SERVER_URLS = [
+#     "https://usegalaxy.org",
+#     "https://usegalaxy.org.au",
+#     "https://usegalaxy.eu",
+#     "https://usegalaxy.fr",
+# ]
+
+GALAXY_SERVER_URLS = {
+    "UseGalaxy.org": "https://usegalaxy.org",
+    "UseGalaxy.org.au": "https://usegalaxy.org.au",
+    "UseGalaxy.eu": "https://usegalaxy.eu",
+    "UseGalaxy.org.fr": "https://usegalaxy.fr",
+}
 
 project_path = Path(__file__).resolve().parent.parent  # galaxy_tool_extractor folder
 usage_stats_path = project_path.joinpath("data", "usage_stats")
@@ -492,72 +499,104 @@ def parse_tools(repo: Repository) -> List[Dict[str, Any]]:
     return tools
 
 
-@lru_cache  # need to run this for each suite, so just cache it
 def get_all_installed_tool_ids(galaxy_url: str) -> List[str]:
     """
     Get all tool ids from a Galaxy server
 
     :param galaxy_url: URL of Galaxy instance
     """
+
+    print(galaxy_url)
     galaxy_url = galaxy_url.rstrip("/")
     base_url = f"{galaxy_url}/api"
-    r = requests.get(f"{base_url}/tools", params={"in_panel": False})
-    r.raise_for_status()
-    tool_dict_list = r.json()
+    try:
+        r = requests.get(f"{base_url}/tools", params={"in_panel": False}, timeout=5)
+        r.raise_for_status()
+        tool_dict_list = r.json()
+    except Exception as ex:
+        print(f"Exception:\n{ex} \nfor server {galaxy_url}!")
+        return []
+
     return [tool_dict["id"] for tool_dict in tool_dict_list]
 
 
-def check_tools_on_servers(tool_ids: List[str]) -> pd.DataFrame:
+def get_tool_ids_on_server(galaxy_servers: dict) -> pd.DataFrame:
     """
-    Get True/False for each tool on each server
+    Get all tool ids from all Galaxy servers in galaxy_servers
 
-    :param tool_ids: galaxy tool ids
+    :param galaxy_servers: dict with name and urls to galaxy servers
     """
-    assert all("/" not in tool_id for tool_id in tool_ids), "This function only works on short tool ids"
-    data: List[Dict[str, bool]] = []
-    for galaxy_url in GALAXY_SERVER_URLS:
+
+    tools_on_server = {}
+    for name, galaxy_url in galaxy_servers.items():
         installed_tool_ids = get_all_installed_tool_ids(galaxy_url)
         installed_tool_short_ids = [
             tool_id.split("/")[4] if "/" in tool_id else tool_id for tool_id in installed_tool_ids
         ]
+        tools_on_server[name] = installed_tool_short_ids
+
+    return tools_on_server
+
+
+def check_tools_on_servers(
+    tool_ids: List[str],
+    installed_tool_ids: dict,
+) -> pd.DataFrame:
+    """
+    Get True/False for each tool on each server
+
+    :param tool_ids: galaxy tool ids
+    :installed_tool_ids: a dict with tools for each server
+    """
+    assert all("/" not in tool_id for tool_id in tool_ids), "This function only works on short tool ids"
+    data: List[Dict[str, bool]] = []
+    names: List = []
+
+    # check for each tool if installed on server
+    for name in installed_tool_ids.keys():
         d: Dict[str, bool] = {}
         for tool_id in tool_ids:
-            d[tool_id] = tool_id in installed_tool_short_ids
+            d[tool_id] = tool_id in installed_tool_ids[name]
         data.append(d)
-    return pd.DataFrame(data, index=GALAXY_SERVER_URLS)
+        names.append(name)
+    return pd.DataFrame(data, index=names)
 
 
-def get_tool_count_per_server(tool_ids: Any) -> pd.Series:
+def get_tool_count_per_server(tool_ids: Any, installed_tool_ids: dict) -> pd.Series:
     """
     Aggregate tool count for each suite for each
     server into (Number of tools on server/Total number of tools)
 
+    :param installed_tool_ids: a dict with tools on each server
     :param tool_ids: string of tools ids for one suite
     """
     if not isinstance(tool_ids, str):
-        series = pd.Series({key: None for key in GALAXY_SERVER_URLS})
+        series = pd.Series({key: None for key in installed_tool_ids.keys()})
     else:
         tool_id_list = [x.strip(" ") for x in tool_ids.split(",")]
-        data = check_tools_on_servers(tool_id_list)
+        data = check_tools_on_servers(tool_id_list, installed_tool_ids)
         result_df: pd.DataFrame = pd.DataFrame()
         result_df["counts"] = data.sum(axis=1).astype(str)
-        result_df.loc["Tool count", "counts"] = len(data.columns)
+        result_df.loc["No. tools in the suite", "counts"] = len(data.columns)
 
         series = result_df["counts"].T
 
     return series
 
 
-def add_instances_to_table(
-    table: pd.DataFrame,
-) -> pd.DataFrame:
+def add_instances_to_table(table: pd.DataFrame, galaxy_servers: dict) -> pd.DataFrame:
     """
     Add tool availability to table
 
+    :param galaxy_servers: a dict with server names and urls
     :param table_path: path to tool table (must include
     "Galaxy tool ids" column)
     """
-    new_table = table.join(table["Galaxy tool ids"].apply(get_tool_count_per_server))
+
+    # get all installed tools on all servers ones
+    installed_tool_ids = get_tool_ids_on_server(galaxy_servers)
+
+    new_table = table.join(table["Galaxy tool ids"].apply(get_tool_count_per_server, args=[installed_tool_ids]))
     return new_table
 
 
@@ -575,16 +614,46 @@ def get_server_list(row: pd.Series) -> str:
     return ", ".join(cast(Iterable[str], available_servers))
 
 
-def aggregate_servers(df: pd.DataFrame) -> pd.DataFrame:
+def aggregate_servers(df: pd.DataFrame, server_names: list, column_name: str) -> pd.DataFrame:
     """
     Aggregates a list of servers where the tools are installed
 
     :param df: the results dataframe that already contains for each server a column
+    :param server_names: names of servers to aggregate -  must be a column name in df
     """
 
-    sub_df = df.loc[:, GALAXY_SERVER_URLS]
-    df["Server availability"] = sub_df.apply(get_server_list, axis=1)
+    sub_df = df.loc[:, server_names]
+    df[column_name] = sub_df.apply(get_server_list, axis=1)
     return df
+
+
+def extract_public_galaxy_servers_tools():
+    """
+    Extract the tools from the public Galaxy servers using their API
+    """
+
+    to_process = {}
+    serverlist = requests.get("https://galaxyproject.org/use/feed.json").json()
+
+    for server in serverlist:
+        # We intentionally drop all usegalaxy.eu subdomains. They're all the
+        # same as the top level domain and just pollute the supported instances
+        # list.
+        if ".usegalaxy.eu" in server["url"]:
+            continue
+        # Apparently the french do it too
+        if ".usegalaxy.fr" in server["url"]:
+            continue
+        # The aussies will soon
+        if ".usegalaxy.org.au" in server["url"]:
+            continue
+        # No test servers permitted
+        if "test." in server["url"]:
+            continue
+
+        to_process[server["title"]] = server["url"]
+
+    return to_process
 
 
 def format_list_column(col: pd.Series) -> pd.Series:
@@ -614,8 +683,20 @@ def export_tools(
 
         # the Galaxy tools need to be formatted for the add_instances_to_table to work
         df["Galaxy tool ids"] = format_list_column(df["Galaxy tool ids"])
-        df = add_instances_to_table(df)
-        df = aggregate_servers(df)
+
+        # add availability of star servers
+        df = add_instances_to_table(df, GALAXY_SERVER_URLS)
+        df = aggregate_servers(df, GALAXY_SERVER_URLS.keys(), column_name="Galaxy Star Availability")
+
+        # add availability of all servers star servers
+        # only add the aggregated column
+
+        server_list = extract_public_galaxy_servers_tools()
+
+        df_selection = df.loc[:, ["Galaxy wrapper id", "Galaxy tool ids"]].copy()
+        df_selection = add_instances_to_table(df_selection, server_list)  # add all instance to the selection
+        df_selection = aggregate_servers(df_selection, server_list.keys(), column_name="All Server Availability")
+        df["All Server Availability"] = df_selection["All Server Availability"]
 
     if add_usage_stats:
         df = add_usage_stats_for_all_server(df)
