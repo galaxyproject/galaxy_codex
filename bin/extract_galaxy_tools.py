@@ -628,7 +628,7 @@ def aggregate_servers(df: pd.DataFrame, server_names: list, column_name: str) ->
     return df
 
 
-def extract_public_galaxy_servers_tools():
+def extract_public_galaxy_servers_tools() -> Dict: 
     """
     Extract the tools from the public Galaxy servers using their API
     """
@@ -687,7 +687,7 @@ def export_tools(
 
         # add availability of star servers
         df = add_instances_to_table(df, GALAXY_SERVER_URLS)
-        df = aggregate_servers(df, GALAXY_SERVER_URLS.keys(), column_name="Galaxy Star Availability")
+        df = aggregate_servers(df, list(GALAXY_SERVER_URLS.keys()), column_name="Galaxy Star Availability")
 
         # add availability of all servers star servers
         # only add the aggregated column
@@ -696,7 +696,7 @@ def export_tools(
 
         df_selection = df.loc[:, ["Galaxy wrapper id", "Galaxy tool ids"]].copy()
         df_selection = add_instances_to_table(df_selection, server_list)  # add all instance to the selection
-        df_selection = aggregate_servers(df_selection, server_list.keys(), column_name="All Server Availability")
+        df_selection = aggregate_servers(df_selection, list(server_list.keys()), column_name="All Server Availability")
         df["All Server Availability"] = df_selection["All Server Availability"]
 
     if add_usage_stats:
