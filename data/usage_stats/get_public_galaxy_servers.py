@@ -32,7 +32,7 @@ def extract_public_galaxy_servers_tools() -> dict:
         try:
             r = requests.get(f"{base_url}/tools", params={"in_panel": False}, timeout=5)
             r.raise_for_status()
-            tool_dict_list = r.json()
+            r.json()
         except Exception as ex:
             print(f"Exception:\n{ex} \nfor server {galaxy_url}!")
             continue
