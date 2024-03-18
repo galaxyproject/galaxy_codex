@@ -519,7 +519,7 @@ def get_all_installed_tool_ids(galaxy_url: str) -> List[str]:
     return [tool_dict["id"] for tool_dict in tool_dict_list]
 
 
-def get_tool_ids_on_server(galaxy_servers: dict) -> pd.DataFrame:
+def get_tool_ids_on_server(galaxy_servers: dict) -> dict:
     """
     Get all tool ids from all Galaxy servers in galaxy_servers
 
@@ -561,7 +561,7 @@ def check_tools_on_servers(
     return pd.DataFrame(data, index=names)
 
 
-def get_tool_count_per_server(tool_ids: Any, installed_tool_ids: dict) -> pd.Series:
+def get_tool_count_per_server(tool_ids: Any, installed_tool_ids: dict) -> pd.Series[Any]:
     """
     Aggregate tool count for each suite for each
     server into (Number of tools on server/Total number of tools)
