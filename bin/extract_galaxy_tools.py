@@ -561,7 +561,7 @@ def check_tools_on_servers(
     return pd.DataFrame(data, index=names)
 
 
-def get_tool_count_per_server(tool_ids: Any, installed_tool_ids: dict) -> Any:
+def get_tool_count_per_server(tool_ids: Any, installed_tool_ids: Any) -> Any:
     """
     Aggregate tool count for each suite for each
     server into (Number of tools on server/Total number of tools)
@@ -570,7 +570,7 @@ def get_tool_count_per_server(tool_ids: Any, installed_tool_ids: dict) -> Any:
     :param tool_ids: string of tools ids for one suite
     """
     if not isinstance(tool_ids, str):
-        series = {key: None for key in installed_tool_ids.keys()}
+        series = pd.Series({key: None for key in installed_tool_ids.keys()})
     else:
         tool_id_list = [x.strip(" ") for x in tool_ids.split(",")]
         data = check_tools_on_servers(tool_id_list, installed_tool_ids)
@@ -578,7 +578,7 @@ def get_tool_count_per_server(tool_ids: Any, installed_tool_ids: dict) -> Any:
         result_df["counts"] = data.sum(axis=1).astype(str)
         result_df.loc["No. tools in the suite", "counts"] = len(data.columns)
 
-        series = result_df["counts"].T.to_dict()
+        series = result_df["counts"].T
 
     return series
 
