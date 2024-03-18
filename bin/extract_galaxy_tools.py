@@ -50,6 +50,8 @@ GALAXY_TOOL_STATS = {
     "Total tool usage (usegalaxy.eu)": usage_stats_path.joinpath("total_tool_usage_EU.csv"),
 }
 
+PUBLIC_GALAXY_SERVERS = usage_stats_path.joinpath("public_galaxy_servers.csv")
+
 # load the configs globally
 with open(conf_path) as f:
     configs = yaml.safe_load(f)
@@ -630,29 +632,14 @@ def aggregate_servers(df: pd.DataFrame, server_names: list, column_name: str) ->
 
 def extract_public_galaxy_servers_tools() -> Dict:
     """
-    Extract the tools from the public Galaxy servers using their API
+    Extract the tools from the public Galaxy servers using their API -> this is actually done
+    galaxy_tool_extractor/data/usage_stats/get_public_galaxy_servers.py
+    Here we only load the list -> much faster
+    TODO: run get_public_galaxy_servers.py as CI
     """
 
-    to_process = {}
-    serverlist = requests.get("https://galaxyproject.org/use/feed.json").json()
-
-    for server in serverlist:
-        # We intentionally drop all usegalaxy.eu subdomains. They're all the
-        # same as the top level domain and just pollute the supported instances
-        # list.
-        if ".usegalaxy.eu" in server["url"]:
-            continue
-        # Apparently the french do it too
-        if ".usegalaxy.fr" in server["url"]:
-            continue
-        # The aussies will soon
-        if ".usegalaxy.org.au" in server["url"]:
-            continue
-        # No test servers permitted
-        if "test." in server["url"]:
-            continue
-
-        to_process[server["title"]] = server["url"]
+    df = pd.read_csv(PUBLIC_GALAXY_SERVERS)
+    to_process = pd.Series(df["urls"].values,index=df["Name"]).to_dict()
 
     return to_process
 
