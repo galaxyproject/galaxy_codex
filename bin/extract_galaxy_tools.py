@@ -561,7 +561,7 @@ def check_tools_on_servers(
     return pd.DataFrame(data, index=names)
 
 
-def get_tool_count_per_server(tool_ids: Any, installed_tool_ids: dict) -> pd.Series[Any]:
+def get_tool_count_per_server(tool_ids: Any, installed_tool_ids: dict) -> Any:
     """
     Aggregate tool count for each suite for each
     server into (Number of tools on server/Total number of tools)
