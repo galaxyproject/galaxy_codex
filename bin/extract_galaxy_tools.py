@@ -628,7 +628,7 @@ def aggregate_servers(df: pd.DataFrame, server_names: list, column_name: str) ->
     return df
 
 
-def extract_public_galaxy_servers_tools() -> Dict: 
+def extract_public_galaxy_servers_tools() -> Dict:
     """
     Extract the tools from the public Galaxy servers using their API
     """
