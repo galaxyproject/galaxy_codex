@@ -638,8 +638,8 @@ def extract_public_galaxy_servers_tools() -> Dict:
     TODO: run get_public_galaxy_servers.py as CI
     """
 
-    df = pd.read_csv(PUBLIC_GALAXY_SERVERS)
-    to_process = pd.Series(df["urls"].values,index=df["Name"]).to_dict()
+    df = pd.read_csv('PUBLIC_GALAXY_SERVERS')
+    to_process = pd.Series(df["urls"].values, index=df["Name"]).to_dict()
 
     return to_process
 
