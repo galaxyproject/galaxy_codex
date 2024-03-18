@@ -595,7 +595,7 @@ def add_instances_to_table(table: pd.DataFrame, galaxy_servers: dict) -> pd.Data
     # get all installed tools on all servers ones
     installed_tool_ids = get_tool_ids_on_server(galaxy_servers)
 
-    tool_count_per_server = table["Galaxy tool ids"].apply(get_tool_count_per_server, args=[installed_tool_ids]) # type: ignore
+    tool_count_per_server = table["Galaxy tool ids"].apply(get_tool_count_per_server, args=[installed_tool_ids])  # type: ignore
 
     new_table = table.join(tool_count_per_server)
     return new_table
