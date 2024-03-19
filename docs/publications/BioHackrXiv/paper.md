@@ -191,8 +191,8 @@ A rerun of the Galaxy tool metadata extractor pipeline collected the additional 
 
 To provide the Galaxy research communities with simple and straightforward guide to annotating their respective tool stacks, the described work has been converted into two GTN tutorials:
 
-- [Adding and updating best practice metadata for Galaxy tools using the bio.tools registry](https://gxy.io/GTN:T00421) [@citesAsAuthority:dev-tool-annotation]
-- [Creation of an interactive Galaxy tools table for your community](https://training.galaxyproject.org/training-material/topics/dev/tutorials/community-tool-table/tutorial.html) [@citesAsAuthority:dev-community-tool-table]
+- [Adding and updating best practice metadata for Galaxy tools using the bio.tools registry](https://gxy.io/GTN:T00421) [@citesAsAuthority:dev_tool_annotation]
+- [Creation of an interactive Galaxy tools table for your community](https://training.galaxyproject.org/training-material/topics/dev/tutorials/community-tool-table/tutorial.html) [@citesAsAuthority:dev_community_tool_table]
 
 The guidelines created were also used to update the [best practices for creating Galaxy tools of the IUC repository](https://galaxy-iuc-standards.readthedocs.io/en/latest/best_practices/tool_xml.html).
 
