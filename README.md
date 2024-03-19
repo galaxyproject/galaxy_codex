@@ -7,9 +7,16 @@ Galaxy Tool Metadata Extractor
 
 
 This tool automatically collects a table of all available Galaxy tools including their metadata. The created table
-can be filtered to only show the tools relevant for a specific community. **Learn [how to add your community](#add-your-community)**. 
+can be filtered to only show the tools relevant for a specific community. 
 
-The tools performs the following steps:
+Any Galaxy community can be added to this project and benefit from a dedicated interactive table that can be embedded into subdomains and website via an iframe. **Learn [how to add your community]([#add-your-community](https://training.galaxyproject.org/training-material//topics/dev/tutorials/community-tool-table/tutorial.html)) in the dedicated GTN toturial**. 
+
+The interactive table benefits from EDAM annotations of the tools, this requires, that the tools are annotation via bio.tools.
+**Learn [how to improve metadata for Galaxy tools using the bio.tools registry](https://training.galaxyproject.org/training-material//topics/dev/tutorials/tool-annotation/tutorial.html)**.
+
+# Tool workflows
+
+The tool performs the following steps:
 
 - Parse tool GitHub repository from [Planemo monitor listed](https://github.com/galaxyproject/planemo-monitor)
 - Check in each repo, their `.shed.yaml` file and filter for categories, such as metagenomics 
@@ -100,16 +107,6 @@ The script will generate a TSV file with each tool found in the list of GitHub r
         [--excluded <Path to excluded tool file category file>]\
         [--keep <Path to to-keep tool file category file>]
     ```
-
-## Add your community
-
-In order to add your community you need to:
-- Fork this repository.
-- Add a folder for your community in `data/communities`.
-- Add at least the file `categories`.
-- Add all `categories` that are relevant to initially filter the tools for your community. Possible categories are listed here [Galaxy toolshed](https://toolshed.g2.bx.psu.edu/).
-- Make a pull request to add your community.
-- The workflow will run every sunday, so on the next monday, your community table should be added to `results/<your community name>`
 
 ## Development
 
