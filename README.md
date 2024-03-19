@@ -9,7 +9,7 @@ Galaxy Tool Metadata Extractor
 This tool automatically collects a table of all available Galaxy tools including their metadata. The created table
 can be filtered to only show the tools relevant for a specific community. 
 
-Any Galaxy community can be added to this project and benefit from a dedicated interactive table that can be embedded into subdomains and website via an iframe. **Learn [how to add your community]([#add-your-community](https://training.galaxyproject.org/training-material//topics/dev/tutorials/community-tool-table/tutorial.html)) in the dedicated GTN toturial**. 
+Any Galaxy community can be added to this project and benefit from a dedicated interactive table that can be embedded into subdomains and website via an iframe. **Learn [how to add your community](https://training.galaxyproject.org/training-material//topics/dev/tutorials/community-tool-table/tutorial.html) in the dedicated GTN toturial**. 
 
 The interactive table benefits from EDAM annotations of the tools, this requires, that the tools are annotation via bio.tools.
 **Learn [how to improve metadata for Galaxy tools using the bio.tools registry](https://training.galaxyproject.org/training-material//topics/dev/tutorials/tool-annotation/tutorial.html)**.
