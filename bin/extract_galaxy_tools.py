@@ -21,6 +21,9 @@ from github import Github
 from github.ContentFile import ContentFile
 from github.Repository import Repository
 
+import shared_functions
+
+
 # Config variables
 BIOTOOLS_API_URL = "https://bio.tools"
 # BIOTOOLS_API_URL = "https://130.226.25.21"
@@ -540,13 +543,6 @@ def add_instances_to_table(
     """
     new_table = table.join(table["Galaxy tool ids"].apply(get_tool_count_per_server))
     return new_table
-
-
-def format_list_column(col: pd.Series) -> pd.Series:
-    """
-    Format a column that could be a list before exporting
-    """
-    return col.apply(lambda x: ", ".join(str(i) for i in x))
 
 
 def export_tools(
