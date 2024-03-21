@@ -12,10 +12,10 @@ tags:
 authors:
   - name: Paul Zierep
     orcid: 0000-0003-2982-388X
-    affiliation: 1
+    affiliation: 1, a
   - name: Bérénice Batut
     orcid: 0000-0001-9852-1987
-    affiliation: 1, 2
+    affiliation: 1, 2, a
   - name: Matúš Kalaš
     orcid: 0000-0002-1509-4981
     affiliation: 3
@@ -54,7 +54,8 @@ affiliations:
     index: 7
   - name: Australian BioCommons, University of Melbourne, Melbourne, Victoria, Australia
     index: 8
-  
+  - name: These authors contributed equally to this work
+    index: a
 date: 23 February 2024
 bibliography: paper.bib
 event: BH23EU
