@@ -22,6 +22,9 @@ authors:
   - name: Matúš Kalaš
     orcid: 0000-0002-1509-4981
     affiliation: 4
+  - name: Wai Cheng Thang
+    orchid: 0000-0002-1480-3563
+    affiliation: 7, 8
   - name: Ove Johan Ragnar Gustafsson
     orcid: 0000-0002-2977-5032
     affiliation: 5
@@ -47,6 +50,11 @@ affiliations:
     index: 5
   - name: Queensland Alliance for Agriculture and Food Innovation, The University of Queensland, Brisbane, Queensland, Australia
     index: 6
+  - name: Queensland Cyber Infrastructure Foundation (QCIF), Australia
+    index: 7
+  - name: Institute of Molecular Bioscience, University of Queensland, St Lucia, Australia
+    index: 8
+  
 date: 23 February 2024
 bibliography: paper.bib
 event: BH23EU
