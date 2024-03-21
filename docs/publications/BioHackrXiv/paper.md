@@ -12,49 +12,50 @@ tags:
 authors:
   - name: Paul Zierep
     orcid: 0000-0003-2982-388X
-    affiliation: 1
+    affiliation: 1, a
   - name: Bérénice Batut
     orcid: 0000-0001-9852-1987
-    affiliation: 1, 2
-  - name: Nicola Soranzo
-    orcid: 0000-0003-3627-5340
-    affiliation: 3
+    affiliation: 1, 2, a
   - name: Matúš Kalaš
     orcid: 0000-0002-1509-4981
-    affiliation: 4
-  - name: Wai Cheng Thang
-    orchid: 0000-0002-1480-3563
-    affiliation: 7, 8
-  - name: Ove Johan Ragnar Gustafsson
-    orcid: 0000-0002-2977-5032
-    affiliation: 5
-  - name: Engy Nasr
-    orcid: 0000-0001-9047-4215
-    affiliation: 1
+    affiliation: 3
   - name: Tunc Kayikcioglu
     orcid: 0000-0003-2205-8062
     affiliation: 1
+  - name: Engy Nasr
+    orcid: 0000-0001-9047-4215
+    affiliation: 1
+  - name: Nicola Soranzo
+    orcid: 0000-0003-3627-5340
+    affiliation: 4
+  - name: Wai Cheng Thang
+    orchid: 0000-0002-1480-3563
+    affiliation: 5, 6
   - name: Joseph Wang
     orcid:
-    affiliation: 6
+    affiliation: 7
+  - name: Ove Johan Ragnar Gustafsson
+    orcid: 0000-0002-2977-5032
+    affiliation: 8
 affiliations:
   - name: Bioinformatics Group, Department of Computer Science, University of Freiburg, Freiburg, Germany
     index: 1
   - name: Institut Français de Bioinformatique, CNRS UAR 3601, Évry, France & Mésocentre Clermont-Auvergne, Université Clermont Auvergne, Aubiere, France
     index: 2
-  - name: Earlham Institute, Norwich Research Park, Norwich, UK
-    index: 3
   - name: Department of Informatics, University of Bergen, Norway; and ELIXIR Norway
+    index: 3
+  - name: Earlham Institute, Norwich Research Park, Norwich, UK
     index: 4
-  - name: Australian BioCommons, University of Melbourne, Melbourne, Victoria, Australia
-    index: 5
-  - name: Queensland Alliance for Agriculture and Food Innovation, The University of Queensland, Brisbane, Queensland, Australia
-    index: 6
   - name: Queensland Cyber Infrastructure Foundation (QCIF), Australia
-    index: 7
+    index: 5
   - name: Institute of Molecular Bioscience, University of Queensland, St Lucia, Australia
+    index: 6
+  - name: Queensland Alliance for Agriculture and Food Innovation, The University of Queensland, Brisbane, Queensland, Australia
+    index: 7
+  - name: Australian BioCommons, University of Melbourne, Melbourne, Victoria, Australia
     index: 8
-  
+  - name: These authors contributed equally to this work
+    index: a
 date: 23 February 2024
 bibliography: paper.bib
 event: BH23EU
