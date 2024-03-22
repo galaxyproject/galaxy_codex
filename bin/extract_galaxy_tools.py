@@ -557,14 +557,14 @@ def export_tools(
     """
     df = pd.DataFrame(tools)
     if format_list_col:
-        df["ToolShed categories"] = format_list_column(df["ToolShed categories"])
-        df["EDAM operation"] = format_list_column(df["EDAM operation"])
-        df["EDAM topic"] = format_list_column(df["EDAM topic"])
+        df["ToolShed categories"] = shared_functions.format_list_column(df["ToolShed categories"])
+        df["EDAM operation"] = shared_functions.format_list_column(df["EDAM operation"])
+        df["EDAM topic"] = shared_functions.format_list_column(df["EDAM topic"])
 
-        df["bio.tool ids"] = format_list_column(df["bio.tool ids"])
+        df["bio.tool ids"] = shared_functions.format_list_column(df["bio.tool ids"])
 
         # the Galaxy tools need to be formatted for the add_instances_to_table to work
-        df["Galaxy tool ids"] = format_list_column(df["Galaxy tool ids"])
+        df["Galaxy tool ids"] = shared_functions.format_list_column(df["Galaxy tool ids"])
         df = add_instances_to_table(df)
 
     if add_usage_stats:
@@ -679,9 +679,9 @@ if __name__ == "__main__":
     elif args.command == "filtertools":
         tools = pd.read_csv(Path(args.tools), sep="\t", keep_default_na=False).to_dict("records")
         # get categories and tools to exclude
-        categories = read_file(args.categories)
-        excl_tools = read_file(args.exclude)
-        keep_tools = read_file(args.keep)
+        categories = shared_functions.read_file(args.categories)
+        excl_tools = shared_functions.read_file(args.exclude)
+        keep_tools = shared_functions.read_file(args.keep)
         # filter tool lists
         filtered_tools = filter_tools(tools, categories, excl_tools, keep_tools)
         export_tools(filtered_tools, args.filtered_tools)

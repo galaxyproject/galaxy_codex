@@ -2,17 +2,14 @@
 
 import argparse
 from datetime import datetime, date
-import io
 from pathlib import Path
 import requests
-import shutil
 from typing import (
     Any,
     Dict,
     List,
     Optional,
 )
-import zipfile
 
 import pandas as pd
 from owlready2 import get_ontology, Thing
@@ -51,13 +48,14 @@ def get_short_tool_ids(tuto: dict) -> None:
     """
     Get tool ids without toolshed URL
     """
-    if "tools" in tuto:
-        tuto["short_tools"] = []
+    tuto["short_tools"] = set()
+    if "tools" in tuto:    
         for tool in tuto["tools"]:
             if "toolshed" in tool:
-                tuto["short_tools"].append(tool.split("/")[-3])
+                tuto["short_tools"].add(tool.split("/")[-2])
             else:
-                tuto["short_tools"].append(tool)
+                tuto["short_tools"].add(tool)
+    tuto["short_tools"] = list(tuto["short_tools"])
 
 
 def get_edam_topics(tuto: dict, edam_ontology) -> None:
@@ -81,6 +79,8 @@ def get_edam_operations(tuto: dict, tools: dict) -> None:
         for t in tuto["short_tools"]:
             if t in tools:
                 edam_operation.update(set(tools[t]["EDAM operation"]))
+            else:
+                print(f"{t} not found in all tools")
         tuto["edam_operation"] = list(edam_operation)
 
 
@@ -160,22 +160,6 @@ def format_tutorial(tuto: dict, edam_ontology, tools: dict, feedback: dict, plau
     return tuto
 
 
-def read_suite_per_tool_id(tool_fp: str) -> Dict:
-    """
-    Read the tool suite table and extract a dictionary per tool id
-    """
-    tool_suites = pd.read_csv(tool_fp, sep="\t", keep_default_na=False).to_dict("records")
-    tools = {}
-    for suite in tool_suites:
-        for tool in suite["Galaxy tool ids"].split(", "):
-            tools[tool] = {
-                "Galaxy wrapper id": suite["Galaxy wrapper id"],
-                "Galaxy wrapper owner": suite["Galaxy wrapper id"],
-                "EDAM operation": suite["EDAM operation"].split(", "),
-            }
-    return tools
-
-
 def get_feedback_per_tutorials() -> Dict:
     """
     Get feedback from GTN API and group per tutorial
@@ -196,7 +180,7 @@ def get_tutorials(tool_fp: str, plausible_api: str) -> List[Dict]:
     """
     Extract training material from the GTN API, format them, extract EDAM operations from tools, feedback stats, view stats, etc
     """
-    tools = read_suite_per_tool_id(tool_fp) 
+    tools = shared_functions.read_suite_per_tool_id(tool_fp) 
     feedback = get_feedback_per_tutorials()
     edam_ontology = get_ontology('https://edamontology.org/EDAM_unstable.owl').load()
     topics = get_request_json('https://training.galaxyproject.org/training-material/api/topics.json')
