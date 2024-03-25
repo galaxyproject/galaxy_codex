@@ -715,8 +715,6 @@ def export_tools(
         server_reindex_columns = {f"Tools available on: {k}": v for k, v in USEGALAXY_STAR_SERVER_URLS.items()}
         df = df.rename(columns=server_reindex_columns)
 
-        print(df)
-
         # add availability of all servers star servers
         # only add the aggregated column
         server_list = extract_public_galaxy_servers_tools()
