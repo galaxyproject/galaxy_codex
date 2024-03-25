@@ -24,7 +24,7 @@ from github.ContentFile import ContentFile
 from github.Repository import Repository
 
 COLUMN_ORDER = [
-    "Galaxy wrapper id",
+    "Galaxy suite id",
     "Galaxy tool ids",
     "No. tools in the suite",
     "Description",
@@ -107,7 +107,7 @@ def add_tool_stats_to_tools(tools_df: pd.DataFrame, tool_stats_path: Path, colum
         must include "tool_name" and "count")
     :param tools_path: path to the table with
         the tools (csv,
-        must include "Galaxy wrapper id")
+        must include "Galaxy suite id")
     :param column_name: column to add for the tool stats,
         different columns could be added for the main servers
     """
@@ -116,11 +116,11 @@ def add_tool_stats_to_tools(tools_df: pd.DataFrame, tool_stats_path: Path, colum
     tool_stats_df = pd.read_csv(tool_stats_path)
 
     # extract tool id
-    tool_stats_df["Galaxy wrapper id"] = tool_stats_df["tool_name"].apply(get_last_url_position)
+    tool_stats_df["Galaxy suite id"] = tool_stats_df["tool_name"].apply(get_last_url_position)
 
     # group local and toolshed tools into one entry
     # also group tools with different versions
-    grouped_tool_stats_tools = tool_stats_df.groupby("Galaxy wrapper id")["count"].sum()
+    grouped_tool_stats_tools = tool_stats_df.groupby("Galaxy suite id")["count"].sum()
 
     # new column to store the stats
     tools_df[column_name] = np.NaN
@@ -319,7 +319,7 @@ def get_tool_metadata(tool: ContentFile, repo: Repository) -> Optional[Dict[str,
 
     # the folder of the tool is used as Galaxy wrapper id (maybe rather use the .shed.yml name)
     metadata = {
-        "Galaxy wrapper id": tool.name,
+        "Galaxy suite id": tool.name,
         "Galaxy tool ids": [],
         "Description": None,
         "bio.tool id": None,
@@ -719,7 +719,7 @@ def export_tools(
         # only add the aggregated column
         server_list = extract_public_galaxy_servers_tools()
 
-        df_selection = df.loc[:, ["Galaxy wrapper id", "Galaxy tool ids"]].copy()
+        df_selection = df.loc[:, ["Galaxy suite id", "Galaxy tool ids"]].copy()
         df_selection = add_instances_to_table(df_selection, server_list)  # add all instance to the selection
         df_selection = aggregate_servers(df_selection, list(server_list.keys()), column_name="All Server Availability")
         df["All Server Availability"] = df_selection["All Server Availability"]
@@ -750,7 +750,7 @@ def filter_tools(
     for tool in tools:
         # filter ToolShed categories and leave function if not in expected categories
         if check_categories(tool["ToolShed categories"], ts_cat):
-            name = tool["Galaxy wrapper id"]
+            name = tool["Galaxy suite id"]
             tool["Reviewed"] = name in keep_tools or name in excluded_tools
             tool["To keep"] = None
             if name in keep_tools:
