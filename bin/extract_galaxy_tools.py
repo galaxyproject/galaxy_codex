@@ -23,6 +23,39 @@ from github import Github
 from github.ContentFile import ContentFile
 from github.Repository import Repository
 
+COLUMN_ORDER = [
+    "Galaxy wrapper id",
+    "Galaxy tool ids",
+    "No. tools in the suite",
+    "Description",
+    "bio.tool id",
+    "bio.tool ids",
+    "bio.tool name",
+    "biii",
+    "bio.tool description",
+    "EDAM operation",
+    "EDAM topic",
+    "Conda id",
+    "Conda version",
+    "Galaxy wrapper version",
+    "Status",
+    "ToolShed categories",
+    "ToolShed id",
+    "Source",
+    "Galaxy wrapper owner",
+    "Galaxy wrapper source",
+    "Galaxy wrapper parsed folder",
+    "Galaxy Star Availability",
+    "All Server Availability",
+    "Tools available on: UseGalaxy.org",
+    "Tools available on: UseGalaxy.org.au",
+    "Tools available on: UseGalaxy.eu",
+    "Tools available on: UseGalaxy.org.fr",
+    "No. of tool users (2022-2023) (usegalaxy.eu)",
+    "Total tool usage (usegalaxy.eu)",
+]
+
+
 # Config variables
 BIOTOOLS_API_URL = "https://bio.tools"
 # BIOTOOLS_API_URL = "https://130.226.25.21"
@@ -626,7 +659,7 @@ def aggregate_servers(df: pd.DataFrame, server_names: list, column_name: str) ->
 
 def extract_public_galaxy_servers_tools() -> Dict:
     """
-    Extract the tools from the public Galaxy servers using their API -> this is actually done
+    Extract the tools from the public Galaxy servers using their API -> this is actually done in
     galaxy_tool_extractor/data/usage_stats/get_public_galaxy_servers.py
     Here we only load the list -> much faster
     TODO: run get_public_galaxy_servers.py as CI
@@ -643,6 +676,14 @@ def format_list_column(col: pd.Series) -> pd.Series:
     Format a column that could be a list before exporting
     """
     return col.apply(lambda x: ", ".join(str(i) for i in x))
+
+
+def order_output_columns(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Reorder the columns based on best fitted output
+    """
+    df = df.reindex(columns=COLUMN_ORDER)
+    return df
 
 
 def export_tools(
@@ -670,9 +711,14 @@ def export_tools(
         df = add_instances_to_table(df, USEGALAXY_STAR_SERVER_URLS)
         df = aggregate_servers(df, list(USEGALAXY_STAR_SERVER_URLS.keys()), column_name="Galaxy Star Availability")
 
+        # rename the the columns for each server
+        server_reindex_columns = {f"Tools available on: {k}": v for k, v in USEGALAXY_STAR_SERVER_URLS.items()}
+        df = df.rename(columns=server_reindex_columns)
+
+        print(df)
+
         # add availability of all servers star servers
         # only add the aggregated column
-
         server_list = extract_public_galaxy_servers_tools()
 
         df_selection = df.loc[:, ["Galaxy wrapper id", "Galaxy tool ids"]].copy()
@@ -682,6 +728,8 @@ def export_tools(
 
     if add_usage_stats:
         df = add_usage_stats_for_all_server(df)
+
+    df = order_output_columns(df)
 
     df.to_csv(output_fp, sep="\t", index=False)
 
