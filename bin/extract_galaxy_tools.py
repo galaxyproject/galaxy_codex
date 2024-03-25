@@ -27,14 +27,8 @@ from github.Repository import Repository
 BIOTOOLS_API_URL = "https://bio.tools"
 # BIOTOOLS_API_URL = "https://130.226.25.21"
 
-# GALAXY_SERVER_URLS = [
-#     "https://usegalaxy.org",
-#     "https://usegalaxy.org.au",
-#     "https://usegalaxy.eu",
-#     "https://usegalaxy.fr",
-# ]
 
-GALAXY_SERVER_URLS = {
+USEGALAXY_STAR_SERVER_URLS = {
     "UseGalaxy.org": "https://usegalaxy.org",
     "UseGalaxy.org.au": "https://usegalaxy.org.au",
     "UseGalaxy.eu": "https://usegalaxy.eu",
@@ -673,8 +667,8 @@ def export_tools(
         df["Galaxy tool ids"] = format_list_column(df["Galaxy tool ids"])
 
         # add availability of star servers
-        df = add_instances_to_table(df, GALAXY_SERVER_URLS)
-        df = aggregate_servers(df, list(GALAXY_SERVER_URLS.keys()), column_name="Galaxy Star Availability")
+        df = add_instances_to_table(df, USEGALAXY_STAR_SERVER_URLS)
+        df = aggregate_servers(df, list(USEGALAXY_STAR_SERVER_URLS.keys()), column_name="Galaxy Star Availability")
 
         # add availability of all servers star servers
         # only add the aggregated column
