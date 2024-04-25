@@ -217,7 +217,7 @@ To track the progress in the number of extracted tools and their annotation, a s
 
 The script generates a plot that shows the evolution of time of the number of Galaxy suites, Galaxy suites linked to bio.tools entries, Galaxy suites with usage statistics, Galaxy suites with associated conda package, and the number of the tools installed on the UseGalaxy servers.
 
-![Progress Image](todo.png Progress of the Galaxy Tool Metadata Extractor: Number of tool suits and associated metadata for different time points of the project.)
+![Progress Image](microGalaxy_tool_metadata_progress.png Progress of the Galaxy Tool Metadata Extractor: Number of tool suits and associated metadata for different time points of the project.)
 
 ### Landing page and interactive table update
 
