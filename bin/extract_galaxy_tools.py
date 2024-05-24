@@ -122,9 +122,7 @@ def get_string_content(cf: ContentFile) -> str:
     return base64.b64decode(cf.content).decode("utf-8")
 
 
-def get_tool_github_repositories(
-    g: Github, RepoSelection: Optional[str], run_test: bool, add_extra_repositories: bool = True
-) -> List[str]:
+def get_tool_github_repositories(g: Github, RepoSelection: Optional[str], run_test: bool) -> List[str]:
     """
     Get list of tool GitHub repositories to parse
 
@@ -149,11 +147,6 @@ def get_tool_github_repositories(
             repo_f = repo.get_contents(repo_selection)
             repo_l = get_string_content(repo_f).rstrip()
             repo_list.extend(repo_l.split("\n"))
-
-    if (
-        add_extra_repositories and "extra-repositories" in configs
-    ):  # add non planemo monitor repositories defined in conf
-        repo_list = repo_list + configs["extra-repositories"]
 
     print("Parsing repositories from:")
     for repo in repo_list:
