@@ -579,14 +579,14 @@ def export_tools(
 def filter_tools(
     tools: List[Dict],
     ts_cat: List[str],
-    keep_excl_tools: Dict,
+    tool_status: Dict,
 ) -> tuple:
     """
     Filter tools for specific ToolShed categories and add information if to keep or to exclude
 
     :param tools: dictionary with tools and their metadata
     :param ts_cat: list of ToolShed categories to keep in the extraction
-    :param keep_excl_tools: dictionary with tools and their status (True to keep, False to exclude)
+    :param tool_status: dictionary with tools and their 2 status: Keep and Deprecated
     """
     ts_filtered_tools = []
     filtered_tools = []
@@ -594,13 +594,16 @@ def filter_tools(
         # filter ToolShed categories and leave function if not in expected categories
         if check_categories(tool["ToolShed categories"], ts_cat):
             name = tool["Galaxy wrapper id"]
-            tool["Reviewed"] = name in keep_excl_tools
-            keep_status = None
-            if name in keep_excl_tools:
-                keep_status = keep_excl_tools[name][1]
-                if keep_status:
-                    filtered_tools.append(tool)
-            tool["To keep"] = keep_status
+            tool["Reviewed"] = name in tool_status
+            keep = None
+            deprecated = None
+            if name in tool_status:
+                keep = tool_status[name][1]
+                deprecated = tool_status[name][2]
+            tool["Deprecated"] = deprecated
+            if keep:
+                filtered_tools.append(tool)
+            tool["To keep"] = keep
             ts_filtered_tools.append(tool)
     return ts_filtered_tools, filtered_tools
 
@@ -653,9 +656,9 @@ if __name__ == "__main__":
         help="Path to a file with ToolShed category to keep in the extraction (one per line)",
     )
     filtertools.add_argument(
-        "--keep_exclude",
-        "-k",
-        help="Path to a TSV file with 2 columns: ToolShed ids of tool suites (one per line), Boolean with True to keep and False to exclude ",
+        "--status",
+        "-s",
+        help="Path to a TSV file with tool status - 3 columns: ToolShed ids of tool suites, Boolean with True to keep and False to exclude, Boolean with True if deprecated and False if not",
     )
     args = parser.parse_args()
 
@@ -684,8 +687,8 @@ if __name__ == "__main__":
         tools = pd.read_csv(args.tools, sep="\t", keep_default_na=False).to_dict("records")
         # get categories and tools to exclude
         categories = read_file(args.categories)
-        keep_excl_tools = pd.read_csv(args.keep_exclude, sep="\t", index_col=0, header=None).to_dict("index")
+        status = pd.read_csv(args.status, sep="\t", index_col=0, header=None).to_dict("index")
         # filter tool lists
-        ts_filtered_tools, filtered_tools = filter_tools(tools, categories, keep_excl_tools)
+        ts_filtered_tools, filtered_tools = filter_tools(tools, categories, status)
         export_tools(ts_filtered_tools, args.ts_filtered_tools)
         export_tools(filtered_tools, args.filtered_tools)

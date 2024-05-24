@@ -15,7 +15,7 @@ for com_data_fp in data/communities/* ; do
                         --ts_filtered_tools "results/$community/tools_filtered_by_ts_categories.tsv" \
                         --filtered_tools "results/$community/tools.tsv" \
                         --categories "data/communities/$community/categories" \
-                        --keep_exclude "data/communities/$community/tools_to_keep_exclude.tsv"
+                        --status "data/communities/$community/tool_status.tsv"
 
                 python bin/create_interactive_table.py \
                         --table "results/$community/tools.tsv" \
