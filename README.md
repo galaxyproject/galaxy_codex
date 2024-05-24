@@ -101,8 +101,8 @@ The script will generate a TSV file with each tool found in the list of GitHub r
 
     ```
     $ python bin/extract_galaxy_tools.py \
-        --tools <Path to CSV file with all extracted tools> \
-        --filtered_tools <Path to output CSV file with filtered tools> \
+        --tools <Path to JSON file with all extracted tools> \
+        --filtered_tools <Path to output TSV file with filtered tools> \
         [--categories <Path to ToolShed category file>] \
         [--excluded <Path to excluded tool file category file>]\
         [--keep <Path to to-keep tool file category file>]
