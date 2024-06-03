@@ -12,10 +12,10 @@ for com_data_fp in data/communities/* ; do
                 python bin/extract_galaxy_tools.py \
                         filtertools \
                         --tools "results/all_tools.tsv" \
+                        --ts-filtered-tools "results/$community/tools_filtered_by_ts_categories.tsv" \
                         --filtered-tools "results/$community/tools.tsv" \
                         --categories "data/communities/$community/categories" \
-                        --exclude "data/communities/$community/tools_to_exclude" \
-                        --keep "data/communities/$community/tools_to_keep"
+                        --status "data/communities/$community/tool_status.tsv"
 
                 python bin/create_interactive_table.py \
                         --table "results/$community/tools.tsv" \
