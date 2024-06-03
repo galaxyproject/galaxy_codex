@@ -601,7 +601,7 @@ def filter_tools(
                 keep = tool_status[name][1]
                 deprecated = tool_status[name][2]
             tool["Deprecated"] = deprecated
-            if keep:
+            if keep: #only add tools that are manually marked as to keep
                 filtered_tools.append(tool)
             tool["To keep"] = keep
             ts_filtered_tools.append(tool)
