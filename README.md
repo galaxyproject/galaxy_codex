@@ -105,10 +105,10 @@ The script will generate a TSV file with each tool found in the list of GitHub r
 4. Run the tool extractor script
 
     ```
-    $ python bin/extract_galaxy_tools.py filtertools \
-        --tools <Path to CSV file with all extracted tools> \
-        --ts_filtered_tools <Path to output TSV with tools filtered based on ToolShed category>
-        --filtered_tools <Path to output TSV with filtered tools based on ToolShed category and manual curation> \
+    $ python bin/extract_galaxy_tools.py \
+        --tools <Path to JSON file with all extracted tools> \
+        --ts-filtered-tools <Path to output TSV with tools filtered based on ToolShed category>
+        --filtered-tools <Path to output TSV with filtered tools based on ToolShed category and manual curation> \
         [--categories <Path to ToolShed category file>] \
         [--status <Path to a TSV file with tool status - 3 columns: ToolShed ids of tool suites, Boolean with True to keep and False to exclude, Boolean with True if deprecated and False if not>]
     ```
