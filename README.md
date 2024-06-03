@@ -95,17 +95,22 @@ The script will generate a TSV file with each tool found in the list of GitHub r
 
 1. Run the extraction as explained before
 2. (Optional) Create a text file with ToolShed categories for which tools need to be extracted: 1 ToolShed category per row ([example for microbial data analysis](data/microgalaxy/categories))
-3. (Optional) Create a text file with list of tools to exclude: 1 tool id per row ([example for microbial data analysis](data/microgalaxy/tools_to_exclude))
-4. (Optional) Create a text file with list of tools to really keep (already reviewed): 1 tool id per row ([example for microbial data analysis](data/microgalaxy/tools_to_keep))
+3. (Optional) Create a TSV (tabular) file with tool status (1 tool suite per row) as 3 columns:
+    - ToolShed ids of tool suites (one per line)
+    - Boolean with True to keep and False to exclude
+    - Boolean with True if deprecated and False if not
+
+    [Example for microbial data analysis](data/microgalaxy/tools_to_keep_exclude.tsv)
+    
 4. Run the tool extractor script
 
     ```
-    $ python bin/extract_galaxy_tools.py \
+    $ python bin/extract_galaxy_tools.py filtertools \
         --tools <Path to CSV file with all extracted tools> \
-        --filtered_tools <Path to output CSV file with filtered tools> \
+        --ts_filtered_tools <Path to output TSV with tools filtered based on ToolShed category>
+        --filtered_tools <Path to output TSV with filtered tools based on ToolShed category and manual curation> \
         [--categories <Path to ToolShed category file>] \
-        [--excluded <Path to excluded tool file category file>]\
-        [--keep <Path to to-keep tool file category file>]
+        [--status <Path to a TSV file with tool status - 3 columns: ToolShed ids of tool suites, Boolean with True to keep and False to exclude, Boolean with True if deprecated and False if not>]
     ```
 
 ## Development
