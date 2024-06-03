@@ -8,8 +8,8 @@ json_output="results/${1}_tools.json"
 python bin/extract_galaxy_tools.py \
         extractools \
         --api $GITHUB_API_KEY \
-        --all_tools $tsv_output \
+        --all-tools $output \
         --all-tools-json $json_output \
-        --planemorepository $1 \
+        --planemo-repository-list $1 \
         --test
 
