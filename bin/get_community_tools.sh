@@ -12,8 +12,8 @@ for com_data_fp in data/communities/* ; do
                 python bin/extract_galaxy_tools.py \
                         filtertools \
                         --tools "results/all_tools.tsv" \
-                        --ts_filtered_tools "results/$community/tools_filtered_by_ts_categories.tsv" \
-                        --filtered_tools "results/$community/tools.tsv" \
+                        --ts-filtered-tools "results/$community/tools_filtered_by_ts_categories.tsv" \
+                        --filtered-tools "results/$community/tools.tsv" \
                         --categories "data/communities/$community/categories" \
                         --status "data/communities/$community/tool_status.tsv"
 
