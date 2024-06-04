@@ -578,8 +578,8 @@ def export_tools_to_tsv(
         df["EDAM operation"] = format_list_column(df["EDAM operation"])
         df["EDAM topic"] = format_list_column(df["EDAM topic"])
 
-        df["EDAM operation (no subclasses)"] = format_list_column(df["EDAM operation (no subclasses)"])
-        df["EDAM topic (no subclasses)"] = format_list_column(df["EDAM topic (no subclasses)"])
+        df["EDAM operation (no superclasses)"] = format_list_column(df["EDAM operation (no superclasses)"])
+        df["EDAM topic (no superclasses)"] = format_list_column(df["EDAM topic (no superclasses)"])
 
         df["bio.tool ids"] = format_list_column(df["bio.tool ids"])
 
@@ -627,7 +627,8 @@ def filter_tools(
 
 def reduce_ontology_terms(terms: List, ontology: Any) -> List:
     """
-    Reduces a list of Ontology terms, to include only terms that are not subclasses of one of the other terms.
+    Reduces a list of Ontology terms, to include only terms that are not super-classes of one of the other terms.
+    In other terms all classes that have a subclass in the terms are removed.
 
     :terms: list of terms from that ontology
     :ontology: Ontology
@@ -760,10 +761,10 @@ if __name__ == "__main__":
         edam_ontology = get_ontology("https://edamontology.org/EDAM_1.25.owl").load()
 
         for tool in tools:
-            tool["EDAM operation (no subclasses)"] = reduce_ontology_terms(
+            tool["EDAM operation (no superclasses)"] = reduce_ontology_terms(
                 tool["EDAM operation"], ontology=edam_ontology
             )
-            tool["EDAM topic (no subclasses)"] = reduce_ontology_terms(tool["EDAM topic"], ontology=edam_ontology)
+            tool["EDAM topic (no superclasses)"] = reduce_ontology_terms(tool["EDAM topic"], ontology=edam_ontology)
 
         export_tools_to_json(tools, args.all_tools_json)
         export_tools_to_tsv(tools, args.all_tools, format_list_col=True, add_usage_stats=True)
