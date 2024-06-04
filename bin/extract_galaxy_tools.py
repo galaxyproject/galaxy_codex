@@ -27,12 +27,12 @@ from owlready2 import get_ontology
 BIOTOOLS_API_URL = "https://bio.tools"
 # BIOTOOLS_API_URL = "https://130.226.25.21"
 
-GALAXY_SERVER_URLS = [
-    "https://usegalaxy.org",
-    "https://usegalaxy.org.au",
-    "https://usegalaxy.eu",
-    "https://usegalaxy.fr",
-]
+USEGALAXY_STAR_SERVER_URLS = {
+    "UseGalaxy.org": "https://usegalaxy.org",
+    "UseGalaxy.org.au": "https://usegalaxy.org.au",
+    "UseGalaxy.eu": "https://usegalaxy.eu",
+    "UseGalaxy.org.fr": "https://usegalaxy.fr",
+}
 
 project_path = Path(__file__).resolve().parent.parent  # galaxy_tool_extractor folder
 usage_stats_path = project_path.joinpath("data", "usage_stats")
@@ -475,7 +475,7 @@ def parse_tools(repo: Repository) -> List[Dict[str, Any]]:
 
 
 @lru_cache  # need to run this for each suite, so just cache it
-def get_all_installed_tool_ids(galaxy_url: str) -> List[str]:
+def get_all_installed_tool_ids_on_server(galaxy_url: str) -> List[str]:
     """
     Get all tool ids from a Galaxy server
 
@@ -489,59 +489,23 @@ def get_all_installed_tool_ids(galaxy_url: str) -> List[str]:
     return [tool_dict["id"] for tool_dict in tool_dict_list]
 
 
-def check_tools_on_servers(tool_ids: List[str]) -> pd.DataFrame:
+def check_tools_on_servers(tool_ids: List[str], galaxy_server_url: str) -> pd.DataFrame:
     """
-    Get True/False for each tool on each server
+    Return number of tools in tool_ids installed on galaxy_server_url
 
     :param tool_ids: galaxy tool ids
     """
     assert all("/" not in tool_id for tool_id in tool_ids), "This function only works on short tool ids"
-    data: List[Dict[str, bool]] = []
-    for galaxy_url in GALAXY_SERVER_URLS:
-        installed_tool_ids = get_all_installed_tool_ids(galaxy_url)
-        installed_tool_short_ids = [
-            tool_id.split("/")[4] if "/" in tool_id else tool_id for tool_id in installed_tool_ids
-        ]
-        d: Dict[str, bool] = {}
-        for tool_id in tool_ids:
-            d[tool_id] = tool_id in installed_tool_short_ids
-        data.append(d)
-    return pd.DataFrame(data, index=GALAXY_SERVER_URLS)
 
+    installed_tool_ids = get_all_installed_tool_ids_on_server(galaxy_server_url)
+    installed_tool_short_ids = [tool_id.split("/")[4] if "/" in tool_id else tool_id for tool_id in installed_tool_ids]
 
-def get_tool_count_per_server(tool_ids: Any) -> pd.Series:
-    """
-    Aggregate tool count for each suite for each
-    server into (Number of tools on server/Total number of tools)
+    counter = 0
+    for tool_id in tool_ids:
+        if tool_id in installed_tool_short_ids:
+            counter += 1
 
-    :param tool_ids: string of tools ids for one suite
-    """
-    if not isinstance(tool_ids, str):
-        series = pd.Series({key: None for key in GALAXY_SERVER_URLS})
-    else:
-        tool_id_list = [x.strip(" ") for x in tool_ids.split(",")]
-        data = check_tools_on_servers(tool_id_list)
-        result_df: pd.DataFrame = pd.DataFrame()
-        result_df["true_count"] = data.sum(axis=1).astype(str)
-        result_df["false_count"] = len(data.columns)
-        result_df["counts"] = result_df.apply(lambda x: "({}/{})".format(x["true_count"], x["false_count"]), axis=1)
-
-        series = result_df["counts"].T
-
-    return series
-
-
-def add_instances_to_table(
-    table: pd.DataFrame,
-) -> pd.DataFrame:
-    """
-    Add tool availability to table
-
-    :param table_path: path to tool table (must include
-    "Galaxy tool ids" column)
-    """
-    new_table = table.join(table["Galaxy tool ids"].apply(get_tool_count_per_server))
-    return new_table
+    return counter
 
 
 def format_list_column(col: pd.Series) -> pd.Series:
@@ -585,7 +549,6 @@ def export_tools_to_tsv(
 
         # the Galaxy tools need to be formatted for the add_instances_to_table to work
         df["Galaxy tool ids"] = format_list_column(df["Galaxy tool ids"])
-        df = add_instances_to_table(df)
 
     if add_usage_stats:
         df = add_usage_stats_for_all_server(df)
@@ -761,10 +724,16 @@ if __name__ == "__main__":
         edam_ontology = get_ontology("https://edamontology.org/EDAM_1.25.owl").load()
 
         for tool in tools:
+
+            # add EDAM terms without superclass
             tool["EDAM operation (no superclasses)"] = reduce_ontology_terms(
                 tool["EDAM operation"], ontology=edam_ontology
             )
             tool["EDAM topic (no superclasses)"] = reduce_ontology_terms(tool["EDAM topic"], ontology=edam_ontology)
+
+            # add availability for all star servers
+            for name, url in USEGALAXY_STAR_SERVER_URLS.items():
+                tool[f"Tools available on {name}"] = check_tools_on_servers(tool["Galaxy tool ids"], url)
 
         export_tools_to_json(tools, args.all_tools_json)
         export_tools_to_tsv(tools, args.all_tools, format_list_col=True, add_usage_stats=True)
