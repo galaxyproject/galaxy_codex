@@ -628,6 +628,7 @@ if __name__ == "__main__":
     # Extract tools
     extractools = subparser.add_parser("extractools", help="Extract tools")
     extractools.add_argument("--api", "-a", required=True, help="GitHub access token")
+    extractools.add_argument("--all-tools-json", "-j", required=True, help="Filepath to JSON with all extracted tools")
     extractools.add_argument("--all-tools", "-o", required=True, help="Filepath to TSV with all extracted tools")
     extractools.add_argument(
         "--planemo-repository-list",
