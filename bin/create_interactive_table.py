@@ -4,7 +4,7 @@ import argparse
 
 import pandas as pd
 
-# TODO maybe allow comunities to modify
+# TODO maybe allow communities to modify
 COLUMNS = [
     "Expand",
     "Galaxy wrapper id",
@@ -18,13 +18,25 @@ COLUMNS = [
     "EDAM topic",
     "Description",
     "bio.tool description",
+    "biii",
     "Status",
     "Source",
     "ToolShed categories",
     "ToolShed id",
     "Galaxy wrapper owner",
     "Galaxy wrapper source",
+    "Galaxy wrapper parsed folder",
 ]
+
+COLUMNS_TO_DROP = [
+    "Reviewed",
+    "To keep",
+]
+
+
+# COLUMNS_TO_ADD = [
+#     "Expand"
+# ]
 
 
 def generate_table(
@@ -32,11 +44,17 @@ def generate_table(
     template_path: str,
     output_path: str,
 ) -> None:
-    df = pd.read_csv(tsv_path, sep="\t").assign(Expand=lambda df: "").fillna("")
+    df = pd.read_csv(tsv_path, sep="\t")
+    df.insert(0, "Expand", None)  # the column where the expand button is shown
+    df = df.fillna("")
+
     if "To keep" in df.columns:
         df["To keep"] = df["To keep"].replace("", True)
         df = df.query("`To keep`")
-    df = df.loc[:, COLUMNS].reindex(columns=COLUMNS)
+
+    df = df.drop(COLUMNS_TO_DROP, axis=1)
+
+    # df = df.loc[:, COLUMNS].reindex(columns=COLUMNS)
     table = df.to_html(border=0, table_id="dataframe", classes=["display", "nowrap"], index=False)
 
     with open(template_path) as template_file:
