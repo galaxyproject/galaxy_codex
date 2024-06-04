@@ -733,7 +733,7 @@ if __name__ == "__main__":
 
             # add availability for all star servers
             for name, url in USEGALAXY_SERVER_URLS.items():
-                tool[f"Tools available on {name}"] = check_tools_on_servers(tool["Galaxy tool ids"], url)
+                tool[f"Available on {name}"] = check_tools_on_servers(tool["Galaxy tool ids"], url)
 
         export_tools_to_json(tools, args.all_tools_json)
         export_tools_to_tsv(tools, args.all_tools, format_list_col=True, add_usage_stats=True)
