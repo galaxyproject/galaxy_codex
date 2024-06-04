@@ -27,7 +27,7 @@ from owlready2 import get_ontology
 BIOTOOLS_API_URL = "https://bio.tools"
 # BIOTOOLS_API_URL = "https://130.226.25.21"
 
-USEGALAXY_STAR_SERVER_URLS = {
+USEGALAXY_SERVER_URLS = {
     "UseGalaxy.org": "https://usegalaxy.org",
     "UseGalaxy.org.au": "https://usegalaxy.org.au",
     "UseGalaxy.eu": "https://usegalaxy.eu",
