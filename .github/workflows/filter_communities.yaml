@@ -3,10 +3,17 @@ name: Filter community tools
 on:
   workflow_dispatch:
 
-  # the workflow it triggered when all_tools_tsv is changed
+  # the workflow it triggered when all tools are fetched
+  workflow_run:
+      workflows: ["Fetch all tools"]
+      types:
+        - completed
+
+  # the workflow it also triggered when the community definitions are changed
   push:
     paths:
-    - 'results/all_tools.tsv'
+    - 'data/communities**'
+    branches: ["main"]
 
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
 # However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
