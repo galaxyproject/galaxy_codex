@@ -489,7 +489,7 @@ def get_all_installed_tool_ids_on_server(galaxy_url: str) -> List[str]:
     return [tool_dict["id"] for tool_dict in tool_dict_list]
 
 
-def check_tools_on_servers(tool_ids: List[str], galaxy_server_url: str) -> pd.DataFrame:
+def check_tools_on_servers(tool_ids: List[str], galaxy_server_url: str) -> int:
     """
     Return number of tools in tool_ids installed on galaxy_server_url
 
