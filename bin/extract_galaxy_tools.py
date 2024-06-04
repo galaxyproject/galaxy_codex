@@ -577,6 +577,10 @@ def export_tools_to_tsv(
         df["ToolShed categories"] = format_list_column(df["ToolShed categories"])
         df["EDAM operation"] = format_list_column(df["EDAM operation"])
         df["EDAM topic"] = format_list_column(df["EDAM topic"])
+
+        df["EDAM operation (no subclasses)"] = format_list_column(df["EDAM operation (no subclasses)"])
+        df["EDAM topic (no subclasses)"] = format_list_column(df["EDAM topic (no subclasses)"])
+
         df["bio.tool ids"] = format_list_column(df["bio.tool ids"])
 
         # the Galaxy tools need to be formatted for the add_instances_to_table to work
