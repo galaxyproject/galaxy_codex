@@ -731,7 +731,7 @@ if __name__ == "__main__":
             )
             tool["EDAM topic (no superclasses)"] = reduce_ontology_terms(tool["EDAM topic"], ontology=edam_ontology)
 
-            # add availability for all star servers
+            # add availability for UseGalaxy servers
             for name, url in USEGALAXY_SERVER_URLS.items():
                 tool[f"Available on {name}"] = check_tools_on_servers(tool["Galaxy tool ids"], url)
 
