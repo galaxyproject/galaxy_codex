@@ -9,14 +9,15 @@ if [[ $1 =~ "01" ]]; then
    python bin/extract_galaxy_tools.py \
         extractools \
         --api $GITHUB_API_KEY \
-        --all-tools $output \
+        --all-tools $tsv_output \
         --all-tools-json $json_output \
         --planemo-repository-list $1
 else
    python bin/extract_galaxy_tools.py \
         extractools \
         --api $GITHUB_API_KEY \
-        --all-tools $output \
+        --all-tools $tsv_output \
+        --all-tools-json $json_output \
         --planemo-repository-list $1 \
         --avoid-extra-repositories
 fi
