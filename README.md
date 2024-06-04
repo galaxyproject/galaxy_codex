@@ -7,9 +7,16 @@ Galaxy Tool Metadata Extractor
 
 
 This tool automatically collects a table of all available Galaxy tools including their metadata. The created table
-can be filtered to only show the tools relevant for a specific community. **Learn [how to add your community](#add-your-community)**. 
+can be filtered to only show the tools relevant for a specific community. 
 
-The tools performs the following steps:
+Any Galaxy community can be added to this project and benefit from a dedicated interactive table that can be embedded into subdomains and website via an iframe. **Learn [how to add your community](https://training.galaxyproject.org/training-material//topics/dev/tutorials/community-tool-table/tutorial.html) in the dedicated GTN toturial**. 
+
+The interactive table benefits from EDAM annotations of the tools, this requires, that the tools are annotation via bio.tools.
+**Learn [how to improve metadata for Galaxy tools using the bio.tools registry](https://training.galaxyproject.org/training-material//topics/dev/tutorials/tool-annotation/tutorial.html)**.
+
+# Tool workflows
+
+The tool performs the following steps:
 
 - Parse tool GitHub repository from [Planemo monitor listed](https://github.com/galaxyproject/planemo-monitor)
 - Check in each repo, their `.shed.yaml` file and filter for categories, such as metagenomics 
@@ -21,8 +28,6 @@ The tools performs the following steps:
 - Get usage statistics form usegalaxy.eu
 - Creates an interactive table for all tools: [All tools](https://galaxyproject.github.io/galaxy_tool_metadata_extractor/)
 - Creates an interactive table for all registered communities, e.g. [microGalaxy](https://galaxyproject.github.io/galaxy_tool_metadata_extractor/microgalaxy/)
-
-
 
 # Usage
 
@@ -90,28 +95,30 @@ The script will generate a TSV file with each tool found in the list of GitHub r
 
 1. Run the extraction as explained before
 2. (Optional) Create a text file with ToolShed categories for which tools need to be extracted: 1 ToolShed category per row ([example for microbial data analysis](data/microgalaxy/categories))
-3. (Optional) Create a text file with list of tools to exclude: 1 tool id per row ([example for microbial data analysis](data/microgalaxy/tools_to_exclude))
-4. (Optional) Create a text file with list of tools to really keep (already reviewed): 1 tool id per row ([example for microbial data analysis](data/microgalaxy/tools_to_keep))
+3. (Optional) Create a TSV (tabular) file with tool status (1 tool suite per row) as 3 columns:
+    - ToolShed ids of tool suites (one per line)
+    - Boolean with True to keep and False to exclude
+    - Boolean with True if deprecated and False if not
+
+    [Example for microbial data analysis](data/microgalaxy/tools_to_keep_exclude.tsv)
+    
 4. Run the tool extractor script
 
     ```
     $ python bin/extract_galaxy_tools.py \
-        --tools <Path to CSV file with all extracted tools> \
-        --filtered_tools <Path to output CSV file with filtered tools> \
+        --tools <Path to JSON file with all extracted tools> \
+        --ts-filtered-tools <Path to output TSV with tools filtered based on ToolShed category>
+        --filtered-tools <Path to output TSV with filtered tools based on ToolShed category and manual curation> \
         [--categories <Path to ToolShed category file>] \
-        [--excluded <Path to excluded tool file category file>]\
-        [--keep <Path to to-keep tool file category file>]
+        [--status <Path to a TSV file with tool status - 3 columns: ToolShed ids of tool suites, Boolean with True to keep and False to exclude, Boolean with True if deprecated and False if not>]
     ```
 
+## Development
 
+To make a test run of the tool to check its functionalities follow [Usage](#Usage) to set-up the environnement and the API key, then run
 
-## Add your community
+```bash
+bash ./bin/extract_all_tools_test.sh test.list
+```
 
-In order to add your community you need to:
-- Fork this repository.
-- Add a folder for your community in `data/communities`.
-- Add at least the file `categories`.
-- Add all `categories` that are relevant to initially filter the tools for your community. Possible categories are listed here [Galaxy toolshed](https://toolshed.g2.bx.psu.edu/).
-- Make a pull request to add your community.
-- The workflow will run every sunday, so on the next monday, your community table should be added to `results/<your community name>`
-
+This runs the tool, but only parses the test repository [Galaxy-Tool-Metadata-Extractor-Test-Wrapper](https://github.com/paulzierep/Galaxy-Tool-Metadata-Extractor-Test-Wrapper)

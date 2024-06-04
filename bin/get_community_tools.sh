@@ -7,28 +7,15 @@ for com_data_fp in data/communities/* ; do
 
                 echo "$community";
 
-                if [[ "$community" == *"microgalaxy"* ]]; then
-                        curl \
-                                -L \
-                                "https://docs.google.com/spreadsheets/d/1Nq_g-CPc8t_eC4M1NAS9XFJDflA7yE3b9hfSg3zu9L4/export?format=tsv&gid=1533244711" \
-                                -o "data/communities/$community/tools_to_keep"
-
-                        curl \
-                                -L \
-                                "https://docs.google.com/spreadsheets/d/1Nq_g-CPc8t_eC4M1NAS9XFJDflA7yE3b9hfSg3zu9L4/export?format=tsv&gid=672552331" \
-                                -o "data/communities/$community/tools_to_exclude"
-                fi;
-
-
                 mkdir -p "results/$community"
 
                 python bin/extract_galaxy_tools.py \
                         filtertools \
-                        --tools "results/all_tools.tsv" \
-                        --filtered_tools "results/$community/tools.tsv" \
+                        --tools "results/all_tools.json" \
+                        --ts-filtered-tools "results/$community/tools_filtered_by_ts_categories.tsv" \
+                        --filtered-tools "results/$community/tools.tsv" \
                         --categories "data/communities/$community/categories" \
-                        --exclude "data/communities/$community/tools_to_exclude" \
-                        --keep "data/communities/$community/tools_to_keep"
+                        --status "data/communities/$community/tool_status.tsv"
 
                 python bin/create_interactive_table.py \
                         --table "results/$community/tools.tsv" \
