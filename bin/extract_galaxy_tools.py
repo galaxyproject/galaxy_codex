@@ -22,6 +22,8 @@ from github import Github
 from github.ContentFile import ContentFile
 from github.Repository import Repository
 
+from owlready2 import get_ontology, Thing
+
 # Config variables
 BIOTOOLS_API_URL = "https://bio.tools"
 # BIOTOOLS_API_URL = "https://130.226.25.21"
@@ -620,6 +622,47 @@ def filter_tools(
     return ts_filtered_tools, filtered_tools
 
 
+def reduce_ontology_terms(terms: List, ontology: Any) -> List:
+    """
+    Reduces a list of Ontology terms, to include only terms that are not subclasses of one of the other terms.
+
+    :terms: list of terms from that ontology
+    :ontology: Ontology
+    """
+
+    # if list is empty do nothing
+    if not terms:
+        return terms
+
+    classes = [ontology.search_one(label=term) for term in terms]
+    check_classes = [cla for cla in classes if cla is not None]  # Remove None values
+
+    new_classes = []
+    for cla in check_classes:
+        try:
+            # get all subclasses
+            subclasses = list(cla.subclasses())
+
+            # check if any of the other classes is a subclass
+            include_class = True
+            for subcla in subclasses:
+                for cla2 in check_classes:
+                    if subcla == cla2:
+                        include_class = False
+
+            # only keep the class if it is not a parent class
+            if include_class:
+                new_classes.append(cla)
+
+        except Exception as e:
+            print(f"Error processing class {cla}: {e}")
+
+    # convert back to terms, skipping None values
+    new_terms = [cla.label[0] for cla in new_classes if cla is not None]
+    # print(f"Terms: {len(terms)}, New terms: {len(new_terms)}")
+    return new_terms
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description="Extract Galaxy tools from GitHub repositories together with biotools and conda metadata"
@@ -695,7 +738,7 @@ if __name__ == "__main__":
             run_test=args.test,
             add_extra_repositories=not args.avoid_extra_repositories,
         )
-        # parse tools in GitHub repositories to extract metada, filter by TS categories and export to output file
+        # parse tools in GitHub repositories to extract metadata, filter by TS categories and export to output file
         tools: List[Dict] = []
         for r in repo_list:
             print("Parsing tools from:", (r))
@@ -709,6 +752,16 @@ if __name__ == "__main__":
                     f"Error while extracting tools from repo {r}: {e}",
                     file=sys.stderr,
                 )
+
+        # add additional information to the List[Dict] object
+        edam_ontology = get_ontology("https://edamontology.org/EDAM_1.25.owl").load()
+
+        for tool in tools:
+            tool["EDAM operation (no subclasses)"] = reduce_ontology_terms(
+                tool["EDAM operation"], ontology=edam_ontology
+            )
+            tool["EDAM topic (no subclasses)"] = reduce_ontology_terms(tool["EDAM topic"], ontology=edam_ontology)
+
         export_tools_to_json(tools, args.all_tools_json)
         export_tools_to_tsv(tools, args.all_tools, format_list_col=True, add_usage_stats=True)
 
