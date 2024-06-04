@@ -22,7 +22,7 @@ from github import Github
 from github.ContentFile import ContentFile
 from github.Repository import Repository
 
-from owlready2 import get_ontology, Thing
+from owlready2 import get_ontology
 
 # Config variables
 BIOTOOLS_API_URL = "https://bio.tools"
