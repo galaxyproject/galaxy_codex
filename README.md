@@ -6,8 +6,13 @@ Galaxy Tool Metadata Extractor
 ![plot](docs/images/Preprint_flowchart.png)
 
 
-This tool automatically collects a table of all available Galaxy tools including their metadata. The created table
-can be filtered to only show the tools relevant for a specific community. 
+This tool automatically collects a table of all available Galaxy tools including their metadata. Therefore, various sources are parsed to collect the metadata, such as:
+* github (parsing each tool wrapper)
+* bio.tools
+* bioconda
+* Galaxy instances (availability, statistics)
+
+The created table can be filtered to only show the tools relevant for a specific community. 
 
 Any Galaxy community can be added to this project and benefit from a dedicated interactive table that can be embedded into subdomains and website via an iframe. **Learn [how to add your community](https://training.galaxyproject.org/training-material//topics/dev/tutorials/community-tool-table/tutorial.html) in the dedicated GTN toturial**. 
 
