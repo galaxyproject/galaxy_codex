@@ -37,6 +37,7 @@ USEGALAXY_STAR_SERVER_URLS = {
 project_path = Path(__file__).resolve().parent.parent  # galaxy_tool_extractor folder
 usage_stats_path = project_path.joinpath("data", "usage_stats")
 conf_path = project_path.joinpath("data", "conf.yml")
+public_servers = project_path.joinpath("data","available_public_servers.csv")
 
 GALAXY_TOOL_STATS = {
     "No. of tool users (2022-2023) (usegalaxy.eu)": usage_stats_path.joinpath("tool_usage_per_user_2022_23_EU.csv"),
@@ -731,9 +732,17 @@ if __name__ == "__main__":
             )
             tool["EDAM topic (no superclasses)"] = reduce_ontology_terms(tool["EDAM topic"], ontology=edam_ontology)
 
-            # add availability for all star servers
+            # add availability for all UseGalaxy servers
             for name, url in USEGALAXY_STAR_SERVER_URLS.items():
                 tool[f"Tools available on {name}"] = check_tools_on_servers(tool["Galaxy tool ids"], url)
+
+            # add all other available servers
+            public_servers_df = pd.read_csv(public_servers)
+            for index, row in public_servers_df.iterrows():
+                name = row["name"]
+                url = row["url"]
+                tool[f"Tools available on {name}"] = check_tools_on_servers(tool["Galaxy tool ids"], url)
+
 
         export_tools_to_json(tools, args.all_tools_json)
         export_tools_to_tsv(tools, args.all_tools, format_list_col=True, add_usage_stats=True)
