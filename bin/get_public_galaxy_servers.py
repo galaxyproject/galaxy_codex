@@ -48,7 +48,7 @@ def get_public_galaxy_servers(output: str) -> None:
         s = pd.Series(to_process)
         s.index.name = "name"
         s.name = "url"
-        s.to_csv(output)
+        s.to_csv(output, sep="\t")
 
 
 if __name__ == "__main__":

@@ -740,7 +740,7 @@ if __name__ == "__main__":
                 tool[f"Tools available on {name}"] = check_tools_on_servers(tool["Galaxy tool ids"], url)
 
             # add all other available servers
-            public_servers_df = pd.read_csv(public_servers)
+            public_servers_df = pd.read_csv(public_servers, sep="\t")
             for index, row in public_servers_df.iterrows():
                 name = row["name"]
 
