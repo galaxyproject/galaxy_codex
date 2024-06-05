@@ -8,7 +8,7 @@ def get_public_galaxy_servers(output: str) -> None:
     """
     Get public galaxy servers, that can be queried for tools using their API
 
-    :param output: path to output the server list
+    :param output: path to output the server list tsv
     """
 
     to_process = {}
@@ -47,7 +47,7 @@ def get_public_galaxy_servers(output: str) -> None:
 
         s = pd.Series(to_process)
         s.index.name = "name"
-        s.name = "urls"
+        s.name = "url"
         s.to_csv(output)
 
 
