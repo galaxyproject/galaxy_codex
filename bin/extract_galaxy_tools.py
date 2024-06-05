@@ -741,10 +741,10 @@ if __name__ == "__main__":
 
             # add all other available servers
             public_servers_df = pd.read_csv(public_servers, sep="\t")
-            for index, row in public_servers_df.iterrows():
+            for _index, row in public_servers_df.iterrows():
                 name = row["name"]
 
-                if not name.lower() in [
+                if name.lower() not in [
                     n.lower() for n in USEGALAXY_STAR_SERVER_URLS.keys()
                 ]:  # do not query UseGalaxy servers again
 
