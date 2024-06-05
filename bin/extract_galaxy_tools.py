@@ -27,7 +27,7 @@ from owlready2 import get_ontology
 BIOTOOLS_API_URL = "https://bio.tools"
 # BIOTOOLS_API_URL = "https://130.226.25.21"
 
-USEGALAXY_STAR_SERVER_URLS = {
+USEGALAXY_SERVER_URLS = {
     "UseGalaxy.org (Main)": "https://usegalaxy.org",
     "UseGalaxy.org.au": "https://usegalaxy.org.au",
     "UseGalaxy.eu": "https://usegalaxy.eu",
@@ -735,8 +735,11 @@ if __name__ == "__main__":
             )
             tool["EDAM topic (no superclasses)"] = reduce_ontology_terms(tool["EDAM topic"], ontology=edam_ontology)
 
+            # add availability for UseGalaxy servers
+            for name, url in USEGALAXY_SERVER_URLS.items():
+                tool[f"Available on {name}"] = check_tools_on_servers(tool["Galaxy tool ids"], url)
             # add availability for all UseGalaxy servers
-            for name, url in USEGALAXY_STAR_SERVER_URLS.items():
+            for name, url in USEGALAXY_SERVER_URLS.items():
                 tool[f"Tools available on {name}"] = check_tools_on_servers(tool["Galaxy tool ids"], url)
 
             # add all other available servers
@@ -745,7 +748,7 @@ if __name__ == "__main__":
                 name = row["name"]
 
                 if name.lower() not in [
-                    n.lower() for n in USEGALAXY_STAR_SERVER_URLS.keys()
+                    n.lower() for n in USEGALAXY_SERVER_URLS.keys()
                 ]:  # do not query UseGalaxy servers again
 
                     url = row["url"]
