@@ -28,15 +28,16 @@ BIOTOOLS_API_URL = "https://bio.tools"
 # BIOTOOLS_API_URL = "https://130.226.25.21"
 
 USEGALAXY_SERVER_URLS = {
-    "UseGalaxy.org": "https://usegalaxy.org",
+    "UseGalaxy.org (Main)": "https://usegalaxy.org",
     "UseGalaxy.org.au": "https://usegalaxy.org.au",
     "UseGalaxy.eu": "https://usegalaxy.eu",
-    "UseGalaxy.org.fr": "https://usegalaxy.fr",
+    "UseGalaxy.fr": "https://usegalaxy.fr",
 }
 
 project_path = Path(__file__).resolve().parent.parent  # galaxy_tool_extractor folder
 usage_stats_path = project_path.joinpath("data", "usage_stats")
 conf_path = project_path.joinpath("data", "conf.yml")
+public_servers = project_path.joinpath("data", "available_public_servers.csv")
 
 GALAXY_TOOL_STATS = {
     "No. of tool users (2022-2023) (usegalaxy.eu)": usage_stats_path.joinpath("tool_usage_per_user_2022_23_EU.csv"),
@@ -720,7 +721,10 @@ if __name__ == "__main__":
                     file=sys.stderr,
                 )
 
+        #######################################################
         # add additional information to the List[Dict] object
+        #######################################################
+
         edam_ontology = get_ontology("https://edamontology.org/EDAM_1.25.owl").load()
 
         for tool in tools:
@@ -734,6 +738,21 @@ if __name__ == "__main__":
             # add availability for UseGalaxy servers
             for name, url in USEGALAXY_SERVER_URLS.items():
                 tool[f"Available on {name}"] = check_tools_on_servers(tool["Galaxy tool ids"], url)
+            # add availability for all UseGalaxy servers
+            for name, url in USEGALAXY_SERVER_URLS.items():
+                tool[f"Tools available on {name}"] = check_tools_on_servers(tool["Galaxy tool ids"], url)
+
+            # add all other available servers
+            public_servers_df = pd.read_csv(public_servers, sep="\t")
+            for _index, row in public_servers_df.iterrows():
+                name = row["name"]
+
+                if name.lower() not in [
+                    n.lower() for n in USEGALAXY_SERVER_URLS.keys()
+                ]:  # do not query UseGalaxy servers again
+
+                    url = row["url"]
+                    tool[f"Tools available on {name}"] = check_tools_on_servers(tool["Galaxy tool ids"], url)
 
         export_tools_to_json(tools, args.all_tools_json)
         export_tools_to_tsv(tools, args.all_tools, format_list_col=True, add_usage_stats=True)
