@@ -484,10 +484,16 @@ def get_all_installed_tool_ids_on_server(galaxy_url: str) -> List[str]:
     """
     galaxy_url = galaxy_url.rstrip("/")
     base_url = f"{galaxy_url}/api"
-    r = requests.get(f"{base_url}/tools", params={"in_panel": False})
-    r.raise_for_status()
-    tool_dict_list = r.json()
-    return [tool_dict["id"] for tool_dict in tool_dict_list]
+
+    try:
+        r = requests.get(f"{base_url}/tools", params={"in_panel": False})
+        r.raise_for_status()
+        tool_dict_list = r.json()
+        tools = [tool_dict["id"] for tool_dict in tool_dict_list]
+        return tools
+    except:
+        print(f"Could not query tools on server {galaxy_url}, all tools from this server will be set to 0!")
+        return []
 
 
 def check_tools_on_servers(tool_ids: List[str], galaxy_server_url: str) -> int:
