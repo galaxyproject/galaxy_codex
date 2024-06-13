@@ -491,7 +491,8 @@ def get_all_installed_tool_ids_on_server(galaxy_url: str) -> List[str]:
         tool_dict_list = r.json()
         tools = [tool_dict["id"] for tool_dict in tool_dict_list]
         return tools
-    except:
+    except Exception as ex:
+        print(f"Server query failed with: \n {ex}")
         print(f"Could not query tools on server {galaxy_url}, all tools from this server will be set to 0!")
         return []
 
