@@ -27,3 +27,9 @@ server_url = "https://jolo.eu"
 tool_ids = ["bla"]
 count = check_tools_on_servers(tool_ids, server_url)
 print(count)
+
+# test the cache !
+server_url = "https://jolo.eu"
+tool_ids = ["bla", "blub"]
+count = check_tools_on_servers(tool_ids, server_url)
+print(count)
