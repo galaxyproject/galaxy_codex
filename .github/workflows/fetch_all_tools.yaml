@@ -77,9 +77,9 @@ jobs:
           python -m pip install -r requirements.txt
           sudo apt-get install jq
       - name: Merge all tools
-        run: | #merge files with only one header -> https://stackoverflow.com/questions/16890582/unixmerge-multiple-csv-files-with-same-header-by-keeping-the-header-of-the-firs
+        run: | #merge files with only one header -> https://stackoverflow.com/questions/16890582/unixmerge-multiple-csv-files-with-same-header-by-keeping-the-header-of-the-firs; map(.[]) -> https://stackoverflow.com/questions/42011086/merge-arrays-of-json (get flat array, one tool per entry)
           awk 'FNR==1 && NR!=1{next;}{print}' results/repositories*.list_tools.tsv > results/all_tools.tsv
-          jq -s '.' results/repositories*.list_tools.json > results/all_tools.json
+          jq -s 'map(.[])' results/repositories*.list_tools.json > results/all_tools.json 
       - name: Wordcloud and interactive table
         run: |
           bash ./bin/extract_all_tools_downstream.sh

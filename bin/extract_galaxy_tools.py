@@ -769,8 +769,20 @@ if __name__ == "__main__":
             tools = json.load(f)
         # get categories and tools to exclude
         categories = read_file(args.categories)
-        status = pd.read_csv(args.status, sep="\t", index_col=0, header=None).to_dict("index")
+        try:
+            status = pd.read_csv(args.status, sep="\t", index_col=0, header=None).to_dict("index")
+        except Exception as ex:
+            print(f"Failed to load tool_status.tsv file with:\n{ex}")
+            print("Not assigning tool status for this community !")
+            status = {}
+
         # filter tool lists
         ts_filtered_tools, filtered_tools = filter_tools(tools, categories, status)
+
         export_tools_to_tsv(ts_filtered_tools, args.ts_filtered_tools, format_list_col=True)
-        export_tools_to_tsv(filtered_tools, args.filtered_tools, format_list_col=True)
+
+        # if there are no filtered tools return the ts filtered tools
+        if filtered_tools:
+            export_tools_to_tsv(filtered_tools, args.filtered_tools, format_list_col=True)
+        else:
+            export_tools_to_tsv(ts_filtered_tools, args.filtered_tools, format_list_col=True)
