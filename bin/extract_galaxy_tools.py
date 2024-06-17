@@ -94,7 +94,7 @@ def get_last_url_position(toot_id: str) -> str:
 #     return community_tool_stats
 
 
-def get_tool_stats_from_stats_file(tool_stats_df: pd.DataFrame, tool_ids: str) -> pd.DataFrame:
+def get_tool_stats_from_stats_file(tool_stats_df: pd.DataFrame, tool_ids: str) -> int:
     """
     Adds the usage statistics to the community tool table
 
@@ -117,7 +117,7 @@ def get_tool_stats_from_stats_file(tool_stats_df: pd.DataFrame, tool_ids: str) -
             # aggregate all counts for all tools in the suite
             agg_count += agg_versions
 
-    return agg_count
+    return int(agg_count)
 
 
 # def add_usage_stats_for_all_server(tools_df: pd.DataFrame) -> pd.DataFrame:
