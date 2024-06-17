@@ -63,7 +63,7 @@ def get_last_url_position(toot_id: str) -> str:
     return toot_id
 
 
-def get_tool_stats_from_stats_file(tool_stats_df: pd.DataFrame, tool_ids: str) -> int:
+def get_tool_stats_from_stats_file(tool_stats_df: pd.DataFrame, tool_ids: List[str]) -> int:
     """
     Computes a count for tool stats based on the tool id. The counts for local and toolshed installed tools are
     aggregated. All tool versions are also aggregated.
