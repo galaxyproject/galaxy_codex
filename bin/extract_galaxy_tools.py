@@ -63,40 +63,11 @@ def get_last_url_position(toot_id: str) -> str:
     return toot_id
 
 
-# def add_tool_stats_to_tools(tools_df: pd.DataFrame, tool_stats_path: Path, column_name: str) -> pd.DataFrame:
-#     """
-#     Adds the usage statistics to the community tool table
-
-#     :param tool_stats_path: path to the table with
-#         the tool stats (csv,
-#         must include "tool_name" and "count")
-#     :param tools_path: path to the table with
-#         the tools (csv,
-#         must include "Galaxy wrapper id")
-#     :param output_path: path to store the new table
-#     :param column_name: column to add for the tool stats,
-#         different columns could be added for the main servers
-#     """
-
-#     # parse csvs
-#     tool_stats_df = pd.read_csv(tool_stats_path)
-
-#     # extract tool id
-#     tool_stats_df["Galaxy wrapper id"] = tool_stats_df["tool_name"].apply(get_last_url_position)
-
-#     # group local and toolshed tools into one entry
-#     grouped_tool_stats_tools = tool_stats_df.groupby("Galaxy wrapper id", as_index=False)["count"].sum()
-
-#     # keep all rows of the tools table (how='right'), also for those where no stats are available
-#     community_tool_stats = pd.merge(grouped_tool_stats_tools, tools_df, how="right", on="Galaxy wrapper id")
-#     community_tool_stats.rename(columns={"count": column_name}, inplace=True)
-
-#     return community_tool_stats
-
-
 def get_tool_stats_from_stats_file(tool_stats_df: pd.DataFrame, tool_ids: str) -> int:
     """
-    Adds the usage statistics to the community tool table
+    Computes a count for tool stats based on the tool id. The counts for local and toolshed installed tools are
+    aggregated. All tool versions are also aggregated.
+
 
     :param tools_stats_df: df with tools stats in the form `toolshed.g2.bx.psu.edu/repos/iuc/snpsift/snpSift_filter,3394539`
     :tool_ids: tool ids to get statistics for and aggregate
@@ -118,12 +89,6 @@ def get_tool_stats_from_stats_file(tool_stats_df: pd.DataFrame, tool_ids: str) -
             agg_count += agg_versions
 
     return int(agg_count)
-
-
-# def add_usage_stats_for_all_server(tools_df: pd.DataFrame) -> pd.DataFrame:
-#     for column, path in GALAXY_TOOL_STATS.items():
-#         tools_df = add_tool_stats_to_tools(tools_df, path, column)
-#     return tools_df
 
 
 def read_file(filepath: Optional[str]) -> List[str]:
