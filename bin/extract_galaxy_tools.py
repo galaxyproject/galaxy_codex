@@ -62,45 +62,36 @@ def get_last_url_position(toot_id: str) -> str:
     """
 
     if "/" in toot_id:
-        toot_id = toot_id.split("/")[-2]
+        toot_id = toot_id.split("/")[-1]
     return toot_id
 
 
-def add_tool_stats_to_tools(tools_df: pd.DataFrame, tool_stats_path: Path, column_name: str) -> pd.DataFrame:
+def get_tool_stats_from_stats_file(tool_stats_df: pd.DataFrame, tool_ids: List[str]) -> int:
     """
-    Adds the usage statistics to the community tool table
+    Computes a count for tool stats based on the tool id. The counts for local and toolshed installed tools are
+    aggregated. All tool versions are also aggregated.
 
-    :param tool_stats_path: path to the table with
-        the tool stats (csv,
-        must include "tool_name" and "count")
-    :param tools_path: path to the table with
-        the tools (csv,
-        must include "Galaxy wrapper id")
-    :param output_path: path to store the new table
-    :param column_name: column to add for the tool stats,
-        different columns could be added for the main servers
+
+    :param tools_stats_df: df with tools stats in the form `toolshed.g2.bx.psu.edu/repos/iuc/snpsift/snpSift_filter,3394539`
+    :tool_ids: tool ids to get statistics for and aggregate
     """
-
-    # parse csvs
-    tool_stats_df = pd.read_csv(tool_stats_path)
 
     # extract tool id
     tool_stats_df["Galaxy wrapper id"] = tool_stats_df["tool_name"].apply(get_last_url_position)
+    # print(tool_stats_df["Galaxy wrapper id"].to_list())
 
-    # group local and toolshed tools into one entry
-    grouped_tool_stats_tools = tool_stats_df.groupby("Galaxy wrapper id", as_index=False)["count"].sum()
+    agg_count = 0
+    for tool_id in tool_ids:
+        if tool_id in tool_stats_df["Galaxy wrapper id"].to_list():
 
-    # keep all rows of the tools table (how='right'), also for those where no stats are available
-    community_tool_stats = pd.merge(grouped_tool_stats_tools, tools_df, how="right", on="Galaxy wrapper id")
-    community_tool_stats.rename(columns={"count": column_name}, inplace=True)
+            # get stats of the tool for all versions
+            counts = tool_stats_df.loc[(tool_stats_df["Galaxy wrapper id"] == tool_id), "count"]
+            agg_versions = counts.sum()
 
-    return community_tool_stats
+            # aggregate all counts for all tools in the suite
+            agg_count += agg_versions
 
-
-def add_usage_stats_for_all_server(tools_df: pd.DataFrame) -> pd.DataFrame:
-    for column, path in GALAXY_TOOL_STATS.items():
-        tools_df = add_tool_stats_to_tools(tools_df, path, column)
-    return tools_df
+    return int(agg_count)
 
 
 
@@ -474,10 +465,17 @@ def get_all_installed_tool_ids_on_server(galaxy_url: str) -> List[str]:
     """
     galaxy_url = galaxy_url.rstrip("/")
     base_url = f"{galaxy_url}/api"
-    r = requests.get(f"{base_url}/tools", params={"in_panel": False})
-    r.raise_for_status()
-    tool_dict_list = r.json()
-    return [tool_dict["id"] for tool_dict in tool_dict_list]
+
+    try:
+        r = requests.get(f"{base_url}/tools", params={"in_panel": False})
+        r.raise_for_status()
+        tool_dict_list = r.json()
+        tools = [tool_dict["id"] for tool_dict in tool_dict_list]
+        return tools
+    except Exception as ex:
+        print(f"Server query failed with: \n {ex}")
+        print(f"Could not query tools on server {galaxy_url}, all tools from this server will be set to 0!")
+        return []
 
 
 def check_tools_on_servers(tool_ids: List[str], galaxy_server_url: str) -> int:
@@ -534,8 +532,8 @@ def export_tools_to_tsv(
         # the Galaxy tools need to be formatted for the add_instances_to_table to work
         df["Galaxy tool ids"] = shared_functions.format_list_column(df["Galaxy tool ids"])
 
-    if add_usage_stats:
-        df = add_usage_stats_for_all_server(df)
+    # if add_usage_stats:
+    #     df = add_usage_stats_for_all_server(df)
 
     df.to_csv(output_fp, sep="\t", index=False)
 
@@ -737,6 +735,11 @@ if __name__ == "__main__":
                     url = row["url"]
                     tool[f"Tools available on {name}"] = check_tools_on_servers(tool["Galaxy tool ids"], url)
 
+            # add tool stats
+            for name, path in GALAXY_TOOL_STATS.items():
+                tool_stats_df = pd.read_csv(path)
+                tool[name] = get_tool_stats_from_stats_file(tool_stats_df, tool["Galaxy tool ids"])
+
         export_tools_to_json(tools, args.all_tools_json)
         export_tools_to_tsv(tools, args.all_tools, format_list_col=True, add_usage_stats=True)
 
@@ -745,8 +748,20 @@ if __name__ == "__main__":
             tools = json.load(f)
         # get categories and tools to exclude
         categories = shared_functions.read_file(args.categories)
-        status = pd.read_csv(args.status, sep="\t", index_col=0, header=None).to_dict("index")
+        try:
+            status = pd.read_csv(args.status, sep="\t", index_col=0, header=None).to_dict("index")
+        except Exception as ex:
+            print(f"Failed to load tool_status.tsv file with:\n{ex}")
+            print("Not assigning tool status for this community !")
+            status = {}
+
         # filter tool lists
         ts_filtered_tools, filtered_tools = filter_tools(tools, categories, status)
+
         export_tools_to_tsv(ts_filtered_tools, args.ts_filtered_tools, format_list_col=True)
-        export_tools_to_tsv(filtered_tools, args.filtered_tools, format_list_col=True)
+
+        # if there are no filtered tools return the ts filtered tools
+        if filtered_tools:
+            export_tools_to_tsv(filtered_tools, args.filtered_tools, format_list_col=True)
+        else:
+            export_tools_to_tsv(ts_filtered_tools, args.filtered_tools, format_list_col=True)

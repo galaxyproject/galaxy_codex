@@ -20,11 +20,23 @@ jobs:
     runs-on: ubuntu-20.04
     name: Fetch list of all available servers
     steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
       - name: Install requirement
         run: python -m pip install -r requirements.txt
       - name: Run script 
         run: | 
           python ./bin/get_public_galaxy_servers.py -o data/available_public_servers.csv
+      - name: Commit servers 
+        # add or commit any changes in results if there was a change, merge with main, and push as bot
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git pull --no-rebase -s recursive -X ours
+          git add results
+          git status
+          git diff --quiet && git diff --staged --quiet || (git commit -m "fetch all tools bot  - step get available servers") 
+          git push
 
   fetch-all-tools-stepwise:
     runs-on: ubuntu-20.04
@@ -75,9 +87,9 @@ jobs:
           python -m pip install -r requirements.txt
           sudo apt-get install jq
       - name: Merge all tools
-        run: | #merge files with only one header -> https://stackoverflow.com/questions/16890582/unixmerge-multiple-csv-files-with-same-header-by-keeping-the-header-of-the-firs
+        run: | #merge files with only one header -> https://stackoverflow.com/questions/16890582/unixmerge-multiple-csv-files-with-same-header-by-keeping-the-header-of-the-firs; map(.[]) -> https://stackoverflow.com/questions/42011086/merge-arrays-of-json (get flat array, one tool per entry)
           awk 'FNR==1 && NR!=1{next;}{print}' results/repositories*.list_tools.tsv > results/all_tools.tsv
-          jq -s '.' results/repositories*.list_tools.json > results/all_tools.json
+          jq -s 'map(.[])' results/repositories*.list_tools.json > results/all_tools.json 
       - name: Wordcloud and interactive table
         run: |
           bash ./bin/extract_all_tools_downstream.sh
