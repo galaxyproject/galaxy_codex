@@ -3,7 +3,6 @@
 import json
 from pathlib import Path
 from typing import (
-    Any,
     Dict,
     List,
     Optional,
@@ -56,13 +55,13 @@ def read_suite_per_tool_id(tool_fp: str) -> Dict:
     """
     Read the tool suite table and extract a dictionary per tool id
     """
-    tool_suites = pd.read_csv(tool_fp, sep="\t", keep_default_na=False).to_dict("records")
+    tool_suites = load_json(tool_fp)
     tools = {}
     for suite in tool_suites:
-        for tool in suite["Galaxy tool ids"].split(", "):
+        for tool in suite["Galaxy tool ids"]:
             tools[tool] = {
                 "Galaxy wrapper id": suite["Galaxy wrapper id"],
                 "Galaxy wrapper owner": suite["Galaxy wrapper id"],
-                "EDAM operation": suite["EDAM operation"].split(", "),
+                "EDAM operation": suite["EDAM operation"],
             }
     return tools

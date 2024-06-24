@@ -8,7 +8,7 @@ for com_data_fp in data/communities/* ; do
 
                 if [[ -f "data/communities/$community/tutorial_tags" && -f "results/$community/tutorials.tsv" ]]; then
 
-                        python bin/extract_all_gtn_tutorials.py \
+                        python bin/extract_gtn_tutorials.py \
                                 filtertutorials \
                                 --all_tutorials "results/all_tutorials.json" \
                                 --filtered_tutorials "results/$community/tutorials.tsv" \
