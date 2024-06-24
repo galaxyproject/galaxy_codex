@@ -62,7 +62,9 @@ The tool performs the following steps:
     $ python3 -m pip install -r requirements.txt
     ```
 
-## Extract all tools
+## Tools
+
+### Extract all tools
 
 1. Get an API key ([personal token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)) for GitHub
 2. Export the GitHub API key as an environment variable:
@@ -96,7 +98,7 @@ The script will generate a TSV file with each tool found in the list of GitHub r
 15. Conda id
 16. Conda version
 
-## Filter tools based on their categories in the ToolShed
+### Filter tools based on their categories in the ToolShed
 
 1. Run the extraction as explained before
 2. (Optional) Create a text file with ToolShed categories for which tools need to be extracted: 1 ToolShed category per row ([example for microbial data analysis](data/microgalaxy/categories))
@@ -116,6 +118,37 @@ The script will generate a TSV file with each tool found in the list of GitHub r
         --filtered-tools <Path to output TSV with filtered tools based on ToolShed category and manual curation> \
         [--categories <Path to ToolShed category file>] \
         [--status <Path to a TSV file with tool status - 3 columns: ToolShed ids of tool suites, Boolean with True to keep and False to exclude, Boolean with True if deprecated and False if not>]
+    ```
+
+## Training
+
+### Extract tutorials from GTN
+
+1. Get an API key ([personal token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)) for Plausible
+2. Export the Plausible API key as an environment variable:
+
+    ```
+    $ export PLAUSIBLE_API_KEY=<your GitHub API key>
+    ```
+
+3. Run the script
+
+    ```
+    $ python bin/extract_all_tutorials.sh
+    ```
+
+### Filter tutorials based on tags
+
+1. Run the extraction as explained before
+2. Create a file named `tutorial_tags` in your community `data` folder with the list of tutorial tags to keep
+3. Run the following command
+
+    ```
+    $ python bin/extract_gtn_tutorials.py \
+        filtertutorials \
+        --all_tutorials "results/all_tutorials.json" \
+        --filtered_tutorials "results/<your community>/tutorials.tsv" \
+        --tags "data/communities/<your community>/tutorial_tags"
     ```
 
 ## Development
