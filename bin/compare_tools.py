@@ -2,13 +2,9 @@
 
 import argparse
 from pathlib import Path
-from typing import (
-    List,
-    Set,
-)
+from typing import Set
 
 import pandas as pd
-
 import shared_functions
 
 
@@ -34,13 +30,13 @@ def write_tool_list(tools: Set, fp: str) -> None:
     """
     Write tool list with 1 element per row in a file
     """
-    tools = list(tools)
-    tools.sort()
+    tool_list = list(tools)
+    tool_list.sort()
     with Path(fp).open("w") as f:
-        f.write("\n".join(tools))
+        f.write("\n".join(tool_list))
 
 
-def update_excl_keep_tool_lists(tuto_tool_suites: Set, excl_tool_fp: str, keep_tool_fp: str) -> List:
+def update_excl_keep_tool_lists(tuto_tool_suites: Set, excl_tool_fp: str, keep_tool_fp: str) -> None:
     """
     Update the lists in to keep and exclude with tool suites in tutorials
     """
@@ -82,5 +78,3 @@ if __name__ == "__main__":
 
     tuto_tools = get_tutorials_tool_suites(args.filtered_tutorials, args.all_tools)
     update_excl_keep_tool_lists(tuto_tools, args.exclude, args.keep)
-    
-    

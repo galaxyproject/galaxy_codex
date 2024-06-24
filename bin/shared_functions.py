@@ -42,12 +42,12 @@ def export_to_json(data: List[Dict], output_fp: str) -> None:
         json.dump(data, f, indent=4, sort_keys=True)
 
 
-def load_json(input_df: str):
+def load_json(input_df: str) -> Dict:
     """
     Read a JSON file
     """
     with Path(input_df).open("r") as t:
-        content = json.load(t) 
+        content = json.load(t)
     return content
 
 

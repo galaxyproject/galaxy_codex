@@ -1,21 +1,23 @@
 #!/usr/bin/env python
 
 import argparse
-from datetime import datetime, date
-import requests
+from datetime import (
+    date,
+    datetime,
+)
 from typing import (
     Dict,
     List,
 )
 
 import pandas as pd
-from owlready2 import get_ontology
-import yt_dlp
-
+import requests
 import shared_functions
+import yt_dlp
+from owlready2 import get_ontology
 
 
-def get_request_json(url: str, headers: dict = None) -> dict:
+def get_request_json(url: str, headers: dict) -> dict:
     """
     Return JSON output using request
 
@@ -46,7 +48,7 @@ def get_short_tool_ids(tuto: dict) -> None:
     Get tool ids without toolshed URL
     """
     tuto["short_tools"] = set()
-    if "tools" in tuto:    
+    if "tools" in tuto:
         for tool in tuto["tools"]:
             if "toolshed" in tool:
                 tuto["short_tools"].add(tool.split("/")[-2])
@@ -55,7 +57,7 @@ def get_short_tool_ids(tuto: dict) -> None:
     tuto["short_tools"] = list(tuto["short_tools"])
 
 
-def get_edam_topics(tuto: dict, edam_ontology) -> None:
+def get_edam_topics(tuto: dict, edam_ontology: dict) -> None:
     """
     Get EDAM topics instead of EDAM ids
     """
@@ -97,9 +99,7 @@ def get_visit_results(url: str, tuto: dict, plausible_api: str) -> None:
     """
     Extract visit results from Plausible URL
     """
-    headers = {
-       'Authorization' : f"Bearer {plausible_api}"
-    }
+    headers = {"Authorization": f"Bearer {plausible_api}"}
     results = get_request_json(url, headers)
     if "results" in results:
         for metric in ["visitors", "pageviews", "visit_duration"]:
@@ -128,10 +128,7 @@ def get_youtube_stats(tuto: dict) -> None:
     """
     tuto["video_versions"] = 0
     tuto["video_view"] = 0
-    ydl_opts = {
-        "ignoreerrors": True,
-        "quiet": True
-    }
+    ydl_opts = {"ignoreerrors": True, "quiet": True}
     if "video_library" in tuto and tuto["video_library"]["tutorial"]:
         tuto["video_versions"] = len(tuto["video_library"]["tutorial"]["versions"])
         for v in tuto["video_library"]["tutorial"]["versions"]:
@@ -142,8 +139,8 @@ def get_youtube_stats(tuto: dict) -> None:
                 if info:
                     tuto["video_view"] += info["view_count"]
 
- 
-def format_tutorial(tuto: dict, edam_ontology, tools: dict, feedback: dict, plausible_api: str) -> None:
+
+def format_tutorial(tuto: dict, edam_ontology: dict, tools: dict, feedback: dict, plausible_api: str) -> Dict:
     tuto["url"] = f'https://training.galaxyproject.org/{tuto["url"]}'
     tuto["mod_date"] = format_date(tuto["mod_date"])
     tuto["pub_date"] = format_date(tuto["pub_date"])
@@ -161,8 +158,8 @@ def get_feedback_per_tutorials() -> Dict:
     """
     Get feedback from GTN API and group per tutorial
     """
-    feedback = get_request_json("https://training.galaxyproject.org/training-material/api/feedback2.json")
-    feedback_per_tuto = {}
+    feedback = get_request_json("https://training.galaxyproject.org/training-material/api/feedback2.json", {})
+    feedback_per_tuto = {}  # type: dict
     for tutorials in feedback.values():
         for tuto, feedback in tutorials.items():
             for f in feedback:
@@ -174,19 +171,25 @@ def get_feedback_per_tutorials() -> Dict:
     return feedback_per_tuto
 
 
-def get_tutorials(tool_fp: str, plausible_api: str, run_test: bool,) -> List[Dict]:
+def get_tutorials(
+    tool_fp: str,
+    plausible_api: str,
+    run_test: bool,
+) -> List[Dict]:
     """
     Extract training material from the GTN API, format them, extract EDAM operations from tools, feedback stats, view stats, etc
     """
-    tools = shared_functions.read_suite_per_tool_id(tool_fp) 
+    tools = shared_functions.read_suite_per_tool_id(tool_fp)
     feedback = get_feedback_per_tutorials()
     edam_ontology = get_ontology("https://edamontology.org/EDAM_unstable.owl").load()
-    topics = get_request_json("https://training.galaxyproject.org/training-material/api/topics.json")
+    topics = get_request_json("https://training.galaxyproject.org/training-material/api/topics.json", {})
     if run_test:
-        topics = ["microbiome"]
+        topics = {"microbiome": topics["microbiome"]}
     tutos = []
     for topic in topics:
-        topic_information = get_request_json(f"https://training.galaxyproject.org/training-material/api/topics/{topic}.json")
+        topic_information = get_request_json(
+            f"https://training.galaxyproject.org/training-material/api/topics/{topic}.json", {}
+        )
         for tuto in topic_information["materials"]:
             if tuto is None:
                 continue
@@ -195,7 +198,7 @@ def get_tutorials(tool_fp: str, plausible_api: str, run_test: bool,) -> List[Dic
     return tutos
 
 
-def filter_tutorials(tutorials: List[Dict], tags: List) ->  List[Dict]:
+def filter_tutorials(tutorials: dict, tags: List) -> List:
     """
     Filter training based on a list of tags
     """
@@ -211,72 +214,73 @@ def filter_tutorials(tutorials: List[Dict], tags: List) ->  List[Dict]:
     return filtered_tutorials
 
 
-def export_tutorials_to_tsv(tutorials: List[Dict], output_fp: str) -> None:
+def export_tutorials_to_tsv(tutorials: list, output_fp: str) -> None:
     """
     Export tutorials to a TSV file
     """
-    df = (pd.DataFrame(tutorials)
-        .assign(
-            Workflows=lambda df: df.workflows.notna(),
-            exact_supported_servers= lambda df: df.exact_supported_servers.fillna("").apply(list),
-            inexact_supported_servers= lambda df: df.inexact_supported_servers.fillna("").apply(list),
-            visit_duration= lambda df: df.visit_duration/60
-        )
+    df = pd.DataFrame(tutorials).assign(
+        Workflows=lambda df: df.workflows.notna(),
+        exact_supported_servers=lambda df: df.exact_supported_servers.fillna("").apply(list),
+        inexact_supported_servers=lambda df: df.inexact_supported_servers.fillna("").apply(list),
+        visit_duration=lambda df: df.visit_duration / 60,
     )
 
     for col in ["exact_supported_servers", "inexact_supported_servers", "short_tools", "edam_operation", "edam_topic"]:
         df[col] = shared_functions.format_list_column(df[col])
-        
-    df = (df
-        .rename(columns = {
-            "title": "Title",
-            "hands_on": "Tutorial",
-            "url": "Link",
-            "slides": "Slides",
-            "mod_date": "Last modification",
-            "pub_date": "Creation",
-            "version": "Version",
-            "short_tools": "Tools",
-            "exact_supported_servers": "Servers with precise tool versions",
-            "inexact_supported_servers": "Servers with tool but different versions",
-            "topic_name_human": "Topic",
-            "video": "Video",
-            "edam_topic": "EDAM topic",
-            "edam_operation": "EDAM operation",
-            "feedback_number": "Feedback number",
-            "feedback_mean_note": "Feedback mean note",
-            "visitors": "Visitors",
-            "pageviews": "Page views",
-            "visit_duration": "Visit duration",
-            "video_versions": "Video versions",
-            "video_view": "Video views"
-        })
+
+    df = (
+        df.rename(
+            columns={
+                "title": "Title",
+                "hands_on": "Tutorial",
+                "url": "Link",
+                "slides": "Slides",
+                "mod_date": "Last modification",
+                "pub_date": "Creation",
+                "version": "Version",
+                "short_tools": "Tools",
+                "exact_supported_servers": "Servers with precise tool versions",
+                "inexact_supported_servers": "Servers with tool but different versions",
+                "topic_name_human": "Topic",
+                "video": "Video",
+                "edam_topic": "EDAM topic",
+                "edam_operation": "EDAM operation",
+                "feedback_number": "Feedback number",
+                "feedback_mean_note": "Feedback mean note",
+                "visitors": "Visitors",
+                "pageviews": "Page views",
+                "visit_duration": "Visit duration",
+                "video_versions": "Video versions",
+                "video_view": "Video views",
+            }
+        )
         .fillna("")
-        .reindex(columns = [
-            "Topic",
-            "Title",
-            "Link",
-            "EDAM topic",
-            "EDAM operation",
-            "Creation",
-            "Last modification",
-            "Version",
-            "Tutorial",
-            "Slides",
-            "Video",
-            "Workflows",
-            "Tools",
-            "Servers with precise tool versions",
-            "Servers with tool but different versions",
-            "Feedback number",
-            "Feedback mean note",
-            "Visitors",
-            "Page views",
-            "Visit duration",
-            "Video views"
-        ])
+        .reindex(
+            columns=[
+                "Topic",
+                "Title",
+                "Link",
+                "EDAM topic",
+                "EDAM operation",
+                "Creation",
+                "Last modification",
+                "Version",
+                "Tutorial",
+                "Slides",
+                "Video",
+                "Workflows",
+                "Tools",
+                "Servers with precise tool versions",
+                "Servers with tool but different versions",
+                "Feedback number",
+                "Feedback mean note",
+                "Visitors",
+                "Page views",
+                "Visit duration",
+                "Video views",
+            ]
+        )
     )
-        
     df.to_csv(output_fp, sep="\t", index=False)
 
 
@@ -287,7 +291,9 @@ if __name__ == "__main__":
     subparser = parser.add_subparsers(dest="command")
     # Extract tutorials
     extracttutorials = subparser.add_parser("extracttutorials", help="Extract all training materials")
-    extracttutorials.add_argument("--all_tutorials", "-o", required=True, help="Filepath to JSON with all extracted training materials")
+    extracttutorials.add_argument(
+        "--all_tutorials", "-o", required=True, help="Filepath to JSON with all extracted training materials"
+    )
     extracttutorials.add_argument(
         "--tools",
         "-t",
@@ -330,11 +336,9 @@ if __name__ == "__main__":
         shared_functions.export_to_json(tutorials, args.all_tutorials)
 
     elif args.command == "filtertutorials":
-        tutorials = shared_functions.load_json(args.all_tutorials)
+        all_tutorials = shared_functions.load_json(args.all_tutorials)
         # get categories and training to exclude
         tags = shared_functions.read_file(args.tags)
         # filter training lists
-        filtered_tutorials = filter_tutorials(tutorials, tags)
+        filtered_tutorials = filter_tutorials(all_tutorials, tags)
         export_tutorials_to_tsv(filtered_tutorials, args.filtered_tutorials)
-
-    

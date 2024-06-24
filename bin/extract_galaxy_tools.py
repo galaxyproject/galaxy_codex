@@ -17,14 +17,12 @@ from typing import (
 
 import pandas as pd
 import requests
+import shared_functions
 import yaml
 from github import Github
 from github.ContentFile import ContentFile
 from github.Repository import Repository
 from owlready2 import get_ontology
-
-import shared_functions
-
 
 # Config variables
 BIOTOOLS_API_URL = "https://bio.tools"
@@ -92,9 +90,6 @@ def get_tool_stats_from_stats_file(tool_stats_df: pd.DataFrame, tool_ids: List[s
             agg_count += agg_versions
 
     return int(agg_count)
-
-
-
 
 
 def get_string_content(cf: ContentFile) -> str:
@@ -524,7 +519,9 @@ def export_tools_to_tsv(
         df["EDAM operation"] = shared_functions.format_list_column(df["EDAM operation"])
         df["EDAM topic"] = shared_functions.format_list_column(df["EDAM topic"])
 
-        df["EDAM operation (no superclasses)"] = shared_functions.format_list_column(df["EDAM operation (no superclasses)"])
+        df["EDAM operation (no superclasses)"] = shared_functions.format_list_column(
+            df["EDAM operation (no superclasses)"]
+        )
         df["EDAM topic (no superclasses)"] = shared_functions.format_list_column(df["EDAM topic (no superclasses)"])
 
         df["bio.tool ids"] = shared_functions.format_list_column(df["bio.tool ids"])
