@@ -15,7 +15,7 @@ import yt_dlp
 import shared_functions
 
 
-def get_request_json(url: str, headers: dict = {}) -> dict:
+def get_request_json(url: str, headers: dict = None) -> dict:
     """
     Return JSON output using request
 
@@ -161,15 +161,16 @@ def get_feedback_per_tutorials() -> Dict:
     """
     Get feedback from GTN API and group per tutorial
     """
-    feedback = get_request_json("https://training.galaxyproject.org/training-material/api/feedback.json")
+    feedback = get_request_json("https://training.galaxyproject.org/training-material/api/feedback2.json")
     feedback_per_tuto = {}
-    for f in feedback:
-        tuto = f["tutorial"]
-        feedback_per_tuto.setdefault(tuto, {"number": 0, "mean note": 0})
-        feedback_per_tuto[tuto]["number"] += 1
-        feedback_per_tuto[tuto]["mean note"] += int(f["note"])
+    for tutorials in feedback.values():
+        for tuto, feedback in tutorials.items():
+            for f in feedback:
+                feedback_per_tuto.setdefault(tuto, {"number": 0, "mean rating": 0})
+                feedback_per_tuto[tuto]["number"] += 1
+                feedback_per_tuto[tuto]["mean rating"] += int(f["rating"])
     for tuto in feedback_per_tuto:
-        feedback_per_tuto[tuto]["mean note"] /= feedback_per_tuto[tuto]["number"]
+        feedback_per_tuto[tuto]["mean rating"] /= feedback_per_tuto[tuto]["number"]
     return feedback_per_tuto
 
 
