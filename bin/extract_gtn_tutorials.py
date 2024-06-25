@@ -129,15 +129,19 @@ def get_youtube_stats(tuto: dict) -> None:
     tuto["video_versions"] = 0
     tuto["video_view"] = 0
     ydl_opts = {"ignoreerrors": True, "quiet": True}
-    if "video_library" in tuto and tuto["video_library"]["tutorial"]:
-        tuto["video_versions"] = len(tuto["video_library"]["tutorial"]["versions"])
-        for v in tuto["video_library"]["tutorial"]["versions"]:
-            url = f"https://www.youtube.com/watch?v={v['link']}"
-            with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-                info = ydl.extract_info(url, download=False)
-                info = ydl.sanitize_info(info)
-                if info:
-                    tuto["video_view"] += info["view_count"]
+    recordings = []
+    if "recordings" in tuto and tuto["recordings"]:
+        recordings = tuto["recordings"]
+    elif "slides_recordings" in tuto and tuto["slides_recordings"]:
+        recordings = tuto["slides_recordings"]
+    tuto["video_versions"] = len(recordings)
+    for v in recordings:
+        url = f"https://www.youtube.com/watch?v={v['youtube_id']}"
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            info = ydl.extract_info(url, download=False)
+            info = ydl.sanitize_info(info)
+            if info:
+                tuto["video_view"] += info["view_count"]
 
 
 def format_tutorial(tuto: dict, edam_ontology: dict, tools: dict, feedback: dict, plausible_api: str) -> Dict:
