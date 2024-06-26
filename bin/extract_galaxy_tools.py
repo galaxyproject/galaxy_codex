@@ -1,10 +1,10 @@
 #!/usr/bin/env python
-
 import argparse
 import base64
 import json
 import sys
 import time
+import traceback
 import xml.etree.ElementTree as et
 from functools import lru_cache
 from pathlib import Path
@@ -98,11 +98,16 @@ def get_string_content(cf: ContentFile) -> str:
 
     :param cf: GitHub ContentFile object
     """
+
     return base64.b64decode(cf.content).decode("utf-8")
 
 
 def get_tool_github_repositories(
-    g: Github, repository_list: Optional[str], run_test: bool, add_extra_repositories: bool = True
+    g: Github,
+    repository_list: Optional[str],
+    run_test: bool,
+    test_repository: str = "https://github.com/paulzierep/Galaxy-Tool-Metadata-Extractor-Test-Wrapper",
+    add_extra_repositories: bool = True,
 ) -> List[str]:
     """
     Get list of tool GitHub repositories to parse
@@ -110,10 +115,11 @@ def get_tool_github_repositories(
     :param g: GitHub instance
     :param repository_list: The selection to use from the repository (needed to split the process for CI jobs)
     :param run_test: for testing only parse the repository
+    :test_repository: the link to the test repository to use for the test
     """
 
     if run_test:
-        return ["https://github.com/paulzierep/Galaxy-Tool-Metadata-Extractor-Test-Wrapper"]
+        return [test_repository]
 
     repo = g.get_user("galaxyproject").get_repo("planemo-monitor")
     repo_list: List[str] = []
@@ -318,11 +324,11 @@ def get_tool_metadata(tool: ContentFile, repo: Repository) -> Optional[Dict[str,
     # parse XML file and get meta data from there
     for file in file_list:
         if file.name.endswith("xml") and "macro" not in file.name:
-            file_content = get_string_content(file)
             try:
+                file_content = get_string_content(file)
                 root = et.fromstring(file_content)
             except Exception:
-                print(file_content, sys.stderr)
+                print(traceback.format_exc())
             else:
                 # version
                 if metadata["Galaxy wrapper version"] is None:
@@ -513,6 +519,7 @@ def export_tools_to_tsv(
     :param output_fp: path to output file
     :param format_list_col: boolean indicating if list columns should be formatting
     """
+
     df = pd.DataFrame(tools).sort_values("Galaxy wrapper id")
     if format_list_col:
         df["ToolShed categories"] = shared_functions.format_list_column(df["ToolShed categories"])
@@ -698,6 +705,7 @@ if __name__ == "__main__":
                     f"Error while extracting tools from repo {r}: {e}",
                     file=sys.stderr,
                 )
+                print(traceback.format_exc())
 
         #######################################################
         # add additional information to the List[Dict] object
