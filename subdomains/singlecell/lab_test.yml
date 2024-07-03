@@ -1,0 +1,34 @@
+# Test this locally with:
+# http://127.0.0.1:8000/lab/export?content_root=http://localhost:8000/static/home/labs/genome/main.yml
+
+# Request this on site.usegalaxy.org.au with:
+# https://site.usegalaxy.org.au/lab/export?content_root=https://site.usegalaxy.org.au/static/home/labs/genome/main.yml
+
+# Use these variables in HTML templates like:
+# "Welcome to the Galaxy {{ site_name }} {{ lab_name }}"
+# To make the content more generic and reusable across sites
+site_name: Australia
+lab_name: Single Cell Lab
+analysis_name: Single Cell
+nationality: Australian
+galaxy_base_url: https://singlecell.usegalaxy.org.au  # Use for rendering tool/workflow URLs. Trailing '/' will be removed.
+subdomain: singlecell
+root_domain: usegalaxy.org.au
+
+# Custom content relative to this file URL
+header_logo: static/logo_single_cell.svg
+custom_css: static/custom.css
+intro_html: templates/intro.html
+conclusion_html: templates/conclusion.html
+footer_html: templates/footer.html
+
+
+# Data (Tools, Workflows etc.) to be rendered into sections/tabs/accordion elements.
+# Either:
+#   1. Relative to this file URL
+#   2. Full URL to fetch globally centralized content
+sections:
+  - 1_beginner.yml
+  - 2_intermediate.yml
+  - 3_advanced.yml
+  - 4_community.yml
