@@ -1,0 +1,43 @@
+# Request this as a webpage with:
+# https://site.usegalaxy.org.au/lab/export?content_root=https://raw.githubusercontent.com/nomadscientist/galaxy_codex/subdomain_unification/subdomains/singlecell/main.yml
+
+# -----------------------------------------------------------------------------
+# Use these variables in HTML templates like:
+# "Welcome to the Galaxy {{ site_name }} {{ lab_name }}"
+# To make the content more generic and reusable across sites
+
+# These will be rendered like "Welcome to the Galaxy {{ site_name }} {{ lab_name }}!"
+site_name: Europe
+lab_name: Single Cell Lab
+analysis_name: Single Cell
+nationality: European
+
+# Used for rendering tool/workflow links. Trailing '/' will be removed.
+galaxy_base_url: https://singlecell.usegalaxy.eu
+subdomain: singlecell
+root_domain: usegalaxy.eu
+
+# More variables here...
+support_url: https://help.galaxyproject.org/
+
+# -----------------------------------------------------------------------------
+# Custom content relative to this file URL
+
+header_logo: static/logo_single_cell.svg
+custom_css: static/custom.css
+intro_md: templates/intro.html
+conclusion_md: templates/conclusion.html
+footer_md: templates/footer.html
+
+
+# Data (Tools, Workflows etc.) to be rendered into sections/tabs/accordion elements.
+# Either:
+#   1. Relative to this file URL
+#   2. Full URL to fetch globally centralized content
+sections:
+  - sections/1_beginner.yml
+  - sections/2_intermediate.yml
+  - sections/3_advanced.yml
+  - sections/4_community.yml
+
+# -----------------------------------------------------------------------------
