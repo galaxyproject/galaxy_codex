@@ -113,9 +113,10 @@ The script will generate a TSV file with each tool found in the list of GitHub r
 
     ```
     $ python bin/extract_galaxy_tools.py \
-        --tools <Path to JSON file with all extracted tools> \
-        --ts-filtered-tools <Path to output TSV with tools filtered based on ToolShed category>
-        --filtered-tools <Path to output TSV with filtered tools based on ToolShed category and manual curation> \
+        filter \
+        --all <Path to JSON file with all extracted tools> \
+        --ts-filtered <Path to output TSV with tools filtered based on ToolShed category>
+        --filtered <Path to output TSV with filtered tools based on ToolShed category and manual curation> \
         [--categories <Path to ToolShed category file>] \
         [--status <Path to a TSV file with tool status - 3 columns: ToolShed ids of tool suites, Boolean with True to keep and False to exclude, Boolean with True if deprecated and False if not>]
     ```
@@ -145,18 +146,49 @@ The script will generate a TSV file with each tool found in the list of GitHub r
 
     ```
     $ python bin/extract_gtn_tutorials.py \
-        filtertutorials \
-        --all_tutorials "results/all_tutorials.json" \
-        --filtered_tutorials "results/<your community>/tutorials.tsv" \
+        filter\
+        --all "results/all_tutorials.json" \
+        --filtered "results/<your community>/tutorials.tsv" \
         --tags "data/communities/<your community>/tutorial_tags"
     ```
 
 ## Development
 
+### Tools
+
 To make a test run of the tool to check its functionalities follow [Usage](#Usage) to set-up the environnement and the API key, then run
 
-```bash
-bash ./bin/extract_all_tools_test.sh test.list
-```
+1. Tool extraction
 
-This runs the tool, but only parses the test repository [Galaxy-Tool-Metadata-Extractor-Test-Wrapper](https://github.com/paulzierep/Galaxy-Tool-Metadata-Extractor-Test-Wrapper)
+    ```bash
+    $ bash bin/extract_all_tools.sh test
+    ```
+
+    This runs the tool, but only parses the test repository [Galaxy-Tool-Metadata-Extractor-Test-Wrapper](https://github.com/paulzierep/Galaxy-Tool-Metadata-Extractor-Test-Wrapper)
+
+2. Tool filter
+
+    ```bash
+    $ bash bin/get_community_tools.sh test
+    ```
+
+3. Create interactive table and wordcloud
+        
+    ```bash
+    $ bash bin/format_tools.sh
+    ```
+
+### Tutorials
+
+1. Tutorial extraction
+
+    ```bash
+    $ bash bin/extract_all_tutorials.sh test 
+    ```
+
+2. Tutorial filtering
+
+    ```bash
+    $ bash bin/get_community_tutorials.sh test
+    ```
+
