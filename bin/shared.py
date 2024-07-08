@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import json
+from datetime import datetime
 from pathlib import Path
 from typing import (
     Dict,
@@ -9,6 +10,7 @@ from typing import (
 )
 
 import pandas as pd
+import requests
 
 
 def format_list_column(col: pd.Series) -> pd.Series:
@@ -65,3 +67,18 @@ def read_suite_per_tool_id(tool_fp: str) -> Dict:
                 "EDAM operation": suite["EDAM operation"],
             }
     return tools
+
+
+def get_request_json(url: str, headers: dict) -> dict:
+    """
+    Return JSON output using request
+
+    :param url: galaxy tool id
+    """
+    r = requests.get(url, auth=None, headers=headers)
+    r.raise_for_status()
+    return r.json()
+
+
+def format_date(date: str) -> str:
+    return datetime.fromisoformat(date).strftime("%Y-%m-%d")

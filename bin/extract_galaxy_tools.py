@@ -17,7 +17,7 @@ from typing import (
 
 import pandas as pd
 import requests
-import shared_functions
+import shared
 import yaml
 from github import Github
 from github.ContentFile import ContentFile
@@ -522,19 +522,17 @@ def export_tools_to_tsv(
 
     df = pd.DataFrame(tools).sort_values("Galaxy wrapper id")
     if format_list_col:
-        df["ToolShed categories"] = shared_functions.format_list_column(df["ToolShed categories"])
-        df["EDAM operation"] = shared_functions.format_list_column(df["EDAM operation"])
-        df["EDAM topic"] = shared_functions.format_list_column(df["EDAM topic"])
+        df["ToolShed categories"] = shared.format_list_column(df["ToolShed categories"])
+        df["EDAM operation"] = shared.format_list_column(df["EDAM operation"])
+        df["EDAM topic"] = shared.format_list_column(df["EDAM topic"])
 
-        df["EDAM operation (no superclasses)"] = shared_functions.format_list_column(
-            df["EDAM operation (no superclasses)"]
-        )
-        df["EDAM topic (no superclasses)"] = shared_functions.format_list_column(df["EDAM topic (no superclasses)"])
+        df["EDAM operation (no superclasses)"] = shared.format_list_column(df["EDAM operation (no superclasses)"])
+        df["EDAM topic (no superclasses)"] = shared.format_list_column(df["EDAM topic (no superclasses)"])
 
-        df["bio.tool ids"] = shared_functions.format_list_column(df["bio.tool ids"])
+        df["bio.tool ids"] = shared.format_list_column(df["bio.tool ids"])
 
         # the Galaxy tools need to be formatted for the add_instances_to_table to work
-        df["Galaxy tool ids"] = shared_functions.format_list_column(df["Galaxy tool ids"])
+        df["Galaxy tool ids"] = shared.format_list_column(df["Galaxy tool ids"])
 
     # if add_usage_stats:
     #     df = add_usage_stats_for_all_server(df)
@@ -752,7 +750,7 @@ if __name__ == "__main__":
         with Path(args.tools).open() as f:
             tools = json.load(f)
         # get categories and tools to exclude
-        categories = shared_functions.read_file(args.categories)
+        categories = shared.read_file(args.categories)
         try:
             status = pd.read_csv(args.status, sep="\t", index_col=0, header=None).to_dict("index")
         except Exception as ex:

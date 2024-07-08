@@ -1,35 +1,16 @@
 #!/usr/bin/env python
 
 import argparse
-from datetime import (
-    date,
-    datetime,
-)
+from datetime import date
 from typing import (
     Dict,
     List,
 )
 
 import pandas as pd
-import requests
-import shared_functions
+import shared
 import yt_dlp
 from owlready2 import get_ontology
-
-
-def get_request_json(url: str, headers: dict) -> dict:
-    """
-    Return JSON output using request
-
-    :param url: galaxy tool id
-    """
-    r = requests.get(url, auth=None, headers=headers)
-    r.raise_for_status()
-    return r.json()
-
-
-def format_date(date: str) -> str:
-    return datetime.fromisoformat(date).strftime("%Y-%m-%d")
 
 
 def add_supported_servers(tuto: dict) -> None:
@@ -100,7 +81,7 @@ def get_visit_results(url: str, tuto: dict, plausible_api: str) -> None:
     Extract visit results from Plausible URL
     """
     headers = {"Authorization": f"Bearer {plausible_api}"}
-    results = get_request_json(url, headers)
+    results = shared.get_request_json(url, headers)
     if "results" in results:
         for metric in ["visitors", "pageviews", "visit_duration"]:
             tuto[metric] += results["results"][metric]["value"]
@@ -146,8 +127,8 @@ def get_youtube_stats(tuto: dict) -> None:
 
 def format_tutorial(tuto: dict, edam_ontology: dict, tools: dict, feedback: dict, plausible_api: str) -> Dict:
     tuto["url"] = f'https://training.galaxyproject.org/{tuto["url"]}'
-    tuto["mod_date"] = format_date(tuto["mod_date"])
-    tuto["pub_date"] = format_date(tuto["pub_date"])
+    tuto["mod_date"] = shared.format_date(tuto["mod_date"])
+    tuto["pub_date"] = shared.format_date(tuto["pub_date"])
     add_supported_servers(tuto)
     get_short_tool_ids(tuto)
     get_edam_topics(tuto, edam_ontology)
@@ -162,7 +143,7 @@ def get_feedback_per_tutorials() -> Dict:
     """
     Get feedback from GTN API and group per tutorial
     """
-    feedback = get_request_json("https://training.galaxyproject.org/training-material/api/feedback2.json", {})
+    feedback = shared.get_request_json("https://training.galaxyproject.org/training-material/api/feedback2.json", {})
     feedback_per_tuto = {}  # type: dict
     for tutorials in feedback.values():
         for tuto, feedback in tutorials.items():
@@ -183,15 +164,15 @@ def get_tutorials(
     """
     Extract training material from the GTN API, format them, extract EDAM operations from tools, feedback stats, view stats, etc
     """
-    tools = shared_functions.read_suite_per_tool_id(tool_fp)
+    tools = shared.read_suite_per_tool_id(tool_fp)
     feedback = get_feedback_per_tutorials()
     edam_ontology = get_ontology("https://edamontology.org/EDAM_unstable.owl").load()
-    topics = get_request_json("https://training.galaxyproject.org/training-material/api/topics.json", {})
+    topics = shared.get_request_json("https://training.galaxyproject.org/training-material/api/topics.json", {})
     if run_test:
         topics = {"microbiome": topics["microbiome"]}
     tutos = []
     for topic in topics:
-        topic_information = get_request_json(
+        topic_information = shared.get_request_json(
             f"https://training.galaxyproject.org/training-material/api/topics/{topic}.json", {}
         )
         for tuto in topic_information["materials"]:
@@ -230,7 +211,7 @@ def export_tutorials_to_tsv(tutorials: list, output_fp: str) -> None:
     )
 
     for col in ["exact_supported_servers", "inexact_supported_servers", "short_tools", "edam_operation", "edam_topic"]:
-        df[col] = shared_functions.format_list_column(df[col])
+        df[col] = shared.format_list_column(df[col])
 
     df = (
         df.rename(
@@ -337,12 +318,12 @@ if __name__ == "__main__":
 
     if args.command == "extracttutorials":
         tutorials = get_tutorials(args.tools, args.api, args.test)
-        shared_functions.export_to_json(tutorials, args.all_tutorials)
+        shared.export_to_json(tutorials, args.all_tutorials)
 
     elif args.command == "filtertutorials":
-        all_tutorials = shared_functions.load_json(args.all_tutorials)
+        all_tutorials = shared.load_json(args.all_tutorials)
         # get categories and training to exclude
-        tags = shared_functions.read_file(args.tags)
+        tags = shared.read_file(args.tags)
         # filter training lists
         filtered_tutorials = filter_tutorials(all_tutorials, tags)
         export_tutorials_to_tsv(filtered_tutorials, args.filtered_tutorials)
