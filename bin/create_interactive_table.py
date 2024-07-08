@@ -51,8 +51,7 @@ def generate_table(
     if "To keep" in df.columns:
         df["To keep"] = df["To keep"].replace("", True)
         df = df.query("`To keep`")
-
-    df = df.drop(COLUMNS_TO_DROP, axis=1)
+        df = df.drop(COLUMNS_TO_DROP, axis=1)
 
     # df = df.loc[:, COLUMNS].reindex(columns=COLUMNS)
     table = df.to_html(border=0, table_id="dataframe", classes=["display", "nowrap"], index=False)
