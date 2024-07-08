@@ -17,10 +17,11 @@ galaxy_base_url: https://singlecell.usegalaxy.eu
 subdomain: singlecell
 root_domain: usegalaxy.eu
 
-# More variables here...
-support_url: https://help.galaxyproject.org/
+# This will enable a feedback form on the webpage:
+# feedback_email: help@mygalaxy.org
 
-ask_for_help:
+support_url: https://help.galaxyproject.org/
+help_links:
   - title: "Single Cell community help forum"
     url: "https://usegalaxy-eu.github.io/scrna"
   - title: "General Galaxy help forum"
@@ -33,15 +34,20 @@ ask_for_help:
     url: "https://matrix.to/#/#usegalaxy-eu_Lobby:gitter.im"
   - title: "Usegalaxy.org chat"
     url: "https://matrix.to/#/#galaxyproject_Lobby:gitter.im"
+conclusion_extra_md: >
+  {% markdown_from_url 'https://raw.githubusercontent.com/galaxyproject/galaxy-hub/master/content/eu/common/data-policy.md' %}
+  <section>
+    <iframe style="border: 0px" width="100%" height="150px" src="https://stats.galaxyproject.eu/d-solo/000000034/jobs-dashboard?orgId=1&amp;refresh=1m&amp;panelId=1"></iframe>
+  </section>
 
 # -----------------------------------------------------------------------------
 # Custom content relative to this file URL
 
 header_logo: static/logo_single_cell.svg
-custom_css: static/custom.css
+custom_css: usegalaxy.eu/static/custom.css
 intro_md: templates/intro.html
 conclusion_md: templates/conclusion.html
-footer_md: templates/footer.html
+footer_md: usegalaxy.eu/templates/footer.html
 
 
 # Data (Tools, Workflows etc.) to be rendered into sections/tabs/accordion elements.
