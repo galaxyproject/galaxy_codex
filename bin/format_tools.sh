@@ -5,7 +5,7 @@ mkdir -p 'results/'
 python bin/create_interactive_table.py \
         --input "results/all_tools.tsv" \
         --template "data/interactive_table_template.html" \
-        --output "results/index.html"
+        --output "results/tools.html"
 
 python bin/create_wordcloud.py \
         --input "results/all_tools.tsv" \

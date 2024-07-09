@@ -19,7 +19,7 @@ then
                 --remove-col "To keep" \
                 --filter-col "To keep" \
                 --template "data/interactive_table_template.html" \
-                --output "results/microgalaxy/index.html"
+                --output "results/microgalaxy/tools.html"
 
         python bin/create_wordcloud.py \
                 --input  "results/microgalaxy/tools.tsv" \
@@ -51,7 +51,7 @@ else
                                 --remove-col "To keep" \
                                 --filter-col "To keep" \
                                 --template "data/interactive_table_template.html" \
-                                --output "results/$community/index.html"
+                                --output "results/$community/tools.html"
 
                         python bin/create_wordcloud.py \
                                 --input  "results/$community/tools.tsv" \
