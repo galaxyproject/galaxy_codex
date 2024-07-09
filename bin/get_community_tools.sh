@@ -13,6 +13,21 @@ then
                 --categories "data/communities/microgalaxy/categories" \
                 --status "data/communities/microgalaxy/tool_status.tsv"
 
+        python bin/create_interactive_table.py \
+                --input "results/microgalaxy/tools.tsv" \
+                --remove-col "Reviewed" \
+                --remove-col "To keep" \
+                --filter-col "To keep" \
+                --template "data/interactive_table_template.html" \
+                --output "results/microgalaxy/index.html"
+
+        python bin/create_wordcloud.py \
+                --input  "results/microgalaxy/tools.tsv" \
+                --name-col "Galaxy wrapper id" \
+                --stat-col "No. of tool users (2022-2023) (usegalaxy.eu)" \
+                --wordcloud_mask "data/usage_stats/wordcloud_mask.png" \
+                --output "results/microgalaxy/tools_wordcloud.png"
+
 else
         for com_data_fp in data/communities/* ; do
                 if [[ -d "$com_data_fp" && ! -L "$com_data_fp" ]]; then
@@ -31,15 +46,19 @@ else
                                 --status "data/communities/$community/tool_status.tsv"
 
                         python bin/create_interactive_table.py \
-                                --table "results/$community/tools.tsv" \
+                                --input "results/$community/tools.tsv" \
+                                --remove-col "Reviewed" \
+                                --remove-col "To keep" \
+                                --filter-col "To keep" \
                                 --template "data/interactive_table_template.html" \
                                 --output "results/$community/index.html"
 
                         python bin/create_wordcloud.py \
-                                --table  "results/$community/tools.tsv" \
+                                --input  "results/$community/tools.tsv" \
+                                --name-col "Galaxy wrapper id" \
+                                --stat-col "No. of tool users (2022-2023) (usegalaxy.eu)" \
                                 --wordcloud_mask "data/usage_stats/wordcloud_mask.png" \
-                                --output "results/$community/tools_wordcloud.png" \
-                                --stats_column "No. of tool users (2022-2023) (usegalaxy.eu)"
+                                --output "results/$community/tools_wordcloud.png"
 
                 fi;
         done
