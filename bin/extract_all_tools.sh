@@ -36,7 +36,7 @@ then
                 fi
         fi
 else
-        echo "Tool extraction";
+        echo "Tool extraction"
         python bin/extract_galaxy_tools.py \
                 extract \
                 --api $GITHUB_API_KEY \

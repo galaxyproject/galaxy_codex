@@ -22,7 +22,7 @@ def filter_table(df: pd.DataFrame, filter_col: list, remove_col: list) -> pd.Dat
     Filter table by values and columns
 
     :param df: dataframe to filter
-    :param filter_col: list of columns used to filer
+    :param filter_col: list of columns used to filter
     :param remove_col: list of columns to remove from table
     """
     for col in filter_col:
@@ -93,7 +93,7 @@ if __name__ == "__main__":
         "-f",
         action="append",
         default=[],
-        help="Name of columns used to filter row (must contain boolean values)",
+        help="Name of columns used to filter the rows (must contain boolean values). Only rows with True in this column will be used.",
     )
     parser.add_argument(
         "--template",
