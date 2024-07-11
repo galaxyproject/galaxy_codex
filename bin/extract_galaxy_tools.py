@@ -37,7 +37,7 @@ USEGALAXY_SERVER_URLS = {
 project_path = Path(__file__).resolve().parent.parent  # galaxy_tool_extractor folder
 usage_stats_path = project_path.joinpath("data", "usage_stats")
 conf_path = project_path.joinpath("data", "conf.yml")
-public_servers = project_path.joinpath("data", "available_public_servers.csv")
+public_servers = project_path.joinpath("results", "available_public_servers.csv")
 
 GALAXY_TOOL_STATS = {
     "No. of tool users (2022-2023) (usegalaxy.eu)": usage_stats_path.joinpath("tool_usage_per_user_2022_23_EU.csv"),
