@@ -28,10 +28,15 @@ jobs:
   filter-all-tutorials:
     runs-on: ubuntu-20.04
     steps:
-    - uses: actions/checkout@v4
-      name: checkout results
-      run: |
-        git checkout results -- results
+    - name: Checkout main
+      uses: actions/checkout@v4
+      with:
+        ref: main #pull latest code produced by job 1, not the revision that started the workflow (https://github.com/actions/checkout/issues/439)
+    - name: Checkout results
+      uses: actions/checkout@v4
+      with:
+        ref: results
+        sparse-checkout: results
     - uses: actions/setup-python@v5
       with:
         python-version: '3.8' 
@@ -53,10 +58,15 @@ jobs:
   update-tools-to-keep-exclude:
     runs-on: ubuntu-20.04
     steps:
-    - uses: actions/checkout@v4
-      name: checkout results
-      run: |
-        git checkout results -- results
+    - name: Checkout main
+      uses: actions/checkout@v4
+      with:
+        ref: main #pull latest code produced by job 1, not the revision that started the workflow (https://github.com/actions/checkout/issues/439)
+    - name: Checkout results
+      uses: actions/checkout@v4
+      with:
+        ref: results
+        sparse-checkout: results
     - uses: actions/setup-python@v5
       with:
         python-version: '3.8' 
@@ -78,10 +88,15 @@ jobs:
   filter-all-tools:
     runs-on: ubuntu-20.04
     steps:
-    - uses: actions/checkout@v4
-      name: checkout results
-      run: |
-        git checkout results -- results
+    - name: Checkout main
+      uses: actions/checkout@v4
+      with:
+        ref: main #pull latest code produced by job 1, not the revision that started the workflow (https://github.com/actions/checkout/issues/439)
+    - name: Checkout results
+      uses: actions/checkout@v4
+      with:
+        ref: results
+        sparse-checkout: results
     - uses: actions/setup-python@v5
       with:
         python-version: '3.8' 
