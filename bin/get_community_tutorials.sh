@@ -1,18 +1,38 @@
 #!/usr/bin/env bash
 
-for com_data_fp in data/communities/* ; do
-        if [[ -d "$com_data_fp" && ! -L "$com_data_fp" ]]; then
-                community=`basename "$com_data_fp"`
+if [ ! -z $1 ] 
+then
+        python bin/extract_gtn_tutorials.py \
+                filter \
+                --all "results/test_tutorials.json" \
+                --filtered "results/microgalaxy/test_tutorials.tsv" \
+                --tags "data/communities/microgalaxy/tutorial_tags"
 
-                echo "$community";
+        python bin/create_interactive_table.py \
+                --input "results/microgalaxy/tutorials.tsv" \
+                --template "data/interactive_table_template.html" \
+                --output "results/microgalaxy/tutorials.html"
 
-                if [[ -f "data/communities/$community/tutorial_tags" && -f "results/$community/tutorials.tsv" ]]; then
+else
+        for com_data_fp in data/communities/* ; do
+                if [[ -d "$com_data_fp" && ! -L "$com_data_fp" ]]; then
+                        community=`basename "$com_data_fp"`
 
-                        python bin/extract_gtn_tutorials.py \
-                                filtertutorials \
-                                --all_tutorials "results/all_tutorials.json" \
-                                --filtered_tutorials "results/$community/tutorials.tsv" \
-                                --tags "data/communities/$community/tutorial_tags"
+                        echo "$community";
+
+                        if [[ -f "data/communities/$community/tutorial_tags" && -f "results/$community/tutorials.tsv" ]]; then
+
+                                python bin/extract_gtn_tutorials.py \
+                                        filter \
+                                        --all "results/all_tutorials.json" \
+                                        --filtered "results/$community/tutorials.tsv" \
+                                        --tags "data/communities/$community/tutorial_tags"
+
+                                python bin/create_interactive_table.py \
+                                        --input "results/$community/tutorials.tsv" \
+                                        --template "data/interactive_table_template.html" \
+                                        --output "results/$community/tutorials.html"
+                        fi;
                 fi;
-        fi;
-done
+        done
+fi

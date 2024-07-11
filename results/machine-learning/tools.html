@@ -1,0 +1,693 @@
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/searchbuilder/1.6.0/js/dataTables.searchBuilder.min.js"></script>
+<script src="https://cdn.datatables.net/datetime/1.5.1/js/dataTables.dateTime.min.js"></script>
+
+<script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/searchbuilder/1.6.0/css/searchBuilder.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/datetime/1.5.1/css/dataTables.dateTime.min.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+<style type="text/css">
+  .tooltip {
+    font-family: Georgia;
+    font-size: 18px;
+  }
+  .tooltip .tooltip-inner {
+    background-color: #00FFFF;
+    color: #000000;
+    min-width: 400px;
+  }
+  </style>
+
+<script>
+    $(document).ready(function() {
+    $('#dataframe').DataTable( {
+        "sScrollX": "100%",
+        "dom": "Qlfrtip",
+
+        responsive: {
+            details: {
+                type: 'column'
+            }
+        },
+        "bAutoWidth": false,
+        columnDefs: [ {
+            className: 'control',
+            orderable: false,
+            targets:   [ 0 ],
+            width: 100,
+        },
+        { type: 'natural', targets: 1 } // allow normal sorting
+        ],
+
+    });
+});
+</script>
+
+<div class="display nowrap" style="width:80%" width="100%">
+
+<table class="dataframe display nowrap" id="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Expand</th>
+      <th>Galaxy wrapper id</th>
+      <th>Galaxy tool ids</th>
+      <th>Description</th>
+      <th>bio.tool id</th>
+      <th>bio.tool ids</th>
+      <th>biii</th>
+      <th>bio.tool name</th>
+      <th>bio.tool description</th>
+      <th>EDAM operation</th>
+      <th>EDAM topic</th>
+      <th>Status</th>
+      <th>Source</th>
+      <th>ToolShed categories</th>
+      <th>ToolShed id</th>
+      <th>Galaxy wrapper owner</th>
+      <th>Galaxy wrapper source</th>
+      <th>Galaxy wrapper parsed folder</th>
+      <th>Galaxy wrapper version</th>
+      <th>Conda id</th>
+      <th>Conda version</th>
+      <th>EDAM operation (no superclasses)</th>
+      <th>EDAM topic (no superclasses)</th>
+      <th>Available on UseGalaxy.org (Main)</th>
+      <th>Available on UseGalaxy.org.au</th>
+      <th>Available on UseGalaxy.eu</th>
+      <th>Available on UseGalaxy.fr</th>
+      <th>Tools available on UseGalaxy.org (Main)</th>
+      <th>Tools available on UseGalaxy.org.au</th>
+      <th>Tools available on UseGalaxy.eu</th>
+      <th>Tools available on UseGalaxy.fr</th>
+      <th>Tools available on ANASTASIA</th>
+      <th>Tools available on APOSTL</th>
+      <th>Tools available on ARGs-OAP</th>
+      <th>Tools available on BF2I-MAP</th>
+      <th>Tools available on BioBix</th>
+      <th>Tools available on CIRM-CFBP</th>
+      <th>Tools available on Center for Phage Technology (CPT)</th>
+      <th>Tools available on ChemFlow</th>
+      <th>Tools available on Coloc-stats</th>
+      <th>Tools available on CorGAT</th>
+      <th>Tools available on CropGalaxy</th>
+      <th>Tools available on Dintor</th>
+      <th>Tools available on FreeBioinfo</th>
+      <th>Tools available on GASLINI</th>
+      <th>Tools available on Galaxy@AuBi</th>
+      <th>Tools available on Galaxy@Pasteur</th>
+      <th>Tools available on GalaxyTrakr</th>
+      <th>Tools available on Genomic Hyperbrowser</th>
+      <th>Tools available on GigaGalaxy</th>
+      <th>Tools available on HyPhy HIV NGS Tools</th>
+      <th>Tools available on IPK Galaxy Blast Suite</th>
+      <th>Tools available on ImmPort Galaxy</th>
+      <th>Tools available on InteractoMIX</th>
+      <th>Tools available on MISSISSIPPI</th>
+      <th>Tools available on Mandoiu Lab</th>
+      <th>Tools available on MiModD NacreousMap</th>
+      <th>Tools available on Oqtans</th>
+      <th>Tools available on Palfinder</th>
+      <th>Tools available on PepSimili</th>
+      <th>Tools available on PhagePromotor</th>
+      <th>Tools available on Protologger</th>
+      <th>Tools available on UseGalaxy.be</th>
+      <th>Tools available on UseGalaxy.cz</th>
+      <th>Tools available on UseGalaxy.no</th>
+      <th>No. of tool users (2022-2023) (usegalaxy.eu)</th>
+      <th>Total tool usage (usegalaxy.eu)</th>
+      <th>Deprecated</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td></td>
+      <td>biomodelsML</td>
+      <td>biomodels_biomd0000001066, biomodels_biomd0000001076</td>
+      <td>Wrappers for tools to bring BioModels AI models into Galaxy.</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>To update</td>
+      <td>https://www.ebi.ac.uk/biomodels/</td>
+      <td>Machine Learning</td>
+      <td>biomodels</td>
+      <td>bgruening</td>
+      <td>https://github.com/bgruening/galaxytools/tree/master/tools</td>
+      <td>https://github.com/bgruening/galaxytools/tree/master/tools/biomodelsML</td>
+      <td>1.1</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>0</td>
+      <td>0</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>13</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>chopin2</td>
+      <td>chopin2</td>
+      <td>Domain-Agnostic Supervised Learning with Hyperdimensional Computing</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>To update</td>
+      <td>https://github.com/cumbof/chopin2</td>
+      <td>Machine Learning</td>
+      <td>chopin2</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/chopin2</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/main/tools/chopin2</td>
+      <td>1.0.9.post1</td>
+      <td>chopin2</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>decontaminator</td>
+      <td>decontaminator</td>
+      <td>Deep Learning method for novel virus detection in sequencing data</td>
+      <td>decontaminator</td>
+      <td>decontaminator</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>To update</td>
+      <td>https://github.com/cbib/decontaminator</td>
+      <td>Machine Learning</td>
+      <td>decontaminator</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/decontaminator</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/main/tools/decontaminator</td>
+      <td>1.0.0</td>
+      <td>numpy</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>15</td>
+      <td>99</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>deepmicro</td>
+      <td>deepmicro</td>
+      <td>Representation learning and classification framework</td>
+      <td>DeepMicro</td>
+      <td>DeepMicro</td>
+      <td></td>
+      <td>DeepMicro</td>
+      <td>Deep representation learning for disease prediction based on microbiome data.DeepMicro is a deep representation learning framework exploiting various autoencoders to learn robust low-dimensional representations from high-dimensional data and training classification models based on the learned representation.</td>
+      <td>Essential dynamics, Splitting, Community profiling</td>
+      <td>Microbial ecology, Machine learning, Pathology, Public health and epidemiology, Allergy, clinical immunology and immunotherapeutics</td>
+      <td>Up-to-date</td>
+      <td>https://github.com/paulzierep/DeepMicro</td>
+      <td>Machine Learning</td>
+      <td>deepmicro</td>
+      <td>iuc</td>
+      <td>https://github.com/paulzierep/DeepMicro</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/main/tools/deepmicro</td>
+      <td>1.4</td>
+      <td>deepmicro</td>
+      <td>1.4</td>
+      <td>Essential dynamics, Splitting</td>
+      <td>Microbial ecology, Machine learning, Pathology, Public health and epidemiology, Allergy, clinical immunology and immunotherapeutics</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>3</td>
+      <td>501</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>sklearn</td>
+      <td>sklearn_mlxtend_association_rules, sklearn_clf_metrics, sklearn_discriminant_classifier, sklearn_ensemble, sklearn_estimator_attributes, sklearn_feature_selection, sklearn_fitted_model_eval, sklearn_generalized_linear, keras_batch_models, keras_model_builder, keras_model_config, keras_train_and_eval, sklearn_label_encoder, sklearn_lightgbm, ml_visualization_ex, model_prediction, sklearn_model_validation, sklearn_nn_classifier, sklearn_numeric_clustering, sklearn_pairwise_metrics, sklearn_pca, sklearn_build_pipeline, sklearn_data_preprocess, sklearn_regression_metrics, sklearn_sample_generator, sklearn_searchcv, sklearn_model_fit, scipy_sparse, stacking_ensemble_models, sklearn_svm_classifier, sklearn_to_categorical, sklearn_train_test_eval, sklearn_train_test_split</td>
+      <td>Machine Learning tool suite from Scikit-learn</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>To update</td>
+      <td>http://scikit-learn.org</td>
+      <td>Machine Learning, Statistics</td>
+      <td>sklearn</td>
+      <td>bgruening</td>
+      <td>https://github.com/bgruening/galaxytools/tree/master/tools/sklearn</td>
+      <td>https://github.com/bgruening/galaxytools/tree/master/tools/sklearn</td>
+      <td>1.0.11.0</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>30</td>
+      <td>14</td>
+      <td>31</td>
+      <td>16</td>
+      <td>30</td>
+      <td>14</td>
+      <td>31</td>
+      <td>16</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>31</td>
+      <td>27</td>
+      <td>958</td>
+      <td>113932</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>tool_recommendation_model</td>
+      <td>create_tool_recommendation_model</td>
+      <td>Create model to recommend tools</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>To update</td>
+      <td>https://github.com/bgruening/galaxytools</td>
+      <td>Machine Learning</td>
+      <td>create_tool_recommendation_model</td>
+      <td>bgruening</td>
+      <td>https://github.com/bgruening/galaxytools/tree/recommendation_training/tools/tool_recommendation_model</td>
+      <td>https://github.com/bgruening/galaxytools/tree/master/tools/tool_recommendation_model</td>
+      <td>0.0.5</td>
+      <td>python</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>15</td>
+      <td>445</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>virhunter</td>
+      <td>virhunter</td>
+      <td>Deep Learning method for novel virus detection in sequencing data</td>
+      <td>virhunter</td>
+      <td>virhunter</td>
+      <td></td>
+      <td>VirHunter</td>
+      <td>VirHunter is a deep learning method that uses Convolutional Neural Networks (CNNs) and a Random Forest Classifier to identify viruses in sequencing datasets. More precisely, VirHunter classifies previously assembled contigs as viral, host, and bacterial (contamination).</td>
+      <td>Sequence classification</td>
+      <td>Virology</td>
+      <td>To update</td>
+      <td>https://github.com/cbib/virhunter</td>
+      <td>Machine Learning</td>
+      <td>virhunter</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/VirHunter</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/main/tools/virhunter</td>
+      <td>1.0.0</td>
+      <td>numpy</td>
+      <td></td>
+      <td>Sequence classification</td>
+      <td>Virology</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>40</td>
+      <td>234</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>whisper</td>
+      <td>whisper</td>
+      <td>Transcribe audio or video files to text using the OpenAI Whisper.</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>To update</td>
+      <td>https://github.com/bgruening/galaxytools/tree/master/tools/whisper</td>
+      <td>Machine Learning</td>
+      <td>whisper</td>
+      <td>bgruening</td>
+      <td>https://github.com/bgruening/galaxytools/tree/master/tools/whisper</td>
+      <td>https://github.com/bgruening/galaxytools/tree/master/tools/whisper</td>
+      <td>20231117</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+</div>

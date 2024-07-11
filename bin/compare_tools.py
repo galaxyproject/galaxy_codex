@@ -5,7 +5,7 @@ from pathlib import Path
 from typing import Set
 
 import pandas as pd
-import shared_functions
+import shared
 
 
 def get_tutorials_tool_suites(tuto_fp: str, tool_fp: str) -> Set:
@@ -13,7 +13,7 @@ def get_tutorials_tool_suites(tuto_fp: str, tool_fp: str) -> Set:
     Get tool suite ids for all tools in tutorials
     """
     tutorials = pd.read_csv(tuto_fp, sep="\t", keep_default_na=False).to_dict("records")
-    all_tools = shared_functions.read_suite_per_tool_id(tool_fp)
+    all_tools = shared.read_suite_per_tool_id(tool_fp)
     print(all_tools)
     tuto_tool_suites = set()
     for tuto in tutorials:
@@ -41,10 +41,10 @@ def update_excl_keep_tool_lists(tuto_tool_suites: Set, excl_tool_fp: str, keep_t
     Update the lists in to keep and exclude with tool suites in tutorials
     """
     # exclude from the list of tools to exclude the tools that are in tutorials
-    excl_tools = set(shared_functions.read_file(excl_tool_fp)) - tuto_tool_suites
+    excl_tools = set(shared.read_file(excl_tool_fp)) - tuto_tool_suites
     write_tool_list(excl_tools, excl_tool_fp)
     # add from the list of tools to keep the tools that are in tutorials
-    keep_tools = set(shared_functions.read_file(keep_tool_fp)) | tuto_tool_suites
+    keep_tools = set(shared.read_file(keep_tool_fp)) | tuto_tool_suites
     write_tool_list(keep_tools, keep_tool_fp)
 
 

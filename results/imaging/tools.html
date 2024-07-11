@@ -1,0 +1,1393 @@
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/searchbuilder/1.6.0/js/dataTables.searchBuilder.min.js"></script>
+<script src="https://cdn.datatables.net/datetime/1.5.1/js/dataTables.dateTime.min.js"></script>
+
+<script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/searchbuilder/1.6.0/css/searchBuilder.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/datetime/1.5.1/css/dataTables.dateTime.min.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+<style type="text/css">
+  .tooltip {
+    font-family: Georgia;
+    font-size: 18px;
+  }
+  .tooltip .tooltip-inner {
+    background-color: #00FFFF;
+    color: #000000;
+    min-width: 400px;
+  }
+  </style>
+
+<script>
+    $(document).ready(function() {
+    $('#dataframe').DataTable( {
+        "sScrollX": "100%",
+        "dom": "Qlfrtip",
+
+        responsive: {
+            details: {
+                type: 'column'
+            }
+        },
+        "bAutoWidth": false,
+        columnDefs: [ {
+            className: 'control',
+            orderable: false,
+            targets:   [ 0 ],
+            width: 100,
+        },
+        { type: 'natural', targets: 1 } // allow normal sorting
+        ],
+
+    });
+});
+</script>
+
+<div class="display nowrap" style="width:80%" width="100%">
+
+<table class="dataframe display nowrap" id="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Expand</th>
+      <th>Galaxy wrapper id</th>
+      <th>Galaxy tool ids</th>
+      <th>Description</th>
+      <th>bio.tool id</th>
+      <th>bio.tool ids</th>
+      <th>biii</th>
+      <th>bio.tool name</th>
+      <th>bio.tool description</th>
+      <th>EDAM operation</th>
+      <th>EDAM topic</th>
+      <th>Status</th>
+      <th>Source</th>
+      <th>ToolShed categories</th>
+      <th>ToolShed id</th>
+      <th>Galaxy wrapper owner</th>
+      <th>Galaxy wrapper source</th>
+      <th>Galaxy wrapper parsed folder</th>
+      <th>Galaxy wrapper version</th>
+      <th>Conda id</th>
+      <th>Conda version</th>
+      <th>EDAM operation (no superclasses)</th>
+      <th>EDAM topic (no superclasses)</th>
+      <th>Available on UseGalaxy.org (Main)</th>
+      <th>Available on UseGalaxy.org.au</th>
+      <th>Available on UseGalaxy.eu</th>
+      <th>Available on UseGalaxy.fr</th>
+      <th>Tools available on UseGalaxy.org (Main)</th>
+      <th>Tools available on UseGalaxy.org.au</th>
+      <th>Tools available on UseGalaxy.eu</th>
+      <th>Tools available on UseGalaxy.fr</th>
+      <th>Tools available on ANASTASIA</th>
+      <th>Tools available on APOSTL</th>
+      <th>Tools available on ARGs-OAP</th>
+      <th>Tools available on BF2I-MAP</th>
+      <th>Tools available on BioBix</th>
+      <th>Tools available on CIRM-CFBP</th>
+      <th>Tools available on Center for Phage Technology (CPT)</th>
+      <th>Tools available on ChemFlow</th>
+      <th>Tools available on Coloc-stats</th>
+      <th>Tools available on CorGAT</th>
+      <th>Tools available on CropGalaxy</th>
+      <th>Tools available on Dintor</th>
+      <th>Tools available on FreeBioinfo</th>
+      <th>Tools available on GASLINI</th>
+      <th>Tools available on Galaxy@AuBi</th>
+      <th>Tools available on Galaxy@Pasteur</th>
+      <th>Tools available on GalaxyTrakr</th>
+      <th>Tools available on Genomic Hyperbrowser</th>
+      <th>Tools available on GigaGalaxy</th>
+      <th>Tools available on HyPhy HIV NGS Tools</th>
+      <th>Tools available on IPK Galaxy Blast Suite</th>
+      <th>Tools available on ImmPort Galaxy</th>
+      <th>Tools available on InteractoMIX</th>
+      <th>Tools available on MISSISSIPPI</th>
+      <th>Tools available on Mandoiu Lab</th>
+      <th>Tools available on MiModD NacreousMap</th>
+      <th>Tools available on Oqtans</th>
+      <th>Tools available on Palfinder</th>
+      <th>Tools available on PepSimili</th>
+      <th>Tools available on PhagePromotor</th>
+      <th>Tools available on Protologger</th>
+      <th>Tools available on UseGalaxy.be</th>
+      <th>Tools available on UseGalaxy.cz</th>
+      <th>Tools available on UseGalaxy.no</th>
+      <th>No. of tool users (2022-2023) (usegalaxy.eu)</th>
+      <th>Total tool usage (usegalaxy.eu)</th>
+      <th>Deprecated</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td></td>
+      <td>bia-ftplinks</td>
+      <td>bia_download</td>
+      <td>Tool to query ftp links for study from bioimage archive</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>To update</td>
+      <td></td>
+      <td>Imaging</td>
+      <td>bia_download</td>
+      <td>bgruening</td>
+      <td>https://github.com/bgruening/galaxytools/tree/master/tools</td>
+      <td>https://github.com/bgruening/galaxytools/tree/master/tools/image_processing/bia-ftplinks</td>
+      <td>0.1.0</td>
+      <td>wget</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>cellpose</td>
+      <td>cellpose</td>
+      <td>Cellpose is an anatomical segmentation algorithm</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>To update</td>
+      <td>https://github.com/MouseLand/cellpose</td>
+      <td>Imaging</td>
+      <td>cellpose</td>
+      <td>bgruening</td>
+      <td>https://github.com/bgruening/galaxytools/tree/master/tools/cellpose</td>
+      <td>https://github.com/bgruening/galaxytools/tree/master/tools/cellpose</td>
+      <td>3.0.8</td>
+      <td>cellpose</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>cellprofiler</td>
+      <td>cp_cellprofiler, cp_color_to_gray, cp_convert_objects_to_image, cp_display_data_on_image, cp_enhance_or_suppress_features, cp_export_to_spreadsheet, cp_gray_to_color, cp_identify_primary_objects, cp_image_math, cp_mask_image, cp_measure_granularity, cp_measure_image_area_occupied, cp_measure_image_intensity, cp_measure_image_quality, cp_measure_object_intensity, cp_measure_object_size_shape, cp_measure_texture, cp_overlay_outlines, cp_relate_objects, cp_save_images, cp_common, cp_tile, cp_track_objects</td>
+      <td>cellProfiler wrapper</td>
+      <td>CellProfiler</td>
+      <td>CellProfiler</td>
+      <td>cellprofiler</td>
+      <td>CellProfiler</td>
+      <td>Tool for quantifying data from biological images, particularly in high-throughput experiments.</td>
+      <td>Quantification, Image analysis, Parsing</td>
+      <td>Imaging, Microarray experiment, Genotype and phenotype</td>
+      <td>To update</td>
+      <td></td>
+      <td>Imaging</td>
+      <td>cellprofiler</td>
+      <td>bgruening</td>
+      <td>https://github.com/bgruening/galaxytools/tree/master/tools</td>
+      <td>https://github.com/bgruening/galaxytools/tree/master/tools/cellprofiler</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Quantification, Image analysis, Parsing</td>
+      <td>Imaging, Microarray experiment, Genotype and phenotype</td>
+      <td>0</td>
+      <td>23</td>
+      <td>23</td>
+      <td>19</td>
+      <td>0</td>
+      <td>23</td>
+      <td>23</td>
+      <td>19</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>23</td>
+      <td>19</td>
+      <td>178</td>
+      <td>4614</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>cellprofiler_v4</td>
+      <td>cp_cellprofiler4</td>
+      <td>cellProfiler4 wrapper</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>To update</td>
+      <td></td>
+      <td>Imaging</td>
+      <td>cellprofiler4</td>
+      <td>bgruening</td>
+      <td>https://github.com/bgruening/galaxytools/tree/master/tools</td>
+      <td>https://github.com/bgruening/galaxytools/tree/master/tools/cellprofiler_v4</td>
+      <td>4.2.6</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>8</td>
+      <td>43</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>graphicsmagick</td>
+      <td>graphicsmagick_image_compare, graphicsmagick_image_convert, graphicsmagick_image_montage</td>
+      <td>Contains tools based on GraphicsMagick</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>To update</td>
+      <td>http://www.graphicsmagick.org</td>
+      <td>Imaging</td>
+      <td>graphicsmagick</td>
+      <td>bgruening</td>
+      <td>https://github.com/bgruening/galaxytools/new/gm/tools/image_processing/image_processing/</td>
+      <td>https://github.com/bgruening/galaxytools/tree/master/tools/image_processing/graphicsmagick</td>
+      <td>1.3.43</td>
+      <td>graphicsmagick</td>
+      <td>1.3.26</td>
+      <td></td>
+      <td></td>
+      <td>1</td>
+      <td>0</td>
+      <td>3</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>3</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2</td>
+      <td>2</td>
+      <td>43</td>
+      <td>2605</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>hyperstack_to_bleach_corrected_movie</td>
+      <td>hyperstack_to_bleach_corrected_movie</td>
+      <td>Generate blach corrected movie from hyperstack</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>To update</td>
+      <td></td>
+      <td>Imaging</td>
+      <td>hyperstack_to_bleach_corrected_movie</td>
+      <td>lldelisle</td>
+      <td>https://github.com/lldelisle/tools-lldelisle/tree/master/tools/hyperstack_to_bleach_corrected_movie</td>
+      <td>https://github.com/lldelisle/tools-lldelisle/tree/master/tools/hyperstack_to_bleach_corrected_movie</td>
+      <td>20230328</td>
+      <td>Fiji</td>
+      <td>20231211</td>
+      <td></td>
+      <td></td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>imagej2</td>
+      <td>imagej2_adjust_threshold_binary, imagej2_analyze_particles_binary, imagej2_analyze_skeleton, imagej2_binary_to_edm, imagej2_bunwarpj_adapt_transform, imagej2_bunwarpj_align, imagej2_bunwarpj_compare_elastic, imagej2_bunwarpj_compare_elastic_raw, imagej2_bunwarpj_compare_raw, imagej2_bunwarpj_compose_elastic, imagej2_bunwarpj_compose_raw, imagej2_bunwarpj_compose_raw_elastic, imagej2_bunwarpj_convert_to_raw, imagej2_bunwarpj_elastic_transform, imagej2_bunwarpj_raw_transform, imagej2_create_image, imagej2_enhance_contrast, imagej2_find_edges, imagej2_find_maxima, imagej2_make_binary, imagej2_math, imagej2_noise, imagej2_shadows, imagej2_sharpen, imagej2_skeletonize3d, imagej2_smooth, imagej2_watershed_binary</td>
+      <td>ImageJ2 is a new version of ImageJ for the next generation of multidimensionalimage data, with a focus on scientific imaging.</td>
+      <td>imagej</td>
+      <td>imagej</td>
+      <td>imagej2</td>
+      <td>ImageJ2</td>
+      <td>It is a public domain Java image processing program, which was designed with an open architecture. Custom acquisition, analysis and processing plugins can be developed using ImageJ’s built-in editor and a Java compiler. User-written plugins make it possible to solve many image processing and analysis problems, from three-dimensional live-cell imaging, to radiological image processing, multiple imaging system data comparisons to automated hematology systems.</td>
+      <td>Image analysis, Image annotation, Visualisation</td>
+      <td>Imaging</td>
+      <td>To update</td>
+      <td>http://fiji.sc</td>
+      <td>Imaging</td>
+      <td>imagej2</td>
+      <td>imgteam</td>
+      <td>https://github.com/bgruening/galaxytools/tree/master/tools/image_processing/imagej2</td>
+      <td>https://github.com/bgruening/galaxytools/tree/master/tools/image_processing/imagej2</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Image analysis, Image annotation, Visualisation</td>
+      <td>Imaging</td>
+      <td>0</td>
+      <td>0</td>
+      <td>27</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>27</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>27</td>
+      <td>27</td>
+      <td>26</td>
+      <td>1537</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>incucyte_stack_and_upload_omero</td>
+      <td>incucyte_stack_and_upload_omero</td>
+      <td>Combine images to stack and upload to the omero server</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>To update</td>
+      <td></td>
+      <td>Imaging</td>
+      <td>incucyte_stack_and_upload_omero</td>
+      <td>lldelisle</td>
+      <td>https://github.com/lldelisle/tools-lldelisle/tree/master/tools/incucyte_stack_and_upload_omero</td>
+      <td>https://github.com/lldelisle/tools-lldelisle/tree/master/tools/incucyte_stack_and_upload_omero</td>
+      <td>20231221</td>
+      <td>Fiji</td>
+      <td>20231211</td>
+      <td></td>
+      <td></td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>measure_gastruloids</td>
+      <td>measureGastruloids</td>
+      <td>Get the ROI coordinates around the gastruloids as well as measurements like Area, elongation index</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>To update</td>
+      <td></td>
+      <td>Imaging</td>
+      <td>measure_gastruloids</td>
+      <td>lldelisle</td>
+      <td>https://github.com/lldelisle/tools-lldelisle/tree/master/tools/measure_gastruloids</td>
+      <td>https://github.com/lldelisle/tools-lldelisle/tree/master/tools/measure_gastruloids</td>
+      <td>20221216</td>
+      <td>fiji</td>
+      <td>20231211</td>
+      <td></td>
+      <td></td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>omero_clean_rois_tables</td>
+      <td>omero_clean_rois_tables</td>
+      <td>Remove all ROIs and all tables on OMERO associated to an omero object and recursively up and down</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>To update</td>
+      <td></td>
+      <td>Imaging</td>
+      <td>omero_clean_rois_tables</td>
+      <td>lldelisle</td>
+      <td>https://github.com/lldelisle/tools-lldelisle/tree/master/tools/omero_clean_rois_tables</td>
+      <td>https://github.com/lldelisle/tools-lldelisle/tree/master/tools/omero_clean_rois_tables</td>
+      <td>20230623</td>
+      <td>fiji</td>
+      <td>20231211</td>
+      <td></td>
+      <td></td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>omero_get_children_ids</td>
+      <td>omero_get_children_ids</td>
+      <td>Get omero id of children of an omero object id</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>To update</td>
+      <td></td>
+      <td>Imaging</td>
+      <td>omero_get_children_ids</td>
+      <td>lldelisle</td>
+      <td>https://github.com/lldelisle/tools-lldelisle/tree/master/tools/omero_get_children_ids</td>
+      <td>https://github.com/lldelisle/tools-lldelisle/tree/master/tools/omero_get_children_ids</td>
+      <td>0.2.0</td>
+      <td>omero-py</td>
+      <td>5.11.1</td>
+      <td></td>
+      <td></td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>omero_get_full_images</td>
+      <td>omero_get_full_images</td>
+      <td>Get full images from omero</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>To update</td>
+      <td></td>
+      <td>Imaging</td>
+      <td>omero_get_full_images</td>
+      <td>lldelisle</td>
+      <td>https://github.com/lldelisle/tools-lldelisle/tree/master/tools/omero_get_full_images</td>
+      <td>https://github.com/lldelisle/tools-lldelisle/tree/master/tools/omero_get_full_images</td>
+      <td>20240521</td>
+      <td>fiji</td>
+      <td>20231211</td>
+      <td></td>
+      <td></td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>omero_hyperstack_to_fluo_measurements_on_gastruloid</td>
+      <td>omero_hyperstack_to_fluo_measurements_on_gastruloid</td>
+      <td>Analyse Hyperstack on OMERO server to measure fluorescence levels</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>To update</td>
+      <td></td>
+      <td>Imaging</td>
+      <td>omero_hyperstack_to_fluo_measurements_on_gastruloid</td>
+      <td>lldelisle</td>
+      <td>https://github.com/lldelisle/tools-lldelisle/tree/master/tools/omero_hyperstack_to_fluo_measurements_on_gastruloid</td>
+      <td>https://github.com/lldelisle/tools-lldelisle/tree/master/tools/omero_hyperstack_to_fluo_measurements_on_gastruloid</td>
+      <td>20230809</td>
+      <td>fiji</td>
+      <td>20231211</td>
+      <td></td>
+      <td></td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>omero_hyperstack_to_gastruloid_measurements</td>
+      <td>omero_hyperstack_to_gastruloid_measurements</td>
+      <td>Analyse Hyperstack on OMERO server to segment gastruloid and compute measurements</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>To update</td>
+      <td></td>
+      <td>Imaging</td>
+      <td>omero_hyperstack_to_gastruloid_measurements</td>
+      <td>lldelisle</td>
+      <td>https://github.com/lldelisle/tools-lldelisle/tree/master/tools/omero_hyperstack_to_gastruloid_measurements</td>
+      <td>https://github.com/lldelisle/tools-lldelisle/tree/master/tools/omero_hyperstack_to_gastruloid_measurements</td>
+      <td>20240214</td>
+      <td>fiji</td>
+      <td>20231211</td>
+      <td></td>
+      <td></td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>qupath_roi_splitter</td>
+      <td>qupath_roi_splitter</td>
+      <td>Split ROI coordinates of QuPath TMA annotation by cell type</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>To update</td>
+      <td>https://github.com/npinter/ROIsplitter</td>
+      <td>Imaging</td>
+      <td>qupath_roi_splitter</td>
+      <td>galaxyp</td>
+      <td>hhttps://github.com/npinter/ROIsplitter</td>
+      <td>https://github.com/galaxyproteomics/tools-galaxyp/tree/master/tools/qupath_roi_splitter</td>
+      <td>0.2.1</td>
+      <td>geojson</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>5</td>
+      <td>59</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>spyboat</td>
+      <td>spyboat</td>
+      <td>Wavelet analysis for 3d-image stacks</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>To update</td>
+      <td>http://github.com/tensionhead/spyboat</td>
+      <td>Imaging, Graphics</td>
+      <td>spyboat</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/packages/spyboat</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/main/tools/spyboat</td>
+      <td>0.1.2</td>
+      <td>spyboat</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>67</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>upload_roi_and_measures_to_omero</td>
+      <td>uploadROIandMeasuresToOMERO</td>
+      <td>Upload the ROI coordinates and the measurements to the omero server</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>To update</td>
+      <td></td>
+      <td>Imaging</td>
+      <td>upload_roi_and_measures_to_omero</td>
+      <td>lldelisle</td>
+      <td>https://github.com/lldelisle/tools-lldelisle/tree/master/tools/upload_roi_and_measures_to_omero</td>
+      <td>https://github.com/lldelisle/tools-lldelisle/tree/master/tools/upload_roi_and_measures_to_omero</td>
+      <td>0.0.5</td>
+      <td>omero-py</td>
+      <td>5.11.1</td>
+      <td></td>
+      <td></td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>woundhealing</td>
+      <td>woundhealing_scratch_assay</td>
+      <td>Tool to automate quantification of wound healing in high-throughput microscopy scratch assays</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Up-to-date</td>
+      <td>https://git.embl.de/grp-cba/wound-healing-htm-screen</td>
+      <td>Imaging</td>
+      <td>Wound healing scratch assay image analysis</td>
+      <td>bgruening</td>
+      <td>https://github.com/bgruening/galaxytools/tree/master/tools</td>
+      <td>https://github.com/bgruening/galaxytools/tree/master/tools/image_processing/woundhealing</td>
+      <td>1.6.1</td>
+      <td>fiji-morpholibj</td>
+      <td>1.6.1</td>
+      <td></td>
+      <td></td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+</div>

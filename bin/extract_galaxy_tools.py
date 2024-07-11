@@ -17,7 +17,7 @@ from typing import (
 
 import pandas as pd
 import requests
-import shared_functions
+import shared
 import yaml
 from github import Github
 from github.ContentFile import ContentFile
@@ -26,7 +26,6 @@ from owlready2 import get_ontology
 
 # Config variables
 BIOTOOLS_API_URL = "https://bio.tools"
-# BIOTOOLS_API_URL = "https://130.226.25.21"
 
 USEGALAXY_SERVER_URLS = {
     "UseGalaxy.org (Main)": "https://usegalaxy.org",
@@ -522,19 +521,17 @@ def export_tools_to_tsv(
 
     df = pd.DataFrame(tools).sort_values("Galaxy wrapper id")
     if format_list_col:
-        df["ToolShed categories"] = shared_functions.format_list_column(df["ToolShed categories"])
-        df["EDAM operation"] = shared_functions.format_list_column(df["EDAM operation"])
-        df["EDAM topic"] = shared_functions.format_list_column(df["EDAM topic"])
+        df["ToolShed categories"] = shared.format_list_column(df["ToolShed categories"])
+        df["EDAM operation"] = shared.format_list_column(df["EDAM operation"])
+        df["EDAM topic"] = shared.format_list_column(df["EDAM topic"])
 
-        df["EDAM operation (no superclasses)"] = shared_functions.format_list_column(
-            df["EDAM operation (no superclasses)"]
-        )
-        df["EDAM topic (no superclasses)"] = shared_functions.format_list_column(df["EDAM topic (no superclasses)"])
+        df["EDAM operation (no superclasses)"] = shared.format_list_column(df["EDAM operation (no superclasses)"])
+        df["EDAM topic (no superclasses)"] = shared.format_list_column(df["EDAM topic (no superclasses)"])
 
-        df["bio.tool ids"] = shared_functions.format_list_column(df["bio.tool ids"])
+        df["bio.tool ids"] = shared.format_list_column(df["bio.tool ids"])
 
         # the Galaxy tools need to be formatted for the add_instances_to_table to work
-        df["Galaxy tool ids"] = shared_functions.format_list_column(df["Galaxy tool ids"])
+        df["Galaxy tool ids"] = shared.format_list_column(df["Galaxy tool ids"])
 
     # if add_usage_stats:
     #     df = add_usage_stats_for_all_server(df)
@@ -616,23 +613,76 @@ def reduce_ontology_terms(terms: List, ontology: Any) -> List:
     return new_terms
 
 
+def get_tools(repo_list: list, edam_ontology: dict) -> List[Dict]:
+    """
+    Parse tools in GitHub repositories to extract metadata,
+    filter by TS categories, additional information
+    """
+    tools: List[Dict] = []
+    for r in repo_list:
+        print("Parsing tools from:", (r))
+        if "github" not in r:
+            continue
+        try:
+            repo = get_github_repo(r, g)
+            tools.extend(parse_tools(repo))
+        except Exception as e:
+            print(
+                f"Error while extracting tools from repo {r}: {e}",
+                file=sys.stderr,
+            )
+            print(traceback.format_exc())
+
+    # add additional information to tools
+    for tool in tools:
+        # add EDAM terms without superclass
+        tool["EDAM operation (no superclasses)"] = reduce_ontology_terms(tool["EDAM operation"], ontology=edam_ontology)
+        tool["EDAM topic (no superclasses)"] = reduce_ontology_terms(tool["EDAM topic"], ontology=edam_ontology)
+
+        # add availability for UseGalaxy servers
+        for name, url in USEGALAXY_SERVER_URLS.items():
+            tool[f"Available on {name}"] = check_tools_on_servers(tool["Galaxy tool ids"], url)
+        # add availability for all UseGalaxy servers
+        for name, url in USEGALAXY_SERVER_URLS.items():
+            tool[f"Tools available on {name}"] = check_tools_on_servers(tool["Galaxy tool ids"], url)
+
+        # add all other available servers
+        public_servers_df = pd.read_csv(public_servers, sep="\t")
+        for _index, row in public_servers_df.iterrows():
+            name = row["name"]
+
+            if name.lower() not in [
+                n.lower() for n in USEGALAXY_SERVER_URLS.keys()
+            ]:  # do not query UseGalaxy servers again
+
+                url = row["url"]
+                tool[f"Tools available on {name}"] = check_tools_on_servers(tool["Galaxy tool ids"], url)
+
+        # add tool stats
+        for name, path in GALAXY_TOOL_STATS.items():
+            tool_stats_df = pd.read_csv(path)
+            tool[name] = get_tool_stats_from_stats_file(tool_stats_df, tool["Galaxy tool ids"])
+
+    return tools
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description="Extract Galaxy tools from GitHub repositories together with biotools and conda metadata"
     )
     subparser = parser.add_subparsers(dest="command")
     # Extract tools
-    extractools = subparser.add_parser("extractools", help="Extract tools")
-    extractools.add_argument("--api", "-a", required=True, help="GitHub access token")
-    extractools.add_argument("--all-tools-json", "-j", required=True, help="Filepath to JSON with all extracted tools")
-    extractools.add_argument("--all-tools", "-o", required=True, help="Filepath to TSV with all extracted tools")
-    extractools.add_argument(
+    extract = subparser.add_parser("extract", help="Extract tools")
+    extract.add_argument("--api", "-a", required=True, help="GitHub access token")
+    extract.add_argument("--all", "-o", required=True, help="Filepath to JSON with all extracted tools")
+    extract.add_argument("--all-tsv", "-j", required=True, help="Filepath to TSV with all extracted tools")
+    extract.add_argument(
         "--planemo-repository-list",
         "-pr",
         required=False,
         help="Repository list to use from the planemo-monitor repository",
     )
-    extractools.add_argument(
+    extract.add_argument(
         "--avoid-extra-repositories",
         "-e",
         action="store_true",
@@ -640,7 +690,7 @@ if __name__ == "__main__":
         required=False,
         help="Do not parse extra repositories in conf file",
     )
-    extractools.add_argument(
+    extract.add_argument(
         "--test",
         "-t",
         action="store_true",
@@ -650,21 +700,21 @@ if __name__ == "__main__":
     )
 
     # Filter tools
-    filtertools = subparser.add_parser("filtertools", help="Filter tools")
+    filtertools = subparser.add_parser("filter", help="Filter tools")
     filtertools.add_argument(
-        "--tools",
-        "-i",
+        "--all",
+        "-a",
         required=True,
         help="Filepath to JSON with all extracted tools, generated by extractools command",
     )
     filtertools.add_argument(
-        "--ts-filtered-tools",
+        "--ts-filtered",
         "-t",
         required=True,
         help="Filepath to TSV with tools filtered based on ToolShed category",
     )
     filtertools.add_argument(
-        "--filtered-tools",
+        "--filtered",
         "-f",
         required=True,
         help="Filepath to TSV with tools filtered based on ToolShed category and manual curation",
@@ -681,7 +731,7 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
-    if args.command == "extractools":
+    if args.command == "extract":
         # connect to GitHub
         g = Github(args.api)
         # get list of GitHub repositories to parse
@@ -692,67 +742,16 @@ if __name__ == "__main__":
             add_extra_repositories=not args.avoid_extra_repositories,
         )
         # parse tools in GitHub repositories to extract metadata, filter by TS categories and export to output file
-        tools: List[Dict] = []
-        for r in repo_list:
-            print("Parsing tools from:", (r))
-            if "github" not in r:
-                continue
-            try:
-                repo = get_github_repo(r, g)
-                tools.extend(parse_tools(repo))
-            except Exception as e:
-                print(
-                    f"Error while extracting tools from repo {r}: {e}",
-                    file=sys.stderr,
-                )
-                print(traceback.format_exc())
-
-        #######################################################
-        # add additional information to the List[Dict] object
-        #######################################################
-
         edam_ontology = get_ontology("https://edamontology.org/EDAM_1.25.owl").load()
+        tools = get_tools(repo_list, edam_ontology)
+        export_tools_to_json(tools, args.all)
+        export_tools_to_tsv(tools, args.all_tsv, format_list_col=True, add_usage_stats=True)
 
-        for tool in tools:
-
-            # add EDAM terms without superclass
-            tool["EDAM operation (no superclasses)"] = reduce_ontology_terms(
-                tool["EDAM operation"], ontology=edam_ontology
-            )
-            tool["EDAM topic (no superclasses)"] = reduce_ontology_terms(tool["EDAM topic"], ontology=edam_ontology)
-
-            # add availability for UseGalaxy servers
-            for name, url in USEGALAXY_SERVER_URLS.items():
-                tool[f"Available on {name}"] = check_tools_on_servers(tool["Galaxy tool ids"], url)
-            # add availability for all UseGalaxy servers
-            for name, url in USEGALAXY_SERVER_URLS.items():
-                tool[f"Tools available on {name}"] = check_tools_on_servers(tool["Galaxy tool ids"], url)
-
-            # add all other available servers
-            public_servers_df = pd.read_csv(public_servers, sep="\t")
-            for _index, row in public_servers_df.iterrows():
-                name = row["name"]
-
-                if name.lower() not in [
-                    n.lower() for n in USEGALAXY_SERVER_URLS.keys()
-                ]:  # do not query UseGalaxy servers again
-
-                    url = row["url"]
-                    tool[f"Tools available on {name}"] = check_tools_on_servers(tool["Galaxy tool ids"], url)
-
-            # add tool stats
-            for name, path in GALAXY_TOOL_STATS.items():
-                tool_stats_df = pd.read_csv(path)
-                tool[name] = get_tool_stats_from_stats_file(tool_stats_df, tool["Galaxy tool ids"])
-
-        export_tools_to_json(tools, args.all_tools_json)
-        export_tools_to_tsv(tools, args.all_tools, format_list_col=True, add_usage_stats=True)
-
-    elif args.command == "filtertools":
-        with Path(args.tools).open() as f:
+    elif args.command == "filter":
+        with Path(args.all).open() as f:
             tools = json.load(f)
         # get categories and tools to exclude
-        categories = shared_functions.read_file(args.categories)
+        categories = shared.read_file(args.categories)
         try:
             status = pd.read_csv(args.status, sep="\t", index_col=0, header=None).to_dict("index")
         except Exception as ex:
@@ -762,11 +761,9 @@ if __name__ == "__main__":
 
         # filter tool lists
         ts_filtered_tools, filtered_tools = filter_tools(tools, categories, status)
-
-        export_tools_to_tsv(ts_filtered_tools, args.ts_filtered_tools, format_list_col=True)
-
+        export_tools_to_tsv(ts_filtered_tools, args.ts_filtered, format_list_col=True)
         # if there are no filtered tools return the ts filtered tools
         if filtered_tools:
-            export_tools_to_tsv(filtered_tools, args.filtered_tools, format_list_col=True)
+            export_tools_to_tsv(filtered_tools, args.filtered, format_list_col=True)
         else:
-            export_tools_to_tsv(ts_filtered_tools, args.filtered_tools, format_list_col=True)
+            export_tools_to_tsv(ts_filtered_tools, args.filtered, format_list_col=True)
