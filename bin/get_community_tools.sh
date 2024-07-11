@@ -3,7 +3,7 @@
 # stop on error
 set -e 
 
-if [ ! -z $1 ] 
+if [ ! -z $1  && $1=="test" ] 
 then
         python bin/extract_galaxy_tools.py \
                 filter \

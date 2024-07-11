@@ -60,7 +60,7 @@ A GitHub action performs every week the following steps:
     5. Checking available against conda version
     6. Extracting bio.tools information if available in the macros or xml
     7. Checking available on the 3 main galaxy instances (usegalaxy.eu, usegalaxy.org, usegalaxy.org.au)
-    8. Geting usage statistics form usegalaxy.eu
+    8. Getting usage statistics form usegalaxy.eu
 - Create an interactive table for all tools: [All tools](https://galaxyproject.github.io/galaxy_tool_metadata_extractor/)
 - Filter the tool suite per community
 - Create an interactive table for all registered communities, e.g. [microGalaxy](https://galaxyproject.github.io/galaxy_tool_metadata_extractor/microgalaxy/)
