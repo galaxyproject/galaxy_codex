@@ -28,7 +28,10 @@ jobs:
   filter-all-tutorials:
     runs-on: ubuntu-20.04
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
+      name: checkout results
+      run: |
+        git checkout results -- results
     - uses: actions/setup-python@v5
       with:
         python-version: '3.8' 
@@ -39,19 +42,21 @@ jobs:
         bash bin/get_community_tutorials.sh
     - name: Commit results
       # commit the new filtered data, only if stuff was changed
-      run: |
-        git config user.name github-actions
-        git config user.email github-actions@github.com
-        git pull --no-rebase -s recursive -X ours
-        git add results
-        git status
-        git diff --quiet && git diff --staged --quiet || (git commit -m "fetch all tutorials / tools bot  - step tutorial filter") 
-        git push
+      uses: s0/git-publish-subdir-action@develop
+      env:
+        BRANCH: results
+        FOLDER: results
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        REPO: self
+        SKIP_EMPTY_COMMITS: true
 
   update-tools-to-keep-exclude:
     runs-on: ubuntu-20.04
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
+      name: checkout results
+      run: |
+        git checkout results -- results
     - uses: actions/setup-python@v5
       with:
         python-version: '3.8' 
@@ -62,19 +67,21 @@ jobs:
         bash bin/update_tools_to_keep_exclude.sh
     - name: Commit results
       # commit the new filtered data, only if stuff was changed
-      run: |
-        git config user.name github-actions
-        git config user.email github-actions@github.com
-        git pull --no-rebase -s recursive -X ours
-        git add results
-        git status
-        git diff --quiet && git diff --staged --quiet || (git commit -m "fetch all tutorials / tools bot  - step exluded/kept tool list update") 
-        git push
+      uses: s0/git-publish-subdir-action@develop
+      env:
+        BRANCH: results
+        FOLDER: results
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        REPO: self
+        SKIP_EMPTY_COMMITS: true
   
   filter-all-tools:
     runs-on: ubuntu-20.04
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
+      name: checkout results
+      run: |
+        git checkout results -- results
     - uses: actions/setup-python@v5
       with:
         python-version: '3.8' 
@@ -85,14 +92,12 @@ jobs:
         bash bin/get_community_tools.sh
     - name: Commit results
       # commit the new filtered data, only if stuff was changed
-      run: |
-        git config user.name github-actions
-        git config user.email github-actions@github.com
-        git pull --no-rebase -s recursive -X ours
-        git add results
-        git status
-        git diff --quiet && git diff --staged --quiet || (git commit -m "fetch all tools bot  - step tool filter") 
-        git push
-  
+      uses: s0/git-publish-subdir-action@develop
+      env:
+        BRANCH: results
+        FOLDER: results
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        REPO: self
+        SKIP_EMPTY_COMMITS: true
 
   
