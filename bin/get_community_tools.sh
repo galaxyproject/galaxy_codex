@@ -3,8 +3,7 @@
 # stop on error
 set -e 
 
-if [ ! -z $1  && $1=="test" ] 
-then
+if [[ ! -z $1  && $1=="test" ]]; then
         python bin/extract_galaxy_tools.py \
                 filter \
                 --all "results/all_tools.json" \
