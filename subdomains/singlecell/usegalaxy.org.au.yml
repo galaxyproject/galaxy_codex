@@ -1,5 +1,7 @@
+# This content extends base.yml
+
 # Request this as a webpage with:
-# https://site.usegalaxy.org.au/lab/export?content_root=https://raw.githubusercontent.com/nomadscientist/galaxy_codex/subdomain_unification/subdomains/singlecell/main.yml
+# https://site.usegalaxy.org.au/lab/export?content_root=https://raw.githubusercontent.com/nomadscientist/galaxy_codex/subdomain_unification/subdomains/singlecell/usegalaxy.org.au.yml
 
 # -----------------------------------------------------------------------------
 # Use these variables in MD/HTML templates like:
@@ -8,8 +10,6 @@
 
 # These will be rendered like "Welcome to the Galaxy {{ site_name }} {{ lab_name }}!"
 site_name: Australia
-lab_name: Single Cell Lab
-analysis_name: Single Cell
 nationality: Australian
 
 # Used for rendering tool/workflow links. Trailing '/' will be removed.
@@ -27,37 +27,17 @@ data_policy_url: https://site.usegalaxy.org.au/about#data-privacy
 terms_url: https://site.usegalaxy.org.au/about#terms-of-service
 
 help_links:
+  - title: Galaxy Australia Support
+    url: https://site.usegalaxy.org.au/request
+  - title: General Galaxy support
+    url: https://galaxyproject.org/support/
   - title: Single Cell community help forum
     url: https://usegalaxy-eu.github.io/scrna
   - title: General Galaxy help forum
-    url: https://help.galaxyproject.org/c/usegalaxy-eu-support/6
+    url: https://help.galaxyproject.org
   - title: Single cell Galaxy user community chat room
     url: https://matrix.to/#/#Galaxy-Training-Network_galaxy-single-cell:gitter.im
   - title: Galaxy Training Community chat
     url: https://matrix.to/#/#Galaxy-Training-Network_Lobby:gitter.im
   - title: Usegalaxy.org chat
     url: https://matrix.to/#/#galaxyproject_Lobby:gitter.im
-
-conclusion_extra_md: ""
-
-# -----------------------------------------------------------------------------
-# Custom content relative to this file URL
-
-header_logo: static/logo_single_cell.svg
-custom_css: static/custom.css
-intro_md: templates/intro.html
-conclusion_md: templates/conclusion.html
-footer_md: templates/footer.html
-
-
-# Data (Tools, Workflows etc.) to be rendered into sections/tabs/accordion elements.
-# Either:
-#   1. Relative to this file URL
-#   2. Full URL to fetch globally centralized content
-sections:
-  - sections/1_beginner.yml
-  - sections/2_intermediate.yml
-  - sections/3_advanced.yml
-  - sections/4_community.yml
-
-# -----------------------------------------------------------------------------
