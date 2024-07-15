@@ -1,5 +1,5 @@
 id: beginner
-title: Learn to use Galaxy for single-cell RNA-seq analysis
+title: Learn to use Galaxy for single-cell analysis
 tabs:
   - id: pathway
     title: Learning pathways
@@ -8,18 +8,16 @@ tabs:
     content:
       - title_md: For first time Galaxy users
         description_md: >
-          The Galaxy Training Network has a suite of learning pathways to introduce users to new analyses.
-          If you are new to this domain, check out the {gtn modal}[Single-Cell RNA-seq analysis pathway](https://training.galaxyproject.org/training-material/learning-pathways/intro_single_cell.html).
+          The Galaxy Training Network has a learning pathway to introduce both using Galaxy and performing single-cell RNA-seq analysis.
+          Check out the {gtn modal}[Single-Cell RNA-seq analysis pathway](https://training.galaxyproject.org/training-material/learning-pathways/intro_single_cell.html).
         button_link: https://training.galaxyproject.org/training-material/learning-pathways/intro_single_cell.html
         button_icon: tutorial
         button_tip: Go to learning pathway
       - title_md: For experienced Galaxy users
         description_md: >
-          Follow these learning pathways to make analytical decisions in performing single-cell RNA-seq analysis and interpreting the data:
+          Instead of a learning pathway to learn to use Galaxy, you can skip straight to materials on performing single-cell RNA-seq analysis.
 
             - {gtn modal}[Introductory slides](https://training.galaxyproject.org/training-material/topics/single-cell/tutorials/scrna-intro/slides.html)
-
-            - {gtn modal}[Trajectories slides](https://training.galaxyproject.org/training-material/topics/single-cell/tutorials/scrna-trajectories/slides.html)
 
             - {gtn modal}[Preprocessing tutorial](https://training.galaxyproject.org/training-material/topics/single-cell/tutorials/scrna-preprocessing-tenx/tutorial.html)
 
@@ -27,10 +25,17 @@ tabs:
 
       - title_md: From tutorial data to real, messy, analytical decision-making
         description_md: >
-          This GTN tutorial
-          walks you through the process of making analytical decisions in performing single-cell RNA-seq analysis and interpreting the data.
+          This GTN learning pathway walks you through the process of making analytical decisions in performing single-cell RNA-seq analysis and interpreting the data.
         button_link: https://training.galaxyproject.org/training-material/learning-pathways/beyond_single_cell.html
         button_tip: View tutorial
+        button_icon: tutorial
+
+      - title_md: Further training
+        description_md: >
+          You can find all Galaxy single-cell & spatial omics training in our training page.
+        button_md: Training Page
+        button_link: https://training.galaxyproject.org/training-material/topics/single-cell/
+        button_tip: View training menu
         button_icon: tutorial
 
   - id: data_import
@@ -38,27 +43,66 @@ tabs:
     heading_md: >
       Using public data is free! Learn how to retrieve data from common sources.
     content:
-      - title_md: Importing files from public atlases
+      - title_md: Importing files from the Single Cell Expression Atlas
         description_md: >
-          Learn how to import data from common public atlases.
+          You can import data directly from the Single Cell Expression Atlas with one tool. You will need an **experiment accession** ID, which you can find by browsing experiments at the [EBI Atlas site](https://www.ebi.ac.uk/gxa/sc/experiments). Input that **experiment accession** ID in the *Tool Parameters* box when of the following tool. Then **Run tool** to get your matrix!
+          <code>EBI SCXA Data Retrieval<code>
+        button_link: "toolshed.g2.bx.psu.edu/repos/ebi-gxa/retrieve_scxa/retrieve_scxa"
+        button_icon: tool
+        button_tip: Run tool
+        description_md: >
+          You can learn more by following our dedicated to tutorial for importing files from public atlases.
         button_link: "https://training.galaxyproject.org/training-material/topics/single-cell/tutorials/EBI-retrieval/tutorial.html"
         button_icon: tutorial
         button_tip: View tutorial
       - title_md: Importing from NCBI/GEO
         description_md: >
-          Guides you in importing data from the NCBI/GEO repository, including how to get metadata into your object.
+          Where there isn't a specific tool for retrieving data, you can nevertheless import and reformat data from the commonly used NCBI/GEO repository with the following tutorial.
         button_link: "https://training.galaxyproject.org/training-material/topics/single-cell/tutorials/scrna-ncbi-anndata/tutorial.html"
         button_icon: tutorial
         button_tip: View tutorial
-
-  - id: data_convert
-    title: Converting data
-    heading_md: >
-      Single-cell data comes in many formats. Here we demystify them and help you interconvert between formats.
-    content:
-      - title_md: Converting between formats
+      - title_md: Importing 10X Files
         description_md: >
-          From Seurat to Scanpy, from Matrix to Monocle, find common conversions here!
+          You can find many tools for importing 10X formatted data into target datatypes.
+          <code>Scanpy Read10x<code>
+        button_link: "toolshed.g2.bx.psu.edu/repos/ebi-gxa/scanpy_read_10x/scanpy_read_10x"
+        button_icon: tool
+        button_tip: Run tool
+          <code>Seurat Read10x<code>
+        button_link: "toolshed.g2.bx.psu.edu/repos/ebi-gxa/seurat_read10x/seurat_read10x"
+        button_icon: tool
+        button_tip: Run tool
+          <code>DropletUtils Read10x<code>
+        button_link: "toolshed.g2.bx.psu.edu/repos/ebi-gxa/dropletutils_read_10x/dropletutils_read_10x"
+        button_icon: tool
+        button_tip: Run tool
+  - id: data_convert
+    title: Converting datatypes
+    heading_md: >
+      Single-cell data comes in many formats. Here we demystify those datatypes and help you interconvert between formats.
+    content:
+      - title_md: Data conversion tools
+        description_md: >
+          There are a few key tools in Galaxy for interconverting and manipulating objects in Galaxy. This list is not exhaustive.
+          <code>SCEasy Converter<code>
+          This tool allows you to convert between *AnnData*, *Loom*, *Seurat*, and *Singlecellexperiment* formats.
+        button_link: "toolshed.g2.bx.psu.edu/repos/iuc/sceasy_convert/sceasy_convert"
+        button_icon: tool
+        button_tip: Run tool
+          <code>Manipulate AnnData<code>
+          Under **Function to manipulate the object** you'll find key manipulations such as *Concatenate along the observations axis* for combining AnnData objects together, *Transpose the data matrix* for help with converting formats, *Filter observations or variables* for refining or subsetting your dataset, *Adding annotations* and *Rename categories* for manipulating the metadata.
+        button_link: "toolshed.g2.bx.psu.edu/repos/iuc/anndata_manipulate/anndata_manipulate"
+        button_icon: tool
+        button_tip: Run tool
+          <code>AnnData Operations<code>
+          This tool allows you to flag genes (such as mitochondrial genes) as well as change names in the metadata.
+        button_link: "toolshed.g2.bx.psu.edu/repos/ebi-gxa/anndata_ops/anndata_ops"
+        button_icon: tool
+        button_tip: Run tool
+    content:
+      - title_md: Data conversion training
+        description_md: >
+          You can also explore our dedicated tutorial on single-cell data conversion.
         button_link: "https://training.galaxyproject.org/training-material/topics/single-cell/tutorials/scrna-data-ingest/tutorial.html"
         button_icon: tutorial
         button_tip: View tutorial
@@ -71,7 +115,7 @@ tabs:
           For information on connecting with the SingleCell community, including requesting tools and contributing feedback, check out {gtn modal}[our page on the Galaxy training network](https://training.galaxyproject.org/training-material/topics/single-cell/faqs/user_community_join.html#how-can-i-talk-with-other-users).
       - title_md: How can I troubleshoot?
         description_md: >
-          Check out Galaxy's documentation on {gtn modal}[troubleshooting errors](https://training.galaxyproject.org/training-material/faqs/galaxy/analysis_troubleshooting.html#troubleshooting-errors).
+            <iframe src="https://oembed.apps.galaxyproject.eu/oembed?style=gtn&format=iframe-embed&url=https://training.galaxyproject.org/training-material/faqs/galaxy/analysis_troubleshooting.html#troubleshooting-errors.html">
       - title_md: Is there a help forum?
         description_md: >
           <i class="far fa-question-circle" aria-hidden="true"></i>
