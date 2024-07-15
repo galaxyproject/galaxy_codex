@@ -22,14 +22,12 @@ tabs:
             - {gtn modal}[Preprocessing tutorial](https://training.galaxyproject.org/training-material/topics/single-cell/tutorials/scrna-preprocessing-tenx/tutorial.html)
 
             - {gtn modal}[ScanPy tutorial](https://training.galaxyproject.org/training-material/topics/single-cell/tutorials/scrna-scanpy-pbmc3k/tutorial.html)
-
       - title_md: From tutorial data to real, messy, analytical decision-making
         description_md: >
           This GTN learning pathway walks you through the process of making analytical decisions in performing single-cell RNA-seq analysis and interpreting the data.
         button_link: https://training.galaxyproject.org/training-material/learning-pathways/beyond_single_cell.html
         button_tip: View tutorial
         button_icon: tutorial
-
       - title_md: Further training
         description_md: >
           You can find all Galaxy single-cell & spatial omics training in our training page.
@@ -46,9 +44,9 @@ tabs:
       - title_md: Importing files from the Single Cell Expression Atlas
         description_md: >
           You can import data directly from the Single Cell Expression Atlas with one tool. You will need an **experiment accession** ID, which you can find by browsing experiments at the [EBI Atlas site](https://www.ebi.ac.uk/gxa/sc/experiments). Input that **experiment accession** ID in the *Tool Parameters* box when of the following tool. Then **Run tool** to get your matrix!
-          <code>EBI SCXA Data Retrieval<code>
+          <code>EBI SCXA Data Retrieval</code>
         button_link: "toolshed.g2.bx.psu.edu/repos/ebi-gxa/retrieve_scxa/retrieve_scxa"
-        button_icon: tool
+        button_icon: run
         button_tip: Run tool
         description_md: >
           You can learn more by following our dedicated to tutorial for importing files from public atlases.
@@ -64,17 +62,17 @@ tabs:
       - title_md: Importing 10X Files
         description_md: >
           You can find many tools for importing 10X formatted data into target datatypes.
-          <code>Scanpy Read10x<code>
+          <code>Scanpy Read10x</code>
         button_link: "toolshed.g2.bx.psu.edu/repos/ebi-gxa/scanpy_read_10x/scanpy_read_10x"
-        button_icon: tool
+        button_icon: run
         button_tip: Run tool
-          <code>Seurat Read10x<code>
+          <code>Seurat Read10x</code>
         button_link: "toolshed.g2.bx.psu.edu/repos/ebi-gxa/seurat_read10x/seurat_read10x"
-        button_icon: tool
+        button_icon: run
         button_tip: Run tool
-          <code>DropletUtils Read10x<code>
+          <code>DropletUtils Read10x</code>
         button_link: "toolshed.g2.bx.psu.edu/repos/ebi-gxa/dropletutils_read_10x/dropletutils_read_10x"
-        button_icon: tool
+        button_icon: run
         button_tip: Run tool
 
   - id: data_convert
@@ -85,22 +83,22 @@ tabs:
       - title_md: Data conversion tools
         description_md: >
           There are a few key tools in Galaxy for interconverting and manipulating objects in Galaxy. This list is not exhaustive.
-          <code>SCEasy Converter<code>
+          <code>SCEasy Converter</code>
           This tool allows you to convert between *AnnData*, *Loom*, *Seurat*, and *Singlecellexperiment* formats.
         button_link: "toolshed.g2.bx.psu.edu/repos/iuc/sceasy_convert/sceasy_convert"
-        button_icon: tool
+        button_icon: run
         button_tip: Run tool
         description_md: >
-          <code>Manipulate AnnData<code>
+          <code>Manipulate AnnData</code>
           Under **Function to manipulate the object** you'll find key manipulations such as *Concatenate along the observations axis* for combining AnnData objects together, *Transpose the data matrix* for help with converting formats, *Filter observations or variables* for refining or subsetting your dataset, *Adding annotations* and *Rename categories* for manipulating the metadata.
         button_link: "toolshed.g2.bx.psu.edu/repos/iuc/anndata_manipulate/anndata_manipulate"
-        button_icon: tool
+        button_icon: run
         button_tip: Run tool
         description_md: >
-          <code>AnnData Operations<code>
+          <code>AnnData Operations</code>
           This tool allows you to flag genes (such as mitochondrial genes) as well as change names in the metadata.
         button_link: "toolshed.g2.bx.psu.edu/repos/ebi-gxa/anndata_ops/anndata_ops"
-        button_icon: tool
+        button_icon: run
         button_tip: Run tool
     content:
       - title_md: Data conversion training
@@ -115,39 +113,39 @@ tabs:
     heading_md: >
       There are a few key tools for visualising single-cell data in Galaxy.
     content:
-      - title_md: <code>Plot with Scanpy<code>
+      - title_md: <code>Plot with Scanpy</code>
         description_md: >
-          <code>Plot with Scanpy<code>
+          <code>Plot with Scanpy</code>
           This tool allows you to generate many plots, from scatterplots, to violin plots, to gene heatplots.
         inputs:
           - anndata
           - hdf5
         button_link: "toolshed.g2.bx.psu.edu/repos/iuc/scanpy_plot/scanpy_plot"
-        button_icon: tool
+        button_icon: run
         button_tip: Run tool
-      - title_md: <code>Scanpy PlotEmbed<code>
+      - title_md: <code>Scanpy PlotEmbed</code>
         description_md: >
-          <code>Scanpy PlotEmbed<code>
+          <code>Scanpy PlotEmbed</code>
           This tool allows you to plot embeddings like UMAPs.
         inputs:
           - anndata
           - hdf5
         button_link: "toolshed.g2.bx.psu.edu/repos/ebi-gxa/scanpy_plot_embed/scanpy_plot_embed"
-        button_icon: tool
+        button_icon: run
         button_tip: Run tool
-      - title_md: <code>Scanpy PlotTrajectory<code>
+      - title_md: <code>Scanpy PlotTrajectory</code>
         description_md: >
-          <code>Scanpy PlotTrajectory<code>
+          <code>Scanpy PlotTrajectory</code>
           This tool allows you to plot trajectory data, such as PAGA, pre-calculated in an AnnData object.
         inputs:
           - anndata
           - hdf5
         button_link: "toolshed.g2.bx.psu.edu/repos/ebi-gxa/scanpy_plot_trajectory/scanpy_plot_trajectory"
-        button_icon: tool
+        button_icon: run
         button_tip: Run tool
-      - title_md: <code>Scanpy Plot dimension reduction<code>
+      - title_md: <code>Scanpy Plot dimension reduction</code>
         description_md: >
-          <code>Scanpy Plot dimension reduction<code>
+          <code>Scanpy Plot dimension reduction</code>
           This tool allows you to plot embeddings such as PCA, UMAP, and tSNE.
         inputs:
           - RDS with a Seurat Object
@@ -156,11 +154,11 @@ tabs:
           - Loom
           - AnnData
         button_link: "toolshed.g2.bx.psu.edu/repos/ebi-gxa/seurat_dim_plot/seurat_dim_plot"
-        button_icon: tool
+        button_icon: run
         button_tip: Run tool
-      - title_md: <code>Plot with Seurat<code>
+      - title_md: <code>Plot with Seurat</code>
         description_md: >
-          <code>Plot with Seurat<code>
+          <code>Plot with Seurat</code>
           This tool allows you to plot gene expressions, such as with Violin Plots.
         inputs:
           - RDS with a Seurat Object
@@ -169,7 +167,7 @@ tabs:
           - Loom
           - AnnData
         button_link: "toolshed.g2.bx.psu.edu/repos/ebi-gxa/seurat_plot/seurat_plot"
-        button_icon: tool
+        button_icon: run
         button_tip: Run tool
 
   - id: help
