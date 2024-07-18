@@ -22,6 +22,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
       - name: Install requirement
         run: python -m pip install -r requirements.txt
       - name: Run script 
@@ -42,7 +44,7 @@ jobs:
     name: Fetch all tool stepwise
     strategy:
       matrix:
-        python-version: [3.8]
+        python-version: [3.11]
         subset:
          - repositories01.list
          - repositories02.list
@@ -84,6 +86,8 @@ jobs:
         ref: results
         path: results
     - uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
     - name: Install requirement
       run: |
         python -m pip install -r requirements.txt
