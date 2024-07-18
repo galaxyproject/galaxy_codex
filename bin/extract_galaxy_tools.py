@@ -761,9 +761,16 @@ if __name__ == "__main__":
 
         # filter tool lists
         ts_filtered_tools, filtered_tools = filter_tools(tools, categories, status)
-        export_tools_to_tsv(ts_filtered_tools, args.ts_filtered, format_list_col=True)
-        # if there are no filtered tools return the ts filtered tools
-        if filtered_tools:
-            export_tools_to_tsv(filtered_tools, args.filtered, format_list_col=True)
+
+        if ts_filtered_tools:
+
+            export_tools_to_tsv(ts_filtered_tools, args.ts_filtered, format_list_col=True)
+            # if there are no filtered tools return the ts filtered tools
+            if filtered_tools:
+                export_tools_to_tsv(filtered_tools, args.filtered, format_list_col=True)
+            else:
+                export_tools_to_tsv(ts_filtered_tools, args.filtered, format_list_col=True)
+
         else:
-            export_tools_to_tsv(ts_filtered_tools, args.filtered, format_list_col=True)
+            # if there are no ts filtered tools
+            print(f"No tools found for category {args.filtered}")
