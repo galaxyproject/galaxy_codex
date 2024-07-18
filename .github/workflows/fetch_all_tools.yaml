@@ -51,8 +51,8 @@ jobs:
     environment: fetch-tools
     name: Fetch all tool stepwise
     strategy:
+      max-parallel: 1
       matrix:
-        max-parallel: 1
         python-version: [3.11]
         subset:
          - repositories01.list
