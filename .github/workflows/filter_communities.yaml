@@ -26,6 +26,7 @@ permissions:
 
 jobs:
   filter-all-tutorials:
+    name: Filter tutorials
     runs-on: ubuntu-20.04
     steps:
     - name: Checkout main
@@ -54,8 +55,10 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         REPO: self
         SKIP_EMPTY_COMMITS: true
+        MESSAGE: "Update results step: filter tutorials - commmit {sha}"
 
   update-tools-to-keep-exclude:
+    name: Update tool to keep and exclude
     runs-on: ubuntu-20.04
     steps:
     - name: Checkout main
@@ -84,8 +87,10 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         REPO: self
         SKIP_EMPTY_COMMITS: true
+        MESSAGE: "Update results step: update tool to keep and exclude - commmit {sha}"
   
   filter-all-tools:
+    name: Filter all tools
     runs-on: ubuntu-20.04
     steps:
     - name: Checkout main
@@ -114,5 +119,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         REPO: self
         SKIP_EMPTY_COMMITS: true
+        MESSAGE: "Update results step: filter all tools - commmit {sha}"
 
   
