@@ -5,6 +5,8 @@ import os
 import re 
 import argparse
 
+import tools_au
+
 parser = argparse.ArgumentParser(description='Create installation yaml files from a Yaml file containing the panel_view/Toolkit data')
 parser.add_argument('--tk', action="store", dest='toolkit', help='Path of the toolkit.yaml file') # Toolkit.yaml file
 parser.add_argument('--yml-folder', action="store", dest='dest', help='Folder containing the yml files with tool installed in the target instance') # Folder containing the .yml and yml.lock containing the tools installed in the target instance
@@ -33,3 +35,5 @@ for i in range(3,len(data_loaded['items'])-2):
                 f.write("- name: "+tool+"\n")
                 f.write("  owner: "+owner+"\n")
     f.close()
+
+tools_au.parse()
