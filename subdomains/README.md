@@ -40,9 +40,11 @@ It also renders:
 
 ## How does it work?
 
-Briefly, you put your content somewhere online, normally on Github. 
+Briefly, you put your content somewhere online, normally on Github.
 It needs to have a very specific structure, so take a look at the 
-[template lab](TODO).
+[example lab](https://github.com/usegalaxy-au/galaxy-media-site/tree/dev/webapp/home/labs/simple).
+To get started, you can copy this folder to your own GitHub repository and
+update the files with content relevant to your lab.
 
 You can then request the webpage like so:
 
