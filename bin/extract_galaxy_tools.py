@@ -37,7 +37,7 @@ USEGALAXY_SERVER_URLS = {
 project_path = Path(__file__).resolve().parent.parent  # galaxy_tool_extractor folder
 usage_stats_path = project_path.joinpath("data", "usage_stats")
 conf_path = project_path.joinpath("data", "conf.yml")
-public_servers = project_path.joinpath("data", "available_public_servers.csv")
+public_servers = project_path.joinpath("results", "available_public_servers.csv")
 
 GALAXY_TOOL_STATS = {
     "No. of tool users (2022-2023) (usegalaxy.eu)": usage_stats_path.joinpath("tool_usage_per_user_2022_23_EU.csv"),
@@ -761,9 +761,16 @@ if __name__ == "__main__":
 
         # filter tool lists
         ts_filtered_tools, filtered_tools = filter_tools(tools, categories, status)
-        export_tools_to_tsv(ts_filtered_tools, args.ts_filtered, format_list_col=True)
-        # if there are no filtered tools return the ts filtered tools
-        if filtered_tools:
-            export_tools_to_tsv(filtered_tools, args.filtered, format_list_col=True)
+
+        if ts_filtered_tools:
+
+            export_tools_to_tsv(ts_filtered_tools, args.ts_filtered, format_list_col=True)
+            # if there are no filtered tools return the ts filtered tools
+            if filtered_tools:
+                export_tools_to_tsv(filtered_tools, args.filtered, format_list_col=True)
+            else:
+                export_tools_to_tsv(ts_filtered_tools, args.filtered, format_list_col=True)
+
         else:
-            export_tools_to_tsv(ts_filtered_tools, args.filtered, format_list_col=True)
+            # if there are no ts filtered tools
+            print(f"No tools found for category {args.filtered}")

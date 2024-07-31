@@ -77,7 +77,7 @@ A GitHub action performs every week the following steps:
 3. Run the script to extract all tools
 
     ```
-    $ python bin/extract_all_tools.sh
+    $ bash bin/extract_all_tools.sh
     ```
 
 The script will generate a TSV file with each tool found in the list of GitHub repositories and metadata for these tools:
@@ -152,7 +152,7 @@ A GitHub action performs every week the following steps:
 3. Run the script
 
     ```
-    $ python bin/extract_all_tutorials.sh
+    $ bash bin/extract_all_tutorials.sh
     ```
 
 ## Filter tutorials based on tags outside a GitHub Action
