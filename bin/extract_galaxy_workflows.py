@@ -55,7 +55,7 @@ class Workflow:
         self.source = source
         if self.source == "WorkflowHub":
             self.id = wf["data"]["id"]
-            self.link = f"https://workflowhub.eu{wf["data"]["links"]["self"]}"
+            self.link = f"https://workflowhub.eu{ wf['data']['links']['self'] }"
             self.name = wf["data"]["attributes"]["title"]
             self.tags = wf["data"]["attributes"]["tags"]
             self.create_time = shared.format_date(wf["data"]["attributes"]["created_at"])
@@ -68,7 +68,7 @@ class Workflow:
             self.edam_topic = [t["label"] for t in wf["data"]["attributes"]["topic_annotations"]]
         else:
             self.id = wf["id"]
-            self.link = f"{ source }/published/workflow?id={ wf["id"] }"
+            self.link = f"{ source }/published/workflow?id={ wf['id'] }"
             self.name = wf["name"]
             self.add_creators(wf)
             self.number_of_steps = wf["number_of_steps"] if "number_of_steps" in wf else len(wf["steps"].keys())
@@ -95,7 +95,7 @@ class Workflow:
                 if other and len(other) > 0:
                     self.creators.extend(wf["data"]["attributes"]["other_creators"].split(","))
             else:
-                self.creators.extend([f"{c["given_name"]} {c["family_name"]}" for c in creators])
+                self.creators.extend([f"{c['given_name']} {c['family_name']}" for c in creators])
         else:
             if "creator" in wf and wf["creator"] is not None:
                 self.creators.extend([c["name"] for c in wf["creator"]])
@@ -146,13 +146,13 @@ class Workflows:
             "https://workflowhub.eu/workflows?filter[workflow_type]=galaxy",
             header,
         )
-        print(f"Workflows from WorkflowHub: {len(wfhub_wfs["data"])}")
+        print(f"Workflows from WorkflowHub: {len(wfhub_wfs['data'])}")
         data = wfhub_wfs["data"]
         if self.test:
             data = data[:1]
         for wf in data:
             wfhub_wf = shared.get_request_json(
-                f"https://workflowhub.eu{wf["links"]["self"]}",
+                f"https://workflowhub.eu{wf['links']['self']}",
                 header,
             )
             wf = Workflow()
@@ -173,7 +173,7 @@ class Workflows:
             if wf["published"] and wf["importable"] and not wf["deleted"] and not wf["hidden"]:
                 count += 1
                 server_wf = shared.get_request_json(
-                    f"{server}/api/workflows/{wf["id"]}",
+                    f"{server}/api/workflows/{wf['id']}",
                     header,
                 )
                 wf = Workflow()
