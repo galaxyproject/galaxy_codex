@@ -184,10 +184,15 @@ class Workflows:
 
     def add_workflows_from_public_servers(self) -> None:
         """
-        Extract workflows from public servers
+        Extract workflows from UseGalaxy servers
         """
-        server_df = pd.read_csv(Path("data", "available_public_servers.csv"), sep="\t", index_col=0)
-        server_urls = server_df["url"]
+        server_urls = [
+            "https://usegalaxy.fr",
+            "https://usegalaxy.cz",
+            "https://usegalaxy.eu",
+            "https://usegalaxy.org",
+            "https://usegalaxy.org.au",
+        ]
         if self.test:
             server_urls = server_urls[:2]
         for url in server_urls:

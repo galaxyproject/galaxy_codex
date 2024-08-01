@@ -6,10 +6,6 @@ jobs:
     runs-on: ubuntu-20.04
     environment: fetch-tools
     steps:
-      - name: Checkout main
-        uses: actions/checkout@v4
-        with:
-          ref: main #pull latest code produced by job 1, not the revision that started the workflow (https://github.com/actions/checkout/issues/439)
       - name: Checkout results
         uses: actions/checkout@v4
         with:
@@ -34,10 +30,6 @@ jobs:
   test-tutorials:
     runs-on: ubuntu-20.04
     steps:
-      - name: Checkout main
-        uses: actions/checkout@v4
-        with:
-          ref: main #pull latest code produced by job 1, not the revision that started the workflow (https://github.com/actions/checkout/issues/439)
       - name: Checkout results
         uses: actions/checkout@v4
         with:
@@ -56,3 +48,24 @@ jobs:
       - name: Tutorial filtering
         run: | 
           bash bin/get_community_tutorials.sh test
+  test-workflows:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout results
+        uses: actions/checkout@v4
+        with:
+          ref: results
+          path: results
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install requirement
+        run: python -m pip install -r requirements.txt
+      - name: Tutorial extraction
+        run: | 
+          bash bin/extract_all_workflows.sh test 
+        env: 
+          PLAUSIBLE_API_KEY: ${{ secrets.PLAUSIBLE_API_TOKEN }}
+      - name: Tutorial filtering
+        run: | 
+          bash bin/get_community_workflows.sh test
