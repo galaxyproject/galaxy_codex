@@ -18,9 +18,10 @@ else
                 if [[ -d "$com_data_fp" && ! -L "$com_data_fp" ]]; then
                         community=`basename "$com_data_fp"`
 
-                        echo "$community";
+                        echo "$community"
 
-                        if [[ -f "data/communities/$community/tutorial_tags" && -f "results/$community/tutorials.tsv" ]]; then
+                        if [[ -f "data/communities/$community/tutorial_tags" ]]; then
+                                mkdir -p "results/$community/"
 
                                 python bin/extract_gtn_tutorials.py \
                                         filter \
