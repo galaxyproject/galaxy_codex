@@ -3,6 +3,7 @@
 import argparse
 from typing import (
     Any,
+    Dict,
     List,
 )
 
@@ -20,16 +21,16 @@ class Workflow:
         self.id = 0
         self.link = ""
         self.name = ""
-        self.creators: list[str] = []
-        self.tags: list[str] = []
+        self.creators: List[str] = []
+        self.tags: List[str] = []
         self.create_time = ""
         self.update_time = ""
         self.latest_version = 0
         self.versions = 0
         self.number_of_steps = 0
-        self.tools: list[str] = []
-        self.edam_operation: list[str] = []
-        self.edam_topic: list[str] = []
+        self.tools: List[str] = []
+        self.edam_operation: List[str] = []
+        self.edam_topic: List[str] = []
         self.license = ""
         self.doi = ""
 
@@ -122,8 +123,8 @@ class Workflows:
     """
 
     def __init__(self, test: bool = False) -> None:
-        self.workflows: list[Workflow] = []
-        self.tools: dict[Any, Any] = {}
+        self.workflows: List[Workflow] = []
+        self.tools: Dict[Any, Any] = {}
         self.test = test
 
     def init_by_searching(self, tool_fp: str) -> None:
