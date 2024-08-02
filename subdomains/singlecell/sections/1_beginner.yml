@@ -117,8 +117,10 @@ tabs:
         description_md: >
           This tool allows you to generate many plots, from scatterplots, to violin plots, to gene heatplots.
         inputs:
-          - anndata
-          - hdf5
+          - label: Single cell data
+            datatypes:
+            - anndata
+            - hdf5
         button_link: "toolshed.g2.bx.psu.edu/repos/iuc/scanpy_plot/scanpy_plot"
         button_icon: run
         button_tip: Run tool
@@ -126,8 +128,10 @@ tabs:
         description_md: >
           This tool allows you to plot embeddings like UMAPs.
         inputs:
-          - anndata
-          - hdf5
+          - label: Single cell data
+            datatypes:
+            - anndata
+            - hdf5
         button_link: "toolshed.g2.bx.psu.edu/repos/ebi-gxa/scanpy_plot_embed/scanpy_plot_embed"
         button_icon: run
         button_tip: Run tool
@@ -135,8 +139,10 @@ tabs:
         description_md: >
           This tool allows you to plot trajectory data, such as PAGA, pre-calculated in an AnnData object.
         inputs:
-          - anndata
-          - hdf5
+          - label: Single cell data
+            datatypes:
+            - anndata
+            - hdf5
         button_link: "toolshed.g2.bx.psu.edu/repos/ebi-gxa/scanpy_plot_trajectory/scanpy_plot_trajectory"
         button_icon: run
         button_tip: Run tool
@@ -144,11 +150,13 @@ tabs:
         description_md: >
           This tool allows you to plot embeddings such as PCA, UMAP, and tSNE.
         inputs:
-          - RDS with a Seurat Object
-          - Single Cell Experiment
-          - Seurat H5
-          - Loom
-          - AnnData
+          - label: Single cell data
+            datatypes:
+              - RDS (with Seurat object)
+              - Single Cell Experiment
+              - Seurat H5
+              - Loom
+              - AnnData
         button_link: "toolshed.g2.bx.psu.edu/repos/ebi-gxa/seurat_dim_plot/seurat_dim_plot"
         button_icon: run
         button_tip: Run tool
@@ -156,11 +164,16 @@ tabs:
         description_md: >
           This tool allows you to plot gene expressions, such as with Violin Plots.
         inputs:
-          - RDS with a Seurat Object
-          - Single Cell Experiment
-          - Seurat H5
-          - Loom
-          - AnnData
+          - datatypes:
+            - RDS with a Seurat Object
+          - datatypes:
+            - Single Cell Experiment
+          - datatypes:
+            - Seurat H5
+          - datatypes:
+            - Loom
+          - datatypes:
+            - AnnData
         button_link: "toolshed.g2.bx.psu.edu/repos/ebi-gxa/seurat_plot/seurat_plot"
         button_icon: run
         button_tip: Run tool
