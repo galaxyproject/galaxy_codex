@@ -45,10 +45,10 @@ tabs:
         description_md: >
           You can import data directly from the Single Cell Expression Atlas with one tool. You will need an **experiment accession** ID, which you can find by browsing experiments at the [EBI Atlas site](https://www.ebi.ac.uk/gxa/sc/experiments). Input that **experiment accession** ID in the *Tool Parameters* box when of the following tool. Then **Run tool** to get your matrix!
           <code>EBI SCXA Data Retrieval</code>
-        button_link: toolshed.g2.bx.psu.edu/repos/ebi-gxa/retrieve_scxa/retrieve_scxa
+        button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Febi-gxa%2fretrieve_scxa%2fretrieve_scxa"
         button_icon: run
         button_tip: Run tool
-      - title: Importing from public atlases - Tutorial
+      - title_md: Importing from public atlases - Tutorial
         description_md: >
           You can learn more by following our dedicated to tutorial for importing files from public atlases.
         button_link: https://training.galaxyproject.org/training-material/topics/single-cell/tutorials/EBI-retrieval/tutorial.html
@@ -64,41 +64,54 @@ tabs:
         description_md: >
           You can find many tools for importing 10X formatted data into target datatypes.
           <code>Scanpy Read10x</code>
-        button_link: toolshed.g2.bx.psu.edu/repos/ebi-gxa/scanpy_read_10x/scanpy_read_10x
+        button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Febi-gxa%2fscanpy_read_10x%2fscanpy_read_10x"
         button_icon: run
         button_tip: Run tool
-      - title: <code>Seurat Read10x</code>
-        button_link: toolshed.g2.bx.psu.edu/repos/ebi-gxa/seurat_read10x/seurat_read10x
+      - title_md: <code>Seurat Read10x</code>
+        description_md: >
+          Import 10X formatted data into a Seurat object. Seurat is an R package designed for QC, analysis, and exploration of single cell RNA-seq data.
+        button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Febi-gxa%2fseurat_read10x%2fseurat_read10x"
         button_icon: run
         button_tip: Run tool
-      - title: <code>DropletUtils Read10x</code>
-        button_link: toolshed.g2.bx.psu.edu/repos/ebi-gxa/dropletutils_read_10x/dropletutils_read_10x
+      - title_md: <code>DropletUtils Read10x</code>
+        description_md: >
+          DropletUtils provides a number of utility functions for handling single-cell (RNA-seq) data from droplet technologies such as 10X Genomics. This includes data loading, identification of cells from empty droplets, removal of barcode-swapped pseudo-cells, and downsampling of the count matrix.
+        button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Febi-gxa%2fdropletutils_read_10x%2fdropletutils_read_10x"
         button_icon: run
         button_tip: Run tool
 
   - id: data_convert
     title: Converting datatypes
     heading_md: >
-      Single-cell data comes in many formats. Here we demystify those datatypes and help you interconvert between formats.
+      Single-cell data comes in many formats.
+      Here we show a few key tools in Galaxy for converting and manipulating objects in Galaxy.
     content:
-      - title_md: Data conversion tools
+      - title_md: <code>SCEasy Converter</code>
         description_md: >
-          There are a few key tools in Galaxy for interconverting and manipulating objects in Galaxy. This list is not exhaustive.
-          <code>SCEasy Converter</code>
-          This tool allows you to convert between *AnnData*, *Loom*, *Seurat*, and *Singlecellexperiment* formats.
-        button_link: "toolshed.g2.bx.psu.edu/repos/iuc/sceasy_convert/sceasy_convert"
+          This tool allows you to convert between the following formats:
+
+            - `hdf5` (AnnData/Loom)
+            - `rds` (Seurat)
+            - `rdata.sce` (Single Cell Experiment)
+            - `h5` (Seurat)
+        button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc/sceasy_convert%2fsceasy_convert"
         button_icon: run
         button_tip: Run tool
-      - title: <code>Manipulate AnnData</code>
+      - title_md: <code>Manipulate AnnData</code>
         description_md: >
-          Under **Function to manipulate the object** you'll find key manipulations such as *Concatenate along the observations axis* for combining AnnData objects together, *Transpose the data matrix* for help with converting formats, *Filter observations or variables* for refining or subsetting your dataset, *Adding annotations* and *Rename categories* for manipulating the metadata.
-        button_link: "toolshed.g2.bx.psu.edu/repos/iuc/anndata_manipulate/anndata_manipulate"
+          Under the parameter `Function to manipulate the object` you'll find key manipulations for AnnData, such as:
+
+            - `Concatenate along the observations axis` for combining AnnData objects together
+            - `Transpose the data matrix` for help with converting formats
+            - `Filter observations or variables` for refining or subsetting your dataset
+            - `Adding annotations` and `Rename categories` for manipulating metadata
+        button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc/anndata_manipulate%2fanndata_manipulate"
         button_icon: run
         button_tip: Run tool
-      - title: <code>AnnData Operations</code>
+      - title_md: <code>AnnData Operations</code>
         description_md: >
           This tool allows you to flag genes (such as mitochondrial genes) as well as change names in the metadata.
-        button_link: "toolshed.g2.bx.psu.edu/repos/ebi-gxa/anndata_ops/anndata_ops"
+        button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Febi-gxa%2fanndata_ops%2fanndata_ops"
         button_icon: run
         button_tip: Run tool
       - title_md: Data conversion training
@@ -119,9 +132,8 @@ tabs:
         inputs:
           - label: Single cell data
             datatypes:
-            - anndata
-            - hdf5
-        button_link: "toolshed.g2.bx.psu.edu/repos/iuc/scanpy_plot/scanpy_plot"
+              - hdf5 (AnnData)
+        button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc/scanpy_plot%2fscanpy_plot"
         button_icon: run
         button_tip: Run tool
       - title_md: <code>Scanpy PlotEmbed</code>
@@ -130,9 +142,8 @@ tabs:
         inputs:
           - label: Single cell data
             datatypes:
-            - anndata
-            - hdf5
-        button_link: "toolshed.g2.bx.psu.edu/repos/ebi-gxa/scanpy_plot_embed/scanpy_plot_embed"
+              - hdf5 (AnnData)
+        button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Febi-gxa%2fscanpy_plot_embed%2fscanpy_plot_embed"
         button_icon: run
         button_tip: Run tool
       - title_md: <code>Scanpy PlotTrajectory</code>
@@ -141,9 +152,8 @@ tabs:
         inputs:
           - label: Single cell data
             datatypes:
-            - anndata
-            - hdf5
-        button_link: "toolshed.g2.bx.psu.edu/repos/ebi-gxa/scanpy_plot_trajectory/scanpy_plot_trajectory"
+              - hdf5 (AnnData)
+        button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Febi-gxi%2fscanpy_plot_trajectory/scanpy_plot_trajectory"
         button_icon: run
         button_tip: Run tool
       - title_md: <code>Scanpy Plot dimension reduction</code>
@@ -152,29 +162,24 @@ tabs:
         inputs:
           - label: Single cell data
             datatypes:
-              - RDS (with Seurat object)
-              - Single Cell Experiment
-              - Seurat H5
-              - Loom
-              - AnnData
-        button_link: "toolshed.g2.bx.psu.edu/repos/ebi-gxa/seurat_dim_plot/seurat_dim_plot"
+              - rds (Seurat object)
+              - rdata.sce (Single Cell Experiment)
+              - h5 (Seurat)
+              - hdf5 (Loom/AnnData)
+        button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Febi-gxa%2fseurat_dim_plot%2fseurat_dim_plot"
         button_icon: run
         button_tip: Run tool
       - title_md: <code>Plot with Seurat</code>
         description_md: >
           This tool allows you to plot gene expressions, such as with Violin Plots.
         inputs:
-          - datatypes:
-            - RDS with a Seurat Object
-          - datatypes:
-            - Single Cell Experiment
-          - datatypes:
-            - Seurat H5
-          - datatypes:
-            - Loom
-          - datatypes:
-            - AnnData
-        button_link: "toolshed.g2.bx.psu.edu/repos/ebi-gxa/seurat_plot/seurat_plot"
+          - label: Single cell data
+            datatypes:
+              - rds (Seurat object)
+              - rdata.sce (Single Cell Experiment)
+              - h5 (Seurat)
+              - hdf5 (Loom/AnnData)
+        button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Febi-gxa%2fseurat_plot%2fseurat_plot"
         button_icon: run
         button_tip: Run tool
 
