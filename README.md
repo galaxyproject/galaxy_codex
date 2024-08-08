@@ -5,6 +5,8 @@ Galaxy Communities Dock aka Galaxy Codex is a catalog of Galaxy resources (tools
 
 This repository stores the sources to build this catalog. The catalog is automatically updated every week.
 
+**The generated data of the catalog can be found in the dedicated [results branch](https://github.com/galaxyproject/galaxy_codex/tree/results)**
+
 Any Galaxy community can be added to this project and benefit from the dedicated resources, including interactive tables that can be embedded into subdomains and website via an iframe. **Learn [how to add your community](https://training.galaxyproject.org/training-material//topics/dev/tutorials/community-tool-table/tutorial.html) in the dedicated GTN toturial**. 
 
 # Prepare environment
@@ -77,7 +79,7 @@ A GitHub action performs every week the following steps:
 3. Run the script to extract all tools
 
     ```
-    $ python bin/extract_all_tools.sh
+    $ bash bin/extract_all_tools.sh
     ```
 
 The script will generate a TSV file with each tool found in the list of GitHub repositories and metadata for these tools:
@@ -152,7 +154,7 @@ A GitHub action performs every week the following steps:
 3. Run the script
 
     ```
-    $ python bin/extract_all_tutorials.sh
+    $ bash bin/extract_all_tutorials.sh
     ```
 
 ## Filter tutorials based on tags outside a GitHub Action

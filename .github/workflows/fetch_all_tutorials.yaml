@@ -21,7 +21,15 @@ jobs:
     environment: fetch-tutorials
     name: Fetch all tutorials
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main #pull latest code produced by job 1, not the revision that started the workflow (https://github.com/actions/checkout/issues/439)
+      - name: Checkout results
+        uses: actions/checkout@v4
+        with:
+          ref: results
+          path: results
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
@@ -33,12 +41,11 @@ jobs:
         env: 
           PLAUSIBLE_API_KEY: ${{ secrets.PLAUSIBLE_API_TOKEN }}
       - name: Commit all tools 
-        # add or commit any changes in results if there was a change, merge with main and push as bot
-        run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git pull --no-rebase -s recursive -X ours
-          git add results
-          git status
-          git diff --quiet && git diff --staged --quiet || (git commit -m "fetch all tutorials bot  - step fetch") 
-          git push
+        uses: s0/git-publish-subdir-action@develop
+        env:
+          BRANCH: results
+          FOLDER: results
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: self
+          SKIP_EMPTY_COMMITS: true
+          MESSAGE: "Update results step: fetch all tutorials - commmit {sha}"

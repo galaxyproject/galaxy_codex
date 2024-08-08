@@ -4,7 +4,7 @@ mkdir -p 'results/'
 
 if [ ! -z $1 ] 
 then 
-        if [ $1=="test" ]
+        if [ $1 == "test" ]
         then 
                 echo "Test tool extraction"
                 python bin/extract_galaxy_tools.py \
