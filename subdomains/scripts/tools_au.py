@@ -25,7 +25,7 @@ OUTPUT_FILE = WDIR / "usegalaxy.org.au.yml"
 
 def parse() -> None:
     """Parse tools list from YAML files."""
-    data = {"tools": []}
+    data: dict = {"tools": []}
     for f in WDIR.glob("*.yml.lock"):
         if not f.name.endswith(".yml.lock"):
             continue
