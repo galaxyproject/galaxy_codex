@@ -23,7 +23,7 @@ EXCLUDE_KEYS = [
 OUTPUT_FILE = WDIR / "usegalaxy.org.au.yml"
 
 
-def parse():
+def parse() -> None:
     """Parse tools list from YAML files."""
     data = {"tools": []}
     for f in WDIR.glob("*.yml.lock"):
@@ -42,14 +42,14 @@ def parse():
     print(f"Data transcribed and written to {OUTPUT_FILE}")
 
 
-def _transcribe_to_au(tool):
+def _transcribe_to_au(tool: dict) -> dict:
     """Convert keys to AU installation format."""
     tool["tool_panel_section_label"] = "Single-Cell"
     tool.pop("tool_panel_section_id")
     return tool
 
 
-def write_data(data):
+def write_data(data: dict) -> None:
     """Write data to YAML output file."""
     with open(OUTPUT_FILE, "w") as handle:
         yaml.dump(data, handle, default_flow_style=False)
