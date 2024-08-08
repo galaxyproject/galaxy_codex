@@ -22,7 +22,7 @@ args = parser.parse_args()
 print(args.toolkit)
 print(args.dest)
 
-with open(args.toolkit, 'r') as stream:
+with open(args.toolkit) as stream:
     data_loaded = yaml.safe_load(stream)
 
 for i in range(3, len(data_loaded['items']) - 2):

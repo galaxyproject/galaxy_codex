@@ -29,7 +29,7 @@ def parse():
         if not f.name.endswith('.yml.lock'):
             continue
         print(f"Extracting data from {f}...")
-        with open(f, 'r') as handle:
+        with open(f) as handle:
             section_data = yaml.safe_load(handle)
         section_data['tools'] = [
             _transcribe_to_au(x) for x in section_data['tools']
