@@ -10,7 +10,7 @@ import tools_au
 import yaml
 
 parser = argparse.ArgumentParser(
-    description="Create installation yaml files from a Yaml file containing" " the panel_view/Toolkit data"
+    description="Create installation yaml files from a Yaml file containing the panel_view/Toolkit data"
 )
 parser.add_argument("--tk", action="store", dest="toolkit", help="Path of the toolkit.yaml file")
 parser.add_argument(
