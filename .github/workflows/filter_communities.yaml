@@ -46,6 +46,10 @@ jobs:
     - name: Run script
       run: | 
         bash bin/get_community_tutorials.sh
+    - name: Merge updates into results #s0/git-publish-subdir-action fails if there is a change on results while this job runs
+        run: |
+          cd results &&
+          git pull --no-rebase -s recursive -X ours
     - name: Commit results
       # commit the new filtered data, only if stuff was changed
       uses: s0/git-publish-subdir-action@develop
@@ -78,6 +82,10 @@ jobs:
     - name: Run script
       run: | 
         bash bin/update_tools_to_keep_exclude.sh
+    - name: Merge updates into results #s0/git-publish-subdir-action fails if there is a change on results while this job runs
+        run: |
+          cd results &&
+          git pull --no-rebase -s recursive -X ours
     - name: Commit results
       # commit the new filtered data, only if stuff was changed
       uses: s0/git-publish-subdir-action@develop
@@ -110,6 +118,10 @@ jobs:
     - name: Run script
       run: | 
         bash bin/get_community_tools.sh
+    - name: Merge updates into results #s0/git-publish-subdir-action fails if there is a change on results while this job runs
+        run: |
+          cd results &&
+          git pull --no-rebase -s recursive -X ours
     - name: Commit results
       # commit the new filtered data, only if stuff was changed
       uses: s0/git-publish-subdir-action@develop

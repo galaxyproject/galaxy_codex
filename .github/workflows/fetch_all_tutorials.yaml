@@ -40,6 +40,10 @@ jobs:
           bash bin/extract_all_tutorials.sh
         env: 
           PLAUSIBLE_API_KEY: ${{ secrets.PLAUSIBLE_API_TOKEN }}
+      - name: Merge updates into results #s0/git-publish-subdir-action fails if there is a change on results while this job runs
+        run: |
+          cd results &&
+          git pull --no-rebase -s recursive -X ours
       - name: Commit all tools 
         uses: s0/git-publish-subdir-action@develop
         env:

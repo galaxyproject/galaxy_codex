@@ -50,6 +50,10 @@ jobs:
           bash bin/extract_all_tools.sh "${{ matrix.subset }}"
         env: 
           GITHUB_API_KEY: ${{ secrets.GH_API_TOKEN }}
+      - name: Merge updates into results #s0/git-publish-subdir-action fails if there is a change on results while this job runs
+          run: |
+            cd results &&
+            git pull --no-rebase -s recursive -X ours
       - name: Commit all tools 
         uses: s0/git-publish-subdir-action@develop
         env:
@@ -88,6 +92,10 @@ jobs:
     - name: Wordcloud and interactive table
       run: |
         bash bin/format_tools.sh
+    - name: Merge updates into results #s0/git-publish-subdir-action fails if there is a change on results while this job runs
+        run: |
+          cd results &&
+          git pull --no-rebase -s recursive -X ours
     - name: Commit all tools
       # add or commit any changes in results if there was a change, merge with main and push as bot
       uses: s0/git-publish-subdir-action@develop
