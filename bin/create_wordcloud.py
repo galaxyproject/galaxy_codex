@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import argparse
+from typing import Dict
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -9,7 +10,7 @@ from PIL import Image
 from wordcloud import WordCloud
 
 
-def prepare_data(table_path: str, name_col: str, stat_col: str) -> pd.Series:
+def prepare_data(table_path: str, name_col: str, stat_col: str) -> Dict:
     """
     Prepare data to create dictionary with key being the name and
     value the stat/counts
@@ -28,7 +29,7 @@ def prepare_data(table_path: str, name_col: str, stat_col: str) -> pd.Series:
     table[stat_col] = table[stat_col].fillna(value=0)
 
     # create dictionary with key being the name and value the stat/counts
-    freq = pd.Series(table[stat_col].values, index=table[name_col]).to_dict()
+    freq = pd.Series(table[stat_col].values, index=table[name_col]).to_dict()  # type: Dict
 
     return freq
 
