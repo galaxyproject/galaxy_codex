@@ -10,7 +10,7 @@ from PIL import Image
 from wordcloud import WordCloud
 
 
-def prepare_data(table_path: str, name_col: str, stat_col: str) -> Dict:
+def prepare_data(table_path: str, name_col: str, stat_col: str) -> pd.Series:
     """
     Prepare data to create dictionary with key being the name and
     value the stat/counts
