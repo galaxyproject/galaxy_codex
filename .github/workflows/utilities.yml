@@ -36,6 +36,10 @@ jobs:
         - name: Run script 
           run: | 
             python bin/get_public_galaxy_servers.py -o results/available_public_servers.csv
+        - name: Merge updates into results #s0/git-publish-subdir-action fails if there is a change on results while this job runs
+          run: |
+            cd results &&
+            git pull --no-rebase -s recursive -X ours
         - name: Commit servers 
           uses: s0/git-publish-subdir-action@develop
           env:
