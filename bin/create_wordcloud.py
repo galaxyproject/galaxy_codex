@@ -29,7 +29,7 @@ def prepare_data(table_path: str, name_col: str, stat_col: str) -> Dict:
     table[stat_col] = table[stat_col].fillna(value=0)
 
     # create dictionary with key being the name and value the stat/counts
-    freq = pd.Series(table[stat_col].values, index=table[name_col]).to_dict()
+    freq: Dict = pd.Series(table[stat_col].values, index=table[name_col]).to_dict()
 
     return freq
 
