@@ -1,8 +1,5 @@
-# Test this locally with:
-# http://127.0.0.1:8000/lab/export?content_root=http://localhost:8000/static/home/labs/genome/base.yml
-
 # Request this on site.usegalaxy.org.au with:
-# https://site.usegalaxy.org.au/lab/export?content_root=https://site.usegalaxy.org.au/static/home/labs/genome/base.yml
+# https://site.usegalaxy.org.au/lab/export?content_root=https://github.com/galaxyproject/galaxy_codex/blob/main/subdomains/genome/base.yml
 
 # Check out the documentation for building exported labs:
 # https://site.usegalaxy.org.au/lab/export
@@ -10,13 +7,13 @@
 # Use these variables in HTML templates like:
 # "Welcome to the Galaxy {{ site_name }} {{ lab_name }}"
 # To make the content more generic and reusable across sites
-site_name: Australia
+site_name: ""
 lab_name: Genome Lab
-nationality: Australian
-galaxy_base_url: https://genome.usegalaxy.org.au  # Use for rendering tool/workflow URLs. Trailing '/' will be removed.
+nationality: ""
+galaxy_base_url: https://genome.usegalaxy.org  # Use for rendering tool/workflow URLs. Trailing '/' will be removed.
 subdomain: genome
-root_domain: usegalaxy.org.au
-feedback_email: help@genome.edu.au
+root_domain: usegalaxy.org
+# feedback_email: help@mygalaxy.org  # set to enable feedback form
 
 # Custom content relative to this file URL
 header_logo: static/logo.png
@@ -29,7 +26,7 @@ footer_md: templates/footer.html
 # Data (Tools, Workflows etc.) to be rendered into sections/tabs/accordion elements.
 # Either:
 #   1. Relative to this file URL
-#   2. Full URL to fetch globally centralized content
+#   2. Full URL to fetch content from a different remote location
 sections:
   - data.yml
   - assembly.yml
