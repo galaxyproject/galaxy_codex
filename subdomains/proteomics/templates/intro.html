@@ -8,7 +8,7 @@
     What is this page?
   </a>
   <p>
-    Welcome to the Galaxy Australia Proteomics Lab. Get quick access to the
+    Welcome to the {{ site_name }} {{ lab_name }}. Get quick access to the
     tools, workflows and tutorials you need to get started with proteomics on
     Galaxy.
   </p>
@@ -39,6 +39,7 @@
       </a>
     </div>
 
+    {% if shared_histories %}
     <div class="col">
       <a
         href="#"
@@ -57,6 +58,7 @@
         </table>
       </a>
     </div>
+    {% endif %}
   </div>
 </section>
 
@@ -91,12 +93,14 @@
           and {{ lab_name }}
           (<a href="galaxy_base_url">{{ subdomain }}.{{ root_domain }}</a>)
           is easy - look for the icon in the top navigation bar to switch between sites:
-          <img class="w-100 my-3 mx-auto" src="https://github.com/usegalaxy-au/galaxy-media-site/blob/dev/webapp/home/static/home/img/subdomains/site-switcher.png?raw=true" alt="Switch site button">
+          <img class="w-100 my-3 mx-auto" src="https://github.com/galaxyproject/galaxy-codex/blob/main/subdomains/assets/site-switcher.png?raw=true" alt="Switch site button">
         </p>
 
+        {% if site_name == 'Australia' %}
         <p>
           <b>Please note:</b> unfortunately, AAF login is not configured for Galaxy Labs, but we are working on fixing this.
         </p>
+        {% endif %}
 
         <p><a class="ga-btn" href="https://{{ root_domain }}" target="_blank">Take me back to the Base site</a></p>
       </div>
@@ -117,34 +121,22 @@
       </div>
       <div class="modal-body">
         <p>
-          This set of proteomics-specific shared histories contain test or demo data for software available on Proteomics Lab. You can copy these histories directly to your account on Galaxy, making it faster to get started!
+          This set of proteomics-specific shared histories contain test or demo data for software available on {{ lab_name }}. You can copy these histories directly to your account on Galaxy, making it faster to get started!
         </p>
 
         <table class="table table-striped">
+          {% for history in shared_histories %}
           <tr>
             <td>
-              Demo data for LFQanalyst and TMTanalyst.
+              {{ history.label_html|safe }}
             </td>
             <td>
-              <a class="btn btn-primary text-nowrap" href="https://usegalaxy.org.au/u/mike/h/lfq-and-tmt">
+              <a class="btn btn-primary text-nowrap" href="{{ history.url }}">
                 View history
               </a>
             </td>
           </tr>
-          <tr>
-            <td>
-              Example data provided for the "MaxQuant and MSstats for the analysis of label-free data" Galaxy Training Network (GTN) tutorial, which is available
-              <a href="https://gxy.io/GTN:T00219">here</a>.
-            </td>
-            <td>
-              <a
-                class="btn btn-primary text-nowrap"
-                href="https://usegalaxy.org.au/u/johan/h/maxquant-and-msstats-for-the-analysis-of-label-free-data-1"
-              >
-                View history
-              </a>
-            </td>
-          </tr>
+          {% endif %}
         </table>
       </div>
       <div class="modal-footer">
