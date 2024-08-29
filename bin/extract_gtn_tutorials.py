@@ -31,10 +31,7 @@ def get_short_tool_ids(tuto: dict) -> None:
     tuto["short_tools"] = set()
     if "tools" in tuto:
         for tool in tuto["tools"]:
-            if "toolshed" in tool:
-                tuto["short_tools"].add(tool.split("/")[-2])
-            else:
-                tuto["short_tools"].add(tool)
+            tuto["short_tools"].add(shared.shorten_tool_id(tool))
     tuto["short_tools"] = list(tuto["short_tools"])
 
 
@@ -55,13 +52,7 @@ def get_edam_operations(tuto: dict, tools: dict) -> None:
     """
     tuto["edam_operation"] = []
     if "short_tools" in tuto:
-        edam_operation = set()
-        for t in tuto["short_tools"]:
-            if t in tools:
-                edam_operation.update(set(tools[t]["EDAM operation"]))
-            else:
-                print(f"{t} not found in all tools")
-        tuto["edam_operation"] = list(edam_operation)
+        tuto["edam_operation"] = shared.get_edam_operation_from_tools(tuto["short_tools"], tools)
 
 
 def get_feedback(tuto: dict, feedback: dict) -> None:

@@ -171,9 +171,9 @@ A GitHub action performs every week the following steps:
         --tags "data/communities/<your community>/tutorial_tags"
     ```
 
-## Export
+# Export
 
-### Generate wordcloud
+## Generate wordcloud
 
 Example to generate a wordcloud for the Galaxy tool suites with size of names of tool suites depends on the number of tool users in 2022-2023 on usegalaxy.eu:
 
@@ -188,7 +188,7 @@ $ python bin/create_wordcloud.py \
     --output "results/all_tools_wordcloud.png" \
 ```
 
-### Create interactive table in HTML
+## Create interactive table in HTML
 
 Example to generate an HTML file with an interactive table with microGalaxy tools that should be kept (`True` in `To keep` column)
 
@@ -202,9 +202,15 @@ $ python bin/create_interactive_table.py \
     --output "results/microgalaxy/index.html"
 ```
 
-## Development
+# Development
 
-### Tools
+Before we need to get some data from the `results` branch:
+
+```
+$ bash bin/get_files_from_results_branch.sh test
+```
+
+## Tools
 
 To make a test run of the tool to check its functionalities follow [Usage](#Usage) to set-up the environnement and the API key, then run
 
@@ -228,7 +234,7 @@ To make a test run of the tool to check its functionalities follow [Usage](#Usag
     $ bash bin/format_tools.sh
     ```
 
-### Tutorials
+## Tutorials
 
 1. Tutorial extraction
 
@@ -242,3 +248,16 @@ To make a test run of the tool to check its functionalities follow [Usage](#Usag
     $ bash bin/get_community_tutorials.sh test
     ```
 
+## Workflows
+
+1. Workflow extraction
+
+    ```bash
+    $ bash bin/extract_all_workflows.sh test 
+    ```
+
+2. Workflow filtering
+
+    ```bash
+    $ bash bin/get_community_workflowss.sh test
+    ```
