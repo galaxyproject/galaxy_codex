@@ -16,7 +16,7 @@
 <section>
   <h4 class="mb-3">News and Events</h4>
 
-  <div class="row justify-content-center">
+  <div class="row justify-content-center" id="newsAndEvents">
     <div class="col">
       <iframe width="400px" height="600px" src="https://training.galaxyproject.org/training-material/topics/single-cell/feed.w.xml"></iframe>
     </div>
@@ -24,6 +24,27 @@
       <iframe width="400px" height="600px" src="https://training.galaxyproject.org/training-material/feeds/single-cell-month.w.xml"></iframe>
     </div>
   </div>
+
+  <script>
+    // Function to detect Safari on Mac
+    function isSafari() {
+        return /^((?!chrome|android).)*safari/i.test(navigator.userAgent) && /Mac/i.test(navigator.platform);
+    }
+
+    // Replace iframe with error text if on Safari
+    if (isSafari()) {
+        const newsDiv = $('#newsAndEvents');
+        if (newsDiv.length) {
+            const errorText = $(`<p class="alert alert-danger">
+              Sorry, this content cannot be displayed in Safari. Please use a different browser to see news and events feed, or add the
+              <a href="https://training.galaxyproject.org/training-material/topics/single-cell/feed.xml">RSS feed</a>
+              to your RSS reader.
+            </p>`);
+            newsDiv.children().remove();
+            newsDiv.append(errorText);
+        }
+    }
+  </script>
 </section>
 
 {% if feedback_email %}
