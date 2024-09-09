@@ -8,14 +8,14 @@ tabs:
     content:
       - title_md: <code>Hifiasm</code> - assembly with PacBio HiFi data
         description_md: >
-            A haplotype-resolved assembler for PacBio HiFi reads.
+          A haplotype-resolved assembler for PacBio HiFi reads.
         inputs:
           - datatypes:
               - fasta
         button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fbgruening%2Fhifiasm%2Fhifiasm"
       - title_md: <code>Flye</code> - assembly with PacBio or Nanopore data
         description_md: >
-            <em>de novo</em> assembly of single-molecule sequencing reads, designed for a wide range of datasets, from small bacterial projects to large mammalian-scale assemblies.
+          <em>de novo</em> assembly of single-molecule sequencing reads, designed for a wide range of datasets, from small bacterial projects to large mammalian-scale assemblies.
         inputs:
           - datatypes:
               - fasta
@@ -23,14 +23,14 @@ tabs:
         button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fbgruening%2Fflye%2Fflye"
       - title_md: <code>Unicycler</code> - assembly with Illumina, PacBio or Nanopore data - bacteria only
         description_md: >
-            Hybrid assembly pipeline for bacterial genomes, uses both Illumina reads and long reads (PacBio or Nanopore).
+          Hybrid assembly pipeline for bacterial genomes, uses both Illumina reads and long reads (PacBio or Nanopore).
         inputs:
           - datatypes:
               - fastq
         button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Funicycler%2Funicycler"
       - title_md: <code>YAHS</code> - scaffold assembly with HiC data
         description_md: >
-            YAHS is a scaffolding tool based on a computational method that exploits the genomic proximity information in Hi-C data sets for long-range scaffolding of <em>de novo</em> genome assemblies. Inputs are the primary assembly (or haplotype 1), and HiC reads mapped to the assembly. See <a href="https://training.galaxyproject.org/training-material/topics/assembly/tutorials/vgp_genome_assembly/tutorial.html#hi-c-scaffolding">this tutorial</a> to learn how to create a suitable BAM file.
+          YAHS is a scaffolding tool based on a computational method that exploits the genomic proximity information in Hi-C data sets for long-range scaffolding of <em>de novo</em> genome assemblies. Inputs are the primary assembly (or haplotype 1), and HiC reads mapped to the assembly. See <a href="https://training.galaxyproject.org/training-material/topics/assembly/tutorials/vgp_genome_assembly/tutorial.html#hi-c-scaffolding">this tutorial</a> to learn how to create a suitable BAM file.
         inputs:
           - label: Primary assembly or Haplotype 1 <code>genome.fasta</code>
             datatypes:
@@ -41,26 +41,26 @@ tabs:
         button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2yahs"
       - title_md: <code>Quast</code> - assess genome assembly quality
         description_md: >
-            QUAST = QUality ASsessment Tool. The tool evaluates genome assemblies by computing various metrics. If you have one or multiple genome assemblies, you can assess their quality with Quast. It works with or without reference genome.
+          QUAST = QUality ASsessment Tool. The tool evaluates genome assemblies by computing various metrics. If you have one or multiple genome assemblies, you can assess their quality with Quast. It works with or without reference genome.
         inputs:
           - datatypes:
               - fasta
         button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fquast%2Fquast"
       - title_md: <code>Busco</code> - assess genome assembly quality
         description_md: >
-            BUSCO: assessing genome assembly and annotation completeness with Benchmarking Universal Single-Copy Orthologs. The tool attempts to provide a quantitative assessment of the completeness in terms of the expected gene content of a genome assembly, transcriptome, or annotated gene set.
+          BUSCO: assessing genome assembly and annotation completeness with Benchmarking Universal Single-Copy Orthologs. The tool attempts to provide a quantitative assessment of the completeness in terms of the expected gene content of a genome assembly, transcriptome, or annotated gene set.
         inputs:
           - datatypes:
               - fasta
         button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fbusco%2Fbusco"
       - title_md: <code>MitoHiFi</code> - assemble mitochondrial genomes
         description_md: >
-            Assemble mitochondrial genomes from PacBio HiFi reads. Run first to find a related mitogenome, then run to assemble the genome. Inputs are PacBio HiFi reads in fasta or fastq format, and a related mitogenome in both fasta and genbank formats.
+          Assemble mitochondrial genomes from PacBio HiFi reads. Run first to find a related mitogenome, then run to assemble the genome. Inputs are PacBio HiFi reads in fasta or fastq format, and a related mitogenome in both fasta and genbank formats.
         inputs:
           - datatypes:
-            - fasta
-            - fastq
-            - genbank
+              - fasta
+              - fastq
+              - genbank
         button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fbgruening%2Fmitohifi%2Fmitohfi"
 
   - id: workflows
@@ -75,10 +75,10 @@ tabs:
           content:
             - title_md: About these workflows
               description_md: >
-                  This <a href="https://australianbiocommons.github.io/how-to-guides/genome_assembly/hifi_assembly" target="_blank"> How-to-Guide </a> will describe the steps required to assemble your genome on the Galaxy Australia platform, using multiple workflows. There is also a guide about the Genome Assessment workflow, and the HiC Scaffolding workflow.
+                This <a href="https://australianbiocommons.github.io/how-to-guides/genome_assembly/hifi_assembly" target="_blank"> How-to-Guide </a> will describe the steps required to assemble your genome on the Galaxy Australia platform, using multiple workflows. There is also a guide about the Genome Assessment workflow, and the HiC Scaffolding workflow.
             - title_md: BAM to FASTQ + QC v1.0
               description_md: >
-                  Convert a BAM file to FASTQ format to perform QC analysis (required if your data is in BAM format).
+                Convert a BAM file to FASTQ format to perform QC analysis (required if your data is in BAM format).
               inputs:
                 - datatypes:
                     - bam
@@ -89,7 +89,7 @@ tabs:
               button_tip: Import to Galaxy Australia
             - title_md: PacBio HiFi genome assembly using hifiasm v2.1
               description_md: >
-                  Assemble a genome using PacBio HiFi reads.
+                Assemble a genome using PacBio HiFi reads.
               inputs:
                 - datatypes:
                     - fastqsanger
@@ -100,7 +100,7 @@ tabs:
               button_tip: Import to Galaxy Australia
             - title_md: Purge duplicates from hifiasm assembly v1.0
               description_md: >
-                  Optional workflow to purge duplicates from the contig assembly.
+                Optional workflow to purge duplicates from the contig assembly.
               inputs:
                 - datatypes:
                     - fastqsanger
@@ -114,7 +114,7 @@ tabs:
               button_tip: Import to Galaxy Australia
             - title_md: Nanopore genome assembly using Flye
               description_md: >
-                  Assemble a genome using Nanopore reads.
+                Assemble a genome using Nanopore reads.
               inputs:
                 - datatypes:
                     - fastqsanger
@@ -126,7 +126,7 @@ tabs:
               button_tip: Import to Galaxy Australia
             - title_md: Genome assessment post-assembly
               description_md: >
-                  Evaluate the quality of your genome assembly with a comprehensive report including <code>FASTA stats</code>, <code>BUSCO</code>, <code>QUAST</code>, <code>Meryl</code> and <code>Merqury</code>.
+                Evaluate the quality of your genome assembly with a comprehensive report including <code>FASTA stats</code>, <code>BUSCO</code>, <code>QUAST</code>, <code>Meryl</code> and <code>Merqury</code>.
               inputs:
                 - datatypes:
                     - fasta
@@ -137,7 +137,7 @@ tabs:
               button_tip: Import to Galaxy Australia
             - title_md: Optional HiC scaffolding workflow
               description_md: >
-                  If you have HiC data, scaffold your assembly using <code>YAHS</code>.
+                If you have HiC data, scaffold your assembly using <code>YAHS</code>.
               inputs:
                 - datatypes:
                     - fasta
@@ -155,10 +155,10 @@ tabs:
           content:
             - title_md: About these workflows
               description_md: >
-                  This <a href="https://training.galaxyproject.org/training-material/topics/assembly/tutorials/largegenome/tutorial.html" target="_blank"> tutorial </a> describes the steps required to assemble a genome on Galaxy with Nanopore and Illumina data.
+                This <a href="https://training.galaxyproject.org/training-material/topics/assembly/tutorials/largegenome/tutorial.html" target="_blank"> tutorial </a> describes the steps required to assemble a genome on Galaxy with Nanopore and Illumina data.
             - title_md: Flye assembly with Nanopore data
               description_md: >
-                  Assemble Nanopore long reads. This workflow can be run alone or as part of a combined workflow for large genome assembly.
+                Assemble Nanopore long reads. This workflow can be run alone or as part of a combined workflow for large genome assembly.
               inputs:
                 - datatypes:
                     - fastqsanger
@@ -169,7 +169,7 @@ tabs:
               button_tip: Import to Galaxy Australia
             - title_md: Assembly polishing
               description_md: >
-                  Polishes (corrects) an assembly, using long reads (<code>Racon</code> and <code>Medaka</code>) and short reads (<code>Racon</code>).
+                Polishes (corrects) an assembly, using long reads (<code>Racon</code> and <code>Medaka</code>) and short reads (<code>Racon</code>).
               inputs:
                 - datatypes:
                     - fasta
@@ -186,7 +186,7 @@ tabs:
               button_tip: Import to Galaxy Australia
             - title_md: Assess genome quality
               description_md: >
-                  Assesses the quality of the genome assembly. Generates statistics, determines if expected genes are present and align contigs to a reference genome.
+                Assesses the quality of the genome assembly. Generates statistics, determines if expected genes are present and align contigs to a reference genome.
               inputs:
                 - datatypes:
                     - fasta
@@ -203,10 +203,10 @@ tabs:
           content:
             - title_md: About these workflows
               description_md: >
-                  These workflows have been developed as part of the global Vertebrate Genome Project (VGP). A guide to using these in Galaxy Australia can be found <a href="/vgp-workflows.md" target="_blank">here</a>. A complete guide to the individual workflows and sample results can be found <a href="https://galaxyproject.org/projects/vgp/workflows/" target="_blank">here</a>. There are many different ways that these workflows can be used in practice - for a comprehensive example, check out this <a href="https://training.galaxyproject.org/training-material/topics/assembly/tutorials/vgp_genome_assembly/tutorial.html" target="_blank">Galaxy tutorial</a>.
+                These workflows have been developed as part of the global Vertebrate Genome Project (VGP). A guide to using these in Galaxy Australia can be found <a href="/vgp-workflows.md" target="_blank">here</a>. A complete guide to the individual workflows and sample results can be found <a href="https://galaxyproject.org/projects/vgp/workflows/" target="_blank">here</a>. There are many different ways that these workflows can be used in practice - for a comprehensive example, check out this <a href="https://training.galaxyproject.org/training-material/topics/assembly/tutorials/vgp_genome_assembly/tutorial.html" target="_blank">Galaxy tutorial</a>.
             - title_md: Kmer profiling
               description_md: >
-                  This workflow produces a Meryl database and Genomescope outputs that will be used to determine parameters for following workflows, and assess the quality of genome assemblies. Specifically, it provides information about the genomic complexity, such as the genome size and levels of heterozygosity and repeat content, as well about the data quality.
+                This workflow produces a Meryl database and Genomescope outputs that will be used to determine parameters for following workflows, and assess the quality of genome assemblies. Specifically, it provides information about the genomic complexity, such as the genome size and levels of heterozygosity and repeat content, as well about the data quality.
               inputs:
                 - datatypes:
                     - fastq
@@ -246,7 +246,7 @@ tabs:
 
             - title_md: Hifi assembly without HiC data
               description_md: >
-                  This workflow uses <code>hifiasm</code> to generate primary and alternate pseudohaplotype assemblies. This workflow includes three tools for evaluating assembly quality: <code>gfastats</code>, <code>BUSCO</code> and <code>Merqury</code>.
+                This workflow uses <code>hifiasm</code> to generate primary and alternate pseudohaplotype assemblies. This workflow includes three tools for evaluating assembly quality: <code>gfastats</code>, <code>BUSCO</code> and <code>Merqury</code>.
               inputs:
                 - datatypes:
                     - fasta
@@ -264,7 +264,7 @@ tabs:
 
             - title_md: HiC scaffolding
               description_md: >
-                  This workflow scaffolds the assembly contigs using information from HiC data.
+                This workflow scaffolds the assembly contigs using information from HiC data.
               inputs:
                 - datatypes:
                     - gfa
@@ -281,7 +281,7 @@ tabs:
               button_tip: Import to Galaxy Australia
             - title_md: Decontamination
               description_md: >
-                  This workflow identifies and removes contaminants from the assembly.
+                This workflow identifies and removes contaminants from the assembly.
               inputs:
                 - datatypes:
                     - fasta
@@ -365,11 +365,11 @@ tabs:
           </p>
       - title_md: How can I assess the quality of my genome assembly?
         description_md: >
-            Once a genome has been assembled, it is important to assess the quality of the assembly, and in the first instance, this quality control (QC) can be achieved using the workflow described here.
+          Once a genome has been assembled, it is important to assess the quality of the assembly, and in the first instance, this quality control (QC) can be achieved using the workflow described here.
         button_md: Workflow tutorial
         button_link: https://australianbiocommons.github.io/how-to-guides/genome_assembly/assembly_qc
       - title_md: Galaxy Australia support
         description_md: >
-            Any user of Galaxy Australia can request support through an online form.
+          Any user of Galaxy Australia can request support through an online form.
         button_md: Request support
         button_link: /request/support
