@@ -38,7 +38,7 @@ jobs:
     runs-on: ubuntu-20.04
     name: Fetch tool stepwise
     strategy:
-      max-parallel: 1 #need to run one after another, since otherwise there is a chance, that mulitple jobs want to push to the results branch at the same time (which fails due to merge)
+      #max-parallel: 1 #need to run one after another, since otherwise there is a chance, that mulitple jobs want to push to the results branch at the same time (which fails due to merge)
       matrix:
         python-version: [3.11]
         subset:
