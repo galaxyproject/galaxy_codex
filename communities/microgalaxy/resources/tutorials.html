@@ -1,0 +1,1263 @@
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/searchbuilder/1.6.0/js/dataTables.searchBuilder.min.js"></script>
+<script src="https://cdn.datatables.net/datetime/1.5.1/js/dataTables.dateTime.min.js"></script>
+
+<script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/searchbuilder/1.6.0/css/searchBuilder.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/datetime/1.5.1/css/dataTables.dateTime.min.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+<style type="text/css">
+  .tooltip {
+    font-family: Georgia;
+    font-size: 18px;
+  }
+  .tooltip .tooltip-inner {
+    background-color: #00FFFF;
+    color: #000000;
+    min-width: 400px;
+  }
+  </style>
+
+<script>
+    $(document).ready(function() {
+    $('#dataframe').DataTable( {
+        "sScrollX": "100%",
+        "dom": "Qlfrtip",
+
+        responsive: {
+            details: {
+                type: 'column'
+            }
+        },
+        "bAutoWidth": false,
+        columnDefs: [ {
+            className: 'control',
+            orderable: false,
+            targets:   [ 0 ],
+            width: 100,
+        },
+        { type: 'natural', targets: 1 } // allow normal sorting
+        ],
+
+    });
+});
+</script>
+
+<div class="display nowrap" style="width:80%" width="100%">
+
+<table class="dataframe display nowrap" id="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Expand</th>
+      <th>Topic</th>
+      <th>Title</th>
+      <th>Link</th>
+      <th>EDAM topic</th>
+      <th>EDAM operation</th>
+      <th>Creation</th>
+      <th>Last modification</th>
+      <th>Version</th>
+      <th>Tutorial</th>
+      <th>Slides</th>
+      <th>Video</th>
+      <th>Workflows</th>
+      <th>Tools</th>
+      <th>Servers with precise tool versions</th>
+      <th>Servers with tool but different versions</th>
+      <th>Feedback number</th>
+      <th>Feedback mean note</th>
+      <th>Visitors</th>
+      <th>Page views</th>
+      <th>Visit duration</th>
+      <th>Video views</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td></td>
+      <td>Assembly</td>
+      <td>Assembly of metagenomic sequencing data</td>
+      <td>https://training.galaxyproject.org//topics/assembly/tutorials/metagenomics-assembly/tutorial.html</td>
+      <td>Metagenomics, Sequence assembly</td>
+      <td>Visualisation, Sequencing quality control, Primer removal, Sequence file editing, Formatting, Read mapping, Sequence assembly validation, Sequence composition calculation, Sequence assembly visualisation, Local alignment, Genome assembly, Sequence trimming, Statistical calculation, Sequence contamination filtering, Sequence alignment analysis, Read pre-processing, Data handling, Variant calling</td>
+      <td>2024-08-18</td>
+      <td>2024-08-18</td>
+      <td>0</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>bg_uniq, megahit_contig2fastg, ngsutils_bam_filter, megahit, bowtie2, tp_cat, quast, random_lines1, collection_column_join, filter_tabular, seqtk_subseq, fastqc, bandage_info, coverm_contig, bandage_image, bamtools, cutadapt, metaspades</td>
+      <td></td>
+      <td>UseGalaxy.cz, UseGalaxy.eu</td>
+      <td>0</td>
+      <td></td>
+      <td>2</td>
+      <td>2</td>
+      <td>0.100000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Assembly</td>
+      <td>Genome Assembly of MRSA from Oxford Nanopore MinION data (and optionally Illumina data)</td>
+      <td>https://training.galaxyproject.org//topics/assembly/tutorials/mrsa-nanopore/tutorial.html</td>
+      <td>Sequence assembly, Whole genome sequencing, Public health and epidemiology, Genomics, Microbiology, Antimicrobial Resistance</td>
+      <td>Visualisation, Sequencing quality control, Sequence contamination filtering, Genome assembly, De-novo assembly, Sequence alignment, Box-Whisker plot plotting, Sequence assembly validation, Sequence composition calculation, Read mapping, Scatter plot plotting, Mapping assembly, Sequencing error detection, Sequence assembly visualisation, Cross-assembly, Filtering, Statistical calculation</td>
+      <td>2021-03-24</td>
+      <td>2024-03-13</td>
+      <td>14</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>nanoplot, fastp, CONVERTER_bz2_to_uncompressed, filtlong, flye, bwa_mem2, quast, fastqc, polypolish, bandage_image, upload1, porechop</td>
+      <td>UseGalaxy.eu</td>
+      <td>UseGalaxy.cz</td>
+      <td>0</td>
+      <td></td>
+      <td>6851</td>
+      <td>10571</td>
+      <td>3.433333</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Assembly</td>
+      <td>Genome Assembly of a bacterial genome (MRSA) sequenced using Illumina MiSeq Data</td>
+      <td>https://training.galaxyproject.org//topics/assembly/tutorials/mrsa-illumina/tutorial.html</td>
+      <td>Sequence assembly, Whole genome sequencing, Public health and epidemiology, Genomics, Microbiology</td>
+      <td>Visualisation, Sequencing quality control, Sequence contamination filtering, Sequence assembly validation, Sequence composition calculation, Sequence assembly visualisation, Genome assembly, Statistical calculation</td>
+      <td>2021-03-24</td>
+      <td>2024-03-13</td>
+      <td>14</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>fastp, shovill, quast, fastqc, bandage_info, bandage_image, upload1</td>
+      <td>UseGalaxy.cz, UseGalaxy.eu, UseGalaxy.fr, UseGalaxy.org (Main)</td>
+      <td>Galaxy@AuBi, GalaxyTrakr, UseGalaxy.no</td>
+      <td>0</td>
+      <td></td>
+      <td>6432</td>
+      <td>10369</td>
+      <td>3.750000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Assembly</td>
+      <td>Making sense of a newly assembled genome</td>
+      <td>https://training.galaxyproject.org//topics/assembly/tutorials/ecoli_comparison/tutorial.html</td>
+      <td>Sequence assembly, Genomics, Microbiology</td>
+      <td>Genome visualisation, Sequence alignment, Mapping, Read mapping, Sequence visualisation</td>
+      <td>2018-06-14</td>
+      <td>2024-06-24</td>
+      <td>29</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>circos, lastz_wrapper_2, random_lines1, Cut1, circos_interval_to_tiles, addValue, collapse_dataset, Grep1, datamash_ops, bedtools_sortbed, tp_sort_header_tool, bedtools_complementbed, tp_replace_in_column, circos_aln_to_links, cat1, tp_cat, fasta_filter_by_length, Filter1, tp_sed_tool, fasta_compute_length, tp_replace_in_line, join1, upload1, jbrowse, bedtools_intersectbed, tp_grep_tool, mergeCols1</td>
+      <td></td>
+      <td></td>
+      <td>0</td>
+      <td></td>
+      <td>5938</td>
+      <td>12067</td>
+      <td>3.033333</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Assembly</td>
+      <td>Unicycler Assembly</td>
+      <td>https://training.galaxyproject.org//topics/assembly/tutorials/unicycler-assembly/tutorial.html</td>
+      <td>Sequence assembly, Genomics, Microbiology</td>
+      <td>Visualisation, Sequencing quality control, Genome annotation, Sequence assembly validation, Sequence composition calculation, Coding region prediction, Validation, Genome assembly, Gene prediction, Statistical calculation, Aggregation</td>
+      <td>2017-10-11</td>
+      <td>2024-03-13</td>
+      <td>23</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>True</td>
+      <td>multiqc, quast, prokka, fastqc, unicycler</td>
+      <td>UseGalaxy.eu, UseGalaxy.org (Main), UseGalaxy.org.au</td>
+      <td>GalaxyTrakr, HyPhy HIV NGS Tools, UseGalaxy.cz, UseGalaxy.fr, UseGalaxy.no</td>
+      <td>0</td>
+      <td></td>
+      <td>2074750</td>
+      <td>5746521</td>
+      <td>4.550000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Ecology</td>
+      <td>Checking expected species and contamination in bacterial isolate</td>
+      <td>https://training.galaxyproject.org//topics/ecology/tutorials/bacterial-isolate-species-contamination-checking/tutorial.html</td>
+      <td>Whole genome sequencing, Genomics, Microbiology, Microbial ecology</td>
+      <td>Cross-assembly, Taxonomic classification, Expression analysis, Statistical calculation</td>
+      <td>2024-03-04</td>
+      <td>2024-06-27</td>
+      <td>4</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>est_abundance, upload1, kraken2, recentrifuge</td>
+      <td>UseGalaxy.eu, UseGalaxy.fr</td>
+      <td>Galaxy@AuBi, GalaxyTrakr, UseGalaxy.cz, UseGalaxy.org (Main)</td>
+      <td>0</td>
+      <td></td>
+      <td>229</td>
+      <td>302</td>
+      <td>3.950000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Evolution</td>
+      <td>Identifying tuberculosis transmission links: from SNPs to transmission clusters</td>
+      <td>https://training.galaxyproject.org//topics/evolution/tutorials/mtb_transmission/tutorial.html</td>
+      <td>Genomics, Microbiology, Infectious disease, DNA polymorphism</td>
+      <td>Variant calling, Phylogenetic tree visualisation, Phylogenetic tree generation, Antimicrobial resistance prediction</td>
+      <td>2022-03-16</td>
+      <td>2024-07-12</td>
+      <td>12</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>Grep1, bcftools_consensus, tb_variant_filter, upload1, samtools_view, snp_sites, tb_profiler_profile, tp_grep_tool, tp_cat, snippy, tp_easyjoin_tool, addName, tp_sed_tool, tp_replace_in_line, snp_dists, collapse_dataset, __MERGE_COLLECTION__, trimmomatic</td>
+      <td>UseGalaxy.eu</td>
+      <td>UseGalaxy.cz, UseGalaxy.no, UseGalaxy.org (Main)</td>
+      <td>0</td>
+      <td></td>
+      <td>1533</td>
+      <td>2414</td>
+      <td>3.133333</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Evolution</td>
+      <td>Tree thinking for tuberculosis evolution and epidemiology</td>
+      <td>https://training.galaxyproject.org//topics/evolution/tutorials/mtb_phylogeny/tutorial.html</td>
+      <td>Genomics, Microbiology, Phylogeny, Infectious disease</td>
+      <td>Sequence analysis, Phylogenetic tree analysis</td>
+      <td>2022-03-16</td>
+      <td>2024-03-12</td>
+      <td>11</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>interactive_tool_rstudio, upload1, raxml</td>
+      <td>UseGalaxy.eu</td>
+      <td>UseGalaxy.fr, UseGalaxy.org (Main)</td>
+      <td>0</td>
+      <td></td>
+      <td>1308</td>
+      <td>1983</td>
+      <td>2.183333</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Genome Annotation</td>
+      <td>Genome annotation with Prokka</td>
+      <td>https://training.galaxyproject.org//topics/genome-annotation/tutorials/annotation-with-prokka/tutorial.html</td>
+      <td>Genomics, Microbiology, Gene and protein families, Sequence analysis</td>
+      <td>Genome visualisation, Genome annotation, Gene prediction, Coding region prediction</td>
+      <td>2018-03-06</td>
+      <td>2024-08-08</td>
+      <td>25</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>prokka, jbrowse</td>
+      <td>UseGalaxy.eu, UseGalaxy.org (Main)</td>
+      <td>Galaxy@AuBi, GalaxyTrakr, UseGalaxy.cz, UseGalaxy.fr, UseGalaxy.no, UseGalaxy.org.au</td>
+      <td>0</td>
+      <td></td>
+      <td>2079352</td>
+      <td>5754405</td>
+      <td>4.333333</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Genome Annotation</td>
+      <td>Refining Genome Annotations with Apollo (prokaryotes)</td>
+      <td>https://training.galaxyproject.org//topics/genome-annotation/tutorials/apollo/tutorial.html</td>
+      <td>Genomics, Microbiology, Gene and protein families, Sequence analysis</td>
+      <td>Genome visualisation</td>
+      <td>2021-06-04</td>
+      <td>2024-08-08</td>
+      <td>20</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>jbrowse, create_or_update, list_organism, iframe, create_account</td>
+      <td></td>
+      <td>UseGalaxy.cz, UseGalaxy.eu, UseGalaxy.no</td>
+      <td>0</td>
+      <td></td>
+      <td>1836817</td>
+      <td>4949160</td>
+      <td>4.950000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Genome Annotation</td>
+      <td>Identification of AMR genes in an assembled bacterial genome</td>
+      <td>https://training.galaxyproject.org//topics/genome-annotation/tutorials/amr-gene-detection/tutorial.html</td>
+      <td>Whole genome sequencing, Public health and epidemiology, Genomics, Microbiology, Sequence analysis, Infectious disease, Antimicrobial Resistance</td>
+      <td>Genome visualisation, Genome annotation, Read mapping</td>
+      <td>2024-01-23</td>
+      <td>2024-03-13</td>
+      <td>5</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>Grep1, jbrowse, bowtie2, tbl2gff3, bakta, staramr_search, upload1</td>
+      <td>UseGalaxy.cz, UseGalaxy.eu, UseGalaxy.fr</td>
+      <td>Galaxy@AuBi</td>
+      <td>0</td>
+      <td></td>
+      <td>967</td>
+      <td>1368</td>
+      <td>2.933333</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Genome Annotation</td>
+      <td>Bacterial Genome Annotation</td>
+      <td>https://training.galaxyproject.org//topics/genome-annotation/tutorials/bacterial-genome-annotation/tutorial.html</td>
+      <td>Genomics, Microbiology, Gene and protein families, Sequence analysis, Whole genome sequencing, Functional genomics, Mobile genetic elements</td>
+      <td>Genome assembly, Sequence motif recognition, Genome annotation, Nucleic acid feature detection, Structural variation detection, Multilocus sequence typing, Genome visualisation, Protein feature detection, Scaffolding</td>
+      <td>2024-02-01</td>
+      <td>2024-08-01</td>
+      <td>4</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>Grouping1, jbrowse, upload1, integron_finder, isescan, tp_tail_tool, plasmidfinder, tbl2gff3, bakta, tp_replace_in_column</td>
+      <td>UseGalaxy.eu, UseGalaxy.fr</td>
+      <td>Galaxy@AuBi, UseGalaxy.cz</td>
+      <td>0</td>
+      <td></td>
+      <td>1800</td>
+      <td>2378</td>
+      <td>2.333333</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Genome Annotation</td>
+      <td>Comparative gene analysis in unannotated genomes</td>
+      <td>https://training.galaxyproject.org//topics/genome-annotation/tutorials/gene-centric/tutorial.html</td>
+      <td>Genomics, Gene and protein families, Sequence analysis, Phylogeny</td>
+      <td>Multiple sequence alignment, Database search, Transcriptome assembly, Coding region prediction, De-novo assembly, Sequence alignment analysis, Phylogenetic tree generation</td>
+      <td>2022-09-08</td>
+      <td>2024-03-18</td>
+      <td>8</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>tab2fasta, cat1, orfipy, Add_a_column1, rbc_mafft, rapidnj, bg_diamond_view, regexColumn1, Cut1, bg_diamond_makedb, Filter1, bg_diamond, tp_split_on_column, join1, gops_intersect_1, collapse_dataset</td>
+      <td>UseGalaxy.eu, UseGalaxy.org (Main)</td>
+      <td>UseGalaxy.cz</td>
+      <td>0</td>
+      <td></td>
+      <td>974</td>
+      <td>1476</td>
+      <td>3.100000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Genome Annotation</td>
+      <td>Essential genes detection with Transposon insertion sequencing</td>
+      <td>https://training.galaxyproject.org//topics/genome-annotation/tutorials/tnseq/tutorial.html</td>
+      <td>Genomics, Microbiology, Sequence analysis, Mobile genetic elements</td>
+      <td>Transposon prediction, Primer removal, Sequence trimming, Read pre-processing</td>
+      <td>2019-07-02</td>
+      <td>2024-03-18</td>
+      <td>12</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>True</td>
+      <td>transit_gumbel, Add_a_column1, deeptools_bam_coverage, tp_easyjoin_tool, bg_find_subsequences, Cut1, Filter1, tp_sort_header_tool, bowtie_wrapper, gff_to_prot, cutadapt, __EXTRACT_DATASET__</td>
+      <td>UseGalaxy.no, UseGalaxy.org.au</td>
+      <td>UseGalaxy.cz, UseGalaxy.eu</td>
+      <td>0</td>
+      <td></td>
+      <td>2070408</td>
+      <td>5739476</td>
+      <td>4.250000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Genome Annotation</td>
+      <td>Genome annotation with Prokka</td>
+      <td>https://training.galaxyproject.org//topics/genome-annotation/tutorials/annotation-with-prokka/tutorial.html</td>
+      <td>Genomics, Microbiology, Gene and protein families, Sequence analysis</td>
+      <td>Genome visualisation, Genome annotation, Gene prediction, Coding region prediction</td>
+      <td>2018-03-06</td>
+      <td>2024-08-08</td>
+      <td>25</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>prokka, jbrowse</td>
+      <td>UseGalaxy.eu, UseGalaxy.org (Main)</td>
+      <td>Galaxy@AuBi, GalaxyTrakr, UseGalaxy.cz, UseGalaxy.fr, UseGalaxy.no, UseGalaxy.org.au</td>
+      <td>0</td>
+      <td></td>
+      <td>2079352</td>
+      <td>5754405</td>
+      <td>4.333333</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Assembly</td>
+      <td>Genome Assembly of MRSA from Oxford Nanopore MinION data (and optionally Illumina data)</td>
+      <td>https://training.galaxyproject.org//topics/assembly/tutorials/mrsa-nanopore/tutorial.html</td>
+      <td>Sequence assembly, Whole genome sequencing, Public health and epidemiology, Genomics, Microbiology, Antimicrobial Resistance</td>
+      <td>Visualisation, Sequencing quality control, Sequence contamination filtering, Genome assembly, De-novo assembly, Sequence alignment, Box-Whisker plot plotting, Sequence assembly validation, Sequence composition calculation, Read mapping, Scatter plot plotting, Mapping assembly, Sequencing error detection, Sequence assembly visualisation, Cross-assembly, Filtering, Statistical calculation</td>
+      <td>2021-03-24</td>
+      <td>2024-03-13</td>
+      <td>14</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>nanoplot, fastp, CONVERTER_bz2_to_uncompressed, filtlong, flye, bwa_mem2, quast, fastqc, polypolish, bandage_image, upload1, porechop</td>
+      <td>UseGalaxy.eu</td>
+      <td>UseGalaxy.cz</td>
+      <td>0</td>
+      <td></td>
+      <td>6851</td>
+      <td>10571</td>
+      <td>3.433333</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Assembly</td>
+      <td>Making sense of a newly assembled genome</td>
+      <td>https://training.galaxyproject.org//topics/assembly/tutorials/ecoli_comparison/tutorial.html</td>
+      <td>Sequence assembly, Genomics, Microbiology</td>
+      <td>Genome visualisation, Sequence alignment, Mapping, Read mapping, Sequence visualisation</td>
+      <td>2018-06-14</td>
+      <td>2024-06-24</td>
+      <td>29</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>circos, lastz_wrapper_2, random_lines1, Cut1, circos_interval_to_tiles, addValue, collapse_dataset, Grep1, datamash_ops, bedtools_sortbed, tp_sort_header_tool, bedtools_complementbed, tp_replace_in_column, circos_aln_to_links, cat1, tp_cat, fasta_filter_by_length, Filter1, tp_sed_tool, fasta_compute_length, tp_replace_in_line, join1, upload1, jbrowse, bedtools_intersectbed, tp_grep_tool, mergeCols1</td>
+      <td></td>
+      <td></td>
+      <td>0</td>
+      <td></td>
+      <td>5938</td>
+      <td>12067</td>
+      <td>3.033333</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Variant Analysis</td>
+      <td>Microbial Variant Calling</td>
+      <td>https://training.galaxyproject.org//topics/variant-analysis/tutorials/microbial-variants/tutorial.html</td>
+      <td>Genomics, Sequence assembly, DNA polymorphism, Microbiology, Sequence analysis, Genetic variation</td>
+      <td>Genome visualisation, Variant calling, Phylogenetic tree generation, Phylogenetic tree visualisation</td>
+      <td>2018-02-26</td>
+      <td>2024-03-15</td>
+      <td>23</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>jbrowse, snippy</td>
+      <td>UseGalaxy.eu, UseGalaxy.org (Main)</td>
+      <td>GalaxyTrakr, UseGalaxy.cz, UseGalaxy.fr, UseGalaxy.no, UseGalaxy.org.au</td>
+      <td>0</td>
+      <td></td>
+      <td>12166</td>
+      <td>20322</td>
+      <td>2.000000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Genome Annotation</td>
+      <td>Refining Genome Annotations with Apollo (prokaryotes)</td>
+      <td>https://training.galaxyproject.org//topics/genome-annotation/tutorials/apollo/tutorial.html</td>
+      <td>Genomics, Microbiology, Gene and protein families, Sequence analysis</td>
+      <td>Genome visualisation</td>
+      <td>2021-06-04</td>
+      <td>2024-08-08</td>
+      <td>20</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>jbrowse, create_or_update, list_organism, iframe, create_account</td>
+      <td></td>
+      <td>UseGalaxy.cz, UseGalaxy.eu, UseGalaxy.no</td>
+      <td>0</td>
+      <td></td>
+      <td>1836817</td>
+      <td>4949160</td>
+      <td>4.950000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Genome Annotation</td>
+      <td>Identification of AMR genes in an assembled bacterial genome</td>
+      <td>https://training.galaxyproject.org//topics/genome-annotation/tutorials/amr-gene-detection/tutorial.html</td>
+      <td>Whole genome sequencing, Public health and epidemiology, Genomics, Microbiology, Sequence analysis, Infectious disease, Antimicrobial Resistance</td>
+      <td>Genome visualisation, Genome annotation, Read mapping</td>
+      <td>2024-01-23</td>
+      <td>2024-03-13</td>
+      <td>5</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>Grep1, jbrowse, bowtie2, tbl2gff3, bakta, staramr_search, upload1</td>
+      <td>UseGalaxy.cz, UseGalaxy.eu, UseGalaxy.fr</td>
+      <td>Galaxy@AuBi</td>
+      <td>0</td>
+      <td></td>
+      <td>967</td>
+      <td>1368</td>
+      <td>2.933333</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Genome Annotation</td>
+      <td>Bacterial Genome Annotation</td>
+      <td>https://training.galaxyproject.org//topics/genome-annotation/tutorials/bacterial-genome-annotation/tutorial.html</td>
+      <td>Genomics, Microbiology, Gene and protein families, Sequence analysis, Whole genome sequencing, Functional genomics, Mobile genetic elements</td>
+      <td>Genome assembly, Sequence motif recognition, Genome annotation, Nucleic acid feature detection, Structural variation detection, Multilocus sequence typing, Genome visualisation, Protein feature detection, Scaffolding</td>
+      <td>2024-02-01</td>
+      <td>2024-08-01</td>
+      <td>4</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>Grouping1, jbrowse, upload1, integron_finder, isescan, tp_tail_tool, plasmidfinder, tbl2gff3, bakta, tp_replace_in_column</td>
+      <td>UseGalaxy.eu, UseGalaxy.fr</td>
+      <td>Galaxy@AuBi, UseGalaxy.cz</td>
+      <td>0</td>
+      <td></td>
+      <td>1800</td>
+      <td>2378</td>
+      <td>2.333333</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Microbiome</td>
+      <td>Analyses of metagenomics data - The global picture</td>
+      <td>https://training.galaxyproject.org//topics/microbiome/tutorials/general-tutorial/tutorial.html</td>
+      <td>Metagenomics, Microbial ecology, Taxonomy, Sequence analysis</td>
+      <td>Visualisation, Sequencing quality control, Phylogenetic analysis, Taxonomic classification, Sequence read processing, DNA barcoding, Sequence clustering</td>
+      <td>2017-06-22</td>
+      <td>2024-08-09</td>
+      <td>4</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>mothur_cluster_split, mothur_count_seqs, mothur_classify_otu, mothur_merge_files, mothur_pre_cluster, humann2_regroup_table, mothur_make_biom, mothur_make_group, mothur_screen_seqs, mothur_unique_seqs, mothur_summary_seqs, metaphlan2, humann2, krona-text, mothur_make_shared, taxonomy_krona_chart, mothur_align_seqs, humann2_renorm_table, mothur_classify_seqs, mothur_filter_seqs, metaphlan2krona</td>
+      <td></td>
+      <td>UseGalaxy.fr, UseGalaxy.no, UseGalaxy.org.au</td>
+      <td>0</td>
+      <td></td>
+      <td>3013</td>
+      <td>4081</td>
+      <td>2.750000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Microbiome</td>
+      <td>Antibiotic resistance detection</td>
+      <td>https://training.galaxyproject.org//topics/microbiome/tutorials/plasmid-metagenomics-nanopore/tutorial.html</td>
+      <td>Metagenomic sequencing, Public health and epidemiology, Metagenomics, Microbiology, Infectious disease, Sequence analysis, Antimicrobial Resistance</td>
+      <td>De-novo assembly, Sequence analysis, Box-Whisker plot plotting, Pairwise sequence alignment, Scatter plot plotting, Mapping assembly, Sequence assembly visualisation, Genome assembly, Aggregation</td>
+      <td>2019-06-25</td>
+      <td>2024-06-14</td>
+      <td>4</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>nanoplot, gfa_to_fa, racon, PlasFlow, miniasm, minimap2, staramr_search, bandage_image, unicycler</td>
+      <td>UseGalaxy.eu</td>
+      <td>UseGalaxy.cz, UseGalaxy.no, UseGalaxy.org (Main), UseGalaxy.org.au</td>
+      <td>0</td>
+      <td></td>
+      <td>1130</td>
+      <td>1752</td>
+      <td>4.016667</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Microbiome</td>
+      <td>Taxonomic Profiling and Visualization of Metagenomic Data</td>
+      <td>https://training.galaxyproject.org//topics/microbiome/tutorials/taxonomic-profiling/tutorial.html</td>
+      <td>Metagenomics, Microbial ecology, Taxonomy, Sequence analysis</td>
+      <td>Visualisation, Nucleic acid sequence analysis, Taxonomic classification, Phylogenetic tree analysis, Statistical calculation, Aggregation</td>
+      <td>2023-05-03</td>
+      <td>2024-06-14</td>
+      <td>4</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>est_abundance, krakentools_kreport2krona, __UNZIP_COLLECTION__, interactive_tool_phinch, taxonomy_krona_chart, interactive_tool_pavian, kraken2, metaphlan, kraken_biom</td>
+      <td>UseGalaxy.eu</td>
+      <td>UseGalaxy.fr, UseGalaxy.org.au</td>
+      <td>0</td>
+      <td></td>
+      <td>3655</td>
+      <td>4993</td>
+      <td>1.950000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Microbiome</td>
+      <td>Assembly of metagenomic sequencing data</td>
+      <td>https://training.galaxyproject.org//topics/microbiome/tutorials/metagenomics-assembly/tutorial.html</td>
+      <td>Metagenomics, Sequence assembly</td>
+      <td>Visualisation, Sequencing quality control, Primer removal, Sequence file editing, Formatting, Read mapping, Sequence assembly validation, Sequence composition calculation, Sequence assembly visualisation, Local alignment, Genome assembly, Sequence trimming, Statistical calculation, Sequence contamination filtering, Sequence alignment analysis, Read pre-processing, Data handling, Variant calling</td>
+      <td>2022-12-05</td>
+      <td>2024-06-14</td>
+      <td>4</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>bg_uniq, megahit_contig2fastg, ngsutils_bam_filter, megahit, bowtie2, tp_cat, quast, random_lines1, collection_column_join, filter_tabular, seqtk_subseq, fastqc, bandage_info, coverm_contig, bandage_image, bamtools, cutadapt, metaspades</td>
+      <td></td>
+      <td>UseGalaxy.cz, UseGalaxy.eu</td>
+      <td>0</td>
+      <td></td>
+      <td>1376</td>
+      <td>1931</td>
+      <td>2.533333</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Microbiome</td>
+      <td>Building an amplicon sequence variant (ASV) table from 16S data using DADA2</td>
+      <td>https://training.galaxyproject.org//topics/microbiome/tutorials/dada-16S/tutorial.html</td>
+      <td>Microbial ecology, Taxonomy, Sequence analysis</td>
+      <td>Visualisation, Analysis, Variant calling, DNA barcoding, Deposition</td>
+      <td>2024-06-05</td>
+      <td>2024-08-09</td>
+      <td>7</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>__UNZIP_COLLECTION__, phyloseq_from_dada2, interactive_tool_phyloseq, dada2_filterAndTrim, Grouping1, __SORTLIST__, dada2_learnErrors, dada2_dada, dada2_plotQualityProfile, tp_replace_in_column, dada2_removeBimeraDenovo, cat1, dada2_assignTaxonomyAddspecies, dada2_mergePairs, dada2_makeSequenceTable, collection_element_identifiers, dada2_seqCounts, tp_replace_in_line, Add_a_column1, tp_head_tool</td>
+      <td>UseGalaxy.eu</td>
+      <td></td>
+      <td>0</td>
+      <td></td>
+      <td>614</td>
+      <td>840</td>
+      <td>2.066667</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Microbiome</td>
+      <td>Pathogen detection from (direct Nanopore) sequencing data using Galaxy - Foodborne Edition</td>
+      <td>https://training.galaxyproject.org//topics/microbiome/tutorials/pathogen-detection-from-nanopore-foodborne-data/tutorial.html</td>
+      <td>Metagenomics, Public health and epidemiology, Taxonomy, Sequence assembly, Pathology, Sequence analysis</td>
+      <td>Visualisation, Sequencing quality control, Sequence composition calculation, Taxonomic classification, Phylogenetic tree generation (maximum likelihood and Bayesian methods), Phylogenetic tree generation, Phylogenetic tree generation (from molecular sequences), Pairwise sequence alignment, Sequence assembly visualisation, Multilocus sequence typing, Cross-assembly, Genome assembly, Base-calling, Validation, Sequence assembly, Statistical calculation, Phylogenetic tree reconstruction, Sequence contamination filtering, De-novo assembly, Mapping, Box-Whisker plot plotting, Phylogenetic tree analysis, Sequence alignment analysis, Scatter plot plotting, Mapping assembly, Multiple sequence alignment, Data handling, Variant calling, Antimicrobial resistance prediction, Aggregation</td>
+      <td>2023-01-26</td>
+      <td>2024-07-26</td>
+      <td>9</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>__BUILD_LIST__, __FILTER_FAILED_DATASETS__, abricate, newick_display, krakentools_extract_kraken_reads, Count1, Cut1, snpSift_extractFields, kraken2, table_compute, fasta2tab, Remove beginning1, fasttree, add_line_to_file, collapse_dataset, Grep1, Grouping1, bcftools_consensus, bcftools_norm, ggplot2_heatmap, collection_column_join, clair3, tp_sorted_uniq, fasta_merge_files_and_filter_unique_sequences, tp_replace_in_column, CONVERTER_gz_to_uncompressed, regex1, porechop, tab2fasta, __FILTER_EMPTY_DATASETS__, taxonomy_krona_chart, tp_find_and_replace, tp_cut_tool, Paste1, flye, mlst, bedtools_getfastabed, collection_element_identifiers, bandage_image, tp_split_on_column, clustalw, regexColumn1, medaka_consensus_pipeline, samtools_coverage, krakentools_kreport2krona, barchart_gnuplot, nanoplot, param_value_from_file, compose_text_param, fastp, tp_multijoin_tool, multiqc, samtools_fastx, bamtools_split_mapped, snpSift_filter, samtools_depth, fastqc, minimap2, split_file_to_collection, Add_a_column1, tp_head_tool</td>
+      <td>UseGalaxy.eu</td>
+      <td></td>
+      <td>0</td>
+      <td></td>
+      <td>1680</td>
+      <td>2521</td>
+      <td>3.016667</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Microbiome</td>
+      <td>16S Microbial analysis with Nanopore data</td>
+      <td>https://training.galaxyproject.org//topics/microbiome/tutorials/nanopore-16S-metagenomics/tutorial.html</td>
+      <td>Microbial ecology, Taxonomy, Sequence analysis</td>
+      <td>Visualisation, Sequencing quality control, Sequence contamination filtering, Validation, Sequence composition calculation, Taxonomic classification, Statistical calculation</td>
+      <td>2020-11-24</td>
+      <td>2024-07-31</td>
+      <td>5</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>fastp, multiqc, taxonomy_krona_chart, fastqc, kraken2, tp_replace_in_line, Remove beginning1, datamash_reverse, porechop</td>
+      <td>UseGalaxy.eu, UseGalaxy.no, UseGalaxy.org (Main), UseGalaxy.org.au</td>
+      <td>GalaxyTrakr, UseGalaxy.cz</td>
+      <td>0</td>
+      <td></td>
+      <td>2344</td>
+      <td>3314</td>
+      <td>2.800000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Microbiome</td>
+      <td>Identification of the micro-organisms in a beer using Nanopore sequencing</td>
+      <td>https://training.galaxyproject.org//topics/microbiome/tutorials/beer-data-analysis/tutorial.html</td>
+      <td>Metagenomics, Microbial ecology, Taxonomy, Sequence analysis</td>
+      <td>Visualisation, Sequencing quality control, Sequence contamination filtering, Sequence composition calculation, Taxonomic classification, Statistical calculation, Aggregation</td>
+      <td>2022-09-29</td>
+      <td>2024-06-14</td>
+      <td>4</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>fastp, taxonomy_krona_chart, fastqc, kraken2, Filter1, porechop, krakentools_kreport2krona</td>
+      <td>GalaxyTrakr, UseGalaxy.eu, UseGalaxy.org (Main), UseGalaxy.org.au</td>
+      <td>UseGalaxy.cz</td>
+      <td>0</td>
+      <td></td>
+      <td>1103</td>
+      <td>1743</td>
+      <td>2.816667</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Microbiome</td>
+      <td>Metatranscriptomics analysis using microbiome RNA-seq data</td>
+      <td>https://training.galaxyproject.org//topics/microbiome/tutorials/metatranscriptomics/tutorial.html</td>
+      <td>Metatranscriptomics, Microbial ecology, Taxonomy, Function analysis, Sequence analysis</td>
+      <td>Visualisation, Primer removal, Sequencing quality control, Sequence similarity search, Phylogenetic analysis, Taxonomic classification, Nucleic acid sequence analysis, Sequence composition calculation, Phylogenetic inference, Validation, Sequence trimming, Conversion, Statistical calculation, Species frequency estimation, Phylogenetic tree editing, Sequence comparison, Phylogenetic tree analysis, Sequence alignment analysis, Read pre-processing, Phylogenetic tree visualisation</td>
+      <td>2019-11-21</td>
+      <td>2024-06-14</td>
+      <td>4</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>True</td>
+      <td>humann_rename_table, Cut1, graphlan_annotate, humann_regroup_table, metaphlan, Grep1, export2graphlan, bg_sortmerna, humann_split_stratified_table, graphlan, fastq_paired_end_interlacer, combine_metaphlan2_humann2, taxonomy_krona_chart, tp_find_and_replace, humann_unpack_pathways, cutadapt, humann, multiqc, fastqc, humann_renorm_table</td>
+      <td>UseGalaxy.org (Main)</td>
+      <td>UseGalaxy.cz, UseGalaxy.no, UseGalaxy.org.au</td>
+      <td>0</td>
+      <td></td>
+      <td>2066154</td>
+      <td>5729924</td>
+      <td>4.133333</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Microbiome</td>
+      <td>Metatranscriptomics analysis using microbiome RNA-seq data (short)</td>
+      <td>https://training.galaxyproject.org//topics/microbiome/tutorials/metatranscriptomics-short/tutorial.html</td>
+      <td>Metatranscriptomics, Microbial ecology, Taxonomy, Function analysis, Sequence analysis</td>
+      <td>Visualisation, Primer removal, Sequencing quality control, Sequence similarity search, Phylogenetic analysis, Taxonomic classification, Nucleic acid sequence analysis, Sequence composition calculation, Phylogenetic inference, Validation, Sequence trimming, Conversion, Statistical calculation, Species frequency estimation, Phylogenetic tree editing, Sequence comparison, Phylogenetic tree analysis, Sequence alignment analysis, Read pre-processing, Phylogenetic tree visualisation</td>
+      <td>2020-02-13</td>
+      <td>2024-06-14</td>
+      <td>4</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>humann_rename_table, Cut1, graphlan_annotate, humann_regroup_table, metaphlan, Grep1, export2graphlan, bg_sortmerna, humann_split_stratified_table, graphlan, fastq_paired_end_interlacer, combine_metaphlan2_humann2, taxonomy_krona_chart, tp_find_and_replace, humann_unpack_pathways, cutadapt, humann, multiqc, fastqc, humann_renorm_table</td>
+      <td>UseGalaxy.org (Main)</td>
+      <td>UseGalaxy.cz, UseGalaxy.no, UseGalaxy.org.au</td>
+      <td>0</td>
+      <td></td>
+      <td>234</td>
+      <td>297</td>
+      <td>1.666667</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Microbiome</td>
+      <td>Binning of metagenomic sequencing data</td>
+      <td>https://training.galaxyproject.org//topics/microbiome/tutorials/metagenomics-binning/tutorial.html</td>
+      <td>Metagenomics, Sequence assembly</td>
+      <td>Sequencing quality control, Validation, Genome assembly, Sequence assembly validation, Statistical calculation, Sequence composition calculation</td>
+      <td>2023-12-05</td>
+      <td>2024-03-14</td>
+      <td>3</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>megahit, checkm_lineage_wf</td>
+      <td>GalaxyTrakr, UseGalaxy.cz, UseGalaxy.eu, UseGalaxy.fr</td>
+      <td></td>
+      <td>0</td>
+      <td></td>
+      <td>1648</td>
+      <td>1997</td>
+      <td>1.483333</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Microbiome</td>
+      <td>QIIME 2 Moving Pictures</td>
+      <td>https://training.galaxyproject.org//topics/microbiome/tutorials/qiime2-moving-pictures/tutorial.html</td>
+      <td>Microbial ecology, Taxonomy, Sequence analysis</td>
+      <td></td>
+      <td>2024-03-14</td>
+      <td>2024-03-14</td>
+      <td>1</td>
+      <td>external</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td></td>
+      <td></td>
+      <td>UseGalaxy.eu, UseGalaxy.org, UseGalaxy.org.au, UseGalaxy.fr</td>
+      <td>0</td>
+      <td></td>
+      <td>112</td>
+      <td>171</td>
+      <td>3.816667</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Microbiome</td>
+      <td>QIIME 2 Cancer Microbiome Intervention</td>
+      <td>https://training.galaxyproject.org//topics/microbiome/tutorials/qiime2-cancer-microbiome-intervention/tutorial.html</td>
+      <td>Microbial ecology, Taxonomy, Sequence analysis</td>
+      <td></td>
+      <td>2024-02-12</td>
+      <td>2024-03-14</td>
+      <td>3</td>
+      <td>external</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td></td>
+      <td></td>
+      <td>UseGalaxy.eu, UseGalaxy.org, UseGalaxy.org.au, UseGalaxy.fr</td>
+      <td>0</td>
+      <td></td>
+      <td>119</td>
+      <td>220</td>
+      <td>2.716667</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Microbiome</td>
+      <td>16S Microbial Analysis with mothur (short)</td>
+      <td>https://training.galaxyproject.org//topics/microbiome/tutorials/mothur-miseq-sop-short/tutorial.html</td>
+      <td>Microbial ecology, Taxonomy, Sequence analysis</td>
+      <td>Visualisation, Sequencing quality control, Phylogenetic analysis, Taxonomic classification, Phylogenetic tree analysis, Phylogenetic tree generation, Sequence read processing, DNA barcoding, Sequence clustering, Phylogenetic tree reconstruction</td>
+      <td>2019-05-13</td>
+      <td>2024-06-14</td>
+      <td>5</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>mothur_remove_lineage, mothur_cluster_split, mothur_count_seqs, mothur_dist_shared, mothur_sub_sample, mothur_classify_otu, newick_display, mothur_chimera_vsearch, mothur_venn, mothur_pre_cluster, XY_Plot_1, mothur_rarefaction_single, collapse_dataset, mothur_screen_seqs, mothur_unique_seqs, mothur_count_groups, mothur_heatmap_sim, mothur_summary_seqs, mothur_tree_shared, mothur_remove_groups, mothur_make_shared, mothur_summary_single, mothur_cluster, mothur_classify_seqs, mothur_dist_seqs, mothur_filter_seqs, mothur_remove_seqs</td>
+      <td>UseGalaxy.eu, UseGalaxy.no, UseGalaxy.org (Main), UseGalaxy.org.au</td>
+      <td>UseGalaxy.cz, UseGalaxy.fr</td>
+      <td>0</td>
+      <td></td>
+      <td>1744</td>
+      <td>3211</td>
+      <td>5.733333</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Microbiome</td>
+      <td>16S Microbial Analysis with mothur (extended)</td>
+      <td>https://training.galaxyproject.org//topics/microbiome/tutorials/mothur-miseq-sop/tutorial.html</td>
+      <td>Microbial ecology, Taxonomy, Sequence analysis</td>
+      <td>Visualisation, Sequencing quality control, Phylogenetic analysis, Taxonomic classification, Phylogenetic tree analysis, Phylogenetic tree generation, Sequence read processing, DNA barcoding, Sequence clustering, Phylogenetic tree reconstruction</td>
+      <td>2017-02-12</td>
+      <td>2024-03-14</td>
+      <td>4</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>mothur_remove_lineage, mothur_cluster_split, mothur_count_seqs, mothur_dist_shared, mothur_make_contigs, mothur_classify_otu, mothur_sub_sample, mothur_taxonomy_to_krona, mothur_chimera_vsearch, newick_display, mothur_venn, mothur_pre_cluster, XY_Plot_1, mothur_rarefaction_single, mothur_make_biom, mothur_screen_seqs, mothur_unique_seqs, mothur_count_groups, mothur_heatmap_sim, mothur_summary_seqs, mothur_tree_shared, mothur_remove_groups, mothur_make_shared, taxonomy_krona_chart, mothur_summary_single, mothur_cluster, mothur_seq_error, mothur_align_seqs, mothur_classify_seqs, mothur_get_groups, mothur_dist_seqs, mothur_filter_seqs, mothur_remove_seqs</td>
+      <td>UseGalaxy.eu</td>
+      <td>UseGalaxy.cz, UseGalaxy.fr, UseGalaxy.no, UseGalaxy.org (Main), UseGalaxy.org.au</td>
+      <td>0</td>
+      <td></td>
+      <td>4695</td>
+      <td>7229</td>
+      <td>2.983333</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Variant Analysis</td>
+      <td>M. tuberculosis Variant Analysis</td>
+      <td>https://training.galaxyproject.org//topics/variant-analysis/tutorials/tb-variant-analysis/tutorial.html</td>
+      <td>Genomics, Microbiology, Sequence assembly, Genetic variation, Public health and epidemiology, Infectious disease</td>
+      <td>Global alignment, Sequencing quality control, Sequence contamination filtering, Sequence alignment, Sequence analysis, Sequence composition calculation, Sequence alignment analysis, Taxonomic classification, Phylogenetic tree generation, Variant calling, Local alignment, Phylogenetic tree visualisation, Validation, Genome visualisation, Statistical calculation, Antimicrobial resistance prediction</td>
+      <td>2020-07-25</td>
+      <td>2024-07-26</td>
+      <td>30</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>tp_awk_tool, kraken2, bcftools_consensus, mosdepth, EMBOSS: seqret84, tb_profiler_profile, qualimap_bamqc, samtools_stats, tb_variant_filter, tp_sed_tool, EMBOSS:%20seqret84, upload1, tbvcfreport, fastp, jbrowse, multiqc, jvarkit_wgscoverageplotter, snippy, fastqc, __FLATTEN__</td>
+      <td></td>
+      <td></td>
+      <td>0</td>
+      <td></td>
+      <td>5641</td>
+      <td>8997</td>
+      <td>2.950000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Genome Annotation</td>
+      <td>Identification of AMR genes in an assembled bacterial genome</td>
+      <td>https://training.galaxyproject.org//topics/genome-annotation/tutorials/amr-gene-detection/tutorial.html</td>
+      <td>Whole genome sequencing, Public health and epidemiology, Genomics, Microbiology, Sequence analysis, Infectious disease, Antimicrobial Resistance</td>
+      <td>Genome visualisation, Genome annotation, Read mapping</td>
+      <td>2024-01-23</td>
+      <td>2024-03-13</td>
+      <td>5</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>Grep1, jbrowse, bowtie2, tbl2gff3, bakta, staramr_search, upload1</td>
+      <td>UseGalaxy.cz, UseGalaxy.eu, UseGalaxy.fr</td>
+      <td>Galaxy@AuBi</td>
+      <td>0</td>
+      <td></td>
+      <td>967</td>
+      <td>1368</td>
+      <td>2.933333</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Evolution</td>
+      <td>Identifying tuberculosis transmission links: from SNPs to transmission clusters</td>
+      <td>https://training.galaxyproject.org//topics/evolution/tutorials/mtb_transmission/tutorial.html</td>
+      <td>Genomics, Microbiology, Infectious disease, DNA polymorphism</td>
+      <td>Variant calling, Phylogenetic tree visualisation, Phylogenetic tree generation, Antimicrobial resistance prediction</td>
+      <td>2022-03-16</td>
+      <td>2024-07-12</td>
+      <td>12</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>Grep1, bcftools_consensus, tb_variant_filter, upload1, samtools_view, snp_sites, tb_profiler_profile, tp_grep_tool, tp_cat, snippy, tp_easyjoin_tool, addName, tp_sed_tool, tp_replace_in_line, snp_dists, collapse_dataset, __MERGE_COLLECTION__, trimmomatic</td>
+      <td>UseGalaxy.eu</td>
+      <td>UseGalaxy.cz, UseGalaxy.no, UseGalaxy.org (Main)</td>
+      <td>0</td>
+      <td></td>
+      <td>1533</td>
+      <td>2414</td>
+      <td>3.133333</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Evolution</td>
+      <td>Tree thinking for tuberculosis evolution and epidemiology</td>
+      <td>https://training.galaxyproject.org//topics/evolution/tutorials/mtb_phylogeny/tutorial.html</td>
+      <td>Genomics, Microbiology, Phylogeny, Infectious disease</td>
+      <td>Sequence analysis, Phylogenetic tree analysis</td>
+      <td>2022-03-16</td>
+      <td>2024-03-12</td>
+      <td>11</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>interactive_tool_rstudio, upload1, raxml</td>
+      <td>UseGalaxy.eu</td>
+      <td>UseGalaxy.fr, UseGalaxy.org (Main)</td>
+      <td>0</td>
+      <td></td>
+      <td>1308</td>
+      <td>1983</td>
+      <td>2.183333</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Microbiome</td>
+      <td>16S Microbial analysis with Nanopore data</td>
+      <td>https://training.galaxyproject.org//topics/microbiome/tutorials/nanopore-16S-metagenomics/tutorial.html</td>
+      <td>Microbial ecology, Taxonomy, Sequence analysis</td>
+      <td>Visualisation, Sequencing quality control, Sequence contamination filtering, Validation, Sequence composition calculation, Taxonomic classification, Statistical calculation</td>
+      <td>2020-11-24</td>
+      <td>2024-07-31</td>
+      <td>5</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>fastp, multiqc, taxonomy_krona_chart, fastqc, kraken2, tp_replace_in_line, Remove beginning1, datamash_reverse, porechop</td>
+      <td>UseGalaxy.eu, UseGalaxy.no, UseGalaxy.org (Main), UseGalaxy.org.au</td>
+      <td>GalaxyTrakr, UseGalaxy.cz</td>
+      <td>0</td>
+      <td></td>
+      <td>2344</td>
+      <td>3314</td>
+      <td>2.800000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Proteomics</td>
+      <td>metaQuantome 2: Function</td>
+      <td>https://training.galaxyproject.org//topics/proteomics/tutorials/metaquantome-function/tutorial.html</td>
+      <td>Proteomics, Proteogenomics, Metatranscriptomics, Microbial ecology, Metagenomics</td>
+      <td>Visualisation, Differential protein expression analysis, Functional clustering, Query and retrieval, Indexing, Filtering, Heat map generation, Statistical inference, Principal component visualisation, Quantification</td>
+      <td>2020-10-29</td>
+      <td>2024-03-15</td>
+      <td>14</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>metaquantome_db, metaquantome_sample, metaquantome_stat, metaquantome_expand, metaquantome_filter, metaquantome_viz</td>
+      <td>UseGalaxy.eu</td>
+      <td>UseGalaxy.cz, UseGalaxy.no, UseGalaxy.org.au</td>
+      <td>0</td>
+      <td></td>
+      <td>348</td>
+      <td>504</td>
+      <td>3.800000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Proteomics</td>
+      <td>metaQuantome 3: Taxonomy</td>
+      <td>https://training.galaxyproject.org//topics/proteomics/tutorials/metaquantome-taxonomy/tutorial.html</td>
+      <td>Proteomics, Proteogenomics, Metatranscriptomics, Microbial ecology, Metagenomics, Taxonomy</td>
+      <td>Visualisation, Differential protein expression analysis, Functional clustering, Query and retrieval, Indexing, Filtering, Heat map generation, Statistical inference, Principal component visualisation, Quantification</td>
+      <td>2020-10-29</td>
+      <td>2024-03-15</td>
+      <td>14</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>metaquantome_db, metaquantome_sample, metaquantome_stat, metaquantome_expand, metaquantome_filter, metaquantome_viz</td>
+      <td>UseGalaxy.eu</td>
+      <td>UseGalaxy.cz, UseGalaxy.no, UseGalaxy.org.au</td>
+      <td>0</td>
+      <td></td>
+      <td>371</td>
+      <td>502</td>
+      <td>2.633333</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Proteomics</td>
+      <td>metaQuantome 1: Data creation</td>
+      <td>https://training.galaxyproject.org//topics/proteomics/tutorials/metaquantome-data-creation/tutorial.html</td>
+      <td>Proteomics, Proteogenomics, Biodiversity, Taxonomy</td>
+      <td>Visualisation, Label-free quantification, Filtering, Formatting, Prediction and recognition</td>
+      <td>2020-10-16</td>
+      <td>2024-03-14</td>
+      <td>20</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>Grep1, msconvert, peptide_shaker, search_gui, Cut1, unipept, Filter1, query_tabular, tp_replace_in_line, Remove beginning1, regex1, flashlfq, tp_replace_in_column</td>
+      <td>UseGalaxy.eu</td>
+      <td>UseGalaxy.cz, UseGalaxy.no, UseGalaxy.org.au</td>
+      <td>0</td>
+      <td></td>
+      <td>773</td>
+      <td>1343</td>
+      <td>3.800000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Proteomics</td>
+      <td>Metaproteomics tutorial</td>
+      <td>https://training.galaxyproject.org//topics/proteomics/tutorials/metaproteomics/tutorial.html</td>
+      <td>Proteomics, Proteogenomics, Biodiversity, Taxonomy</td>
+      <td>Visualisation, Prediction and recognition</td>
+      <td>2017-06-28</td>
+      <td>2024-06-14</td>
+      <td>41</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>sqlite_to_tabular, peptide_shaker, search_gui, unipept, query_tabular</td>
+      <td>UseGalaxy.eu, UseGalaxy.no, UseGalaxy.org (Main), UseGalaxy.org.au</td>
+      <td>UseGalaxy.cz</td>
+      <td>0</td>
+      <td></td>
+      <td>2256</td>
+      <td>3750</td>
+      <td>2.616667</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Sequence analysis</td>
+      <td>Quality and contamination control in bacterial isolate using Illumina MiSeq Data</td>
+      <td>https://training.galaxyproject.org//topics/sequence-analysis/tutorials/quality-contamination-control/tutorial.html</td>
+      <td>Whole genome sequencing, Genomics, Microbiology, Microbial ecology</td>
+      <td>Sequencing quality control, Sequence contamination filtering, Cross-assembly, Sequence composition calculation, Taxonomic classification, Expression analysis, Statistical calculation</td>
+      <td>2024-07-15</td>
+      <td>2024-07-15</td>
+      <td>1</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>fastp, est_abundance, fastqc, kraken2, recentrifuge, upload1</td>
+      <td>UseGalaxy.eu, UseGalaxy.fr</td>
+      <td>Galaxy@AuBi, GalaxyTrakr, UseGalaxy.cz, UseGalaxy.org (Main)</td>
+      <td>0</td>
+      <td></td>
+      <td>61</td>
+      <td>76</td>
+      <td>3.883333</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Variant Analysis</td>
+      <td>Calling variants in non-diploid systems</td>
+      <td>https://training.galaxyproject.org//topics/variant-analysis/tutorials/non-dip/tutorial.html</td>
+      <td>Genomics, Sequence assembly, DNA polymorphism, Microbiology, Sequence analysis, Genetic variation</td>
+      <td>Sequencing quality control, Genome indexing, Sequence alignment, Formatting, Sequence composition calculation, Sequence alignment analysis, Read mapping, Generation, Data handling, Variant calling, Statistical calculation</td>
+      <td>2017-02-16</td>
+      <td>2024-03-15</td>
+      <td>23</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>picard_MarkDuplicates, freebayes, vcf2tsv, picard_MergeSamFiles, vcffilter2, bamFilter, Cut1, fastqc, bamleftalign, bwa_mem</td>
+      <td>UseGalaxy.eu, UseGalaxy.fr, UseGalaxy.no, UseGalaxy.org (Main)</td>
+      <td>UseGalaxy.cz, UseGalaxy.org.au</td>
+      <td>0</td>
+      <td></td>
+      <td>7035</td>
+      <td>13427</td>
+      <td>2.050000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Variant Analysis</td>
+      <td>M. tuberculosis Variant Analysis</td>
+      <td>https://training.galaxyproject.org//topics/variant-analysis/tutorials/tb-variant-analysis/tutorial.html</td>
+      <td>Genomics, Microbiology, Sequence assembly, Genetic variation, Public health and epidemiology, Infectious disease</td>
+      <td>Global alignment, Sequencing quality control, Sequence contamination filtering, Sequence alignment, Sequence analysis, Sequence composition calculation, Sequence alignment analysis, Taxonomic classification, Phylogenetic tree generation, Variant calling, Local alignment, Phylogenetic tree visualisation, Validation, Genome visualisation, Statistical calculation, Antimicrobial resistance prediction</td>
+      <td>2020-07-25</td>
+      <td>2024-07-26</td>
+      <td>30</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>tp_awk_tool, kraken2, bcftools_consensus, mosdepth, EMBOSS: seqret84, tb_profiler_profile, qualimap_bamqc, samtools_stats, tb_variant_filter, tp_sed_tool, EMBOSS:%20seqret84, upload1, tbvcfreport, fastp, jbrowse, multiqc, jvarkit_wgscoverageplotter, snippy, fastqc, __FLATTEN__</td>
+      <td></td>
+      <td></td>
+      <td>0</td>
+      <td></td>
+      <td>5641</td>
+      <td>8997</td>
+      <td>2.950000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Variant Analysis</td>
+      <td>Microbial Variant Calling</td>
+      <td>https://training.galaxyproject.org//topics/variant-analysis/tutorials/microbial-variants/tutorial.html</td>
+      <td>Genomics, Sequence assembly, DNA polymorphism, Microbiology, Sequence analysis, Genetic variation</td>
+      <td>Genome visualisation, Variant calling, Phylogenetic tree generation, Phylogenetic tree visualisation</td>
+      <td>2018-02-26</td>
+      <td>2024-03-15</td>
+      <td>23</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>jbrowse, snippy</td>
+      <td>UseGalaxy.eu, UseGalaxy.org (Main)</td>
+      <td>GalaxyTrakr, UseGalaxy.cz, UseGalaxy.fr, UseGalaxy.no, UseGalaxy.org.au</td>
+      <td>0</td>
+      <td></td>
+      <td>12166</td>
+      <td>20322</td>
+      <td>2.000000</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+
+</div>
