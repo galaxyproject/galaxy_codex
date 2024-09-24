@@ -70,7 +70,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: tools-${{ matrix.subset }}
-          path: communities/all/resources/repositories${{ matrix.subset }}.list_tools.tsv
+          path: communities/all/resources/${{ matrix.subset }}_tools.tsv
   merge-fetch-filter:
     runs-on: ubuntu-20.04
     needs: fetch-tools-stepwise
