@@ -102,18 +102,18 @@ jobs:
           bash sources/bin/format_tools.sh
       - name: Fetch all tutorials
         run: | 
-          bash bin/extract_all_tutorials.sh
+          bash sources/bin/extract_all_tutorials.sh
         env: 
           PLAUSIBLE_API_KEY: ${{ secrets.PLAUSIBLE_API_TOKEN }}
       - name: Filter tutorials for communities
         run: | 
-          bash bin/get_community_tutorials.sh
+          bash sources/bin/get_community_tutorials.sh
       - name: Update tool to keep and exclude for communities
         run: | 
-          bash bin/update_tools_to_keep_exclude.sh
+          bash sources/bin/update_tools_to_keep_exclude.sh
       - name: Filter tools for communities
         run: | 
-          bash bin/get_community_tools.sh
+          bash sources/bin/get_community_tools.sh
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
         with:
