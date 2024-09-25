@@ -70,7 +70,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: tools-${{ matrix.subset }}
-          path: communities/all/resources/${{ matrix.subset }}_tools.tsv
+          path: communities/all/resources/${{ matrix.subset }}_tools.*
   merge-fetch-filter:
     runs-on: ubuntu-20.04
     needs: fetch-tools-stepwise
@@ -91,6 +91,8 @@ jobs:
           pattern: tools-*
           merge-multiple: true
           path: communities/all/resources/
+      - name: Display structure of downloaded files
+        run: ls -R communities/all/resources/
       - name: Merge all tools
         run: | #merge files with only one header -> https://stackoverflow.com/questions/16890582/unixmerge-multiple-csv-files-with-same-header-by-keeping-the-header-of-the-firs; map(.[]) -> https://stackoverflow.com/questions/42011086/merge-arrays-of-json (get flat array, one tool per entry)
           awk 'FNR==1 && NR!=1{next;}{print}' communities/all/resources/repositories*.list_tools.tsv > communities/all/resources/tools.tsv
