@@ -21,7 +21,7 @@ jobs:
         uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: '3.11'
       - name: Install requirement
         run: |
           python -m pip install -r requirements.txt
@@ -42,7 +42,6 @@ jobs:
     strategy:
       #max-parallel: 1 #need to run one after another, since otherwise there is a chance, that mulitple jobs want to push to the results branch at the same time (which fails due to merge)
       matrix:
-        python-version: [3.11]
         subset:
          - repositories01.list
          - repositories02.list
@@ -53,7 +52,7 @@ jobs:
         uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: '3.11'
       - name: Install requirement
         run: python -m pip install -r requirements.txt
       - name: Download available servers
@@ -80,7 +79,7 @@ jobs:
         uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: '3.11'
       - name: Install requirement
         run: |
           python -m pip install -r requirements.txt
