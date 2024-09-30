@@ -117,7 +117,11 @@ def get_youtube_stats(tuto: dict) -> None:
     """
     tuto["video_versions"] = 0
     tuto["video_view"] = 0
-    ydl_opts = {"ignoreerrors": True, "quiet": True}
+    ydl_opts = {
+        "ignoreerrors": True,
+        "quiet": True,
+        "skip_download": True,
+    }
     recordings = []
     if "recordings" in tuto and tuto["recordings"]:
         recordings = tuto["recordings"]
