@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import argparse
+import time
 from datetime import date
 from typing import (
     Dict,
@@ -11,6 +12,8 @@ import pandas as pd
 import shared
 import yt_dlp
 from owlready2 import get_ontology
+
+PLAUSIBLE_REQUEST_NB = 0
 
 
 def add_supported_servers(tuto: dict) -> None:
@@ -80,8 +83,13 @@ def get_visit_results(url: str, tuto: dict, plausible_api: str) -> None:
     """
     Extract visit results from Plausible URL
     """
+    global PLAUSIBLE_REQUEST_NB
     headers = {"Authorization": f"Bearer {plausible_api}"}
+    if PLAUSIBLE_REQUEST_NB > 400:
+        time.sleep(3600)
+        PLAUSIBLE_REQUEST_NB = 0
     results = shared.get_request_json(url, headers)
+    PLAUSIBLE_REQUEST_NB += 1
     if "results" in results:
         for metric in ["visitors", "pageviews", "visit_duration"]:
             tuto[metric] += results["results"][metric]["value"]
@@ -109,7 +117,11 @@ def get_youtube_stats(tuto: dict) -> None:
     """
     tuto["video_versions"] = 0
     tuto["video_view"] = 0
-    ydl_opts = {"ignoreerrors": True, "quiet": True}
+    ydl_opts = {
+        "ignoreerrors": True,
+        "quiet": True,
+        "skip_download": True,
+    }
     recordings = []
     if "recordings" in tuto and tuto["recordings"]:
         recordings = tuto["recordings"]
