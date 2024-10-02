@@ -449,10 +449,10 @@ def parse_tools(repo: Repository) -> List[Dict[str, Any]]:
         for tool in folder:
             # to avoid API request limit issue, wait for one hour
             if g.get_rate_limit().core.remaining < 200:
-                # print("WAITING for 1 hour to retrieve GitHub API request access !!!")
-                # print()
-                # time.sleep(60 * 60)
-                pass
+                print("WAITING for 1 hour to retrieve GitHub API request access !!!")
+                print()
+                time.sleep(60 * 60)
+
             # parse tool
             # if the folder (tool) has a .shed.yml file run get get_tool_metadata on that folder,
             # otherwise go one level down and check if there is a .shed.yml in a subfolder
@@ -679,8 +679,6 @@ def get_tools(repo_list: list, edam_ontology: dict) -> List[Dict]:
         # add tool stats
         for name, path in GALAXY_TOOL_STATS.items():
             tool_stats_df = pd.read_csv(path)
-            print("*****************data*****************")
-            print(tool_stats_df.shape)
             tool[name] = get_tool_stats_from_stats_file(tool_stats_df, tool["Galaxy tool ids"])
 
     return tools
