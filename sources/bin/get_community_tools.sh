@@ -32,33 +32,35 @@ else
                 if [[ -d "$com_data_fp" && ! -L "$com_data_fp" ]]; then
                         community=`basename "$com_data_fp"`
 
-                        echo "$community";
+                        if [ "$community" != "all" ]; then
 
-                        mkdir -p "communities/$community/resources"
+                                echo "$community";
 
-                        python sources/bin/extract_galaxy_tools.py \
-                                filter \
-                                --all "communities/all/resources/tools.json" \
-                                --ts-filtered "communities/$community/resources/tools_filtered_by_ts_categories.tsv" \
-                                --filtered "communities/$community/resources/tools.tsv" \
-                                --categories "communities/$community/metadata/categories" \
-                                --status "communities/$community/metadata/tool_status.tsv"
+                                mkdir -p "communities/$community/resources"
 
-                        python sources/bin/create_interactive_table.py \
-                                --input "communities/$community/resources/tools.tsv" \
-                                --remove-col "Reviewed" \
-                                --remove-col "To keep" \
-                                --filter-col "To keep" \
-                                --template "sources/data/interactive_table_template.html" \
-                                --output "communities/$community/resources/tools.html"
+                                python sources/bin/extract_galaxy_tools.py \
+                                        filter \
+                                        --all "communities/all/resources/tools.json" \
+                                        --ts-filtered "communities/$community/resources/tools_filtered_by_ts_categories.tsv" \
+                                        --filtered "communities/$community/resources/tools.tsv" \
+                                        --categories "communities/$community/metadata/categories" \
+                                        --status "communities/$community/metadata/tool_status.tsv"
 
-                        python sources/bin/create_wordcloud.py \
-                                --input  "communities/$community/resources/tools.tsv" \
-                                --name-col "Galaxy wrapper id" \
-                                --stat-col "No. of tool users (2022-2023) (usegalaxy.eu)" \
-                                --wordcloud_mask "sources/data/usage_stats/wordcloud_mask.png" \
-                                --output "communities/$community/resources/tools_wordcloud.png"
+                                python sources/bin/create_interactive_table.py \
+                                        --input "communities/$community/resources/tools.tsv" \
+                                        --remove-col "Reviewed" \
+                                        --remove-col "To keep" \
+                                        --filter-col "To keep" \
+                                        --template "sources/data/interactive_table_template.html" \
+                                        --output "communities/$community/resources/tools.html"
 
+                                python sources/bin/create_wordcloud.py \
+                                        --input  "communities/$community/resources/tools.tsv" \
+                                        --name-col "Galaxy wrapper id" \
+                                        --stat-col "No. of tool users (2022-2023) (usegalaxy.eu)" \
+                                        --wordcloud_mask "sources/data/usage_stats/wordcloud_mask.png" \
+                                        --output "communities/$community/resources/tools_wordcloud.png"
+                        fi;
                 fi;
         done
 fi
