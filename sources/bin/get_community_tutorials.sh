@@ -14,24 +14,28 @@ then
                 --output "communities/microgalaxy/resources/tutorials.html"
 
 else
-        for com_data_fp in data/communities/* ; do
+        for com_data_fp in communities/* ; do
                 if [[ -d "$com_data_fp" && ! -L "$com_data_fp" ]]; then
                         community=`basename "$com_data_fp"`
+                        if [ "$community" != "all" ]; then
+                                echo "$community"
 
-                        echo "$community";
+                                if [[ -f "communities/$community/metadata/tutorial_tags" && -f "communities/$community/resources/tutorials.tsv" ]]; then
+                                        echo "Filter tutorials"
 
-                        if [[ -f "data/communities/$community/tutorial_tags" && -f "results/$community/tutorials.tsv" ]]; then
+                                        python sources/bin/extract_gtn_tutorials.py \
+                                                filter \
+                                                --all "communities/all/resources/tutorials.json" \
+                                                --filtered "communities/$community/resources/tutorials.tsv" \
+                                                --tags "communities/$community/metadata/tutorial_tags"
 
-                                python sources/bin/extract_gtn_tutorials.py \
-                                        filter \
-                                        --all "communities/all/resources/tutorials.json" \
-                                        --filtered "communities/$community/resources/tutorials.tsv" \
-                                        --tags "communities/$community/metadata/tutorial_tags"
-
-                                python sources/bin/create_interactive_table.py \
-                                        --input "communities/$community/resources/tutorials.tsv" \
-                                        --template "sources/data/interactive_table_template.html" \
-                                        --output "communities/$community/resources/tutorials.html"
+                                        python sources/bin/create_interactive_table.py \
+                                                --input "communities/$community/resources/tutorials.tsv" \
+                                                --template "sources/data/interactive_table_template.html" \
+                                                --output "communities/$community/resources/tutorials.html"
+                                fi;
+                                
+                                echo ""
                         fi;
                 fi;
         done
