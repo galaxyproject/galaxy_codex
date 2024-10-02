@@ -35,13 +35,31 @@ USEGALAXY_SERVER_URLS = {
 }
 
 project_path = Path(__file__).resolve().parent.parent  # galaxy_tool_extractor folder
-usage_stats_path = project_path.joinpath("data", "usage_stats")
+usage_stats_path = project_path.joinpath("data", "usage_stats", "usage_stats_31.08.2024")
 conf_path = project_path.joinpath("data", "conf.yml")
 public_servers = project_path.joinpath("data", "available_public_servers.csv")
 
+
 GALAXY_TOOL_STATS = {
-    "No. of tool users (2022-2023) (usegalaxy.eu)": usage_stats_path.joinpath("tool_usage_per_user_2022_23_EU.csv"),
-    "Total tool usage (usegalaxy.eu)": usage_stats_path.joinpath("total_tool_usage_EU.csv"),
+    # EU
+    "No. of tool users (5 years) (usegalaxy.eu)": usage_stats_path.joinpath("eu/tool_usage_5y_until_2024.08.31.csv"),
+    "No. of tool users (all time) (usegalaxy.eu)": usage_stats_path.joinpath("eu/tool_usage_until_2024.08.31.csv"),
+    "Tool usage (5 years) (usegalaxy.eu)": usage_stats_path.joinpath("eu/tool_users_5y_until_2024.08.31.csv"),
+    "Tool usage (all time) (usegalaxy.eu)": usage_stats_path.joinpath("eu/tool_users_until_2024.08.31.csv"),
+    # ORG
+    "No. of tool users (5 years) (usegalaxy.org)": usage_stats_path.joinpath("org/tool_usage_5y_until_2024.08.31.csv"),
+    "No. of tool users (all time) (usegalaxy.org)": usage_stats_path.joinpath("org/tool_usage_until_2024.08.31.csv"),
+    "Tool usage (5 years) (usegalaxy.org)": usage_stats_path.joinpath("org/tool_users_5y_until_2024.08.31.csv"),
+    "Tool usage (all time) (usegalaxy.org)": usage_stats_path.joinpath("org/tool_users_until_2024.08.31.csv"),
+    # AU
+    "No. of tool users (5 years) (usegalaxy.org.au)": usage_stats_path.joinpath(
+        "org.au/tool_usage_5y_until_2024.08.31.csv"
+    ),
+    "No. of tool users (all time) (usegalaxy.org.au)": usage_stats_path.joinpath(
+        "org.au/tool_usage_until_2024.08.31.csv"
+    ),
+    "Tool usage (5 years) (usegalaxy.org.au)": usage_stats_path.joinpath("org.au/tool_users_5y_until_2024.08.31.csv"),
+    "Tool usage (all time) (usegalaxy.org.au)": usage_stats_path.joinpath("org.au/tool_users_until_2024.08.31.csv"),
 }
 
 # load the configs globally
@@ -431,10 +449,10 @@ def parse_tools(repo: Repository) -> List[Dict[str, Any]]:
         for tool in folder:
             # to avoid API request limit issue, wait for one hour
             if g.get_rate_limit().core.remaining < 200:
-                print("WAITING for 1 hour to retrieve GitHub API request access !!!")
-                print()
-                time.sleep(60 * 60)
-
+                # print("WAITING for 1 hour to retrieve GitHub API request access !!!")
+                # print()
+                # time.sleep(60 * 60)
+                pass
             # parse tool
             # if the folder (tool) has a .shed.yml file run get get_tool_metadata on that folder,
             # otherwise go one level down and check if there is a .shed.yml in a subfolder
@@ -661,6 +679,8 @@ def get_tools(repo_list: list, edam_ontology: dict) -> List[Dict]:
         # add tool stats
         for name, path in GALAXY_TOOL_STATS.items():
             tool_stats_df = pd.read_csv(path)
+            print("*****************data*****************")
+            print(tool_stats_df.shape)
             tool[name] = get_tool_stats_from_stats_file(tool_stats_df, tool["Galaxy tool ids"])
 
     return tools
