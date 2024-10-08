@@ -11,6 +11,27 @@ from typing import (
 
 import pandas as pd
 import requests
+from github.ContentFile import ContentFile
+from github.Repository import Repository
+
+
+def get_first_commit_for_folder(tool: ContentFile, repo: Repository) -> str:
+    """
+    Get the date of the first commit in the tool folder
+
+    :param commit_date: date of the first commit
+    """
+
+    # Get commits related to the specific folder
+    commits = repo.get_commits(path=tool.path)
+
+    # Get the last commit in the history (which is the first commit made to the folder)
+    first_commit = commits.reversed[0]
+
+    # Extract relevant information about the first commit
+    commit_date = first_commit.commit.author.date.date()
+
+    return str(commit_date)
 
 
 def format_list_column(col: pd.Series) -> pd.Series:
