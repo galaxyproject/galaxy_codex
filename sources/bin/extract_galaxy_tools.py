@@ -62,6 +62,14 @@ GALAXY_TOOL_STATS = {
     "Tool usage (all time) (usegalaxy.org.au)": usage_stats_path.joinpath("org.au/tool_users_until_2024.08.31.csv"),
 }
 
+# all columns that contain the text will be summed up to a new column with summed up stats
+GALAXY_TOOL_STATS_SUM = [
+    "No. of tool users (5 years)",
+    "No. of tool users (all time)",
+    "Tool usage (5 years)",
+    "Tool usage (all time)",
+]
+
 # load the configs globally
 with open(conf_path) as f:
     configs = yaml.safe_load(f)
@@ -680,6 +688,14 @@ def get_tools(repo_list: list, edam_ontology: dict) -> List[Dict]:
         for name, path in GALAXY_TOOL_STATS.items():
             tool_stats_df = pd.read_csv(path)
             tool[name] = get_tool_stats_from_stats_file(tool_stats_df, tool["Galaxy tool ids"])
+
+        # sum up tool stats
+        for names_to_match in GALAXY_TOOL_STATS_SUM:
+            summed_stat = 0
+            for col_name in tool.keys():
+                if names_to_match in col_name:
+                    summed_stat += tool[col_name]
+            tool[f"{names_to_match} - all main servers"] = summed_stat
 
     return tools
 
