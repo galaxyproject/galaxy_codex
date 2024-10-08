@@ -23,7 +23,7 @@ if [[ ! -z $1  && $1 == "test" ]]; then
         python sources/bin/create_wordcloud.py \
                 --input  "communities/microgalaxy/resources/tools.tsv" \
                 --name-col "Galaxy wrapper id" \
-                --stat-col "No. of tool users (2022-2023) (usegalaxy.eu)" \
+                --stat-col "No. of tool users (5 years) - all main servers" \
                 --wordcloud_mask "sources/data/usage_stats/wordcloud_mask.png" \
                 --output "communities/microgalaxy/resources/tools_wordcloud.png"
 
@@ -57,7 +57,7 @@ else
                                 python sources/bin/create_wordcloud.py \
                                         --input  "communities/$community/resources/tools.tsv" \
                                         --name-col "Galaxy wrapper id" \
-                                        --stat-col "No. of tool users (2022-2023) (usegalaxy.eu)" \
+                                        --stat-col "No. of tool users (5 years) - all main servers" \
                                         --wordcloud_mask "sources/data/usage_stats/wordcloud_mask.png" \
                                         --output "communities/$community/resources/tools_wordcloud.png"
                         fi;
