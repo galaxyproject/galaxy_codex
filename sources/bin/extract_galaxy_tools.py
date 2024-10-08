@@ -288,6 +288,7 @@ def get_tool_metadata(tool: ContentFile, repo: Repository) -> Optional[Dict[str,
         "Source": None,
         "ToolShed categories": [],
         "ToolShed id": None,
+        "Date of first commit of the suite": None,
         "Galaxy wrapper owner": None,
         "Galaxy wrapper source": None,  # this is what it written in the .shed.yml
         "Galaxy wrapper parsed folder": None,  # this is the actual parsed file
@@ -324,6 +325,9 @@ def get_tool_metadata(tool: ContentFile, repo: Repository) -> Optional[Dict[str,
 
     # store the github location where the folder was parsed
     metadata["Galaxy wrapper parsed folder"] = tool.html_url
+
+    # get the first commit date
+    metadata["Date of first commit of the suite"] = shared.get_first_commit_for_folder(tool, repo)
 
     # find and parse macro file
     for file in file_list:
