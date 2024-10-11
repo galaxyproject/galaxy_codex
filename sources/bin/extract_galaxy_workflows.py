@@ -148,8 +148,6 @@ class Workflows:
         )
         print(f"Workflows from WorkflowHub: {len(wfhub_wfs['data'])}")
         data = wfhub_wfs["data"]
-        if self.test:
-            data = data[:1]
         for wf in data:
             wfhub_wf = shared.get_request_json(
                 f"https://workflowhub.eu{wf['links']['self']}",
@@ -158,6 +156,7 @@ class Workflows:
             wf = Workflow()
             wf.init_from_search(wf=wfhub_wf, source="WorkflowHub", tools=self.tools)
             self.workflows.append(wf)
+        print(len(self.workflows))
 
     def add_workflows_from_a_server(self, server: str) -> None:
         """
@@ -193,7 +192,7 @@ class Workflows:
             "https://usegalaxy.org.au",
         ]
         if self.test:
-            server_urls = server_urls[:2]
+            server_urls = server_urls[2:3]
         for url in server_urls:
             print(url)
             self.add_workflows_from_a_server(url)
@@ -208,10 +207,13 @@ class Workflows:
         """
         Filter workflows by tags
         """
+        to_keep_wf = []
         for w in self.workflows:
-            matches = set(w.tags) & set(tags)
-            if len(matches) == 0:
-                self.workflows.remove(w)
+            wf_tags = [w.lower() for w in w.tags]
+            matches = set(wf_tags) & set(tags)
+            if len(matches) != 0:
+                to_keep_wf.append(w)
+        self.workflows = to_keep_wf
 
     def export_workflows_to_tsv(self, output_fp: str) -> None:
         """

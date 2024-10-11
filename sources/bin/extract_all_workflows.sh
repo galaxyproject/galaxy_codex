@@ -2,12 +2,12 @@
 
 if [ ! -z $1 ] 
 then
-        python bin/extract_galaxy_workflows.py extract \
-                --all results/workflows.json \
-                --tools results/all_tools.json \
+        python sources/bin/extract_galaxy_workflows.py extract \
+                --all communities/all/resources/workflows.json \
+                --tools communities/all/resources/tools.json \
                 --test
 else
-        python bin/extract_galaxy_workflows.py extract \
-                --all results/workflows.json \
-                --tools results/all_tools.json
+        python sources/bin/extract_galaxy_workflows.py extract \
+                --all communities/all/resources/workflows.json \
+                --tools communities/all/resources/tools.json
 fi
