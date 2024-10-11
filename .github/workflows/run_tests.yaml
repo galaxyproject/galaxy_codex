@@ -1,5 +1,5 @@
 name: Run tests
-on: [push, pull_request_target]
+on: [push, pull_request]
 
 jobs:
   test-tools:
@@ -29,6 +29,9 @@ jobs:
           bash sources/bin/format_tools.sh
   test-tutorials:
     runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        python-version: ['3.11']
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -47,6 +50,9 @@ jobs:
           bash sources/bin/get_community_tutorials.sh test
   test-workflows:
     runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        python-version: ['3.11']
     steps:
       - name: Checkout
         uses: actions/checkout@v4
