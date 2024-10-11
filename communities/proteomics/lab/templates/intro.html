@@ -1,0 +1,147 @@
+<section class="my-5" id="tagline">
+  <a
+    href="#"
+    id="whatIsThisPage"
+    data-bs-toggle="modal"
+    data-bs-target="#infoModal"
+  >
+    What is this page?
+  </a>
+  <p>
+    Welcome to the {{ site_name }} {{ lab_name }}. Get quick access to the
+    tools, workflows and tutorials you need to get started with proteomics on
+    Galaxy.
+  </p>
+
+  <p>
+    This page is currently under development in consultation with the
+    <a href="https://www.biocommons.org.au/proteomics-community" target="_blank">
+      Australian Proteomics Bioinformatics community</a>.
+    </p>
+</section>
+
+<hr>
+
+<section>
+  <div class="row">
+    <div class="col">
+      <a href="https://training.galaxyproject.org/training-material/topics/proteomics/" target="_blank">
+        <table>
+          <tr>
+            <td>
+              <span class="material-icons px-3" style="font-size: 3rem;">school</span>
+            </td>
+            <td>
+              Proteomics tutorials for Galaxy
+            </td>
+          </tr>
+        </table>
+      </a>
+    </div>
+
+    {% if shared_histories %}
+    <div class="col">
+      <a
+        href="#"
+        data-bs-toggle="modal"
+        data-bs-target="#sharedHistoryModal"
+      >
+        <table>
+          <tr>
+            <td>
+              <span class="material-icons px-3" style="font-size: 3rem;">account_tree</span>
+            </td>
+            <td>
+              Shared proteomics histories
+            </td>
+          </tr>
+        </table>
+      </a>
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+<hr>
+
+
+<div class="modal fade" id="infoModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Galaxy {{ site_name }} {{ lab_name }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>
+          The Galaxy {{ site_name }} {{ lab_name }} is your one-stop-shop for everything proteomics! From proteomics data conversion, database searching, identification, quantitation, all the way to visualisation.
+        </p>
+
+        <p>
+          This site provides a "skin" over Galaxy {{ site_name }}, pointing you towards useful tools, workflows and resources for proteomics. The underlying Galaxy server is identical to
+          <a href="https://{{ root_domain }}">{{ root_domain }}</a>.
+          You can run all the same tools. Your jobs go into the same history. Your data is shared and uses the same quota.
+        </p>
+
+        <p>
+          If you feel restricted by the Proteomics tool panel, you can quickly switch back to the full tool panel using the dropdown at the top of the tool panel.
+        </p>
+
+        <p>
+          Switching between the "Base site"
+          (<a href="https://{{ root_domain }}">{{ root_domain }}</a>)
+          and {{ lab_name }}
+          (<a href="galaxy_base_url">{{ subdomain }}.{{ root_domain }}</a>)
+          is easy - look for the icon in the top navigation bar to switch between sites:
+          <img class="w-100 my-3 mx-auto" src="https://github.com/galaxyproject/galaxy-codex/blob/main/labs/assets/site-switcher.png?raw=true" alt="Switch site button">
+        </p>
+
+        {% if site_name == 'Australia' %}
+        <p>
+          <b>Please note:</b> unfortunately, AAF login is not configured for Galaxy Labs, but we are working on fixing this.
+        </p>
+        {% endif %}
+
+        <p><a class="ga-btn" href="https://{{ root_domain }}" target="_blank">Take me back to the Base site</a></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="sharedHistoryModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Galaxy {{ site_name }} Shared Histories</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>
+          This set of proteomics-specific shared histories contain test or demo data for software available on {{ lab_name }}. You can copy these histories directly to your account on Galaxy, making it faster to get started!
+        </p>
+
+        <table class="table table-striped">
+          {% for history in shared_histories %}
+          <tr>
+            <td>
+              {{ history.label_html|safe }}
+            </td>
+            <td>
+              <a class="btn btn-primary text-nowrap" href="{{ history.url }}">
+                View history
+              </a>
+            </td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

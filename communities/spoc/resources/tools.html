@@ -1,0 +1,1298 @@
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/searchbuilder/1.6.0/js/dataTables.searchBuilder.min.js"></script>
+<script src="https://cdn.datatables.net/datetime/1.5.1/js/dataTables.dateTime.min.js"></script>
+
+<script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/searchbuilder/1.6.0/css/searchBuilder.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/datetime/1.5.1/css/dataTables.dateTime.min.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+<style type="text/css">
+  .tooltip {
+    font-family: Georgia;
+    font-size: 18px;
+  }
+  .tooltip .tooltip-inner {
+    background-color: #00FFFF;
+    color: #000000;
+    min-width: 400px;
+  }
+  </style>
+
+<script>
+    $(document).ready(function() {
+    $('#dataframe').DataTable( {
+        "sScrollX": "100%",
+        "dom": "Qlfrtip",
+
+        responsive: {
+            details: {
+                type: 'column'
+            }
+        },
+        "bAutoWidth": false,
+        columnDefs: [ {
+            className: 'control',
+            orderable: false,
+            targets:   [ 0 ],
+            width: 100,
+        },
+        { type: 'natural', targets: 1 } // allow normal sorting
+        ],
+
+    });
+});
+</script>
+
+<div class="display nowrap" style="width:80%" width="100%">
+
+<table class="dataframe display nowrap" id="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Expand</th>
+      <th>Galaxy wrapper id</th>
+      <th>Galaxy tool ids</th>
+      <th>Description</th>
+      <th>bio.tool id</th>
+      <th>bio.tool ids</th>
+      <th>biii</th>
+      <th>bio.tool name</th>
+      <th>bio.tool description</th>
+      <th>EDAM operation</th>
+      <th>EDAM topic</th>
+      <th>Status</th>
+      <th>Source</th>
+      <th>ToolShed categories</th>
+      <th>ToolShed id</th>
+      <th>Galaxy wrapper owner</th>
+      <th>Galaxy wrapper source</th>
+      <th>Galaxy wrapper parsed folder</th>
+      <th>Galaxy wrapper version</th>
+      <th>Conda id</th>
+      <th>Conda version</th>
+      <th>EDAM operation (no superclasses)</th>
+      <th>EDAM topic (no superclasses)</th>
+      <th>Available on UseGalaxy.org (Main)</th>
+      <th>Available on UseGalaxy.org.au</th>
+      <th>Available on UseGalaxy.eu</th>
+      <th>Available on UseGalaxy.fr</th>
+      <th>Tools available on UseGalaxy.org (Main)</th>
+      <th>Tools available on UseGalaxy.org.au</th>
+      <th>Tools available on UseGalaxy.eu</th>
+      <th>Tools available on UseGalaxy.fr</th>
+      <th>Tools available on APOSTL</th>
+      <th>Tools available on ARGs-OAP</th>
+      <th>Tools available on CIRM-CFBP</th>
+      <th>Tools available on ChemFlow</th>
+      <th>Tools available on Coloc-stats</th>
+      <th>Tools available on CoralSNP</th>
+      <th>Tools available on CropGalaxy</th>
+      <th>Tools available on Dintor</th>
+      <th>Tools available on FreeBioinfo</th>
+      <th>Tools available on GASLINI</th>
+      <th>Tools available on Galaxy@AuBi</th>
+      <th>Tools available on Galaxy@Pasteur</th>
+      <th>Tools available on GalaxyTrakr</th>
+      <th>Tools available on Genomic Hyperbrowser</th>
+      <th>Tools available on GigaGalaxy</th>
+      <th>Tools available on HyPhy HIV NGS Tools</th>
+      <th>Tools available on IPK Galaxy Blast Suite</th>
+      <th>Tools available on ImmPort Galaxy</th>
+      <th>Tools available on InteractoMIX</th>
+      <th>Tools available on MISSISSIPPI</th>
+      <th>Tools available on Mandoiu Lab</th>
+      <th>Tools available on MiModD NacreousMap</th>
+      <th>Tools available on Oqtans</th>
+      <th>Tools available on Palfinder</th>
+      <th>Tools available on PepSimili</th>
+      <th>Tools available on UseGalaxy.be</th>
+      <th>Tools available on UseGalaxy.cz</th>
+      <th>Tools available on UseGalaxy.no</th>
+      <th>Tools available on Viral Variant Visualizer (VVV)</th>
+      <th>No. of tool users (2022-2023) (usegalaxy.eu)</th>
+      <th>Total tool usage (usegalaxy.eu)</th>
+      <th>Deprecated</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td></td>
+      <td>anndata</td>
+      <td>anndata_export, anndata_import, anndata_inspect, anndata_manipulate, modify_loom</td>
+      <td>Import, Export, Inspect and Manipulate Anndata and Loom objects</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>To update</td>
+      <td>https://anndata.readthedocs.io</td>
+      <td>Single Cell, Spatial Omics</td>
+      <td>anndata</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/anndata/</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/main/tools/anndata</td>
+      <td>0.10.9</td>
+      <td>anndata</td>
+      <td>0.6.22.post1</td>
+      <td></td>
+      <td></td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>0</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>0</td>
+      <td>625</td>
+      <td>35620</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>baredsc</td>
+      <td>baredsc_1d, baredsc_2d, baredsc_combine_1d, baredsc_combine_2d</td>
+      <td>baredSC is a tool that uses a Monte-Carlo Markov Chain to estimate a confidence interval on the probability density function (PDF) of expression of one or two genes from single-cell RNA-seq data.</td>
+      <td>baredsc</td>
+      <td>baredsc</td>
+      <td></td>
+      <td>baredSC</td>
+      <td>The baredSC (Bayesian Approach to Retreive Expression Distribution of Single Cell) is a tool that uses a Monte-Carlo Markov Chain to estimate a confidence interval on the probability density function (PDF) of expression of one or two genes from single-cell RNA-seq data.</td>
+      <td>Data retrieval, Expression correlation analysis, Differential gene expression profiling</td>
+      <td>RNA-Seq, Cytometry, Transcriptomics, Gene transcripts, Statistics and probability</td>
+      <td>Up-to-date</td>
+      <td>https://github.com/lldelisle/baredSC</td>
+      <td>Single Cell, Transcriptomics, Visualization</td>
+      <td>baredsc</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/baredsc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/main/tools/baredsc</td>
+      <td>1.1.3</td>
+      <td>baredsc</td>
+      <td>1.1.3</td>
+      <td>Data retrieval, Expression correlation analysis, Differential gene expression profiling</td>
+      <td>RNA-Seq, Cytometry, Transcriptomics, Gene transcripts, Statistics and probability</td>
+      <td>4</td>
+      <td>4</td>
+      <td>4</td>
+      <td>0</td>
+      <td>4</td>
+      <td>4</td>
+      <td>4</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>4</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>71</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>cite_seq_count</td>
+      <td>cite_seq_count</td>
+      <td>Count CMO/HTO</td>
+      <td>CITE-seq-Count</td>
+      <td>CITE-seq-Count</td>
+      <td></td>
+      <td>CITE-seq-Count</td>
+      <td>Tool for counting antibody TAGS from a CITE-seq and/or cell hashing experiment.</td>
+      <td>RNA-Seq quantification</td>
+      <td>Transcriptomics, Immunoproteins and antigens</td>
+      <td>To update</td>
+      <td>https://github.com/Hoohm/CITE-seq-Count</td>
+      <td>Single Cell, Transcriptomics, Proteomics</td>
+      <td>cite_seq_count</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/main/tools/cite_seq_count</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/main/tools/cite_seq_count</td>
+      <td>1.4.4</td>
+      <td>cite-seq-count</td>
+      <td>1.4.5</td>
+      <td>RNA-Seq quantification</td>
+      <td>Transcriptomics, Immunoproteins and antigens</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>18</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>cosg</td>
+      <td>cosg</td>
+      <td>Marker gene identification for single-cell sequencing data using COSG.</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Up-to-date</td>
+      <td>https://github.com/genecell/COSG</td>
+      <td>Transcriptomics, Sequence Analysis, Single Cell</td>
+      <td>cosg</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/cosg/</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/main/tools/cosg</td>
+      <td>1.0.1</td>
+      <td>cosg</td>
+      <td>1.0.1</td>
+      <td></td>
+      <td></td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>dropletutils</td>
+      <td>dropletutils</td>
+      <td>DropletUtils - Utilities for handling droplet-based single-cell RNA-seq data</td>
+      <td>dropletutils</td>
+      <td>dropletutils</td>
+      <td></td>
+      <td>DropletUtils</td>
+      <td>Provides a number of utility functions for handling single-cell (RNA-seq) data from droplet technologies such as 10X Genomics. This includes data loading, identification of cells from empty droplets, removal of barcode-swapped pseudo-cells, and downsampling of the count matrix.</td>
+      <td>Loading, Community profiling</td>
+      <td>Gene expression, RNA-seq, Sequencing, Transcriptomics</td>
+      <td>To update</td>
+      <td>https://bioconductor.org/packages/devel/bioc/html/DropletUtils.html</td>
+      <td>Single Cell, Sequence Analysis</td>
+      <td>dropletutils</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/dropletutils/</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/main/tools/dropletutils</td>
+      <td>1.10.0</td>
+      <td>bioconductor-dropletutils</td>
+      <td>1.22.0</td>
+      <td></td>
+      <td>Sequencing, Transcriptomics</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>126</td>
+      <td>3934</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>episcanpy</td>
+      <td>episcanpy_build_matrix, episcanpy_cluster_embed, episcanpy_preprocess</td>
+      <td>EpiScanpy – Epigenomics single cell analysis in python</td>
+      <td>episcanpy</td>
+      <td>episcanpy</td>
+      <td></td>
+      <td>epiScanpy</td>
+      <td>Epigenomics Single Cell Analysis in Python.</td>
+      <td>Enrichment analysis, Imputation</td>
+      <td>Epigenomics, Cell biology, DNA</td>
+      <td>To update</td>
+      <td>https://github.com/colomemaria/epiScanpy</td>
+      <td>Single Cell, Epigenetics</td>
+      <td>episcanpy</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/episcanpy/</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/main/tools/episcanpy</td>
+      <td>0.3.2</td>
+      <td>episcanpy</td>
+      <td>0.4.0</td>
+      <td>Enrichment analysis, Imputation</td>
+      <td>Epigenomics, Cell biology, DNA</td>
+      <td>3</td>
+      <td>3</td>
+      <td>3</td>
+      <td>0</td>
+      <td>3</td>
+      <td>3</td>
+      <td>3</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>3</td>
+      <td>0</td>
+      <td>0</td>
+      <td>20</td>
+      <td>736</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>raceid</td>
+      <td>raceid_clustering, raceid_filtnormconf, raceid_inspectclusters, raceid_inspecttrajectory, raceid_trajectory</td>
+      <td>RaceID3, StemID2, FateID - scRNA analysis</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>To update</td>
+      <td>https://github.com/dgrun/RaceID3_StemID2_package/</td>
+      <td>Single Cell, Transcriptomics</td>
+      <td></td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/raceid3</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/main/tools/raceid</td>
+      <td>0.2.3</td>
+      <td>r-raceid</td>
+      <td>0.1.3</td>
+      <td></td>
+      <td></td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>1</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>0</td>
+      <td>82</td>
+      <td>4569</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>scanpy</td>
+      <td>scanpy_cluster_reduce_dimension, scanpy_filter, scanpy_inspect, scanpy_normalize, scanpy_plot, scanpy_remove_confounders</td>
+      <td>Scanpy – Single-Cell Analysis in Python</td>
+      <td>scanpy</td>
+      <td>scanpy</td>
+      <td></td>
+      <td>SCANPY</td>
+      <td>Scalable toolkit for analyzing single-cell gene expression data. It includes preprocessing, visualization, clustering, pseudotime and trajectory inference and differential expression testing. The Python-based implementation efficiently deals with datasets of more than one million cells.</td>
+      <td>Differential gene expression analysis</td>
+      <td>Gene expression, Cell biology, Genetics</td>
+      <td>To update</td>
+      <td>https://scanpy.readthedocs.io</td>
+      <td>Single Cell, Spatial Omics, Transcriptomics</td>
+      <td>scanpy</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/scanpy/</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/main/tools/scanpy</td>
+      <td>1.10.2</td>
+      <td>scanpy</td>
+      <td>1.7.2</td>
+      <td>Differential gene expression analysis</td>
+      <td>Gene expression, Cell biology, Genetics</td>
+      <td>6</td>
+      <td>6</td>
+      <td>6</td>
+      <td>0</td>
+      <td>6</td>
+      <td>6</td>
+      <td>6</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>6</td>
+      <td>6</td>
+      <td>6</td>
+      <td>0</td>
+      <td>766</td>
+      <td>51978</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>scater</td>
+      <td>scater_create_qcmetric_ready_sce, scater_filter, scater_plot_dist_scatter, scater_plot_pca, scater_plot_tsne</td>
+      <td>Scater (Single-Cell Analysis Toolkit for gene Expression data in R) is acollection of tools for doing various analyses of single-cell RNA-seq geneexpression data, with a focus on quality control and visualization.</td>
+      <td>scater</td>
+      <td>scater</td>
+      <td></td>
+      <td>scater</td>
+      <td>Pre-processing, quality control, normalization and visualization of single-cell RNA-seq data.</td>
+      <td>Read pre-processing, Sequencing quality control, Sequence visualisation</td>
+      <td>RNA-seq, Quality affairs, Molecular genetics</td>
+      <td>To update</td>
+      <td>http://bioconductor.org/packages/scater/</td>
+      <td>Single Cell, Transcriptomics, Visualization</td>
+      <td></td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/scater</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/main/tools/scater</td>
+      <td>1.22.0</td>
+      <td>bioconductor-scater</td>
+      <td>1.30.1</td>
+      <td>Read pre-processing, Sequence visualisation</td>
+      <td>Quality affairs, Molecular genetics</td>
+      <td>0</td>
+      <td>5</td>
+      <td>5</td>
+      <td>0</td>
+      <td>0</td>
+      <td>5</td>
+      <td>5</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>0</td>
+      <td>77</td>
+      <td>1365</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>sceasy</td>
+      <td>sceasy_convert</td>
+      <td>Converter between difference single-cell formats</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Up-to-date</td>
+      <td>https://github.com/cellgeni/sceasy/</td>
+      <td>Single Cell, Spatial Omics, Convert Formats</td>
+      <td>sceasy_convert</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/sceasy/</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/main/tools/sceasy</td>
+      <td>0.0.7</td>
+      <td>r-sceasy</td>
+      <td>0.0.7</td>
+      <td></td>
+      <td></td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>90</td>
+      <td>721</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>schicexplorer</td>
+      <td>schicexplorer_schicadjustmatrix, schicexplorer_schiccluster, schicexplorer_schicclustercompartments, schicexplorer_schicclusterminhash, schicexplorer_schicclustersvl, schicexplorer_schicconsensusmatrices, schicexplorer_schiccorrectmatrices, schicexplorer_schiccreatebulkmatrix, schicexplorer_schicdemultiplex, schicexplorer_schicinfo, schicexplorer_schicmergematrixbins, schicexplorer_schicmergetoscool, schicexplorer_schicnormalize, schicexplorer_schicplotclusterprofiles, schicexplorer_schicplotconsensusmatrices, schicexplorer_schicqualitycontrol</td>
+      <td>scHiCExplorer: Set of programs to process, analyze and visualize scHi-C data.</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>To update</td>
+      <td>https://github.com/joachimwolff/schicexplorer</td>
+      <td>Sequence Analysis, Transcriptomics, Visualization, Single Cell</td>
+      <td>schicexplorer</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/schicexplorer</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/main/tools/schicexplorer</td>
+      <td>4</td>
+      <td>schicexplorer</td>
+      <td>7</td>
+      <td></td>
+      <td></td>
+      <td>16</td>
+      <td>16</td>
+      <td>16</td>
+      <td>0</td>
+      <td>16</td>
+      <td>16</td>
+      <td>16</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>16</td>
+      <td>16</td>
+      <td>16</td>
+      <td>0</td>
+      <td>23</td>
+      <td>779</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>scpipe</td>
+      <td>scpipe</td>
+      <td>A flexible preprocessing pipeline for single-cell RNA-sequencing data</td>
+      <td>scpipe</td>
+      <td>scpipe</td>
+      <td></td>
+      <td>scPipe</td>
+      <td>A preprocessing pipeline for single cell RNA-seq data that starts from the fastq files and produces a gene count matrix with associated quality control information. It can process fastq data generated by CEL-seq, MARS-seq, Drop-seq, Chromium 10x and SMART-seq protocols.</td>
+      <td>Genome annotation, Validation, Alignment, Visualisation</td>
+      <td>Gene expression, RNA-Seq, Sequencing</td>
+      <td>To update</td>
+      <td>http://bioconductor.org/packages/release/bioc/html/scPipe.html</td>
+      <td>Transcriptomics, Single Cell</td>
+      <td>scpipe</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/scpipe</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/main/tools/scpipe</td>
+      <td>1.0.0+galaxy2</td>
+      <td>bioconductor-scpipe</td>
+      <td>2.2.0</td>
+      <td>Genome annotation, Validation, Alignment, Visualisation</td>
+      <td>Gene expression, RNA-Seq</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>11</td>
+      <td>628</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>seurat</td>
+      <td>seurat_create, seurat_data, seurat_integrate, seurat_clustering, seurat_preprocessing, seurat_plot, seurat_reduce_dimension</td>
+      <td>Seurat - R toolkit for single cell genomics</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>To update</td>
+      <td>https://satijalab.org/seurat/</td>
+      <td>Single Cell, Transcriptomics, Sequence Analysis</td>
+      <td>seurat</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/seurat_v5</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/main/tools/seurat</td>
+      <td>5.0</td>
+      <td>r-seurat</td>
+      <td>3.0.2</td>
+      <td></td>
+      <td></td>
+      <td>1</td>
+      <td>1</td>
+      <td>7</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>7</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>7</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>sinto</td>
+      <td>sinto_barcode, sinto_fragments</td>
+      <td>Sinto single-cell analysis tools</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Up-to-date</td>
+      <td>https://github.com/timoast/sinto</td>
+      <td>Single Cell, Epigenetics</td>
+      <td></td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/sinto</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/main/tools/sinto</td>
+      <td>0.10.1</td>
+      <td>sinto</td>
+      <td>0.10.1</td>
+      <td></td>
+      <td></td>
+      <td>2</td>
+      <td>2</td>
+      <td>2</td>
+      <td>0</td>
+      <td>2</td>
+      <td>2</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>17</td>
+      <td>91</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>snapatac2</td>
+      <td>snapatac2_clustering, snapatac2_peaks_and_motif, snapatac2_plotting, snapatac2_preprocessing</td>
+      <td>SnapATAC2 – A Python/Rust package for single-cell epigenomics analysis</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>To update</td>
+      <td>https://kzhang.org/SnapATAC2/</td>
+      <td>Single Cell, Epigenetics</td>
+      <td>snapatac2</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/snapatac2</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/main/tools/snapatac2</td>
+      <td>2.6.4</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>4</td>
+      <td>4</td>
+      <td>4</td>
+      <td>0</td>
+      <td>4</td>
+      <td>4</td>
+      <td>4</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>spapros</td>
+      <td>spapros_evaluation, spapros_selection</td>
+      <td>Select and evaluate probe sets for targeted spatial transcriptomics.</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Up-to-date</td>
+      <td>https://github.com/theislab/spapros</td>
+      <td>Single Cell, Transcriptomics, Sequence Analysis</td>
+      <td>spapros</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/spapros/</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/main/tools/spapros</td>
+      <td>0.1.5</td>
+      <td>spapros</td>
+      <td>0.1.5</td>
+      <td></td>
+      <td></td>
+      <td>0</td>
+      <td>0</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>umi_tools</td>
+      <td>umi_tools_count, umi_tools_dedup, umi_tools_extract, umi_tools_group, umi_tools_whitelist</td>
+      <td>UMI-tools extract - Extract UMIs from fastq</td>
+      <td>umi-tools</td>
+      <td>umi-tools</td>
+      <td></td>
+      <td>UMI-tools</td>
+      <td>Tools for handling Unique Molecular Identifiers in NGS data sets.</td>
+      <td>Sequencing quality control</td>
+      <td>NGS, Sequence sites, features and motifs, Quality affairs</td>
+      <td>Up-to-date</td>
+      <td>https://github.com/CGATOxford/UMI-tools</td>
+      <td>Sequence Analysis, Transcriptomics, Single Cell</td>
+      <td></td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/umi_tools</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/main/tools/umi_tools</td>
+      <td>1.1.5</td>
+      <td>umi_tools</td>
+      <td>1.1.5</td>
+      <td>Sequencing quality control</td>
+      <td>Sequence sites, features and motifs, Quality affairs</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>5</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>3</td>
+      <td>5</td>
+      <td>5</td>
+      <td>0</td>
+      <td>379</td>
+      <td>61618</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>velocyto</td>
+      <td>velocyto_cli</td>
+      <td>Velocyto is a library for the analysis of RNA velocity.</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Up-to-date</td>
+      <td>http://velocyto.org/</td>
+      <td>Transcriptomics, Single Cell</td>
+      <td>velocyto</td>
+      <td>iuc</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/master/tools/velocyto</td>
+      <td>https://github.com/galaxyproject/tools-iuc/tree/main/tools/velocyto</td>
+      <td>0.17.17</td>
+      <td>velocyto.py</td>
+      <td>0.17.17</td>
+      <td></td>
+      <td></td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+</div>
