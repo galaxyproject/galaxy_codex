@@ -4,12 +4,12 @@ if [ ! -z $1 ]
 then
         python sources/bin/extract_galaxy_workflows.py \
                 filter \
-                --all "communities/all/resources/workflows.json" \
-                --filtered "communities/microgalaxy/resources/workflows.tsv" \
+                --all "communities/all/resources/test_workflows.json" \
+                --filtered "communities/microgalaxy/resources/test_workflows.tsv" \
                 --tags "communities/microgalaxy/metadata/workflow_tags"
 
         python sources/bin/create_interactive_table.py \
-                --input "communities/microgalaxy/resources/workflows.tsv" \
+                --input "communities/microgalaxy/resources/test_workflows.tsv" \
                 --template "sources/data/interactive_table_template.html" \
                 --output "communities/microgalaxy/resources/workflows.html"
 

@@ -149,6 +149,8 @@ class Workflows:
         )
         print(f"Workflows from WorkflowHub: {len(wfhub_wfs['data'])}")
         data = wfhub_wfs["data"]
+        if self.test:
+            data = data[:10]
         for wf in data:
             wfhub_wf = shared.get_request_json(
                 f"https://workflowhub.eu{wf['links']['self']}",
