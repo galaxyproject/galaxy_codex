@@ -1,8 +1,6 @@
-<iframe id="headerCardsIframe" style="width: 100%; height" src="https://site.usegalaxy.org.au/embed/home/snippets/header-cards.html"></iframe>
+<iframe id="headerCardsIframe" style="width: 100%; overflow: hidden;" src="https://site.usegalaxy.org.au/embed/home/snippets/header-cards.html"></iframe>
 <script>
   window.addEventListener("message", function(event) {
-    const iframe = document.getElementById('headerCardsIframe');
-    const height = event.data.height + 'px';
-    iframe.style.height = height;
+    document.getElementById('footerIframe').style.height = event.data.height + 'px';
   }, false);
 </script>
