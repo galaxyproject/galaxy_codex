@@ -103,3 +103,29 @@ def get_request_json(url: str, headers: dict) -> dict:
 
 def format_date(date: str) -> str:
     return datetime.fromisoformat(date).strftime("%Y-%m-%d")
+
+
+def shorten_tool_id(tool: str) -> str:
+    """
+    Shorten tool id
+    """
+    if "toolshed" in tool:
+        return tool.split("/")[-2]
+    else:
+        return tool
+
+
+def get_edam_operation_from_tools(selected_tools: list, all_tools: dict) -> List:
+    """
+    Get list of EDAM operations of the tools
+
+    :param selected_tools: list of tool suite ids
+    :param all_tools: dictionary with information about all tools
+    """
+    edam_operation = set()
+    for t in selected_tools:
+        if t in all_tools:
+            edam_operation.update(set(all_tools[t]["EDAM operation"]))
+        else:
+            print(f"{t} not found in all tools")
+    return list(edam_operation)

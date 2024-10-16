@@ -240,6 +240,20 @@ To make a test run of the tool to check its functionalities follow [Usage](#Usag
     $ bash sources/bin/get_community_tutorials.sh test
     ```
 
+### Workflows
+
+1. Workflow extraction
+
+    ```bash
+    $ bash bin/extract_all_workflows.sh test 
+    ```
+
+2. Workflow filtering
+
+    ```bash
+    $ bash bin/get_community_workflowss.sh test
+    ```
+
 # Galaxy Labs framework
 
 ## What is a Galaxy Lab?

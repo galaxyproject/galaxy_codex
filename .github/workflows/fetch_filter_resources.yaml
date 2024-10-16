@@ -101,6 +101,12 @@ jobs:
       - name: Generate wordcloud and interactive table
         run: |
           bash sources/bin/format_tools.sh
+      - name: Fetch all workflows
+        run: | 
+          bash sources/bin/extract_all_workflows.sh 
+      - name: Filter workflows for communities
+        run: | 
+          bash sources/bin/get_community_workflows.sh
       - name: Fetch all tutorials
         run: | 
           bash sources/bin/extract_all_tutorials.sh
