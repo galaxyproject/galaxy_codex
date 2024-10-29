@@ -38,16 +38,16 @@ jobs:
               if [[ -z "${directories[$NAME]}" ]]; then
                 directories[$NAME]=1
                 COMMENT=$(cat <<EOF
-### Preview changes to ${NAME} Lab
+                ### Preview changes to ${NAME} Lab
 
-https://labs.usegalaxy.org.au/?content_root=https://github.com/${USERNAME}/galaxy_codex/blob/${BRANCH_NAME}/communities/${NAME}/lab/base.yml
+                https://labs.usegalaxy.org.au/?content_root=https://github.com/${USERNAME}/galaxy_codex/blob/${BRANCH_NAME}/communities/${NAME}/lab/base.yml
 
-- [usegalaxy.org.yml](https://labs.usegalaxy.org.au/?content_root=https://github.com/${USERNAME}/galaxy_codex/blob/${BRANCH_NAME}/communities/${NAME}/lab/usegalaxy.org.yml)
-- [usegalaxy.eu.yml](https://labs.usegalaxy.org.au/?content_root=https://github.com/${USERNAME}/galaxy_codex/blob/${BRANCH_NAME}/communities/${NAME}/lab/usegalaxy.eu.yml)
-- [usegalaxy.org.au.yml](https://labs.usegalaxy.org.au/?content_root=https://github.com/${USERNAME}/galaxy_codex/blob/${BRANCH_NAME}/communities/${NAME}/lab/usegalaxy.org.au.yml)
+                - [usegalaxy.org.yml](https://labs.usegalaxy.org.au/?content_root=https://github.com/${USERNAME}/galaxy_codex/blob/${BRANCH_NAME}/communities/${NAME}/lab/usegalaxy.org.yml)
+                - [usegalaxy.eu.yml](https://labs.usegalaxy.org.au/?content_root=https://github.com/${USERNAME}/galaxy_codex/blob/${BRANCH_NAME}/communities/${NAME}/lab/usegalaxy.eu.yml)
+                - [usegalaxy.org.au.yml](https://labs.usegalaxy.org.au/?content_root=https://github.com/${USERNAME}/galaxy_codex/blob/${BRANCH_NAME}/communities/${NAME}/lab/usegalaxy.org.au.yml)
 
-EOF
-)
+                EOF
+                )
                 gh pr comment "$PR_NUMBER" --body "$COMMENT"
               fi
             fi
