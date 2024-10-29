@@ -16,10 +16,12 @@ jobs:
         run: |
           git fetch origin main
           git diff --name-only origin/main..HEAD > changed_files.txt
+          echo ""
+          echo "Changed files:"
           cat changed_files.txt
 
       - name: Post comment if matching changes found
-        if: contains(steps.changed-files.outputs.changes, './communities/')
+        if: contains(steps.changed-files.outputs.changes, 'communities/')
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -30,10 +32,11 @@ jobs:
           BRANCH_NAME="${{ github.head_ref }}"
 
           for FILE in $FILES; do
-            if [[ "$FILE" == ./my/repo/path/*/lab/* ]]; then
+            if [[ "$FILE" == communities/*/lab/* ]]; then
               NAME=$(echo "$FILE" | cut -d'/' -f5)
               # Check if this directory has already been processed
               if [[ -z "${directories[$NAME]}" ]]; then
+                echo "Posting link for ${NAME}..."
                 directories[$NAME]=1
                 COMMENT=$(cat <<EOF
                 ### Preview changes to ${NAME} Lab
