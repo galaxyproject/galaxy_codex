@@ -21,7 +21,7 @@ jobs:
           cat changed_files.txt
 
       - name: Post comment if matching changes found
-        if: contains(steps.changed-files.outputs.changes, 'communities/')
+        # if: contains(steps.changed-files.outputs.changes, 'communities/')
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
