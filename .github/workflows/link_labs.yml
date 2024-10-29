@@ -1,0 +1,54 @@
+name: Post link to lab
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  post-comment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Git
+        run: git fetch origin main
+
+      - name: Get list of changed files
+        id: changed-files
+        run: |
+          git diff --name-only origin/main...HEAD > changed_files.txt
+          cat changed_files.txt
+
+      - name: Post comment if matching changes found
+        if: contains(steps.changed-files.outputs.changes, './communities/')
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          declare -A directories
+          FILES=$(cat changed_files.txt)
+          PR_NUMBER="${{ github.event.number }}"
+          USERNAME="${{ github.actor }}"
+          BRANCH_NAME="${{ github.head_ref }}"
+
+          for FILE in $FILES; do
+            if [[ "$FILE" == ./my/repo/path/*/lab/* ]]; then
+              NAME=$(echo "$FILE" | cut -d'/' -f5)
+              # Check if this directory has already been processed
+              if [[ -z "${directories[$NAME]}" ]]; then
+                directories[$NAME]=1
+                COMMENT=$(cat <<EOF
+### Preview changes to ${NAME} Lab
+
+https://labs.usegalaxy.org.au/?content_root=https://github.com/${USERNAME}/galaxy_codex/blob/${BRANCH_NAME}/communities/${NAME}/lab/base.yml
+
+- [usegalaxy.org.yml](https://labs.usegalaxy.org.au/?content_root=https://github.com/${USERNAME}/galaxy_codex/blob/${BRANCH_NAME}/communities/${NAME}/lab/usegalaxy.org.yml)
+- [usegalaxy.eu.yml](https://labs.usegalaxy.org.au/?content_root=https://github.com/${USERNAME}/galaxy_codex/blob/${BRANCH_NAME}/communities/${NAME}/lab/usegalaxy.eu.yml)
+- [usegalaxy.org.au.yml](https://labs.usegalaxy.org.au/?content_root=https://github.com/${USERNAME}/galaxy_codex/blob/${BRANCH_NAME}/communities/${NAME}/lab/usegalaxy.org.au.yml)
+
+EOF
+)
+                gh pr comment "$PR_NUMBER" --body "$COMMENT"
+              fi
+            fi
+          done
