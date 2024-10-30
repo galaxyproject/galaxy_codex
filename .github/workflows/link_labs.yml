@@ -33,9 +33,9 @@ jobs:
 
           for FILE in $FILES; do
             if [[ "$FILE" == communities/*/lab/* ]]; then
-              NAME=$(echo "$FILE" | cut -d'/' -f5)
+              NAME=$(echo "$FILE" | cut -d'/' -f2)
               # Check if this directory has already been processed
-              if [[ -n "$NAME" && -z  "${directories[$NAME]}" ]]; then
+              if [[ -z  "${directories[$NAME]}" ]]; then
                 echo "Posting link for ${NAME}..."
                 directories[$NAME]=1
                 cat <<EOF > comment.md
@@ -50,5 +50,7 @@ jobs:
           EOF
                 gh pr comment "$PR_NUMBER" --body "$(cat comment.md)"
               fi
+            else
+              echo "Ignoring changes to $FILE: not in a lab directory"
             fi
           done
