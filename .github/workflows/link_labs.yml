@@ -21,7 +21,6 @@ jobs:
           cat changed_files.txt
 
       - name: Post comment if matching changes found
-        # if: contains(steps.changed-files.outputs.changes, 'communities/')
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -49,8 +48,22 @@ jobs:
 
           EOF
                 gh pr comment "$PR_NUMBER" --body "$(cat comment.md)"
+
+                # Write url to file
+                echo "https://labs.usegalaxy.org.au/?content_root=https://github.com/${USERNAME}/galaxy_codex/blob/${BRANCH_NAME}/communities/${NAME}/lab/base.yml" >> "urls.txt"
               fi
             else
               echo "Ignoring changes to $FILE: not in a lab directory"
             fi
           done
+      - name: Check URLs for Success Status Code
+        run: |
+          while IFS= read -r url; do
+            status_code=$(curl -o /dev/null -s -w "%{http_code}" "$url")
+            if [[ "$status_code" -ge 200 && "$status_code" -lt 300 ]]; then
+              echo "✅ $url returned a success status code: $status_code"
+            else
+              echo "❌ $url returned a failure status code: $status_code"
+              exit 1
+            fi
+          done < urls.txt
