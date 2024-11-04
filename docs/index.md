@@ -4,3 +4,4 @@ datatable: true
 sidebar: false
 ---
 
+{% include codex.html %}
