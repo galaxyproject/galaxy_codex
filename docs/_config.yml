@@ -1,0 +1,45 @@
+title: Galaxy CoDex
+# This appears in the html browser tab for the site title (seen mostly by search engines, not users)
+
+topnav_title: Galaxy CoDex
+# Optional: this appears on the top navigation bar next to the main_logo.svg icon
+
+description: "A landing page for the Galaxy CoDex"
+# Metadata description of the website
+
+remote_theme: ELIXIR-Belgium/elixir-toolkit-theme@2.5.0
+
+theme_variables:
+  # biocommons blue
+  theme_color: 205a86
+  topnav:
+    brand_logo: assets/img/microgalaxy-logo.png
+
+exclude:
+  - README.md
+  - vendor
+
+defaults:
+  -
+    scope:
+      path: "pages"
+      type: "pages"
+    values:
+      permalink: /:basename
+      layout: "page"
+      sidebar: main
+  -
+    scope:
+      path: "index.md"
+      type: "pages"
+    values:
+      permalink: /:basename
+      layout: "page"
+      sidebar: main
+
+plugins:
+  - jemoji
+  - jekyll-sitemap
+  - jekyll-github-metadata
+  - webrick
+  - elixir-toolkit-theme-plugins
