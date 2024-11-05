@@ -92,7 +92,7 @@ def read_suite_per_tool_id(tool_fp: str) -> Dict:
     return tools
 
 
-def get_request_json(url: str, headers: dict, retries: int = 3, delay: float = 2.0) -> Optional[dict]:
+def get_request_json(url: str, headers: dict, retries: int = 3, delay: float = 2.0) -> dict:
     """
     Perform a GET request to retrieve JSON output from a specified URL, with retry on ConnectionError.
 
