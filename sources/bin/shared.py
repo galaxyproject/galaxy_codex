@@ -90,7 +90,7 @@ def read_suite_per_tool_id(tool_fp: str) -> Dict:
     return tools
 
 
-def get_request_json(url: str, headers: dict, retries: int = 3, delay: float = 2.0) -> dict:
+def get_request_json(url: str, headers: dict, retries: int = 3, delay: float = 2.0) -> Optional[dict]:
     """
     Perform a GET request to retrieve JSON output from a specified URL, with retry on ConnectionError.
 
@@ -98,7 +98,7 @@ def get_request_json(url: str, headers: dict, retries: int = 3, delay: float = 2
     :param headers: Headers to include in the GET request.
     :param retries: Number of retry attempts in case of a ConnectionError (default is 3).
     :param delay: Delay in seconds between retries (default is 2.0 seconds).
-    :return: JSON response as a dictionary.
+    :return: JSON response as a dictionary, or None if all retries fail.
     :raises ConnectionError: If all retry attempts fail due to a connection error.
     :raises SystemExit: For any other request-related errors.
     """
@@ -108,7 +108,7 @@ def get_request_json(url: str, headers: dict, retries: int = 3, delay: float = 2
         try:
             r = requests.get(url, auth=None, headers=headers)
             r.raise_for_status()  # Raises an HTTPError for unsuccessful status codes
-            return r.json()  # Attempt to parse JSON response if successful
+            return r.json()  # Return JSON response if successful
         except ConnectionError as e:
             attempt += 1
             if attempt == retries:
@@ -123,6 +123,9 @@ def get_request_json(url: str, headers: dict, retries: int = 3, delay: float = 2
         except ValueError as e:
             # Handles cases where the response isn't valid JSON
             raise ValueError("Response content is not valid JSON") from e
+
+    # Return None if all retries are exhausted and no response is received
+    return None
 
 
 def format_date(date: str) -> str:
