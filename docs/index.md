@@ -4,4 +4,6 @@ datatable: true
 sidebar: false
 ---
 
+<div markdown="0">
 {% include codex.html %}
+</div>
