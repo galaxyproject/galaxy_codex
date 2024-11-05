@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import json
+import time
 from datetime import datetime
 from pathlib import Path
 from typing import (
@@ -13,6 +14,7 @@ import pandas as pd
 import requests
 from github.ContentFile import ContentFile
 from github.Repository import Repository
+from requests.exceptions import ConnectionError
 
 
 def get_first_commit_for_folder(tool: ContentFile, repo: Repository) -> str:
