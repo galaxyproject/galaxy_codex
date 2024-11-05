@@ -156,9 +156,10 @@ class Workflows:
                 f"https://workflowhub.eu{wf['links']['self']}",
                 header,
             )
-            wf = Workflow()
-            wf.init_from_search(wf=wfhub_wf, source="WorkflowHub", tools=self.tools)
-            self.workflows.append(wf)
+            if wfhub_wf:
+                wf = Workflow()
+                wf.init_from_search(wf=wfhub_wf, source="WorkflowHub", tools=self.tools)
+                self.workflows.append(wf)
         print(len(self.workflows))
 
     def add_workflows_from_a_server(self, server: str) -> None:
@@ -170,6 +171,12 @@ class Workflows:
             f"{server}/api/workflows/",
             header,
         )
+
+        # test max 50 wfs
+        if self.test:
+            if len(server_wfs) > 50:
+                server_wfs = server_wfs[:50]
+
         count = 0
         for wf in server_wfs:
             if wf["published"] and wf["importable"] and not wf["deleted"] and not wf["hidden"]:
