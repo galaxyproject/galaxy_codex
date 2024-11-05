@@ -96,9 +96,17 @@ def get_request_json(url: str, headers: dict) -> dict:
 
     :param url: galaxy tool id
     """
-    r = requests.get(url, auth=None, headers=headers)
-    r.raise_for_status()
-    return r.json()
+
+    try:
+        r = requests.get(url, auth=None, headers=headers)
+        r.raise_for_status()  # Optional: Raises an HTTPError if the response was an unsuccessful status code
+    except ConnectionError as e:
+        raise ConnectionError("Connection aborted: Remote end closed connection without response") from e
+    except requests.exceptions.RequestException as e:
+        # This will handle other possible errors (e.g., timeout, HTTPError)
+        raise SystemExit(e)
+    else:
+        return r.json()
 
 
 def format_date(date: str) -> str:
