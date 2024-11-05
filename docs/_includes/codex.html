@@ -3,23 +3,23 @@
 {%- endif %}
 {%- unless tools.size == 0 or tools == nil %}
 <a class="visually-hidden-focusable" href='#skip-tool-table'>Skip tool table</a>
-<div id="tool-table" class="my-5 table-responsive d-none">
-  <table class="tooltable table display table-bordered table-striped w-100">
-    <thead>
-      <tr>
-        <th>Description</th>
-        <th>Source</th>
-      </tr>
-    </thead>
-    <tbody>
-      {%- for tool in tools %}
-      <tr>
-        <td>{{ tool.Description }}</td>
-        <td>{{ tool.Source }}</td>
-      </tr>
-      {%- endfor %}
-    </tbody>
-  </table>
+<div class="table-responsive mt-4 mb-5">
+    <table class="tooltable table display">
+        <thead>
+            <tr class="text-nowrap">
+                <th>Description</th>
+                <th>Source</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%- for tool in tools %}
+            <tr>
+                <td>{{tool.Description}}</td>
+                <td>{{tool.Source}}</td>
+            </tr>
+            {%- endfor %}
+        </tbody>
+    </table>
 </div>
 {%- endunless %}
 <div id="skip-tool-table"></div>
