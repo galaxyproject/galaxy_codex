@@ -127,7 +127,7 @@ def get_request_json(url: str, headers: dict, retries: int = 3, delay: float = 2
             raise ValueError("Response content is not valid JSON") from e
 
     # Return None if all retries are exhausted and no response is received
-    return None
+    return {}
 
 
 def format_date(date: str) -> str:
