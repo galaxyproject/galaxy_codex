@@ -1,2 +1,0 @@
-# microGalaxy subdomain/Lab
-
