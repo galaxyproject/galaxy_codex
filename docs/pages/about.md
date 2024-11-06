@@ -16,12 +16,11 @@ This resource would not be possible without the following contributors:
 
 
 
-
 ## Acknowledgements
 
-This work is supported by the [Australian BioCommons](https://www.biocommons.org.au/) which is enabled by NCRIS via Bioplatforms Australia funding.
+The source code for the Galaxy CoDex is available here: <https://github.com/galaxyproject/galaxy_codex>. The additional code that [creates the interactive tables](https://github.com/galaxyproject/galaxy_codex/tree/e00632630b51e188bca11cfc35ae9eb27ace29a2/docs) has been adapted from both the [ELIXIR Toolkit Theme](https://github.com/ELIXIR-Belgium/elixir-toolkit-theme) and [Australian BioCommons ToolFinder service](https://australianbiocommons.github.io/toolfinder/).
 
-This guide makes use of the [ELIXIR toolkit theme](https://github.com/ELIXIR-Belgium/elixir-toolkit-theme)
+This work is supported by the [Australian BioCommons](https://www.biocommons.org.au/) which is enabled by NCRIS via Bioplatforms Australia funding.
 
 {% include image.html file="elixir-toolkit-theme_logo.svg" alt="Elixir Toolkit Theme logo" max-width="15em" %}
  
