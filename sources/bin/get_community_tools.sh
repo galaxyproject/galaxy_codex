@@ -6,7 +6,7 @@ set -e
 if [[ ! -z $1  && $1 == "test" ]]; then
         python sources/bin/extract_galaxy_tools.py \
                 filter \
-                --all "communities/all/resources/tools.json" \
+                --all "communities/all/resources/test_tools.json" \
                 --categories "communities/microgalaxy/metadata/categories" \
                 --tsv-filtered "communities/microgalaxy/resources/tools_filtered_by_ts_categories.tsv" \
                 --filtered "communities/microgalaxy/resources/tools_filtered_by_ts_categories.json" \
@@ -20,18 +20,10 @@ if [[ ! -z $1  && $1 == "test" ]]; then
                 --wo-biotools "communities/microgalaxy/resources/curated_tools_wo_biotools.tsv" \
                 --w-biotools "communities/microgalaxy/resources/curated_tools_w_biotools.tsv"
 
-        python sources/bin/create_interactive_table.py \
-                --input "communities/microgalaxy/resources/curated_tools.tsv" \
-                --remove-col "Reviewed" \
-                --remove-col "To keep" \
-                --filter-col "To keep" \
-                --template "sources/data/interactive_table_template.html" \
-                --output "communities/microgalaxy/resources/tools.html"
-
         python sources/bin/create_wordcloud.py \
                 --input  "communities/microgalaxy/resources/curated_tools.tsv" \
-                --name-col "Galaxy wrapper id" \
-                --stat-col "No. of tool users (5 years) - all main servers" \
+                --name-col "Suite ID" \
+                --stat-col "Suite runs (last 5 years) on main servers" \
                 --wordcloud_mask "sources/data/usage_stats/wordcloud_mask.png" \
                 --output "communities/microgalaxy/resources/tools_wordcloud.png"
 
@@ -62,19 +54,11 @@ else
                                                 --wo-biotools "communities/$community/resources/curated_tools_wo_biotools.tsv" \
                                                 --w-biotools "communities/$community/resources/curated_tools_w_biotools.tsv"
 
-                                        if [[ -e "communities/$community/resources/curated_tools.tsv" && -f "communities/$community/resources/curated_tools.tsv" ]]; then
-                                                python sources/bin/create_interactive_table.py \
-                                                        --input "communities/$community/resources/curated_tools.tsv" \
-                                                        --remove-col "Reviewed" \
-                                                        --remove-col "To keep" \
-                                                        --filter-col "To keep" \
-                                                        --template "sources/data/interactive_table_template.html" \
-                                                        --output "communities/$community/resources/tools.html"
-                                                        
+                                        if [[ -e "communities/$community/resources/curated_tools.tsv" && -f "communities/$community/resources/curated_tools.tsv" ]]; then                                
                                                 python sources/bin/create_wordcloud.py \
                                                         --input "communities/$community/resources/curated_tools.tsv" \
-                                                        --name-col "Galaxy wrapper id" \
-                                                        --stat-col "No. of tool users (5 years) - all main servers" \
+                                                        --name-col "Suite ID" \
+                                                        --stat-col "Suite runs (last 5 years) on main servers" \
                                                         --wordcloud_mask "sources/data/usage_stats/wordcloud_mask.png" \
                                                         --output "communities/$community/resources/tools_wordcloud.png"
                                         fi;
