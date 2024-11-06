@@ -10,18 +10,36 @@
     <table class="tooltable table display">
         <thead>
             <tr class="text-nowrap">
-                <th>Galaxy wrapper id</th>
+                <th>Galaxy wrapper id (+ link to wrapper)</th>
                 <th>Description</th>
                 <th>Source</th>
+                <th>bio.tools (if available)</th>
                 <th>Status</th>
             </tr>
         </thead>
         <tbody>
             {%- for tool in tools %}
             <tr>
-                <td>{{tool.["Galaxy wrapper id"]}}</td>
+                <td>
+                <div>
+                  {% if tool.["Galaxy wrapper source"] != "" %}
+                    <a href='{{ tool.["Galaxy wrapper source"] }}'>{{ tool.["Galaxy wrapper id"] }}</a>
+                  {% else %}
+                    <a href="#">{{ tool.["Galaxy wrapper id"] }}</a>
+                  {% endif %}
+                </div>
+                </td>
                 <td>{{tool.Description}}</td>
                 <td>{{tool.Source}}</td>
+                <td>
+                <div>
+                  {% if tool.["bio.tool id"] != "null" %}
+                    <a href='https://bio.tools/{{ tool.["bio.tool id"] }}'>{{ tool.["bio.tool id"] }}</a>
+                  {% else %}
+                    <a href="#">""</a>
+                  {% endif %}
+                </div>
+                </td>
                 <td>{{tool.Status}}</td>
             </tr>
             {%- endfor %}
