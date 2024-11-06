@@ -40,34 +40,27 @@ conf_path = project_path.joinpath("data", "conf.yml")
 public_servers = project_path.joinpath("data", "available_public_servers.csv")
 
 
-GALAXY_TOOL_STATS = {
-    # EU
-    "No. of tool users (5 years) (usegalaxy.eu)": usage_stats_path.joinpath("eu/tool_usage_5y_until_2024.08.31.csv"),
-    "No. of tool users (all time) (usegalaxy.eu)": usage_stats_path.joinpath("eu/tool_usage_until_2024.08.31.csv"),
-    "Tool usage (5 years) (usegalaxy.eu)": usage_stats_path.joinpath("eu/tool_users_5y_until_2024.08.31.csv"),
-    "Tool usage (all time) (usegalaxy.eu)": usage_stats_path.joinpath("eu/tool_users_until_2024.08.31.csv"),
-    # ORG
-    "No. of tool users (5 years) (usegalaxy.org)": usage_stats_path.joinpath("org/tool_usage_5y_until_2024.08.31.csv"),
-    "No. of tool users (all time) (usegalaxy.org)": usage_stats_path.joinpath("org/tool_usage_until_2024.08.31.csv"),
-    "Tool usage (5 years) (usegalaxy.org)": usage_stats_path.joinpath("org/tool_users_5y_until_2024.08.31.csv"),
-    "Tool usage (all time) (usegalaxy.org)": usage_stats_path.joinpath("org/tool_users_until_2024.08.31.csv"),
-    # AU
-    "No. of tool users (5 years) (usegalaxy.org.au)": usage_stats_path.joinpath(
-        "org.au/tool_usage_5y_until_2024.08.31.csv"
-    ),
-    "No. of tool users (all time) (usegalaxy.org.au)": usage_stats_path.joinpath(
-        "org.au/tool_usage_until_2024.08.31.csv"
-    ),
-    "Tool usage (5 years) (usegalaxy.org.au)": usage_stats_path.joinpath("org.au/tool_users_5y_until_2024.08.31.csv"),
-    "Tool usage (all time) (usegalaxy.org.au)": usage_stats_path.joinpath("org.au/tool_users_until_2024.08.31.csv"),
-}
+GALAXY_TOOL_STATS = {}
+for server in ["eu", "org", "org.au"]:
+    GALAXY_TOOL_STATS[f"Suite users (last 5 years) (usegalaxy.{ server })"] = usage_stats_path.joinpath(
+        f"{ server }/tool_users_5y_until_2024.08.31.csv"
+    )
+    GALAXY_TOOL_STATS[f"Suite users (usegalaxy.{ server })"] = usage_stats_path.joinpath(
+        f"{ server }/tool_users_until_2024.08.31.csv"
+    )
+    GALAXY_TOOL_STATS[f"Suite runs (last 5 years) (usegalaxy.{ server })"] = usage_stats_path.joinpath(
+        f"{ server }/tool_usage_5y_until_2024.08.31.csv"
+    )
+    GALAXY_TOOL_STATS[f"Suite runs (usegalaxy.{ server })"] = usage_stats_path.joinpath(
+        f"{ server }/tool_usage_until_2024.08.31.csv"
+    )
 
 # all columns that contain the text will be summed up to a new column with summed up stats
 GALAXY_TOOL_STATS_SUM = [
-    "No. of tool users (5 years)",
-    "No. of tool users (all time)",
-    "Tool usage (5 years)",
-    "Tool usage (all time)",
+    "Suite users (last 5 years)",
+    "Suite users",
+    "Suite runs (last 5 years)",
+    "Suite runs",
 ]
 
 # load the configs globally
@@ -100,15 +93,15 @@ def get_tool_stats_from_stats_file(tool_stats_df: pd.DataFrame, tool_ids: List[s
     """
 
     # extract tool id
-    tool_stats_df["Galaxy wrapper id"] = tool_stats_df["tool_name"].apply(get_last_url_position)
-    # print(tool_stats_df["Galaxy wrapper id"].to_list())
+    tool_stats_df["Suite ID"] = tool_stats_df["tool_name"].apply(get_last_url_position)
+    # print(tool_stats_df["Suite ID"].to_list())
 
     agg_count = 0
     for tool_id in tool_ids:
-        if tool_id in tool_stats_df["Galaxy wrapper id"].to_list():
+        if tool_id in tool_stats_df["Suite ID"].to_list():
 
             # get stats of the tool for all versions
-            counts = tool_stats_df.loc[(tool_stats_df["Galaxy wrapper id"] == tool_id), "count"]
+            counts = tool_stats_df.loc[(tool_stats_df["Suite ID"] == tool_id), "count"]
             agg_versions = counts.sum()
 
             # aggregate all counts for all tools in the suite
@@ -272,29 +265,28 @@ def get_tool_metadata(tool: ContentFile, repo: Repository) -> Optional[Dict[str,
     if tool.type != "dir":
         return None
 
-    # the folder of the tool is used as Galaxy wrapper id (maybe rather use the .shed.yml name)
-    metadata = {
-        "Galaxy wrapper id": tool.name,
-        "Galaxy tool ids": [],
+    metadata: dict = {
+        "Suite ID": None,
+        "Tool IDs": [],
         "Description": None,
-        "bio.tool id": None,
-        "bio.tool ids": set(),  # keep track of multi IDs
-        "biii": None,
+        "Suite first commit date": None,
+        "Homepage": None,
+        "Suite version": None,
+        "Suite conda package": None,
+        "Latest suite conda package version": None,
+        "Suite version status": "To update",
+        "ToolShed categories": [],
+        "EDAM operations": [],
+        "EDAM reduced operations": [],
+        "EDAM topics": [],
+        "EDAM reduced topics": [],
+        "Suite owner": None,
+        "Suite source": None,  # this is what it written in the .shed.yml
+        "Suite parsed folder": None,  # this is the actual parsed file
+        "bio.tool ID": None,
         "bio.tool name": None,
         "bio.tool description": None,
-        "EDAM operation": [],
-        "EDAM topic": [],
-        "Status": "To update",
-        "Source": None,
-        "ToolShed categories": [],
-        "ToolShed id": None,
-        "Date of first commit of the suite": None,
-        "Galaxy wrapper owner": None,
-        "Galaxy wrapper source": None,  # this is what it written in the .shed.yml
-        "Galaxy wrapper parsed folder": None,  # this is the actual parsed file
-        "Galaxy wrapper version": None,
-        "Conda id": None,
-        "Conda version": None,
+        "biii ID": None,
     }
     # extract .shed.yml information and check macros.xml
     try:
@@ -310,11 +302,11 @@ def get_tool_metadata(tool: ContentFile, repo: Repository) -> Optional[Dict[str,
             metadata["Description"] = get_shed_attribute("long_description", yaml_content, None)
         if metadata["Description"] is not None:
             metadata["Description"] = metadata["Description"].replace("\n", "")
-        metadata["ToolShed id"] = get_shed_attribute("name", yaml_content, None)
-        metadata["Galaxy wrapper owner"] = get_shed_attribute("owner", yaml_content, None)
-        metadata["Galaxy wrapper source"] = get_shed_attribute("remote_repository_url", yaml_content, None)
+        metadata["Suite ID"] = get_shed_attribute("name", yaml_content, None)
+        metadata["Suite owner"] = get_shed_attribute("owner", yaml_content, None)
+        metadata["Suite source"] = get_shed_attribute("remote_repository_url", yaml_content, None)
         if "homepage_url" in yaml_content:
-            metadata["Source"] = yaml_content["homepage_url"]
+            metadata["Homepage"] = yaml_content["homepage_url"]
         metadata["ToolShed categories"] = get_shed_attribute("categories", yaml_content, [])
         if metadata["ToolShed categories"] is None:
             metadata["ToolShed categories"] = []
@@ -324,10 +316,10 @@ def get_tool_metadata(tool: ContentFile, repo: Repository) -> Optional[Dict[str,
     assert isinstance(file_list, list)
 
     # store the github location where the folder was parsed
-    metadata["Galaxy wrapper parsed folder"] = tool.html_url
+    metadata["Suite parsed folder"] = tool.html_url
 
     # get the first commit date
-    metadata["Date of first commit of the suite"] = shared.get_first_commit_for_folder(tool, repo)
+    metadata["Suite first commit date"] = shared.get_first_commit_for_folder(tool, repo)
 
     # find and parse macro file
     for file in file_list:
@@ -337,18 +329,17 @@ def get_tool_metadata(tool: ContentFile, repo: Repository) -> Optional[Dict[str,
             for child in root:
                 if "name" in child.attrib:
                     if child.attrib["name"] == "@TOOL_VERSION@" or child.attrib["name"] == "@VERSION@":
-                        metadata["Galaxy wrapper version"] = child.text
+                        metadata["Suite version"] = child.text
                     elif child.attrib["name"] == "requirements":
-                        metadata["Conda id"] = get_conda_package(child)
+                        metadata["Suite conda package"] = get_conda_package(child)
                     # bio.tools
                     biotools = get_xref(child, attrib_type="bio.tools")
                     if biotools is not None:
-                        metadata["bio.tool id"] = biotools
-                        metadata["bio.tool ids"].add(biotools)
+                        metadata["bio.tool ID"] = biotools
                     # biii
                     biii = get_xref(child, attrib_type="biii")
                     if biii is not None:
-                        metadata["biii"] = biii
+                        metadata["biii ID"] = biii
 
     # parse XML file and get meta data from there
     for file in file_list:
@@ -360,11 +351,11 @@ def get_tool_metadata(tool: ContentFile, repo: Repository) -> Optional[Dict[str,
                 print(traceback.format_exc())
             else:
                 # version
-                if metadata["Galaxy wrapper version"] is None:
+                if metadata["Suite version"] is None:
                     if "version" in root.attrib:
                         version = root.attrib["version"]
                         if "VERSION@" not in version:
-                            metadata["Galaxy wrapper version"] = version
+                            metadata["Suite version"] = version
                         else:
                             macros = root.find("macros")
                             if macros is not None:
@@ -372,52 +363,51 @@ def get_tool_metadata(tool: ContentFile, repo: Repository) -> Optional[Dict[str,
                                     if "name" in child.attrib and (
                                         child.attrib["name"] == "@TOOL_VERSION@" or child.attrib["name"] == "@VERSION@"
                                     ):
-                                        metadata["Galaxy wrapper version"] = child.text
+                                        metadata["Suite version"] = child.text
 
                 # bio.tools
                 biotools = get_xref(root, attrib_type="bio.tools")
                 if biotools is not None:
-                    metadata["bio.tool id"] = biotools
-                    metadata["bio.tool ids"].add(biotools)
+                    metadata["bio.tool ID"] = biotools
 
                 # biii
-                if metadata["biii"] is None:
+                if metadata["biii ID"] is None:
                     biii = get_xref(root, attrib_type="biii")
                     if biii is not None:
-                        metadata["biii"] = biii
+                        metadata["biii ID"] = biii
 
                 # conda package
-                if metadata["Conda id"] is None:
+                if metadata["Suite conda package"] is None:
                     reqs = get_conda_package(root)
                     if reqs is not None:
-                        metadata["Conda id"] = reqs
+                        metadata["Suite conda package"] = reqs
                 # tool ids
                 if "id" in root.attrib:
-                    metadata["Galaxy tool ids"].append(root.attrib["id"])
+                    metadata["Tool IDs"].append(root.attrib["id"])
 
     # get latest conda version and compare to the wrapper version
-    if metadata["Conda id"] is not None:
-        r = requests.get(f'https://api.anaconda.org/package/bioconda/{metadata["Conda id"]}')
+    if metadata["Suite conda package"] is not None:
+        r = requests.get(f'https://api.anaconda.org/package/bioconda/{metadata["Suite conda package"]}')
         if r.status_code == requests.codes.ok:
             conda_info = r.json()
             if "latest_version" in conda_info:
-                metadata["Conda version"] = conda_info["latest_version"]
-                if metadata["Conda version"] == metadata["Galaxy wrapper version"]:
-                    metadata["Status"] = "Up-to-date"
+                metadata["Latest suite conda package version"] = conda_info["latest_version"]
+                if metadata["Latest suite conda package version"] == metadata["Suite version"]:
+                    metadata["Suite version status"] = "Up-to-date"
 
     # get bio.tool information
-    if metadata["bio.tool id"] is not None:
-        r = requests.get(f'{BIOTOOLS_API_URL}/api/tool/{metadata["bio.tool id"]}/?format=json')
+    if metadata["bio.tool ID"] is not None:
+        r = requests.get(f'{BIOTOOLS_API_URL}/api/tool/{metadata["bio.tool ID"]}/?format=json')
         if r.status_code == requests.codes.ok:
             biotool_info = r.json()
             if "function" in biotool_info:
                 for func in biotool_info["function"]:
                     if "operation" in func:
                         for op in func["operation"]:
-                            metadata["EDAM operation"].append(op["term"])
+                            metadata["EDAM operations"].append(op["term"])
             if "topic" in biotool_info:
                 for t in biotool_info["topic"]:
-                    metadata["EDAM topic"].append(t["term"])
+                    metadata["EDAM topics"].append(t["term"])
             if "name" in biotool_info:
                 metadata["bio.tool name"] = biotool_info["name"]
             if "description" in biotool_info:
@@ -539,7 +529,7 @@ def export_tools_to_json(tools: List[Dict], output_fp: str) -> None:
 
 
 def export_tools_to_tsv(
-    tools: List[Dict], output_fp: str, format_list_col: bool = False, add_usage_stats: bool = False
+    tools: List[Dict], output_fp: str, format_list_col: bool = False, to_keep_columns: Optional[List[str]] = None
 ) -> None:
     """
     Export tool metadata to TSV output file
@@ -549,56 +539,83 @@ def export_tools_to_tsv(
     :param format_list_col: boolean indicating if list columns should be formatting
     """
 
-    df = pd.DataFrame(tools).sort_values("Galaxy wrapper id")
+    df = pd.DataFrame(tools).sort_values("Suite ID")
     if format_list_col:
         df["ToolShed categories"] = shared.format_list_column(df["ToolShed categories"])
-        df["EDAM operation"] = shared.format_list_column(df["EDAM operation"])
-        df["EDAM topic"] = shared.format_list_column(df["EDAM topic"])
+        df["EDAM operations"] = shared.format_list_column(df["EDAM operations"])
+        df["EDAM topics"] = shared.format_list_column(df["EDAM topics"])
 
-        df["EDAM operation (no superclasses)"] = shared.format_list_column(df["EDAM operation (no superclasses)"])
-        df["EDAM topic (no superclasses)"] = shared.format_list_column(df["EDAM topic (no superclasses)"])
-
-        df["bio.tool ids"] = shared.format_list_column(df["bio.tool ids"])
+        df["EDAM reduced operations"] = shared.format_list_column(df["EDAM reduced operations"])
+        df["EDAM reduced topics"] = shared.format_list_column(df["EDAM reduced topics"])
 
         # the Galaxy tools need to be formatted for the add_instances_to_table to work
-        df["Galaxy tool ids"] = shared.format_list_column(df["Galaxy tool ids"])
+        df["Tool IDs"] = shared.format_list_column(df["Tool IDs"])
 
-    # if add_usage_stats:
-    #     df = add_usage_stats_for_all_server(df)
+    if to_keep_columns is not None:
+        df = df[to_keep_columns]
 
     df.to_csv(output_fp, sep="\t", index=False)
+
+
+def add_status(tool: Dict, tool_status: Dict) -> None:
+    """
+    Add status to tool
+
+    :param tool: dictionary with tools and their metadata
+    :param tool_status: dictionary with tools and their 2 status: Keep and Deprecated
+    """
+    name = tool["Suite ID"]
+    if name in tool_status:
+        tool["To keep"] = tool_status[name]["To keep"]
+        tool["Deprecated"] = tool_status[name]["Deprecated"]
+    else:
+        tool["To keep"] = None
+        tool["Deprecated"] = None
 
 
 def filter_tools(
     tools: List[Dict],
     ts_cat: List[str],
     tool_status: Dict,
-) -> tuple:
+) -> list:
     """
-    Filter tools for specific ToolShed categories and add information if to keep or to exclude
+    Filter tools for specific ToolShed categories
 
     :param tools: dictionary with tools and their metadata
     :param ts_cat: list of ToolShed categories to keep in the extraction
     :param tool_status: dictionary with tools and their 2 status: Keep and Deprecated
     """
-    ts_filtered_tools = []
     filtered_tools = []
     for tool in tools:
         # filter ToolShed categories and leave function if not in expected categories
         if check_categories(tool["ToolShed categories"], ts_cat):
-            name = tool["Galaxy wrapper id"]
-            tool["Reviewed"] = name in tool_status
-            keep = None
-            deprecated = None
-            if name in tool_status:
-                keep = tool_status[name][1]
-                deprecated = tool_status[name][2]
-            tool["Deprecated"] = deprecated
-            if keep:  # only add tools that are manually marked as to keep
-                filtered_tools.append(tool)
-            tool["To keep"] = keep
-            ts_filtered_tools.append(tool)
-    return ts_filtered_tools, filtered_tools
+            filtered_tools.append(tool)
+            add_status(tool, tool_status)
+    return filtered_tools
+
+
+def curate_tools(
+    tools: List[Dict],
+    tool_status: Dict,
+) -> tuple:
+    """
+    Filter tools for specific ToolShed categories
+
+    :param tools: dictionary with tools and their metadata
+    :param tool_status: dictionary with tools and their 2 status: Keep and Deprecated
+    """
+    curated_tools = []
+    tools_wo_biotools = []
+    tools_with_biotools = []
+    for tool in tools:
+        add_status(tool, tool_status)
+        if tool["To keep"]:  # only add tools that are manually marked as to keep
+            curated_tools.append(tool)
+            if tool["bio.tool ID"] is None:
+                tools_wo_biotools.append(tool)
+            else:
+                tools_with_biotools.append(tool)
+    return curated_tools, tools_wo_biotools, tools_with_biotools
 
 
 def reduce_ontology_terms(terms: List, ontology: Any) -> List:
@@ -609,7 +626,6 @@ def reduce_ontology_terms(terms: List, ontology: Any) -> List:
     :terms: list of terms from that ontology
     :ontology: Ontology
     """
-
     # if list is empty do nothing
     if not terms:
         return terms
@@ -666,15 +682,12 @@ def get_tools(repo_list: list, edam_ontology: dict) -> List[Dict]:
     # add additional information to tools
     for tool in tools:
         # add EDAM terms without superclass
-        tool["EDAM operation (no superclasses)"] = reduce_ontology_terms(tool["EDAM operation"], ontology=edam_ontology)
-        tool["EDAM topic (no superclasses)"] = reduce_ontology_terms(tool["EDAM topic"], ontology=edam_ontology)
+        tool["EDAM reduced operations"] = reduce_ontology_terms(tool["EDAM operations"], ontology=edam_ontology)
+        tool["EDAM reduced topics"] = reduce_ontology_terms(tool["EDAM topics"], ontology=edam_ontology)
 
         # add availability for UseGalaxy servers
         for name, url in USEGALAXY_SERVER_URLS.items():
-            tool[f"Available on {name}"] = check_tools_on_servers(tool["Galaxy tool ids"], url)
-        # add availability for all UseGalaxy servers
-        for name, url in USEGALAXY_SERVER_URLS.items():
-            tool[f"Tools available on {name}"] = check_tools_on_servers(tool["Galaxy tool ids"], url)
+            tool[f"Number of tools on {name}"] = check_tools_on_servers(tool["Tool IDs"], url)
 
         # add all other available servers
         public_servers_df = pd.read_csv(public_servers, sep="\t")
@@ -686,12 +699,12 @@ def get_tools(repo_list: list, edam_ontology: dict) -> List[Dict]:
             ]:  # do not query UseGalaxy servers again
 
                 url = row["url"]
-                tool[f"Tools available on {name}"] = check_tools_on_servers(tool["Galaxy tool ids"], url)
+                tool[f"Number of tools on {name}"] = check_tools_on_servers(tool["Tool IDs"], url)
 
         # add tool stats
         for name, path in GALAXY_TOOL_STATS.items():
             tool_stats_df = pd.read_csv(path)
-            tool[name] = get_tool_stats_from_stats_file(tool_stats_df, tool["Galaxy tool ids"])
+            tool[name] = get_tool_stats_from_stats_file(tool_stats_df, tool["Tool IDs"])
 
         # sum up tool stats
         for names_to_match in GALAXY_TOOL_STATS_SUM:
@@ -699,7 +712,7 @@ def get_tools(repo_list: list, edam_ontology: dict) -> List[Dict]:
             for col_name in tool.keys():
                 if names_to_match in col_name:
                     summed_stat += tool[col_name]
-            tool[f"{names_to_match} - all main servers"] = summed_stat
+            tool[f"{names_to_match} on main servers"] = summed_stat
 
     return tools
 
@@ -737,8 +750,8 @@ if __name__ == "__main__":
         help="Run a small test case using only the repository: https://github.com/TGAC/earlham-galaxytools",
     )
 
-    # Filter tools
-    filtertools = subparser.add_parser("filter", help="Filter tools")
+    # Filter tools based on ToolShed categories
+    filtertools = subparser.add_parser("filter", help="Filter tools based on ToolShed categories")
     filtertools.add_argument(
         "--all",
         "-a",
@@ -746,26 +759,56 @@ if __name__ == "__main__":
         help="Filepath to JSON with all extracted tools, generated by extractools command",
     )
     filtertools.add_argument(
-        "--ts-filtered",
-        "-t",
-        required=True,
-        help="Filepath to TSV with tools filtered based on ToolShed category",
-    )
-    filtertools.add_argument(
-        "--filtered",
-        "-f",
-        required=True,
-        help="Filepath to TSV with tools filtered based on ToolShed category and manual curation",
-    )
-    filtertools.add_argument(
         "--categories",
         "-c",
         help="Path to a file with ToolShed category to keep in the extraction (one per line)",
     )
     filtertools.add_argument(
+        "--filtered",
+        "-f",
+        required=True,
+        help="Filepath to JSON with tools filtered based on ToolShed category",
+    )
+    filtertools.add_argument(
+        "--tsv-filtered",
+        "-t",
+        required=True,
+        help="Filepath to TSV with tools filtered based on ToolShed category",
+    )
+    filtertools.add_argument(
         "--status",
         "-s",
-        help="Path to a TSV file with tool status - 3 columns: ToolShed ids of tool suites, Boolean with True to keep and False to exclude, Boolean with True if deprecated and False if not",
+        help="Path to a TSV file with tool status - at least 3 columns: IDs of tool suites, Boolean with True to keep and False to exclude, Boolean with True if deprecated and False if not",
+    )
+
+    # Curate tools categories
+    curatetools = subparser.add_parser("curate", help="Curate tools based on community review")
+    curatetools.add_argument(
+        "--filtered",
+        "-f",
+        required=True,
+        help="Filepath to JSON with tools filtered based on ToolShed category",
+    )
+    curatetools.add_argument(
+        "--curated",
+        "-c",
+        required=True,
+        help="Filepath to TSV with curated tools",
+    )
+    curatetools.add_argument(
+        "--wo-biotools",
+        required=True,
+        help="Filepath to TSV with tools not linked to bio.tools",
+    )
+    curatetools.add_argument(
+        "--w-biotools",
+        required=True,
+        help="Filepath to TSV with tools linked to bio.tools",
+    )
+    curatetools.add_argument(
+        "--status",
+        "-s",
+        help="Path to a TSV file with tool status - at least 3 columns: IDs of tool suites, Boolean with True to keep and False to exclude, Boolean with True if deprecated and False if not",
     )
     args = parser.parse_args()
 
@@ -783,32 +826,61 @@ if __name__ == "__main__":
         edam_ontology = get_ontology("https://edamontology.org/EDAM_1.25.owl").load()
         tools = get_tools(repo_list, edam_ontology)
         export_tools_to_json(tools, args.all)
-        export_tools_to_tsv(tools, args.all_tsv, format_list_col=True, add_usage_stats=True)
+        export_tools_to_tsv(tools, args.all_tsv, format_list_col=True)
 
     elif args.command == "filter":
         with Path(args.all).open() as f:
             tools = json.load(f)
         # get categories and tools to exclude
         categories = shared.read_file(args.categories)
+        # get status if file provided
+        if args.status:
+            status = pd.read_csv(args.status, sep="\t", index_col=0).to_dict("index")
+        else:
+            status = {}
+        # filter tool lists
+        filtered_tools = filter_tools(tools, categories, status)
+        if filtered_tools:
+            export_tools_to_json(filtered_tools, args.filtered)
+            export_tools_to_tsv(
+                filtered_tools,
+                args.tsv_filtered,
+                format_list_col=True,
+                to_keep_columns=["Suite ID", "Description", "To keep", "Deprecated"],
+            )
+        else:
+            # if there are no ts filtered tools
+            print(f"No tools found for category {args.filtered}")
+
+    elif args.command == "curate":
+        with Path(args.filtered).open() as f:
+            tools = json.load(f)
         try:
-            status = pd.read_csv(args.status, sep="\t", index_col=0, header=None).to_dict("index")
+            status = pd.read_csv(args.status, sep="\t", index_col=0).to_dict("index")
         except Exception as ex:
             print(f"Failed to load tool_status.tsv file with:\n{ex}")
             print("Not assigning tool status for this community !")
             status = {}
 
-        # filter tool lists
-        ts_filtered_tools, filtered_tools = filter_tools(tools, categories, status)
-
-        if ts_filtered_tools:
-
-            export_tools_to_tsv(ts_filtered_tools, args.ts_filtered, format_list_col=True)
-            # if there are no filtered tools return the ts filtered tools
-            if filtered_tools:
-                export_tools_to_tsv(filtered_tools, args.filtered, format_list_col=True)
-            else:
-                export_tools_to_tsv(ts_filtered_tools, args.filtered, format_list_col=True)
-
+        curated_tools, tools_wo_biotools, tools_with_biotools = curate_tools(tools, status)
+        if curated_tools:
+            export_tools_to_tsv(
+                curated_tools,
+                args.curated,
+                format_list_col=True,
+            )
+            export_tools_to_tsv(
+                tools_wo_biotools,
+                args.wo_biotools,
+                format_list_col=True,
+                to_keep_columns=["Suite ID", "Homepage", "Suite source"],
+            )
+            export_tools_to_tsv(
+                tools_with_biotools,
+                args.w_biotools,
+                format_list_col=True,
+                to_keep_columns=["Suite ID", "bio.tool name", "EDAM operations", "EDAM topics"],
+            )
         else:
             # if there are no ts filtered tools
-            print(f"No tools found for category {args.filtered}")
+            print("No tools left after curation")
