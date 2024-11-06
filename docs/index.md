@@ -6,5 +6,5 @@ sidebar: false
 ---
 
 <div markdown="0">
-{% include codex.html %}
+{% include tools.html %}
 </div>

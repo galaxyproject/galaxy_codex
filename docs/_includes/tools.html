@@ -1,7 +1,7 @@
 {%- if include.tag %}
-{%- assign tools = site.data.data | add_related_pages | where:"related_pages", include.tag  | sort_natural: "name" %}
+{%- assign tools = site.data.tools | add_related_pages | where:"related_pages", include.tag  | sort_natural: "name" %}
 {%- else %}
-{%- assign tools = site.data.data | add_related_pages  | sort_natural: "name" %}
+{%- assign tools = site.data.tools | add_related_pages  | sort_natural: "name" %}
 {%- endif %}
 {%- assign country_pages = site.pages | where_exp: "item", "item.search_exclude != true" | where_exp:"item","item.national_resources != nil" %}
 {%- unless tools.size == 0 or tools == nil %}
