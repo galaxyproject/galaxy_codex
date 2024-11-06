@@ -12,6 +12,9 @@
             <tr class="text-nowrap">
                 <th>Galaxy wrapper id (+ link to wrapper)</th>
                 <th>Description</th>
+                <th>EDAM topic(s)</th>
+                <th>EDAM operation(s)</th>
+                <th>Toolshed categories</th>
                 <th>Source</th>
                 <th>bio.tools (if available)</th>
                 <th>Status</th>
@@ -30,6 +33,27 @@
                 </div>
                 </td>
                 <td>{{tool.Description}}</td>
+                <td class="dt-center">
+                    {% if tool.["EDAM topic"] %} {%- for topic in tool.["EDAM topic"] %}
+                    <button class="btn btn-light badge border border-dark text-dark mb-2 text-wrap text-center topic-badge">
+                    {{topic}}
+                    </button>
+                    {%- endfor %} {%- endif %}
+                </td>
+                <td class="dt-center">
+                    {% if tool.["EDAM operation"] %} {%- for operation in tool.["EDAM operation"] %}
+                    <button class="btn btn-light badge border border-dark text-dark mb-2 text-wrap text-center topic-badge">
+                    {{operation}}
+                    </button>
+                    {%- endfor %} {%- endif %}
+                </td>
+                <td class="dt-center">
+                    {% if tool.["ToolShed categories"] %} {%- for category in tool.["ToolShed categories"] %}
+                    <button class="btn btn-light badge border border-dark text-dark mb-2 text-wrap text-center topic-badge">
+                    {{category}}
+                    </button>
+                    {%- endfor %} {%- endif %}
+                </td>
                 <td>{{tool.Source}}</td>
                 <td>
                 <div>
