@@ -1,10 +1,7 @@
 import json
 import os
 import unittest
-from typing import (
-    Any,
-    Dict,
-)
+from typing import Dict
 from unittest.mock import (
     MagicMock,
     patch,
@@ -26,7 +23,7 @@ class TestAddWorkflowsFromWorkflowHub(unittest.TestCase):
         json_file_path = os.path.join(self.script_dir, "test-data", "workflowhub_api_mock.json")
 
         # Open and load the JSON file
-        with open(json_file_path, "r") as file:
+        with open(json_file_path) as file:
             self.mock_responses = json.load(file)
 
         # Define the side effect function
