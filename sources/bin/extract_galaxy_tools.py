@@ -42,24 +42,20 @@ public_servers = project_path.joinpath("data", "available_public_servers.csv")
 
 GALAXY_TOOL_STATS = {
     # EU
-    "No. of tool users (5 years) (usegalaxy.eu)": usage_stats_path.joinpath("eu/tool_usage_5y_until_2024.08.31.csv"),
-    "No. of tool users (all time) (usegalaxy.eu)": usage_stats_path.joinpath("eu/tool_usage_until_2024.08.31.csv"),
-    "Tool usage (5 years) (usegalaxy.eu)": usage_stats_path.joinpath("eu/tool_users_5y_until_2024.08.31.csv"),
-    "Tool usage (all time) (usegalaxy.eu)": usage_stats_path.joinpath("eu/tool_users_until_2024.08.31.csv"),
+    "Suite users (5 years) (usegalaxy.eu)": usage_stats_path.joinpath("eu/tool_users_5y_until_2024.08.31.csv"),
+    "Suite users (usegalaxy.eu)": usage_stats_path.joinpath("eu/tool_users_until_2024.08.31.csv"),
+    "Suite runs (5 years) (usegalaxy.eu)": usage_stats_path.joinpath("eu/tool_usage_5y_until_2024.08.31.csv"),
+    "Suite runs (usegalaxy.eu)": usage_stats_path.joinpath("eu/tool_usage_until_2024.08.31.csv"),
     # ORG
-    "No. of tool users (5 years) (usegalaxy.org)": usage_stats_path.joinpath("org/tool_usage_5y_until_2024.08.31.csv"),
-    "No. of tool users (all time) (usegalaxy.org)": usage_stats_path.joinpath("org/tool_usage_until_2024.08.31.csv"),
-    "Tool usage (5 years) (usegalaxy.org)": usage_stats_path.joinpath("org/tool_users_5y_until_2024.08.31.csv"),
-    "Tool usage (all time) (usegalaxy.org)": usage_stats_path.joinpath("org/tool_users_until_2024.08.31.csv"),
+    "Suite users (5 years) (usegalaxy.org)": usage_stats_path.joinpath("org/tool_users_5y_until_2024.08.31.csv"),
+    "Suite users (usegalaxy.org)": usage_stats_path.joinpath("org/tool_users_until_2024.08.31.csv"),
+    "Suite runs (5 years) (usegalaxy.org)": usage_stats_path.joinpath("org/tool_usage_5y_until_2024.08.31.csv"),
+    "Suite runs (usegalaxy.org)": usage_stats_path.joinpath("org/tool_usage_until_2024.08.31.csv"),
     # AU
-    "No. of tool users (5 years) (usegalaxy.org.au)": usage_stats_path.joinpath(
-        "org.au/tool_usage_5y_until_2024.08.31.csv"
-    ),
-    "No. of tool users (all time) (usegalaxy.org.au)": usage_stats_path.joinpath(
-        "org.au/tool_usage_until_2024.08.31.csv"
-    ),
-    "Tool usage (5 years) (usegalaxy.org.au)": usage_stats_path.joinpath("org.au/tool_users_5y_until_2024.08.31.csv"),
-    "Tool usage (all time) (usegalaxy.org.au)": usage_stats_path.joinpath("org.au/tool_users_until_2024.08.31.csv"),
+    "Suite users (5 years) (usegalaxy.org.au)": usage_stats_path.joinpath("org.au/tool_users_5y_until_2024.08.31.csv"),
+    "Suite users (usegalaxy.org.au)": usage_stats_path.joinpath("org.au/tool_users_until_2024.08.31.csv"),
+    "Suite runs (5 years) (usegalaxy.org.au)": usage_stats_path.joinpath("org.au/tool_usage_5y_until_2024.08.31.csv"),
+    "Suite runs (usegalaxy.org.au)": usage_stats_path.joinpath("org.au/tool_usage_until_2024.08.31.csv"),
 }
 
 # all columns that contain the text will be summed up to a new column with summed up stats
