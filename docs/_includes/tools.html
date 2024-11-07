@@ -20,7 +20,8 @@
                 <th>Tool usage (all time, all main servers)</th>
                 <th>Source</th>
                 <th>bio.tools (if available)</th>
-                <th>Conda id (version)</th>
+                <th>Conda id</th>
+                <th>Conda version</th>
                 <th>biii</th>
                 <th>Status</th>
                 <th>Availability across Galaxies</th>
@@ -38,8 +39,8 @@
                   {% endif %}
                 </div>
                 </td>
-                <td>{{tool.["Galaxy wrapper version"]}}</td>
-                <td>{{tool.["Date of first commit of the suite"]}}</td>
+                <td class="dt-center">{{tool.["Galaxy wrapper version"]}}</td>
+                <td class="dt-center">{{tool.["Date of first commit of the suite"]}}</td>
                 <td class="dt-center">
                     {% if tool.["Galaxy tool ids"] %} {%- for id in tool.["Galaxy tool ids"] %}
                     <button class="btn btn-light border border-dark text-dark mb-2 text-wrap text-center">
@@ -73,16 +74,25 @@
                   {% endif %}
                 </div>
                 </td>
-                <td>
+                <td class="dt-center">
                 <div>
                   {% if tool.["Conda id"] != "null" %}
                     <span class="badge text-bg-light mb-2">
-                        "{{ tool.["Conda id"] }} ({{ tool.["Conda version"]) }}"
+                        {{ tool.["Conda id"] }}
                     </span>
                   {% endif %}
                 </div>
                 </td>
-                <td>
+                <td class="dt-center">
+                <div>
+                  {% if tool.["Conda version"] != "null" %}
+                    <span class="badge text-bg-light mb-2">
+                        {{ tool.["Conda version"] }}"
+                    </span>
+                  {% endif %}
+                </div>
+                </td>
+                <td class="dt-center">
                 <div>
                   {% if tool.biii != "null" %}
                     <span class="badge text-bg-light mb-2">
