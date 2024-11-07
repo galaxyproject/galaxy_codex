@@ -303,7 +303,7 @@ if __name__ == "__main__":
     if args.command == "extract":
         wfs = Workflows(test=args.test)
         wfs.init_by_searching(args.tools)
-        shared.export_to_json(wfs.export_workflows_to_dict(), args.all)
+        shared.export_to_json(wfs.export_workflows_to_dict(), args.all, sort_keys=True)
 
     elif args.command == "filter":
         wfs = Workflows()
