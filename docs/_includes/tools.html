@@ -18,10 +18,7 @@
                 <th>Source</th>
                 <th>bio.tools (if available)</th>
                 <th>Status</th>
-                <th>Available on UseGalaxy.eu</th>
-                <th>Available on UseGalaxy.fr</th>
-                <th>Available on UseGalaxy.org (Main)</th>
-                <th>Available on UseGalaxy.org.au</th>
+                <th>Availability across Galaxies</th>
             </tr>
         </thead>
         <tbody>
@@ -71,30 +68,11 @@
                 <td>{{tool.Status}}</td>
                 <td>
                 <div>
-                  {% if tool.["Available on UseGalaxy.eu"] != 0 %}
-                    <span class="badge text-bg-light mb-2">Yes</span>
-                  {% endif %}
-                </div>
-                </td>
-                <td>
-                <div>
-                  {% if tool.["Available on UseGalaxy.fr"] != 0 %}
-                    <span class="badge text-bg-light mb-2">Yes</span>
-                  {% endif %}
-                </div>
-                </td>
-                <td>
-                <div>
-                  {% if tool.["Available on UseGalaxy.org (Main)"] != 0 %}
-                    <span class="badge text-bg-light mb-2">Yes</span>
-                  {% endif %}
-                </div>
-                </td>
-                <td>
-                <div>
-                  {% if tool.["Available on UseGalaxy.org.au"] != 0 %}
-                    <span class="badge text-bg-light mb-2">Yes</span>
-                  {% endif %}
+                  {% if tool.availability %} {%- for instance in tool.availability %}
+                    <span class="badge text-bg-light mb-2">
+                        {{instance}}
+                    </span>
+                  {%- endfor %} {%- endif %}
                 </div>
                 </td>
             </tr>
