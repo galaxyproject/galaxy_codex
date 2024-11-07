@@ -1,13 +1,28 @@
 Galaxy Codex
 ============
 
-Galaxy Communities Dock aka Galaxy Codex is a catalog of Galaxy resources (tools, training, workflows) that can be filtered for any community.
+Galaxy Communities Dock (Galaxy CoDex) is a catalog of resources for Galaxy communities.
 
-This repository stores the sources to build this catalog and its content. The catalog is automatically updated every week.
+Currently, we have two main resources:
 
-Any Galaxy community can be added to this project and benefit from the dedicated resources, including interactive tables that can be embedded into subdomains and website via an iframe. **Learn [how to add your community](https://training.galaxyproject.org/training-material//topics/dev/tutorials/community-tool-table/tutorial.html) in the dedicated GTN tutorial**. 
+1. **Galaxy Community Catalog**: from tools, training & workflows
+2. **Galaxy Labs**: (led by Galaxy Australia!) main and tool panel content for communities to spin up subdomain pages
 
-# Catalog content
+This repository stores the sources to build all of this content. The catalog is automatically updated every week.
+
+# Join the CoDex
+Any Galaxy Community can be added to this project and benefit from the dedicated resources.
+**Learn [how to add your community](https://training.galaxyproject.org/training-material/topics/community/faqs/codex.html)** in the dedicated GTN tutorial.
+
+# Galaxy Community Catalog
+To generate interactive tables that can be embedded into Galaxy Labs (subdomains) and websites via an iframe. 
+**Learn [how to generate the Galaxy Community Catalog](https://training.galaxyproject.org/training-material//topics/dev/tutorials/community-tool-table/tutorial.html)** in the dedicated GTN tutorial. 
+
+# Galaxy Lab
+To generate GalaxyLab content, you can follow our documentation (to be added!).
+To spin up a GalaxyLab on your server, you can follow our documentation (to be added!).
+
+# Galaxy Community Catalog content
 
 ## Tool table
 
@@ -43,3 +58,7 @@ Suite runs (last 5 years) on main servers  | Number of runs of the suite tools i
 Suite runs on main servers  | Number of runs of the suite tools on all UseGalaxy servers
 Deprecated | Deprecation status after review by a domain expert
 To keep | Status to add to a community after review by a domain expert
+
+# Vocabulary
+**Galaxy Lab**: Formerly known as Subdomains, Galaxy Australia built a new method for generating the main and tool panels for a Galaxy subdomain, known as a Galaxy Lab.
+**Galaxy Community**: Galaxy Community of Practice. You can see a full list of Special Interest Groups in the [SIG Directory](https://galaxyproject.org/community/sig).
