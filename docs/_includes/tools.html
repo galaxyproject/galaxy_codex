@@ -39,33 +39,33 @@
                   {% endif %}
                 </div>
                 </td>
-                <td class="dt-center">{{tool.["Galaxy wrapper version"]}}</td>
-                <td class="dt-center">{{tool.["Date of first commit of the suite"]}}</td>
-                <td class="dt-center">
+                <td style="text-align: center">{{tool.["Galaxy wrapper version"]}}</td>
+                <td style="text-align: center">{{tool.["Date of first commit of the suite"]}}</td>
+                <td style="text-align: center">
                     {% if tool.["Galaxy tool ids"] %} {%- for id in tool.["Galaxy tool ids"] %}
-                    <button class="btn btn-light border border-dark text-dark mb-2 text-wrap text-center">
-                    {{id}}
-                    </button>
+                    <span class="badge text-bg-light">
+                        {{id}}
+                    </span>
                     {%- endfor %} {%- endif %}
                 </td>
                 <td>{{tool.Description}}</td>
-                <td class="dt-center">
+                <td style="text-align: center">
                     {% if tool.["EDAM topic"] %} {%- for topic in tool.["EDAM topic"] %}
-                    <button class="btn btn-light border border-dark text-dark mb-2 text-wrap text-center">
-                    {{topic}}
-                    </button>
+                    <span class="badge text-bg-light">
+                        {{topic}}
+                    </span>
                     {%- endfor %} {%- endif %}
                 </td>
-                <td class="dt-center">
+                <td style="text-align: center">
                     {% if tool.["EDAM operation"] %} {%- for operation in tool.["EDAM operation"] %}
-                    <button class="btn btn-light border border-dark text-dark mb-2 text-wrap text-center">
-                    {{operation}}
-                    </button>
+                    <span class="badge text-bg-light">
+                        {{operation}}
+                    </span>
                     {%- endfor %} {%- endif %}
                 </td>
-                <td class="dt-center">{{tool.["Tool usage (all time) - all main servers"]}}</td>
+                <td style="text-align: center">{{tool.["Tool usage (all time) - all main servers"]}}</td>
                 <td>{{tool.Source}}</td>
-                <td>
+                <td style="text-align: center">
                 <div>
                   {% if tool.["bio.tool id"] != "null" %}
                     <a href='https://bio.tools/{{ tool.["bio.tool id"] }}'>{{ tool.["bio.tool id"] }}</a>
@@ -74,28 +74,28 @@
                   {% endif %}
                 </div>
                 </td>
-                <td class="dt-center">
+                <td style="text-align: center">
                 <div>
                   {% if tool.["Conda id"] != "null" %}
-                    <span class="badge text-bg-light mb-2">
+                    <span class="badge text-bg-light">
                         {{ tool.["Conda id"] }}
                     </span>
                   {% endif %}
                 </div>
                 </td>
-                <td class="dt-center">
+                <td style="text-align: center">
                 <div>
                   {% if tool.["Conda version"] != "null" %}
-                    <span class="badge text-bg-light mb-2">
-                        {{ tool.["Conda version"] }}"
+                    <span class="badge text-bg-light">
+                        {{ tool.["Conda version"] }}
                     </span>
                   {% endif %}
                 </div>
                 </td>
-                <td class="dt-center">
+                <td style="text-align: center">
                 <div>
                   {% if tool.biii != "null" %}
-                    <span class="badge text-bg-light mb-2">
+                    <span class="badge text-bg-light">
                         {{ tool.biii }}
                     </span>
                   {% endif %}
@@ -105,7 +105,7 @@
                 <td>
                 <div>
                   {% if tool.availability %} {%- for instance in tool.availability %}
-                    <span class="badge text-bg-light mb-2">
+                    <span class="badge text-bg-light">
                         {{instance}}
                     </span>
                   {%- endfor %} {%- endif %}
