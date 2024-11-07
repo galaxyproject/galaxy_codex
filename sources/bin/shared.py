@@ -83,11 +83,11 @@ def read_suite_per_tool_id(tool_fp: str) -> Dict:
     tool_suites = load_json(tool_fp)
     tools = {}
     for suite in tool_suites:
-        for tool in suite["Galaxy tool ids"]:
+        for tool in suite["Suite ID"]:
             tools[tool] = {
-                "Galaxy wrapper id": suite["Galaxy wrapper id"],
-                "Galaxy wrapper owner": suite["Galaxy wrapper id"],
-                "EDAM operation": suite["EDAM operation"],
+                "Suite ID": suite["Suite ID"],
+                "Suite owner": suite["Suite owner"],
+                "EDAM operations": suite["EDAM operations"],
             }
     return tools
 
@@ -154,7 +154,7 @@ def get_edam_operation_from_tools(selected_tools: list, all_tools: dict) -> List
     edam_operation = set()
     for t in selected_tools:
         if t in all_tools:
-            edam_operation.update(set(all_tools[t]["EDAM operation"]))
+            edam_operation.update(set(all_tools[t]["EDAM operations"]))
         else:
             print(f"{t} not found in all tools")
     return list(edam_operation)
