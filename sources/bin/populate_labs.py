@@ -45,10 +45,10 @@ def main() -> None:
             title_md = row[data.columns[0]]  # Get the first column's value as title_md
 
             # Start the unordered list <ul> and construct each <li> for every other column in the row
-            description = row["Description"]
-            # for column in data.columns[1:]:  # Skip the first column (since it's title_md)
-            #     description += f"  <li>{column}: {row[column]}</li>\n"
-            # description += "</ul>"
+            description = "<ul>"
+            for column in data.columns[1:]:  # Skip the first column (since it's title_md)
+                description += f"  <li>{column}: {row[column]}</li>\n"
+            description += "</ul>"
 
             # Create the tool entry with the formatted HTML list
             tool_entry = {
