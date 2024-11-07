@@ -9,8 +9,11 @@
 <div class="table-responsive mt-4 mb-5">
     <table class="tooltable table display table-bordered table-striped w-100">
         <thead>
-            <tr class="text-nowrap">
-                <th>Galaxy wrapper id (+ link to wrapper)</th>
+            <tr>
+                <th>Galaxy wrapper id (+link)</th>
+                <th>Galaxy wrapper version</th>
+                <th>Date of first commit of the suite</th>
+                <th>Galaxy tool ids</th>
                 <th>Description</th>
                 <th>EDAM topic(s)</th>
                 <th>EDAM operation(s)</th>
@@ -32,6 +35,15 @@
                     <a href="#">{{ tool.["Galaxy wrapper id"] }}</a>
                   {% endif %}
                 </div>
+                </td>
+                <td>{{tool.["Galaxy wrapper version"]}}</td>
+                <td>{{tool.["Date of first commit of the suite"]}}</td>
+                <td class="dt-center">
+                    {% if tool.["Galaxy tool ids"] %} {%- for id in tool.["Galaxy tool ids"] %}
+                    <button class="btn btn-light border border-dark text-dark mb-2 text-wrap text-center">
+                    {{id}}
+                    </button>
+                    {%- endfor %} {%- endif %}
                 </td>
                 <td>{{tool.Description}}</td>
                 <td class="dt-center">
