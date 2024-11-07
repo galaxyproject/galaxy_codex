@@ -17,9 +17,11 @@
                 <th>Description</th>
                 <th>EDAM topic(s)</th>
                 <th>EDAM operation(s)</th>
-                <th>Toolshed categories</th>
+                <th>Tool usage (all time, all main servers)</th>
                 <th>Source</th>
                 <th>bio.tools (if available)</th>
+                <th>Conda id (version)</th>
+                <th>biii</th>
                 <th>Status</th>
                 <th>Availability across Galaxies</th>
             </tr>
@@ -60,13 +62,7 @@
                     </button>
                     {%- endfor %} {%- endif %}
                 </td>
-                <td class="dt-center">
-                    {% if tool.["ToolShed categories"] %} {%- for category in tool.["ToolShed categories"] %}
-                    <button class="btn btn-light border border-dark text-dark mb-2 text-wrap text-center">
-                    {{category}}
-                    </button>
-                    {%- endfor %} {%- endif %}
-                </td>
+                <td class="dt-center">{{tool.["Tool usage (all time) - all main servers"]}}</td>
                 <td>{{tool.Source}}</td>
                 <td>
                 <div>
@@ -74,6 +70,24 @@
                     <a href='https://bio.tools/{{ tool.["bio.tool id"] }}'>{{ tool.["bio.tool id"] }}</a>
                   {% else %}
                     <a href="#">""</a>
+                  {% endif %}
+                </div>
+                </td>
+                <td>
+                <div>
+                  {% if tool.["Conda id"] != "null" %}
+                    <span class="badge text-bg-light mb-2">
+                        "{{ tool.["Conda id"] }} ({{ tool.["Conda version"]) }}"
+                    </span>
+                  {% endif %}
+                </div>
+                </td>
+                <td>
+                <div>
+                  {% if tool.biii != "null" %}
+                    <span class="badge text-bg-light mb-2">
+                        {{ tool.biii }}
+                    </span>
                   {% endif %}
                 </div>
                 </td>
