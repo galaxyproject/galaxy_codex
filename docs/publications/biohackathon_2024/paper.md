@@ -9,12 +9,13 @@ tags:
   - EDAM
   - bio.tools
   - Metadata
+  - biohackeu24
 authors:
   - name: Bérénice Batut
     orcid: 0000-0001-9852-1987
     affiliation: 1, 2, a
   - name: Wendi Bacon
-    orcid: 
+    orcid: 0000-0002-8170-8806
     affiliation: 3, a
   - name: Paul Zierep
     orcid: 0000-0003-2982-388X
@@ -33,7 +34,7 @@ affiliations:
     index: 1
   - name: Institut Français de Bioinformatique, CNRS UAR 3601, Évry, France & Mésocentre Clermont-Auvergne, Université Clermont Auvergne, Aubiere, France
     index: 2
-  - name: 
+  - name: The Open University, Milton Keynes, United Kingdom
     index: 3
   - name: Department of Informatics, University of Bergen, Norway; and ELIXIR Norway
     index: 4
@@ -48,7 +49,7 @@ affiliations:
 date: 8 November 2024
 bibliography: paper.bib
 event: BH24EU
-biohackathon_name: "BioHackathon Europe 2024"
+biohackathon_name: "ELIXIR BioHackathon Europe 2024"
 biohackathon_url:   "https://biohackathon-europe.org/"
 biohackathon_location: "Barcelona, Spain, 2024"
 group: Project 11 - Galaxy CoDex - Ensuring Galaxy community sustainability through resource aggregation and annotation
@@ -82,6 +83,8 @@ This project aims to achieve three main objectives:
 
 
 ## Website
+
+
 
 
 # Outcomes and results
