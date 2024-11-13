@@ -1,5 +1,6 @@
 import os
 import subprocess
+import sys
 import urllib
 
 URL_TEMPLATE = (
@@ -26,19 +27,24 @@ def post_lab_links(name):
 
     for path in test_paths:
         url = build_url(USERNAME, BRANCH_NAME, path)
-        http_status = http_status_for(url)
-        filename = path.split('/')[-1]
-        if http_status < 400:
-            comment += f"- ✅ {filename} [{http_status}]: {url}\n\n"
-        else:
-            comment += f"- ❌ {filename} [{http_status}]: {url}\n\n"
+        try:
+            http_status = http_status_for(url)
+            filename = path.split('/')[-1]
+            if http_status < 400:
+                line = f"- ✅ {filename} [{http_status}]: {url}\n\n"
+            else:
+                line = f"- ❌ {filename} [{http_status}]: {url}\n\n"
+                success = False
+        except urllib.error.URLError as exc:
+            line = f"- ❌ {filename} [URL ERROR]: {url}\n\n```\n{exc}\n```"
             success = False
+        comment += line
 
     if not success:
         comment += (
             "\n\n"
             "🚨 One or more Lab pages are returning an error. "
-            "Please follow the link to see the issue."
+            "Please follow the link to see details of the issue."
         )
 
     # Post the comment using gh CLI
@@ -55,7 +61,7 @@ def post_lab_links(name):
 
 def http_status_for(url):
     try:
-        response = urllib.urlopen(url)
+        response = urllib.request.urlopen(url)
         return response.getcode()
     except urllib.error.HTTPError as e:
         return e.code
@@ -72,7 +78,7 @@ def main():
     with open("changed_files.txt") as f:
         files = f.read().splitlines()
 
-    # Track directories that have already been seen
+    success = True
     directories = []
 
     # Check each file to see if it is in a "Lab" directory
@@ -82,9 +88,13 @@ def main():
             if name not in directories:
                 print(f"Posting link for {name}...")
                 directories.append(name)
-                post_lab_links(name)
+                result = post_lab_links(name)
+                success = success and result
         else:
             print(f"Ignoring changes to {path}: not in a lab directory")
+
+    if not success:
+        sys.exit(1)
 
 
 if __name__ == "__main__":
