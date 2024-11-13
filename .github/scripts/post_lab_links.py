@@ -148,7 +148,7 @@ def main():
             print(f"Ignoring changes to {path}: not in a lab directory")
 
     if not success:
-        sys.exit(1)
+        raise ValueError("One or more Lab pages returned an HTTP error.")
 
 
 if __name__ == "__main__":
