@@ -2,6 +2,7 @@ import os
 import subprocess
 import sys
 import urllib
+from urllib.error import URLError, HTTPError
 
 URL_TEMPLATE = (
     "https://labs.usegalaxy.org.au"
@@ -35,7 +36,7 @@ def post_lab_links(name):
             else:
                 line = f"- ❌ {filename} [{http_status}]: {url}\n\n"
                 success = False
-        except urllib.error.URLError as exc:
+        except URLError as exc:
             line = f"- ❌ {filename} [URL ERROR]: {url}\n\n```\n{exc}\n```"
             success = False
         comment += line
@@ -63,7 +64,7 @@ def http_status_for(url):
     try:
         response = urllib.request.urlopen(url)
         return response.getcode()
-    except urllib.error.HTTPError as e:
+    except HTTPError as e:
         return e.code
 
 
