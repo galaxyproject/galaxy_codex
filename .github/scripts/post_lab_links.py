@@ -1,3 +1,9 @@
+"""Build URLs for each Lab page for Labs that have been changed in this PR.
+
+Test each URL to see if it returns a 200 status code, and post the results
+in a PR comment.
+"""
+
 import os
 import subprocess
 import sys
@@ -10,6 +16,13 @@ URL_TEMPLATE = (
     "/blob/{branch_name}/{lab_content_path}"
     "&cache=false"
 )
+TRY_FILES = [
+    'base.yml',
+    'usegalaxy.eu.yml',
+    'usegalaxy.org.yml',
+    'usegalaxy.org.au.yml',
+]
+
 # Environment variables from GitHub Actions
 PR_NUMBER = os.environ["PR_NUMBER"]
 USERNAME = os.environ["GITHUB_ACTOR"]
@@ -20,21 +33,22 @@ def post_lab_links(name):
     success = True
     comment = f"### Preview changes to {name} Lab\n\n"
     test_paths = [
-        f'communities/{name}/lab/base.yml',
-        f'communities/{name}/lab/usegalaxy.eu.yml',
-        f'communities/{name}/lab/usegalaxy.org.yml',
-        f'communities/{name}/lab/usegalaxy.org.au.yml',
+        f'communities/{name}/lab/{f}'
+        for f in TRY_FILES
     ]
 
     for path in test_paths:
+        if not os.path.exists(path):
+            print(f"Skipping {path}: file not found in repository")
+            continue
         url = build_url(USERNAME, BRANCH_NAME, path)
         try:
             http_status = http_status_for(url)
             filename = path.split('/')[-1]
             if http_status < 400:
-                line = f"- ✅ {filename} [{http_status}]: {url}\n\n"
+                line = f"- ✅ {filename} [HTTP {http_status}]: {url}\n\n"
             else:
-                line = f"- ❌ {filename} [{http_status}]: {url}\n\n"
+                line = f"- ❌ {filename} [HTTP {http_status}]: {url}\n\n"
                 success = False
         except URLError as exc:
             line = f"- ❌ {filename} [URL ERROR]: {url}\n\n```\n{exc}\n```"
