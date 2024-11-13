@@ -11,6 +11,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install requests
+        run: pip install requests
+
       - name: Get list of changed files
         id: changed-files
         run: |
@@ -26,5 +34,6 @@ jobs:
           PR_NUMBER: ${{ github.event.number }}
           USERNAME: ${{ github.actor }}
           BRANCH_NAME: ${{ github.head_ref }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
           python3 .github/scripts/post_lab_links.py

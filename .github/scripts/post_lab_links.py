@@ -5,11 +5,12 @@ in a PR comment.
 """
 
 import os
-import subprocess
+import requests
 import sys
 from urllib.request import urlopen
 from urllib.error import URLError, HTTPError
 
+COMMENT_ID_STRING = "<!-- labs-links-comment -->"
 URL_TEMPLATE = (
     "https://labs.usegalaxy.org.au"
     "/?content_root=https://github.com/{username}/galaxy_codex"
@@ -27,6 +28,52 @@ TRY_FILES = [
 PR_NUMBER = os.environ["PR_NUMBER"]
 USERNAME = os.environ["GITHUB_ACTOR"]
 BRANCH_NAME = os.environ["GITHUB_HEAD_REF"]
+GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
+REPO = os.getenv("GITHUB_REPOSITORY")
+
+headers = {
+    "Authorization": f"Bearer {GITHUB_TOKEN}",
+    "Accept": "application/vnd.github.v3+json"
+}
+
+
+def get_comment_id():
+    """Fetches PR comments and finds one with the unique identifier."""
+    url = f"https://api.github.com/repos/{REPO}/issues/{PR_NUMBER}/comments"
+    response = requests.get(url, headers=headers)
+    response.raise_for_status()
+    comments = response.json()
+
+    for comment in comments:
+        if COMMENT_ID_STRING in comment["body"]:
+            return comment["id"]
+    return None
+
+
+def update_comment(comment_id, new_body):
+    """Updates an existing comment by ID with new content."""
+    url = f"https://api.github.com/repos/{REPO}/issues/comments/{comment_id}"
+    response = requests.patch(url, headers=headers, json={"body": new_body})
+    response.raise_for_status()
+    print("Comment updated successfully.")
+
+
+def create_comment(new_body):
+    """Creates a new comment on the PR."""
+    tagged_body = f"{new_body}\n\n{COMMENT_ID_STRING}"
+    url = f"https://api.github.com/repos/{REPO}/issues/{PR_NUMBER}/comments"
+    response = requests.post(url, headers=headers, json={"body": tagged_body})
+    response.raise_for_status()
+    print("Comment created successfully.")
+
+
+def create_or_update_comment(new_body):
+    """Creates or updates a comment with the unique identifier."""
+    comment_id = get_comment_id()
+    if comment_id:
+        update_comment(comment_id, new_body)
+    else:
+        create_comment(new_body)
 
 
 def post_lab_links(name):
@@ -62,15 +109,7 @@ def post_lab_links(name):
             "Please follow the link to see details of the issue."
         )
 
-    # Post the comment using gh CLI
-    subprocess.run([
-        "gh",
-        "pr",
-        "comment",
-        PR_NUMBER,
-        "--body",
-        comment,
-    ], check=True)
+    create_or_update_comment(comment)
     return success
 
 
