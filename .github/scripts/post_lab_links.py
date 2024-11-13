@@ -55,7 +55,7 @@ def post_lab_links(name):
 
 def http_status_for(url):
     try:
-        response = urllib.request.urlopen(url)
+        response = urllib.urlopen(url)
         return response.getcode()
     except urllib.error.HTTPError as e:
         return e.code
