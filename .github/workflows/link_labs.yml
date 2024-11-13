@@ -24,46 +24,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          declare -A directories
-          FILES=$(cat changed_files.txt)
-          PR_NUMBER="${{ github.event.number }}"
-          USERNAME="${{ github.actor }}"
-          BRANCH_NAME="${{ github.head_ref }}"
-
-          for FILE in $FILES; do
-            if [[ "$FILE" == communities/*/lab/* ]]; then
-              NAME=$(echo "$FILE" | cut -d'/' -f2)
-              # Check if this directory has already been processed
-              if [[ -z  "${directories[$NAME]}" ]]; then
-                echo "Posting link for ${NAME}..."
-                directories[$NAME]=1
-                cat <<EOF > comment.md
-          ### Preview changes to ${NAME} Lab
-
-          https://labs.usegalaxy.org.au/?content_root=https://github.com/${USERNAME}/galaxy_codex/blob/${BRANCH_NAME}/communities/${NAME}/lab/base.yml&cache=false
-
-          - [usegalaxy.org.yml](https://labs.usegalaxy.org.au/?content_root=https://github.com/${USERNAME}/galaxy_codex/blob/${BRANCH_NAME}/communities/${NAME}/lab/usegalaxy.org.yml&cache=false)
-          - [usegalaxy.eu.yml](https://labs.usegalaxy.org.au/?content_root=https://github.com/${USERNAME}/galaxy_codex/blob/${BRANCH_NAME}/communities/${NAME}/lab/usegalaxy.eu.yml&cache=false)
-          - [usegalaxy.org.au.yml](https://labs.usegalaxy.org.au/?content_root=https://github.com/${USERNAME}/galaxy_codex/blob/${BRANCH_NAME}/communities/${NAME}/lab/usegalaxy.org.au.yml&cache=false)
-
-          EOF
-                gh pr comment "$PR_NUMBER" --body "$(cat comment.md)"
-
-                # Write url to file
-                echo "https://labs.usegalaxy.org.au/?content_root=https://github.com/${USERNAME}/galaxy_codex/blob/${BRANCH_NAME}/communities/${NAME}/lab/base.yml&cache=false" >> "urls.txt"
-              fi
-            else
-              echo "Ignoring changes to $FILE: not in a lab directory"
-            fi
-          done
-      - name: Check URLs for Success Status Code
-        run: |
-          while IFS= read -r url; do
-            status_code=$(curl -o /dev/null -s -w "%{http_code}" "$url")
-            if [[ "$status_code" -ge 200 && "$status_code" -lt 300 ]]; then
-              echo "✅ $url returned a success status code: $status_code"
-            else
-              echo "❌ $url returned a failure status code: $status_code"
-              exit 1
-            fi
-          done < urls.txt
+          python3 .github/scripts/post_lab_links.py
