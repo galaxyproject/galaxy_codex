@@ -11,9 +11,9 @@ URL_TEMPLATE = (
     "&cache=false"
 )
 # Environment variables from GitHub Actions
-PR_NUMBER = os.getenv("PR_NUMBER")
-USERNAME = os.getenv("GITHUB_ACTOR")
-BRANCH_NAME = os.getenv("GITHUB_HEAD_REF")
+PR_NUMBER = os.environ["PR_NUMBER"]
+USERNAME = os.environ["GITHUB_ACTOR"]
+BRANCH_NAME = os.environ["GITHUB_HEAD_REF"]
 
 
 def post_lab_links(name):
