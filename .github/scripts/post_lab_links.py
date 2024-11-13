@@ -1,7 +1,7 @@
 import os
 import subprocess
 import sys
-import urllib
+from urllib.request import urlopen
 from urllib.error import URLError, HTTPError
 
 URL_TEMPLATE = (
@@ -62,7 +62,7 @@ def post_lab_links(name):
 
 def http_status_for(url):
     try:
-        response = urllib.request.urlopen(url)
+        response = urlopen(url)
         return response.getcode()
     except HTTPError as e:
         return e.code
