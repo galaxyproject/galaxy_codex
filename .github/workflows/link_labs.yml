@@ -23,5 +23,8 @@ jobs:
       - name: Post comment if matching changes found
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.number }}
+          USERNAME: ${{ github.actor }}
+          BRANCH_NAME: ${{ github.head_ref }}
         run: |
           python3 .github/scripts/post_lab_links.py
