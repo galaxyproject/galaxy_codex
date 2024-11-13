@@ -52,8 +52,9 @@ def get_comment_id():
 
 def update_comment(comment_id, new_body):
     """Updates an existing comment by ID with new content."""
+    tagged_body = f"{new_body}\n\n{COMMENT_ID_STRING}"
     url = f"https://api.github.com/repos/{REPO}/issues/comments/{comment_id}"
-    response = requests.patch(url, headers=headers, json={"body": new_body})
+    response = requests.patch(url, headers=headers, json={"body": tagged_body})
     response.raise_for_status()
     print("Comment updated successfully.")
 
