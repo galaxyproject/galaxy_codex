@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 import argparse
-import json
 import sys
 import time
 import traceback
@@ -33,7 +32,7 @@ USEGALAXY_SERVER_URLS = {
     "UseGalaxy.fr": "https://usegalaxy.fr",
 }
 
-DATA_PATH = Path(__file__).resolve().parent.parent.joinpath("data") # galaxy_tool_extractor folder
+DATA_PATH = Path(__file__).resolve().parent.parent.joinpath("data")
 STAT_DATE = "2024.08.31"
 
 # load the configs globally
@@ -49,23 +48,19 @@ class Tool:
 
     def __init__(self) -> None:
         self.parsed_folder = None
-        self.toolshed = {
-            "id": None,
+        self.toolshed: dict = {
+            "id": "",
             "categories": [],
             "description": "",
-            "homepage": None,
-            "owner": None,
-            "source": None
+            "homepage": "",
+            "owner": "",
+            "source": "",
         }
         self.tool_ids: List[str] = []
-        self.first_commit = None
-        self.version = None
-        self.conda_package = {
-            "name": None,
-            "latest_version": None,
-            "version_status": "To update"
-        }
-        self.edam = {
+        self.first_commit: str = ""
+        self.version = ""
+        self.conda_package = {"name": "", "latest_version": "", "version_status": "To update"}
+        self.edam: dict = {
             "operations": {
                 "full": [],
                 "reduced": [],
@@ -73,23 +68,23 @@ class Tool:
             "topics": {
                 "full": [],
                 "reduced": [],
-            }   
+            },
         }
-        self.biotools = {
-            "id": None,
-            "name": None,
-            "description": None,
+        self.biotools: dict = {
+            "id": "",
+            "name": "",
+            "description": "",
         }
-        self.biii = {"ID": None}
-        self.availability = {}
-        self.stats = {
+        self.biii: dict = {"ID": ""}
+        self.availability: dict = {}
+        self.stats: dict = {
             "users": {
                 "last_5_years": {
                     "main_servers": 0,
                 },
                 "all_time": {
                     "main_servers": 0,
-                }
+                },
             },
             "runs": {
                 "last_5_years": {
@@ -97,10 +92,10 @@ class Tool:
                 },
                 "all_time": {
                     "main_servers": 0,
-                }
+                },
             },
         }
-        self.community_status = {
+        self.community_status: dict = {
             "to_keep": True,
             "deprecated": False,
         }
@@ -134,8 +129,8 @@ class Tool:
         except Exception:
             return None
         else:
-            self.get_toolshed_metadata(shed)
-        
+            self.init_toolshed_metadata(shed)
+
         self.parsed_folder = tool.html_url
         self.first_commit = shared.get_first_commit_for_folder(tool, repo)
 
@@ -162,7 +157,7 @@ class Tool:
         if self.toolshed["Description"] is None:
             self.toolshed["Description"] = shared.get_shed_attribute("long_description", yaml_content, None)
         if self.toolshed["Description"] is not None:
-            self.toolshed["Description"] = metadata["Description"].replace("\n", "")
+            self.toolshed["Description"] = self.toolshed["Description"].replace("\n", "")
         self.toolshed["id"] = shared.get_shed_attribute("name", yaml_content, None)
         self.toolshed["owner"] = shared.get_shed_attribute("owner", yaml_content, None)
         self.toolshed["source"] = shared.get_shed_attribute("remote_repository_url", yaml_content, None)
@@ -171,23 +166,6 @@ class Tool:
         self.toolshed["categories"] = shared.get_shed_attribute("categories", yaml_content, [])
         if self.toolshed["categories"] is None:
             self.toolshed["categories"] = []
-
-    def get_xref(el: et.Element, attrib_type: str) -> Optional[str]:
-        """
-        Get xref information
-
-        :param el: Element object
-        :attrib_type: the type of the xref (e.g.: bio.tools or biii)
-        """
-        xrefs = el.find("xrefs")
-        if xrefs is not None:
-            xref_items = xrefs.findall("xref")  # check all xref items
-            for xref in xref_items:
-                if xref is not None and xref.attrib["type"] == attrib_type:
-                    # should not contain any space of linebreak
-                    xref_sanitized = str(xref.text).strip()
-                    return xref_sanitized
-        return None
 
     def extract_from_macro(self, file: ContentFile) -> None:
         """
@@ -200,24 +178,24 @@ class Tool:
         for child in root:
             if "name" in child.attrib:
                 if child.attrib["name"] == "@TOOL_VERSION@" or child.attrib["name"] == "@VERSION@":
-                    self.version = child.text
+                    self.version = child.text or ""
                 elif child.attrib["name"] == "requirements":
                     self.add_conda_package(child)
-                self.biotools["id"] = self.get_xref(child, attrib_type="bio.tools")
-                self.biii["id"] = self.get_xref(child, attrib_type="biii")
+                self.biotools["id"] = shared.get_xref(child, attrib_type="bio.tools")
+                self.biii["id"] = shared.get_xref(child, attrib_type="biii")
 
-    def add_conda_package(el: et.Element) -> Optional[str]:
+    def add_conda_package(self, el: et.Element) -> None:
         """
         Get conda package information
 
         :param el: Element object
         """
         reqs = el.find("requirements")
-        name = None
+        name = ""
         if reqs is not None:
             req = reqs.find("requirement")
             if req is not None:
-                name = req.text
+                name = req.text or ""
         self.conda_package["name"] = name
 
     def extract_from_xml(self, file: ContentFile) -> None:
@@ -233,34 +211,33 @@ class Tool:
             print(traceback.format_exc())
         else:
             # version
-            if self.version is None:
-                if "version" in root.attrib:
-                    version = root.attrib["version"]
-                    if "VERSION@" not in version:
-                        self.version = version
-                    else:
-                        macros = root.find("macros")
-                        if macros is not None:
-                            for child in macros:
-                                if "name" in child.attrib and (
-                                    child.attrib["name"] == "@TOOL_VERSION@" or child.attrib["name"] == "@VERSION@"
-                                ):
-                                    self.version = child.text
+            if self.version == "" and "version" in root.attrib:
+                version = root.attrib["version"]
+                if "VERSION@" not in version:
+                    self.version = version
+                else:
+                    macros = root.find("macros")
+                    if macros is not None:
+                        for child in macros:
+                            if "name" in child.attrib and (
+                                child.attrib["name"] == "@TOOL_VERSION@" or child.attrib["name"] == "@VERSION@"
+                            ):
+                                self.version = child.text or ""
 
             # bio.tools
-            if self.biotools["id"] is None:
-                self.biotools["id"] = self.get_xref(root, attrib_type="bio.tools")
+            if self.biotools["id"] == "":
+                self.biotools["id"] = shared.get_xref(root, attrib_type="bio.tools")
             # biii
-            if self.biii["id"] is None:
-                self.biii["id"] = self.get_xref(root, attrib_type="biii")
+            if self.biii["id"] == "":
+                self.biii["id"] = shared.get_xref(root, attrib_type="biii")
 
             # conda package
-            if self.conda_package["name"] is None:
+            if self.conda_package["name"] == "":
                 self.add_conda_package(root)
             # tool ids
             if "id" in root.attrib:
                 self.tool_ids.append(root.attrib["id"])
-            
+
     def expand_conda_metadata(self) -> None:
         """
         Get recent conda version using conda API and compare to the wrapper version
@@ -273,11 +250,11 @@ class Tool:
                     self.conda_package["latest_version"] = conda_info["latest_version"]
                     if self.conda_package["latest_version"] == self.version:
                         self.conda_package["version_status"] = "Up-to-date"
-        
+
     def add_biotools_metadata(self, edam: Any) -> None:
         """
         Get bio.tool information and EDAM annotations using bio.tools API,
-        reduce EDAM 
+        reduce EDAM
 
         :param edam: Ontology
         """
@@ -297,32 +274,37 @@ class Tool:
                 if "topic" in biotool_info:
                     for t in biotool_info["topic"]:
                         self.edam["topics"]["full"].append(t["term"])
-            
             if len(self.edam["operations"]["full"]) > 0:
-                self.edam["operations"]["reduced"] = shared.reduce_ontology_terms(self.edam["operations"]["full"], ontology=edam_ontology)
+                self.edam["operations"]["reduced"] = shared.reduce_ontology_terms(
+                    self.edam["operations"]["full"], ontology=edam
+                )
             if len(self.edam["topics"]["full"]) > 0:
-                self.edam["topics"]["reduced"] = shared.reduce_ontology_terms(self.edam["topics"]["full"], ontology=edam_ontology)
+                self.edam["topics"]["reduced"] = shared.reduce_ontology_terms(
+                    self.edam["topics"]["full"], ontology=edam
+                )
 
-    def add_tool_number_on_a_server(self, name: str, url: str) -> int:
+    def add_tool_number_on_a_server(self, name: str, url: str) -> None:
         """
         Add number of tools in tool_ids installed on a Galaxy server
 
         :param name: Galaxy server name
         :param url: Galaxy server url
         """
-        assert all("/" not in tool_id for tool_id in tool_ids), "This function only works on short tool ids"
+        assert all("/" not in tool_id for tool_id in self.tool_ids), "This function only works on short tool ids"
 
-        installed_tool_ids = get_all_installed_tool_ids_on_server(galaxy_server_url)
-        installed_tool_short_ids = [tool_id.split("/")[4] if "/" in tool_id else tool_id for tool_id in installed_tool_ids]
+        installed_tool_ids = get_all_installed_tool_ids_on_server(url)
+        installed_tool_short_ids = [
+            tool_id.split("/")[4] if "/" in tool_id else tool_id for tool_id in installed_tool_ids
+        ]
 
         counter = 0
-        for tool_id in tool_ids:
+        for tool_id in self.tool_ids:
             if tool_id in installed_tool_short_ids:
                 counter += 1
 
         self.availability[name] = counter
 
-    def add_availability(self, public_servers_df: DataFrame) -> None:
+    def add_availability(self, public_servers_df: pd.DataFrame) -> None:
         """
         Add available for UseGalaxy servers and other public servers
 
@@ -330,7 +312,7 @@ class Tool:
         """
         # add availability for UseGalaxy servers
         for name, url in USEGALAXY_SERVER_URLS.items():
-            self.check_tools_on_servers(url)
+            self.add_tool_number_on_a_server(url, name)
 
         # add all other available servers
         for _index, row in public_servers_df.iterrows():
@@ -340,16 +322,16 @@ class Tool:
             ]:  # do not query UseGalaxy servers again
 
                 url = row["url"]
-                self.check_tools_on_servers(url)
+                self.add_tool_number_on_a_server(url, name)
 
-    def add_server_stat(self, stat_df, stat: str, time: str, server: str) -> None:
+    def add_server_stat(self, stat_df: pd.DataFrame, stat: str, timing: str, server: str) -> int:
         """
         Computes a count for tool stats based on the tool id. The counts for local and toolshed installed tools are
         aggregated. All tool versions are also aggregated.
 
         :param stat_df: df with tools stats in the form `toolshed.g2.bx.psu.edu/repos/iuc/snpsift/snpSift_filter,3394539`
         :param stat: stat type (users or runs)
-        :param time: stat time (last_5_years or all_time)
+        :param timing: stat time (last_5_years or all_time)
         :param server: server name
         """
         # extract tool id
@@ -363,7 +345,8 @@ class Tool:
                 agg_versions = counts.sum()
                 # aggregate all counts for all tools in the suite
                 agg_count += agg_versions
-        self.stat[stat][time][server] = int(agg_count)
+        self.stats[stat][timing][server] = int(agg_count)
+        return self.stats[stat][timing][server]
 
     def add_stats(self, tool_stats: Dict) -> None:
         """
@@ -375,9 +358,21 @@ class Tool:
             for t, time_stat in stat_dict:
                 summed_stat = 0
                 for server, stat_df in time_stat:
-                    self.add_server_stat(stat_df, stat, t, server)
-                    summed_stat += self.stat[stat][time][server]
-                self.stat[stat][t]["main servers"] = summed_stat
+                    stat = self.add_server_stat(stat_df, stat, t, server)
+                    summed_stat += stat
+                self.stats[stat][t]["main servers"] = summed_stat
+
+    def add_status(self, tool_status: Dict[str, dict[str, bool]]) -> None:
+        """
+        Add status to tool
+
+        :param tool: dictionary with tools and their metadata
+        :param tool_status: dictionary with tools and their 2 status: Keep and Deprecated
+        """
+        name = self.toolshed["id"]
+        if name in tool_status:
+            self.community_status["to_keep"] = tool_status[name]["To keep"]
+            self.community_status["deprecated"] = tool_status[name]["Deprecated"]
 
     def check_categories(self, ts_cat: List[str]) -> bool:
         """
@@ -391,24 +386,26 @@ class Tool:
             return False
         return bool(set(ts_cat) & set(self.toolshed["categories"]))
 
+
 class Tools:
     """
     Class Tools
     """
+
     def __init__(self, test: bool = False) -> None:
         self.tools: List[Tool] = []
         self.test = test
-        self.github = None
-        self.github_repositories = []
+        self.github = Github()
+        self.github_repositories: List[str] = []
 
     def init_by_importing(self, tools: dict) -> None:
         for t in tools:
             tool = Tool()
             tool.init_by_importing(t)
-            self.workflows.append(tool)
+            self.tools.append(tool)
 
     def init_by_searching(
-        self, 
+        self,
         github_api: str,
         repository_list: Optional[str],
         avoid_extra_repositories: bool = True,
@@ -423,31 +420,23 @@ class Tools:
             add_extra_repositories=not avoid_extra_repositories,
         )
         self.parse_github_repositories()
-        
+
         edam_ontology = get_ontology("https://edamontology.org/EDAM_1.25.owl").load()
 
         public_servers = DATA_PATH.joinpath("available_public_servers.csv")
         public_servers_df = pd.read_csv(public_servers, sep="\t")
 
-        tool_stats = {}
+        tool_stats: dict = {}
         servers_with_stats = ["eu", "org", "org.au"]
         usage_stats_path = DATA_PATH.joinpath("usage_stats", f"usage_stats_{STAT_DATE}")
         for server in servers_with_stats:
-            fp = usage_stats_path.joinpath(
-                f"{ server }/tool_users_5y_until_{STAT_DATE}.csv"
-            )
+            fp = usage_stats_path.joinpath(f"{ server }/tool_users_5y_until_{STAT_DATE}.csv")
             tool_stats["users"]["last_5_years"][server] = pd.read_csv(fp)
-            fp = usage_stats_path.joinpath(
-                f"{ server }/tool_users_until_{STAT_DATE}.csv"
-            )
+            fp = usage_stats_path.joinpath(f"{ server }/tool_users_until_{STAT_DATE}.csv")
             tool_stats["users"]["all_time"][server] = pd.read_csv(fp)
-            fp = usage_stats_path.joinpath(
-                f"{ server }/tool_usage_5y_until_{STAT_DATE}.csv"
-            )
+            fp = usage_stats_path.joinpath(f"{ server }/tool_usage_5y_until_{STAT_DATE}.csv")
             tool_stats["runs"]["last_5_years"][server] = pd.read_csv(fp)
-            fp = usage_stats_path.joinpath(
-                f"{ server }/tool_usage_until_{STAT_DATE}.csv"
-            )
+            fp = usage_stats_path.joinpath(f"{ server }/tool_usage_until_{STAT_DATE}.csv")
             tool_stats["runs"]["all_time"][server] = pd.read_csv(fp)
 
         # add additional information to tools
@@ -514,12 +503,11 @@ class Tools:
                 )
                 print(traceback.format_exc())
 
-    def add_tools_from_repo(self, repo) -> None:
+    def add_tools_from_repo(self, repo: Repository) -> None:
         """
         Parse tools in a GitHub repository, extract them and their metadata
 
         :param repo: GitHub Repository object
-        :param g: GitHub
         """
         # get tool folders
         tool_folders: List[List[ContentFile]] = []
@@ -530,7 +518,6 @@ class Tools:
                 repo_tools = repo.get_contents("wrappers")
             except Exception:
                 print("No tool folder found", sys.stderr)
-                return []
         assert isinstance(repo_tools, list)
         tool_folders.append(repo_tools)
         try:
@@ -549,7 +536,8 @@ class Tools:
         for folder in tool_folders:
             for tool in folder:
                 # to avoid API request limit issue, wait for one hour
-                if self.github.get_rate_limit().core.remaining < 200:
+                remaining = self.github.get_rate_limit().core.remaining
+                if remaining < 200:
                     print("WAITING for 1 hour to retrieve GitHub API request access !!!")
                     print()
                     time.sleep(60 * 60)
@@ -581,7 +569,7 @@ class Tools:
         self,
         ts_cat: List[str],
         tool_status: Dict,
-    ) -> list:
+    ) -> None:
         """
         Filter tools for specific ToolShed categories
 
@@ -608,11 +596,11 @@ class Tools:
         curated_tools = []
         tools_wo_biotools = []
         tools_with_biotools = []
-        for tool in tools:
+        for tool in self.tools:
             tool.add_status(tool_status)
-            if tool.status["to_keep"]:  # only add tools that are manually marked as to keep
+            if tool.community_status["to_keep"]:  # only add tools that are manually marked as to keep
                 curated_tools.append(tool)
-                if tool.biottols["id"] is None:
+                if tool.biotools["id"] is None:
                     tools_wo_biotools.append(tool)
                 else:
                     tools_with_biotools.append(tool)
@@ -625,21 +613,28 @@ class Tools:
         """
         return [t.__dict__ for t in self.tools]
 
-    def export_tools_to_tsv(self, output_fp: str, format_list_col: bool = False, to_keep_columns: Optional[List[str]] = None) -> None:
+    def export_tools_to_tsv(
+        self, output_fp: str, format_list_col: bool = False, to_keep_columns: Optional[List[str]] = None
+    ) -> None:
         """
         Export workflows to a TSV file
 
         :param output_fp: path to output file
         :param format_list_col: boolean indicating if list columns should be formatting
-        :param to_keep_columns: 
+        :param to_keep_columns:
         """
         renaming = (
-            pd.read_csv(DATA_PATH.joinpath("available_public_servers.tsv"), sep="\t", index_col=0) # load the mapping
+            pd.read_csv(DATA_PATH.joinpath("available_public_servers.tsv"), sep="\t", index_col=0)  # load the mapping
             .drop(columns=["Description"])
-            .to_dict('index')
+            .to_dict("index")
         )
-        df = pd.DataFrame(self.export_workflows_to_dict()).rename(columns=renaming).fillna("").reindex(columns=list(renaming.values()))
-        
+        df = (
+            pd.DataFrame(self.export_tools_to_dict())
+            .rename(columns=renaming)
+            .fillna("")
+            .reindex(columns=list(renaming.values()))
+        )
+
         if format_list_col:
             col_to_format = [
                 "ToolShed categories",
@@ -654,11 +649,8 @@ class Tools:
 
         if to_keep_columns is not None:
             df = df[to_keep_columns]
-        
+
         df.to_csv(output_fp, sep="\t", index=False)
-
-
-
 
 
 @lru_cache  # need to run this for each suite, so just cache it
@@ -681,6 +673,7 @@ def get_all_installed_tool_ids_on_server(galaxy_url: str) -> List[str]:
         print(f"Server query failed with: \n {ex}")
         print(f"Could not query tools on server {galaxy_url}, all tools from this server will be set to 0!")
         return []
+
 
 def add_status(tool: Dict, tool_status: Dict) -> None:
     """
@@ -796,9 +789,9 @@ if __name__ == "__main__":
     if args.command == "extract":
         tools = Tools(test=args.test)
         tools.init_by_searching(
-            g=args.api,
+            github_api=args.api,
             repository_list=args.planemo_repository_list,
-            add_extra_repositories=not args.avoid_extra_repositories,
+            avoid_extra_repositories=args.avoid_extra_repositories,
         )
         shared.export_to_json(tools.export_tools_to_dict(), args.all)
         tools.export_tools_to_tsv(args.all_tsv, format_list_col=True)
@@ -843,7 +836,6 @@ if __name__ == "__main__":
                 format_list_col=True,
             )
             tools_wo_biotools.export_tools_to_tsv(
-                tools_wo_biotools,
                 args.wo_biotools,
                 format_list_col=True,
                 to_keep_columns=["Suite ID", "Homepage", "Suite source"],

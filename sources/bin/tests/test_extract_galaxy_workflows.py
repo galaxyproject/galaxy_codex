@@ -7,9 +7,8 @@ from unittest.mock import (
     patch,
 )
 
-from bin.extract_galaxy_workflows import Workflows
-
 from bin import shared
+from bin.extract_galaxy_workflows import Workflows
 
 
 class TestAddWorkflowsFromWorkflowHub(unittest.TestCase):

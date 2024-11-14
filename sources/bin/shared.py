@@ -3,6 +3,7 @@
 import base64
 import json
 import time
+import xml.etree.ElementTree as et
 from datetime import datetime
 from pathlib import Path
 from typing import (
@@ -24,18 +25,15 @@ def get_first_commit_for_folder(tool: ContentFile, repo: Repository) -> str:
     """
     Get the date of the first commit in the tool folder
 
-    :param commit_date: date of the first commit
+    :param tool: GitHub ContentFile object
+    :param repo: GitHub Repository object
     """
-
     # Get commits related to the specific folder
     commits = repo.get_commits(path=tool.path)
-
     # Get the last commit in the history (which is the first commit made to the folder)
     first_commit = commits.reversed[0]
-
     # Extract relevant information about the first commit
     commit_date = first_commit.commit.author.date.date()
-
     return str(commit_date)
 
 
@@ -62,12 +60,12 @@ def read_file(filepath: Optional[str]) -> List[str]:
         return []
 
 
-def export_to_json(data: List[Dict], output_fp: str, sort_keys: bool = True, default = list) -> None:
+def export_to_json(data: List[Dict], output_fp: str, sort_keys: bool = True) -> None:
     """
     Export to a JSON file
     """
     with Path(output_fp).open("w") as f:
-        json.dump(data, f, indent=4, sort_keys=sort_keys, default=default)
+        json.dump(data, f, indent=4, sort_keys=sort_keys)
 
 
 def load_json(input_df: str) -> Dict:
@@ -229,6 +227,7 @@ def get_github_repo(url: str, g: Github) -> Repository:
     u_split = url.split("/")
     return g.get_user(u_split[-2]).get_repo(u_split[-1])
 
+
 def get_shed_attribute(attrib: str, shed_content: Dict[str, Any], empty_value: Any) -> Any:
     """
     Get a shed attribute
@@ -241,6 +240,7 @@ def get_shed_attribute(attrib: str, shed_content: Dict[str, Any], empty_value: A
         return shed_content[attrib]
     else:
         return empty_value
+
 
 def get_last_url_position(toot_id: str) -> str:
     """
@@ -255,3 +255,20 @@ def get_last_url_position(toot_id: str) -> str:
         toot_id = toot_id.split("/")[-1]
     return toot_id
 
+
+def get_xref(el: et.Element, attrib_type: str) -> Optional[str]:
+    """
+    Get xref information
+
+    :param el: Element object
+    :attrib_type: the type of the xref (e.g.: bio.tools or biii)
+    """
+    xrefs = el.find("xrefs")
+    if xrefs is not None:
+        xref_items = xrefs.findall("xref")  # check all xref items
+        for xref in xref_items:
+            if xref is not None and xref.attrib["type"] == attrib_type:
+                # should not contain any space of linebreak
+                xref_sanitized = str(xref.text).strip()
+                return xref_sanitized
+    return None
