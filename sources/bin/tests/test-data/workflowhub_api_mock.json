@@ -1,0 +1,806 @@
+[
+    {
+       "data":[
+          {
+             "id":"1189",
+             "type":"workflows",
+             "attributes":{
+                "title":"AMR-Pathfinder",
+                "tags":[
+                   "bioinformatics"
+                ]
+             },
+             "links":{
+                "self":"/workflows/1189"
+             }
+          },
+          {
+             "id":"1190",
+             "type":"workflows",
+             "attributes":{
+                "title":"haploid-variant-calling-wgs-pe/main",
+                "tags":[
+                   "genomics"
+                ]
+             },
+             "links":{
+                "self":"/workflows/1190"
+             }
+          }
+       ]
+    },
+    {
+       "data":{
+          "id":"1189",
+          "type":"workflows",
+          "attributes":{
+             "discussion_links":[
+                
+             ],
+             "title":"AMR-Pathfinder",
+             "license":"MIT",
+             "description":"This is an aggregation of the work done in [Seq4AMR](https://workflowhub.eu/projects/110) consisting of the following workflows:\r\n\r\n- [WF1: AbritAMR / AMRFinderPlus](https://workflowhub.eu/workflows/634)\r\n- [WF2: Sciensano](https://workflowhub.eu/workflows/644) (**not currently included**)\r\n- [WF3: SRST2](https://workflowhub.eu/workflows/407) \r\n- [WF4: StarAMR](https://workflowhub.eu/workflows/470)\r\n\r\n## Installation\r\n\r\n- You will need to:\r\n    - run the [RGI Database Builder](https://my.galaxy.training/?path=?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fcard%2Frgi%2Frgi_database_builder%2F1.2.0) as a Galaxy admin (if this hasn\\'t been done already)\r\n    - [Have the en_US.UTF-8 locale installed](https://github.com/galaxyproject/tools-iuc/issues/6467) on the compute nodes executing cast/melt jobs.\r\n    - Install the requisite tools with e.g. [`shed-tools`](https://ephemeris.readthedocs.io/en/latest/commands/shed-tools.html) command from the [`ephemeris`](https://ephemeris.readthedocs.io/en/latest/) suite: `shed-tools install -g https://galaxy.example.com -a API_KEY -t tools.yaml` (tools.yaml is provided in this repository.)\r\n- Then you can import this workflow\r\n    - Navigate to `/workflows/import` of your Galaxy server\r\n    - Select \"GA4GH servers\"\r\n    - Enter `name:\"AMR-Pathfinder\"`\r\n- And run it\r\n    - You must provide a Sequencing collection (list:paired of fastq files)\r\n    - And a Genomes collection (list of fasta files) \r\n    - Both of these should use **identical** collection element identifiers\r\n\r\n## Outputs\r\n\r\nThis will produce two important tables: \"Binary Comparison\" and a \"% Identity Scored Outputs\". \r\n\r\n### Binary comparison\r\n\r\nThis file reports the discovery or absence of specific AMR genes across all tested AMR Analysis tools. You will mostly see 1s (presence) or 0s (absence) but you may occasionally see higher numbers when an AMR tool reports multiple hits for a specific gene.\r\n\r\n### % Identity Scored Outputs\r\n\r\nThis is similar to binary comparison, but using the % identity reported by each AMR tool. For cases where multiple hits were detected, we take the highest.\r\n\r\n## Known Issues\r\n\r\nThe names for identified AMR genes is highly inconsistent across AMR analysis tools. We urge the AMR community to rectify this by standardising gene names used in their tooling.",
+             "latest_version":1,
+             "tags":[
+                "AMR",
+                "AMR-detection",
+                "benchamrking"
+             ],
+             "versions":[
+                {
+                   "version":1,
+                   "revision_comments":"Initial working version of the AMR Pathfinder project workflow",
+                   "url":"https://workflowhub.eu/workflows/1189?version=1",
+                   "commit":"a29814deaf5d824562481df6357ff3c89295c5b0",
+                   "ref":"refs/tags/Version-4.6",
+                   "tree":"/workflows/1189/git/1/tree",
+                   "doi":"10.48546/workflowhub.workflow.1189.1"
+                }
+             ],
+             "version":1,
+             "revision_comments":"Initial working version of the AMR Pathfinder project workflow",
+             "created_at":"2024-10-28T13:43:16.000Z",
+             "updated_at":"2024-11-04T16:21:43.000Z",
+             "doi":"10.48546/workflowhub.workflow.1189.1",
+             "content_blobs":[
+                
+             ],
+             "creators":[
+                {
+                   "profile":"/people/118",
+                   "family_name":"Rasche",
+                   "given_name":"Helena",
+                   "affiliation":"",
+                   "orcid":"https://orcid.org/0000-0001-9760-8992"
+                },
+                {
+                   "profile":"/people/359",
+                   "family_name":"Dollée",
+                   "given_name":"Dennis",
+                   "affiliation":"Erasmus University Medical Centre",
+                   "orcid":"None"
+                },
+                {
+                   "profile":"/people/875",
+                   "family_name":"Rijvers",
+                   "given_name":"Birgit",
+                   "affiliation":"Erasmus University Medical Centre",
+                   "orcid":"None"
+                }
+             ],
+             "other_creators":"",
+             "workflow_class":{
+                "title":"Galaxy",
+                "key":"galaxy",
+                "description":"None"
+             },
+             "operation_annotations":[
+                {
+                   "label":"Antimicrobial resistance prediction",
+                   "identifier":"http://edamontology.org/operation_3482"
+                }
+             ],
+             "topic_annotations":[
+                
+             ],
+             "internals":{
+                "steps":[
+                   {
+                      "id":"5",
+                      "name":"Create text file",
+                      "description":"toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_text_file_with_recurring_lines/1.1.0"
+                   },
+                   {
+                      "id":"6",
+                      "name":"Sanitize Filename",
+                      "description":""
+                   },
+                   {
+                      "id":"7",
+                      "name":"Shovill",
+                      "description":"toolshed.g2.bx.psu.edu/repos/iuc/shovill/shovill/1.1.0+galaxy1"
+                   },
+                   {
+                      "id":"8",
+                      "name":"WF3: SRST2 :: AMR - SeqSero2/SISTR",
+                      "description":""
+                   },
+                   {
+                      "id":"9",
+                      "name":"Replace",
+                      "description":"toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_find_and_replace/1.1.4"
+                   },
+                   {
+                      "id":"10",
+                      "name":"benchAMRking: wf1",
+                      "description":""
+                   },
+                   {
+                      "id":"11",
+                      "name":"benchAMRking: wf3b",
+                      "description":""
+                   },
+                   {
+                      "id":"12",
+                      "name":"ABRicate",
+                      "description":"toolshed.g2.bx.psu.edu/repos/iuc/abricate/abricate/1.0.1"
+                   },
+                   {
+                      "id":"13",
+                      "name":"staramr",
+                      "description":"toolshed.g2.bx.psu.edu/repos/nml/staramr/staramr_search/0.10.0+galaxy1"
+                   },
+                   {
+                      "id":"14",
+                      "name":"Add column",
+                      "description":"addValue"
+                   },
+                   {
+                      "id":"15",
+                      "name":"Add column",
+                      "description":"addValue"
+                   },
+                   {
+                      "id":"16",
+                      "name":"Add column",
+                      "description":"addValue"
+                   },
+                   {
+                      "id":"17",
+                      "name":"hamronize",
+                      "description":"toolshed.g2.bx.psu.edu/repos/iuc/hamronize_tool/hamronize_tool/1.0.3+galaxy1"
+                   },
+                   {
+                      "id":"18",
+                      "name":"hamronize",
+                      "description":"toolshed.g2.bx.psu.edu/repos/iuc/hamronize_tool/hamronize_tool/1.0.3+galaxy1"
+                   },
+                   {
+                      "id":"19",
+                      "name":"Select",
+                      "description":"Grep1"
+                   },
+                   {
+                      "id":"20",
+                      "name":"Collapse Collection",
+                      "description":"toolshed.g2.bx.psu.edu/repos/nml/collapse_collections/collapse_dataset/5.1.0"
+                   },
+                   {
+                      "id":"21",
+                      "name":"Replace",
+                      "description":"toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_find_and_replace/1.1.4"
+                   },
+                   {
+                      "id":"22",
+                      "name":"hamronize summarize:",
+                      "description":"toolshed.g2.bx.psu.edu/repos/iuc/hamronize_summarize/hamronize_summarize/1.1.4+galaxy0"
+                   },
+                   {
+                      "id":"23",
+                      "name":"hamronize: summarize",
+                      "description":"toolshed.g2.bx.psu.edu/repos/iuc/hamronize_summarize/hamronize_summarize/1.0.3+galaxy2"
+                   },
+                   {
+                      "id":"24",
+                      "name":"hamronize: summarize",
+                      "description":"toolshed.g2.bx.psu.edu/repos/iuc/hamronize_summarize/hamronize_summarize/1.0.3+galaxy2"
+                   },
+                   {
+                      "id":"25",
+                      "name":"Select",
+                      "description":"Grep1"
+                   },
+                   {
+                      "id":"26",
+                      "name":"Split file",
+                      "description":"toolshed.g2.bx.psu.edu/repos/bgruening/split_file_on_column/tp_split_on_column/0.2"
+                   },
+                   {
+                      "id":"27",
+                      "name":"Cut",
+                      "description":"Cut1"
+                   },
+                   {
+                      "id":"28",
+                      "name":"Select",
+                      "description":"Grep1"
+                   },
+                   {
+                      "id":"29",
+                      "name":"Add column",
+                      "description":"addValue"
+                   },
+                   {
+                      "id":"30",
+                      "name":"Merge collections",
+                      "description":"__MERGE_COLLECTION__"
+                   },
+                   {
+                      "id":"31",
+                      "name":"Apply rules",
+                      "description":"__APPLY_RULES__"
+                   },
+                   {
+                      "id":"32",
+                      "name":"Concatenate multiple datasets",
+                      "description":"toolshed.g2.bx.psu.edu/repos/artbio/concatenate_multiple_datasets/cat_multi_datasets/1.4.3"
+                   },
+                   {
+                      "id":"33",
+                      "name":"Move WF# col to second position, keep score",
+                      "description":"Cut1"
+                   },
+                   {
+                      "id":"34",
+                      "name":"Move WF# col to second position 2, delete score",
+                      "description":"Cut1"
+                   },
+                   {
+                      "id":"35",
+                      "name":"Datamash",
+                      "description":"toolshed.g2.bx.psu.edu/repos/iuc/datamash_ops/datamash_ops/1.8+galaxy0"
+                   },
+                   {
+                      "id":"36",
+                      "name":"Add column",
+                      "description":"addValue"
+                   },
+                   {
+                      "id":"37",
+                      "name":"Concatenate datasets",
+                      "description":"cat1"
+                   },
+                   {
+                      "id":"38",
+                      "name":"Concatenate datasets",
+                      "description":"cat1"
+                   },
+                   {
+                      "id":"39",
+                      "name":"% Identity",
+                      "description":"toolshed.g2.bx.psu.edu/repos/iuc/reshape2_cast/cast/1.4.2"
+                   },
+                   {
+                      "id":"40",
+                      "name":"Binary Comparison",
+                      "description":"toolshed.g2.bx.psu.edu/repos/iuc/reshape2_cast/cast/1.4.2"
+                   }
+                ]
+             },
+             "tools":[
+                {
+                   "name":"shovill",
+                   "id":"https://bio.tools/shovill"
+                },
+                {
+                   "name":"ABRicate",
+                   "id":"https://bio.tools/ABRicate"
+                },
+                {
+                   "name":"staramr",
+                   "id":"https://bio.tools/staramr"
+                },
+                {
+                   "name":"hAMRonization",
+                   "id":"https://bio.tools/hamronization"
+                }
+             ]
+          },
+          "relationships":{
+             "creators":{
+                "data":[
+                   {
+                      "id":"118",
+                      "type":"people"
+                   },
+                   {
+                      "id":"359",
+                      "type":"people"
+                   },
+                   {
+                      "id":"875",
+                      "type":"people"
+                   }
+                ]
+             },
+             "submitter":{
+                "data":[
+                   {
+                      "id":"118",
+                      "type":"people"
+                   }
+                ]
+             },
+             "people":{
+                "data":[
+                   {
+                      "id":"118",
+                      "type":"people"
+                   },
+                   {
+                      "id":"359",
+                      "type":"people"
+                   },
+                   {
+                      "id":"875",
+                      "type":"people"
+                   }
+                ]
+             },
+             "projects":{
+                "data":[
+                   {
+                      "id":"110",
+                      "type":"projects"
+                   },
+                   {
+                      "id":"277",
+                      "type":"projects"
+                   }
+                ]
+             },
+             "investigations":{
+                "data":[
+                   
+                ]
+             },
+             "studies":{
+                "data":[
+                   
+                ]
+             },
+             "assays":{
+                "data":[
+                   
+                ]
+             },
+             "publications":{
+                "data":[
+                   
+                ]
+             },
+             "sops":{
+                "data":[
+                   
+                ]
+             },
+             "presentations":{
+                "data":[
+                   
+                ]
+             },
+             "data_files":{
+                "data":[
+                   
+                ]
+             },
+             "documents":{
+                "data":[
+                   
+                ]
+             }
+          },
+          "links":{
+             "self":"/workflows/1189?version=1",
+             "diagram":"/workflows/1189/diagram?version=1"
+          },
+          "meta":{
+             "created":"2024-10-28T13:43:16.000Z",
+             "modified":"2024-11-04T15:04:22.000Z",
+             "api_version":"0.3",
+             "base_url":"https://workflowhub.eu",
+             "uuid":"81fea0b0-7760-013d-5d70-005056ab8eb2"
+          }
+       },
+       "jsonapi":{
+          "version":"1.0"
+       }
+    },
+    {
+       "data":{
+          "id":"1189",
+          "type":"workflows",
+          "attributes":{
+             "discussion_links":[
+                
+             ],
+             "title":"AMR-Pathfinder",
+             "license":"MIT",
+             "description":"This is an aggregation of the work done in [Seq4AMR](https://workflowhub.eu/projects/110) consisting of the following workflows:\r\n\r\n- [WF1: AbritAMR / AMRFinderPlus](https://workflowhub.eu/workflows/634)\r\n- [WF2: Sciensano](https://workflowhub.eu/workflows/644) (**not currently included**)\r\n- [WF3: SRST2](https://workflowhub.eu/workflows/407) \r\n- [WF4: StarAMR](https://workflowhub.eu/workflows/470)\r\n\r\n## Installation\r\n\r\n- You will need to:\r\n    - run the [RGI Database Builder](https://my.galaxy.training/?path=?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fcard%2Frgi%2Frgi_database_builder%2F1.2.0) as a Galaxy admin (if this hasn\\'t been done already)\r\n    - [Have the en_US.UTF-8 locale installed](https://github.com/galaxyproject/tools-iuc/issues/6467) on the compute nodes executing cast/melt jobs.\r\n    - Install the requisite tools with e.g. [`shed-tools`](https://ephemeris.readthedocs.io/en/latest/commands/shed-tools.html) command from the [`ephemeris`](https://ephemeris.readthedocs.io/en/latest/) suite: `shed-tools install -g https://galaxy.example.com -a API_KEY -t tools.yaml` (tools.yaml is provided in this repository.)\r\n- Then you can import this workflow\r\n    - Navigate to `/workflows/import` of your Galaxy server\r\n    - Select \"GA4GH servers\"\r\n    - Enter `name:\"AMR-Pathfinder\"`\r\n- And run it\r\n    - You must provide a Sequencing collection (list:paired of fastq files)\r\n    - And a Genomes collection (list of fasta files) \r\n    - Both of these should use **identical** collection element identifiers\r\n\r\n## Outputs\r\n\r\nThis will produce two important tables: \"Binary Comparison\" and a \"% Identity Scored Outputs\". \r\n\r\n### Binary comparison\r\n\r\nThis file reports the discovery or absence of specific AMR genes across all tested AMR Analysis tools. You will mostly see 1s (presence) or 0s (absence) but you may occasionally see higher numbers when an AMR tool reports multiple hits for a specific gene.\r\n\r\n### % Identity Scored Outputs\r\n\r\nThis is similar to binary comparison, but using the % identity reported by each AMR tool. For cases where multiple hits were detected, we take the highest.\r\n\r\n## Known Issues\r\n\r\nThe names for identified AMR genes is highly inconsistent across AMR analysis tools. We urge the AMR community to rectify this by standardising gene names used in their tooling.",
+             "latest_version":1,
+             "tags":[
+                "AMR",
+                "AMR-detection",
+                "benchamrking"
+             ],
+             "versions":[
+                {
+                   "version":1,
+                   "revision_comments":"Initial working version of the AMR Pathfinder project workflow",
+                   "url":"https://workflowhub.eu/workflows/1189?version=1",
+                   "commit":"a29814deaf5d824562481df6357ff3c89295c5b0",
+                   "ref":"refs/tags/Version-4.6",
+                   "tree":"/workflows/1189/git/1/tree",
+                   "doi":"10.48546/workflowhub.workflow.1189.1"
+                }
+             ],
+             "version":1,
+             "revision_comments":"Initial working version of the AMR Pathfinder project workflow",
+             "created_at":"2024-10-28T13:43:16.000Z",
+             "updated_at":"2024-11-04T16:21:43.000Z",
+             "doi":"10.48546/workflowhub.workflow.1189.1",
+             "content_blobs":[
+                
+             ],
+             "creators":[
+                {
+                   "profile":"/people/118",
+                   "family_name":"Rasche",
+                   "given_name":"Helena",
+                   "affiliation":"",
+                   "orcid":"https://orcid.org/0000-0001-9760-8992"
+                },
+                {
+                   "profile":"/people/359",
+                   "family_name":"Dollée",
+                   "given_name":"Dennis",
+                   "affiliation":"Erasmus University Medical Centre",
+                   "orcid":"None"
+                },
+                {
+                   "profile":"/people/875",
+                   "family_name":"Rijvers",
+                   "given_name":"Birgit",
+                   "affiliation":"Erasmus University Medical Centre",
+                   "orcid":"None"
+                }
+             ],
+             "other_creators":"",
+             "workflow_class":{
+                "title":"Galaxy",
+                "key":"galaxy",
+                "description":"None"
+             },
+             "operation_annotations":[
+                {
+                   "label":"Antimicrobial resistance prediction",
+                   "identifier":"http://edamontology.org/operation_3482"
+                }
+             ],
+             "topic_annotations":[
+                
+             ],
+             "internals":{
+                "steps":[
+                   {
+                      "id":"5",
+                      "name":"Create text file",
+                      "description":"toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_text_file_with_recurring_lines/1.1.0"
+                   },
+                   {
+                      "id":"6",
+                      "name":"Sanitize Filename",
+                      "description":""
+                   },
+                   {
+                      "id":"7",
+                      "name":"Shovill",
+                      "description":"toolshed.g2.bx.psu.edu/repos/iuc/shovill/shovill/1.1.0+galaxy1"
+                   },
+                   {
+                      "id":"8",
+                      "name":"WF3: SRST2 :: AMR - SeqSero2/SISTR",
+                      "description":""
+                   },
+                   {
+                      "id":"9",
+                      "name":"Replace",
+                      "description":"toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_find_and_replace/1.1.4"
+                   },
+                   {
+                      "id":"10",
+                      "name":"benchAMRking: wf1",
+                      "description":""
+                   },
+                   {
+                      "id":"11",
+                      "name":"benchAMRking: wf3b",
+                      "description":""
+                   },
+                   {
+                      "id":"12",
+                      "name":"ABRicate",
+                      "description":"toolshed.g2.bx.psu.edu/repos/iuc/abricate/abricate/1.0.1"
+                   },
+                   {
+                      "id":"13",
+                      "name":"staramr",
+                      "description":"toolshed.g2.bx.psu.edu/repos/nml/staramr/staramr_search/0.10.0+galaxy1"
+                   },
+                   {
+                      "id":"14",
+                      "name":"Add column",
+                      "description":"addValue"
+                   },
+                   {
+                      "id":"15",
+                      "name":"Add column",
+                      "description":"addValue"
+                   },
+                   {
+                      "id":"16",
+                      "name":"Add column",
+                      "description":"addValue"
+                   },
+                   {
+                      "id":"17",
+                      "name":"hamronize",
+                      "description":"toolshed.g2.bx.psu.edu/repos/iuc/hamronize_tool/hamronize_tool/1.0.3+galaxy1"
+                   },
+                   {
+                      "id":"18",
+                      "name":"hamronize",
+                      "description":"toolshed.g2.bx.psu.edu/repos/iuc/hamronize_tool/hamronize_tool/1.0.3+galaxy1"
+                   },
+                   {
+                      "id":"19",
+                      "name":"Select",
+                      "description":"Grep1"
+                   },
+                   {
+                      "id":"20",
+                      "name":"Collapse Collection",
+                      "description":"toolshed.g2.bx.psu.edu/repos/nml/collapse_collections/collapse_dataset/5.1.0"
+                   },
+                   {
+                      "id":"21",
+                      "name":"Replace",
+                      "description":"toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_find_and_replace/1.1.4"
+                   },
+                   {
+                      "id":"22",
+                      "name":"hamronize summarize:",
+                      "description":"toolshed.g2.bx.psu.edu/repos/iuc/hamronize_summarize/hamronize_summarize/1.1.4+galaxy0"
+                   },
+                   {
+                      "id":"23",
+                      "name":"hamronize: summarize",
+                      "description":"toolshed.g2.bx.psu.edu/repos/iuc/hamronize_summarize/hamronize_summarize/1.0.3+galaxy2"
+                   },
+                   {
+                      "id":"24",
+                      "name":"hamronize: summarize",
+                      "description":"toolshed.g2.bx.psu.edu/repos/iuc/hamronize_summarize/hamronize_summarize/1.0.3+galaxy2"
+                   },
+                   {
+                      "id":"25",
+                      "name":"Select",
+                      "description":"Grep1"
+                   },
+                   {
+                      "id":"26",
+                      "name":"Split file",
+                      "description":"toolshed.g2.bx.psu.edu/repos/bgruening/split_file_on_column/tp_split_on_column/0.2"
+                   },
+                   {
+                      "id":"27",
+                      "name":"Cut",
+                      "description":"Cut1"
+                   },
+                   {
+                      "id":"28",
+                      "name":"Select",
+                      "description":"Grep1"
+                   },
+                   {
+                      "id":"29",
+                      "name":"Add column",
+                      "description":"addValue"
+                   },
+                   {
+                      "id":"30",
+                      "name":"Merge collections",
+                      "description":"__MERGE_COLLECTION__"
+                   },
+                   {
+                      "id":"31",
+                      "name":"Apply rules",
+                      "description":"__APPLY_RULES__"
+                   },
+                   {
+                      "id":"32",
+                      "name":"Concatenate multiple datasets",
+                      "description":"toolshed.g2.bx.psu.edu/repos/artbio/concatenate_multiple_datasets/cat_multi_datasets/1.4.3"
+                   },
+                   {
+                      "id":"33",
+                      "name":"Move WF# col to second position, keep score",
+                      "description":"Cut1"
+                   },
+                   {
+                      "id":"34",
+                      "name":"Move WF# col to second position 2, delete score",
+                      "description":"Cut1"
+                   },
+                   {
+                      "id":"35",
+                      "name":"Datamash",
+                      "description":"toolshed.g2.bx.psu.edu/repos/iuc/datamash_ops/datamash_ops/1.8+galaxy0"
+                   },
+                   {
+                      "id":"36",
+                      "name":"Add column",
+                      "description":"addValue"
+                   },
+                   {
+                      "id":"37",
+                      "name":"Concatenate datasets",
+                      "description":"cat1"
+                   },
+                   {
+                      "id":"38",
+                      "name":"Concatenate datasets",
+                      "description":"cat1"
+                   },
+                   {
+                      "id":"39",
+                      "name":"% Identity",
+                      "description":"toolshed.g2.bx.psu.edu/repos/iuc/reshape2_cast/cast/1.4.2"
+                   },
+                   {
+                      "id":"40",
+                      "name":"Binary Comparison",
+                      "description":"toolshed.g2.bx.psu.edu/repos/iuc/reshape2_cast/cast/1.4.2"
+                   }
+                ]
+             },
+             "tools":[
+                {
+                   "name":"shovill",
+                   "id":"https://bio.tools/shovill"
+                },
+                {
+                   "name":"ABRicate",
+                   "id":"https://bio.tools/ABRicate"
+                },
+                {
+                   "name":"staramr",
+                   "id":"https://bio.tools/staramr"
+                },
+                {
+                   "name":"hAMRonization",
+                   "id":"https://bio.tools/hamronization"
+                }
+             ]
+          },
+          "relationships":{
+             "creators":{
+                "data":[
+                   {
+                      "id":"118",
+                      "type":"people"
+                   },
+                   {
+                      "id":"359",
+                      "type":"people"
+                   },
+                   {
+                      "id":"875",
+                      "type":"people"
+                   }
+                ]
+             },
+             "submitter":{
+                "data":[
+                   {
+                      "id":"118",
+                      "type":"people"
+                   }
+                ]
+             },
+             "people":{
+                "data":[
+                   {
+                      "id":"118",
+                      "type":"people"
+                   },
+                   {
+                      "id":"359",
+                      "type":"people"
+                   },
+                   {
+                      "id":"875",
+                      "type":"people"
+                   }
+                ]
+             },
+             "projects":{
+                "data":[
+                   {
+                      "id":"110",
+                      "type":"projects"
+                   },
+                   {
+                      "id":"277",
+                      "type":"projects"
+                   }
+                ]
+             },
+             "investigations":{
+                "data":[
+                   
+                ]
+             },
+             "studies":{
+                "data":[
+                   
+                ]
+             },
+             "assays":{
+                "data":[
+                   
+                ]
+             },
+             "publications":{
+                "data":[
+                   
+                ]
+             },
+             "sops":{
+                "data":[
+                   
+                ]
+             },
+             "presentations":{
+                "data":[
+                   
+                ]
+             },
+             "data_files":{
+                "data":[
+                   
+                ]
+             },
+             "documents":{
+                "data":[
+                   
+                ]
+             }
+          },
+          "links":{
+             "self":"/workflows/1189?version=1",
+             "diagram":"/workflows/1189/diagram?version=1"
+          },
+          "meta":{
+             "created":"2024-10-28T13:43:16.000Z",
+             "modified":"2024-11-04T15:04:22.000Z",
+             "api_version":"0.3",
+             "base_url":"https://workflowhub.eu",
+             "uuid":"81fea0b0-7760-013d-5d70-005056ab8eb2"
+          }
+       },
+       "jsonapi":{
+          "version":"1.0"
+       }
+    }
+ ]
