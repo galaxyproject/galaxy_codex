@@ -45,7 +45,7 @@ def get_comment_id():
 
 def update_comment(comment_id, new_body):
     """Updates an existing comment by ID with new body in markdown format."""
-    comment = repo.get_issue_comment(comment_id)
+    comment = repo.get_issues_comments(comment_id)
     tagged_body = f"{new_body}\n\n{COMMENT_ID_STRING}"
     comment.edit(tagged_body)
     print("Comment updated successfully.")
