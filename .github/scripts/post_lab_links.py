@@ -9,7 +9,7 @@ from github import Github
 from urllib.request import urlopen
 from urllib.error import URLError, HTTPError
 
-COMMENT_TITLE_TEMPLATE = "Preview changes to {lab_name} Lab"
+COMMENT_TITLE_TEMPLATE = "Preview changes to {lab_name} Lab <!--=-->"
 URL_TEMPLATE = (
     "https://labs.usegalaxy.org.au"
     "/?content_root=https://github.com/{repo}"
