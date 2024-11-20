@@ -55,7 +55,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PR_TOKEN }}
           PR_NUMBER: ${{ github.event.number }}
-          USERNAME: ${{ github.actor }}
           BRANCH_NAME: ${{ github.event.pull_request.head.ref }}
           GITHUB_REPOSITORY: ${{ github.event.pull_request.head.repo.full_name }}
         run: |

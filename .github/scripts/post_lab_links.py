@@ -12,7 +12,7 @@ from urllib.error import URLError, HTTPError
 COMMENT_ID_STRING = "<!-- labs-links-comment -->"
 URL_TEMPLATE = (
     "https://labs.usegalaxy.org.au"
-    "/?content_root=https://github.com/{username}/galaxy_codex"
+    "/?content_root=https://github.com/{repo}"
     "/blob/{branch_name}/{lab_content_path}"
     "&cache=false"
 )
@@ -25,7 +25,6 @@ TRY_FILES = [
 
 # Environment variables from GitHub Actions
 PR_NUMBER = os.environ["PR_NUMBER"]
-USERNAME = os.environ["GITHUB_ACTOR"]
 BRANCH_NAME = os.environ["GITHUB_HEAD_REF"]
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
 REPO = os.getenv("GITHUB_REPOSITORY")
@@ -73,7 +72,7 @@ def post_lab_links(name):
         if not os.path.exists(path):
             print(f"Skipping {path}: file not found in repository")
             continue
-        url = build_url(USERNAME, BRANCH_NAME, path)
+        url = build_url(REPO, BRANCH_NAME, path)
         try:
             http_status = http_status_for(url)
             filename = path.split('/')[-1]
@@ -106,9 +105,9 @@ def http_status_for(url):
         return e.code
 
 
-def build_url(username, branch_name, content_path):
+def build_url(repo, branch_name, content_path):
     return URL_TEMPLATE.format(
-        username=username,
+        repo=repo,
         branch_name=branch_name,
         lab_content_path=content_path)
 
