@@ -27,7 +27,8 @@ TRY_FILES = [
 PR_NUMBER = int(os.environ["PR_NUMBER"])
 BRANCH_NAME = os.environ["BRANCH_NAME"]
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
-REPO = os.getenv("REPOSITORY")
+BASE_REPO = os.getenv("REPOSITORY")
+HEAD_REPO = os.getenv("REPOSITORY")
 
 
 def get_comment(pull_request, id_string):
@@ -45,10 +46,10 @@ def create_or_update_comment(lab_name, body_md):
     in existing comments.
     """
     divider = "\n\n" + '-' * 80 + '\n\n'
-    print("Posting comment:", divider, body_md, divider)
+    print("Posting comment:", divider, body_md.strip(' \n'), divider)
     id_string = COMMENT_ID_STRING.format(name=lab_name)
     gh = Github(GITHUB_TOKEN)
-    repo = gh.get_repo(REPO)
+    repo = gh.get_repo(BASE_REPO)
     pull_request = repo.get_pull(PR_NUMBER)
     tagged_body = f"{body_md}\n\n{COMMENT_ID_STRING}"
     comment = get_comment(pull_request, id_string)
@@ -109,7 +110,7 @@ def http_status_for(url):
 
 def build_url(content_path):
     return URL_TEMPLATE.format(
-        repo=REPO,
+        repo=HEAD_REPO,
         branch_name=BRANCH_NAME,
         lab_content_path=content_path)
 
