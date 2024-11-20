@@ -7,6 +7,9 @@ on:
 jobs:
   fetch-urls:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read       # Minimal permissions to access repository contents
+      issues: write        # Required to create or edit comments on pull requests
     steps:
       - name: Debug variables
         run: |
@@ -52,7 +55,7 @@ jobs:
 
       - name: Post comment if matching changes found
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_PR_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
           PR_NUMBER: ${{ github.event.number }}
           BRANCH_NAME: ${{ github.event.pull_request.head.ref }}
           HEAD_REPO: ${{ github.event.pull_request.head.repo.full_name }}
