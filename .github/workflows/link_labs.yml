@@ -1,15 +1,26 @@
 name: Check Lab HTTP status
 
 on:
-  pull_request:
+  pull_request_target:
     types: [opened, synchronize]
 
 jobs:
   fetch-urls:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout base branch
         uses: actions/checkout@v3
+        with:
+          repository: ${{ github.repository }}
+          ref: main
+          path: base
+
+      - name: Checkout head branch
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.ref }}
+          path: head
 
       - name: Set up Python
         uses: actions/setup-python@v2
@@ -22,18 +33,21 @@ jobs:
       - name: Get list of changed files
         id: changed-files
         run: |
-          git fetch origin main
-          git diff --name-only origin/main..HEAD > changed_files.txt
+          cd head
+          git remote add upstream https://github.com/galaxyproject/galaxy_codex
+          git fetch upstream main
+          git diff --name-only upstream/main..HEAD > changed_files.txt
           echo ""
           echo "Changed files:"
           cat changed_files.txt
 
       - name: Post comment if matching changes found
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_PR_TOKEN }}
           PR_NUMBER: ${{ github.event.number }}
           USERNAME: ${{ github.actor }}
-          BRANCH_NAME: ${{ github.head_ref }}
-          GITHUB_REPOSITORY: ${{ github.repository }}
+          BRANCH_NAME: ${{ github.event.pull_request.head.ref }}
+          GITHUB_REPOSITORY: ${{ github.event.pull_request.head.repo.full_name }}
         run: |
-          python3 .github/scripts/post_lab_links.py
+          cd head
+          python3 ../base/.github/scripts/post_lab_links.py
