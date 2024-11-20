@@ -9,7 +9,7 @@ from github import Github
 from urllib.request import urlopen
 from urllib.error import URLError, HTTPError
 
-COMMENT_ID_STRING = "<!-- {name}-lab-links -->"
+COMMENT_ID_STRING = "<!-- {lab_name}-lab-links -->"
 URL_TEMPLATE = (
     "https://labs.usegalaxy.org.au"
     "/?content_root=https://github.com/{repo}"
@@ -52,7 +52,7 @@ def create_or_update_comment(lab_name, body_md):
     print("Getting base repo:", BASE_REPO)
     repo = gh.get_repo(BASE_REPO)
     pull_request = repo.get_pull(PR_NUMBER)
-    tagged_body = f"{body_md}\n\n{COMMENT_ID_STRING}"
+    tagged_body = f"{body_md}\n\n{id_string}"
     comment = get_comment(pull_request, id_string)
     if comment:
         comment.edit(tagged_body)
