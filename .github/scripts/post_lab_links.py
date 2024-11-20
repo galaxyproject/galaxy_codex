@@ -36,7 +36,7 @@ pull_request = repo.get_pull(int(PR_NUMBER))
 
 
 def get_comment_id():
-    """Fetches PR comments and finds one with the unique identifier."""
+    """Fetches PR comments and scans for the COMMENT_ID_STRING."""
     for comment in pull_request.get_issue_comments():
         if COMMENT_ID_STRING in comment.body:
             return comment.id
@@ -44,7 +44,7 @@ def get_comment_id():
 
 
 def update_comment(comment_id, new_body):
-    """Updates an existing comment by ID with new content."""
+    """Updates an existing comment by ID with new body in markdown format."""
     comment = repo.get_issue_comment(comment_id)
     tagged_body = f"{new_body}\n\n{COMMENT_ID_STRING}"
     comment.edit(tagged_body)
@@ -52,14 +52,18 @@ def update_comment(comment_id, new_body):
 
 
 def create_comment(new_body):
-    """Creates a new comment on the PR."""
+    """Creates a new comment on the PR with a body in markdown format."""
     tagged_body = f"{new_body}\n\n{COMMENT_ID_STRING}"
     pull_request.create_issue_comment(tagged_body)
     print("Comment created successfully.")
 
 
 def create_or_update_comment(new_body):
-    """Creates or updates a comment with the unique identifier."""
+    """Creates or updates a comment with the given body in markdown format.
+
+    Checks for an existing comment by looking for the COMMENT_ID_STRING
+    in existing comments.
+    """
     comment_id = get_comment_id()
     if comment_id:
         update_comment(comment_id, new_body)
