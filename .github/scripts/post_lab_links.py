@@ -24,17 +24,13 @@ TRY_FILES = [
 ]
 
 # Environment variables from GitHub Actions
-PR_NUMBER = os.environ["PR_NUMBER"]
+PR_NUMBER = int(os.environ["PR_NUMBER"])
 BRANCH_NAME = os.environ["GITHUB_HEAD_REF"]
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
 REPO = os.getenv("GITHUB_REPOSITORY")
 
-g = Github(GITHUB_TOKEN)
-repo = g.get_repo(REPO)
-pull_request = repo.get_pull(int(PR_NUMBER))
 
-
-def get_comment():
+def get_comment(pull_request):
     """Fetches PR comments and scans for the COMMENT_ID_STRING."""
     for comment in pull_request.get_issue_comments():
         if COMMENT_ID_STRING in comment.body:
@@ -48,8 +44,12 @@ def create_or_update_comment(new_body):
     Checks for an existing comment by looking for the COMMENT_ID_STRING
     in existing comments.
     """
+    print("Posting comment:\n", new_body)
+    gh = Github(GITHUB_TOKEN)
+    repo = gh.get_repo(REPO)
+    pull_request = repo.get_pull(PR_NUMBER)
     tagged_body = f"{new_body}\n\n{COMMENT_ID_STRING}"
-    comment = get_comment()
+    comment = get_comment(pull_request)
     if comment:
         comment.edit(tagged_body)
     else:
@@ -124,6 +124,7 @@ def main():
         if path.startswith("communities/") and "/lab/" in path:
             name = path.split("/")[1]
             if name not in directories:
+                print(f"Detected change to {name} Lab in file: {path}")
                 print(f"Posting link for {name}...")
                 directories.append(name)
                 result = post_lab_links(name)
