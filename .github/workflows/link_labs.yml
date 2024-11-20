@@ -56,7 +56,7 @@ jobs:
           PR_NUMBER: ${{ github.event.number }}
           BRANCH_NAME: ${{ github.event.pull_request.head.ref }}
           HEAD_REPO: ${{ github.event.pull_request.head.repo.full_name }}
-          BASE_REPO: ${{ github.repository }}"
+          BASE_REPO: ${{ github.repository }}
         run: |
           cd head
           python3 ../base/.github/scripts/post_lab_links.py
