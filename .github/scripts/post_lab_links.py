@@ -49,6 +49,7 @@ def create_or_update_comment(lab_name, body_md):
     print("Posting comment:", divider, body_md.strip(' \n'), divider)
     id_string = COMMENT_ID_STRING.format(name=lab_name)
     gh = Github(GITHUB_TOKEN)
+    print("Getting base repo:", BASE_REPO)
     repo = gh.get_repo(BASE_REPO)
     pull_request = repo.get_pull(PR_NUMBER)
     tagged_body = f"{body_md}\n\n{COMMENT_ID_STRING}"
