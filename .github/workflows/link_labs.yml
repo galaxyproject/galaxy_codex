@@ -8,6 +8,16 @@ jobs:
   fetch-urls:
     runs-on: ubuntu-latest
     steps:
+      - name: Debug variables
+        run: |
+          echo "Base repo: ${{ github.repository }}"
+          echo "Head repo: ${{ github.event.pull_request.head.repo.full_name }}"
+          echo "Head ref: ${{ github.event.pull_request.head.ref }}"
+          echo "GITHUB_REPOSITORY: ${{ github.event.pull_request.head.repo.full_name }}"
+          echo "BRANCH_NAME: ${{ github.event.pull_request.head.ref }}"
+          echo "PR_NUMBER: ${{ github.event.number }}"
+          echo "USERNAME: ${{ github.actor }}"
+
       - name: Checkout base branch
         uses: actions/checkout@v3
         with:
@@ -34,7 +44,7 @@ jobs:
         id: changed-files
         run: |
           cd head
-          git remote add upstream https://github.com/galaxyproject/galaxy_codex
+          git remote add upstream https://github.com/${{ github.repository }}
           git fetch upstream main
           git diff --name-only upstream/main..HEAD > changed_files.txt
           echo ""
