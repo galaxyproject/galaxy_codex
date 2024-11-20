@@ -9,7 +9,7 @@ from github import Github
 from urllib.request import urlopen
 from urllib.error import URLError, HTTPError
 
-COMMENT_ID_STRING = "<!-- {lab_name}-lab-links -->"
+COMMENT_TITLE_TEMPLATE = "Preview changes to {lab_name} Lab"
 URL_TEMPLATE = (
     "https://labs.usegalaxy.org.au"
     "/?content_root=https://github.com/{repo}"
@@ -32,7 +32,7 @@ HEAD_REPO = os.getenv("HEAD_REPO")
 
 
 def get_comment(pull_request, id_string):
-    """Fetches PR comments and scans for the COMMENT_ID_STRING."""
+    """Fetches PR comments and scans for the COMMENT_TITLE_TEMPLATE."""
     for comment in pull_request.get_issue_comments():
         if id_string in comment.body:
             return comment
@@ -42,22 +42,21 @@ def get_comment(pull_request, id_string):
 def create_or_update_comment(lab_name, body_md):
     """Creates or updates a comment for the given lab name.
 
-    Checks for an existing comment by looking for the COMMENT_ID_STRING
+    Checks for an existing comment by looking for the COMMENT_TITLE_TEMPLATE
     in existing comments.
     """
     divider = "\n\n" + '-' * 80 + '\n\n'
     print("Posting comment:", divider, body_md.strip(' \n'), divider)
-    id_string = COMMENT_ID_STRING.format(name=lab_name)
+    title_string = COMMENT_TITLE_TEMPLATE.format(name=lab_name)
     gh = Github(GITHUB_TOKEN)
     print("Getting base repo:", BASE_REPO)
     repo = gh.get_repo(BASE_REPO)
     pull_request = repo.get_pull(PR_NUMBER)
-    tagged_body = f"{body_md}\n\n{id_string}"
-    comment = get_comment(pull_request, id_string)
+    comment = get_comment(pull_request, title_string)
     if comment:
-        comment.edit(tagged_body)
+        comment.edit(body_md)
     else:
-        pull_request.create_issue_comment(tagged_body)
+        pull_request.create_issue_comment(body_md)
 
 
 def post_lab_links(lab_name):
@@ -66,7 +65,8 @@ def post_lab_links(lab_name):
     code and post the URLs with pass/fail status as a comment on the PR.
     """
     success = True
-    comment = f"### Preview changes to {lab_name} Lab\n\n"
+    title_string = COMMENT_TITLE_TEMPLATE.format(name=lab_name)
+    comment = f"### {title_string}\n\n"
     test_paths = [
         f'communities/{lab_name}/lab/{f}'
         for f in TRY_FILES
