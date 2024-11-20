@@ -5,7 +5,7 @@ in a PR comment.
 """
 
 import os
-import requests
+from github import Github
 from urllib.request import urlopen
 from urllib.error import URLError, HTTPError
 
@@ -30,40 +30,31 @@ BRANCH_NAME = os.environ["GITHUB_HEAD_REF"]
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
 REPO = os.getenv("GITHUB_REPOSITORY")
 
-headers = {
-    "Authorization": f"Bearer {GITHUB_TOKEN}",
-    "Accept": "application/vnd.github.v3+json"
-}
+g = Github(GITHUB_TOKEN)
+repo = g.get_repo(REPO)
+pull_request = repo.get_pull(int(PR_NUMBER))
 
 
 def get_comment_id():
     """Fetches PR comments and finds one with the unique identifier."""
-    url = f"https://api.github.com/repos/{REPO}/issues/{PR_NUMBER}/comments"
-    response = requests.get(url, headers=headers)
-    response.raise_for_status()
-    comments = response.json()
-
-    for comment in comments:
-        if COMMENT_ID_STRING in comment["body"]:
-            return comment["id"]
+    for comment in pull_request.get_issue_comments():
+        if COMMENT_ID_STRING in comment.body:
+            return comment.id
     return None
 
 
 def update_comment(comment_id, new_body):
     """Updates an existing comment by ID with new content."""
+    comment = repo.get_issue_comment(comment_id)
     tagged_body = f"{new_body}\n\n{COMMENT_ID_STRING}"
-    url = f"https://api.github.com/repos/{REPO}/issues/comments/{comment_id}"
-    response = requests.patch(url, headers=headers, json={"body": tagged_body})
-    response.raise_for_status()
+    comment.edit(tagged_body)
     print("Comment updated successfully.")
 
 
 def create_comment(new_body):
     """Creates a new comment on the PR."""
     tagged_body = f"{new_body}\n\n{COMMENT_ID_STRING}"
-    url = f"https://api.github.com/repos/{REPO}/issues/{PR_NUMBER}/comments"
-    response = requests.post(url, headers=headers, json={"body": tagged_body})
-    response.raise_for_status()
+    pull_request.create_issue_comment(tagged_body)
     print("Comment created successfully.")
 
 
