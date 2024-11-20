@@ -27,8 +27,8 @@ TRY_FILES = [
 PR_NUMBER = int(os.environ["PR_NUMBER"])
 BRANCH_NAME = os.environ["BRANCH_NAME"]
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
-BASE_REPO = os.getenv("REPOSITORY")
-HEAD_REPO = os.getenv("REPOSITORY")
+BASE_REPO = os.getenv("BASE_REPO")
+HEAD_REPO = os.getenv("HEAD_REPO")
 
 
 def get_comment(pull_request, id_string):
