@@ -9,7 +9,7 @@ from github import Github
 from urllib.request import urlopen
 from urllib.error import URLError, HTTPError
 
-COMMENT_ID_STRING = "<!-- labs-links-comment -->"
+COMMENT_ID_STRING = "<!-- {name}-lab-links -->"
 URL_TEMPLATE = (
     "https://labs.usegalaxy.org.au"
     "/?content_root=https://github.com/{repo}"
@@ -30,41 +30,42 @@ GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
 REPO = os.getenv("GITHUB_REPOSITORY")
 
 
-def get_comment(pull_request):
+def get_comment(pull_request, id_string):
     """Fetches PR comments and scans for the COMMENT_ID_STRING."""
     for comment in pull_request.get_issue_comments():
-        if COMMENT_ID_STRING in comment.body:
+        if id_string in comment.body:
             return comment
     return None
 
 
-def create_or_update_comment(new_body):
-    """Creates or updates a comment with the given body in markdown format.
+def create_or_update_comment(lab_name, body_md):
+    """Creates or updates a comment for the given lab name.
 
     Checks for an existing comment by looking for the COMMENT_ID_STRING
     in existing comments.
     """
-    print("Posting comment:\n", new_body)
+    print("Posting comment:\n", body_md)
+    id_string = COMMENT_ID_STRING.format(name=lab_name)
     gh = Github(GITHUB_TOKEN)
     repo = gh.get_repo(REPO)
     pull_request = repo.get_pull(PR_NUMBER)
-    tagged_body = f"{new_body}\n\n{COMMENT_ID_STRING}"
-    comment = get_comment(pull_request)
+    tagged_body = f"{body_md}\n\n{COMMENT_ID_STRING}"
+    comment = get_comment(pull_request, id_string)
     if comment:
         comment.edit(tagged_body)
     else:
         pull_request.create_issue_comment(tagged_body)
 
 
-def post_lab_links(name):
+def post_lab_links(lab_name):
     """Iterate through each YAML root file for the given lab name.
     For files that exist, build a URL for that Lab page, check the HTTP status
     code and post the URLs with pass/fail status as a comment on the PR.
     """
     success = True
-    comment = f"### Preview changes to {name} Lab\n\n"
+    comment = f"### Preview changes to {lab_name} Lab\n\n"
     test_paths = [
-        f'communities/{name}/lab/{f}'
+        f'communities/{lab_name}/lab/{f}'
         for f in TRY_FILES
     ]
 
@@ -93,7 +94,7 @@ def post_lab_links(name):
             "Please follow the link to see details of the issue."
         )
 
-    create_or_update_comment(comment)
+    create_or_update_comment(lab_name, comment)
     return success
 
 
@@ -122,12 +123,12 @@ def main():
     # Check each file to see if it is in a "Lab" directory
     for path in files:
         if path.startswith("communities/") and "/lab/" in path:
-            name = path.split("/")[1]
-            if name not in directories:
-                print(f"Detected change to {name} Lab in file: {path}")
-                print(f"Posting link for {name}...")
-                directories.append(name)
-                result = post_lab_links(name)
+            lab_name = path.split("/")[1]
+            if lab_name not in directories:
+                print(f"Detected change to {lab_name} Lab in file: {path}")
+                print(f"Posting link for {lab_name}...")
+                directories.append(lab_name)
+                result = post_lab_links(lab_name)
                 success = success and result
         else:
             print(f"Ignoring changes to {path}: not in a lab directory")
