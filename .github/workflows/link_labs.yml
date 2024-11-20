@@ -16,7 +16,6 @@ jobs:
           echo "GITHUB_REPOSITORY: ${{ github.event.pull_request.head.repo.full_name }}"
           echo "BRANCH_NAME: ${{ github.event.pull_request.head.ref }}"
           echo "PR_NUMBER: ${{ github.event.number }}"
-          echo "USERNAME: ${{ github.actor }}"
 
       - name: Checkout base branch
         uses: actions/checkout@v3
@@ -56,7 +55,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_PR_TOKEN }}
           PR_NUMBER: ${{ github.event.number }}
           BRANCH_NAME: ${{ github.event.pull_request.head.ref }}
-          GITHUB_REPOSITORY: ${{ github.event.pull_request.head.repo.full_name }}
+          REPOSITORY: ${{ github.event.pull_request.head.repo.full_name }}
         run: |
           cd head
           python3 ../base/.github/scripts/post_lab_links.py

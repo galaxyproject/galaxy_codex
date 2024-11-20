@@ -25,9 +25,9 @@ TRY_FILES = [
 
 # Environment variables from GitHub Actions
 PR_NUMBER = int(os.environ["PR_NUMBER"])
-BRANCH_NAME = os.environ["GITHUB_HEAD_REF"]
+BRANCH_NAME = os.environ["BRANCH_NAME"]
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
-REPO = os.getenv("GITHUB_REPOSITORY")
+REPO = os.getenv("REPOSITORY")
 
 
 def get_comment(pull_request, id_string):
@@ -44,7 +44,8 @@ def create_or_update_comment(lab_name, body_md):
     Checks for an existing comment by looking for the COMMENT_ID_STRING
     in existing comments.
     """
-    print("Posting comment:\n", body_md)
+    divider = "\n\n" + '-' * 80 + '\n\n'
+    print("Posting comment:", divider, body_md, divider)
     id_string = COMMENT_ID_STRING.format(name=lab_name)
     gh = Github(GITHUB_TOKEN)
     repo = gh.get_repo(REPO)
@@ -73,7 +74,7 @@ def post_lab_links(lab_name):
         if not os.path.exists(path):
             print(f"Skipping {path}: file not found in repository")
             continue
-        url = build_url(REPO, BRANCH_NAME, path)
+        url = build_url(path)
         try:
             http_status = http_status_for(url)
             filename = path.split('/')[-1]
@@ -106,10 +107,10 @@ def http_status_for(url):
         return e.code
 
 
-def build_url(repo, branch_name, content_path):
+def build_url(content_path):
     return URL_TEMPLATE.format(
-        repo=repo,
-        branch_name=branch_name,
+        repo=REPO,
+        branch_name=BRANCH_NAME,
         lab_content_path=content_path)
 
 
