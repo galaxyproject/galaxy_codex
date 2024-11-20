@@ -6,7 +6,6 @@ in a PR comment.
 
 import os
 import requests
-import sys
 from urllib.request import urlopen
 from urllib.error import URLError, HTTPError
 
@@ -78,6 +77,10 @@ def create_or_update_comment(new_body):
 
 
 def post_lab_links(name):
+    """Iterate through each YAML root file for the given lab name.
+    For files that exist, build a URL for that Lab page, check the HTTP status
+    code and post the URLs with pass/fail status as a comment on the PR.
+    """
     success = True
     comment = f"### Preview changes to {name} Lab\n\n"
     test_paths = [
