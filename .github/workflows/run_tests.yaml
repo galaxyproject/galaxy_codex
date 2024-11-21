@@ -1,9 +1,47 @@
 name: Run tests
-on: [push, pull_request]
+
+# This GitHub Actions workflow is designed to automate testing for the project.
+# It triggers under two conditions:
+# 1. Pull requests targeting the main branch, ensuring that internal changes
+#    are validated before merging.
+# 2. Pushes to the dev branch, allowing for continuous integration
+#    as changes are made directly to the development branch.
+#
+# The workflow consists of three main jobs:
+# - **test-tools**: Runs tests for tools extracted from the repository.
+# - **test-tutorials**: Runs tests for community tutorials.
+# - **test-workflows**: Runs tests for workflow scripts.
+#
+# Each job includes the following steps:
+# - Checkout the repository code.
+# - Set up the Python environment using the specified version.
+# - Install required dependencies.
+# - Execute scripts for extraction and filtering of tools, tutorials, or workflows.
+#
+# This ensures that the code remains reliable and functional as new changes are introduced.
+
+on:
+  pull_request:
+    branches:
+      - main  # Trigger on pull requests targeting the main branch
+  push:
+    branches:
+      - dev  # Trigger on pushes to the dev branch
 
 jobs:
   test-tools:
     runs-on: ubuntu-20.04
+    # This job runs tests for tools.
+    # It checks for internal pull requests targeting the main branch,
+    # as well as pushes to the dev branch.
+    # The workflow performs the following steps:
+    # 1. Checkout the repository code.
+    # 2. Set up Python environment using the specified version.
+    # 3. Install required Python packages.
+    # 4. Extract tools using a provided script.
+    # 5. Filter community tools using a provided script.
+    # 6. Format tools into an interactive table and generate a word cloud.
+    if: github.event.pull_request.head.repo.full_name == github.repository || github.ref == 'refs/heads/dev'
     strategy:
       matrix:
         python-version: ['3.11']
@@ -14,7 +52,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Install requirement
+      - name: Install requirements
         run: python -m pip install -r requirements.txt
       - name: Tool extraction
         run: | 
@@ -26,9 +64,20 @@ jobs:
           bash sources/bin/get_community_tools.sh test
       - name: Create interactive table and wordcloud
         run: | 
-          bash sources/bin/format_tools.sh
+          bash sources/bin/format_tools.sh test
+
   test-tutorials:
     runs-on: ubuntu-20.04
+    # This job runs tests for tutorials.
+    # Similar to the tools job, it checks for internal pull requests
+    # to the main branch and pushes to the dev branch.
+    # The workflow performs the following steps:
+    # 1. Checkout the repository code.
+    # 2. Set up Python environment using the specified version.
+    # 3. Install required Python packages.
+    # 4. Extract tutorials using a provided script.
+    # 5. Filter community tutorials using a provided script.
+    if: github.event.pull_request.head.repo.full_name == github.repository || github.ref == 'refs/heads/dev'
     strategy:
       matrix:
         python-version: ['3.11']
@@ -38,7 +87,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Install requirement
+      - name: Install requirements
         run: python -m pip install -r requirements.txt
       - name: Tutorial extraction
         run: | 
@@ -48,8 +97,13 @@ jobs:
       - name: Tutorial filtering
         run: | 
           bash sources/bin/get_community_tutorials.sh test
+
   test-workflows:
     runs-on: ubuntu-20.04
+    # This job runs tests for workflows.
+    # It performs the same checks as the other jobs, ensuring
+    # quality for workflow scripts.
+    if: github.event.pull_request.head.repo.full_name == github.repository || github.ref == 'refs/heads/dev'
     strategy:
       matrix:
         python-version: ['3.11']
@@ -59,7 +113,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Install requirement
+      - name: Install requirements
         run: python -m pip install -r requirements.txt
       - name: Workflow extraction
         run: | 

@@ -1,0 +1,2799 @@
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/searchbuilder/1.6.0/js/dataTables.searchBuilder.min.js"></script>
+<script src="https://cdn.datatables.net/datetime/1.5.1/js/dataTables.dateTime.min.js"></script>
+
+<script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/searchbuilder/1.6.0/css/searchBuilder.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/datetime/1.5.1/css/dataTables.dateTime.min.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+<style type="text/css">
+  .tooltip {
+    font-family: Georgia;
+    font-size: 18px;
+  }
+  .tooltip .tooltip-inner {
+    background-color: #00FFFF;
+    color: #000000;
+    min-width: 400px;
+  }
+  </style>
+
+<script>
+    $(document).ready(function() {
+    $('#dataframe').DataTable( {
+        "sScrollX": "100%",
+        "dom": "Qlfrtip",
+
+        responsive: {
+            details: {
+                type: 'column'
+            }
+        },
+        "bAutoWidth": false,
+        columnDefs: [ {
+            className: 'control',
+            orderable: false,
+            targets:   [ 0 ],
+            width: 100,
+        },
+        { type: 'natural', targets: 1 } // allow normal sorting
+        ],
+
+    });
+});
+</script>
+
+<div class="display nowrap" style="width:80%" width="100%">
+
+<table class="dataframe display nowrap" id="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Expand</th>
+      <th>Name</th>
+      <th>Source</th>
+      <th>ID</th>
+      <th>Link</th>
+      <th>Creators</th>
+      <th>Tags</th>
+      <th>Creation time</th>
+      <th>Update time</th>
+      <th>Latest version</th>
+      <th>Versions</th>
+      <th>Number of steps</th>
+      <th>Tools</th>
+      <th>EDAM operations</th>
+      <th>EDAM topics</th>
+      <th>License</th>
+      <th>DOI</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td></td>
+      <td>bacterial-genome-assembly/main</td>
+      <td>WorkflowHub</td>
+      <td>1043</td>
+      <td>https://workflowhub.eu/workflows/1043?version=5</td>
+      <td>Abromics None, Pierre Marin, Clea Siguret</td>
+      <td>ABRomics, Assembly, FASTQ, Genomics, bacterial-genomics, paired-end, quality</td>
+      <td>2024-10-07</td>
+      <td>2024-10-07</td>
+      <td>5</td>
+      <td>5</td>
+      <td>7.0</td>
+      <td>refseq_masher_matches, bandage_image, tooldistillator_summarize, quast, bandage_info, shovill, tooldistillator</td>
+      <td>Genome assembly, Parsing, Sequence assembly visualisation, Sequence assembly validation, Data handling, Visualisation</td>
+      <td></td>
+      <td>GPL-3.0-or-later</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>quality-and-contamination-control/main</td>
+      <td>WorkflowHub</td>
+      <td>1052</td>
+      <td>https://workflowhub.eu/workflows/1052?version=6</td>
+      <td>ABRomics None, Pierre Marin, Clea Siguret</td>
+      <td>ABRomics, FASTQ, Genomics, bacterial-genomics, paired-end, quality, taxonomy-assignment, trimming</td>
+      <td>2024-10-12</td>
+      <td>2024-10-12</td>
+      <td>6</td>
+      <td>6</td>
+      <td>6.0</td>
+      <td>recentrifuge, est_abundance, tooldistillator_summarize, kraken2, fastp, tooldistillator</td>
+      <td>Parsing, Data handling, Statistical calculation, Expression analysis, Cross-assembly, Sequence contamination filtering, Sequencing quality control, Taxonomic classification</td>
+      <td></td>
+      <td>GPL-3.0-or-later</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Training: 16S rRNA Sequencing With Mothur: Main Tutorial</td>
+      <td>https://usegalaxy.eu</td>
+      <td>f21d6a40a10a8ae8</td>
+      <td>https://usegalaxy.eu/published/workflow?id=f21d6a40a10a8ae8</td>
+      <td></td>
+      <td>microbiome</td>
+      <td>2024-09-30</td>
+      <td>2024-10-01</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>mothur_taxonomy_to_krona, taxonomy_krona_chart, mothur_classify_seqs, mothur_dist_shared, mothur_align_seqs, mothur_filter_seqs, mothur_rarefaction_single, mothur_count_seqs, mothur_remove_lineage, mothur_screen_seqs, mothur_summary_seqs, mothur_sub_sample, mothur_make_contigs, mothur_classify_otu, mothur_remove_groups, mothur_unique_seqs, mothur_pre_cluster, mothur_cluster_split, mothur_seq_error, mothur_tree_shared, mothur_cluster, mothur_venn, mothur_make_biom, mothur_heatmap_sim, XY_Plot_1, mothur_remove_seqs, mothur_get_groups, mothur_summary_single, newick_display, mothur_count_groups, mothur_dist_seqs, mothur_make_shared, mothur_chimera_vsearch</td>
+      <td>Sequence clustering, Phylogenetic tree generation, Phylogenetic analysis, Visualisation, Sequence read processing, Phylogenetic tree analysis, Sequencing quality control, Taxonomic classification, Phylogenetic tree reconstruction, DNA barcoding</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>MGnify amplicon summary tables</td>
+      <td>https://usegalaxy.eu</td>
+      <td>05dc8f4321a42cdc</td>
+      <td>https://usegalaxy.eu/published/workflow?id=05dc8f4321a42cdc</td>
+      <td>Rand Zoabi</td>
+      <td>MGnify_Amplicon, amplicon, metagenomics</td>
+      <td>2024-05-22</td>
+      <td>2024-09-27</td>
+      <td>68</td>
+      <td>68</td>
+      <td></td>
+      <td>tp_awk_tool, query_tabular, collection_column_join, Grouping1, filter_tabular</td>
+      <td></td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>virannot_post_CLC</td>
+      <td>https://usegalaxy.eu</td>
+      <td>86465932556bc96c</td>
+      <td>https://usegalaxy.eu/published/workflow?id=86465932556bc96c</td>
+      <td>Marie Lefebvre</td>
+      <td>virology, otu, virannot, RPS, virus</td>
+      <td>2024-08-21</td>
+      <td>2024-09-26</td>
+      <td>6</td>
+      <td>6</td>
+      <td></td>
+      <td>taxonomy_krona_chart, virannot_blast2tsv, ncbi_tblastx_wrapper, virAnnot_rps2tsv, krona-text, ncbi_rpstblastn_wrapper, virannot_otu</td>
+      <td>Sequence clustering, Sequence cluster visualisation, Sequence annotation, Visualisation</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>bacterial_genome_annotation (release v1.1.4)</td>
+      <td>https://usegalaxy.eu</td>
+      <td>d8db0b2e30370b84</td>
+      <td>https://usegalaxy.eu/published/workflow?id=d8db0b2e30370b84</td>
+      <td>ABRomics, abromics-consortium, Pierre Marin, Clea Siguret</td>
+      <td>Genomics, fasta, ABRomics, bacterial-genomics, Annotation, genome-annotation</td>
+      <td>2024-09-26</td>
+      <td>2024-09-26</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>integron_finder, plasmidfinder, bakta, tooldistillator_summarize, tooldistillator, isescan</td>
+      <td>Parsing, Nucleic acid feature detection, Structural variation detection, Data handling, Genome assembly, Protein feature detection, Multilocus sequence typing, Scaffolding, Genome annotation, Sequence motif recognition</td>
+      <td></td>
+      <td>GPL-3.0-or-later</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Bacterial Genome Assembly using Shov (release v1.1.2)</td>
+      <td>https://usegalaxy.eu</td>
+      <td>723e718f37e9ab91</td>
+      <td>https://usegalaxy.eu/published/workflow?id=723e718f37e9ab91</td>
+      <td>abromics-consortium, ABRomics, Pierre Marin, Clea Siguret</td>
+      <td>fastq, Genomics, bacterial-genomics, paired-end, assembly, quality, ABRomics</td>
+      <td>2024-09-26</td>
+      <td>2024-09-26</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>refseq_masher_matches, bandage_image, tooldistillator_summarize, quast, bandage_info, shovill, tooldistillator</td>
+      <td>Genome assembly, Parsing, Sequence assembly visualisation, Sequence assembly validation, Data handling, Visualisation</td>
+      <td></td>
+      <td>GPL-3.0-or-later</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>amr_gene_detection (release v1.1.2)</td>
+      <td>https://usegalaxy.eu</td>
+      <td>e37cc0b64774561b</td>
+      <td>https://usegalaxy.eu/published/workflow?id=e37cc0b64774561b</td>
+      <td>ABRomics, abromics-consortium, Pierre Marin, Clea Siguret</td>
+      <td>fasta, Genomics, ABRomics, antibiotic-resistance, antimicrobial-resistance-genes, antimicrobialresistance, bacterial-genomics, AMR, AMR-detection</td>
+      <td>2024-09-26</td>
+      <td>2024-09-26</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>amrfinderplus, staramr_search, abricate, tooldistillator_summarize, tooldistillator</td>
+      <td>Parsing, Antimicrobial resistance prediction, Data handling</td>
+      <td></td>
+      <td>GPL-3.0-or-later</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Taxonomy Profiling and Visualization with Kron (release v0.1)</td>
+      <td>https://usegalaxy.eu</td>
+      <td>ad8b6d73c9654305</td>
+      <td>https://usegalaxy.eu/published/workflow?id=ad8b6d73c9654305</td>
+      <td>Engy Nasr, Bérénice Batut, Paul Zierep</td>
+      <td>name:Collection, name:microGalaxy, name:PathoGFAIR, name:IWC</td>
+      <td>2024-09-19</td>
+      <td>2024-09-19</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>kraken2, taxonomy_krona_chart, krakentools_kreport2krona</td>
+      <td>Taxonomic classification, Aggregation, Visualisation</td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Pathogen Detection PathoGFAIR Samples Aggregation and Visualisation (release v0.1)</td>
+      <td>https://usegalaxy.eu</td>
+      <td>f6a763951d815944</td>
+      <td>https://usegalaxy.eu/published/workflow?id=f6a763951d815944</td>
+      <td>Engy Nasr, Bérénice Batut, Paul Zierep</td>
+      <td>name:Collection, name:microGalaxy, name:PathoGFAIR, name:IWC</td>
+      <td>2024-09-19</td>
+      <td>2024-09-19</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>clustalw, regex1, tab2fasta, tp_sorted_uniq, collapse_dataset, fasta_merge_files_and_filter_unique_sequences, regexColumn1, collection_column_join, Grouping1, Count1, tp_split_on_column, fasttree, tp_replace_in_column, Remove beginning1, tp_multijoin_tool, __FILTER_EMPTY_DATASETS__, bedtools_getfastabed, fasta2tab, Cut1, newick_display, ggplot2_heatmap, __FILTER_FAILED_DATASETS__</td>
+      <td>Phylogenetic tree analysis, Phylogenetic tree reconstruction, Phylogenetic tree generation, Phylogenetic tree generation (from molecular sequences), Mapping, Multiple sequence alignment, Visualisation, Phylogenetic tree generation (maximum likelihood and Bayesian methods)</td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Nanopore Preprocessing (release v0.1)</td>
+      <td>https://usegalaxy.eu</td>
+      <td>344cd3a3c2ce5302</td>
+      <td>https://usegalaxy.eu/published/workflow?id=344cd3a3c2ce5302</td>
+      <td>Bérénice Batut, Engy Nasr, Paul Zierep</td>
+      <td>name:Collection, name:microGalaxy, name:PathoGFAIR, name:Nanopore, name:IWC</td>
+      <td>2024-09-19</td>
+      <td>2024-09-19</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>Cut1, samtools_fastx, krakentools_extract_kraken_reads, regexColumn1, __FILTER_FAILED_DATASETS__, Grep1, collection_column_join, multiqc, porechop, nanoplot, Add_a_column1, fastqc, kraken2, fastp, collapse_dataset, minimap2, bamtools_split_mapped</td>
+      <td>Aggregation, Sequence composition calculation, Data handling, Validation, Statistical calculation, Visualisation, Sequence alignment analysis, Box-Whisker plot plotting, Sequence contamination filtering, Sequencing quality control, Pairwise sequence alignment, Taxonomic classification, Scatter plot plotting</td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Gene-based Pathogen Identification (release v0.1)</td>
+      <td>https://usegalaxy.eu</td>
+      <td>77e5bbd317750915</td>
+      <td>https://usegalaxy.eu/published/workflow?id=77e5bbd317750915</td>
+      <td>Engy Nasr, Bérénice Batut, Paul Zierep</td>
+      <td>name:Collection, name:PathoGFAIR, name:IWC, name:microGalaxy</td>
+      <td>2024-09-19</td>
+      <td>2024-09-19</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>param_value_from_file, bandage_image, medaka_consensus_pipeline, collection_element_identifiers, abricate, split_file_to_collection, tab2fasta, compose_text_param, tp_find_and_replace, __BUILD_LIST__, flye, fasta2tab</td>
+      <td>Mapping assembly, Variant calling, Sequence assembly, Cross-assembly, Genome assembly, Antimicrobial resistance prediction, Sequence assembly visualisation, Base-calling, De-novo assembly</td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Allele-based Pathogen Identification (release v0.1)</td>
+      <td>https://usegalaxy.eu</td>
+      <td>d215a2e554fd83bc</td>
+      <td>https://usegalaxy.eu/published/workflow?id=d215a2e554fd83bc</td>
+      <td>Engy Nasr, Bérénice Batut, Paul Zierep</td>
+      <td>name:Collection, name:microGalaxy, name:PathoGFAIR, name:IWC</td>
+      <td>2024-09-19</td>
+      <td>2024-09-19</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>Cut1, Remove beginning1, table_compute, clair3, tp_head_tool, bcftools_consensus, CONVERTER_gz_to_uncompressed, snpSift_extractFields, regexColumn1, Paste1, bcftools_norm, samtools_coverage, Count1, snpSift_filter, tp_cut_tool, collapse_dataset, minimap2, samtools_depth</td>
+      <td>Variant calling, Pairwise sequence alignment</td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Allele-based Pathogen Identification (release v0.1.1)</td>
+      <td>https://usegalaxy.eu</td>
+      <td>cdf2f02428f5f83f</td>
+      <td>https://usegalaxy.eu/published/workflow?id=cdf2f02428f5f83f</td>
+      <td>Engy Nasr, Bérénice Batut, Paul Zierep</td>
+      <td>name:Collection, name:microGalaxy, name:PathoGFAIR, name:IWC</td>
+      <td>2024-09-19</td>
+      <td>2024-09-19</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>Cut1, Remove beginning1, table_compute, clair3, tp_head_tool, bcftools_consensus, CONVERTER_gz_to_uncompressed, snpSift_extractFields, regexColumn1, Paste1, bcftools_norm, samtools_coverage, Count1, snpSift_filter, tp_cut_tool, collapse_dataset, minimap2, samtools_depth</td>
+      <td>Variant calling, Pairwise sequence alignment</td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>bacterial_genome_annotation (release v1.0)</td>
+      <td>https://usegalaxy.eu</td>
+      <td>61948fcaefa1418a</td>
+      <td>https://usegalaxy.eu/published/workflow?id=61948fcaefa1418a</td>
+      <td>ABRomics, abromics-consortium, Pierre Marin, Clea Siguret</td>
+      <td>Genomics, fasta, ABRomics, bacterial-genomics, Annotation, genome-annotation</td>
+      <td>2024-09-19</td>
+      <td>2024-09-19</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>integron_finder, plasmidfinder, bakta, tooldistillator_summarize, tooldistillator, isescan</td>
+      <td>Parsing, Nucleic acid feature detection, Structural variation detection, Data handling, Genome assembly, Protein feature detection, Multilocus sequence typing, Scaffolding, Genome annotation, Sequence motif recognition</td>
+      <td></td>
+      <td>GPL-3.0-or-later</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>bacterial_genome_annotation (release v1.1)</td>
+      <td>https://usegalaxy.eu</td>
+      <td>8792eaecb69fbc26</td>
+      <td>https://usegalaxy.eu/published/workflow?id=8792eaecb69fbc26</td>
+      <td>ABRomics, abromics-consortium, Pierre Marin, Clea Siguret</td>
+      <td>Genomics, fasta, ABRomics, bacterial-genomics, Annotation, genome-annotation</td>
+      <td>2024-09-19</td>
+      <td>2024-09-19</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>integron_finder, plasmidfinder, bakta, tooldistillator_summarize, tooldistillator, isescan</td>
+      <td>Parsing, Nucleic acid feature detection, Structural variation detection, Data handling, Genome assembly, Protein feature detection, Multilocus sequence typing, Scaffolding, Genome annotation, Sequence motif recognition</td>
+      <td></td>
+      <td>GPL-3.0-or-later</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>bacterial_genome_annotation (release v1.1.1)</td>
+      <td>https://usegalaxy.eu</td>
+      <td>36ea584e0f60893e</td>
+      <td>https://usegalaxy.eu/published/workflow?id=36ea584e0f60893e</td>
+      <td>ABRomics, abromics-consortium, Pierre Marin, Clea Siguret</td>
+      <td>Genomics, fasta, ABRomics, bacterial-genomics, Annotation, genome-annotation</td>
+      <td>2024-09-19</td>
+      <td>2024-09-19</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>integron_finder, plasmidfinder, bakta, tooldistillator_summarize, tooldistillator, isescan</td>
+      <td>Parsing, Nucleic acid feature detection, Structural variation detection, Data handling, Genome assembly, Protein feature detection, Multilocus sequence typing, Scaffolding, Genome annotation, Sequence motif recognition</td>
+      <td></td>
+      <td>GPL-3.0-or-later</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>bacterial_genome_annotation (release v1.1.2)</td>
+      <td>https://usegalaxy.eu</td>
+      <td>bcd50e655809cfcb</td>
+      <td>https://usegalaxy.eu/published/workflow?id=bcd50e655809cfcb</td>
+      <td>ABRomics, abromics-consortium, Pierre Marin, Clea Siguret</td>
+      <td>Genomics, fasta, ABRomics, bacterial-genomics, Annotation, genome-annotation</td>
+      <td>2024-09-19</td>
+      <td>2024-09-19</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>integron_finder, plasmidfinder, bakta, tooldistillator_summarize, tooldistillator, isescan</td>
+      <td>Parsing, Nucleic acid feature detection, Structural variation detection, Data handling, Genome assembly, Protein feature detection, Multilocus sequence typing, Scaffolding, Genome annotation, Sequence motif recognition</td>
+      <td></td>
+      <td>GPL-3.0-or-later</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>bacterial_genome_annotation (release v1.1.3)</td>
+      <td>https://usegalaxy.eu</td>
+      <td>4a218fb93d78ba67</td>
+      <td>https://usegalaxy.eu/published/workflow?id=4a218fb93d78ba67</td>
+      <td>ABRomics, abromics-consortium, Pierre Marin, Clea Siguret</td>
+      <td>Genomics, fasta, ABRomics, bacterial-genomics, Annotation, genome-annotation</td>
+      <td>2024-09-19</td>
+      <td>2024-09-19</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>integron_finder, plasmidfinder, bakta, tooldistillator_summarize, tooldistillator, isescan</td>
+      <td>Parsing, Nucleic acid feature detection, Structural variation detection, Data handling, Genome assembly, Protein feature detection, Multilocus sequence typing, Scaffolding, Genome annotation, Sequence motif recognition</td>
+      <td></td>
+      <td>GPL-3.0-or-later</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Quality and Contamination Control For Genome Assembly (release v1.0)</td>
+      <td>https://usegalaxy.eu</td>
+      <td>884a4415b669690c</td>
+      <td>https://usegalaxy.eu/published/workflow?id=884a4415b669690c</td>
+      <td>ABRomics, abromics-consortium, Pierre Marin, Clea Siguret</td>
+      <td>Genomics, fastq, bacterial-genomics, taxonomy-assignment, paired-end, quality, ABRomics, trimming</td>
+      <td>2024-09-19</td>
+      <td>2024-09-19</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>recentrifuge, est_abundance, tooldistillator_summarize, kraken2, fastp, tooldistillator</td>
+      <td>Parsing, Data handling, Statistical calculation, Expression analysis, Cross-assembly, Sequence contamination filtering, Sequencing quality control, Taxonomic classification</td>
+      <td></td>
+      <td>GPL-3.0-or-later</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Quality and Contamination Control For Genome Assembly (release v1.1)</td>
+      <td>https://usegalaxy.eu</td>
+      <td>aafcfcb585c5ca75</td>
+      <td>https://usegalaxy.eu/published/workflow?id=aafcfcb585c5ca75</td>
+      <td>ABRomics, abromics-consortium, Pierre Marin, Clea Siguret</td>
+      <td>Genomics, fastq, bacterial-genomics, taxonomy-assignment, paired-end, quality, ABRomics, trimming</td>
+      <td>2024-09-19</td>
+      <td>2024-09-19</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>recentrifuge, est_abundance, tooldistillator_summarize, kraken2, fastp, tooldistillator</td>
+      <td>Parsing, Data handling, Statistical calculation, Expression analysis, Cross-assembly, Sequence contamination filtering, Sequencing quality control, Taxonomic classification</td>
+      <td></td>
+      <td>GPL-3.0-or-later</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Quality and Contamination Control For Genome Assembly (release v1.1.1)</td>
+      <td>https://usegalaxy.eu</td>
+      <td>0c47571d20535426</td>
+      <td>https://usegalaxy.eu/published/workflow?id=0c47571d20535426</td>
+      <td>ABRomics, abromics-consortium, Pierre Marin, Clea Siguret</td>
+      <td>Genomics, fastq, bacterial-genomics, taxonomy-assignment, paired-end, quality, ABRomics, trimming</td>
+      <td>2024-09-19</td>
+      <td>2024-09-19</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>recentrifuge, est_abundance, tooldistillator_summarize, kraken2, fastp, tooldistillator</td>
+      <td>Parsing, Data handling, Statistical calculation, Expression analysis, Cross-assembly, Sequence contamination filtering, Sequencing quality control, Taxonomic classification</td>
+      <td></td>
+      <td>GPL-3.0-or-later</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Quality and Contamination Control For Genome Assembly (release v1.1.2)</td>
+      <td>https://usegalaxy.eu</td>
+      <td>0a82eb8b44d9d502</td>
+      <td>https://usegalaxy.eu/published/workflow?id=0a82eb8b44d9d502</td>
+      <td>ABRomics, abromics-consortium, Pierre Marin, Clea Siguret</td>
+      <td>Genomics, fastq, bacterial-genomics, taxonomy-assignment, paired-end, quality, ABRomics, trimming</td>
+      <td>2024-09-19</td>
+      <td>2024-09-19</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>recentrifuge, est_abundance, tooldistillator_summarize, kraken2, fastp, tooldistillator</td>
+      <td>Parsing, Data handling, Statistical calculation, Expression analysis, Cross-assembly, Sequence contamination filtering, Sequencing quality control, Taxonomic classification</td>
+      <td></td>
+      <td>GPL-3.0-or-later</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Bacterial Genome Assembly using Shov (release v1.0)</td>
+      <td>https://usegalaxy.eu</td>
+      <td>3d937648809ca4e7</td>
+      <td>https://usegalaxy.eu/published/workflow?id=3d937648809ca4e7</td>
+      <td>abromics-consortium, Abromics, Pierre Marin, Clea Siguret</td>
+      <td>fastq, Genomics, bacterial-genomics, paired-end, assembly, quality, ABRomics</td>
+      <td>2024-09-19</td>
+      <td>2024-09-19</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>refseq_masher_matches, bandage_image, tooldistillator_summarize, quast, bandage_info, shovill, tooldistillator</td>
+      <td>Genome assembly, Parsing, Sequence assembly visualisation, Sequence assembly validation, Data handling, Visualisation</td>
+      <td></td>
+      <td>GPL-3.0-or-later</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Bacterial Genome Assembly using Shov (release v1.1)</td>
+      <td>https://usegalaxy.eu</td>
+      <td>fca458178b3c794a</td>
+      <td>https://usegalaxy.eu/published/workflow?id=fca458178b3c794a</td>
+      <td>abromics-consortium, ABRomics, Pierre Marin, Clea Siguret</td>
+      <td>fastq, Genomics, bacterial-genomics, paired-end, assembly, quality, ABRomics</td>
+      <td>2024-09-19</td>
+      <td>2024-09-19</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>refseq_masher_matches, bandage_image, tooldistillator_summarize, quast, bandage_info, shovill, tooldistillator</td>
+      <td>Genome assembly, Parsing, Sequence assembly visualisation, Sequence assembly validation, Data handling, Visualisation</td>
+      <td></td>
+      <td>GPL-3.0-or-later</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Bacterial Genome Assembly using Shov (release v1.1.1)</td>
+      <td>https://usegalaxy.eu</td>
+      <td>4216424f032c055f</td>
+      <td>https://usegalaxy.eu/published/workflow?id=4216424f032c055f</td>
+      <td>abromics-consortium, ABRomics, Pierre Marin, Clea Siguret</td>
+      <td>fastq, Genomics, bacterial-genomics, paired-end, assembly, quality, ABRomics</td>
+      <td>2024-09-19</td>
+      <td>2024-09-19</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>refseq_masher_matches, bandage_image, tooldistillator_summarize, quast, bandage_info, shovill, tooldistillator</td>
+      <td>Genome assembly, Parsing, Sequence assembly visualisation, Sequence assembly validation, Data handling, Visualisation</td>
+      <td></td>
+      <td>GPL-3.0-or-later</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>amr_gene_detection (release v1.0)</td>
+      <td>https://usegalaxy.eu</td>
+      <td>41d207d06a32ba05</td>
+      <td>https://usegalaxy.eu/published/workflow?id=41d207d06a32ba05</td>
+      <td>ABRomics, abromics-consortium, Pierre Marin, Clea Siguret</td>
+      <td>fasta, Genomics, ABRomics, antibiotic-resistance, antimicrobial-resistance-genes, antimicrobialresistance, bacterial-genomics, AMR, AMR-detection</td>
+      <td>2024-09-19</td>
+      <td>2024-09-19</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>amrfinderplus, staramr_search, abricate, tooldistillator_summarize, tooldistillator</td>
+      <td>Parsing, Antimicrobial resistance prediction, Data handling</td>
+      <td></td>
+      <td>GPL-3.0-or-later</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>amr_gene_detection (release v1.1)</td>
+      <td>https://usegalaxy.eu</td>
+      <td>abe85758e77c78e6</td>
+      <td>https://usegalaxy.eu/published/workflow?id=abe85758e77c78e6</td>
+      <td>ABRomics, abromics-consortium, Pierre Marin, Clea Siguret</td>
+      <td>fasta, Genomics, ABRomics, antibiotic-resistance, antimicrobial-resistance-genes, antimicrobialresistance, bacterial-genomics, AMR, AMR-detection</td>
+      <td>2024-09-19</td>
+      <td>2024-09-19</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>amrfinderplus, staramr_search, abricate, tooldistillator_summarize, tooldistillator</td>
+      <td>Parsing, Antimicrobial resistance prediction, Data handling</td>
+      <td></td>
+      <td>GPL-3.0-or-later</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>amr_gene_detection (release v1.1.1)</td>
+      <td>https://usegalaxy.eu</td>
+      <td>f30f8e7dcd50cd0d</td>
+      <td>https://usegalaxy.eu/published/workflow?id=f30f8e7dcd50cd0d</td>
+      <td>ABRomics, abromics-consortium, Pierre Marin, Clea Siguret</td>
+      <td>fasta, Genomics, ABRomics, antibiotic-resistance, antimicrobial-resistance-genes, antimicrobialresistance, bacterial-genomics, AMR, AMR-detection</td>
+      <td>2024-09-19</td>
+      <td>2024-09-19</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>amrfinderplus, staramr_search, abricate, tooldistillator_summarize, tooldistillator</td>
+      <td>Parsing, Antimicrobial resistance prediction, Data handling</td>
+      <td></td>
+      <td>GPL-3.0-or-later</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>dada2 amplicon analysis pipeline - for paired en (release v0.2)</td>
+      <td>https://usegalaxy.eu</td>
+      <td>642f4c47028031d7</td>
+      <td>https://usegalaxy.eu/published/workflow?id=642f4c47028031d7</td>
+      <td>Matthias Bernt, UFZ Leipzig</td>
+      <td>name:amplicon</td>
+      <td>2024-09-19</td>
+      <td>2024-09-19</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>dada2_dada, __APPLY_RULES__, dada2_filterAndTrim, __UNZIP_COLLECTION__, dada2_learnErrors, dada2_makeSequenceTable, dada2_mergePairs, dada2_plotQualityProfile, dada2_removeBimeraDenovo, dada2_assignTaxonomyAddspecies, dada2_seqCounts</td>
+      <td>Variant calling, DNA barcoding</td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Pox Virus Illumina Amplicon Workflow from half-genomes (release v0.2)</td>
+      <td>https://usegalaxy.eu</td>
+      <td>6e1fe7372e93fae0</td>
+      <td>https://usegalaxy.eu/published/workflow?id=6e1fe7372e93fae0</td>
+      <td>Viktoria Isabel Schwarz, Wolfgang Maier</td>
+      <td>pox, virology</td>
+      <td>2024-09-19</td>
+      <td>2024-09-19</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>ivar_trim, qualimap_bamqc, bwa_mem, compose_text_param, __ZIP_COLLECTION__, Grep1, tp_sed_tool, samtools_stats, __SORTLIST__, samtools_merge, __APPLY_RULES__, __FLATTEN__, ivar_consensus, datamash_ops, fastp, fasta_compute_length, Cut1, param_value_from_file, tp_cat, collection_element_identifiers, __FILTER_FAILED_DATASETS__, samtools_view, multiqc, split_file_to_collection, EMBOSS: maskseq51</td>
+      <td>Generation, Validation, Genome indexing, Sequence alignment, Sequence alignment analysis, Sequence contamination filtering, Local alignment, Sequencing quality control, Sequence analysis, Read mapping, Global alignment</td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>LŠMB: Identification of the micro-organisms in a beer using Nanopore sequencing</td>
+      <td>https://usegalaxy.eu</td>
+      <td>181e751be8dd9abc</td>
+      <td>https://usegalaxy.eu/published/workflow?id=181e751be8dd9abc</td>
+      <td>Bérénice Batut, Teresa Müller, Polina Polunina</td>
+      <td>Microbiome</td>
+      <td>2024-09-08</td>
+      <td>2024-09-08</td>
+      <td>0</td>
+      <td>0</td>
+      <td></td>
+      <td>taxonomy_krona_chart, Filter1, porechop, nanoplot, fastqc, kraken2, fastp, krakentools_kreport2krona</td>
+      <td>Aggregation, Sequence composition calculation, Statistical calculation, Visualisation, Box-Whisker plot plotting, Sequence contamination filtering, Sequencing quality control, Taxonomic classification, Scatter plot plotting</td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>MGnify's amplicon pipeline v5.0 - Quality control SE</td>
+      <td>https://usegalaxy.eu</td>
+      <td>b7166aff73e5d81c</td>
+      <td>https://usegalaxy.eu/published/workflow?id=b7166aff73e5d81c</td>
+      <td>MGnify - EMBL, Rand Zoabi, Paul Zierep</td>
+      <td>MGnify_Amplicon, amplicon, metagenomics</td>
+      <td>2024-03-25</td>
+      <td>2024-08-21</td>
+      <td>13</td>
+      <td>13</td>
+      <td></td>
+      <td>trimmomatic, fastq_to_fasta_python, multiqc, cshl_fasta_formatter, prinseq, fastqc, tp_find_and_replace, fastq_filter</td>
+      <td>Sequence composition calculation, Sequence trimming, Sequence contamination filtering, Sequencing quality control, Statistical calculation, Validation, Read pre-processing</td>
+      <td></td>
+      <td>Apache-2.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>MGnify's amplicon pipeline v5.0 - ITS</td>
+      <td>https://usegalaxy.eu</td>
+      <td>169327ba670607d1</td>
+      <td>https://usegalaxy.eu/published/workflow?id=169327ba670607d1</td>
+      <td>EMBL's European Bioinformatics Institute, Rand Zoabi, Paul Zierep</td>
+      <td>MGnify_Amplicon, amplicon, metagenomics</td>
+      <td>2024-05-06</td>
+      <td>2024-08-21</td>
+      <td>23</td>
+      <td>23</td>
+      <td></td>
+      <td>__FILTER_FROM_FILE__, taxonomy_krona_chart, tp_awk_tool, __FILTER_EMPTY_DATASETS__, collection_element_identifiers, biom_convert, mapseq, bedtools_maskfastabed</td>
+      <td>Mapping, Formatting, Visualisation, k-mer counting</td>
+      <td></td>
+      <td>Apache-2.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>MGnify's amplicon pipeline v5.0 - Quality control PE</td>
+      <td>https://usegalaxy.eu</td>
+      <td>f9648091c06171cd</td>
+      <td>https://usegalaxy.eu/published/workflow?id=f9648091c06171cd</td>
+      <td>EMBL's European Bioinformatics Institute, Rand Zoabi, Paul Zierep</td>
+      <td>MGnify_Amplicon, amplicon, metagenomics</td>
+      <td>2024-05-27</td>
+      <td>2024-08-21</td>
+      <td>14</td>
+      <td>14</td>
+      <td></td>
+      <td>__UNZIP_COLLECTION__, trimmomatic, fastq_to_fasta_python, multiqc, cshl_fasta_formatter, fastq_filter, prinseq, mgnify_seqprep, fastqc, tp_find_and_replace, fastp</td>
+      <td>Sequence composition calculation, Validation, Statistical calculation, Read pre-processing, Sequence contamination filtering, Sequencing quality control, Nucleic acid design, Sequence trimming</td>
+      <td></td>
+      <td>Apache-2.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>MGnify's amplicon pipeline v5.0 - rRNA prediction</td>
+      <td>https://usegalaxy.eu</td>
+      <td>0c3eee883f5ab977</td>
+      <td>https://usegalaxy.eu/published/workflow?id=0c3eee883f5ab977</td>
+      <td>EMBL's European Bioinformatics Institute, Rand Zoabi, Paul Zierep</td>
+      <td>MGnify_Amplicon, metagenomics, amplicon</td>
+      <td>2024-05-06</td>
+      <td>2024-08-21</td>
+      <td>29</td>
+      <td>29</td>
+      <td></td>
+      <td>__FILTER_FROM_FILE__, taxonomy_krona_chart, tp_awk_tool, query_tabular, __FILTER_EMPTY_DATASETS__, cmsearch_deoverlap, collection_element_identifiers, gops_concat_1, cshl_fasta_formatter, biom_convert, infernal_cmsearch, bedtools_getfastabed, mapseq</td>
+      <td>Formatting, Nucleic acid feature detection, k-mer counting, Alignment, Comparison, Mapping, Visualisation</td>
+      <td></td>
+      <td>Apache-2.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>MGnify's amplicon pipeline v5.0 - complete</td>
+      <td>https://usegalaxy.eu</td>
+      <td>02f90a96d01fed4f</td>
+      <td>https://usegalaxy.eu/published/workflow?id=02f90a96d01fed4f</td>
+      <td>EMBL's European Bioinformatics Institute, Rand Zoabi, Paul Zierep</td>
+      <td>MGnify_Amplicon, metagenomics, amplicon</td>
+      <td>2024-05-06</td>
+      <td>2024-08-21</td>
+      <td>79</td>
+      <td>79</td>
+      <td></td>
+      <td>fasterq_dump, __MERGE_COLLECTION__</td>
+      <td>Data handling</td>
+      <td></td>
+      <td>Apache-2.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>pAllori Amplicon 16S Pre-Processing and Taxonomy Classification</td>
+      <td>https://usegalaxy.eu</td>
+      <td>466bdd8ba7b67264</td>
+      <td>https://usegalaxy.eu/published/workflow?id=466bdd8ba7b67264</td>
+      <td>Engy Nasr, Paul Zierep</td>
+      <td>name:microGalaxy, name:16s, name:metagenomics, name:pallori</td>
+      <td>2023-06-30</td>
+      <td>2024-08-13</td>
+      <td>69</td>
+      <td>69</td>
+      <td></td>
+      <td>lotus2, taxonomy_krona_chart, ampvis2_load, __FLATTEN__, trimmomatic, collection_column_join, multiqc, ampvis2_ordinate, cutadapt, unzip, fastqc, kraken2, tp_cut_tool, krakentools_kreport2krona, ampvis2_heatmap</td>
+      <td>Aggregation, Sequence composition calculation, Sequence trimming, Sequence feature detection, Validation, Statistical calculation, Visualisation, Read pre-processing, Primer removal, Analysis, Sequencing quality control, Taxonomic classification, DNA barcoding</td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Capripox isolate subtyping and consensus genome generation from WGS data</td>
+      <td>https://usegalaxy.eu</td>
+      <td>629e57958afed44c</td>
+      <td>https://usegalaxy.eu/published/workflow?id=629e57958afed44c</td>
+      <td>Wolfgang Maier</td>
+      <td>CaPV, VETLAB, virology</td>
+      <td>2024-07-28</td>
+      <td>2024-08-02</td>
+      <td>9</td>
+      <td>9</td>
+      <td></td>
+      <td>param_value_from_file, fasta_regex_finder, __FLATTEN__, qualimap_bamqc, ivar_consensus, __FILTER_FAILED_DATASETS__, bwa_mem, Show beginning1, read_it_and_keep, samtools_view, multiqc, tp_find_and_replace, fastp, collapse_dataset, __EXTRACT_DATASET__, vapor</td>
+      <td>Generation, Data retrieval, Validation, Genome indexing, Sequence alignment, Filtering, Genome alignment, Sequence contamination filtering, Sequencing quality control, De-novo assembly, Read mapping</td>
+      <td></td>
+      <td>AGPL-3.0-or-later</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Pox Virus Illumina Amplicon Workflow from half-genomes</td>
+      <td>https://usegalaxy.eu</td>
+      <td>a31100610fba17a1</td>
+      <td>https://usegalaxy.eu/published/workflow?id=a31100610fba17a1</td>
+      <td>Viktoria Isabel Schwarz, Wolfgang Maier</td>
+      <td>pox, virology</td>
+      <td>2024-08-02</td>
+      <td>2024-08-02</td>
+      <td>0</td>
+      <td>0</td>
+      <td></td>
+      <td>ivar_trim, qualimap_bamqc, bwa_mem, compose_text_param, __ZIP_COLLECTION__, Grep1, tp_sed_tool, samtools_stats, __SORTLIST__, samtools_merge, __APPLY_RULES__, __FLATTEN__, ivar_consensus, datamash_ops, fastp, fasta_compute_length, Cut1, param_value_from_file, tp_cat, collection_element_identifiers, __FILTER_FAILED_DATASETS__, samtools_view, multiqc, split_file_to_collection, EMBOSS: maskseq51</td>
+      <td>Generation, Validation, Genome indexing, Sequence alignment, Sequence alignment analysis, Sequence contamination filtering, Local alignment, Sequencing quality control, Sequence analysis, Read mapping, Global alignment</td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>pAllori Blood RNA</td>
+      <td>https://usegalaxy.eu</td>
+      <td>ca9d3233b0912765</td>
+      <td>https://usegalaxy.eu/published/workflow?id=ca9d3233b0912765</td>
+      <td>Engy Nasr, Paul Zierep</td>
+      <td>name:microGalaxy, name:pallori, name:BloodRNA, name:UMI, name:Barcode, name:transcriptomics</td>
+      <td>2023-07-02</td>
+      <td>2024-07-29</td>
+      <td>37</td>
+      <td>37</td>
+      <td></td>
+      <td>umi_tools_extract, __FLATTEN__, featurecounts, __FILTER_FAILED_DATASETS__, collection_column_join, multiqc, fastqc, rna_star</td>
+      <td>Validation, Sequence composition calculation, Statistical calculation, Sequencing quality control, Read summarisation, Sequence alignment, RNA-Seq quantification</td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>pAllori WGS</td>
+      <td>https://usegalaxy.eu</td>
+      <td>4f245ac304ab76d9</td>
+      <td>https://usegalaxy.eu/published/workflow?id=4f245ac304ab76d9</td>
+      <td>Engy Nasr, Paul Zierep</td>
+      <td>name:pallori, name:microGalaxy, name:WGS</td>
+      <td>2024-07-16</td>
+      <td>2024-07-28</td>
+      <td>16</td>
+      <td>16</td>
+      <td></td>
+      <td>freebayes, Remove beginning1, ggplot2_heatmap, bowtie2, __FLATTEN__, vcf2tsv, tp_awk_tool, regexColumn1, abricate, trimmomatic, collection_column_join, multiqc, Grouping1, fastqc, snpSift_filter, shovill, bcftools_norm, bcftools_view</td>
+      <td>Sequence composition calculation, Variant calling, Validation, Statistical calculation, Visualisation, Genome assembly, Antimicrobial resistance prediction, Sequencing quality control, Read mapping</td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Influenza sequence data analysis</td>
+      <td>https://usegalaxy.eu</td>
+      <td>bc5ced57e711acf9</td>
+      <td>https://usegalaxy.eu/published/workflow?id=bc5ced57e711acf9</td>
+      <td>Wolfgang Maier, Viktoria Isabel Schwarz</td>
+      <td>AIV, VETLAB, virology</td>
+      <td>2024-07-26</td>
+      <td>2024-07-28</td>
+      <td>21</td>
+      <td>21</td>
+      <td></td>
+      <td>map_param_value, iqtree, qualimap_bamqc, seqtk_subseq, bwa_mem, Show beginning1, __RELABEL_FROM_FILE__, snipit, collapse_dataset, Grep1, tp_find_and_replace, rbc_mafft, __EXTRACT_DATASET__, vapor, __APPLY_RULES__, ivar_consensus, __UNZIP_COLLECTION__, bamtools_split_ref, Paste1, __DUPLICATE_FILE_TO_COLLECTION__, pick_value, fastp, param_value_from_file, collection_element_identifiers, samtools_view, wc_gnu</td>
+      <td>Generation, De-novo assembly, Data retrieval, Data handling, Phylogenetic analysis, Genome indexing, Sequence alignment, Sequence alignment analysis, Sequence file editing, Sequence contamination filtering, Sequencing quality control, Base position variability plotting, Sequence analysis, Read mapping, Multiple sequence alignment</td>
+      <td></td>
+      <td>AGPL-3.0-or-later</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>MAGs workflow</td>
+      <td>https://usegalaxy.eu</td>
+      <td>97312d273b6e8bd9</td>
+      <td>https://usegalaxy.eu/published/workflow?id=97312d273b6e8bd9</td>
+      <td></td>
+      <td>name:microGalaxy</td>
+      <td>2023-11-15</td>
+      <td>2024-07-11</td>
+      <td>14</td>
+      <td>14</td>
+      <td></td>
+      <td>Fasta_to_Contig2Bin, samtools_sort, metabat2_jgi_summarize_bam_contig_depths, megahit, fastq_paired_end_interlacer, semibin, concoct_cut_up_fasta, concoct_extract_fasta_bins, concoct_coverage_table, coverm_genome, bowtie2, __UNZIP_COLLECTION__, das_tool, metabat2, quast, checkm_lineage_wf, concoct_merge_cut_up_clustering, concoct, drep_dereplicate, maxbin2</td>
+      <td>Sequence clustering, Sequence composition calculation, Read binning, Sequence assembly validation, Sequence assembly, Statistical calculation, Validation, Visualisation, Genome comparison, Genome assembly, Local alignment, Sequencing quality control, Genome annotation, Read mapping</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>PathoGFAIR</td>
+      <td>https://usegalaxy.eu</td>
+      <td>0dce37adb369492c</td>
+      <td>https://usegalaxy.eu/published/workflow?id=0dce37adb369492c</td>
+      <td>Engy Nasr, Bérénice Batut, Paul Zierep</td>
+      <td>name:microGalaxy, name:IWC, name:PathoGFAIR, name:Nanopore, name:Collection</td>
+      <td>2024-05-31</td>
+      <td>2024-07-03</td>
+      <td>93</td>
+      <td>93</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Pathogen Detection PathoGFAIR Samples Aggregation and Visualisation</td>
+      <td>https://usegalaxy.eu</td>
+      <td>376119528377a3ae</td>
+      <td>https://usegalaxy.eu/published/workflow?id=376119528377a3ae</td>
+      <td>Engy Nasr, Bérénice Batut, Paul Zierep</td>
+      <td>name:Collection, name:microGalaxy, name:PathoGFAIR, name:IWC</td>
+      <td>2024-04-03</td>
+      <td>2024-06-24</td>
+      <td>58</td>
+      <td>58</td>
+      <td></td>
+      <td>clustalw, regex1, tab2fasta, tp_sorted_uniq, collapse_dataset, fasta_merge_files_and_filter_unique_sequences, regexColumn1, collection_column_join, Grouping1, Count1, tp_split_on_column, fasttree, tp_replace_in_column, Remove beginning1, tp_multijoin_tool, __FILTER_EMPTY_DATASETS__, bedtools_getfastabed, fasta2tab, Cut1, newick_display, ggplot2_heatmap, __FILTER_FAILED_DATASETS__</td>
+      <td>Phylogenetic tree analysis, Phylogenetic tree reconstruction, Phylogenetic tree generation, Phylogenetic tree generation (from molecular sequences), Mapping, Multiple sequence alignment, Visualisation, Phylogenetic tree generation (maximum likelihood and Bayesian methods)</td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Allele-based Pathogen Identification</td>
+      <td>https://usegalaxy.eu</td>
+      <td>09c7069ae409c362</td>
+      <td>https://usegalaxy.eu/published/workflow?id=09c7069ae409c362</td>
+      <td>Engy Nasr, Bérénice Batut, Paul Zierep</td>
+      <td>name:Collection, name:microGalaxy, name:PathoGFAIR, name:IWC</td>
+      <td>2023-04-12</td>
+      <td>2024-06-24</td>
+      <td>72</td>
+      <td>72</td>
+      <td></td>
+      <td>Cut1, Remove beginning1, table_compute, clair3, tp_head_tool, bcftools_consensus, CONVERTER_gz_to_uncompressed, snpSift_extractFields, regexColumn1, Paste1, bcftools_norm, samtools_coverage, Count1, snpSift_filter, tp_cut_tool, collapse_dataset, minimap2, samtools_depth</td>
+      <td>Variant calling, Pairwise sequence alignment</td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Nanopore Preprocessing</td>
+      <td>https://usegalaxy.eu</td>
+      <td>a705370bc2c13d5c</td>
+      <td>https://usegalaxy.eu/published/workflow?id=a705370bc2c13d5c</td>
+      <td>Bérénice Batut, Engy Nasr, Paul Zierep</td>
+      <td>name:Collection, name:microGalaxy, name:PathoGFAIR, name:Nanopore, name:IWC</td>
+      <td>2023-04-12</td>
+      <td>2024-06-24</td>
+      <td>190</td>
+      <td>190</td>
+      <td></td>
+      <td>Cut1, samtools_fastx, krakentools_extract_kraken_reads, regexColumn1, __FILTER_FAILED_DATASETS__, Grep1, collection_column_join, multiqc, porechop, nanoplot, Add_a_column1, fastqc, kraken2, fastp, collapse_dataset, minimap2, bamtools_split_mapped</td>
+      <td>Aggregation, Sequence composition calculation, Data handling, Validation, Statistical calculation, Visualisation, Sequence alignment analysis, Box-Whisker plot plotting, Sequence contamination filtering, Sequencing quality control, Pairwise sequence alignment, Taxonomic classification, Scatter plot plotting</td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Taxonomy Profiling and Visualization with Phinch</td>
+      <td>https://usegalaxy.eu</td>
+      <td>b67b5ecd3305f830</td>
+      <td>https://usegalaxy.eu/published/workflow?id=b67b5ecd3305f830</td>
+      <td>Engy Nasr, Bérénice Batut, Paul Zierep</td>
+      <td>name:collection, name:microGalaxy, name:GTN</td>
+      <td>2023-04-12</td>
+      <td>2024-06-19</td>
+      <td>8</td>
+      <td>8</td>
+      <td></td>
+      <td>kraken2, interactive_tool_phinch, kraken_biom</td>
+      <td>Taxonomic classification</td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>metaQuantome_datacreation_workflow</td>
+      <td>https://usegalaxy.eu</td>
+      <td>fc42cc9467c6ee8d</td>
+      <td>https://usegalaxy.eu/published/workflow?id=fc42cc9467c6ee8d</td>
+      <td></td>
+      <td>proteomics, name:microGalaxy</td>
+      <td>2023-12-14</td>
+      <td>2024-06-19</td>
+      <td>0</td>
+      <td>0</td>
+      <td></td>
+      <td>Cut1, Remove beginning1, flashlfq, regex1, query_tabular, Filter1, msconvert, tp_replace_in_line, tp_replace_in_column, search_gui, peptide_shaker, unipept</td>
+      <td>Filtering, Prediction and recognition, Label-free quantification, Formatting, Visualisation</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>QIIME2 I: Demultiplexing (single-end)</td>
+      <td>https://usegalaxy.eu</td>
+      <td>86b31ac8a7720e41</td>
+      <td>https://usegalaxy.eu/published/workflow?id=86b31ac8a7720e41</td>
+      <td>Debjyoti Ghosh, Helmholtz-Zentrum für Umweltforschung - UFZ</td>
+      <td>name:amplicon, name:16S, name:tutorial</td>
+      <td>2024-06-12</td>
+      <td>2024-06-18</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>qiime2_core__tools__import, qiime2__demux__summarize, qiime2__demux__emp_single</td>
+      <td></td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>QIIME2 II: Denoising (sequence quality control) and feature table creation (single-end)</td>
+      <td>https://usegalaxy.eu</td>
+      <td>da17a4d690eb0ff3</td>
+      <td>https://usegalaxy.eu/published/workflow?id=da17a4d690eb0ff3</td>
+      <td>Debjyoti Ghosh, Helmholtz-Zentrum für Umweltforschung - UFZ</td>
+      <td>name:amplicon, name:16S, name:tutorial</td>
+      <td>2024-06-12</td>
+      <td>2024-06-18</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>qiime2__feature_table__tabulate_seqs, qiime2__feature_table__summarize, qiime2__metadata__tabulate, qiime2__dada2__denoise_single</td>
+      <td></td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Gene-based Pathogen Identification</td>
+      <td>https://usegalaxy.eu</td>
+      <td>585c21b7b1d864fc</td>
+      <td>https://usegalaxy.eu/published/workflow?id=585c21b7b1d864fc</td>
+      <td>Engy Nasr, Bérénice Batut, Paul Zierep</td>
+      <td>name:Collection, name:PathoGFAIR, name:IWC, name:microGalaxy</td>
+      <td>2023-04-13</td>
+      <td>2024-06-05</td>
+      <td>142</td>
+      <td>142</td>
+      <td></td>
+      <td>param_value_from_file, bandage_image, medaka_consensus_pipeline, collection_element_identifiers, abricate, split_file_to_collection, tab2fasta, compose_text_param, tp_find_and_replace, __BUILD_LIST__, flye, fasta2tab</td>
+      <td>Mapping assembly, Variant calling, Sequence assembly, Cross-assembly, Genome assembly, Antimicrobial resistance prediction, Sequence assembly visualisation, Base-calling, De-novo assembly</td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Taxonomy Profiling and Visualization with Krona</td>
+      <td>https://usegalaxy.eu</td>
+      <td>10101558b211a782</td>
+      <td>https://usegalaxy.eu/published/workflow?id=10101558b211a782</td>
+      <td>Engy Nasr, Bérénice Batut, Paul Zierep</td>
+      <td>name:Collection, name:microGalaxy, name:PathoGFAIR, name:IWC</td>
+      <td>2023-05-11</td>
+      <td>2024-06-05</td>
+      <td>58</td>
+      <td>58</td>
+      <td></td>
+      <td>kraken2, taxonomy_krona_chart, krakentools_kreport2krona</td>
+      <td>Taxonomic classification, Aggregation, Visualisation</td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>FASTQC-MULTIQC-Quality-Check_FastQ_Files</td>
+      <td>https://usegalaxy.eu</td>
+      <td>0ec684b341ad172d</td>
+      <td>https://usegalaxy.eu/published/workflow?id=0ec684b341ad172d</td>
+      <td></td>
+      <td>BGGM, Microbiome, Amplicon, FASTQC, QualityCheck</td>
+      <td>2024-05-13</td>
+      <td>2024-05-17</td>
+      <td>8</td>
+      <td>8</td>
+      <td></td>
+      <td>multiqc, fastqc</td>
+      <td>Sequence composition calculation, Sequencing quality control, Validation, Statistical calculation</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Pathogen-Detection-Nanopore-All-Samples-Analysis-Juyptool</td>
+      <td>https://usegalaxy.eu</td>
+      <td>c8bc4af6dd3b5d02</td>
+      <td>https://usegalaxy.eu/published/workflow?id=c8bc4af6dd3b5d02</td>
+      <td>Engy Nasr, Bérénice Batut</td>
+      <td>microbiome, nanopore, IWC, name:Collection, name:microGalaxy</td>
+      <td>2022-11-29</td>
+      <td>2024-04-04</td>
+      <td>205</td>
+      <td>205</td>
+      <td></td>
+      <td>clustalw, regex1, tab2fasta, tp_sorted_uniq, collapse_dataset, fasta_merge_files_and_filter_unique_sequences, regexColumn1, collection_column_join, Grouping1, Count1, tp_split_on_column, fasttree, tp_replace_in_column, Remove beginning1, tp_multijoin_tool, __FILTER_EMPTY_DATASETS__, bedtools_getfastabed, fasta2tab, Cut1, newick_display, ggplot2_heatmap, interactive_tool_jupyter_notebook, __FILTER_FAILED_DATASETS__</td>
+      <td>Phylogenetic tree analysis, Phylogenetic tree reconstruction, Phylogenetic tree generation, Phylogenetic tree generation (from molecular sequences), Mapping, Multiple sequence alignment, Visualisation, Phylogenetic tree generation (maximum likelihood and Bayesian methods)</td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Mgnify ML</td>
+      <td>https://usegalaxy.eu</td>
+      <td>011f701c5a55bfdf</td>
+      <td>https://usegalaxy.eu/published/workflow?id=011f701c5a55bfdf</td>
+      <td></td>
+      <td>name:microGalaxy</td>
+      <td>2023-10-10</td>
+      <td>2024-03-15</td>
+      <td>128</td>
+      <td>128</td>
+      <td></td>
+      <td>__BUILD_LIST__, interactive_tool_jupyter_notebook</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>dada2 amplicon analysis pipeline - for paired en (release v0.1)</td>
+      <td>https://usegalaxy.eu</td>
+      <td>b483cf6a138d2372</td>
+      <td>https://usegalaxy.eu/published/workflow?id=b483cf6a138d2372</td>
+      <td>Matthias Bernt, UFZ Leipzig</td>
+      <td>name:amplicon</td>
+      <td>2024-03-14</td>
+      <td>2024-03-14</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>dada2_dada, __APPLY_RULES__, dada2_filterAndTrim, __UNZIP_COLLECTION__, dada2_learnErrors, dada2_makeSequenceTable, dada2_mergePairs, dada2_plotQualityProfile, dada2_removeBimeraDenovo, dada2_assignTaxonomyAddspecies, dada2_seqCounts</td>
+      <td>Variant calling, DNA barcoding</td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Normalization</td>
+      <td>https://usegalaxy.eu</td>
+      <td>0603f0898211f806</td>
+      <td>https://usegalaxy.eu/published/workflow?id=0603f0898211f806</td>
+      <td></td>
+      <td>name:microGalaxy</td>
+      <td>2023-09-25</td>
+      <td>2024-03-13</td>
+      <td>80</td>
+      <td>80</td>
+      <td></td>
+      <td>map_param_value, __FILTER_EMPTY_DATASETS__, Grep1, __BUILD_LIST__, __EXTRACT_DATASET__</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>WF1_Database_Generation_Workflow</td>
+      <td>https://usegalaxy.eu</td>
+      <td>7cfbf4b7bd3f30d3</td>
+      <td>https://usegalaxy.eu/published/workflow?id=7cfbf4b7bd3f30d3</td>
+      <td></td>
+      <td>name:clinicalMP, name:microGalaxy</td>
+      <td>2023-12-14</td>
+      <td>2023-12-14</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>metanovo, fasta_merge_files_and_filter_unique_sequences</td>
+      <td>Tag-based peptide identification, Target-Decoy, de Novo sequencing, Protein identification, Expression analysis</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>WF2_Discovery-Workflow</td>
+      <td>https://usegalaxy.eu</td>
+      <td>8af41219411062ad</td>
+      <td>https://usegalaxy.eu/published/workflow?id=8af41219411062ad</td>
+      <td></td>
+      <td>name:microGalaxy, name:clinicalMP</td>
+      <td>2023-12-14</td>
+      <td>2023-12-14</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>Cut1, dbbuilder, Remove beginning1, tp_cat, query_tabular, Filter1, peptide_shaker, msconvert, Grep1, Grouping1, filter_tabular, maxquant, ident_params, search_gui, fasta_cli, fasta_merge_files_and_filter_unique_sequences, fasta2tab</td>
+      <td>Heat map generation, Statistical calculation, Visualisation, Protein quantification, Filtering, Principal component plotting, Formatting, Standardisation and normalisation, Imputation, Clustering</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>WF3_VERIFICATION_WORKFLOW</td>
+      <td>https://usegalaxy.eu</td>
+      <td>d87fc6685e47d27d</td>
+      <td>https://usegalaxy.eu/published/workflow?id=d87fc6685e47d27d</td>
+      <td></td>
+      <td>name:microGalaxy, name:clinicalMP</td>
+      <td>2023-12-14</td>
+      <td>2023-12-14</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>Cut1, dbbuilder, Remove beginning1, tp_cat, pepquery2, query_tabular, Filter1, Grouping1, uniprotxml_downloader, collapse_dataset, fasta_merge_files_and_filter_unique_sequences</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>WF4_Quantitation_Workflow</td>
+      <td>https://usegalaxy.eu</td>
+      <td>a49275eb8b2b2ecb</td>
+      <td>https://usegalaxy.eu/published/workflow?id=a49275eb8b2b2ecb</td>
+      <td></td>
+      <td>name:clinicalMP, name:microGalaxy</td>
+      <td>2023-12-14</td>
+      <td>2023-12-14</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>Cut1, maxquant, Grep1, Grouping1</td>
+      <td>Heat map generation, Statistical calculation, Visualisation, Protein quantification, Principal component plotting, Standardisation and normalisation, Imputation, Clustering</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>WF5_Data_Interpretation_Worklow</td>
+      <td>https://usegalaxy.eu</td>
+      <td>755ede37d94dc456</td>
+      <td>https://usegalaxy.eu/published/workflow?id=755ede37d94dc456</td>
+      <td></td>
+      <td>name:microGalaxy, name:clinicalMP</td>
+      <td>2023-12-14</td>
+      <td>2023-12-14</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>Grep1, msstatstmt, unipept</td>
+      <td>Prediction and recognition, Visualisation</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>MetaG_extended</td>
+      <td>https://usegalaxy.eu</td>
+      <td>d57d41e306241396</td>
+      <td>https://usegalaxy.eu/published/workflow?id=d57d41e306241396</td>
+      <td></td>
+      <td>name:microgalaxy</td>
+      <td>2023-12-14</td>
+      <td>2023-12-14</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>coverm_genome, tp_cat, fraggenescan, fasplit, tp_awk_tool, kofamscan, hmmer_hmmscan, tp_grep_tool, quast, interproscan, trim_galore, fastqc, sort1, maxbin2, cat_bins, coverm_contig, checkm_lineage_wf</td>
+      <td>Data retrieval, Sequence assembly, Sequence generation, Visualisation, Protein feature detection, Local alignment, Conversion, Sequencing quality control, Format validation, Coding region prediction, Database search, Taxonomic classification, Sequence analysis, Sequence motif recognition, Sequence trimming, Multiple sequence alignment, Sequence composition calculation, Sequence assembly validation, Statistical calculation, Validation, Sequence database search, Read pre-processing, Primer removal, Formatting, Sequence profile generation, Probabilistic sequence generation, Gene functional annotation, Gene prediction</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>MetaP</td>
+      <td>https://usegalaxy.eu</td>
+      <td>01ac8bf9832789e2</td>
+      <td>https://usegalaxy.eu/published/workflow?id=01ac8bf9832789e2</td>
+      <td></td>
+      <td>name:microgalaxy</td>
+      <td>2023-12-14</td>
+      <td>2023-12-14</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>maxquant</td>
+      <td>Heat map generation, Statistical calculation, Visualisation, Protein quantification, Principal component plotting, Standardisation and normalisation, Imputation, Clustering</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>MetaT</td>
+      <td>https://usegalaxy.eu</td>
+      <td>3733bcdf5b458be7</td>
+      <td>https://usegalaxy.eu/published/workflow?id=3733bcdf5b458be7</td>
+      <td></td>
+      <td>name:microgalaxy</td>
+      <td>2023-12-14</td>
+      <td>2023-12-14</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>kallisto_quant, __UNZIP_COLLECTION__, collection_column_join, bg_sortmerna, trim_galore, fastqc</td>
+      <td>Sequence composition calculation, Sequence similarity search, Statistical calculation, Read pre-processing, Primer removal, Sequence alignment analysis, Sequencing quality control, Sequence comparison, Sequence trimming, Gene expression profiling</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>metaquantome-taxonomy-workflow</td>
+      <td>https://usegalaxy.eu</td>
+      <td>695f7defb516d80d</td>
+      <td>https://usegalaxy.eu/published/workflow?id=695f7defb516d80d</td>
+      <td></td>
+      <td>proteomics, name:microGalaxy</td>
+      <td>2023-12-14</td>
+      <td>2023-12-14</td>
+      <td>0</td>
+      <td>0</td>
+      <td></td>
+      <td>metaquantome_db, metaquantome_expand, metaquantome_sample, metaquantome_viz, metaquantome_filter, metaquantome_stat</td>
+      <td>Query and retrieval, Functional clustering, Heat map generation, Differential protein expression analysis, Indexing, Visualisation, Principal component visualisation, Filtering, Statistical inference, Quantification</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>metaquantome-function-worklow</td>
+      <td>https://usegalaxy.eu</td>
+      <td>4c364c6be27981ba</td>
+      <td>https://usegalaxy.eu/published/workflow?id=4c364c6be27981ba</td>
+      <td></td>
+      <td>proteomics, name:microGalaxy</td>
+      <td>2023-12-14</td>
+      <td>2023-12-14</td>
+      <td>0</td>
+      <td>0</td>
+      <td></td>
+      <td>metaquantome_db, metaquantome_expand, metaquantome_sample, metaquantome_viz, metaquantome_filter, metaquantome_stat</td>
+      <td>Query and retrieval, Functional clustering, Heat map generation, Differential protein expression analysis, Indexing, Visualisation, Principal component visualisation, Filtering, Statistical inference, Quantification</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Metaproteomics_GTN</td>
+      <td>https://usegalaxy.eu</td>
+      <td>68967c922de149ae</td>
+      <td>https://usegalaxy.eu/published/workflow?id=68967c922de149ae</td>
+      <td></td>
+      <td>proteomics, name:microGalaxy</td>
+      <td>2023-12-14</td>
+      <td>2023-12-14</td>
+      <td>0</td>
+      <td>0</td>
+      <td></td>
+      <td>query_tabular, sqlite_to_tabular, search_gui, peptide_shaker, unipept</td>
+      <td>Prediction and recognition, Visualisation</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Ecoli Comparison</td>
+      <td>https://usegalaxy.eu</td>
+      <td>0e492839192d26e0</td>
+      <td>https://usegalaxy.eu/published/workflow?id=0e492839192d26e0</td>
+      <td></td>
+      <td>assembly, name:microGalaxy</td>
+      <td>2023-12-14</td>
+      <td>2023-12-14</td>
+      <td>0</td>
+      <td>0</td>
+      <td></td>
+      <td>tp_grep_tool, collapse_dataset, lastz_wrapper_2, join1, mergeCols1, bedtools_complementbed, tp_sed_tool, Grep1, bedtools_intersectbed, random_lines1, cat1, Filter1, datamash_ops, Cut1, tp_cat, fasta_compute_length, bedtools_sortbed, addValue, tp_sort_header_tool, fasta_filter_by_length</td>
+      <td>Mapping, Read mapping, Sequence alignment</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Training: 16S rRNA Analysis with Nanopore Sequencing Reads</td>
+      <td>https://usegalaxy.eu</td>
+      <td>08eb5e55109c4d9c</td>
+      <td>https://usegalaxy.eu/published/workflow?id=08eb5e55109c4d9c</td>
+      <td></td>
+      <td>metagenomics, name:microGalaxy</td>
+      <td>2023-12-14</td>
+      <td>2023-12-14</td>
+      <td>0</td>
+      <td>0</td>
+      <td></td>
+      <td>taxonomy_krona_chart, Remove beginning1, tp_replace_in_line, multiqc, porechop, fastqc, kraken2, fastp, datamash_reverse</td>
+      <td>Sequence composition calculation, Sequence contamination filtering, Sequencing quality control, Taxonomic classification, Validation, Visualisation, Statistical calculation</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Main Metatranscriptomics Analysis</td>
+      <td>https://usegalaxy.eu</td>
+      <td>7a08ecdf23e0c7a3</td>
+      <td>https://usegalaxy.eu/published/workflow?id=7a08ecdf23e0c7a3</td>
+      <td>Bérénice Batut, Pratik Jagtap, Subina Mehta, Ray Sajulga, Emma Leith, Praveen Kumar, Saskia Hiltemann, Paul Zierep</td>
+      <td>name:microGalaxy</td>
+      <td>2023-12-14</td>
+      <td>2023-12-14</td>
+      <td>0</td>
+      <td>0</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Copy Of GTN Training - Antibiotic Resistance Detection</td>
+      <td>https://usegalaxy.eu</td>
+      <td>44e53ea319e07daa</td>
+      <td>https://usegalaxy.eu/published/workflow?id=44e53ea319e07daa</td>
+      <td></td>
+      <td>metagenomics, name:microGalaxy</td>
+      <td>2023-12-14</td>
+      <td>2023-12-14</td>
+      <td>0</td>
+      <td>0</td>
+      <td></td>
+      <td>bandage_image, staramr_search, gfa_to_fa, nanoplot, PlasFlow, miniasm, racon, unicycler, minimap2</td>
+      <td>Aggregation, Mapping assembly, Genome assembly, Box-Whisker plot plotting, Pairwise sequence alignment, Sequence assembly visualisation, Sequence analysis, Scatter plot plotting, De-novo assembly</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Identification of the micro-organisms in a beer using Nanopore sequencing</td>
+      <td>https://usegalaxy.eu</td>
+      <td>0590554db9794d13</td>
+      <td>https://usegalaxy.eu/published/workflow?id=0590554db9794d13</td>
+      <td>Bérénice Batut, Teresa Müller, Polina Polunina</td>
+      <td>Metagenomics, name:microGalaxy</td>
+      <td>2023-12-14</td>
+      <td>2023-12-14</td>
+      <td>0</td>
+      <td>0</td>
+      <td></td>
+      <td>taxonomy_krona_chart, Filter1, porechop, fastqc, kraken2, fastp, krakentools_kreport2krona</td>
+      <td>Aggregation, Sequence composition calculation, Sequence contamination filtering, Sequencing quality control, Taxonomic classification, Statistical calculation, Visualisation</td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>workflow-generate-dataset-for-assembly-tutorial</td>
+      <td>https://usegalaxy.eu</td>
+      <td>ce5c16ac23c4fbb1</td>
+      <td>https://usegalaxy.eu/published/workflow?id=ce5c16ac23c4fbb1</td>
+      <td></td>
+      <td>name:microGalaxy</td>
+      <td>2023-12-14</td>
+      <td>2023-12-14</td>
+      <td>0</td>
+      <td>0</td>
+      <td></td>
+      <td>tp_cat, bowtie2, seqtk_subseq, ngsutils_bam_filter, megahit, filter_tabular, bamtools, cutadapt, random_lines1, fastqc, bg_uniq</td>
+      <td>Sequence composition calculation, Data handling, Variant calling, Statistical calculation, Read pre-processing, Sequence alignment analysis, Sequence file editing, Genome assembly, Formatting, Sequence contamination filtering, Primer removal, Sequencing quality control, Sequence trimming, Read mapping</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Metagenomics assembly tutorial workflow</td>
+      <td>https://usegalaxy.eu</td>
+      <td>62c47e3c9d4f3aa3</td>
+      <td>https://usegalaxy.eu/published/workflow?id=62c47e3c9d4f3aa3</td>
+      <td></td>
+      <td>name:microGalaxy</td>
+      <td>2023-12-14</td>
+      <td>2023-12-14</td>
+      <td>0</td>
+      <td>0</td>
+      <td></td>
+      <td>bandage_image, bowtie2, collection_column_join, megahit, metaspades, quast, bandage_info, megahit_contig2fastg</td>
+      <td>Genome assembly, Sequence assembly visualisation, Sequence assembly validation, Read mapping, Visualisation</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>WGS Part In "Analyses Of Metagenomics Data - The Global Picture"</td>
+      <td>https://usegalaxy.eu</td>
+      <td>c2b7ec5aacfc6107</td>
+      <td>https://usegalaxy.eu/published/workflow?id=c2b7ec5aacfc6107</td>
+      <td></td>
+      <td>metagenomics, name:microGalaxy</td>
+      <td>2023-12-14</td>
+      <td>2023-12-14</td>
+      <td>0</td>
+      <td>0</td>
+      <td></td>
+      <td>taxonomy_krona_chart, humann2_renorm_table, humann2, metaphlan2, humann2_regroup_table, metaphlan2krona</td>
+      <td>Visualisation</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Taxonomic Profiling and Visualization of Metagenomic Data</td>
+      <td>https://usegalaxy.eu</td>
+      <td>4f0daf8e9dd54127</td>
+      <td>https://usegalaxy.eu/published/workflow?id=4f0daf8e9dd54127</td>
+      <td>Bérénice Batut</td>
+      <td>Metagenomics, name:microGalaxy</td>
+      <td>2023-12-14</td>
+      <td>2023-12-14</td>
+      <td>0</td>
+      <td>0</td>
+      <td></td>
+      <td>taxonomy_krona_chart, __UNZIP_COLLECTION__, interactive_tool_pavian, interactive_tool_phinch, est_abundance, kraken2, metaphlan, krakentools_kreport2krona, kraken_biom</td>
+      <td>Phylogenetic tree analysis, Aggregation, Nucleic acid sequence analysis, Taxonomic classification, Statistical calculation, Visualisation</td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Amplicon Tutorial</td>
+      <td>https://usegalaxy.eu</td>
+      <td>565c989730f68362</td>
+      <td>https://usegalaxy.eu/published/workflow?id=565c989730f68362</td>
+      <td></td>
+      <td>metagenomics, name:microGalaxy</td>
+      <td>2023-12-14</td>
+      <td>2023-12-14</td>
+      <td>0</td>
+      <td>0</td>
+      <td></td>
+      <td>mothur_make_group, mothur_make_biom, mothur_classify_seqs, mothur_classify_otu, mothur_align_seqs, mothur_unique_seqs, mothur_filter_seqs, mothur_pre_cluster, krona-text, mothur_count_seqs, mothur_cluster_split, mothur_screen_seqs, mothur_make_shared, mothur_summary_seqs, mothur_merge_files</td>
+      <td>Sequence clustering, Phylogenetic analysis, Visualisation, Sequence read processing, Sequencing quality control, Taxonomic classification, DNA barcoding</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Microbial Variant Calling</td>
+      <td>https://usegalaxy.eu</td>
+      <td>515ef1601bc24a6c</td>
+      <td>https://usegalaxy.eu/published/workflow?id=515ef1601bc24a6c</td>
+      <td></td>
+      <td>variant-analysis, name:microGalaxy</td>
+      <td>2023-12-14</td>
+      <td>2023-12-14</td>
+      <td>0</td>
+      <td>0</td>
+      <td></td>
+      <td>snippy, jbrowse</td>
+      <td>Variant calling, Phylogenetic tree visualisation, Genome visualisation, Phylogenetic tree generation</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Calling variants in non-diploid systems</td>
+      <td>https://usegalaxy.eu</td>
+      <td>291c36e1b18e9deb</td>
+      <td>https://usegalaxy.eu/published/workflow?id=291c36e1b18e9deb</td>
+      <td></td>
+      <td>variant-analysis, name:microGalaxy</td>
+      <td>2023-12-14</td>
+      <td>2023-12-14</td>
+      <td>0</td>
+      <td>0</td>
+      <td></td>
+      <td>freebayes, Cut1, picard_MergeSamFiles, vcf2tsv, picard_MarkDuplicates, bwa_mem, bamFilter, bamleftalign, fastqc, vcffilter2</td>
+      <td>Sequence composition calculation, Generation, Data handling, Variant calling, Statistical calculation, Genome indexing, Sequence alignment, Sequence alignment analysis, Formatting, Sequencing quality control, Read mapping</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Training: 16S rRNA Sequencing With Mothur: Main Tutorial</td>
+      <td>https://usegalaxy.eu</td>
+      <td>c67d2e75eeb4fd19</td>
+      <td>https://usegalaxy.eu/published/workflow?id=c67d2e75eeb4fd19</td>
+      <td></td>
+      <td>metagenomics, name:microGalaxy</td>
+      <td>2023-12-14</td>
+      <td>2023-12-14</td>
+      <td>0</td>
+      <td>0</td>
+      <td></td>
+      <td>mothur_taxonomy_to_krona, taxonomy_krona_chart, mothur_classify_seqs, mothur_dist_shared, mothur_align_seqs, mothur_filter_seqs, mothur_rarefaction_single, mothur_count_seqs, mothur_remove_lineage, mothur_screen_seqs, mothur_summary_seqs, mothur_sub_sample, mothur_make_contigs, mothur_classify_otu, mothur_remove_groups, mothur_unique_seqs, mothur_pre_cluster, mothur_cluster_split, mothur_seq_error, mothur_tree_shared, mothur_cluster, mothur_venn, mothur_make_biom, mothur_heatmap_sim, XY_Plot_1, mothur_remove_seqs, mothur_get_groups, mothur_summary_single, newick_display, mothur_count_groups, mothur_dist_seqs, mothur_make_shared, mothur_chimera_vsearch</td>
+      <td>Sequence clustering, Phylogenetic tree generation, Phylogenetic analysis, Visualisation, Sequence read processing, Phylogenetic tree analysis, Sequencing quality control, Taxonomic classification, Phylogenetic tree reconstruction, DNA barcoding</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Comparative gene analysis</td>
+      <td>https://usegalaxy.eu</td>
+      <td>86900be4282d4b1d</td>
+      <td>https://usegalaxy.eu/published/workflow?id=86900be4282d4b1d</td>
+      <td>Anton Nekrutenko</td>
+      <td>vgp, genome-annotation, name:microGalaxy</td>
+      <td>2023-12-14</td>
+      <td>2023-12-14</td>
+      <td>0</td>
+      <td>0</td>
+      <td></td>
+      <td>Cut1, cat1, Filter1, bg_diamond, regexColumn1, rapidnj, bg_diamond_view, rbc_mafft, gops_intersect_1, tp_split_on_column, Add_a_column1, tab2fasta, collapse_dataset, join1</td>
+      <td>Multiple sequence alignment, Phylogenetic tree generation, Sequence alignment analysis</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Unicycler training</td>
+      <td>https://usegalaxy.eu</td>
+      <td>8f3ce55d44d9f369</td>
+      <td>https://usegalaxy.eu/published/workflow?id=8f3ce55d44d9f369</td>
+      <td></td>
+      <td>assembly, name:microGalaxy</td>
+      <td>2023-12-14</td>
+      <td>2023-12-14</td>
+      <td>0</td>
+      <td>0</td>
+      <td></td>
+      <td>multiqc, prokka, quast, fastqc, unicycler</td>
+      <td>Aggregation, Sequence composition calculation, Sequence assembly validation, Validation, Statistical calculation, Visualisation, Genome assembly, Sequencing quality control, Coding region prediction, Genome annotation, Gene prediction</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Apollo Load Test</td>
+      <td>https://usegalaxy.eu</td>
+      <td>3c233cc56d4df8b0</td>
+      <td>https://usegalaxy.eu/published/workflow?id=3c233cc56d4df8b0</td>
+      <td></td>
+      <td>genome-annotation, name:microGalaxy</td>
+      <td>2023-12-14</td>
+      <td>2023-12-14</td>
+      <td>0</td>
+      <td>0</td>
+      <td></td>
+      <td>list_organism, create_account, create_or_update, jbrowse, iframe</td>
+      <td>Genome visualisation</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Genome Annotation with Prokka [Feb 2020]</td>
+      <td>https://usegalaxy.eu</td>
+      <td>e1894c36f1ab4ab4</td>
+      <td>https://usegalaxy.eu/published/workflow?id=e1894c36f1ab4ab4</td>
+      <td></td>
+      <td>genome-annotation, name:microGalaxy</td>
+      <td>2023-12-14</td>
+      <td>2023-12-14</td>
+      <td>0</td>
+      <td>0</td>
+      <td></td>
+      <td>prokka, jbrowse</td>
+      <td>Genome annotation, Coding region prediction, Genome visualisation, Gene prediction</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Flye-AMR workflow EMC/WMDI - v3.5  (imported from URL)</td>
+      <td>https://usegalaxy.eu</td>
+      <td>152223c8aed27357</td>
+      <td>https://usegalaxy.eu/published/workflow?id=152223c8aed27357</td>
+      <td></td>
+      <td>wmdi, name:microGalaxy</td>
+      <td>2023-12-14</td>
+      <td>2023-12-14</td>
+      <td>0</td>
+      <td>0</td>
+      <td></td>
+      <td>tp_easyjoin_tool, regex1, tp_text_file_with_recurring_lines, gff2bed1, jbrowse, tbl2gff3, tab2fasta, tp_cut_tool, join1, bandage_image, staramr_search, Grep1, circos_interval_to_tile, PlasFlow, tp_split_on_column, bg_column_arrange_by_header, minimap2, medaka_consensus_pipeline, Filter1, tp_head_tool, trimmomatic, circos_wiggle_to_scatter, ncbi_blastn_wrapper, circos, Add_a_column1, flye, fasta2tab, fasta_compute_length, tp_cat, Cut1, circos_gc_skew, nanoplot, prokka, deeptools_bam_coverage, regex_replace, tp_sort_header_tool</td>
+      <td>Sequence analysis, Variant calling, Mapping assembly, Sequence assembly, Gene prediction, Sequence visualisation, Cross-assembly, Genome assembly, Box-Whisker plot plotting, Pairwise sequence alignment, Sequence assembly visualisation, Genome visualisation, Coding region prediction, Genome annotation, Base-calling, Scatter plot plotting, De-novo assembly</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Mtb phylogeny</td>
+      <td>https://usegalaxy.eu</td>
+      <td>875b3ca170ac12a1</td>
+      <td>https://usegalaxy.eu/published/workflow?id=875b3ca170ac12a1</td>
+      <td></td>
+      <td>evolution, name:microGalaxy</td>
+      <td>2023-12-14</td>
+      <td>2023-12-14</td>
+      <td>0</td>
+      <td>0</td>
+      <td></td>
+      <td>raxml, interactive_tool_rstudio</td>
+      <td>Phylogenetic tree analysis, Sequence analysis</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>From VCFs to SNP distance matrix</td>
+      <td>https://usegalaxy.eu</td>
+      <td>6d333ed886aab471</td>
+      <td>https://usegalaxy.eu/published/workflow?id=6d333ed886aab471</td>
+      <td></td>
+      <td>evolution, name:microGalaxy</td>
+      <td>2023-12-14</td>
+      <td>2023-12-14</td>
+      <td>0</td>
+      <td>0</td>
+      <td></td>
+      <td>tp_cat, tb_variant_filter, bcftools_consensus, snp_dists, snp_sites</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>From Fastqs to VCFs and BAMs</td>
+      <td>https://usegalaxy.eu</td>
+      <td>3a8fde248a4d0383</td>
+      <td>https://usegalaxy.eu/published/workflow?id=3a8fde248a4d0383</td>
+      <td></td>
+      <td>evolution, name:microGalaxy</td>
+      <td>2023-12-14</td>
+      <td>2023-12-14</td>
+      <td>0</td>
+      <td>0</td>
+      <td></td>
+      <td>__MERGE_COLLECTION__, tb_variant_filter, trimmomatic, snippy</td>
+      <td>Variant calling, Phylogenetic tree visualisation, Phylogenetic tree generation</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>From BAMs to drug resistance prediction with TB-profiler</td>
+      <td>https://usegalaxy.eu</td>
+      <td>d0d6dae0d1eecc21</td>
+      <td>https://usegalaxy.eu/published/workflow?id=d0d6dae0d1eecc21</td>
+      <td></td>
+      <td>evolution, name:microGalaxy</td>
+      <td>2023-12-14</td>
+      <td>2023-12-14</td>
+      <td>0</td>
+      <td>0</td>
+      <td></td>
+      <td>tb_profiler_profile, tp_cat, addName, tp_sed_tool, tp_replace_in_line, samtools_view, tp_grep_tool, __MERGE_COLLECTION__</td>
+      <td>Antimicrobial resistance prediction</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>M. tuberculosis Variant Analysis tutorial</td>
+      <td>https://usegalaxy.eu</td>
+      <td>3ff4dbcc7a602e6b</td>
+      <td>https://usegalaxy.eu/published/workflow?id=3ff4dbcc7a602e6b</td>
+      <td>Peter van Heusden</td>
+      <td>variant-analysis, prokaryote, name:microGalaxy</td>
+      <td>2023-12-14</td>
+      <td>2023-12-14</td>
+      <td>0</td>
+      <td>0</td>
+      <td></td>
+      <td>tb_profiler_profile, tb_variant_filter, trimmomatic, multiqc, jbrowse, tbvcfreport, snippy, fastqc, kraken2</td>
+      <td>Sequence composition calculation, Phylogenetic tree generation, Variant calling, Validation, Phylogenetic tree visualisation, Statistical calculation, Antimicrobial resistance prediction, Sequencing quality control, Genome visualisation, Taxonomic classification</td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Compute Allel Frequency Table from paired reads</td>
+      <td>https://usegalaxy.eu</td>
+      <td>21a39ac4c1becb31</td>
+      <td>https://usegalaxy.eu/published/workflow?id=21a39ac4c1becb31</td>
+      <td></td>
+      <td>name:microGalaxy, HPylori</td>
+      <td>2023-12-13</td>
+      <td>2023-12-13</td>
+      <td>2</td>
+      <td>2</td>
+      <td></td>
+      <td>freebayes, tp_awk_tool, bowtie2, vcf2tsv, snpSift_filter, bcftools_norm, bcftools_view</td>
+      <td>Variant calling, Statistical calculation, Read mapping</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Reference genome choice (indels, coverage, depth) for short reads</td>
+      <td>https://usegalaxy.eu</td>
+      <td>61fe08fb3d5e83f8</td>
+      <td>https://usegalaxy.eu/published/workflow?id=61fe08fb3d5e83f8</td>
+      <td></td>
+      <td>name:microGalaxy, HPylori</td>
+      <td>2023-10-27</td>
+      <td>2023-12-13</td>
+      <td>13</td>
+      <td>13</td>
+      <td></td>
+      <td>freebayes, tp_cat, bowtie2, vcf2tsv, collection_element_identifiers, samtools_coverage, collapse_dataset, bcftools_norm, samtools_depth</td>
+      <td>Variant calling, Statistical calculation, Read mapping</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>MGnify amplicon rRNA-prediction + ITS</td>
+      <td>https://usegalaxy.eu</td>
+      <td>437704898229dfb6</td>
+      <td>https://usegalaxy.eu/published/workflow?id=437704898229dfb6</td>
+      <td></td>
+      <td>MGnify_Amplicon_Showcase, name:microGalaxy</td>
+      <td>2023-12-12</td>
+      <td>2023-12-13</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>taxonomy_krona_chart, tp_awk_tool, query_tabular, cmsearch_deoverlap, gops_concat_1, biom_convert, infernal_cmsearch, bedtools_getfastabed, mapseq, bedtools_maskfastabed</td>
+      <td>Formatting, Nucleic acid feature detection, k-mer counting, Alignment, Comparison, Mapping, Visualisation</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>MGnify amplicon QC</td>
+      <td>https://usegalaxy.eu</td>
+      <td>8f415b0c409f56f7</td>
+      <td>https://usegalaxy.eu/published/workflow?id=8f415b0c409f56f7</td>
+      <td></td>
+      <td>MGnify_Amplicon_Showcase, name:microGalaxy</td>
+      <td>2023-12-13</td>
+      <td>2023-12-13</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>__UNZIP_COLLECTION__, trimmomatic, fastq_to_fasta_python, multiqc, cshl_fasta_formatter, iuc_pear, prinseq, fastqc, tp_find_and_replace, fastp, fastq_dump</td>
+      <td>Sequence composition calculation, Data handling, Validation, Sequence merging, Statistical calculation, Read pre-processing, Sequence contamination filtering, Sequencing quality control, Sequence trimming</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Cloud-Aerosole MT-MG Functional Profiling</td>
+      <td>https://usegalaxy.eu</td>
+      <td>4566262dd0acc8ab</td>
+      <td>https://usegalaxy.eu/published/workflow?id=4566262dd0acc8ab</td>
+      <td></td>
+      <td>metagenomics, metatranscriptomics, name:microGalaxy</td>
+      <td>2021-11-10</td>
+      <td>2023-12-07</td>
+      <td>2</td>
+      <td>2</td>
+      <td></td>
+      <td>featurecounts, bowtie2, multiqc</td>
+      <td>Validation, Sequencing quality control, Read summarisation, Read mapping, RNA-Seq quantification</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Cloud-Aerosole MT-MG Reference Gene Catalog Building</td>
+      <td>https://usegalaxy.eu</td>
+      <td>9b9e1e28f3683f92</td>
+      <td>https://usegalaxy.eu/published/workflow?id=9b9e1e28f3683f92</td>
+      <td></td>
+      <td>metagenomics, metatranscriptomics, name:microGalaxy</td>
+      <td>2021-11-01</td>
+      <td>2023-12-07</td>
+      <td>72</td>
+      <td>72</td>
+      <td></td>
+      <td>dbbuilder, translate_nucleotides, bowtie2, cat1, bg_diamond, cd_hit, kofamscan, metagene_annotator, bg_diamond_makedb, multiqc, megahit, bedtools_getfastabed, quast, fastqc, metaeuk_easy_predict, eggnog_mapper</td>
+      <td>Sequence clustering, Information extraction, Query and retrieval, Homology-based gene prediction, Visualisation, Genome assembly, Sequencing quality control, Genome annotation, Mapping, Sequence analysis, Sequence composition calculation, Sequence assembly validation, Sequence annotation, Validation, Statistical calculation, Fold recognition, Gene functional annotation, Sequence alignment analysis, Read mapping</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Cloud-Aerosole MT-MG Pre-Processing</td>
+      <td>https://usegalaxy.eu</td>
+      <td>bb604ff5e010e7ab</td>
+      <td>https://usegalaxy.eu/published/workflow?id=bb604ff5e010e7ab</td>
+      <td></td>
+      <td>metagenomics, metatranscriptomics, name:microGalaxy</td>
+      <td>2021-11-01</td>
+      <td>2023-12-07</td>
+      <td>51</td>
+      <td>51</td>
+      <td></td>
+      <td>trimmomatic, multiqc, fastqc</td>
+      <td>Sequence composition calculation, Sequencing quality control, Validation, Statistical calculation</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Cloud Aerosol MT-MG Contamination Filtering</td>
+      <td>https://usegalaxy.eu</td>
+      <td>bdc7cfaac0db2eab</td>
+      <td>https://usegalaxy.eu/published/workflow?id=bdc7cfaac0db2eab</td>
+      <td></td>
+      <td>metagenomics, metatranscriptomics, name:microGalaxy</td>
+      <td>2022-06-29</td>
+      <td>2023-12-07</td>
+      <td>28</td>
+      <td>28</td>
+      <td></td>
+      <td>recentrifuge, bowtie2, seq_filter_by_id, filter_tabular, kraken2, fastq_to_tabular</td>
+      <td>Taxonomic classification, Expression analysis, Read mapping, Cross-assembly</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Cloud-Aerosole MT-MG Taxonomic Profiling</td>
+      <td>https://usegalaxy.eu</td>
+      <td>e69b555faa6bb962</td>
+      <td>https://usegalaxy.eu/published/workflow?id=e69b555faa6bb962</td>
+      <td></td>
+      <td>metagenomics, metatranscriptomics, name:microGalaxy</td>
+      <td>2022-09-03</td>
+      <td>2023-12-07</td>
+      <td>18</td>
+      <td>18</td>
+      <td></td>
+      <td>recentrifuge, interactive_tool_phinch, kraken2, maaslin2, kraken_biom</td>
+      <td>Filtering, Standardisation and normalisation, Taxonomic classification, Statistical calculation, Expression analysis, Visualisation, Cross-assembly</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Main Metatranscriptomics Analysis 24.08.2023</td>
+      <td>https://usegalaxy.eu</td>
+      <td>81033ff723b9f22d</td>
+      <td>https://usegalaxy.eu/published/workflow?id=81033ff723b9f22d</td>
+      <td></td>
+      <td>microbiome</td>
+      <td>2023-08-24</td>
+      <td>2023-11-07</td>
+      <td>6</td>
+      <td>6</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>pAllori ASiam Functional Information MT</td>
+      <td>https://usegalaxy.eu</td>
+      <td>a7a6d8ecc2795f58</td>
+      <td>https://usegalaxy.eu/published/workflow?id=a7a6d8ecc2795f58</td>
+      <td>Bérénice Batut, Pratik Jagtap, Subina Mehta, Ray Sajulga, Emma Leith, Praveen Kumar, Saskia Hiltemann, Paul Zierep, Engy Nasr</td>
+      <td>name:microGalaxy, name:metatranscriptomics, name:AdaptedASiam, name:functionalProfiling</td>
+      <td>2023-07-07</td>
+      <td>2023-07-07</td>
+      <td>3</td>
+      <td>3</td>
+      <td></td>
+      <td>Cut1, humann_unpack_pathways, combine_metaphlan2_humann2, Grep1, humann, humann_renorm_table, humann_split_stratified_table, humann_regroup_table, tp_find_and_replace, humann_rename_table</td>
+      <td>Species frequency estimation, Taxonomic classification, Phylogenetic analysis</td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>pAllori ASiam Community Profile MT</td>
+      <td>https://usegalaxy.eu</td>
+      <td>05f5f040337786bf</td>
+      <td>https://usegalaxy.eu/published/workflow?id=05f5f040337786bf</td>
+      <td>Engy Nasr, Bérénice Batut</td>
+      <td>name:microGalaxy, name:metatranscriptomics, name:AdaptedASiam, name:communityProfiling</td>
+      <td>2023-06-30</td>
+      <td>2023-07-06</td>
+      <td>3</td>
+      <td>3</td>
+      <td></td>
+      <td>Cut1, taxonomy_krona_chart, graphlan, export2graphlan, graphlan_annotate, metaphlan</td>
+      <td>Phylogenetic inference, Phylogenetic tree visualisation, Visualisation, Phylogenetic tree analysis, Conversion, Nucleic acid sequence analysis, Taxonomic classification, Phylogenetic tree editing</td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>pAllori ASiam Preprocessing MT</td>
+      <td>https://usegalaxy.eu</td>
+      <td>72e3e5fdc766e24a</td>
+      <td>https://usegalaxy.eu/published/workflow?id=72e3e5fdc766e24a</td>
+      <td>Bérénice Batut, Pratik Jagtap, Subina Mehta, Ray Sajulga, Emma Leith, Praveen Kumar, Saskia Hiltemann, Paul Zierep, Engy Nasr</td>
+      <td>name:microGalaxy, name:AdaptedASiam, name:metatranscriptomics, name:preprocessing</td>
+      <td>2023-06-30</td>
+      <td>2023-07-06</td>
+      <td>2</td>
+      <td>2</td>
+      <td></td>
+      <td>__FLATTEN__, multiqc, bg_sortmerna, fastq_paired_end_interlacer, cutadapt, fastqc</td>
+      <td>Sequence composition calculation, Sequence similarity search, Validation, Statistical calculation, Read pre-processing, Primer removal, Sequence alignment analysis, Sequencing quality control, Sequence comparison, Sequence trimming</td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Pathogen-Detection-Nanopore-SNP-based-pathogenetic-Identification</td>
+      <td>https://usegalaxy.eu</td>
+      <td>3f0b104a74acf869</td>
+      <td>https://usegalaxy.eu/published/workflow?id=3f0b104a74acf869</td>
+      <td>Engy Nasr, Bérénice Batut</td>
+      <td>microbiome, nanopore</td>
+      <td>2023-01-16</td>
+      <td>2023-05-30</td>
+      <td>8</td>
+      <td>8</td>
+      <td></td>
+      <td>clair3, bcftools_consensus, bcftools_norm, snpSift_filter, minimap2, snpSift_extractFields</td>
+      <td>Variant calling, Pairwise sequence alignment</td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Pathogen-Detection-Nanopore-Gene-based-pathogenic-Identification</td>
+      <td>https://usegalaxy.eu</td>
+      <td>2b888e200dfd91bc</td>
+      <td>https://usegalaxy.eu/published/workflow?id=2b888e200dfd91bc</td>
+      <td>Engy Nasr, Bérénice Batut</td>
+      <td>microbiome, nanopore</td>
+      <td>2023-01-10</td>
+      <td>2023-05-30</td>
+      <td>20</td>
+      <td>20</td>
+      <td></td>
+      <td>mlst, bandage_image, Cut1, medaka_consensus_pipeline, cat1, add_line_to_file, abricate, tab2fasta, compose_text_param, tp_find_and_replace, tp_replace_in_column, flye, fasta2tab</td>
+      <td>Mapping assembly, Variant calling, Sequence assembly, Cross-assembly, Genome assembly, Multilocus sequence typing, Antimicrobial resistance prediction, Sequence assembly visualisation, Base-calling, De-novo assembly</td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Pathogen Detection-Nanopore-Taxonomy-Profiling-and-Visualization</td>
+      <td>https://usegalaxy.eu</td>
+      <td>a0ea6fc756dd17ea</td>
+      <td>https://usegalaxy.eu/published/workflow?id=a0ea6fc756dd17ea</td>
+      <td>Engy Nasr, Bérénice Batut</td>
+      <td>microbiome, nanopore</td>
+      <td>2023-02-02</td>
+      <td>2023-05-30</td>
+      <td>4</td>
+      <td>4</td>
+      <td></td>
+      <td>kraken2, interactive_tool_phinch, kraken_biom</td>
+      <td>Taxonomic classification</td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Pathogen-Detection-Nanopore-Taxonomy-Profiling-and-Visualization-with-krona</td>
+      <td>https://usegalaxy.eu</td>
+      <td>ed2df13cfbc86b99</td>
+      <td>https://usegalaxy.eu/published/workflow?id=ed2df13cfbc86b99</td>
+      <td>Engy Nasr, Bérénice Batut</td>
+      <td>microbiome, nanopore</td>
+      <td>2023-02-17</td>
+      <td>2023-05-30</td>
+      <td>6</td>
+      <td>6</td>
+      <td></td>
+      <td>kraken2, krakentools_kreport2krona, krona-text</td>
+      <td>Taxonomic classification, Aggregation, Visualisation</td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Pathogen-Detection-Nanopore-Pre-Processing</td>
+      <td>https://usegalaxy.eu</td>
+      <td>889f2782ad82bd69</td>
+      <td>https://usegalaxy.eu/published/workflow?id=889f2782ad82bd69</td>
+      <td>Bérénice Batut, Engy Nasr</td>
+      <td>microbiome, nanopore</td>
+      <td>2023-02-02</td>
+      <td>2023-05-30</td>
+      <td>6</td>
+      <td>6</td>
+      <td></td>
+      <td>porechop, nanoplot, multiqc, seq_filter_by_id, filter_tabular, fastqc, kraken2, fastp</td>
+      <td>Sequence composition calculation, Validation, Statistical calculation, Box-Whisker plot plotting, Sequence contamination filtering, Sequencing quality control, Taxonomic classification, Scatter plot plotting</td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Resistome workflow Pig Nov2021 (imported from uploaded file)</td>
+      <td>https://usegalaxy.eu</td>
+      <td>25850714d13f0b0f</td>
+      <td>https://usegalaxy.eu/published/workflow?id=25850714d13f0b0f</td>
+      <td></td>
+      <td>Metagenomics, Resistome</td>
+      <td>2023-05-22</td>
+      <td>2023-05-23</td>
+      <td>0</td>
+      <td>0</td>
+      <td></td>
+      <td>bowtie2, resistome_analyzer, samtools_sort, bam_to_sam, rarefaction_analyzer, snpfinder, XY_Plot_1, fastp</td>
+      <td>Sequencing quality control, Sequence contamination filtering, Read mapping</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>ASaiM-MT:metaphlan</td>
+      <td>https://usegalaxy.eu</td>
+      <td>ed0ad728cf21702b</td>
+      <td>https://usegalaxy.eu/published/workflow?id=ed0ad728cf21702b</td>
+      <td></td>
+      <td>ASaiM</td>
+      <td>2023-05-17</td>
+      <td>2023-05-17</td>
+      <td>3</td>
+      <td>3</td>
+      <td></td>
+      <td>taxonomy_krona_chart, metaphlan2, graphlan, format_metaphlan2_output, export2graphlan, graphlan_annotate, fastq_paired_end_interlacer, metaphlan2krona</td>
+      <td>Phylogenetic inference, Phylogenetic tree visualisation, Visualisation, Formatting, Conversion, Taxonomic classification, Phylogenetic tree editing</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Training: 16S rRNA RNIMU</td>
+      <td>https://usegalaxy.eu</td>
+      <td>dadca1020f586338</td>
+      <td>https://usegalaxy.eu/published/workflow?id=dadca1020f586338</td>
+      <td></td>
+      <td>metagenomics</td>
+      <td>2023-04-24</td>
+      <td>2023-04-27</td>
+      <td>8</td>
+      <td>8</td>
+      <td></td>
+      <td>mothur_taxonomy_to_krona, taxonomy_krona_chart, mothur_classify_seqs, mothur_dist_shared, mothur_align_seqs, mothur_filter_seqs, mothur_count_seqs, mothur_remove_lineage, mothur_screen_seqs, mothur_summary_seqs, mothur_sub_sample, mothur_make_contigs, mothur_classify_otu, mothur_unique_seqs, mothur_pre_cluster, mothur_cluster_split, mothur_tree_shared, mothur_chimera_vsearch, mothur_venn, mothur_make_biom, mothur_heatmap_sim, XY_Plot_1, mothur_remove_seqs, mothur_summary_single, newick_display, mothur_count_groups, mothur_make_shared, mothur_rarefaction_single</td>
+      <td>Sequence clustering, Phylogenetic tree generation, Phylogenetic analysis, Visualisation, Sequence read processing, Phylogenetic tree analysis, Sequencing quality control, Taxonomic classification, Phylogenetic tree reconstruction, DNA barcoding</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>MetaP</td>
+      <td>https://usegalaxy.eu</td>
+      <td>96d198ed953449fd</td>
+      <td>https://usegalaxy.eu/published/workflow?id=96d198ed953449fd</td>
+      <td></td>
+      <td>name:microgalaxy</td>
+      <td>2020-01-30</td>
+      <td>2023-03-16</td>
+      <td>2</td>
+      <td>2</td>
+      <td></td>
+      <td>maxquant</td>
+      <td>Heat map generation, Statistical calculation, Visualisation, Protein quantification, Principal component plotting, Standardisation and normalisation, Imputation, Clustering</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>MetaG_extended</td>
+      <td>https://usegalaxy.eu</td>
+      <td>6158c3b5fc12044e</td>
+      <td>https://usegalaxy.eu/published/workflow?id=6158c3b5fc12044e</td>
+      <td></td>
+      <td>name:microgalaxy</td>
+      <td>2023-02-10</td>
+      <td>2023-03-16</td>
+      <td>22</td>
+      <td>22</td>
+      <td></td>
+      <td>coverm_genome, tp_cat, fraggenescan, fasplit, tp_awk_tool, kofamscan, hmmer_hmmscan, tp_grep_tool, quast, interproscan, trim_galore, fastqc, sort1, maxbin2, cat_bins, coverm_contig, checkm_lineage_wf</td>
+      <td>Data retrieval, Sequence assembly, Sequence generation, Visualisation, Protein feature detection, Local alignment, Conversion, Sequencing quality control, Format validation, Coding region prediction, Database search, Taxonomic classification, Sequence analysis, Sequence motif recognition, Sequence trimming, Multiple sequence alignment, Sequence composition calculation, Sequence assembly validation, Statistical calculation, Validation, Sequence database search, Read pre-processing, Primer removal, Formatting, Sequence profile generation, Probabilistic sequence generation, Gene functional annotation, Gene prediction</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Pox Virus Illumina Amplicon Workflow from half-genomes (release v0.1)</td>
+      <td>https://usegalaxy.eu</td>
+      <td>b77e3b08092fa73e</td>
+      <td>https://usegalaxy.eu/published/workflow?id=b77e3b08092fa73e</td>
+      <td>Viktoria Isabel Schwarz, Wolfgang Maier</td>
+      <td>pox, virology</td>
+      <td>2023-03-02</td>
+      <td>2023-03-02</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>ivar_trim, qualimap_bamqc, bwa_mem, compose_text_param, __ZIP_COLLECTION__, Grep1, tp_sed_tool, samtools_stats, __SORTLIST__, samtools_merge, __APPLY_RULES__, __FLATTEN__, ivar_consensus, datamash_ops, fastp, fasta_compute_length, Cut1, param_value_from_file, tp_cat, collection_element_identifiers, __FILTER_FAILED_DATASETS__, samtools_view, multiqc, split_file_to_collection, EMBOSS: maskseq51</td>
+      <td>Generation, Validation, Genome indexing, Sequence alignment, Sequence alignment analysis, Sequence contamination filtering, Local alignment, Sequencing quality control, Sequence analysis, Read mapping, Global alignment</td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>MetaT</td>
+      <td>https://usegalaxy.eu</td>
+      <td>385cc7df70d7916b</td>
+      <td>https://usegalaxy.eu/published/workflow?id=385cc7df70d7916b</td>
+      <td></td>
+      <td>name:microgalaxy</td>
+      <td>2020-01-27</td>
+      <td>2023-02-27</td>
+      <td>16</td>
+      <td>16</td>
+      <td></td>
+      <td>kallisto_quant, __UNZIP_COLLECTION__, collection_column_join, bg_sortmerna, trim_galore, fastqc</td>
+      <td>Sequence composition calculation, Sequence similarity search, Statistical calculation, Read pre-processing, Primer removal, Sequence alignment analysis, Sequencing quality control, Sequence comparison, Sequence trimming, Gene expression profiling</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Nanopore Datasets - Pre-Processing</td>
+      <td>https://usegalaxy.eu</td>
+      <td>57d3109f32defa3b</td>
+      <td>https://usegalaxy.eu/published/workflow?id=57d3109f32defa3b</td>
+      <td>, , Bérénice Batut, , Engy Nasr</td>
+      <td>microbiome, nanopore</td>
+      <td>2022-08-07</td>
+      <td>2023-01-29</td>
+      <td>71</td>
+      <td>71</td>
+      <td></td>
+      <td>porechop, nanoplot, multiqc, seq_filter_by_id, filter_tabular, fastqc, kraken2, fastp</td>
+      <td>Sequence composition calculation, Validation, Statistical calculation, Box-Whisker plot plotting, Sequence contamination filtering, Sequencing quality control, Taxonomic classification, Scatter plot plotting</td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Bacterial genome assembly - IZSPB</td>
+      <td>https://usegalaxy.eu</td>
+      <td>37da7b42cb063a3a</td>
+      <td>https://usegalaxy.eu/published/workflow?id=37da7b42cb063a3a</td>
+      <td></td>
+      <td>assembly, bacterial, genome</td>
+      <td>2021-07-27</td>
+      <td>2022-12-03</td>
+      <td>18</td>
+      <td>18</td>
+      <td></td>
+      <td>mlst, spades, abricate, multiqc, prokka, quast, abricate_summary, fastp</td>
+      <td>Sequence assembly validation, Validation, Visualisation, Genome assembly, Antimicrobial resistance prediction, Multilocus sequence typing, Sequence contamination filtering, Sequencing quality control, Coding region prediction, Genome annotation, Gene prediction</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>16S rDNA microbial analisys + MUSCLE mothur</td>
+      <td>https://usegalaxy.eu</td>
+      <td>6d06bd22f206e176</td>
+      <td>https://usegalaxy.eu/published/workflow?id=6d06bd22f206e176</td>
+      <td></td>
+      <td>16S, mothur, microbial, microbiome, OTU, Cluster, Rarefaction</td>
+      <td>2021-08-09</td>
+      <td>2022-07-29</td>
+      <td>8</td>
+      <td>8</td>
+      <td></td>
+      <td>mothur_chimera_uchime, mothur_get_oturep, mothur_unique_seqs, mothur_rarefaction_single, mothur_dist_seqs, mothur_remove_seqs, muscle, mothur_cluster</td>
+      <td>Sequence clustering, Phylogenetic analysis, Visualisation, Sequence read processing, Sequencing quality control, Taxonomic classification, DNA barcoding</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Metatranscriptomics-WF3: Functional Information (quick)</td>
+      <td>https://usegalaxy.eu</td>
+      <td>5ce8a472e6e95c60</td>
+      <td>https://usegalaxy.eu/published/workflow?id=5ce8a472e6e95c60</td>
+      <td></td>
+      <td>metagenomics</td>
+      <td>2021-05-25</td>
+      <td>2021-11-09</td>
+      <td>8</td>
+      <td>8</td>
+      <td></td>
+      <td>humann_unpack_pathways, combine_metaphlan2_humann2, Grep1, humann_renorm_table, humann_split_stratified_table, humann_regroup_table, humann_rename_table</td>
+      <td>Species frequency estimation, Taxonomic classification, Phylogenetic analysis</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Metatranscriptomics-WF3: Functional Information</td>
+      <td>https://usegalaxy.eu</td>
+      <td>23dd2253da51e22e</td>
+      <td>https://usegalaxy.eu/published/workflow?id=23dd2253da51e22e</td>
+      <td></td>
+      <td>metagenomics</td>
+      <td>2021-05-25</td>
+      <td>2021-11-09</td>
+      <td>6</td>
+      <td>6</td>
+      <td></td>
+      <td>humann_unpack_pathways, combine_metaphlan2_humann2, Grep1, humann, humann_renorm_table, humann_split_stratified_table, humann_regroup_table, humann_rename_table</td>
+      <td>Species frequency estimation, Taxonomic classification, Phylogenetic analysis</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Metatranscriptomics - analyze human RNA-seq data with Kraken (imported from uploaded file)</td>
+      <td>https://usegalaxy.eu</td>
+      <td>ee0005a5487653ba</td>
+      <td>https://usegalaxy.eu/published/workflow?id=ee0005a5487653ba</td>
+      <td></td>
+      <td>metatranscriptomics, Kraken, RNA-seq, microbiome</td>
+      <td>2021-10-18</td>
+      <td>2021-10-18</td>
+      <td>2</td>
+      <td>2</td>
+      <td></td>
+      <td>taxonomy_krona_chart, Kraken2Tax, picard_SamToFastq, trimmomatic, samtools_view, bwa, fastqc, kraken2</td>
+      <td>Sequence composition calculation, Generation, Statistical calculation, Genome indexing, Sequence alignment, Visualisation, Formatting, Sequencing quality control, Taxonomic classification, Read mapping</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Taxonomic and functional community profiling of raw metagenomic shotgun data workflow</td>
+      <td>https://usegalaxy.eu</td>
+      <td>a8f829deb69b30ab</td>
+      <td>https://usegalaxy.eu/published/workflow?id=a8f829deb69b30ab</td>
+      <td></td>
+      <td>asaim</td>
+      <td>2021-06-22</td>
+      <td>2021-06-24</td>
+      <td>14</td>
+      <td>14</td>
+      <td></td>
+      <td>taxonomy_krona_chart, group_humann2_uniref_abundances_to_go, fastq_paired_end_interlacer, cutadapt, humann_unpack_pathways, Grep1, format_metaphlan2_output, graphlan_annotate, combine_metaphlan2_humann2, humann, bg_sortmerna, export2graphlan, humann_regroup_table, fastqc, Cut1, humann2_genefamilies_genus_level, graphlan, multiqc, humann_renorm_table, metaphlan, humann_rename_table</td>
+      <td>Sequence similarity search, Phylogenetic analysis, Phylogenetic tree visualisation, Visualisation, Phylogenetic tree analysis, Conversion, Sequencing quality control, Taxonomic classification, Sequence trimming, Phylogenetic tree editing, Sequence composition calculation, Phylogenetic inference, Statistical calculation, Validation, Read pre-processing, Primer removal, Sequence alignment analysis, Formatting, Nucleic acid sequence analysis, Species frequency estimation, Sequence comparison</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Metatranscriptomcis-WF2: Community Profile</td>
+      <td>https://usegalaxy.eu</td>
+      <td>19de5cbae7f48103</td>
+      <td>https://usegalaxy.eu/published/workflow?id=19de5cbae7f48103</td>
+      <td></td>
+      <td>metagenomics</td>
+      <td>2021-05-25</td>
+      <td>2021-05-25</td>
+      <td>2</td>
+      <td>2</td>
+      <td></td>
+      <td>Cut1, taxonomy_krona_chart, graphlan, export2graphlan, graphlan_annotate, metaphlan</td>
+      <td>Phylogenetic inference, Phylogenetic tree visualisation, Visualisation, Phylogenetic tree analysis, Conversion, Nucleic acid sequence analysis, Taxonomic classification, Phylogenetic tree editing</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Metatranscriptomics-WF1: Preprocessing</td>
+      <td>https://usegalaxy.eu</td>
+      <td>f6e8a63283262518</td>
+      <td>https://usegalaxy.eu/published/workflow?id=f6e8a63283262518</td>
+      <td></td>
+      <td>metagenomics</td>
+      <td>2021-05-25</td>
+      <td>2021-05-25</td>
+      <td>2</td>
+      <td>2</td>
+      <td></td>
+      <td>bg_sortmerna, multiqc, fastq_paired_end_interlacer, cutadapt, fastqc</td>
+      <td>Sequence composition calculation, Sequence similarity search, Validation, Statistical calculation, Read pre-processing, Primer removal, Sequence alignment analysis, Sequencing quality control, Sequence comparison, Sequence trimming</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>ASaiM-MT</td>
+      <td>https://usegalaxy.eu</td>
+      <td>dfc2c53ac3103eff</td>
+      <td>https://usegalaxy.eu/published/workflow?id=dfc2c53ac3103eff</td>
+      <td></td>
+      <td>ASaiM</td>
+      <td>2020-12-04</td>
+      <td>2020-12-04</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>taxonomy_krona_chart, group_humann2_uniref_abundances_to_go, fastq_paired_end_interlacer, cutadapt, humann2, Grep1, format_metaphlan2_output, graphlan_annotate, Grouping1, humann2_unpack_pathways, metaphlan2krona, metaphlan2, combine_metaphlan2_humann2, bg_sortmerna, export2graphlan, fastqc, humann2_renorm_table, humann2_genefamilies_genus_level, graphlan, multiqc, tp_sort_header_tool</td>
+      <td>Sequence similarity search, Phylogenetic tree visualisation, Visualisation, Conversion, Sequencing quality control, Taxonomic classification, Sequence trimming, Phylogenetic tree editing, Sequence composition calculation, Phylogenetic inference, Statistical calculation, Validation, Read pre-processing, Primer removal, Sequence alignment analysis, Formatting, Sequence comparison</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Workflow 3: Functional Information [Metatranscriptomics]</td>
+      <td>https://usegalaxy.eu</td>
+      <td>c817aefc77933d79</td>
+      <td>https://usegalaxy.eu/published/workflow?id=c817aefc77933d79</td>
+      <td></td>
+      <td>metagenomics</td>
+      <td>2020-07-13</td>
+      <td>2020-07-14</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>humann2_renorm_table, humann2, humann2_unpack_pathways, group_humann2_uniref_abundances_to_go</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>0_Short-read_assembly-_-_-Filter-Unicycler-AMR-annotation_(24-06-2020)</td>
+      <td>https://usegalaxy.eu</td>
+      <td>374797e58377c40f</td>
+      <td>https://usegalaxy.eu/published/workflow?id=374797e58377c40f</td>
+      <td></td>
+      <td>Assembly, Unicycler, StarAMR, Bacterial, Prokka, Short-Read, Illumina</td>
+      <td>2020-06-24</td>
+      <td>2020-06-24</td>
+      <td>4</td>
+      <td>4</td>
+      <td></td>
+      <td>bandage_image, staramr_search, multiqc, prokka, quast, bandage_info, fastqc, unicycler, fastp</td>
+      <td>Aggregation, Sequence composition calculation, Sequence assembly validation, Validation, Statistical calculation, Visualisation, Genome assembly, Sequence contamination filtering, Sequencing quality control, Sequence assembly visualisation, Coding region prediction, Genome annotation, Gene prediction</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>0_Hybrid_assembly-_-_-Filter-Unicycler-AMR-annotation_(24-06-2020)</td>
+      <td>https://usegalaxy.eu</td>
+      <td>ecf48fa50af560a0</td>
+      <td>https://usegalaxy.eu/published/workflow?id=ecf48fa50af560a0</td>
+      <td></td>
+      <td>Hybrid, Assembly, ONT, Unicycler, StarAMR, Bacterial, Prokka</td>
+      <td>2020-06-24</td>
+      <td>2020-06-24</td>
+      <td>13</td>
+      <td>13</td>
+      <td></td>
+      <td>filtlong, bandage_image, Cut1, staramr_search, bedtools_genomecoveragebed, multiqc, nanoplot, prokka, quast, bandage_info, Summary_Statistics1, fastqc, unicycler, fastp, minimap2</td>
+      <td>Aggregation, Sequence composition calculation, Sequence assembly validation, Validation, Statistical calculation, Visualisation, Filtering, Genome assembly, Box-Whisker plot plotting, Sequence contamination filtering, Sequence assembly visualisation, Sequencing quality control, Coding region prediction, Genome annotation, Mapping, Pairwise sequence alignment, Scatter plot plotting, Gene prediction</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>0_Long-read_assembly-_-_-Filter-Unicycler-AMR-annotation_(24-06-2020)</td>
+      <td>https://usegalaxy.eu</td>
+      <td>ea485dbabc76488d</td>
+      <td>https://usegalaxy.eu/published/workflow?id=ea485dbabc76488d</td>
+      <td></td>
+      <td>Assembly, ONT, Unicycler, StarAMR, Bacterial, Prokka, Coverage</td>
+      <td>2020-06-24</td>
+      <td>2020-06-24</td>
+      <td>3</td>
+      <td>3</td>
+      <td></td>
+      <td>filtlong, bandage_image, Cut1, staramr_search, bedtools_genomecoveragebed, nanoplot, prokka, quast, bandage_info, Summary_Statistics1, unicycler, minimap2</td>
+      <td>Aggregation, Sequence assembly validation, Visualisation, Filtering, Genome assembly, Box-Whisker plot plotting, Pairwise sequence alignment, Sequence assembly visualisation, Sequencing quality control, Coding region prediction, Genome annotation, Mapping, Scatter plot plotting, Gene prediction</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>MetaGalaxy</td>
+      <td>https://usegalaxy.eu</td>
+      <td>5826e573b6f93762</td>
+      <td>https://usegalaxy.eu/published/workflow?id=5826e573b6f93762</td>
+      <td></td>
+      <td>Long_Read, Metagenomics, Assembly, AMR, Taxonomy, Gene_Annotation, Long_Read</td>
+      <td>2020-01-22</td>
+      <td>2020-04-21</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>Cut1, filtlong, bandage_image, mlst, abricate, nanoplot, Krona, racon, prokka, jbrowse, quast, bandage_info, kraken2, meta_flye, minimap2</td>
+      <td>Sequence assembly validation, Mapping assembly, Visualisation, Taxonomic classification, Filtering, Genome assembly, Multilocus sequence typing, Antimicrobial resistance prediction, Box-Whisker plot plotting, Sequence assembly visualisation, Sequencing quality control, Coding region prediction, Genome annotation, Genome visualisation, Pairwise sequence alignment, Scatter plot plotting, Gene prediction</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>MetaGalaxy (4x polishing w Racon)</td>
+      <td>https://usegalaxy.eu</td>
+      <td>a337bfb2eb1e583f</td>
+      <td>https://usegalaxy.eu/published/workflow?id=a337bfb2eb1e583f</td>
+      <td></td>
+      <td>Nanopore, Metagenomics, ONT</td>
+      <td>2020-01-31</td>
+      <td>2020-02-10</td>
+      <td>4</td>
+      <td>4</td>
+      <td></td>
+      <td>Cut1, filtlong, taxonomy_krona_chart, bandage_image, mlst, minimap2, abricate, nanoplot, racon, jbrowse, prokka, quast, bandage_info, kraken2, flye</td>
+      <td>Mapping assembly, Visualisation, Cross-assembly, Genome assembly, Multilocus sequence typing, Pairwise sequence alignment, Sequencing quality control, Coding region prediction, Taxonomic classification, Genome annotation, De-novo assembly, Sequence assembly validation, Filtering, Antimicrobial resistance prediction, Box-Whisker plot plotting, Sequence assembly visualisation, Genome visualisation, Scatter plot plotting, Gene prediction</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>MetaGalaxy</td>
+      <td>https://usegalaxy.eu</td>
+      <td>a84bac86ec183d46</td>
+      <td>https://usegalaxy.eu/published/workflow?id=a84bac86ec183d46</td>
+      <td></td>
+      <td>Nanopore, Metagenomics, ONT</td>
+      <td>2020-01-24</td>
+      <td>2020-02-10</td>
+      <td>8</td>
+      <td>8</td>
+      <td></td>
+      <td>Cut1, filtlong, taxonomy_krona_chart, bandage_image, mlst, minimap2, abricate, nanoplot, racon, jbrowse, prokka, quast, bandage_info, kraken2, flye</td>
+      <td>Mapping assembly, Visualisation, Cross-assembly, Genome assembly, Multilocus sequence typing, Pairwise sequence alignment, Sequencing quality control, Coding region prediction, Taxonomic classification, Genome annotation, De-novo assembly, Sequence assembly validation, Filtering, Antimicrobial resistance prediction, Box-Whisker plot plotting, Sequence assembly visualisation, Genome visualisation, Scatter plot plotting, Gene prediction</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>16S microbial analysis (Mothur)</td>
+      <td>https://usegalaxy.eu</td>
+      <td>ce21961260fe4351</td>
+      <td>https://usegalaxy.eu/published/workflow?id=ce21961260fe4351</td>
+      <td></td>
+      <td>Metagenomics, Mothur, 16S</td>
+      <td>2018-09-22</td>
+      <td>2018-09-22</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>mothur_taxonomy_to_krona, taxonomy_krona_chart, mothur_classify_seqs, mothur_heatmap_bin, mothur_dist_shared, mothur_align_seqs, mothur_filter_seqs, mothur_rarefaction_single, mothur_count_seqs, mothur_remove_lineage, mothur_screen_seqs, mothur_summary_seqs, mothur_sub_sample, collapse_dataset, mothur_make_contigs, mothur_pcoa, mothur_classify_otu, mothur_get_oturep, mothur_unique_seqs, mothur_pre_cluster, mothur_cluster_split, fasttree, mothur_venn, mothur_heatmap_sim, XY_Plot_1, mothur_remove_seqs, mothur_summary_single, mothur_count_groups, mothur_dist_seqs, mothur_make_shared, mothur_chimera_vsearch</td>
+      <td>Sequence clustering, Phylogenetic analysis, Phylogenetic tree generation (from molecular sequences), Visualisation, Sequence read processing, Sequencing quality control, Taxonomic classification, DNA barcoding, Phylogenetic tree generation (maximum likelihood and Bayesian methods)</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>ASaiM - Metagenomic assembly with MetaSPAdes</td>
+      <td>https://usegalaxy.eu</td>
+      <td>579ff83177c5ee09</td>
+      <td>https://usegalaxy.eu/published/workflow?id=579ff83177c5ee09</td>
+      <td></td>
+      <td>ASaiM</td>
+      <td>2018-01-17</td>
+      <td>2018-08-03</td>
+      <td>3</td>
+      <td>3</td>
+      <td></td>
+      <td>bowtie2, valet, multiqc, metaspades, quast, trim_galore, fastqc</td>
+      <td>Sequence composition calculation, Sequence assembly validation, Validation, Sequence assembly, Statistical calculation, Visualisation, Read pre-processing, Primer removal, Genome assembly, Sequence assembly visualisation, Sequencing quality control, Sequence trimming, Read mapping</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>ASaiM - Metagenomic assembly with MEGAHIT</td>
+      <td>https://usegalaxy.eu</td>
+      <td>1524b189069b42a5</td>
+      <td>https://usegalaxy.eu/published/workflow?id=1524b189069b42a5</td>
+      <td></td>
+      <td>ASaiM</td>
+      <td>2018-01-17</td>
+      <td>2018-08-03</td>
+      <td>4</td>
+      <td>4</td>
+      <td></td>
+      <td>bowtie2, valet, multiqc, megahit, quast, trim_galore, fastqc</td>
+      <td>Sequence composition calculation, Sequence assembly validation, Validation, Sequence assembly, Statistical calculation, Visualisation, Read pre-processing, Primer removal, Genome assembly, Sequence assembly visualisation, Sequencing quality control, Sequence trimming, Read mapping</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>ASaiM - Shotgun workflow for paired-end data collection</td>
+      <td>https://usegalaxy.eu</td>
+      <td>329cf724a21f13ec</td>
+      <td>https://usegalaxy.eu/published/workflow?id=329cf724a21f13ec</td>
+      <td></td>
+      <td>ASaiM</td>
+      <td>2018-04-30</td>
+      <td>2018-04-30</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Shotgun workflow for paired-end data (imported from uploaded file)</td>
+      <td>https://usegalaxy.eu</td>
+      <td>358db17bfc1ee330</td>
+      <td>https://usegalaxy.eu/published/workflow?id=358db17bfc1ee330</td>
+      <td></td>
+      <td>ASaiM</td>
+      <td>2018-01-29</td>
+      <td>2018-04-30</td>
+      <td>0</td>
+      <td>0</td>
+      <td></td>
+      <td>fastq_join</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>ASaiM - Shotgun workflow for single-end data collection</td>
+      <td>https://usegalaxy.eu</td>
+      <td>1c3adfc77a138ef6</td>
+      <td>https://usegalaxy.eu/published/workflow?id=1c3adfc77a138ef6</td>
+      <td></td>
+      <td>ASaiM</td>
+      <td>2018-01-29</td>
+      <td>2018-04-30</td>
+      <td>2</td>
+      <td>2</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>QIIME - Illumina Overview tutorial (imported from uploaded file)</td>
+      <td>https://usegalaxy.eu</td>
+      <td>3acfb87be6db2303</td>
+      <td>https://usegalaxy.eu/published/workflow?id=3acfb87be6db2303</td>
+      <td></td>
+      <td>ASaiM</td>
+      <td>2018-01-17</td>
+      <td>2018-01-17</td>
+      <td>0</td>
+      <td>0</td>
+      <td></td>
+      <td>qiime_pick_open_reference_otus, qiime_split_libraries_fastq, qiime_core_diversity, qiime_validate_mapping_file, qiime_count_seqs</td>
+      <td>Phylogenetic analysis, Visualisation, Sequencing quality control, Taxonomic classification, Demultiplexing</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>EBI Metagenomics workflow (3.0) (imported from uploaded file)</td>
+      <td>https://usegalaxy.eu</td>
+      <td>58955868b504c60d</td>
+      <td>https://usegalaxy.eu/published/workflow?id=58955868b504c60d</td>
+      <td></td>
+      <td>ASaiM</td>
+      <td>2018-01-17</td>
+      <td>2018-01-17</td>
+      <td>0</td>
+      <td>0</td>
+      <td></td>
+      <td>hmmer_hmmsearch, cshl_fastq_to_fasta, tp_awk_tool, tp_cat, fraggenescan, trimmomatic, seq_filter_by_id, hmmer_hmmbuild, interproscan, qiime_pick_closed_reference_otus</td>
+      <td>Data retrieval, Phylogenetic analysis, Sequence generation, Visualisation, Protein feature detection, Conversion, Sequencing quality control, Format validation, Database search, Taxonomic classification, Sequence motif recognition, Multiple sequence alignment, Demultiplexing, Statistical calculation, Sequence database search, Formatting, Sequence profile generation, Probabilistic sequence generation, Gene prediction</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+</div>
