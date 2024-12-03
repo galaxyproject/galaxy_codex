@@ -21,10 +21,10 @@ To generate interactive tables that can be embedded into subdomains and websites
 To generate Galaxy Lab content, you can follow [our documentation](https://labs.usegalaxy.org.au/).
 
 # Vocabulary
-**Galaxy Community**: Galaxy Community of Practice. You can see a full list of Special Interest Groups in the [SIG Directory](https://galaxyproject.org/community/sig).
-**Galaxy Server**: Computational power/infrastructure that a Galaxy instance uses, such as usegalaxy.eu or usegalaxy.org
-  **Subdomain**: General term for Galaxy instance aimed at specific community (like microbiome or single-cell). Uses a specific Galaxy server.
-    **Galaxy Lab**: Specific style of UI-informed subdomain, Galaxy Australia built a new method for generating the main and tool panels, known as a Galaxy Lab.
+- **Galaxy Community**: Galaxy Community of Practice. You can see a full list of Special Interest Groups in the [SIG Directory](https://galaxyproject.org/community/sig).
+- **Galaxy Server**: Computational power/infrastructure that a Galaxy instance uses, such as usegalaxy.eu or usegalaxy.org
+- **Subdomain**: General term for Galaxy instance aimed at specific community (like microbiome or single-cell). Uses a specific Galaxy server.
+- **Galaxy Lab**: Specific style of UI-informed subdomain, Galaxy Australia built a new method for generating the main and tool panels, known as a Galaxy Lab.
 
 # Editorial Board
 We thank these people for maintaining this resource and providing reviews to pull requests:
