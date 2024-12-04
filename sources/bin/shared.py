@@ -83,7 +83,7 @@ def read_suite_per_tool_id(tool_fp: str) -> Dict:
     tool_suites = load_json(tool_fp)
     tools = {}
     for suite in tool_suites:
-        for tool in suite["Suite ID"]:
+        for tool in suite["Tool IDs"]:
             tools[tool] = {
                 "Suite ID": suite["Suite ID"],
                 "Suite owner": suite["Suite owner"],
