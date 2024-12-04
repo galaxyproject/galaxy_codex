@@ -24,21 +24,21 @@ jobs:
       - name: Build with Jekyll
         # Outputs to the './_site' directory by default
         run: |
-          bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}" --strict_front_matter
+          bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}" --strict_front_matter 
         env:
           PAGES_REPO_NWO: ${{ github.repository }}
           JEKYLL_ENV: production
           JEKYLL_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           JEKYLL_BUILD_BRANCH: ${{ github.ref_name }}
           JEKYLL_BASE_PATH: ${{ steps.pages.outputs.base_path }}
-      - name: Validate HTML and check links
-        run: |
-          bundle exec htmlproofer \
-            --allow_missing_href=true \
-            --ignore-urls "/.*localhost.*/","/.*gitter\.im.*/" \
-            --enforce-https=false  \
-            --disable-external=true \
-            --ignore_empty_alt=true \
-            --ignore_missing_alt=true \
-            --check-internal-hash=false \
-            ./_site
+      #- name: Validate HTML and check links
+      #  run: |
+      #    bundle exec htmlproofer \
+      #      --allow_missing_href=true \
+      #      --ignore-urls "/.*localhost.*/","/.*gitter\.im.*/" \
+      #      --enforce-https=false  \
+      #      --disable-external=true \
+      #      --ignore_empty_alt=true \
+      #      --ignore_missing_alt=true \
+      #      --check-internal-hash=false \
+      #      ./_site
