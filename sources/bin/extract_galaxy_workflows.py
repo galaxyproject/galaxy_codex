@@ -9,7 +9,7 @@ from typing import (
 
 import pandas as pd
 import shared
-
+from pprint import pprint
 
 class Workflow:
     """
@@ -33,6 +33,7 @@ class Workflow:
         self.edam_topic: List[str] = []
         self.license = ""
         self.doi = ""
+        self.projects: List[str] = []
 
     def init_by_importing(self, wf: dict) -> None:
         self.source = wf["source"]
@@ -51,6 +52,7 @@ class Workflow:
         self.edam_topic = wf["edam_topic"]
         self.license = wf["license"]
         self.doi = wf["doi"]
+        self.projects = wf["projects"]
 
     def init_from_search(self, wf: dict, source: str, tools: dict) -> None:
         self.source = source
@@ -83,6 +85,7 @@ class Workflow:
         self.add_creators(wf)
         self.add_tools(wf)
         self.edam_operation = shared.get_edam_operation_from_tools(self.tools, tools)
+        self.add_projects(wf)
 
     def add_creators(self, wf: dict) -> None:
         """
@@ -115,6 +118,18 @@ class Workflow:
                 if "tool_id" in step and step["tool_id"] is not None:
                     tools.add(shared.shorten_tool_id(step["tool_id"]))
         self.tools = list(tools)
+
+    def add_projects(self, wf: dict) -> None:
+        """
+        Extract projects associated to workflow on WorkflowHub
+        """
+        if self.source == "WorkflowHub":
+            for project in wf["data"]["relationships"]["projects"]["data"]:
+                wfhub_project = shared.get_request_json(
+                    f"https://workflowhub.eu/projects/{project['id']}",
+                    {"Accept": "application/json"},
+                )
+                self.projects.append(wfhub_project["data"]["attributes"]["title"])
 
 
 class Workflows:
@@ -295,7 +310,7 @@ if __name__ == "__main__":
     filterwf.add_argument(
         "--tags",
         "-c",
-        help="Path to a file with tags to keep in the extraction (one per line)",
+        help="Path to a YAML file with tags to keep in the extraction",
     )
 
     args = parser.parse_args()
