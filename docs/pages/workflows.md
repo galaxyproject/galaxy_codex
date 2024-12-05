@@ -5,3 +5,6 @@ datatable: true
 sidebar: false
 ---
 
+<div markdown="0">
+{% include workflows.html %}
+</div>
