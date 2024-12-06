@@ -12,6 +12,7 @@ from typing import (
 
 import pandas as pd
 import requests
+import yaml
 from github.ContentFile import ContentFile
 from github.Repository import Repository
 from requests.exceptions import ConnectionError
@@ -73,6 +74,15 @@ def load_json(input_df: str) -> Dict:
     """
     with Path(input_df).open("r") as t:
         content = json.load(t)
+    return content
+
+
+def load_yaml(input_df: str) -> Dict:
+    """
+    Read a YAML file
+    """
+    with Path(input_df).open("r") as t:
+        content = yaml.safe_load(t)
     return content
 
 
