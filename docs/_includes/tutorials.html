@@ -1,7 +1,7 @@
 {%- if include.tag %}
-{%- assign tools = site.data.workflows | add_related_pages | where:"related_pages", include.tag  | sort_natural: "name" %}
+{%- assign tools = site.data.tutorials | add_related_pages | where:"related_pages", include.tag  | sort_natural: "name" %}
 {%- else %}
-{%- assign tools = site.data.workflows | add_related_pages  | sort_natural: "name" %}
+{%- assign tools = site.data.tutorials | add_related_pages  | sort_natural: "name" %}
 {%- endif %}
 {%- assign country_pages = site.pages | where_exp: "item", "item.search_exclude != true" | where_exp:"item","item.national_resources != nil" %}
 {%- unless tools.size == 0 or tools == nil %}
@@ -10,15 +10,13 @@
     <table class="tooltable table display table-bordered table-striped w-100">
         <thead>
             <tr>
-                <th style="text-align: center">Workflow name (+link)</th>
-                <th style="text-align: center">Creation time</th>
+                <th style="text-align: center">Title (+link)</th>
+                <th style="text-align: center">GTN topic name</th>
+                <th style="text-align: center">Creation date</th>
                 <th style="text-align: center">Last updated</th>
-                <th style="text-align: center">License</th>
                 <th style="text-align: center">EDAM topic(s)</th>
                 <th style="text-align: center">EDAM operation(s)</th>
-                <th style="text-align: center">Tag(s)</th>
-                <th style="text-align: center">DOI</th>
-                <th style="text-align: center">Source</th>
+                <th style="text-align: center">Resources available</th>
             </tr>
         </thead>
         <tbody>
@@ -26,16 +24,16 @@
             <tr>
                 <td>
                 <div>
-                  {% if tool.name != "" %}
-                    <a href='{{ tool.link }}'>{{ tool.name }}</a>
+                  {% if tool.title != "" %}
+                    <a href='{{ tool.url }}'>{{ tool.title }}</a>
                   {% else %}
-                    <a href="#">{{ tool.name }}</a>
+                    <a href="#">{{ tool.title }}</a>
                   {% endif %}
                 </div>
                 </td>
-                <td style="text-align: center">{{ tool.create_time }}</td>
-                <td style="text-align: center">{{ tool.update_time }}</td>
-                <td style="text-align: center">{{ tool.license }}</td>
+                <td style="text-align: center">{{ tool.topic_name_human }}</td>
+                <td style="text-align: center">{{ tool.pub_date }}</td>
+                <td style="text-align: center">{{ tool.mod_date }}</td>
                 <td style="text-align: center">
                     {% if tool.edam_topic %} {%- for topic in tool.edam_topic %}
                     <span class="badge text-bg-light">
@@ -51,22 +49,10 @@
                     {%- endfor %} {%- endif %}
                 </td>
                 <td style="text-align: center">
-                    {% if tool.tags %} {%- for tag in tool.tags %}
-                    <span class="badge text-bg-light">
-                        {{tag}}
-                    </span>
-                    {%- endfor %} {%- endif %}
+                    {% if tool.slides = "true" %}<span class="badge text-bg-light">Slides</span>{%- endif %}
+                    {% if tool.video = "true" %}<span class="badge text-bg-light">Video</span>{%- endif %}
+                    {% if tool.hands_on = "true" %}<span class="badge text-bg-light">Hands-on</span>{%- endif %}
                 </td>
-                <td>
-                <div>
-                  {% if tool.doi != "null" %}
-                    <a href='{{ tool.doi }}'>DOI</a>
-                  {% else %}
-                    ""
-                  {% endif %}
-                </div>
-                </td>
-                <td style="text-align: center">{{ tool.source }}</td>
             </tr>
             {%- endfor %}
         </tbody>
