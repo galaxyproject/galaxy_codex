@@ -202,6 +202,27 @@ $ python sources/bin/create_interactive_table.py \
 
 ## Development
 
+### Contributing
+
+To contribute to the CoDex Source code:
+1. fork the repository,
+2. create a branch and add your changes
+3. make a pull request to the **dev branch** of the CoDex repository. 
+
+Upon review the maintainer will merge your pull request. 
+Automatic tests will run on the dev branch. 
+
+When the tests succeed a maintainer will merge the dev branch into main. Feel free to ping the maintainers to speed up the process.
+
+The reason we are not running the tests directly on the pull request branch is, that this does not allow to access the GitHub secrets, that are required to run the tests.
+
+# Run the unit tests locally
+
+```
+cd codex/sources
+PYTHONPATH=bin python -m unittest discover -s bin/tests
+```
+
 ### Tools
 
 To make a test run of the tool to check its functionalities follow [Usage](#Usage) to set-up the environnement and the API key, then run
@@ -245,13 +266,13 @@ To make a test run of the tool to check its functionalities follow [Usage](#Usag
 1. Workflow extraction
 
     ```bash
-    $ bash bin/extract_all_workflows.sh test 
+    $ bash sources/bin/extract_all_workflows.sh test 
     ```
 
 2. Workflow filtering
 
     ```bash
-    $ bash bin/get_community_workflowss.sh test
+    $ bash sources/bin/get_community_workflows.sh test
     ```
 
 # Galaxy Labs framework

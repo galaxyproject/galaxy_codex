@@ -14,15 +14,13 @@ then
                 --output "communities/microgalaxy/resources/workflows.html"
 
 else
-        for com_data_fp in data/communities/* ; do
+        for com_data_fp in communities/* ; do
                 if [[ -d "$com_data_fp" && ! -L "$com_data_fp" ]]; then
                         community=`basename "$com_data_fp"`
 
                         echo "$community";
 
-                        if [[ -f "data/communities/$community/workflow_tags" ]]; then
-                                mkdir -p "results/$community/"
-
+                        if [[ -f "communities/$community/metadata/workflow_tags" ]]; then
                                 python sources/bin/extract_galaxy_workflows.py \
                                         filter \
                                         --all "communities/all/resources/workflows.json" \
