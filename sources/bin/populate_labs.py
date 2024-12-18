@@ -139,7 +139,9 @@ def main() -> None:
                 tool_ids_list = tool_ids.split(",") if isinstance(tool_ids, str) else []
 
                 # Create the base URL template for each tool link
-                url_template = "/tool_runner?tool_id=toolshed.g2.bx.psu.edu%Frepos%{owner}%{wrapper_id}%{tool_id}"
+                url_template = (
+                    "/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2F{owner}%2F{wrapper_id}%2F{tool_id}"
+                )
 
                 # Build HTML list items with links
                 description += "\n<ul>\n"
