@@ -33,6 +33,7 @@ class Workflow:
         self.edam_topic: List[str] = []
         self.license = ""
         self.doi = ""
+        self.projects: List[str] = []
 
     def init_by_importing(self, wf: dict) -> None:
         self.source = wf["source"]
@@ -51,6 +52,7 @@ class Workflow:
         self.edam_topic = wf["edam_topic"]
         self.license = wf["license"]
         self.doi = wf["doi"]
+        self.projects = wf["projects"]
 
     def init_from_search(self, wf: dict, source: str, tools: dict) -> None:
         self.source = source
@@ -58,7 +60,7 @@ class Workflow:
             self.id = wf["data"]["id"]
             self.link = f"https://workflowhub.eu{ wf['data']['links']['self'] }"
             self.name = wf["data"]["attributes"]["title"]
-            self.tags = wf["data"]["attributes"]["tags"]
+            self.tags = [w.lower() for w in wf["data"]["attributes"]["tags"]]
             self.create_time = shared.format_date(wf["data"]["attributes"]["created_at"])
             self.update_time = shared.format_date(wf["data"]["attributes"]["updated_at"])
             self.latest_version = wf["data"]["attributes"]["latest_version"]
@@ -73,7 +75,7 @@ class Workflow:
             self.name = wf["name"]
             self.add_creators(wf)
             self.number_of_steps = wf["number_of_steps"] if "number_of_steps" in wf else len(wf["steps"].keys())
-            self.tags = wf["tags"]
+            self.tags = [w.lower() for w in wf["tags"]]
             self.create_time = shared.format_date(wf["create_time"])
             self.update_time = shared.format_date(wf["update_time"])
             self.latest_version = wf["version"]
@@ -83,6 +85,7 @@ class Workflow:
         self.add_creators(wf)
         self.add_tools(wf)
         self.edam_operation = shared.get_edam_operation_from_tools(self.tools, tools)
+        self.add_projects(wf)
 
     def add_creators(self, wf: dict) -> None:
         """
@@ -115,6 +118,29 @@ class Workflow:
                 if "tool_id" in step and step["tool_id"] is not None:
                     tools.add(shared.shorten_tool_id(step["tool_id"]))
         self.tools = list(tools)
+
+    def add_projects(self, wf: dict) -> None:
+        """
+        Extract projects associated to workflow on WorkflowHub
+        """
+        if self.source == "WorkflowHub":
+            for project in wf["data"]["relationships"]["projects"]["data"]:
+                wfhub_project = shared.get_request_json(
+                    f"https://workflowhub.eu/projects/{project['id']}",
+                    {"Accept": "application/json"},
+                )
+                self.projects.append(wfhub_project["data"]["attributes"]["title"])
+
+    def test_tags(self, tags: dict) -> bool:
+        """
+        Test if there are overlap between workflow tags and target tags
+        """
+        if self.source == "WorkflowHub":
+            source = "workflowhub"
+        else:
+            source = "public"
+        matches = set(self.tags) & set(tags[source])
+        return len(matches) != 0
 
 
 class Workflows:
@@ -213,15 +239,13 @@ class Workflows:
         """
         return [w.__dict__ for w in self.workflows]
 
-    def filter_workflows_by_tags(self, tags: list) -> None:
+    def filter_workflows_by_tags(self, tags: dict) -> None:
         """
         Filter workflows by tags
         """
         to_keep_wf = []
         for w in self.workflows:
-            wf_tags = [w.lower() for w in w.tags]
-            matches = set(wf_tags) & set(tags)
-            if len(matches) != 0:
+            if w.test_tags(tags):
                 to_keep_wf.append(w)
         self.workflows = to_keep_wf
 
@@ -246,11 +270,12 @@ class Workflows:
             "edam_topic": "EDAM topics",
             "license": "License",
             "doi": "DOI",
+            "projects": "Projects",
         }
 
         df = pd.DataFrame(self.export_workflows_to_dict())
 
-        for col in ["tools", "edam_operation", "edam_topic", "creators", "tags"]:
+        for col in ["tools", "edam_operation", "edam_topic", "creators", "tags", "projects"]:
             df[col] = shared.format_list_column(df[col])
 
         df = df.rename(columns=renaming).fillna("").reindex(columns=list(renaming.values()))
@@ -295,7 +320,7 @@ if __name__ == "__main__":
     filterwf.add_argument(
         "--tags",
         "-c",
-        help="Path to a file with tags to keep in the extraction (one per line)",
+        help="Path to a YAML file with tags (different for public or WorkflowHub wfs) to keep in the extraction",
     )
 
     args = parser.parse_args()
@@ -308,6 +333,6 @@ if __name__ == "__main__":
     elif args.command == "filter":
         wfs = Workflows()
         wfs.init_by_importing(wfs=shared.load_json(args.all))
-        tags = shared.read_file(args.tags)
+        tags = shared.load_yaml(args.tags)
         wfs.filter_workflows_by_tags(tags)
         wfs.export_workflows_to_tsv(args.filtered)
