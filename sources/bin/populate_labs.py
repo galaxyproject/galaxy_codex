@@ -130,9 +130,7 @@ def main() -> None:
             for index, row in group.iterrows():
 
                 # Prepare the description with an HTML unordered list and links for each Galaxy tool ID
-                description = (
-                    f"{row['Description']}\nThis tool has been used {row[count_column]} times by the community."
-                )
+                description = f"{row['Description']}\n (Tool usage: {row[count_column]})"
                 tool_ids = row["Tool IDs"]
                 owner = row["Suite owner"]
                 wrapper_id = row["Suite ID"]
