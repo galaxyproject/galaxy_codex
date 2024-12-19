@@ -1,15 +1,34 @@
 id: data
-title: Data import and preparation
+title: Getting started
 tabs:
-  - id: tools
-    title: Tools
+  - id: data-import
+    title: Data import
     heading_md: >
-      Common tools are listed here, or search for more in the full tool panel to the left.
+      Common tools that allow for data import. 
     content:
       - title_md: Import data to Galaxy
         description_md: >
           Standard upload of data to Galaxy, from your computer or from the web.
         button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=upload1"
+      - title_md: Download data from NCBI GenBank/RefSeq
+        description_md: >
+          Download sequences from GenBank/RefSeq by accession through the NCBI ENTREZ API
+        button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fncbi_acc_download%2Fncbi_acc_download"
+      - title_md: Download raw reads from NCBI SRA
+        description_md: >
+          Faster Download and Extract Reads in FASTQ format from NCBI SRA
+        button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fsra_tools%2Ffasterq_dump"
+      - title_md: Download run data from EBI Metagenomics (MGnify)
+        description_md: >
+          This tool downloads data related to a run in EBI Metagenomics database
+        button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Febi_metagenomics_run_downloader%2Febi_metagenomics_run_downloader"
+
+
+  - id: highlight-tools
+    title: Highlight tools
+    heading_md: >
+      Flagship tools for microbial research 
+    content:
       - title_md: <code>FastQC</code> - sequence quality reports
         description_md: >
           <p>
@@ -25,86 +44,48 @@ tabs:
       - title_md: <code>FastP</code> - sequence quality reports, trimming & filtering
         description_md: >
           <p>
-            Faster run than FastQC, this tool can also trim reads and filter by quality.
+            Commonly used tool for trimming and quality filter. Also provides quality metrics.
           </p>
         inputs:
           - datatypes:
               - fastq
         button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Ffastp%2Ffastp"
-      - title_md: <code>NanoPlot</code> - visualize Oxford Nanopore data
+      - title_md: <code>Kraken2</code> - Kraken2 assign taxonomic labels to sequencing reads
         description_md: >
           <p>
-            A plotting suite for Oxford Nanopore sequencing data and alignments.
+            Kraken2 assign taxonomic labels to sequencing reads. 
           </p>
         inputs:
           - datatypes:
               - fastq
               - fasta
-              - vcf_bgzip
-        button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fnanoplot%2Fnanoplot"
-      - title_md: <code>GenomeScope</code> - estimate genome size
-        description_md: >
-          <p>
-            A set of metrics and graphs to visualize genome size and complexity prior to assembly.
-          </p>
-        inputs:
-          - datatypes:
-              - tabular
-            label: Output from <code>Meryl</code> or <code>Jellyfish histo</code>
-        button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fgenomescope%2Fgenomescope"
-      - title_md: <code>Meryl</code> - count kmers
-        description_md: >
-          <p>
-            Prepare kmer count histogram for input to GenomeScope.
-          </p>
-        inputs:
-          - datatypes:
-              - fastq
-              - fasta
-        button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fmeryl%2Fmeryl"
-  
-  - id: workflows
-    title: Workflows
+        button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fkraken2%2Fkraken2"
+      
+  - id: learning-pathways
+    title: Learning pathways
     heading_md: >
-      A workflow is a series of Galaxy tools that have been linked together to perform a specific analysis. You can use and customize the example workflows below.
-      <a href="https://galaxyproject.org/learn/advanced-workflow/" target="_blank">Learn more.</a>
+       Connected tutorials to train you to perform microbial data analysis.
     content:
-      - title_md: Data QC
+      - title_md: Introduction to Galaxy and Sequence analysis
         description_md: >
-          <p>
-            Report statistics from sequencing reads. <br> <br> Tools: <code>nanoplot</code> <code>fastqc</code> <code>multiqc</code>
-          </p>
-        button_link: "{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=222"
-        view_link: https://workflowhub.eu/workflows/222
-        view_tip: View in WorkflowHub
-        button_tip: Import to Galaxy AU
-      - title_md: Kmer counting to estimate genome size
+          New to Galaxy and/or the field of genomics? In this learning pathway, you will learn how to use Galaxy for analysis, and will be guided through the most common first steps of any genome analysis; quality control and a mapping or assembly of your genomic sequences.
+        button_link: https://training.galaxyproject.org/training-material/learning-pathways/intro-to-galaxy-and-genomics.html
+        heading_md: >
+          Connected tutorials to train you to perform microbial data analysis.
+      - title_md: Detection of AMR genes in bacterial genomes
         description_md: >
-          <p>
-            Estimates genome size and heterozygosity based on counts of kmers. <br> <br> Tools: <code>meryl</code> <code>genomescope</code>
-          </p>
-        button_link: "{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=223"
-        view_link: https://workflowhub.eu/workflows/223
-        view_tip: View in WorkflowHub
-        button_tip: Import to Galaxy AU
-      - title_md: Trim and filter reads
+          This learning path aims to teach you the basic steps to detect and check Antimicrobial resistance (AMR) genes in bacterial genomes using Galaxy.
+        button_link: https://training.galaxyproject.org/training-material/learning-pathways/amr-gene-detection.html
+      - title_md: Clinical metaproteomics workflows within Galaxy
         description_md: >
-          <p>
-            Trims and filters raw sequence reads according to specified settings. <br> <br> Tools: <code>fastp</code>
-          </p>
-        button_link: "{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=224"
-        view_link: https://workflowhub.eu/workflows/224
-        view_tip: View in WorkflowHub
-        button_tip: Import to Galaxy AU
-
-  - id: tutorials
-    title: Tutorials
-    heading_md: >
-       
-    content: []
-
-  - id: faq
-    title: FAQ
-    heading_md: >
-       
-    content: []
+          This learning path aims to teach you the basics of how to perform metaproteomics analysis of the clinical data within the Galaxy platform. You will learn how to use Galaxy for analysis and will be guided through the most common first steps of any metaproteomics database generation to searching the database, verifying the proteins/peptides, and data analysis.
+        button_link: https://training.galaxyproject.org/training-material/learning-pathways/clinical-metaproteomics.html
+      - title_md: Genome annotation for prokaryotes
+        description_md: >
+          Learn how to annotate a prokaryotic genome sequence: find the position and function of genes, and even set up a manual curation environment with Apollo.
+        button_link: https://training.galaxyproject.org/training-material/learning-pathways/genome-annotation-prokaryote.html
+      - title_md: Metagenomics data processing and analysis for microbiome
+        description_md: >
+          This learning path aims to teach you the basics of Galaxy and analysis of metagenomics data. You will learn how to use Galaxy for analysis, and will be guided through the common steps of microbiome data analysis: quality control, taxonomic profiling, taxonomic binning, assembly, functional profiling, and also some applications
+        button_link: https://training.galaxyproject.org/training-material/learning-pathways/metagenomics.html
+      
