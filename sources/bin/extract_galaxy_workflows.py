@@ -56,9 +56,9 @@ class Workflow:
 
     def init_from_search(self, wf: dict, source: str, tools: dict) -> None:
         self.source = source
-        if self.source == "WorkflowHub":
+        if "WorkflowHub" in self.source:
             self.id = wf["data"]["id"]
-            self.link = f"https://workflowhub.eu{ wf['data']['links']['self'] }"
+            self.link = f"https://{ source.lower() }.eu{ wf['data']['links']['self'] }"
             self.name = wf["data"]["attributes"]["title"]
             self.tags = [w.lower() for w in wf["data"]["attributes"]["tags"]]
             self.create_time = shared.format_date(wf["data"]["attributes"]["created_at"])
@@ -92,7 +92,7 @@ class Workflow:
         Get workflow creators
         """
         self.creators = []
-        if self.source == "WorkflowHub":
+        if "WorkflowHub" in self.source:
             creators = wf["data"]["attributes"]["creators"]
             if len(creators) == 0:
                 other = wf["data"]["attributes"]["other_creators"]
@@ -109,7 +109,7 @@ class Workflow:
         Extract list of tool ids from workflow
         """
         tools = set()
-        if self.source == "WorkflowHub":
+        if "WorkflowHub" in self.source:
             for tool in wf["data"]["attributes"]["internals"]["steps"]:
                 if tool["description"] is not None:
                     tools.add(shared.shorten_tool_id(tool["description"]))
@@ -123,10 +123,10 @@ class Workflow:
         """
         Extract projects associated to workflow on WorkflowHub
         """
-        if self.source == "WorkflowHub":
+        if "WorkflowHub" in self.source:
             for project in wf["data"]["relationships"]["projects"]["data"]:
                 wfhub_project = shared.get_request_json(
-                    f"https://workflowhub.eu/projects/{project['id']}",
+                    f"https://{ self.source.lower() }.eu/projects/{project['id']}",
                     {"Accept": "application/json"},
                 )
                 self.projects.append(wfhub_project["data"]["attributes"]["title"])
@@ -135,7 +135,7 @@ class Workflow:
         """
         Test if there are overlap between workflow tags and target tags
         """
-        if self.source == "WorkflowHub":
+        if "WorkflowHub" in self.source:
             source = "workflowhub"
         else:
             source = "public"
@@ -156,6 +156,7 @@ class Workflows:
     def init_by_searching(self, tool_fp: str) -> None:
         self.tools = shared.read_suite_per_tool_id(tool_fp)
         self.add_workflows_from_workflowhub()
+        self.add_workflows_from_workflowhub("dev.")
         self.add_workflows_from_public_servers()
 
     def init_by_importing(self, wfs: dict) -> None:
@@ -164,13 +165,13 @@ class Workflows:
             wf.init_by_importing(iwf)
             self.workflows.append(wf)
 
-    def add_workflows_from_workflowhub(self) -> None:
+    def add_workflows_from_workflowhub(self, prefix:str = "") -> None:
         """
         Add workflows from WorkflowHub
         """
         header = {"Accept": "application/json"}
         wfhub_wfs = shared.get_request_json(
-            "https://workflowhub.eu/workflows?filter[workflow_type]=galaxy",
+            f"https://{ prefix }workflowhub.eu/workflows?filter[workflow_type]=galaxy",
             header,
         )
         print(f"Workflows from WorkflowHub: {len(wfhub_wfs['data'])}")
@@ -179,12 +180,12 @@ class Workflows:
             data = data[:10]
         for wf in data:
             wfhub_wf = shared.get_request_json(
-                f"https://workflowhub.eu{wf['links']['self']}",
+                f"https://{ prefix }workflowhub.eu{wf['links']['self']}",
                 header,
             )
             if wfhub_wf:
                 wf = Workflow()
-                wf.init_from_search(wf=wfhub_wf, source="WorkflowHub", tools=self.tools)
+                wf.init_from_search(wf=wfhub_wf, source=f"{ prefix }WorkflowHub", tools=self.tools)
                 self.workflows.append(wf)
         print(len(self.workflows))
 
