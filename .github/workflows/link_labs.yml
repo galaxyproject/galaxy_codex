@@ -42,6 +42,11 @@ jobs:
       - name: Install pygithub
         run: pip install pygithub
 
+      - name: Debug GITHUB_TOKEN Permissions
+        run: |
+          curl -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            https://api.github.com/repos/${{ github.repository }}/actions/permissions
+
       - name: Get list of changed files
         id: changed-files
         run: |
