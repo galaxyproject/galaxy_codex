@@ -5,6 +5,7 @@ from typing import (
     Any,
     Dict,
     List,
+    Optional,
 )
 
 import pandas as pd
@@ -34,6 +35,8 @@ class Workflow:
         self.license = ""
         self.doi = ""
         self.projects: List[str] = []
+        self.keep = True
+        self.deprecated = False
 
     def init_by_importing(self, wf: dict) -> None:
         self.source = wf["source"]
@@ -53,6 +56,8 @@ class Workflow:
         self.license = wf["license"]
         self.doi = wf["doi"]
         self.projects = wf["projects"]
+        self.keep = wf["keep"]
+        self.deprecated = wf["deprecated"]
 
     def init_from_search(self, wf: dict, source: str, tools: dict) -> None:
         self.source = source
@@ -250,7 +255,17 @@ class Workflows:
                 to_keep_wf.append(w)
         self.workflows = to_keep_wf
 
-    def export_workflows_to_tsv(self, output_fp: str) -> None:
+    def curate_workflows(self, wf_status: Dict) -> None:
+        """
+        Curate workflows based on community feedback
+        """
+        curated_wfs = []
+        for wf in self.workflows:
+            print(wf)
+        print(wf_status)
+
+
+    def export_workflows_to_tsv(self, output_fp: str, to_keep_columns: Optional[List[str]] = None) -> None:
         """
         Export workflows to a TSV file
         """
@@ -272,6 +287,8 @@ class Workflows:
             "license": "License",
             "doi": "DOI",
             "projects": "Projects",
+            "keep": "To keep",
+            "deprecated": "Deprecated"
         }
 
         df = pd.DataFrame(self.export_workflows_to_dict())
@@ -280,6 +297,10 @@ class Workflows:
             df[col] = shared.format_list_column(df[col])
 
         df = df.rename(columns=renaming).fillna("").reindex(columns=list(renaming.values()))
+
+        if to_keep_columns is not None:
+            df = df[to_keep_columns]
+
         df.to_csv(output_fp, sep="\t", index=False)
 
 
@@ -316,12 +337,43 @@ if __name__ == "__main__":
         "--filtered",
         "-f",
         required=True,
-        help="Filepath to TSV with filtered tutorials",
+        help="Filepath to JSON with filtered workflows",
+    )
+    filterwf.add_argument(
+        "--tsv-filtered",
+        "-f",
+        required=True,
+        help="Filepath to TSV with filtered workflows",
     )
     filterwf.add_argument(
         "--tags",
         "-c",
         help="Path to a YAML file with tags (different for public or WorkflowHub wfs) to keep in the extraction",
+    )
+    filterwf.add_argument(
+        "--status",
+        "-s",
+        help="Path to a TSV file with workflow status",
+    )
+
+    # Curate workflow
+    curatewf = subparser.add_parser("curate", help="Curate workflows based on community review")
+    curatewf.add_argument(
+        "--filtered",
+        "-f",
+        required=True,
+        help="Filepath to JSON with workflows filtered based on tags",
+    )
+    curatewf.add_argument(
+        "--curated",
+        "-c",
+        required=True,
+        help="Filepath to TSV with curated workflows",
+    )
+    curatewf.add_argument(
+        "--status",
+        "-s",
+        help="Path to a TSV file with workflow status",
     )
 
     args = parser.parse_args()
@@ -336,4 +388,18 @@ if __name__ == "__main__":
         wfs.init_by_importing(wfs=shared.load_json(args.all))
         tags = shared.load_yaml(args.tags)
         wfs.filter_workflows_by_tags(tags)
-        wfs.export_workflows_to_tsv(args.filtered)
+        shared.export_to_json(wfs.export_workflows_to_dict(), args.filtered)
+        wfs.export_workflows_to_tsv(args.tsv_filtered)
+        wfs.export_workflows_to_tsv(args.status, to_keep_columns=["Name", "Link", "Source", "Projects", "To keep", "Deprecated"])
+
+    elif args.command == "curate":
+        wfs = Workflows()
+        wfs.init_by_importing(wfs=shared.load_json(args.filtered))
+        try:
+            status = pd.read_csv(args.status, sep="\t", index_col=0).to_dict("index")
+        except Exception as ex:
+            print(f"Failed to load {args.status} file with:\n{ex}")
+            print("Not assigning tool status for this community !")
+            status = {}
+        wfs.curate_workflows(status)
+        wfs.export_workflows_to_tsv(args.curated)

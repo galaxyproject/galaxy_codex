@@ -24,13 +24,18 @@ else
                                 python sources/bin/extract_galaxy_workflows.py \
                                         filter \
                                         --all "communities/all/resources/workflows.json" \
-                                        --filtered "communities/$community/resources/workflows.tsv" \
-                                        --tags "communities/$community/metadata/workflow_tags"
+                                        --filtered "communities/$community/resources/tag_filtered_workflows.json" \
+                                        --tsv-filtered "communities/$community/resources/tag_filtered_workflows.tsv" \
+                                        --tags "communities/$community/metadata/workflow_tags" \
+                                        --status "communities/$community/metadata/workflow_status.tsv"
 
-                                python sources/bin/create_interactive_table.py \
-                                        --input "communities/$community/resources/workflows.tsv" \
-                                        --template "sources/data/interactive_table_template.html" \
-                                        --output "communities/$community/resources/workflows.html"
+                                if [[ -f "communities/$community/metadata/workflow_status.tsv" ]]; then
+                                        python sources/bin/extract_galaxy_workflows.py \
+                                                curate \
+                                                --filtered "communities/$community/resources/tag_filtered_workflows.json" \
+                                                --status "communities/$community/metadata/workflow_status.tsv" \
+                                                --curated "communities/$community/resources/curated_workflows.tsv"
+                                fi;
                         fi;
                 fi;
         done
