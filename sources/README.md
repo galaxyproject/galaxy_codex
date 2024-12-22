@@ -235,7 +235,7 @@ To make a test run of the tool to check its functionalities follow [Usage](#Usag
 
     This runs the tool, but only parses the test repository [Galaxy-Tool-Metadata-Extractor-Test-Wrapper](https://github.com/paulzierep/Galaxy-Tool-Metadata-Extractor-Test-Wrapper)
 
-2. Tool filter
+2. Tool filter and curation
 
     ```bash
     $ bash sources/bin/get_community_tools.sh test
@@ -269,7 +269,7 @@ To make a test run of the tool to check its functionalities follow [Usage](#Usag
     $ bash sources/bin/extract_all_workflows.sh test 
     ```
 
-2. Workflow filtering
+2. Workflow filtering and curation
 
     ```bash
     $ bash sources/bin/get_community_workflows.sh test

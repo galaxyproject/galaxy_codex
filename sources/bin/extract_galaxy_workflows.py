@@ -56,8 +56,10 @@ class Workflow:
         self.license = wf["license"]
         self.doi = wf["doi"]
         self.projects = wf["projects"]
-        self.keep = wf["keep"]
-        self.deprecated = wf["deprecated"]
+        if "keep" in wf:
+            self.keep = wf["keep"]
+        if "deprecated" in wf:
+            self.deprecated = wf["deprecated"]
 
     def init_from_search(self, wf: dict, source: str, tools: dict) -> None:
         self.source = source
@@ -147,6 +149,13 @@ class Workflow:
         matches = set(self.tags) & set(tags[source])
         return len(matches) != 0
 
+    def update_status(self, wf: dict) -> None:
+        """
+        Update status from status table
+        """
+        self.keep = wf["To keep"]
+        self.deprecated = wf["Deprecated"]
+
 
 class Workflows:
     """
@@ -170,7 +179,7 @@ class Workflows:
             wf.init_by_importing(iwf)
             self.workflows.append(wf)
 
-    def add_workflows_from_workflowhub(self, prefix:str = "") -> None:
+    def add_workflows_from_workflowhub(self, prefix: str = "") -> None:
         """
         Add workflows from WorkflowHub
         """
@@ -245,25 +254,28 @@ class Workflows:
         """
         return [w.__dict__ for w in self.workflows]
 
-    def filter_workflows_by_tags(self, tags: dict) -> None:
+    def filter_workflows_by_tags(self, tags: dict, status: Dict) -> None:
         """
         Filter workflows by tags
         """
         to_keep_wf = []
         for w in self.workflows:
+            if w.link in status:
+                w.update_status(status[w.link])
             if w.test_tags(tags):
                 to_keep_wf.append(w)
         self.workflows = to_keep_wf
 
-    def curate_workflows(self, wf_status: Dict) -> None:
+    def curate_workflows(self, status: Dict) -> None:
         """
         Curate workflows based on community feedback
         """
         curated_wfs = []
-        for wf in self.workflows:
-            print(wf)
-        print(wf_status)
-
+        for w in self.workflows:
+            if w.link in status and status[w.link]["To keep"]:
+                w.update_status(status[w.link])
+                curated_wfs.append(w)
+        self.workflows = curated_wfs
 
     def export_workflows_to_tsv(self, output_fp: str, to_keep_columns: Optional[List[str]] = None) -> None:
         """
@@ -288,7 +300,7 @@ class Workflows:
             "doi": "DOI",
             "projects": "Projects",
             "keep": "To keep",
-            "deprecated": "Deprecated"
+            "deprecated": "Deprecated",
         }
 
         df = pd.DataFrame(self.export_workflows_to_dict())
@@ -296,12 +308,19 @@ class Workflows:
         for col in ["tools", "edam_operation", "edam_topic", "creators", "tags", "projects"]:
             df[col] = shared.format_list_column(df[col])
 
-        df = df.rename(columns=renaming).fillna("").reindex(columns=list(renaming.values()))
+        df = (
+            df.sort_values(by=["source", "projects"])
+            .rename(columns=renaming)
+            .fillna("")
+            .reindex(columns=list(renaming.values()))
+        )
 
         if to_keep_columns is not None:
             df = df[to_keep_columns]
 
-        df.to_csv(output_fp, sep="\t", index=False)
+        df_iwc = df.query("Projects == 'Intergalactic Workflow Commission (IWC)'")
+        df_no_iwc = df.query("Projects != 'Intergalactic Workflow Commission (IWC)'")
+        pd.concat([df_iwc, df_no_iwc]).to_csv(output_fp, sep="\t", index=False)
 
 
 if __name__ == "__main__":
@@ -341,7 +360,7 @@ if __name__ == "__main__":
     )
     filterwf.add_argument(
         "--tsv-filtered",
-        "-f",
+        "-t",
         required=True,
         help="Filepath to TSV with filtered workflows",
     )
@@ -387,10 +406,28 @@ if __name__ == "__main__":
         wfs = Workflows()
         wfs.init_by_importing(wfs=shared.load_json(args.all))
         tags = shared.load_yaml(args.tags)
-        wfs.filter_workflows_by_tags(tags)
+        # get status if file provided
+        if args.status:
+            status = pd.read_csv(args.status, sep="\t", index_col=0).to_dict("index")
+        else:
+            status = {}
+        wfs.filter_workflows_by_tags(tags, status)
         shared.export_to_json(wfs.export_workflows_to_dict(), args.filtered)
         wfs.export_workflows_to_tsv(args.tsv_filtered)
-        wfs.export_workflows_to_tsv(args.status, to_keep_columns=["Name", "Link", "Source", "Projects", "To keep", "Deprecated"])
+        wfs.export_workflows_to_tsv(
+            args.status,
+            to_keep_columns=[
+                "Link",
+                "Name",
+                "Source",
+                "Projects",
+                "Creators",
+                "Creation time",
+                "Update time",
+                "To keep",
+                "Deprecated",
+            ],
+        )
 
     elif args.command == "curate":
         wfs = Workflows()
