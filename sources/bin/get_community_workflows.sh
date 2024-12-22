@@ -5,14 +5,16 @@ then
         python sources/bin/extract_galaxy_workflows.py \
                 filter \
                 --all "communities/all/resources/test_workflows.json" \
-                --filtered "communities/microgalaxy/resources/test_workflows.tsv" \
-                --tags "communities/microgalaxy/metadata/workflow_tags"
+                --filtered "communities/microgalaxy/resources/test_workflows.json" \
+                --tsv-filtered "communities/microgalaxy/resources/test_workflows.tsv" \
+                --tags "communities/microgalaxy/metadata/workflow_tags" \
+                --status "communities/microgalaxy/metadata/test_workflow_status.tsv"
 
-        python sources/bin/create_interactive_table.py \
-                --input "communities/microgalaxy/resources/test_workflows.tsv" \
-                --template "sources/data/interactive_table_template.html" \
-                --output "communities/microgalaxy/resources/workflows.html"
-
+        python sources/bin/extract_galaxy_workflows.py \
+                curate \
+                --filtered "communities/microgalaxy/resources/test_workflows.json" \
+                --status "communities/microgalaxy/metadata/test_workflow_status.tsv" \
+                --curated "communities/microgalaxy/resources/test_curated_workflows.tsv"
 else
         for com_data_fp in communities/* ; do
                 if [[ -d "$com_data_fp" && ! -L "$com_data_fp" ]]; then

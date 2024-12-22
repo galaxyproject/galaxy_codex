@@ -408,7 +408,10 @@ if __name__ == "__main__":
         tags = shared.load_yaml(args.tags)
         # get status if file provided
         if args.status:
-            status = pd.read_csv(args.status, sep="\t", index_col=0).to_dict("index")
+            try:
+                status = pd.read_csv(args.status, sep="\t", index_col=0).to_dict("index")
+            except Exception as ex:
+                status = {}
         else:
             status = {}
         wfs.filter_workflows_by_tags(tags, status)
