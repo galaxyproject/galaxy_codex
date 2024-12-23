@@ -15,6 +15,18 @@ jobs:
           ref: main
           path: base
 
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Checkout base branch
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ github.event.pull_request.base.repo.full_name }}
+          ref: ${{ github.event.pull_request.base.ref }}
+          path: base
+
       - name: Checkout head branch
         uses: actions/checkout@v3
         with:
@@ -33,23 +45,33 @@ jobs:
           echo ""
           echo "Changed files:"
           cat paths.txt
-          mkdir diff
-          mv paths.txt diff/
+          mkdir output
+          mv paths.txt output/
 
-      - name: Write pull-request variables to .env
+      - name: Test changed Lab pages
+        env:
+          BRANCH_NAME: ${{ github.event.pull_request.head.ref }}
+          HEAD_REPO: ${{ github.event.pull_request.head.repo.full_name }}
+        run: |
+          if [ -s output/paths.txt ]; then
+            echo "Changed files found"
+            python3 ./.github/scripts/test_labs.py labs_diff/paths.txt
+          else
+            echo "No changed files found"
+          fi
+
+      - name: Write pull request variables to env.sh
         env:
           PR_NUMBER: ${{ github.event.number }}
           BRANCH_NAME: ${{ github.event.pull_request.head.ref }}
           HEAD_REPO: ${{ github.event.pull_request.head.repo.full_name }}
           BASE_REPO: ${{ github.repository }}
         run: |
-          echo "export PR_NUMBER=${PR_NUMBER}" >> diff/pr_env.sh
-          echo "export BRANCH_NAME=${BRANCH_NAME}" >> diff/pr_env.sh
-          echo "export HEAD_REPO=${HEAD_REPO}" >> diff/pr_env.sh
-          echo "export BASE_REPO=${BASE_REPO}" >> diff/pr_env.sh
+          echo "export PR_NUMBER=${PR_NUMBER}" >> output/env.sh
+          echo "export BASE_REPO=${BASE_REPO}" >> output/env.sh
 
       - name: Upload changed files artifact
         uses: actions/upload-artifact@v4
         with:
-          name: labs_diff
-          path: diff
+          name: labs_test_comments
+          path: output
