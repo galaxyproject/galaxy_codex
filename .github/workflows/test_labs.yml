@@ -43,8 +43,8 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh repo set-default galaxyproject/galaxy_codex
-          # gh repo set-default neoformit/galaxy_codex
+          # gh repo set-default galaxyproject/galaxy_codex
+          gh repo set-default neoformit/galaxy_codex
           RUN_ID=$(gh run list --workflow "Labs diff" --limit 1 | tail -n 1 | grep -oE '\b[0-9]{11}\b')
           echo "RUN_ID: $RUN_ID"
           gh run view $RUN_ID --log
