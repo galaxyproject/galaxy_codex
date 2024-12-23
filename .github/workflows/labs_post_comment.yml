@@ -1,8 +1,9 @@
 name: Galaxy Labs PR - post comment(s)
+run-name: ${{ github.event.pull_request.title }}
 
 on:
   workflow_run:
-    workflows: ["Labs diff"]
+    workflows: ["Test changed Lab pages"]
     types:
       - completed
 
