@@ -117,7 +117,7 @@ def build_url(content_path):
 
 
 def main():
-    with open("changed_files.txt") as f:
+    with open("paths.txt") as f:
         files = f.read().splitlines()
 
     success = True

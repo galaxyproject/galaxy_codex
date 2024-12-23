@@ -42,29 +42,15 @@ jobs:
       - name: Install pygithub
         run: pip install pygithub
 
-      - name: 'Download artifact'
-        uses: actions/github-script@v5
-        with:
-          script: |
-            let allArtifacts = await github.rest.actions.listWorkflowRunArtifacts({
-               owner: context.repo.owner,
-               repo: context.repo.repo,
-               run_id: context.payload.workflow_run.id,
-            });
-            let matchArtifact = allArtifacts.data.artifacts.filter((artifact) => {
-              return artifact.name == "labs_diff"
-            })[0];
-            let download = await github.rest.actions.downloadArtifact({
-               owner: context.repo.owner,
-               repo: context.repo.repo,
-               artifact_id: matchArtifact.id,
-               archive_format: 'zip',
-            });
-            let fs = require('fs');
-            fs.writeFileSync(`${process.env.GITHUB_WORKSPACE}/labs_diff.zip`, Buffer.from(download.data));
+      - name: Install GitHub CLI
+        run: sudo apt-get install gh
 
-      - name: 'Unzip artifact'
-        run: unzip labs_diff.zip
+      - name: Download "Labs diff" artifact
+        run: |
+          gh auth login --with-token <<< "${{ secrets.GITHUB_TOKEN }}"
+          RUN_ID=$(gh run list --workflow "Labs diff" --limit 1)
+          gh run view $RUN_ID --log
+          gh run download $RUN_ID --name labs_diff --dir ./labs_diff
 
       - name: Post comment if matching changes found
         env:
@@ -74,9 +60,9 @@ jobs:
           HEAD_REPO: ${{ github.event.pull_request.head.repo.full_name }}
           BASE_REPO: ${{ github.repository }}
         run: |
-          if [ -s diff/paths.txt ]; then
+          if [ -s labs_diff/paths.txt ]; then
             echo "Changed files found"
-            cd diff
+            cd labs_diff
             python3 base/.github/scripts/post_lab_links.py
           else
             echo "No changed files found"
