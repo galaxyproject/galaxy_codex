@@ -43,8 +43,8 @@ def test_lab(lab_name):
     ]
 
     for path in test_paths:
-        if not os.path.exists(path):
-            print(f"Skipping {path}: file not found in repository")
+        if not os.path.exists('head/' + path):
+            print(f"Skipping {path}: file not found in head repo")
             continue
         url = build_url(path)
         try:

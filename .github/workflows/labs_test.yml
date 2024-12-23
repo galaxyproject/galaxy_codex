@@ -55,17 +55,10 @@ jobs:
         run: |
           if [ -s output/paths.txt ]; then
             echo "Changed files found"
-            cd head
-            python3 ../base/.github/scripts/labs_test.py ../output/paths.txt
-            if [ $? -ne 0 ]; then
-              echo "failed" > ../result
-              echo "Test failed - result 'failed' written"
-            else
-              echo "success" > ../result
-              echo "Test failed - result 'success' written"
-            fi
+            python3 .github/scripts/labs_test.py output/paths.txt
+            echo $? > exit_code
           else
-            echo "success" > result
+            echo "0" > exit_code
             echo "No changes to Galaxy Labs found"
           fi
         continue-on-error: true
@@ -80,7 +73,7 @@ jobs:
           echo "export PR_NUMBER=${PR_NUMBER}" >> output/env.sh
           echo "export BASE_REPO=${BASE_REPO}" >> output/env.sh
 
-      - name: Upload changed files artifact
+      - name: Upload test result comments artifact
         uses: actions/upload-artifact@v4
         with:
           name: labs_test_comments
@@ -88,9 +81,9 @@ jobs:
 
       - name: Report test outcome
         run: |
-          if grep -q "failed" result; then
+          if grep -q "0" exit_code; then
+            echo "Test successful"
+          else
             echo "Test failed"
             exit 1
-          else
-            echo "Test successful"
           fi
