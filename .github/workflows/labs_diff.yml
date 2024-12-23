@@ -36,6 +36,18 @@ jobs:
           mkdir diff
           mv paths.txt diff/
 
+      - name: Write pull-request variables to .env
+        env:
+          PR_NUMBER: ${{ github.event.number }}
+          BRANCH_NAME: ${{ github.event.pull_request.head.ref }}
+          HEAD_REPO: ${{ github.event.pull_request.head.repo.full_name }}
+          BASE_REPO: ${{ github.repository }}
+        run: |
+          echo "PR_NUMBER=${PR_NUMBER}" >> diff/.env
+          echo "BRANCH_NAME=${BRANCH_NAME}" >> diff/.env
+          echo "HEAD_REPO=${HEAD_REPO}" >> diff/.env
+          echo "BASE_REPO=${BASE_REPO}" >> diff/.env
+
       - name: Upload changed files artifact
         uses: actions/upload-artifact@v4
         with:
