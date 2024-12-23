@@ -1,4 +1,4 @@
-name: Labs diff
+name: Test changed Lab pages
 
 on:
   pull_request:
@@ -55,7 +55,7 @@ jobs:
         run: |
           if [ -s output/paths.txt ]; then
             echo "Changed files found"
-            python3 base/.github/scripts/labs_test.py labs_diff/paths.txt
+            python3 base/.github/scripts/labs_test.py output/paths.txt
           else
             echo "No changes to Galaxy Labs found"
           fi
