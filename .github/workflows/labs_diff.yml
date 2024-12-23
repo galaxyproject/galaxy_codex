@@ -29,6 +29,7 @@ jobs:
           git remote add upstream https://github.com/${{ github.repository }}
           git fetch upstream main
           git diff --name-only upstream/main..HEAD | grep '/lab/' > paths.txt
+          cd ..
           echo ""
           echo "Changed files:"
           cat paths.txt
