@@ -1,0 +1,42 @@
+name: Labs diff
+
+on:
+  pull_request_target:
+    types: [opened, reopened, synchronize]
+
+jobs:
+  create-diff:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout base branch
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ github.repository }}
+          ref: main
+          path: base
+
+      - name: Checkout head branch
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.ref }}
+          path: head
+
+      - name: Get list of changed files
+        id: changed-files
+        run: |
+          cd head
+          git remote add upstream https://github.com/${{ github.repository }}
+          git fetch upstream main
+          git diff --name-only upstream/main..HEAD | grep '/lab/' > paths.txt
+          echo ""
+          echo "Changed files:"
+          cat paths.txt
+          mkdir diff
+          mv paths.txt diff/
+
+      - name: Upload changed files artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: labs_diff
+          path: diff

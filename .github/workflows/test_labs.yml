@@ -1,0 +1,83 @@
+name: Check Lab HTTP status
+
+on:
+  workflow_run:
+    workflows: ["Diff Base Head"]
+    types:
+      - completed
+
+jobs:
+  test-labs:
+    runs-on: ubuntu-latest
+    # permissions:
+    #   contents: read       # Minimal permissions to access repository contents
+    #   issues: write        # Required to create or edit comments on pull requests
+    steps:
+      - name: Debug variables
+        run: |
+          echo "Base repo: ${{ github.repository }}"
+          echo "Head repo: ${{ github.event.pull_request.head.repo.full_name }}"
+          echo "Head ref: ${{ github.event.pull_request.head.ref }}"
+          echo "GITHUB_REPOSITORY: ${{ github.event.pull_request.head.repo.full_name }}"
+          echo "BRANCH_NAME: ${{ github.event.pull_request.head.ref }}"
+          echo "PR_NUMBER: ${{ github.event.number }}"
+
+      - name: Debug GITHUB_TOKEN Permissions
+        run: |
+          curl -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            https://api.github.com/repos/${{ github.repository }}/actions/permissions
+
+      - name: Checkout base branch
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ github.repository }}
+          ref: main
+          path: base
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install pygithub
+        run: pip install pygithub
+
+      - name: 'Download artifact'
+        uses: actions/github-script@v5
+        with:
+          script: |
+            let allArtifacts = await github.rest.actions.listWorkflowRunArtifacts({
+               owner: context.repo.owner,
+               repo: context.repo.repo,
+               run_id: context.payload.workflow_run.id,
+            });
+            let matchArtifact = allArtifacts.data.artifacts.filter((artifact) => {
+              return artifact.name == "labs_diff"
+            })[0];
+            let download = await github.rest.actions.downloadArtifact({
+               owner: context.repo.owner,
+               repo: context.repo.repo,
+               artifact_id: matchArtifact.id,
+               archive_format: 'zip',
+            });
+            let fs = require('fs');
+            fs.writeFileSync(`${process.env.GITHUB_WORKSPACE}/labs_diff.zip`, Buffer.from(download.data));
+
+      - name: 'Unzip artifact'
+        run: unzip labs_diff.zip
+
+      - name: Post comment if matching changes found
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  #${{ secrets.GH_PR_TOKEN }}
+          PR_NUMBER: ${{ github.event.number }}
+          BRANCH_NAME: ${{ github.event.pull_request.head.ref }}
+          HEAD_REPO: ${{ github.event.pull_request.head.repo.full_name }}
+          BASE_REPO: ${{ github.repository }}
+        run: |
+          if [ -s diff/paths.txt ]; then
+            echo "Changed files found"
+            cd diff
+            python3 base/.github/scripts/post_lab_links.py
+          else
+            echo "No changed files found"
+          fi
