@@ -5,6 +5,7 @@ in a PR comment.
 """
 
 import os
+import sys
 from github import Github
 from urllib.request import urlopen
 from urllib.error import URLError, HTTPError
@@ -117,7 +118,8 @@ def build_url(content_path):
 
 
 def main():
-    with open("paths.txt") as f:
+    path = sys.argv[1] if len(sys.argv) else "paths.txt"
+    with open(path) as f:
         files = f.read().splitlines()
 
     success = True
