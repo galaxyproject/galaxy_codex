@@ -16,12 +16,7 @@ jobs:
     steps:
       - name: Debug variables
         run: |
-          echo "Base repo: ${{ github.repository }}"
-          echo "Head repo: ${{ github.event.pull_request.head.repo.full_name }}"
-          echo "Head ref: ${{ github.event.pull_request.head.ref }}"
-          echo "GITHUB_REPOSITORY: ${{ github.event.pull_request.head.repo.full_name }}"
-          echo "BRANCH_NAME: ${{ github.event.pull_request.head.ref }}"
-          echo "PR_NUMBER: ${{ github.event.number }}"
+          echo "github.event.pull_request.title: ${{ github.event.pull_request.title }}"
 
       - name: Checkout base branch
         uses: actions/checkout@v3
