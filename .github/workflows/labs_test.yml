@@ -55,7 +55,8 @@ jobs:
         run: |
           if [ -s output/paths.txt ]; then
             echo "Changed files found"
-            python3 base/.github/scripts/labs_test.py output/paths.txt
+            cd head
+            python3 ../base/.github/scripts/labs_test.py output/paths.txt
           else
             echo "No changes to Galaxy Labs found"
           fi

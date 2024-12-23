@@ -106,7 +106,7 @@ def main():
             lab_name = path.split("/")[1]
             if lab_name not in directories:
                 print(f"Detected change to {lab_name} Lab in file: {path}")
-                print(f"Posting link for {lab_name}...")
+                print(f"Testing {lab_name}...")
                 directories.append(lab_name)
                 result = test_lab(lab_name)
                 success = success and result
