@@ -43,10 +43,10 @@ jobs:
           HEAD_REPO: ${{ github.event.pull_request.head.repo.full_name }}
           BASE_REPO: ${{ github.repository }}
         run: |
-          echo "PR_NUMBER=${PR_NUMBER}" >> diff/.env
-          echo "BRANCH_NAME=${BRANCH_NAME}" >> diff/.env
-          echo "HEAD_REPO=${HEAD_REPO}" >> diff/.env
-          echo "BASE_REPO=${BASE_REPO}" >> diff/.env
+          echo "PR_NUMBER=${PR_NUMBER}" >> diff/pr_env
+          echo "BRANCH_NAME=${BRANCH_NAME}" >> diff/pr_env
+          echo "HEAD_REPO=${HEAD_REPO}" >> diff/pr_env
+          echo "BASE_REPO=${BASE_REPO}" >> diff/pr_env
 
       - name: Upload changed files artifact
         uses: actions/upload-artifact@v4
