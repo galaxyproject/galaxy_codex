@@ -57,7 +57,15 @@ jobs:
             echo "Changed files found"
             cd head
             python3 ../base/.github/scripts/labs_test.py ../output/paths.txt
+            if [ $? -ne 0 ]; then
+              echo "failed" > ../result
+              echo "Test failed - result 'failed' written"
+            else
+              echo "success" > ../result
+              echo "Test failed - result 'success' written"
+            fi
           else
+            echo "success" > result
             echo "No changes to Galaxy Labs found"
           fi
 
@@ -76,3 +84,12 @@ jobs:
         with:
           name: labs_test_comments
           path: output
+
+      - name: Report test outcome
+        run: |
+          if grep -q "failed" result; then
+            echo "Test failed"
+            exit 1
+          else
+            echo "Test successful"
+          fi
