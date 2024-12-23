@@ -40,13 +40,13 @@ jobs:
       - name: Install GitHub CLI
         run: sudo apt-get install gh
 
-      - name: Download "Labs diff" artifact
+      - name: Download "Test changed Lab pages" artifact
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           # gh repo set-default galaxyproject/galaxy_codex
           gh repo set-default neoformit/galaxy_codex
-          RUN_ID=$(gh run list --workflow "Labs diff" --limit 1 | tail -n 1 | grep -oE '\b[0-9]{11}\b')
+          RUN_ID=$(gh run list --workflow "Test changed Lab pages" --limit 1 | tail -n 1 | grep -oE '\b[0-9]{11}\b')
           echo "RUN_ID: $RUN_ID"
           gh run view $RUN_ID --log
           gh run download $RUN_ID --name labs_test_comments --dir ./labs_test_comments
