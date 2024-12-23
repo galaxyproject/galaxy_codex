@@ -1,4 +1,4 @@
-name: Check Lab HTTP status
+name: Test changed Labs pages
 
 on:
   workflow_run:
@@ -22,11 +22,6 @@ jobs:
           echo "BRANCH_NAME: ${{ github.event.pull_request.head.ref }}"
           echo "PR_NUMBER: ${{ github.event.number }}"
 
-      - name: Debug GITHUB_TOKEN Permissions
-        run: |
-          curl -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-            https://api.github.com/repos/${{ github.repository }}/actions/permissions
-
       - name: Checkout base branch
         uses: actions/checkout@v3
         with:
@@ -45,8 +40,9 @@ jobs:
         run: sudo apt-get install gh
 
       - name: Download "Labs diff" artifact
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh auth login --with-token <<< "${{ secrets.GITHUB_TOKEN }}"
           RUN_ID=$(gh run list --workflow "Labs diff" --limit 1)
           gh run view $RUN_ID --log
           gh run download $RUN_ID --name labs_diff --dir ./labs_diff
