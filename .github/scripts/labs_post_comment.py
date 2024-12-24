@@ -7,6 +7,7 @@ in a PR comment.
 import os
 import sys
 from github import Github
+from pathlib import Path
 
 COMMENT_TITLE_TEMPLATE = "Preview changes to {lab_name} Lab <!--=-->"
 URL_TEMPLATE = (
@@ -57,20 +58,20 @@ def create_or_update_comment(lab_name, body_md):
 
 
 def main():
-    comments_dir = sys.argv[1] if len(sys.argv) else "comments"
-    if not (
-        os.path.exists(comments_dir)
-        and os.path.isdir(comments_dir)
-        and os.listdir(comments_dir)
+    comments_dir = Path(sys.argv[1] if len(sys.argv) else "comments")
+    if (
+        comments_dir.exists()
+        and comments_dir.is_dir()
+        and list(comments_dir.glob('*.md'))
     ):
+        for path in comments_dir.glob('*.md'):
+            with open(path) as f:
+                comment_md = f.read()
+            lab_name = path.split('/')[-1].split('.')[0]
+            print(f"Posting PR comment for {lab_name}...")
+            create_or_update_comment(lab_name, comment_md)
+    else:
         print("No comments to post - exiting")
-
-    for path in os.listdir(comments_dir):
-        with open(path) as f:
-            comment_md = f.read()
-        lab_name = path.split('/')[-1].split('.')[0]
-        print(f"Posting PR comment for {lab_name}...")
-        create_or_update_comment(lab_name, comment_md)
 
 
 if __name__ == "__main__":
