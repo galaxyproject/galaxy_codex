@@ -116,8 +116,10 @@ def get_youtube_stats(tuto: dict) -> None:
     recordings = []
     if "recordings" in tuto and tuto["recordings"]:
         recordings = tuto["recordings"]
+        tuto["video"] = True
     elif "slides_recordings" in tuto and tuto["slides_recordings"]:
         recordings = tuto["slides_recordings"]
+        tuto["video"] = True
     tuto["video_versions"] = len(recordings)
     for v in recordings:
         url = f"https://www.youtube.com/watch?v={v['youtube_id']}"
