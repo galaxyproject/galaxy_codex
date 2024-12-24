@@ -9,7 +9,7 @@ import sys
 from urllib.request import urlopen
 from urllib.error import URLError, HTTPError
 
-OUTPUT_DIR = "comments"
+OUTPUT_DIR = "output"
 COMMENT_TITLE_TEMPLATE = "Preview changes to {lab_name} Lab <!--=-->"
 URL_TEMPLATE = (
     "https://labs.usegalaxy.org.au"
