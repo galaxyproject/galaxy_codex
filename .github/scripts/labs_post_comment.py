@@ -67,7 +67,7 @@ def main():
         for path in comments_dir.glob('*.md'):
             with open(path) as f:
                 comment_md = f.read()
-            lab_name = path.split('/')[-1].split('.')[0]
+            lab_name = path.stem
             print(f"Posting PR comment for {lab_name}...")
             create_or_update_comment(lab_name, comment_md)
     else:
