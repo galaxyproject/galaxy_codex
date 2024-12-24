@@ -42,7 +42,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  #${{ secrets.GH_PR_TOKEN }}
         run: |
-          if [ -s labs_test_comments/*.md ]; then
+          if ls labs_test_comments/*.md 1> /dev/null 2>&1; then
             echo "Changed files found"
             echo "Sourcing environment variables from env.sh:"
             cat labs_test_comments/env.sh
