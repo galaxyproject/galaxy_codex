@@ -49,6 +49,7 @@ jobs:
           mv paths.txt output/
 
       - name: Test changed Lab pages
+        id: test-labs
         env:
           BRANCH_NAME: ${{ github.event.pull_request.head.ref }}
           HEAD_REPO: ${{ github.event.pull_request.head.repo.full_name }}
@@ -56,9 +57,7 @@ jobs:
           if [ -s output/paths.txt ]; then
             echo "Changed files found"
             python3 base/.github/scripts/labs_test.py output/paths.txt
-            echo $? > exit_code
           else
-            echo "0" > exit_code
             echo "No changes to Galaxy Labs found"
           fi
         continue-on-error: true
@@ -79,11 +78,12 @@ jobs:
           name: labs_test_comments
           path: output
 
-      - name: Report test outcome
+      - name: Check outcome of the previous step
+        id: check-outcome
         run: |
-          if grep -q "0" exit_code; then
-            echo "Test successful"
-          else
+          if [ "${{ steps.test-labs.outcome }}" == "failure" ]; then
             echo "Test failed"
             exit 1
+          else
+            echo "Test passed"
           fi
