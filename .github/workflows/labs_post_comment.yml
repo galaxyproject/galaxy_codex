@@ -1,5 +1,4 @@
 name: Galaxy Labs PR - post comment(s)
-run-name: Post comments - ${{ github.event.pull_request.title }}
 
 on:
   workflow_run:
@@ -11,10 +10,6 @@ jobs:
   test-labs:
     runs-on: ubuntu-latest
     steps:
-      - name: Debug variables
-        run: |
-          echo "github.event.pull_request.title: ${{ github.event.pull_request.title }}"
-
       - name: Checkout base branch
         uses: actions/checkout@v3
         with:

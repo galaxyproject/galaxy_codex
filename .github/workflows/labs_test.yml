@@ -55,7 +55,7 @@ jobs:
         run: |
           if [ -s output/paths.txt ]; then
             echo "Changed files found"
-            python3 .github/scripts/labs_test.py output/paths.txt
+            python3 base/.github/scripts/labs_test.py output/paths.txt
             echo $? > exit_code
           else
             echo "0" > exit_code
