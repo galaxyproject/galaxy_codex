@@ -2,7 +2,6 @@
 
 import argparse
 import os
-from typing import List
 
 import pandas as pd
 from ruamel.yaml import YAML as yaml
@@ -70,7 +69,7 @@ def main() -> None:
             {
                 "id": "more_tools",
                 "title": "More tools !",
-                "heading_md": f"Request a new tools or look at the complete list",
+                "heading_md": "Request a new tools or look at the complete list",
                 "content": entries,
             }
         )
@@ -127,7 +126,7 @@ def main() -> None:
         for group_id, group in top_items_per_category.groupby("Category"):
 
             tool_entries = []
-            for index, row in group.iterrows():
+            for _, row in group.iterrows():
 
                 # Prepare the description with an HTML unordered list and links for each Galaxy tool ID
                 description = f"{row['Description']}\n (Tool usage: {row[count_column]})"

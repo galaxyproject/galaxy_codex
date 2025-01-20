@@ -37,15 +37,15 @@ else
                                 echo "$community";
                                 mkdir -p "communities/$community/resources"
 
-                                if [[ -f "communities/$community/metadata/tool_status.tsv" ]]; then
-                                        python sources/bin/extract_galaxy_tools.py \
-                                                filter \
-                                                --all "communities/all/resources/tools.json" \
-                                                --categories "communities/$community/metadata/categories" \
-                                                --tsv-filtered "communities/$community/resources/tools_filtered_by_ts_categories.tsv" \
-                                                --filtered "communities/$community/resources/tools_filtered_by_ts_categories.json" \
-                                                --status "communities/$community/metadata/tool_status.tsv"
+                                python sources/bin/extract_galaxy_tools.py \
+                                        filter \
+                                        --all "communities/all/resources/tools.json" \
+                                        --categories "communities/$community/metadata/categories" \
+                                        --tsv-filtered "communities/$community/resources/tools_filtered_by_ts_categories.tsv" \
+                                        --filtered "communities/$community/resources/tools_filtered_by_ts_categories.json" \
+                                        --status "communities/$community/metadata/tool_status.tsv"
 
+                                if [[ -f "communities/$community/metadata/tool_status.tsv" ]]; then
                                         python sources/bin/extract_galaxy_tools.py \
                                                 curate \
                                                 --filtered "communities/$community/resources/tools_filtered_by_ts_categories.json" \
@@ -62,15 +62,6 @@ else
                                                         --wordcloud_mask "sources/data/usage_stats/wordcloud_mask.png" \
                                                         --output "communities/$community/resources/tools_wordcloud.png"
                                         fi;
-
-                                else
-                                        python sources/bin/extract_galaxy_tools.py \
-                                                filter \
-                                                --all "communities/all/resources/tools.json" \
-                                                --categories "communities/$community/metadata/categories" \
-                                                --tsv-filtered "communities/$community/resources/tools_filtered_by_ts_categories.tsv" \
-                                                --filtered "communities/$community/resources/tools_filtered_by_ts_categories.json"
-
                                 fi;
                         fi;
                 fi;
