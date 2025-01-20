@@ -834,7 +834,7 @@ if __name__ == "__main__":
         # get categories and tools to exclude
         categories = shared.read_file(args.categories)
         # get status if file provided
-        if args.status:
+        if args.status and Path(args.status).exists():
             status = pd.read_csv(args.status, sep="\t", index_col=0).to_dict("index")
         else:
             status = {}
