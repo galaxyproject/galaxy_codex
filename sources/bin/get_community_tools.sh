@@ -45,7 +45,7 @@ else
                                         --filtered "communities/$community/resources/tools_filtered_by_ts_categories.json" \
                                         --status "communities/$community/metadata/tool_status.tsv"
 
-                                if [[ -f "communities/$community/metadata/tool_status.tsv" ]]; then
+                                if [[ -e "communities/$community/metadata/tool_status.tsv" ]]; then
                                         python sources/bin/extract_galaxy_tools.py \
                                                 curate \
                                                 --filtered "communities/$community/resources/tools_filtered_by_ts_categories.json" \
@@ -54,7 +54,7 @@ else
                                                 --wo-biotools "communities/$community/resources/curated_tools_wo_biotools.tsv" \
                                                 --w-biotools "communities/$community/resources/curated_tools_w_biotools.tsv"
 
-                                        if [[ -e "communities/$community/resources/curated_tools.tsv" && -f "communities/$community/resources/curated_tools.tsv" ]]; then                                
+                                        if [[ -e "communities/$community/resources/curated_tools.tsv" ]]; then
                                                 python sources/bin/create_wordcloud.py \
                                                         --input "communities/$community/resources/curated_tools.tsv" \
                                                         --name-col "Suite ID" \
