@@ -53,15 +53,18 @@ def main() -> None:
 
         # Tool request
         entry = {
-            "title_md": "Request a new tool",
-            "description_md": "You can request a new tool by contacting the microGalaxy community: microgalaxy@lists.galaxyproject.org",
+            "title_md": "Request a new tool or installation of tool",
+            "description_md": LiteralScalarString(
+                """If one of the tools listed here can not be open, it means it is not installed on this server. Please contact the <a href="{{ support_url }}">support</a>.
+                If the tool is not listed here, you can request it by contacting the microGalaxy community: <a href="mailto:microgalaxy@lists.galaxyproject.org">microgalaxy@lists.galaxyproject.org</a>"""
+            )
         }
         entries.append(entry)
 
         # Complete tool list
         entry = {
             "title_md": "See the complete tool list",
-            "description_md": "Our comprehensive curated tool list is available via https://galaxyproject.github.io/galaxy_codex/microgalaxy",
+            "description_md": "Our comprehensive curated tool list is available via <a href=\"https://galaxyproject.github.io/galaxy_codex/microgalaxy\">https://galaxyproject.github.io/galaxy_codex/microgalaxy</a>."
         }
         entries.append(entry)
 
@@ -70,7 +73,7 @@ def main() -> None:
             {
                 "id": "more_tools",
                 "title": "More tools !",
-                "heading_md": f"Request a new tools or look at the complete list",
+                "heading_md": "Request a new tools or look at the complete list",
                 "content": entries,
             }
         )
@@ -149,7 +152,6 @@ def main() -> None:
                     tool_id = tool_id.strip()  # Trim whitespace
                     # Format the URL with owner, wrapper ID, and tool ID
                     url = url_template.format(owner=owner, wrapper_id=wrapper_id, tool_id=tool_id)
-                    url = "{{ galaxy_base_url }}" + url
                     description += f'  <li><a href="{url}">{tool_id}</a></li>\n'
                 description += "</ul>"
 

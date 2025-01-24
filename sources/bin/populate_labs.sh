@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+## MICROGALAXY LAB
+
+python sources/bin/populate_labs_tools.py \
+    --tool_tsv communities/microgalaxy/resources/curated_tools.tsv \
+    --tool_yml communities/microgalaxy/lab/sections/4_tools.yml
+
 python sources/bin/populate_labs_workflows_tutorials.py \
     --tsv communities/microgalaxy/resources/tutorials.tsv \
     --yml communities/microgalaxy/lab/sections/tutorials_isolates_snippet.yml \
