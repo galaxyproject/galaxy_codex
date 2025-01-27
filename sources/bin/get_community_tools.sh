@@ -32,8 +32,7 @@ else
                 if [[ -d "$com_data_fp" && ! -L "$com_data_fp" ]]; then
                         community=`basename "$com_data_fp"`
 
-                        if [ "$community" != "all" ]; then
-
+                        if [[ "$community" != "all" && -f "communities/$community/metadata/categories" ]]; then
                                 echo "$community";
                                 mkdir -p "communities/$community/resources"
 
@@ -41,7 +40,6 @@ else
                                         filter \
                                         --all "communities/all/resources/tools.json" \
                                         --categories "communities/$community/metadata/categories" \
-                                        --tsv-filtered "communities/$community/resources/tools_filtered_by_ts_categories.tsv" \
                                         --filtered "communities/$community/resources/tools_filtered_by_ts_categories.json" \
                                         --status "communities/$community/metadata/tool_status.tsv"
 
