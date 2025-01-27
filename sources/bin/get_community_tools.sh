@@ -8,7 +8,6 @@ if [[ ! -z $1  && $1 == "test" ]]; then
                 filter \
                 --all "communities/all/resources/test_tools.json" \
                 --categories "communities/microgalaxy/metadata/categories" \
-                --tsv-filtered "communities/microgalaxy/resources/tools_filtered_by_ts_categories.tsv" \
                 --filtered "communities/microgalaxy/resources/tools_filtered_by_ts_categories.json" \
                 --status "communities/microgalaxy/metadata/tool_status.tsv"
    
