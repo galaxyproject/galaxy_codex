@@ -385,6 +385,15 @@ def get_tool_metadata(tool: ContentFile, repo: Repository) -> Optional[Dict[str,
                 if "id" in root.attrib:
                     metadata["Tool IDs"].append(root.attrib["id"])
 
+    # when `name` not in .shed.yml file
+    if metadata["Suite ID"] is None:
+        if metadata["Suite conda package"] is not None:
+            metadata["Suite ID"] = metadata["Suite conda package"]
+        elif metadata["bio.tool ID"] is not None:
+            metadata["Suite ID"] = metadata["bio.tool ID"].lower()
+        else:
+            metadata["Suite ID"] = tool.path.split("/")[-1]
+
     # get latest conda version and compare to the wrapper version
     if metadata["Suite conda package"] is not None:
         r = requests.get(f'https://api.anaconda.org/package/bioconda/{metadata["Suite conda package"]}')
