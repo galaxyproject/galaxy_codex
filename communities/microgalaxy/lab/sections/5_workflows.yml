@@ -1,81 +1,553 @@
 id: workflows
-title: Workflows
+title: Community workflows
 tabs:
-  - id: workflows1
-    title: Workflow Best Practices
-    heading_md: >
-      <div class="mb-3 mx-3">
-        <p>
-          Workflows are chains of of tools that can be run together at the click of a button.
-          The above tabs contain both peer reviewed and community submitted workflows.
-        </p>
-        <p class="alert alert-success">
-          <a href="https://training.galaxyproject.org/training-material/faqs/galaxy/workflows_annotate.html">Tag your workflows</a>
-          with <b>#microgalaxy</b> and share publicly with other users!
-        </p>
-        Additional common workflow tags for our community are:
-        <ul>
-          <li><code>training</code> (for workflows that correspond to the Galaxy Training Network's tutorials)</li>
-          <li><code>data interoperability</code></li>
-          <li><code>bacteria</code></li>
-          <li><code>prokaryote</code></li>
-          <li><code>microbiome</code></li>
-          <li><code>micro-organism</code></li>
-          <li><code>pathogen</code></li>
-        </ul>
-      </div>
-
-    content:
-      - title_md: How to tag a workflow
-        description_md: >
-          <iframe src="https://oembed.apps.galaxyproject.eu/oembed?style=gtn&format=iframe-embed&url=https://training.galaxyproject.org/training-material/faqs/galaxy/workflows_annotate.html"
-                  width="100%"
-                  height="600px"
-          </iframe>
-    content: []
-
-  - id: workflows2
-    title: Peer-reviewed workflows
-    heading_md: >
-      You can browse through workflows before that have been reviewed by scientists.
-    content:
-      - title_md: IWC
-        description_md: >
-          IWC is an **owner** of peer-reviewed workflows within Galaxy.
-          <iframe src="https://training.galaxyproject.org/training-material/workflows/embed.html?all=microgalaxy+IWC" height="300px" width="100%" frameborder="0"></iframe>
-      - title_md: WorkflowHub
-        description_md: >
-          WorkflowHub hosts high quality workflows. You can explore microGalaxy workflows from WorkflowHub.
-        button_link: "https://workflowhub.eu/search?q=microgalaxy+galaxy"
-        button_md: 🔗
-        button_tip: Visit WorkflowHub
-  
-  - id: workflows3
-    title: Community workflows
-    heading_md: >
-      Anyone on Galaxy can share their workflow publicly - if your workflow is running well, share it with others!
-      <p>You can search these community workflows below.</p>
-    content:
-      - title_md: Community Workflows
-        description_md: >
-          Search through community workflows tagged with #microgalaxy.
-          <iframe
-            src="https://training.galaxyproject.org/training-material/workflows/embed.html?all=microgalaxy&none=training+IWC"
-            width="100%"
-            height="400px"
-          ></iframe>
-
-      - title_md: Advanced workflow search
-        description_md: >
-          The GTN's
-          {gtn modal}[Pan-Galactic Workflow Search](https://training.galaxyproject.org/training-material/workflows/list.html)
-          allows you to search for workflows across all of Galaxy!
-
-        button_link: "https://training.galaxyproject.org/training-material/workflows/list.html"
-        button_md: 🔗
-        button_tip: Visit WorkflowHub
-
-      - title_md: How to share your workflow
-        description_md: >
-          Learn how to {gtn modal}[publish your workflow](https://training.galaxyproject.org/training-material/faqs/galaxy/workflows_publish.html)
-          to share your work with the Galaxy community.
+- id: best_practices
+  title: Workflow Best Practices
+  heading_md: "Workflows are chains of of tools that can be run together at the click
+    of a button.\nThe above tabs contain both peer reviewed and community submitted
+    workflows.\n<p class=\"alert alert-success\"><a href=\"https://training.galaxyproject.org/training-material/faqs/galaxy/workflows_annotate.html\"\
+    >Tag your workflows</a> with <b>#microgalaxy</b> and share publicly with other
+    users!\\n </p>\nAdditional common workflow tags for our community are:\\n\\ -
+    <code>training</code> (for workflows that correspond to the Galaxy Training Network's
+    tutorials) - <code>data interoperability</code> - <code>bacteria</code> - <code>prokaryote</code>
+    - <code>microbiome</code> - <code>micro-organism</code> - <code>pathogen</code>\n"
+  content:
+  - title_md: How to tag a workflow?
+    description_md: <iframe 
+      src="https://oembed.apps.galaxyproject.eu/oembed?style=gtn&format=iframe-embed&url=https://training.galaxyproject.org/training-material/faqs/galaxy/workflows_annotate.html"
+      width="100%" height="600px"</iframe>
+- id: peer_reviewed_wfs
+  title: Peer-reviewed & FAIR workflows
+  heading_md: The following workflows are state of the art workflows that have been
+    reviewed and are maintained by scientists.They are hosted on [WorkflowHub](https://workflowhub.eu/search?q=microgalaxy+galaxy)
+    and maintained by [IWC](https://github.com/galaxyproject/iwc/).
+  content:
+  - title_md: How to import workflows from WorkflowHub?
+    description_md: <iframe 
+      src="https://oembed.apps.galaxyproject.eu/oembed?style=gtn&format=iframe-embed&url=https://training.galaxyproject.org/training-material/faqs/galaxy/workflows_import_from_workflowhub.html"
+      width="100%" height="600px" </iframe>
+  - title_md: bacterial-genome-assembly/main
+    description_md: Workflow covering operations related to Visualisation, Genome
+      assembly, Sequence assembly visualisation, Sequence assembly validation, Parsing,
+      Data handlingon topics related to nan
+    button_link: https://workflowhub.eu/workflows/1043?version=7
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: quality-and-contamination-control/main
+    description_md: Workflow covering operations related to Sequence contamination
+      filtering, Statistical calculation, Expression analysis, Parsing, Sequencing
+      quality control, Cross-assembly, Data handling, Taxonomic classificationon topics
+      related to nan
+    button_link: https://workflowhub.eu/workflows/1052?version=8
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: bacterial_genome_annotation/main
+    description_md: Workflow covering operations related to Genome annotation, Sequence
+      motif recognition, Genome assembly, Multilocus sequence typing, Parsing, Scaffolding,
+      Protein feature detection, Structural variation detection, Nucleic acid feature
+      detection, Data handlingon topics related to nan
+    button_link: https://workflowhub.eu/workflows/1050?version=9
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: amr_gene_detection/main
+    description_md: Workflow covering operations related to Data handling, Parsing,
+      Antimicrobial resistance predictionon topics related to nan
+    button_link: https://workflowhub.eu/workflows/1049?version=7
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: pox-virus-amplicon/main
+    description_md: Workflow covering operations related to Sequence contamination
+      filtering, Sequence alignment, Sequencing quality control, Local alignment,
+      Generation, Genome indexing, Sequence alignment analysis, Sequence analysis,
+      Global alignment, Validation, Read mappingon topics related to nan
+    button_link: https://workflowhub.eu/workflows/439?version=2
+    button_tip: View workflow
+    button_icon: workflow
+- id: other_fair_wfs
+  title: Other FAIR workflows
+  heading_md: The following workflows are good practice workflows. They are hosted
+    on [WorkflowHub](https://workflowhub.eu/search?q=microgalaxy+galaxy).
+  content:
+  - title_md: How to import workflows from WorkflowHub?
+    description_md: <iframe 
+      src="https://oembed.apps.galaxyproject.eu/oembed?style=gtn&format=iframe-embed&url=https://training.galaxyproject.org/training-material/faqs/galaxy/workflows_import_from_workflowhub.html"
+      width="100%" height="600px" </iframe>
+  - title_md: GTN Training - Antibiotic Resistance Detection
+    description_md: Workflow covering operations related to Genome assembly, Scatter
+      plot plotting, Sequence assembly visualisation, Mapping assembly, Box-Whisker
+      plot plotting, Aggregation, Pairwise sequence alignment, De-novo assembly, Sequence
+      analysison topics related to Microbiology
+    button_link: https://workflowhub.eu/workflows/406?version=1
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: '3: Plant virus exploration'
+    description_md: Workflow covering operations related to Sequence contamination
+      filtering, Sequencing quality control, Genome assemblyon topics related to nan
+    button_link: https://workflowhub.eu/workflows/103?version=1
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: '2: Plant virus confirmation'
+    description_md: Workflow covering operations related to Sequence contamination
+      filtering, Pairwise sequence alignment, Read pre-processing, Genome assembly,
+      Variant calling, Sequencing quality control, Formattingon topics related to
+      nan
+    button_link: https://workflowhub.eu/workflows/102?version=1
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: '1: Plant virus detection with kraken2 (SE)'
+    description_md: Workflow covering operations related to Visualisation, Taxonomic
+      classificationon topics related to nan
+    button_link: https://workflowhub.eu/workflows/124?version=1
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: '1: Plant virus detection with kraken2 (PE)'
+    description_md: Workflow covering operations related to Visualisation, Taxonomic
+      classificationon topics related to nan
+    button_link: https://workflowhub.eu/workflows/101?version=1
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: Taxonomy classification using Kraken2 and Bracken
+    description_md: Workflow covering operations related to Visualisation, Statistical
+      calculation, Taxonomic classification, Aggregationon topics related to Metagenomics,
+      Taxonomy
+    button_link: https://workflowhub.eu/workflows/1199?version=2
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: Analyses of shotgun metagenomics data with MetaPhlAn2
+    description_md: Workflow covering operations related to Phylogenetic tree analysis,
+      Visualisation, Nucleic acid sequence analysison topics related to Metagenomic
+      sequencing, Metagenomics
+    button_link: https://workflowhub.eu/workflows/624?version=1
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: 'Workflow 7 : Beta Diversity [16S Microbial Analysis With Mothur]'
+    description_md: Workflow covering operations related to Visualisation, Sequence
+      clustering, Phylogenetic tree generation, DNA barcoding, Sequencing quality
+      control, Phylogenetic tree analysis, Phylogenetic analysis, Phylogenetic tree
+      reconstruction, Sequence read processing, Taxonomic classificationon topics
+      related to nan
+    button_link: https://workflowhub.eu/workflows/653?version=1
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: 'Workflow 6: Alpha Diversity [16S Microbial Analysis With Mothur]'
+    description_md: Workflow covering operations related to Visualisation, Sequence
+      clustering, DNA barcoding, Sequencing quality control, Phylogenetic analysis,
+      Sequence read processing, Taxonomic classificationon topics related to nan
+    button_link: https://workflowhub.eu/workflows/652?version=1
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: 'Workflow 5: OTU Clustering [16S Microbial Analysis With Mothur]'
+    description_md: Workflow covering operations related to Visualisation, Sequence
+      clustering, DNA barcoding, Sequencing quality control, Phylogenetic analysis,
+      Sequence read processing, Taxonomic classificationon topics related to nan
+    button_link: https://workflowhub.eu/workflows/651?version=1
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: 'Workflow 3: Classification [Galaxy Training: 16S Microbial Analysis
+      With Mothur]'
+    description_md: Workflow covering operations related to Visualisation, Sequence
+      clustering, DNA barcoding, Sequencing quality control, Phylogenetic analysis,
+      Sequence read processing, Taxonomic classificationon topics related to nan
+    button_link: https://workflowhub.eu/workflows/650?version=1
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: 'Workflow 1: Further Quality Control [16S Microbial Analysis With Mothur]'
+    description_md: Workflow covering operations related to Visualisation, Sequence
+      clustering, DNA barcoding, Sequencing quality control, Phylogenetic analysis,
+      Sequence read processing, Taxonomic classificationon topics related to nan
+    button_link: https://workflowhub.eu/workflows/648?version=1
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: 'Workflow 2: Data Cleaning And Chimera Removal [16S Microbial Analysis
+      With Mothur]'
+    description_md: Workflow covering operations related to Visualisation, Sequence
+      clustering, DNA barcoding, Sequencing quality control, Phylogenetic analysis,
+      Sequence read processing, Taxonomic classificationon topics related to nan
+    button_link: https://workflowhub.eu/workflows/649?version=1
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: 'Workflow 4: Staramr'
+    description_md: Workflow covering operations related to Genome assembly, Data
+      handling, Parsing, Antimicrobial resistance predictionon topics related to nan
+    button_link: https://workflowhub.eu/workflows/470?version=1
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: AMR-Pathfinder
+    description_md: Workflow covering operations related to Genome assembly, Data
+      handling, Parsing, Antimicrobial resistance predictionon topics related to nan
+    button_link: https://workflowhub.eu/workflows/1189?version=2
+    button_tip: View workflow
+    button_icon: workflow
+- id: training_wfs
+  title: Workflows related to GTN tutorials
+  heading_md: Workflows linked to GTN tutorials. They are hosted on [dev.WorkflowHub](https://workflowhub.eu/search?q=microgalaxy+galaxy).
+  content:
+  - title_md: How to import workflows from WorkflowHub?
+    description_md: <iframe 
+      src="https://oembed.apps.galaxyproject.eu/oembed?style=gtn&format=iframe-embed&url=https://training.galaxyproject.org/training-material/faqs/galaxy/workflows_import_from_workflowhub.html"
+      width="100%" height="600px" </iframe>
+  - title_md: Workflow for Identifying MF from ITS2 sequencing using LotuS2 - tutorial
+      example run'
+    description_md: Workflow covering operations related to DNA barcoding, Sequence
+      feature detectionon topics related to nan
+    button_link: https://dev.workflowhub.eu/workflows/1366?version=1
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: 'Workflow 5: OTU Clustering [Galaxy Training: 16S Microbial Analysis
+      With Mothur]'
+    description_md: Workflow covering operations related to Visualisation, Sequence
+      clustering, DNA barcoding, Sequencing quality control, Phylogenetic analysis,
+      Sequence read processing, Taxonomic classificationon topics related to nan
+    button_link: https://dev.workflowhub.eu/workflows/1133?version=1
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: 'Workflow 6: Alpha Diversity [Galaxy Training: 16S Microbial Analysis
+      With Mothur]'
+    description_md: Workflow covering operations related to Visualisation, Sequence
+      clustering, DNA barcoding, Sequencing quality control, Phylogenetic analysis,
+      Sequence read processing, Taxonomic classificationon topics related to nan
+    button_link: https://dev.workflowhub.eu/workflows/1129?version=1
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: 'Workflow 4: Mock OTU Clustering [Galaxy Training: 16S Microbial Analysis
+      With Mothur]'
+    description_md: Workflow covering operations related to Visualisation, Sequence
+      clustering, DNA barcoding, Sequencing quality control, Phylogenetic analysis,
+      Sequence read processing, Taxonomic classificationon topics related to nan
+    button_link: https://dev.workflowhub.eu/workflows/1125?version=1
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: 'Workflow 1: Quality Control [Galaxy Training: 16S Microbial Analysis
+      With Mothur]'
+    description_md: Workflow covering operations related to Visualisation, Sequence
+      clustering, DNA barcoding, Sequencing quality control, Phylogenetic analysis,
+      Sequence read processing, Taxonomic classificationon topics related to nan
+    button_link: https://dev.workflowhub.eu/workflows/1121?version=1
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: 'Workflow7: Beta Diversity [Galaxy Training: 16S Microbial Analysis
+      With Mothur]'
+    description_md: Workflow covering operations related to Visualisation, Sequence
+      clustering, Phylogenetic tree generation, DNA barcoding, Sequencing quality
+      control, Phylogenetic tree analysis, Phylogenetic analysis, Phylogenetic tree
+      reconstruction, Sequence read processing, Taxonomic classificationon topics
+      related to nan
+    button_link: https://dev.workflowhub.eu/workflows/1117?version=1
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: 'Workflow 2: Data Cleaning And Chimera Removal [Galaxy Training: 16S
+      Microbial Analysis With Mothur]'
+    description_md: Workflow covering operations related to Visualisation, Sequence
+      clustering, DNA barcoding, Sequencing quality control, Phylogenetic analysis,
+      Sequence read processing, Taxonomic classificationon topics related to nan
+    button_link: https://dev.workflowhub.eu/workflows/1112?version=1
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: Copy Of GTN Training - Antibiotic Resistance Detection
+    description_md: Workflow covering operations related to Genome assembly, Scatter
+      plot plotting, Sequence assembly visualisation, Mapping assembly, Box-Whisker
+      plot plotting, Aggregation, Pairwise sequence alignment, De-novo assembly, Sequence
+      analysison topics related to nan
+    button_link: https://dev.workflowhub.eu/workflows/1107?version=1
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: Building an amplicon sequence variant (ASV) table from 16S data using
+      DADA2
+    description_md: Workflow covering operations related to Visualisation, Deposition,
+      Analysis, Variant calling, DNA barcodingon topics related to nan
+    button_link: https://dev.workflowhub.eu/workflows/1105?version=2
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: 'Training: 16S rRNA Sequencing With Mothur: Main Tutorial'
+    description_md: Workflow covering operations related to Visualisation, Sequence
+      clustering, Phylogenetic tree generation, DNA barcoding, Sequencing quality
+      control, Phylogenetic tree analysis, Phylogenetic analysis, Phylogenetic tree
+      reconstruction, Sequence read processing, Taxonomic classificationon topics
+      related to nan
+    button_link: https://dev.workflowhub.eu/workflows/1101?version=1
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: Identification of the micro-organisms in a beer using Nanopore sequencing
+    description_md: Workflow covering operations related to Sequence contamination
+      filtering, Sequence composition calculation, Visualisation, Statistical calculation,
+      Taxonomic classification, Sequencing quality control, Aggregationon topics related
+      to nan
+    button_link: https://dev.workflowhub.eu/workflows/1097?version=1
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: Taxonomic Profiling and Visualization of Metagenomic Data
+    description_md: Workflow covering operations related to Visualisation, Statistical
+      calculation, Nucleic acid sequence analysis, Taxonomic classification, Phylogenetic
+      tree analysis, Aggregationon topics related to nan
+    button_link: https://dev.workflowhub.eu/workflows/1095?version=1
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: 'Workflow 3: Functional Information (quick)'
+    description_md: Workflow covering operations related to Species frequency estimation,
+      Phylogenetic analysis, Taxonomic classificationon topics related to nan
+    button_link: https://dev.workflowhub.eu/workflows/1080?version=1
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: Amplicon Tutorial
+    description_md: Workflow covering operations related to Visualisation, Sequence
+      clustering, DNA barcoding, Sequencing quality control, Phylogenetic analysis,
+      Sequence read processing, Taxonomic classificationon topics related to nan
+    button_link: https://dev.workflowhub.eu/workflows/1070?version=1
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: WGS Part In "Analyses Of Metagenomics Data - The Global Picture"
+    description_md: Workflow covering operations related to Visualisationon topics
+      related to nan
+    button_link: https://dev.workflowhub.eu/workflows/1067?version=1
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: 'Training: 16S rRNA Analysis with Nanopore Sequencing Reads'
+    description_md: Workflow covering operations related to Sequence contamination
+      filtering, Sequence composition calculation, Visualisation, Statistical calculation,
+      Validation, Sequencing quality control, Taxonomic classificationon topics related
+      to nan
+    button_link: https://dev.workflowhub.eu/workflows/1064?version=1
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: 'Workflow 3: Classification [Galaxy Training: 16S Microbial Analysis
+      With Mothur]'
+    description_md: Workflow covering operations related to Visualisation, Sequence
+      clustering, DNA barcoding, Sequencing quality control, Phylogenetic analysis,
+      Sequence read processing, Taxonomic classificationon topics related to nan
+    button_link: https://dev.workflowhub.eu/workflows/1060?version=1
+    button_tip: View workflow
+    button_icon: workflow
+- id: public_wfs
+  title: Public workflows
+  heading_md: 'Workflows shared on public servers tagged #microgalaxy.'
+  content:
+  - title_md: How to import a workflow?
+    description_md: <iframe 
+      src="https://oembed.apps.galaxyproject.eu/oembed?style=gtn&format=iframe-embed&url=https://training.galaxyproject.org/training-material/faqs/galaxy/workflows_import.html"
+      width="100%" height="600px"</iframe>
+  - title_md: Metagenomic Taxonomy and Functional Analysis
+    description_md: Workflow covering operations related to Sequence contamination
+      filtering, Statistical calculation, Nucleic acid sequence analysis, Visualisation,
+      Sequencing quality control, Phylogenetic tree analysis, Phylogenetic analysis,
+      Formatting, Aggregation, Standardisation and normalisation, Species frequency
+      estimation, Conversion, Read mapping, Taxonomic classificationon topics related
+      to nan
+    button_link: https://usegalaxy.eu/published/workflow?id=cb2df493f5e334f7
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: 'ASaiM-MT: Metatranscriptomics Analysis of Microbes'
+    description_md: Workflow covering operations related to Visualisation, Primer
+      removal, Sequencing quality control, Formatting, Sequence similarity search,
+      Conversion, Phylogenetic inference, Sequence trimming, Statistical calculation,
+      Sequence comparison, Phylogenetic tree editing, Sequence composition calculation,
+      Read pre-processing, Sequence alignment analysis, Validation, Phylogenetic tree
+      visualisation, Taxonomic classificationon topics related to nan
+    button_link: https://usegalaxy.eu/published/workflow?id=096b75501c8e0888
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: MAGs building with individual assembly
+    description_md: Workflow covering operations related to Genome annotation, Read
+      binning, Visualisation, Genome comparison, Sequence assembly, Sequencing quality
+      control, Sequence assembly validation, Genome alignment, Read mapping, Statistical
+      calculation, Sequence clustering, Genome assembly, Local alignment, Query and
+      retrieval, Sequence composition calculation, Validation, Taxonomic classificationon
+      topics related to nan
+    button_link: https://usegalaxy.eu/published/workflow?id=0563f58718be932d
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: 'MetaT: Metatranscriptomics data analysis'
+    description_md: Workflow covering operations related to Statistical calculation,
+      Primer removal, Sequencing quality control, Sequence comparison, Sequence similarity
+      search, Read pre-processing, Sequence composition calculation, Sequence alignment
+      analysis, Sequence trimming, Gene expression profilingon topics related to nan
+    button_link: https://usegalaxy.eu/published/workflow?id=fd90652d475ed739
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: MGnify's amplicon pipeline v5.0
+    description_md: Workflow covering operations related to nanon topics related to
+      nan
+    button_link: https://usegalaxy.eu/published/workflow?id=02f90a96d01fed4f
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: Halophiles workup of Comparative gene analysis
+    description_md: Workflow covering operations related to Phylogenetic tree generation,
+      Sequence alignment analysis, Multiple sequence alignmenton topics related to
+      nan
+    button_link: https://usegalaxy.eu/published/workflow?id=a2c46deea34d9d80
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: MGnify's amplicon pipeline v5.0 - Quality control SE
+    description_md: Workflow covering operations related to Sequence contamination
+      filtering, Read pre-processing, Sequence composition calculation, Statistical
+      calculation, Sequence trimming, Validation, Sequencing quality controlon topics
+      related to nan
+    button_link: https://usegalaxy.eu/published/workflow?id=b7166aff73e5d81c
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: pAllori Blood RNA
+    description_md: Workflow covering operations related to Sequence composition calculation,
+      Statistical calculation, Validation, Sequence alignment, RNA-Seq quantification,
+      Read summarisation, Sequencing quality controlon topics related to nan
+    button_link: https://usegalaxy.eu/published/workflow?id=ca9d3233b0912765
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: Metaproteomics workflow
+    description_md: Workflow covering operations related to Visualisation, Prediction
+      and recognitionon topics related to nan
+    button_link: https://usegalaxy.eu/published/workflow?id=cefc49c13ff73231
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: Feature-Count Table Normalization
+    description_md: Workflow covering operations related to nanon topics related to
+      nan
+    button_link: https://usegalaxy.eu/published/workflow?id=6239178d7cc4ac68
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: metaQuantome_datacreation_workflow
+    description_md: Workflow covering operations related to Visualisation, Prediction
+      and recognition, Filtering, Formatting, Label-free quantificationon topics related
+      to nan
+    button_link: https://usegalaxy.eu/published/workflow?id=cd675ab32d3e7833
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: metaquantome-function-worklow
+    description_md: Workflow covering operations related to Visualisation, Indexing,
+      Differential protein expression analysis, Statistical inference, Functional
+      clustering, Query and retrieval, Quantification, Principal component visualisation,
+      Heat map generation, Filteringon topics related to nan
+    button_link: https://usegalaxy.eu/published/workflow?id=e5a89ef7b5f1c1d9
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: pAllori Amplicon 16S Pre-Processing and Taxonomy Classification
+    description_md: Workflow covering operations related to Visualisation, Statistical
+      calculation, Analysis, Primer removal, Sequencing quality control, DNA barcoding,
+      Aggregation, Sequence composition calculation, Read pre-processing, Sequence
+      trimming, Validation, Sequence feature detection, Taxonomic classificationon
+      topics related to nan
+    button_link: https://usegalaxy.eu/published/workflow?id=466bdd8ba7b67264
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: Cloud Aerosol MT-MG Contamination Filtering
+    description_md: Workflow covering operations related to Expression analysis, Read
+      mapping, Cross-assembly, Taxonomic classificationon topics related to nan
+    button_link: https://usegalaxy.eu/published/workflow?id=c09159d7aad0f264
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: ' Cloud-Aerosole MT-MG Functional Profiling'
+    description_md: Workflow covering operations related to RNA-Seq quantification,
+      Validation, Sequencing quality control, Read mapping, Read summarisationon topics
+      related to nan
+    button_link: https://usegalaxy.eu/published/workflow?id=63478edcea3f449a
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: Cloud-Aerosole MT-MG Pre-Processing
+    description_md: Workflow covering operations related to Sequence composition calculation,
+      Statistical calculation, Validation, Sequencing quality controlon topics related
+      to nan
+    button_link: https://usegalaxy.eu/published/workflow?id=1ef76b7b86e15792
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: Allele-based Pathogen Identification (release v0.1.2)
+    description_md: Workflow covering operations related to Pairwise sequence alignment,
+      Variant callingon topics related to nan
+    button_link: https://usegalaxy.eu/published/workflow?id=64abcddeb516a712
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: MGnify's amplicon pipeline v5.0 - Quality control PE
+    description_md: Workflow covering operations related to Sequence contamination
+      filtering, Statistical calculation, Sequencing quality control, Nucleic acid
+      design, Read pre-processing, Sequence composition calculation, Sequence trimming,
+      Validationon topics related to nan
+    button_link: https://usegalaxy.eu/published/workflow?id=f9648091c06171cd
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: MGnify's amplicon pipeline v5.0 - rRNA prediction
+    description_md: Workflow covering operations related to k-mer counting, Mapping,
+      Visualisation, Alignment, Nucleic acid feature detection, Formatting, Comparisonon
+      topics related to nan
+    button_link: https://usegalaxy.eu/published/workflow?id=0c3eee883f5ab977
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: Taxonomic abundance summary tables for a specified taxonomic rank
+    description_md: Workflow covering operations related to nanon topics related to
+      nan
+    button_link: https://usegalaxy.eu/published/workflow?id=b57fa7ac24a1e777
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: MGnify's amplicon pipeline v5.0 - ITS
+    description_md: Workflow covering operations related to k-mer counting, Visualisation,
+      Formatting, Mappingon topics related to nan
+    button_link: https://usegalaxy.eu/published/workflow?id=169327ba670607d1
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: MGnify amplicon summary tables
+    description_md: Workflow covering operations related to nanon topics related to
+      nan
+    button_link: https://usegalaxy.eu/published/workflow?id=05dc8f4321a42cdc
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: Mgnify ML
+    description_md: Workflow covering operations related to nanon topics related to
+      nan
+    button_link: https://usegalaxy.eu/published/workflow?id=011f701c5a55bfdf
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: Ecoli Comparison
+    description_md: Workflow covering operations related to Sequence alignment, Read
+      mapping, Mappingon topics related to nan
+    button_link: https://usegalaxy.eu/published/workflow?id=0e492839192d26e0
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: Comparative gene analysis
+    description_md: Workflow covering operations related to Phylogenetic tree generation,
+      Sequence alignment analysis, Multiple sequence alignmenton topics related to
+      nan
+    button_link: https://usegalaxy.eu/published/workflow?id=86900be4282d4b1d
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: Apollo Load Test
+    description_md: Workflow covering operations related to Genome visualisationon
+      topics related to nan
+    button_link: https://usegalaxy.eu/published/workflow?id=3c233cc56d4df8b0
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: Flye-AMR workflow EMC/WMDI - v3.5  (imported from URL)
+    description_md: Workflow covering operations related to Gene prediction, Genome
+      annotation, Genome assembly, Scatter plot plotting, Sequence assembly, Mapping
+      assembly, Sequence assembly visualisation, Base-calling, Box-Whisker plot plotting,
+      Sequence visualisation, Cross-assembly, Coding region prediction, De-novo assembly,
+      Pairwise sequence alignment, Sequence analysis, Variant calling, Genome visualisationon
+      topics related to nan
+    button_link: https://usegalaxy.eu/published/workflow?id=152223c8aed27357
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: From VCFs to SNP distance matrix
+    description_md: Workflow covering operations related to nanon topics related to
+      nan
+    button_link: https://usegalaxy.eu/published/workflow?id=6d333ed886aab471
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: From Fastqs to VCFs and BAMs
+    description_md: Workflow covering operations related to Phylogenetic tree visualisation,
+      Phylogenetic tree generation, Variant callingon topics related to nan
+    button_link: https://usegalaxy.eu/published/workflow?id=3a8fde248a4d0383
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: From BAMs to drug resistance prediction with TB-profiler
+    description_md: Workflow covering operations related to Antimicrobial resistance
+      predictionon topics related to nan
+    button_link: https://usegalaxy.eu/published/workflow?id=d0d6dae0d1eecc21
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: Compute Allel Frequency Table from paired reads
+    description_md: Workflow covering operations related to Variant calling, Read
+      mapping, Statistical calculationon topics related to nan
+    button_link: https://usegalaxy.eu/published/workflow?id=21a39ac4c1becb31
+    button_tip: View workflow
+    button_icon: workflow
+  - title_md: Reference genome choice (indels, coverage, depth) for short reads
+    description_md: Workflow covering operations related to Variant calling, Read
+      mapping, Statistical calculationon topics related to nan
+    button_link: https://usegalaxy.eu/published/workflow?id=61fe08fb3d5e83f8
+    button_tip: View workflow
+    button_icon: workflow

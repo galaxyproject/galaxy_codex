@@ -25,3 +25,7 @@ python sources/bin/populate_labs_tutorials.py \
     --filter-column Topic \
     --filter Microbiome \
     --filter-logic include
+
+python sources/bin/populate_labs_workflows.py \
+    --tsv communities/microgalaxy/resources/curated_workflows.tsv \
+    --yml communities/microgalaxy/lab/sections/5_workflows.yml
