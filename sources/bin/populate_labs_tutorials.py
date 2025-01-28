@@ -2,13 +2,15 @@
 
 import argparse
 from pathlib import Path
-from typing import List, Dict, Any
+from typing import (
+    Any,
+    Dict,
+    List,
+)
 
 import pandas as pd
-from ruamel.yaml import YAML as yaml
 import shared
-
-import pprint
+from ruamel.yaml import YAML as yaml
 
 
 def matches_filter(text: str, words: List[str], logic: str) -> bool:
@@ -46,7 +48,9 @@ def main() -> None:
     Main function to create a YAML file from a TSV file based on specified filters and logic.
     """
     # Initialize argument parser
-    parser = argparse.ArgumentParser(description="Fill in tutorial section in a lab community *.yml from tutorials.tsv.")
+    parser = argparse.ArgumentParser(
+        description="Fill in tutorial section in a lab community *.yml from tutorials.tsv."
+    )
     # Define required arguments
     parser.add_argument("-c", "--tsv", type=str, required=True, help="Path to the TSV file (e.g., curated_tools.tsv)")
     parser.add_argument("-y", "--yml", type=str, required=True, help="Path to the output YAML file (e.g., tools.yml)")
@@ -57,12 +61,14 @@ def main() -> None:
         "-blc", "--button-link-column", type=str, required=True, help="Column to use as link for the button."
     )
     parser.add_argument("-fc", "--filter-column", type=str, required=True, help="Column to use as filter.")
+    parser.add_argument("-fi", "--filter", type=str, required=True, help="Comma-separated list of words for filtering.")
     parser.add_argument(
-        "-fi", "--filter", type=str, required=True, help="Comma-separated list of words for filtering."
-    )
-    parser.add_argument(
-        "-fl", "--filter-logic", type=str, required=True, choices=["include", "exclude"],
-        help="Specify the filter logic: 'include' to include matches, 'exclude' to exclude matches."
+        "-fl",
+        "--filter-logic",
+        type=str,
+        required=True,
+        choices=["include", "exclude"],
+        help="Specify the filter logic: 'include' to include matches, 'exclude' to exclude matches.",
     )
     args = parser.parse_args()
 
@@ -98,13 +104,14 @@ def main() -> None:
             found = True
             element["content"] = tutorial_content
     if not found:
-        yaml_data["tabs"].append({
-            "id": "tutorials",
-            "title": "Tutorials",
-            "heading_md": "Tutorials to train you to perform microbial data analysis",
-            "content": tutorial_content
-        })
-
+        yaml_data["tabs"].append(
+            {
+                "id": "tutorials",
+                "title": "Tutorials",
+                "heading_md": "Tutorials to train you to perform microbial data analysis",
+                "content": tutorial_content,
+            }
+        )
 
     # Write the constructed YAML data to the output file
     with Path(args.yml).open("w") as f:

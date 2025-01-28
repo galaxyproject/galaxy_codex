@@ -2,7 +2,6 @@
 
 import argparse
 import os
-from typing import List
 
 import pandas as pd
 from ruamel.yaml import YAML as yaml
@@ -10,10 +9,6 @@ from ruamel.yaml.scalarstring import LiteralScalarString
 
 number_of_categories = 10
 number_of_tools = 10
-
-
-def add_tools_url(tools) -> None:
-    return tools
 
 
 def main() -> None:
@@ -57,14 +52,14 @@ def main() -> None:
             "description_md": LiteralScalarString(
                 """If one of the tools listed here can not be open, it means it is not installed on this server. Please contact the <a href="{{ support_url }}">support</a>.
                 If the tool is not listed here, you can request it by contacting the microGalaxy community: <a href="mailto:microgalaxy@lists.galaxyproject.org">microgalaxy@lists.galaxyproject.org</a>"""
-            )
+            ),
         }
         entries.append(entry)
 
         # Complete tool list
         entry = {
             "title_md": "See the complete tool list",
-            "description_md": "Our comprehensive curated tool list is available via <a href=\"https://galaxyproject.github.io/galaxy_codex/microgalaxy\">https://galaxyproject.github.io/galaxy_codex/microgalaxy</a>."
+            "description_md": 'Our comprehensive curated tool list is available via <a href="https://galaxyproject.github.io/galaxy_codex/microgalaxy">https://galaxyproject.github.io/galaxy_codex/microgalaxy</a>.',
         }
         entries.append(entry)
 
@@ -130,7 +125,7 @@ def main() -> None:
         for group_id, group in top_items_per_category.groupby("Category"):
 
             tool_entries = []
-            for index, row in group.iterrows():
+            for _index, row in group.iterrows():
 
                 # Prepare the description with an HTML unordered list and links for each Galaxy tool ID
                 description = f"{row['Description']}\n (Tool usage: {row[count_column]})"
@@ -142,9 +137,7 @@ def main() -> None:
                 tool_ids_list = tool_ids.split(",") if isinstance(tool_ids, str) else []
 
                 # Create the base URL template for each tool link
-                url_template = (
-                    "/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2F{owner}%2F{wrapper_id}%2F{tool_id}"
-                )
+                url_template = "\{\{ galaxy_base_url \}\}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2F{owner}%2F{wrapper_id}%2F{tool_id}"
 
                 # Build HTML list items with links
                 description += "\n<ul>\n"
