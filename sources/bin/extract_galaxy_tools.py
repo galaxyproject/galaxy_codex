@@ -15,6 +15,7 @@ from typing import (
     Optional,
 )
 
+import numpy as np
 import pandas as pd
 import requests
 import shared
@@ -385,6 +386,15 @@ def get_tool_metadata(tool: ContentFile, repo: Repository) -> Optional[Dict[str,
                 if "id" in root.attrib:
                     metadata["Tool IDs"].append(root.attrib["id"])
 
+    # when `name` not in .shed.yml file
+    if metadata["Suite ID"] is None:
+        if metadata["Suite conda package"] is not None:
+            metadata["Suite ID"] = metadata["Suite conda package"]
+        elif metadata["bio.tool ID"] is not None:
+            metadata["Suite ID"] = metadata["bio.tool ID"].lower()
+        else:
+            metadata["Suite ID"] = tool.path.split("/")[-1]
+
     # get latest conda version and compare to the wrapper version
     if metadata["Suite conda package"] is not None:
         r = requests.get(f'https://api.anaconda.org/package/bioconda/{metadata["Suite conda package"]}')
@@ -557,33 +567,39 @@ def export_tools_to_tsv(
     df.to_csv(output_fp, sep="\t", index=False)
 
 
-def add_status(tool: Dict, tool_status: Dict) -> None:
+def add_status(tool: Dict, tool_status: pd.DataFrame) -> None:
     """
     Add status to tool
 
     :param tool: dictionary with tools and their metadata
-    :param tool_status: dictionary with tools and their 2 status: Keep and Deprecated
+    :param tool_status: dataframe with suite ID and owner and their 2 status: Keep and Deprecated
     """
     name = tool["Suite ID"]
-    if name in tool_status:
-        tool["To keep"] = tool_status[name]["To keep"]
-        tool["Deprecated"] = tool_status[name]["Deprecated"]
+    owner = tool["Suite owner"]
+    if "Suite owner" in tool_status:
+        query = tool_status.query(f"`Suite ID` == '{name}' and `Suite owner` == '{owner}'")
     else:
+        query = tool_status.query(f"`Suite ID` == '{name}'")
+    if query.empty:
         tool["To keep"] = None
         tool["Deprecated"] = None
+    else:
+        query = query.iloc[0]
+        tool["To keep"] = bool(query["To keep"]) if query["To keep"] is not None else None
+        tool["Deprecated"] = bool(query["Deprecated"]) if query["Deprecated"] is not None else None
 
 
 def filter_tools(
     tools: List[Dict],
     ts_cat: List[str],
-    tool_status: Dict,
+    tool_status: pd.DataFrame,
 ) -> list:
     """
     Filter tools for specific ToolShed categories
 
     :param tools: dictionary with tools and their metadata
     :param ts_cat: list of ToolShed categories to keep in the extraction
-    :param tool_status: dictionary with tools and their 2 status: Keep and Deprecated
+    :param tool_status: dataframe with suite ID and owner and their 2 status: Keep and Deprecated
     """
     filtered_tools = []
     for tool in tools:
@@ -596,13 +612,13 @@ def filter_tools(
 
 def curate_tools(
     tools: List[Dict],
-    tool_status: Dict,
+    tool_status: pd.DataFrame,
 ) -> tuple:
     """
     Filter tools for specific ToolShed categories
 
     :param tools: dictionary with tools and their metadata
-    :param tool_status: dictionary with tools and their 2 status: Keep and Deprecated
+    :param tool_status: dataframe with suite ID and owner and their 2 status: Keep and Deprecated
     """
     curated_tools = []
     tools_wo_biotools = []
@@ -770,12 +786,6 @@ if __name__ == "__main__":
         help="Filepath to JSON with tools filtered based on ToolShed category",
     )
     filtertools.add_argument(
-        "--tsv-filtered",
-        "-t",
-        required=True,
-        help="Filepath to TSV with tools filtered based on ToolShed category",
-    )
-    filtertools.add_argument(
         "--status",
         "-s",
         help="Path to a TSV file with tool status - at least 3 columns: IDs of tool suites, Boolean with True to keep and False to exclude, Boolean with True if deprecated and False if not",
@@ -835,18 +845,18 @@ if __name__ == "__main__":
         categories = shared.read_file(args.categories)
         # get status if file provided
         if args.status and Path(args.status).exists():
-            status = pd.read_csv(args.status, sep="\t", index_col=0).to_dict("index")
+            status = pd.read_csv(args.status, sep="\t").replace(np.nan, None)
         else:
-            status = {}
+            status = pd.DataFrame(columns=["Suite ID", "Suite owner", "Description", "To keep", "Deprecated"])
         # filter tool lists
         filtered_tools = filter_tools(tools, categories, status)
         if filtered_tools:
             export_tools_to_json(filtered_tools, args.filtered)
             export_tools_to_tsv(
                 filtered_tools,
-                args.tsv_filtered,
+                args.status,
                 format_list_col=True,
-                to_keep_columns=["Suite ID", "Description", "To keep", "Deprecated"],
+                to_keep_columns=["Suite ID", "Suite owner", "Description", "To keep", "Deprecated"],
             )
         else:
             # if there are no ts filtered tools
@@ -856,11 +866,11 @@ if __name__ == "__main__":
         with Path(args.filtered).open() as f:
             tools = json.load(f)
         try:
-            status = pd.read_csv(args.status, sep="\t", index_col=0).to_dict("index")
+            status = pd.read_csv(args.status, sep="\t").replace(np.nan, None)
         except Exception as ex:
             print(f"Failed to load tool_status.tsv file with:\n{ex}")
             print("Not assigning tool status for this community !")
-            status = {}
+            status = pd.DataFrame(columns=["Suite ID", "Suite owner", "Description", "To keep", "Deprecated"])
 
         curated_tools, tools_wo_biotools, tools_with_biotools = curate_tools(tools, status)
         if curated_tools:
