@@ -410,7 +410,7 @@ if __name__ == "__main__":
         if args.status:
             try:
                 status = pd.read_csv(args.status, sep="\t", index_col=0).to_dict("index")
-            except Exception as ex:
+            except Exception:
                 status = {}
         else:
             status = {}
