@@ -584,8 +584,9 @@ def add_status(tool: Dict, tool_status: pd.DataFrame) -> None:
         tool["To keep"] = None
         tool["Deprecated"] = None
     else:
-        tool["To keep"] = bool(query["To keep"].iloc[0])
-        tool["Deprecated"] = bool(query["Deprecated"].iloc[0])
+        query = query.iloc[0]
+        tool["To keep"] = bool(query["To keep"]) if query["To keep"] is not None else None
+        tool["Deprecated"] = bool(query["Deprecated"]) if query["Deprecated"] is not None else None
 
 
 def filter_tools(
