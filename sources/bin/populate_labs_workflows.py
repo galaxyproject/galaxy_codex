@@ -38,14 +38,14 @@ def format_wfs(wf_df: pd.DataFrame) -> list:
             "description_md": f"Workflow covering operations related to {row['EDAM operations']} on topics related to {row['EDAM topics']}",
             "button_link": row["Link"],
             "button_tip": "View workflow",
-            "button_icon": "workflow",
+            "button_icon": "view",
         }
         description = ""
         prefix = "Workflow covering"
-        if row["EDAM operations"] != "" or row["EDAM operations"] is None:
+        if row["EDAM operations"] != "" or row["EDAM operations"] is not None:
             description += f"{ prefix } operations related to {row['EDAM operations']}"
             prefix = "on"
-        if row["EDAM topics"] != "" or row["EDAM topics"] is None:
+        if row["EDAM topics"] != "" or row["EDAM topics"] is not None:
             description += f"{ prefix } topics related to {row['EDAM topics']}"
         wf["description_md"] = description
         formatted_wfs.append(wf)
@@ -60,8 +60,11 @@ def fill_yaml_data_structure(yaml_data: dict, workflows: dict) -> dict:
         if element["id"] in ["peer_reviewed_wfs", "other_fair_wfs", "training_wfs"]:
             content = [
                 {
-                    "title_md": "How to import workflows from WorkflowHub?",
-                    "description_md": '<iframe src="https://oembed.apps.galaxyproject.eu/oembed?style=gtn&format=iframe-embed&url=https://training.galaxyproject.org/training-material/faqs/galaxy/workflows_import_from_workflowhub.html" width="100%" height="600px" </iframe>',
+                    "title_md": "Import workflows from WorkflowHub",
+                    "description_md": "WorkflowHub is a workflow management system which allows workflows to be FAIR (Findable, Accessible, Interoperable, and Reusable), citable, have managed metadata profiles, and be openly available for review and analytics.",
+                    "button_tip": "Read Tips",
+                    "button_icon": "tutorial",
+                    "button_link": "https://training.galaxyproject.org/training-material/faqs/galaxy/workflows_import.html",
                 },
             ]
             content.extend(format_wfs(workflows[element["id"]]))
@@ -69,8 +72,11 @@ def fill_yaml_data_structure(yaml_data: dict, workflows: dict) -> dict:
         elif element["id"] == "public_wfs":
             content = [
                 {
-                    "title_md": "How to import a workflow?",
-                    "description_md": '<iframe src="https://oembed.apps.galaxyproject.eu/oembed?style=gtn&format=iframe-embed&url=https://training.galaxyproject.org/training-material/faqs/galaxy/workflows_import.html" width="100%" height="600px"</iframe>',
+                    "title_md": "Importing a workflow",
+                    "description_md": "Import a workflow from URL or a workflow file",
+                    "button_tip": "Read Tips",
+                    "button_icon": "tutorial",
+                    "button_link": "https://training.galaxyproject.org/training-material/faqs/galaxy/workflows_import.html",
                 },
             ]
             content.extend(format_wfs(workflows["public_wfs"]))
