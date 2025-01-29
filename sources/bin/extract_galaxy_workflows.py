@@ -136,7 +136,8 @@ class Workflow:
                     f"https://{ self.source.lower() }.eu/projects/{project['id']}",
                     {"Accept": "application/json"},
                 )
-                self.projects.append(wfhub_project["data"]["attributes"]["title"])
+                if "attributes" in wfhub_project["data"] and "title" in wfhub_project["data"]["attributes"]:
+                    self.projects.append(wfhub_project["data"]["attributes"]["title"])
 
     def test_tags(self, tags: dict) -> bool:
         """
@@ -190,6 +191,7 @@ class Workflows:
         )
         print(f"Workflows from WorkflowHub: {len(wfhub_wfs['data'])}")
         data = wfhub_wfs["data"]
+        print(data)
         if self.test:
             data = data[:10]
         for wf in data:
@@ -410,7 +412,7 @@ if __name__ == "__main__":
         if args.status:
             try:
                 status = pd.read_csv(args.status, sep="\t", index_col=0).to_dict("index")
-            except Exception as ex:
+            except Exception:
                 status = {}
         else:
             status = {}
