@@ -184,7 +184,8 @@ def get_tutorials(
             if tuto is None:
                 continue
             format_tutorial(tuto, edam_ontology, tools, feedback, plausible_api)
-            tutos.append(tuto)
+            if tuto not in tutos:
+                tutos.append(tuto)
     return tutos
 
 
