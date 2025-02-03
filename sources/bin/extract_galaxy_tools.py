@@ -780,7 +780,9 @@ def extract_top_tools_per_category(
     return top_tools_per_category
 
 
-def fill_lab_tool_section(lab_section: dict, top_items_per_category: pd.DataFrame, count_column: str = "Suite runs on main servers") -> dict:
+def fill_lab_tool_section(
+    lab_section: dict, top_items_per_category: pd.DataFrame, count_column: str = "Suite runs on main servers"
+) -> dict:
     """
     Fill Lab tool section
     """
@@ -851,23 +853,17 @@ def extract_missing_tools_per_servers(tool_fp: str) -> dict:
     top_tools_per_category = extract_top_tools_per_category(tool_fp)
     tools = pd.read_csv(tool_fp, sep="\t").fillna("")
 
-    servers = [col.replace("Number of tools on ", "") for col in tools.filter(regex="Number of tools on")]
+    servers = [col.replace("Number of tools on ", "") for col in tools.filter(regex="Number of tools on").columns]
     missing_tools: dict[str, dict] = {}
     for _index, tool in tools.iterrows():
         tool_ids = tool["Tool IDs"].split(", ")
         # individual tools to install
-        to_install = [
-            {"name": t_id, "owner": tool["Suite owner"], "tool_panel_section_id": ""}
-            for t_id in tool_ids
-        ]
+        to_install = [{"name": t_id, "owner": tool["Suite owner"], "tool_panel_section_id": ""} for t_id in tool_ids]
         # identify servers missing tools
         for server in servers:
             if tool[f"Number of tools on { server }"] < len(tool_ids):  # Missing tools condition
                 if server not in missing_tools:
-                    missing_tools[server] = {
-                        "all": [],
-                        "top": []
-                    }
+                    missing_tools[server] = {"all": [], "top": []}
                 missing_tools[server]["all"].extend(to_install)
                 if sum(top_tools_per_category["Suite ID"].str.contains(tool["Suite ID"])) == 1:
                     missing_tools[server]["top"].extend(to_install)
@@ -1099,8 +1095,8 @@ if __name__ == "__main__":
 
     elif args.command == "popLabSection":
         lab_section = shared.load_yaml(args.lab)
-        top_tools_per_category = extract_top_tools_per_category(args.curated, count_column)
-        lab_section = fill_lab_tool_section(lab_section, top_tools_per_category, count_column)
+        top_tools_per_category = extract_top_tools_per_category(args.curated)
+        lab_section = fill_lab_tool_section(lab_section, top_tools_per_category)
 
         with open(args.lab, "w") as lab_f:
             ruamelyaml().dump(lab_section, lab_f)
