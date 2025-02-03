@@ -2,9 +2,15 @@
 
 ## MICROGALAXY LAB
 
-python sources/bin/populate_labs_tools.py \
-    --tool_tsv communities/microgalaxy/resources/curated_tools.tsv \
-    --tool_yml communities/microgalaxy/lab/sections/4_tools.yml
+python sources/bin/extract_galaxy_tools.py \
+    popLabSection \
+    --curated communities/microgalaxy/resources/curated_tools.tsv \
+    --lab communities/microgalaxy/lab/sections/4_tools.yml
+
+python sources/bin/extract_galaxy_tools.py \
+    getLabTools \
+    --curated communities/microgalaxy/resources/curated_tools.tsv \
+    --tools communities/microgalaxy/lab/tools
 
 python sources/bin/populate_labs_tutorials.py \
     --tsv communities/microgalaxy/resources/tutorials.tsv \
