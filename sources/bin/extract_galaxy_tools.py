@@ -24,6 +24,9 @@ from github import Github
 from github.ContentFile import ContentFile
 from github.Repository import Repository
 from owlready2 import get_ontology
+from ruamel.yaml import YAML as ruamelyaml
+from ruamel.yaml.scalarstring import LiteralScalarString
+
 
 # Config variables
 BIOTOOLS_API_URL = "https://bio.tools"
@@ -733,6 +736,114 @@ def get_tools(repo_list: list, edam_ontology: dict) -> List[Dict]:
     return tools
 
 
+def extract_top_tools_per_category(tool_fp: str, count_column: str, category_nb: int = 10, top_tool_nb: int = 10) -> pd.DataFrame:
+    """
+    Extract top tools per categories
+    """
+    tools = pd.read_csv(tool_fp, sep="\t")
+
+    # Step 1: Split the categories into separate rows and strip whitespace
+    df = tools.assign(Category=tools["EDAM operations"].str.split(",")).explode("Category")
+    df["Category"] = df["Category"].str.strip()  # Strip whitespace
+
+    # Step 2: Group by category to calculate total count and item count
+    grouped = (
+        df.groupby("Category")
+        .agg(
+            total_count=(count_column, "sum"),
+            item_count=("Suite ID", "size"),  # Count distinct items if necessary, use 'nunique'
+        )
+        .reset_index()
+    )
+
+    # Step 3: Filter categories with at least 5 items
+    filtered = grouped[grouped["item_count"] >= 5]
+
+    # Step 4: Sort by total count in descending order
+    top_categories = filtered.sort_values(by="total_count", ascending=False).head(category_nb)["Category"]
+
+    # Step 5: Assign each tool to the first category it appears in
+    # Sort by 'Galaxy wrapper id' to ensure we assign based on first appearance
+    df_unique = df[df["Category"].isin(top_categories)]  # Filter rows for top 5 categories
+    df_unique = df_unique.sort_values(by=["Suite ID", "Category"])  # Sort by tool ID to keep first category only
+
+    # Step 6: Remove duplicates, keeping the first appearance of each tool
+    df_unique = df_unique.drop_duplicates(subset=["Suite ID"], keep="first")
+
+    # Step 7: Extract top 5 items per category based on total count
+    top_tools_per_category = (
+        df_unique.groupby("Category", group_keys=False)  # Group by category
+        .apply(lambda group: group.nlargest(top_tool_nb, count_column))  # Get top items per category
+        .reset_index(drop=True)  # Reset index for clean output
+    )
+    return top_tools_per_category
+
+
+def fill_lab_tool_section(lab_section: dict, top_items_per_category: pd.DataFrame, count_column: str) -> dict:
+    """
+    Fill Lab tool section
+    """
+    tabs = []
+    for element in lab_section["tabs"]:
+        if element["id"] == "more_tools":
+            tabs.append(element)
+
+    for grp_id, group in top_items_per_category.groupby("Category"):
+        group_id = str(grp_id)
+        tool_entries = []
+        for _index, row in group.iterrows():
+
+            # Prepare the description with an HTML unordered list and links for each Galaxy tool ID
+            description = f"{row['Description']}\n (Tool usage: {row[count_column]})"
+            tool_ids = row["Tool IDs"]
+            owner = row["Suite owner"]
+            wrapper_id = row["Suite ID"]
+
+            # Split the tool IDs by comma if it's a valid string, otherwise handle as an empty list
+            tool_ids_list = tool_ids.split(",") if isinstance(tool_ids, str) else []
+
+            # Create the base URL template for each tool link
+            url_template = "/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2F{owner}%2F{wrapper_id}%2F{tool_id}"
+
+            # Build HTML list items with links
+            description += "\n<ul>\n"
+            for tool_id in tool_ids_list:
+                tool_id = tool_id.strip()  # Trim whitespace
+                # Format the URL with owner, wrapper ID, and tool ID
+                url = "{{ galaxy_base_url }}" + url_template.format(owner=owner, wrapper_id=wrapper_id, tool_id=tool_id)
+                description += f'  <li><a href="{url}">{tool_id}</a></li>\n'
+            description += "</ul>"
+
+            # Use LiteralScalarString to enforce literal block style for the description
+            description_md = LiteralScalarString(description.strip())
+
+            # Create the tool entry
+            tool_entry = {
+                "title_md": wrapper_id,
+                "description_md": description_md,
+            }
+
+            tool_entries.append(tool_entry)
+
+        # Create table entry for each EDAM
+        tabs.append(
+            {
+                "id": group_id.replace(" ", "_").lower(),
+                "title": group_id,
+                "heading_md": f"Top 10 for the EDAM operation: {group_id}",
+                "content": tool_entries,
+            }
+        )
+
+    new_lab_section = {
+        "id": lab_section["id"],
+        "title": lab_section["title"],
+        "tabs": tabs,
+    }
+    return new_lab_section
+
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description="Extract Galaxy tools from GitHub repositories together with biotools and conda metadata"
@@ -820,6 +931,21 @@ if __name__ == "__main__":
         "-s",
         help="Path to a TSV file with tool status - at least 3 columns: IDs of tool suites, Boolean with True to keep and False to exclude, Boolean with True if deprecated and False if not",
     )
+
+    # Curate tools categories
+    labpop = subparser.add_parser("popLabSection", help="Fill in Lab section tools")
+    labpop.add_argument(
+        "--curated",
+        "-c",
+        required=True,
+        help="Filepath to TSV with curated tools",
+    )
+    labpop.add_argument(
+        "--lab",
+        required=True,
+        help="Filepath to YAML files for Lab section",
+    )
+
     args = parser.parse_args()
 
     if args.command == "extract":
@@ -894,3 +1020,12 @@ if __name__ == "__main__":
         else:
             # if there are no ts filtered tools
             print("No tools left after curation")
+
+    elif args.command == "popLabSection":
+        count_column = "Suite runs on main servers"
+        lab_section = shared.load_yaml(args.lab)
+        top_tools_per_category = extract_top_tools_per_category(args.curated, count_column)
+        lab_section = fill_lab_tool_section(lab_section, top_tools_per_category, count_column)
+
+        with open(args.lab, "w") as lab_f:
+            ruamelyaml().dump(lab_section, lab_f)
