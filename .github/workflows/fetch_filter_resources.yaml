@@ -93,11 +93,35 @@ jobs:
         with:
           name: tutorials
           path: communities/all/resources/tutorials.json
+#  fetch-workflows:
+#    runs-on: ubuntu-20.04
+#    name: Fetch tutorials
+#    steps:
+#      - name: Checkout main
+#        uses: actions/checkout@v4
+#      - uses: actions/setup-python@v5
+#        with:
+#          python-version: '3.11'
+#      - name: Install requirement
+#        run: |
+#          python -m pip install -r requirements.txt
+#          sudo apt-get install jq
+#      - name: Fetch all workflows
+#        run: | 
+#          bash sources/bin/extract_all_workflows.sh 
+#        env: 
+#          PLAUSIBLE_API_KEY: ${{ secrets.PLAUSIBLE_API_TOKEN }}
+#      - name: Archive tutorials artifacts
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: workflows
+#          path: communities/all/resources/workflows.json
   merge-fetch-filter:
     runs-on: ubuntu-20.04
     needs: 
       - fetch-tools-stepwise
       - fetch-tutorials
+#      - fetch-workflows
     name: Merge tools, fetch tutorials and filter the resources for communities
     steps:
       - name: Checkout main
@@ -132,9 +156,6 @@ jobs:
       - name: Generate wordcloud and interactive table
         run: |
           bash sources/bin/format_tools.sh
-      - name: Fetch all workflows
-        run: | 
-          bash sources/bin/extract_all_workflows.sh 
       - name: Filter workflows for communities
         run: | 
           bash sources/bin/get_community_workflows.sh
