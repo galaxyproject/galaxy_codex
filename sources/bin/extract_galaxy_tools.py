@@ -27,7 +27,6 @@ from owlready2 import get_ontology
 from ruamel.yaml import YAML as ruamelyaml
 from ruamel.yaml.scalarstring import LiteralScalarString
 
-
 # Config variables
 BIOTOOLS_API_URL = "https://bio.tools"
 
@@ -736,7 +735,9 @@ def get_tools(repo_list: list, edam_ontology: dict) -> List[Dict]:
     return tools
 
 
-def extract_top_tools_per_category(tool_fp: str, count_column: str, category_nb: int = 10, top_tool_nb: int = 10) -> pd.DataFrame:
+def extract_top_tools_per_category(
+    tool_fp: str, count_column: str = "Suite runs on main servers", category_nb: int = 10, top_tool_nb: int = 10
+) -> pd.DataFrame:
     """
     Extract top tools per categories
     """
@@ -770,7 +771,7 @@ def extract_top_tools_per_category(tool_fp: str, count_column: str, category_nb:
     # Step 6: Remove duplicates, keeping the first appearance of each tool
     df_unique = df_unique.drop_duplicates(subset=["Suite ID"], keep="first")
 
-    # Step 7: Extract top 5 items per category based on total count
+    # Step 7: Extract top X items per category based on total count
     top_tools_per_category = (
         df_unique.groupby("Category", group_keys=False)  # Group by category
         .apply(lambda group: group.nlargest(top_tool_nb, count_column))  # Get top items per category
@@ -779,7 +780,7 @@ def extract_top_tools_per_category(tool_fp: str, count_column: str, category_nb:
     return top_tools_per_category
 
 
-def fill_lab_tool_section(lab_section: dict, top_items_per_category: pd.DataFrame, count_column: str) -> dict:
+def fill_lab_tool_section(lab_section: dict, top_items_per_category: pd.DataFrame, count_column: str = "Suite runs on main servers") -> dict:
     """
     Fill Lab tool section
     """
@@ -842,6 +843,66 @@ def fill_lab_tool_section(lab_section: dict, top_items_per_category: pd.DataFram
     }
     return new_lab_section
 
+
+def extract_missing_tools_per_servers(tool_fp: str) -> dict:
+    """
+    Extract missing tools per servers that could be installed in a Lab
+    """
+    top_tools_per_category = extract_top_tools_per_category(tool_fp)
+    tools = pd.read_csv(tool_fp, sep="\t").fillna("")
+
+    servers = [col.replace("Number of tools on ", "") for col in tools.filter(regex="Number of tools on")]
+    missing_tools: dict[str, dict] = {}
+    for _index, tool in tools.iterrows():
+        tool_ids = tool["Tool IDs"].split(", ")
+        # individual tools to install
+        to_install = [
+            {"name": t_id, "owner": tool["Suite owner"], "tool_panel_section_id": ""}
+            for t_id in tool_ids
+        ]
+        # identify servers missing tools
+        for server in servers:
+            if tool[f"Number of tools on { server }"] < len(tool_ids):  # Missing tools condition
+                if server not in missing_tools:
+                    missing_tools[server] = {
+                        "all": [],
+                        "top": []
+                    }
+                missing_tools[server]["all"].extend(to_install)
+                if sum(top_tools_per_category["Suite ID"].str.contains(tool["Suite ID"])) == 1:
+                    missing_tools[server]["top"].extend(to_install)
+    return missing_tools
+
+
+def export_missing_tools_to_yaml(server_f: Path, tools: list) -> None:
+    """
+    Export missing tools in a YAML file
+    """
+    tool_dict = {
+        "install_tool_dependencies": True,
+        "install_repository_dependencies": True,
+        "install_resolver_dependencies": True,
+        "tools": tools,
+    }
+    with server_f.open("w") as output:
+        yaml.dump(tool_dict, output, default_flow_style=False)
+
+
+def export_missing_tools(missing_tools: dict, tool_dp: str) -> None:
+    """
+    Export missing tools with a YAML per Galaxy server
+    """
+    all_d = Path(tool_dp) / Path("all")
+    all_d.mkdir(parents=True, exist_ok=True)
+
+    top_d = Path(tool_dp) / Path("top")
+    top_d.mkdir(parents=True, exist_ok=True)
+
+    for server, tools in missing_tools.items():
+        server = server.replace("(", "").replace(")", "").replace(" ", "_").replace(".", "_")
+        server_fn = f"{ server }.yaml"
+        export_missing_tools_to_yaml(Path(all_d) / Path(server_fn), tools["all"])
+        export_missing_tools_to_yaml(Path(top_d) / Path(server_fn), tools["top"])
 
 
 if __name__ == "__main__":
@@ -946,6 +1007,20 @@ if __name__ == "__main__":
         help="Filepath to YAML files for Lab section",
     )
 
+    # Extract tools to install on servers
+    labtools = subparser.add_parser("getLabTools", help="Extract tools to install on servers for a Lab")
+    labtools.add_argument(
+        "--curated",
+        "-f",
+        required=True,
+        help="Filepath to TSV with curated tools",
+    )
+    labtools.add_argument(
+        "--tools",
+        required=True,
+        help="Path to folder for generating subfolders (all, tools) with server YAML files with missing tools for a Lab",
+    )
+
     args = parser.parse_args()
 
     if args.command == "extract":
@@ -1000,6 +1075,7 @@ if __name__ == "__main__":
 
         curated_tools, tools_wo_biotools, tools_with_biotools = curate_tools(tools, status)
         if curated_tools:
+            export_tools_to_json(curated_tools, args.filtered)
             export_tools_to_tsv(
                 curated_tools,
                 args.curated,
@@ -1022,10 +1098,13 @@ if __name__ == "__main__":
             print("No tools left after curation")
 
     elif args.command == "popLabSection":
-        count_column = "Suite runs on main servers"
         lab_section = shared.load_yaml(args.lab)
         top_tools_per_category = extract_top_tools_per_category(args.curated, count_column)
         lab_section = fill_lab_tool_section(lab_section, top_tools_per_category, count_column)
 
         with open(args.lab, "w") as lab_f:
             ruamelyaml().dump(lab_section, lab_f)
+
+    elif args.command == "getLabTools":
+        missing_tools = extract_missing_tools_per_servers(args.curated)
+        export_missing_tools(missing_tools, args.tools)
