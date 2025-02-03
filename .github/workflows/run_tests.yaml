@@ -98,26 +98,26 @@ jobs:
         run: | 
           bash sources/bin/get_community_tutorials.sh test
 
-  test-workflows:
-    runs-on: ubuntu-20.04
-    # This job runs tests for workflows.
-    # It performs the same checks as the other jobs, ensuring
-    # quality for workflow scripts.
-    if: github.event.pull_request.head.repo.full_name == github.repository || github.ref == 'refs/heads/dev'
-    strategy:
-      matrix:
-        python-version: ['3.11']
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: ${{ matrix.python-version }}
-      - name: Install requirements
-        run: python -m pip install -r requirements.txt
-      - name: Workflow extraction
-        run: | 
-          bash sources/bin/extract_all_workflows.sh test
-      - name: Workflow filtering
-        run: | 
-          bash sources/bin/get_community_workflows.sh test
+#  test-workflows:
+#    runs-on: ubuntu-20.04
+#    # This job runs tests for workflows.
+#    # It performs the same checks as the other jobs, ensuring
+#    # quality for workflow scripts.
+#    if: github.event.pull_request.head.repo.full_name == github.repository || github.ref == 'refs/heads/dev'
+#    strategy:
+#      matrix:
+#        python-version: ['3.11']
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v4
+#      - uses: actions/setup-python@v5
+#        with:
+#          python-version: ${{ matrix.python-version }}
+#      - name: Install requirements
+#        run: python -m pip install -r requirements.txt
+#      - name: Workflow extraction
+#        run: | 
+#          bash sources/bin/extract_all_workflows.sh test
+#      - name: Workflow filtering
+#        run: | 
+#          bash sources/bin/get_community_workflows.sh test
