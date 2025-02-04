@@ -13,21 +13,33 @@ tabs:
           Find specific advice for
           {gtn modal}[troubleshooting Galaxy errors](https://training.galaxyproject.org/training-material/faqs/galaxy/analysis_troubleshooting.html)
           on the GTN.
-      - title_md: Galaxy [American/Australia/EU/France/..] Support
+      - title_md: Galaxy Support
         description_md: >
           Any user of Galaxy {{ site_name }} can request support online!
         button_md: Request support
         button_link: "{{ support }}"
+        button_icon: help
       - title_md: microGalaxy support
         description_md: >
           Users of microGalaxy can submit any kind of bug report via the microGalaxy webserver
-        button_link: "{{ galaxy_base_url }}"
         button_md: microGalaxy support
+        button_link: "{{ galaxy_base_url }}"
+        button_icon: help
       - title_md: microGalaxy chat room
         description_md: >
           Of course! Check out the microGalaxy Matrix channel
         button_link: "{{ microgalaxy_matrix }}"
         button_md: Matrix channel
+        button_icon: social
+
+  - id: faq
+    title: FAQ
+    content:
+      - title_md: How can I increase my storage quota?
+        description_md: >
+          Please submit a quota request if your Galaxy  account reaches its data storage limit. Requests are usually provisioned quickly if you provide a reasonable use case for your request.
+        button_md: Request
+        button_link: "{{ quota_request_url }}"
       - title_md: Can I upload sensitive data?
         description_md: >
           No, please do not upload personal or sensitive, such as human health or clinical data. Please see our
@@ -42,12 +54,3 @@ tabs:
           Please read our
           [Privacy Policy]({{ data_policy_url }})
           for information on your personal data and any data that you upload.
-
-  - id: increase-quota
-    title: Increase quota
-    content:
-      - title_md: How can I increase my storage quota?
-        description_md: >
-          Please submit a quota request if your Galaxy  account reaches its data storage limit. Requests are usually provisioned quickly if you provide a reasonable use case for your request.
-        button_md: Request
-        button_link: "{{ quota_request_url }}"
