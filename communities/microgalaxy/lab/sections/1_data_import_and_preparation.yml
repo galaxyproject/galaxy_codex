@@ -23,24 +23,31 @@ tabs:
           This tool downloads data related to a run in EBI Metagenomics database
         button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Febi_metagenomics_run_downloader%2Febi_metagenomics_run_downloader"
 
-
   - id: highlight-tools
     title: Highlight tools
     heading_md: >
       Flagship tools for microbial research 
     content:
-      - title_md: <code>FastQC</code> - sequence quality reports
+      - title_md: <code>ABRicate</code> - Mass screening of contigs for antimicrobial and virulence genes
         description_md: >
           <p>
-            Before using your sequencing data, it's important to ensure that
-            the data quality is sufficient for your analysis.
+            Given a FASTA contig file or a genbank file, ABRicate will perform a mass screening of contigs and identify the presence of genes. The user can choose which database to search from a list of available databases, e.g. Virulence Factor and Antimicrobial Resistance genes.
           </p>
         inputs:
           - datatypes:
-              - fastq
-              - bam
-              - sam
-        button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fdevteam%2Ffastqc%2Ffastqc"
+              - fasta
+              - Genbank
+              - EMBL
+        button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/abricate/abricate/1.0.1"
+      - title_md: <code>Prokka</code> - Prokaryotic genome annotation
+        description_md: >
+          <p>
+            A software tool to rapidly annotate bacterial, archaeal and viral genomes, and produce output files that require only minor tweaking to submit to GenBank/ENA/DDBJ.
+          </p>
+        inputs:
+          - datatypes:
+              - fasta
+        button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/crs4/prokka/prokka/1.14.6+galaxy1"
       - title_md: <code>FastP</code> - sequence quality reports, trimming & filtering
         description_md: >
           <p>
@@ -60,6 +67,31 @@ tabs:
               - fastq
               - fasta
         button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fkraken2%2Fkraken2"
+
+  - id: interactive-tools
+    title: Interactive tools
+    heading_md: >
+      Interactive tools for microbial research 
+    content:
+      - title_md: <code>Interactive JupyterLab Notebook</code>
+        description_md: >
+          <p>
+            The Jupyter Notebook is an open-source web application that allows you to create and share documents that contain live code, equations, visualizations and narrative text. Uses include: data cleaning and transformation, numerical simulation, statistical modeling, data visualization, machine learning, and much more.
+          </p>
+        inputs:
+          - datatypes:
+              - Jupyter Notebook
+        button_link: "{{ galaxy_base_url }}/root?tool_id=interactive_tool_jupyter_notebook"
+      - title_md: <code>Pavian</code> - Interactive analysis of metagenomics data
+        description_md: >
+          <p>
+            An interactive browser application for analyzing and visualization metagenomics classification results from classifiers such as Kraken, KrakenUniq, Kraken 2, Centrifuge and MetaPhlAn. Pavian also provides an alignment viewer for validation of matches to a particular genome.
+          </p>
+        inputs:
+          - datatypes:
+              - Kraken report
+              - MetaPhlAn report
+        button_link: "{{ galaxy_base_url }}/root?tool_id=interactive_tool_pavian"
       
   - id: learning-pathways
     title: Learning pathways
