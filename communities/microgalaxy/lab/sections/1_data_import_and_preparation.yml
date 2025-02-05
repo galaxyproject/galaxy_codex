@@ -26,12 +26,31 @@ tabs:
           This tool downloads data related to a run in EBI Metagenomics database
         button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Febi_metagenomics_run_downloader%2Febi_metagenomics_run_downloader"
         button_tip: Download run data from MGnify
+      - title_md: Download run data from UCSC
+        description_md: >
+          Use this tool to retrieve and export data from the Genome Browser annotation track database
+        button_link: "https://genome.ucsc.edu/cgi-bin/hgTables?GALAXY_URL=https%3A//microgalaxy.usegalaxy.eu/tool_runner&tool_id=ucsc_table_direct1&sendToGalaxy=1&hgta_compressType=none&hgta_outputType=bed"
+        button_tip: Download run data from UCSC
+      - title_md: Download run data from EBI SRA
+        description_md: >
+          ENA data can be searched and retrieved interactively and programmatically and visualized using this ENA Browser tool
+        button_link: "https://www.ebi.ac.uk/ena/browser/search?GALAXY_URL=https:%2F%2Fmicrogalaxy.usegalaxy.eu%2Ftool_runner%3Ftool_id%3Debi_sra_main"
+        button_tip: Download run data from EBI SRA
 
   - id: highlight-tools
     title: Highlight tools
     heading_md: >
       Flagship tools for microbial research 
     content:
+      - title_md: <code>Bakta</code> - Rapid and standardized annotation of bacterial genomes, MAGs and plasmids
+        description_md: >
+          <p>
+            A tool for the rapid & standardized annotation of bacterial genomes and plasmids from both isolates and MAGs.
+          </p>
+        inputs:
+          - datatypes:
+              - fasta
+        button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/bakta/bakta/1.9.4+galaxy0"
       - title_md: <code>ABRicate</code> - Mass screening of contigs for antimicrobial and virulence genes
         description_md: >
           <p>
@@ -43,13 +62,22 @@ tabs:
               - Genbank
               - EMBL
         button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/abricate/abricate/1.0.1"
-      - title_md: <code>Prokka</code> - Prokaryotic genome annotation
+      - title_md: <code>metaSPAdes</code> - metagenome assembler
         description_md: >
-            A software tool to rapidly annotate bacterial, archaeal and viral genomes, and produce output files that require only minor tweaking to submit to GenBank/ENA/DDBJ.
+            metaSPAdes is a subtool for assembling metagenomic data sets.
         inputs:
           - datatypes:
-              - fasta
-        button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/crs4/prokka/prokka/1.14.6+galaxy1"
+              - fastq
+              - fastqsanger
+        button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/nml/metaspades/metaspades/3.15.5+galaxy2"
+      - title_md: <code>Unicycler</code> - pipeline for bacterial genomes
+        description_md: >
+            Unicycler is a hybrid assembly pipeline for bacterial genomes.
+        inputs:
+          - datatypes:
+              - fastq
+              - fastqsanger
+        button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/unicycler/unicycler/0.5.1+galaxy0"
       - title_md: <code>FastP</code> - sequence quality reports, trimming & filtering
         description_md: >
           <p>
@@ -75,15 +103,6 @@ tabs:
     heading_md: >
       Interactive tools for microbial research 
     content:
-      - title_md: <code>Interactive JupyterLab Notebook</code>
-        description_md: >
-          <p>
-            The Jupyter Notebook is an open-source web application that allows you to create and share documents that contain live code, equations, visualizations and narrative text. Uses include: data cleaning and transformation, numerical simulation, statistical modeling, data visualization, machine learning, and much more.
-          </p>
-        inputs:
-          - datatypes:
-              - Jupyter Notebook
-        button_link: "{{ galaxy_base_url }}/root?tool_id=interactive_tool_jupyter_notebook"
       - title_md: <code>Pavian</code> - Interactive analysis of metagenomics data
         description_md: >
           <p>
@@ -94,6 +113,39 @@ tabs:
               - Kraken report
               - MetaPhlAn report
         button_link: "{{ galaxy_base_url }}/root?tool_id=interactive_tool_pavian"
+      - title_md: <code>RStudio</code>
+        description_md: >
+          <p>
+            This familiar R analysis software suite will let you explore your datasets in depth. Comes with ggplot2, RODBC, maps, shinyapps, knitr, LaTeX, bioconductor, cummeRbund, and many more pre-installed packages.
+          </p>
+        button_link: "{{ galaxy_base_url }}/root?tool_id=interactive_tool_rstudio"
+      - title_md: <code>Phinch</code>
+        description_md: >
+          <p>
+            Interactive tool for visualising Biom data.
+          </p>
+        inputs:
+          - datatypes:
+              - Biom
+        button_link: "{{ galaxy_base_url }}/root?tool_id=interactive_tool_phinch"
+      - title_md: <code>Phyloseq</code> - Explore microbiome profiles
+        description_md: >
+          <p>
+            The phyloseq package is a tool to import, store, analyze, and graphically display complex phylogenetic sequencing data that has already been clustered into Operational Taxonomic Units (OTUs), especially when there is associated sample data, phylogenetic tree, and/or taxonomic assignment of the OTUs.
+          </p>
+        inputs:
+          - datatypes:
+              - phyloseq R object
+        button_link: "{{ galaxy_base_url }}/root?tool_id=interactive_tool_phyloseq"
+      - title_md: <code>Interactive JupyterLab Notebook</code>
+        description_md: >
+          <p>
+            The Jupyter Notebook is an open-source web application that allows you to create and share documents that contain live code, equations, visualizations and narrative text. Uses include: data cleaning and transformation, numerical simulation, statistical modeling, data visualization, machine learning, and much more.
+          </p>
+        inputs:
+          - datatypes:
+              - Jupyter Notebook
+        button_link: "{{ galaxy_base_url }}/root?tool_id=interactive_tool_jupyter_notebook"
       
   - id: learning-pathways
     title: Learning pathways
@@ -113,25 +165,25 @@ tabs:
           This learning path aims to teach you the basic steps to detect and check Antimicrobial resistance (AMR) genes in bacterial genomes using Galaxy.
         button_link: https://training.galaxyproject.org/training-material/learning-pathways/amr-gene-detection.html
         button_icon: tutorial
-        button_tip: Open tutorial
+        button_tip: Open Learning Pathway
       - title_md: Clinical metaproteomics workflows within Galaxy
         description_md: >
           This learning path aims to teach you the basics of how to perform metaproteomics analysis of the clinical data within the Galaxy platform. You will learn how to use Galaxy for analysis and will be guided through the most common first steps of any metaproteomics database generation to searching the database, verifying the proteins/peptides, and data analysis.
         button_link: https://training.galaxyproject.org/training-material/learning-pathways/clinical-metaproteomics.html
         button_icon: tutorial
-        button_tip: Open tutorial
+        button_tip: Open Learning Pathway
       - title_md: Genome annotation for prokaryotes
         description_md: >
           Learn how to annotate a prokaryotic genome sequence: find the position and function of genes, and even set up a manual curation environment with Apollo.
         button_link: https://training.galaxyproject.org/training-material/learning-pathways/genome-annotation-prokaryote.html
         button_icon: tutorial
-        button_tip: Open tutorial
+        button_tip: Open Learning Pathway
       - title_md: Metagenomics data processing and analysis for microbiome
         description_md: >
           This learning path aims to teach you the basics of Galaxy and analysis of metagenomics data. You will learn how to use Galaxy for analysis, and will be guided through the common steps of microbiome data analysis: quality control, taxonomic profiling, taxonomic binning, assembly, functional profiling, and also some applications
         button_link: https://training.galaxyproject.org/training-material/learning-pathways/metagenomics.html
         button_icon: tutorial
-        button_tip: Open tutorial
+        button_tip: Open Learning Pathway
 
 
       
