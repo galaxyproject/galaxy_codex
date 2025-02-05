@@ -21,6 +21,11 @@ tabs:
           Faster Download and Extract Reads in FASTQ format from NCBI SRA
         button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fsra_tools%2Ffasterq_dump"
         button_tip: Download raw reads from NCBI SRA
+      - title_md: Download run data from EBI SRA
+        description_md: >
+          ENA data can be searched and retrieved interactively and programmatically and visualized using this ENA Browser tool
+        button_link: "https://www.ebi.ac.uk/ena/browser/search?GALAXY_URL=https:%2F%2Fmicrogalaxy.usegalaxy.eu%2Ftool_runner%3Ftool_id%3Debi_sra_main"
+        button_tip: Download run data from EBI SRA
       - title_md: Download run data from EBI Metagenomics (MGnify)
         description_md: >
           This tool downloads data related to a run in EBI Metagenomics database
@@ -31,11 +36,6 @@ tabs:
           Use this tool to retrieve and export data from the Genome Browser annotation track database
         button_link: "https://genome.ucsc.edu/cgi-bin/hgTables?GALAXY_URL=https%3A//microgalaxy.usegalaxy.eu/tool_runner&tool_id=ucsc_table_direct1&sendToGalaxy=1&hgta_compressType=none&hgta_outputType=bed"
         button_tip: Download run data from UCSC
-      - title_md: Download run data from EBI SRA
-        description_md: >
-          ENA data can be searched and retrieved interactively and programmatically and visualized using this ENA Browser tool
-        button_link: "https://www.ebi.ac.uk/ena/browser/search?GALAXY_URL=https:%2F%2Fmicrogalaxy.usegalaxy.eu%2Ftool_runner%3Ftool_id%3Debi_sra_main"
-        button_tip: Download run data from EBI SRA
 
   - id: highlight-tools
     title: Highlight tools
@@ -51,9 +51,7 @@ tabs:
         button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/bakta/bakta/1.9.4+galaxy0"
       - title_md: <code>ABRicate</code> - Mass screening of contigs for antimicrobial and virulence genes
         description_md: >
-          <p>
             Given a FASTA contig file or a genbank file, ABRicate will perform a mass screening of contigs and identify the presence of genes. The user can choose which database to search from a list of available databases, e.g. Virulence Factor and Antimicrobial Resistance genes.
-          </p>
         inputs:
           - datatypes:
               - fasta
@@ -78,18 +76,14 @@ tabs:
         button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/unicycler/unicycler/0.5.1+galaxy0"
       - title_md: <code>FastP</code> - sequence quality reports, trimming & filtering
         description_md: >
-          <p>
             Commonly used tool for trimming and quality filter. Also provides quality metrics.
-          </p>
         inputs:
           - datatypes:
               - fastq
         button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Ffastp%2Ffastp"
       - title_md: <code>Kraken2</code> - Kraken2 assign taxonomic labels to sequencing reads
         description_md: >
-          <p>
             Kraken2 assign taxonomic labels to sequencing reads. 
-          </p>
         inputs:
           - datatypes:
               - fastq
@@ -109,33 +103,27 @@ tabs:
               - Kraken report
               - MetaPhlAn report
         button_link: "{{ galaxy_base_url }}/root?tool_id=interactive_tool_pavian"
-      - title_md: <code>RStudio</code>
-        description_md: >
-            This familiar R analysis software suite will let you explore your datasets in depth. Comes with ggplot2, RODBC, maps, shinyapps, knitr, LaTeX, bioconductor, cummeRbund, and many more pre-installed packages.
-        button_link: "{{ galaxy_base_url }}/root?tool_id=interactive_tool_rstudio"
       - title_md: <code>Phinch</code>
         description_md: >
-          <p>
             Interactive tool for visualising Biom data.
-          </p>
         inputs:
           - datatypes:
               - Biom
         button_link: "{{ galaxy_base_url }}/root?tool_id=interactive_tool_phinch"
       - title_md: <code>Phyloseq</code> - Explore microbiome profiles
         description_md: >
-          <p>
             The phyloseq package is a tool to import, store, analyze, and graphically display complex phylogenetic sequencing data that has already been clustered into Operational Taxonomic Units (OTUs), especially when there is associated sample data, phylogenetic tree, and/or taxonomic assignment of the OTUs.
-          </p>
         inputs:
           - datatypes:
               - phyloseq R object
         button_link: "{{ galaxy_base_url }}/root?tool_id=interactive_tool_phyloseq"
+       - title_md: <code>RStudio</code>
+        description_md: >
+            This familiar R analysis software suite will let you explore your datasets in depth. Comes with ggplot2, RODBC, maps, shinyapps, knitr, LaTeX, bioconductor, cummeRbund, and many more pre-installed packages.
+        button_link: "{{ galaxy_base_url }}/root?tool_id=interactive_tool_rstudio"
       - title_md: <code>Interactive JupyterLab Notebook</code>
         description_md: >
-          <p>
             The Jupyter Notebook is an open-source web application that allows you to create and share documents that contain live code, equations, visualizations and narrative text. Uses include: data cleaning and transformation, numerical simulation, statistical modeling, data visualization, machine learning, and much more.
-          </p>
         inputs:
           - datatypes:
               - Jupyter Notebook
