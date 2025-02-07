@@ -6,18 +6,18 @@ tabs:
   heading_md: >
     Flagship tools for microbiome analysis
   content:
-    - title_md: <code>racon</code>
+    - title_md: <code>racon</code> - A standalone consensus building tool
       description_md: >
         Consensus module for raw de novo DNA assembly of long uncorrected reads.
       button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fbgruening%2Fracon%2Fracon"
-    - title_md: <code>metabat2</code>
+    - title_md: <code>metabat2</code> -  An adaptive binning algorithm for genome reconstruction from metagenome assemblies
       description_md: >
         MetaBAT2 (Metagenome Binning based on Abundance and Tetranucleotide frequency) is an automated metagenome binningsoftware that integrates empirical probabilistic distances of genome abundance and tetranucleotide frequency.
         <ul>
           <li><a href="{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fmetabat2%2Fmetabat2_jgi_summarize_bam_contig_depths">metabat2_jgi_summarize_bam_contig_depths</a></li>
           <li><a href="{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fmetabat2%2Fmetabat2">metabat2</a></li>
         </ul>
-    - title_md: <code>concoct</code>
+    - title_md: <code>concoct</code> - A program for unsupervised binning of metagenomic contigs
       description_md: >
         CONCOCT (Clustering cONtigs with COverage and ComposiTion) does unsupervised binning of metagenomic contigs byusing nucleotide composition - kmer frequencies - and coverage data for multiple samples. CONCOCT can accurately(up to species level) bin metagenomic contigs.
         <ul>
@@ -27,11 +27,11 @@ tabs:
           <li><a href="{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fconcoct%2Fconcoct_extract_fasta_bins">concoct_extract_fasta_bins</a></li>
           <li><a href="{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fconcoct%2Fconcoct_merge_cut_up_clustering">concoct_merge_cut_up_clustering</a></li>
         </ul>
-    - title_md: <code>megahit</code>
+    - title_md: <code>megahit</code> - An ultra-fast and memory-efficient NGS assembler
       description_md: >
         An ultra-fast single-node solution for large and complex metagenomics assembly via succinct de Bruijn graph.
       button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fmegahit%2Fmegahit"
-    - title_md: <code>checkm</code>
+    - title_md: <code>checkm</code> - A set of tools for assessing the quality of genomes recovered from isolates, single cells, or metagenomes
       description_md: >
         Assess the quality of microbial genomes recovered from isolates, single cells, and metagenomes
         <ul>
@@ -72,15 +72,26 @@ tabs:
   title: Databases
   heading_md: Examples of databases prebuilt in some tools by microGalaxy
   content:
-    - title_md: In <code>Kraken</code> tool
+    - title_md: Refseq for [<code>Kraken</code>]({{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/devteam/kraken/kraken/1.3.1) and [<code>Bracken</code>]({{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/bracken/est_abundance/3.0+galaxy0)
       description_md: >
+        Refseq indexes for <code>Kraken</code> and <code>Bracken</code> maintained by [Ben Langmead](https://benlangmead.github.io/aws-indexes/k2) 
         <ul>
-          <li> Viral </li>
-          <li> Plasmid </li>
-          <li> Archaea </li>
-          <li> Bacteria </li>
+          <li> Viral (Refeq viral) </li>
+          <li> MinusB (Refeq archaea, viral, plasmid, human1, UniVec_Core) </li>
+          <li> Standard (Refeq archaea, bacteria, viral, plasmid, human1, UniVec_Core) </li>
+          <li> Standard-8	 (Standard with DB capped at 8 GB) </li>
+          <li> Standard-16	 (Standard with DB capped at 16 GB) </li>
+          <li> PlusPF (Standard plus Refeq protozoa & fungi) </li>
+          <li> PlusPF-8 (PlusPF with DB capped at 8 GB) </li>
+          <li> PlusPF-16 (PlusPF with DB capped at 16 GB) </li>
+          <li> PlusPFP (Standard plus Refeq protozoa, fungi & plant) </li>          
+          <li> PlusPFP-8 (PlusPFP with DB capped at 8 GB) </li>
+          <li> PlusPFP-16 (PlusPFP with DB capped at 16 GB) </li>
+          <li> core_nt Database (Very large collection, inclusive of GenBank, RefSeq, TPA and PDB) </li>
+          <li> EuPathDB46 (Eukaryotic pathogen genomes with contaminants removed) </li>
+          <li> GTDB v220 (Bacterial and archaeal) </li>
         </ul>
-    - title_md: In <code>MetaPhlAn</code> tool
+    - title_md: MetaPhlAn clade-specific marker genes for [<code>MetaPhlAn</code> tool]({{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/metaphlan/metaphlan/4.1.1+galaxy3)
       description_md: >
         <ul>
           <li> MetaPhlAn clade-specific marker genes (mpa_vOct22_CHOCOPhlAnSGB_202403) </li>
@@ -108,7 +119,7 @@ tabs:
 
 - id: workflows
   title: Workflows
-  heading_md: Examples of microbiome analysis workflows to use directly, modify or take ideas from
+  heading_md: Microbiome analysis workflows to use directly, modify or take ideas from
   content:
     - title_md: Metagenomic Taxonomy and Functional Analysis
       description_md: Workflow covering operations related to Phylogenetic tree analysis,
@@ -291,5 +302,5 @@ tabs:
 - id: learning-pathway
   title: Learning pathways
   heading_md: >
-      {gtn modal}[Microbiome learning pathways](https://training.galaxyproject.org/training-material/learning-pathways/metagenomics.html) on the GTN.
+      [Microbiome learning pathways](https://training.galaxyproject.org/training-material/learning-pathways/metagenomics.html) on the GTN.
   content: []
