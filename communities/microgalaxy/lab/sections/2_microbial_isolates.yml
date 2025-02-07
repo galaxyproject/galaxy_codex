@@ -12,52 +12,63 @@ tabs:
     button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fbgruening%2Fracon%2Fracon"
     - title_md: <code>metabat2</code>
 
-  - id: interactive-tools
-    title: Interactive tools
-    heading_md: >
-      Interactive tools for microbial research 
-    content:
-      - title_md: <code>Pavian</code> - Interactive analysis of metagenomics data
-        description_md: >
-            An interactive browser application for analyzing and visualization metagenomics classification results from classifiers such as Kraken, KrakenUniq, Kraken 2, Centrifuge and MetaPhlAn. Pavian also provides an alignment viewer for validation of matches to a particular genome.
-        inputs:
-          - datatypes:
-              - Kraken report
-              - MetaPhlAn report
-        button_link: "{{ galaxy_base_url }}/root?tool_id=interactive_tool_pavian"
-      - title_md: <code>Phinch</code>
-        description_md: >
-            Interactive tool for visualising Biom data.
-        inputs:
-          - datatypes:
-              - Biom
-        button_link: "{{ galaxy_base_url }}/root?tool_id=interactive_tool_phinch"
-      - title_md: <code>Phyloseq</code> - Explore microbiome profiles
-        description_md: >
-            The phyloseq package is a tool to import, store, analyze, and graphically display complex phylogenetic sequencing data that has already been clustered into Operational Taxonomic Units (OTUs), especially when there is associated sample data, phylogenetic tree, and/or taxonomic assignment of the OTUs.
-        inputs:
-          - datatypes:
-              - phyloseq R object
-        button_link: "{{ galaxy_base_url }}/root?tool_id=interactive_tool_phyloseq"
-      - title_md: <code>RStudio</code>
-        description_md: >
-            This familiar R analysis software suite will let you explore your datasets in depth. Comes with ggplot2, RODBC, maps, shinyapps, knitr, LaTeX, bioconductor, cummeRbund, and many more pre-installed packages.
-        button_link: "{{ galaxy_base_url }}/root?tool_id=interactive_tool_rstudio"
-      - title_md: <code>Interactive JupyterLab Notebook</code>
-        description_md: >
+- id: interactive-tools
+  title: Interactive tools
+  heading_md: >
+    Interactive tools for microbial research 
+  content:
+    - title_md: <code>Pavian</code> - Interactive analysis of metagenomics data
+      description_md: >
+          An interactive browser application for analyzing and visualization metagenomics classification results from classifiers such as Kraken, KrakenUniq, Kraken 2, Centrifuge and MetaPhlAn. Pavian also provides an alignment viewer for validation of matches to a particular genome.
+      inputs:
+        - datatypes:
+            - Kraken report
+            - MetaPhlAn report
+      button_link: "{{ galaxy_base_url }}/root?tool_id=interactive_tool_pavian"
+    - title_md: <code>Phinch</code>
+      description_md: >
+          Interactive tool for visualising Biom data.
+      inputs:
+        - datatypes:
+            - Biom
+      button_link: "{{ galaxy_base_url }}/root?tool_id=interactive_tool_phinch"
+    - title_md: <code>Phyloseq</code> - Explore microbiome profiles
+      description_md: >
+          The phyloseq package is a tool to import, store, analyze, and graphically display complex phylogenetic sequencing data that has already been clustered into Operational Taxonomic Units (OTUs), especially when there is associated sample data, phylogenetic tree, and/or taxonomic assignment of the OTUs.
+      inputs:
+        - datatypes:
+            - phyloseq R object
+      button_link: "{{ galaxy_base_url }}/root?tool_id=interactive_tool_phyloseq"
+    - title_md: <code>RStudio</code>
+      description_md: >
+          This familiar R analysis software suite will let you explore your datasets in depth. Comes with ggplot2, RODBC, maps, shinyapps, knitr, LaTeX, bioconductor, cummeRbund, and many more pre-installed packages.
+      button_link: "{{ galaxy_base_url }}/root?tool_id=interactive_tool_rstudio"
+    - title_md: <code>Interactive JupyterLab Notebook</code>
+      description_md: >
             The Jupyter Notebook is an open-source web application that allows you to create and share documents that contain live code, equations, visualizations and narrative text. Uses include: data cleaning and transformation, numerical simulation, statistical modeling, data visualization, machine learning, and much more.
-        inputs:
-          - datatypes:
-              - Jupyter Notebook
-        button_link: "{{ galaxy_base_url }}/root?tool_id=interactive_tool_jupyter_notebook"
+      inputs:
+        - datatypes:
+            - Jupyter Notebook
+      button_link: "{{ galaxy_base_url }}/root?tool_id=interactive_tool_jupyter_notebook"
 
 - id: databases
   title: Databases
-  heading_md: ''
+  heading_md: Examples of databases prebuilt in some tools by microGalaxy
+  content:
+
 
 - id: workflows
   title: Workflows
-  heading_md: ''
+  heading_md: Examples of microbiome analysis workflows to use directly, modify or take ideas from
+  content:
+  - title_md: Amplicon Tutorial
+    description_md: Workflow covering operations related to Visualisation, Phylogenetic
+      analysis, Sequence clustering, Sequence read processing, Sequencing quality
+      control, Taxonomic classification, DNA barcodingon topics related to nan
+    button_link: https://dev.workflowhub.eu/workflows/1070?version=1
+    button_tip: View workflow
+    button_icon: view
+
 
 - id: tutorials
   title: Tutorials
@@ -323,6 +334,9 @@ tabs:
       https://training.galaxyproject.org//topics/variant-analysis/tutorials/microbial-variants/tutorial.html
     button_tip: View tutorial
     button_icon: tutorial
-- id: learning-pathways
+
+- id: learning-pathway
   title: Learning pathways
-  heading_md: ''
+  heading_md: >
+      {gtn modal}[Microbiome learning pathways](https://training.galaxyproject.org/training-material/learning-pathways/metagenomics.html) on the GTN.
+  content: []
