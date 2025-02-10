@@ -12,14 +12,41 @@ tabs:
 
         The workflow progresses from raw data to intermediate and final outputs. Outputs are color-coded by type, with numbers indicating tool suites used for each step:
 
-        - **Input data (blue):** Represent raw datasets, including sequencing reads and mass spectra.
-        - **Intermediate outputs (gray):** Include cleaned reads, assemblies, and OTUs/AVSs.
-        - **Taxonomic outputs (green):** Represent taxonomic profiling results.
-        - **Functional outputs (yellow):** Highlight functional profiling and differential feature analysis.
-        - **Other outputs (orange):** Indicate annotated genomes, reconstructed genomes, and antibiotic resistance genes.
+        **Input data (blue)** represent raw datasets, including sequencing reads and mass spectra.  
+        **Intermediate outputs (gray)** include cleaned reads, assemblies, and OTUs/AVSs.  
+        **Taxonomic outputs (green)** represent taxonomic profiling results.  
+        **Functional outputs (yellow)** highlight functional profiling and differential feature analysis.  
+        **Other outputs (orange)** indicate annotated genomes, reconstructed genomes, and antibiotic resistance genes.
 
-        **Numbers correspond to tool suites:**
-        1 (FastQC, Cutadapt, fastp, MultiQC), 2 (MetaPhlAn, Kraken, Diamond), 4 (Bakta, Prokka), 5 (HMMER), 6 (AMRFinderPlus, hAMRonization), 7 (ABRicate, PATRIC), 8 (ISEScan, Transit), 9 (StarAMR, MLST), 10 (CRISPRCasFinder), 11 (antiSMASH), 12 (Gene Ontology, KEGG), 14 (BWA, Bowtie), 21 (msconvert, OpenMS), 22 (SearchGUI, MaxQuant), 23 (PepQuery, UniPept), 24 (MSStats), 25 (QIIME2, Dada2), 26 (Picrust), 27 (MaAsLin2, edgeR), 28 (Krakentools), 29 (KRONA, Pavian), 30 (HUMAnN), 31 (Groot, deepARG), 32 (MEGAHIT, MetaSPAdes), 33 (MetaBAT, DASTool), 34 (GTDB-Tk), 35 (Metanovo), 36 (Unipept), 37 (MetaQuantome).
+        **Numbers correspond to tool suites:**  
+        (1) FastQC, Cutadapt, fastp, MultiQC, Porechop, Fitlong, Nanoplot, SortMeRNA, Bowtie, minimap  
+        (2) MetaPhlAn, Kraken(2), Bracken, Diamond, Sylph, mOTUs, (Re)Centrifuge, GTDB-Tk, CLARK, Kaiju  
+        (4) Bakta, Prokka, Prodigal, DFAST, GeneMark  
+        (5) HMMER  
+        (6) Bakta, AMRFinderPlus, ABRicate, fARGene, hAMRonization, argNorm, StarAMR, TB-Profiler  
+        (7) ABRicate, PATRIC, VirulenceFinder  
+        (8) ISEScan, ISfinder, ISMapper, Transit, ESSENTIALS, MobileElementFinder, IslandViewer, PlasmidFinder  
+        (9) StarAMR, chewBBaca, pyMLST, MLST, SISTR  
+        (10) CRISPRCasFinder  
+        (11) antiSMASH, HMMER  
+        (12) Gene Ontology, KEGG, STRING  
+        (21) msconvert, OpenMS  
+        (22) SearchGUI, PeptideShaker, MaxQuant, FragPipe  
+        (23) MaxQuant, PepQuery, FragPipe, TMT, iTRAQ, UniPept  
+        (24) MSStats  
+        (25) QIIME2, Dada2, LOTUs, Mothur, mOTUs, FROGs  
+        (26) Picrust  
+        (27) MaAsLin2, edgeR, ANCOM, ALDEx2  
+        (28) Krakentools  
+        (29) KRONA, GraPhlAn, Pavian, Phinch  
+        (30) HUMAnN, minimap, BWA-MEM Diamond  
+        (31) Groot, deepARG  
+        (32) MEGAHIT, MetaSPades, metaFlye, Unicycler, Racon, Pilon, Polypolish, (meta)QUAST  
+        (33) MetaBAT, CONCOT, MAxBin, SemiBin, DASTool, dRep, CoverM, CheckM  
+        (34) GTDB-Tk  
+        (35) Metanovo  
+        (36) Unipept  
+        (37) MetaQuantome
       view_link: "{{ figure_url }}"
       view_tip: "Click to view the figure overview of microbiome data tasks"
 
