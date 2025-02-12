@@ -38,13 +38,13 @@ USEGALAXY_SERVER_URLS = {
 }
 
 project_path = Path(__file__).resolve().parent.parent  # galaxy_tool_extractor folder
-usage_stats_path = project_path.joinpath("data", "usage_stats", "usage_stats_31.08.2024")
+usage_stats_path = project_path.joinpath("data", "usage_stats", "usage_stats_31.01.2025")
 conf_path = project_path.joinpath("data", "conf.yml")
 public_servers = project_path.joinpath("data", "available_public_servers.csv")
 
 
 GALAXY_TOOL_STATS = {}
-for server in ["eu", "org", "org.au"]:
+for server in ["eu", "org", "org.au", "fr"]:
     GALAXY_TOOL_STATS[f"Suite users (last 5 years) (usegalaxy.{ server })"] = usage_stats_path.joinpath(
         f"{ server }/tool_users_5y_until_2024.08.31.csv"
     )
