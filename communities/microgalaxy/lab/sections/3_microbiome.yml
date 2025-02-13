@@ -151,7 +151,8 @@ tabs:
             (36) <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/galaxyp/unipept/unipept" target="_blank">Unipept</a>  
 
             (37) <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/galaxyp/mt2mq/mt2mq" target="_blank">MetaQuantome</a>
-          
+            
+            <br><br>
             <strong>Note:</strong> If a tool link does not work or is missing, it may not be installed on this server. Please contact 
             <a href="{{ support }}">support</a> for assistance.  
             If the tool is not listed here, you can request it via the microGalaxy community:  
@@ -267,52 +268,119 @@ tabs:
 
 - id: databases
   title: Databases
-  heading_md: Examples of databases prebuilt in some tools by microGalaxy
+  heading_md: Examples of databases prebuilt in some tools by microGalaxy. Even more databases are also found in microGalaxy, such as PhageDB, MAdLandDB, SwissProt, PDB, etc.
   content:
-    - title_md: Refseq for [<code>Kraken</code>]({{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/devteam/kraken/kraken) and [<code>Bracken</code>]({{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/bracken/est_abundance)
-      description_md: >
-        Refseq indexes for <code>Kraken</code> and <code>Bracken</code> maintained by [Ben Langmead](https://benlangmead.github.io/aws-indexes/k2) 
-        <ul>
-          <li> Viral (Refeq viral) </li>
-          <li> MinusB (Refeq archaea, viral, plasmid, human1, UniVec_Core) </li>
-          <li> Standard (Refeq archaea, bacteria, viral, plasmid, human1, UniVec_Core) </li>
-          <li> Standard-8	(Standard with DB capped at 8 GB) </li>
-          <li> Standard-16 (Standard with DB capped at 16 GB) </li>
-          <li> PlusPF (Standard plus Refeq protozoa & fungi) </li>
-          <li> PlusPF-8 (PlusPF with DB capped at 8 GB) </li>
-          <li> PlusPF-16 (PlusPF with DB capped at 16 GB) </li>
-          <li> PlusPFP (Standard plus Refeq protozoa, fungi & plant) </li>          
-          <li> PlusPFP-8 (PlusPFP with DB capped at 8 GB) </li>
-          <li> PlusPFP-16 (PlusPFP with DB capped at 16 GB) </li>
-          <li> core_nt Database (Very large collection, inclusive of GenBank, RefSeq, TPA and PDB) </li>
-          <li> EuPathDB46 (Eukaryotic pathogen genomes with contaminants removed) </li>
-          <li> GTDB v220 (Bacterial and archaeal) </li>
-        </ul>
-    - title_md: MetaPhlAn clade-specific marker genes for [<code>MetaPhlAn</code>]({{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/metaphlan/metaphlan)
-      description_md: >
-        <ul>
-          <li> MetaPhlAn clade-specific marker genes (mpa_vOct22_CHOCOPhlAnSGB_202403) </li>
-          <li> MetaPhlAn clade-specific marker genes (mpa_vJun23_CHOCOPh|AnSGB_202403) </li>
-          <li> MetaPhiAn clade-specific marker genes (mpa_vOct22_CHOCOPhlAnSGB_202212) </li>
-          <li> MetaPhiAn clade-specific marker genes (mpa_vJan21_CHOCOPhlAnSGB_202103) </li>
-        </ul>
-    - title_md: Reference databases for OTU analysis tools
-      description_md: >
-        <ul>
-          <li> Silva, A comprehensive on-line resource for quality checked and aligned ribosomal RNA sequence data </li>
-          <li> Greengenes, A 16S rRNA gene database addresses limitations of public repositories by providing chimera screening, standard alignment, and taxonomic classification using multiple published taxonomies </li>
-          <li> Ribosomal Database Project (RDP), provides ribosome related data services to the scientific community, including online data analysis, rRNA derived phylogenetic trees, and aligned and annotated rRNA sequences. RDP provides quality-controlled, aligned and annotated Bacterial and Archaeal 16S rRNA sequences, and Fungal 28S rRNA sequences, and a suite of analysis tools to the scientific community </li>
-        </ul>
-    - title_md: Reference datasets for [<code>dada2 assignTaxonomy and addSpecies</code>]({{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/dada2_assigntaxonomyaddspecies/dada2_assignTaxonomyAddspecies)
-      description_md: >
-        <ul>
-          <li> Silva, A comprehensive on-line resource for quality checked and aligned ribosomal RNA sequence data </li>
-          <li> GTDB, Genome Taxonomy Database (Bacteria & Archaea) </li>
-          <li> Protist Ribosomal Reference database (PR2) </li>
-          <li> UNITE for Fungi </li>
-          <li> HItDB version 1 (Human InTestinal 16s rRNA) </li>
-          <li> NCBI RefSeq 16S rRNA database supplemented by RDP </li>
-        </ul>
+    subsections:
+      - id: taxonomic-classification
+        title: Taxonomic Classification Databases
+        content:
+          - title_md: <code>SILVA</code> - 16S/18S/28S rRNA gene reference database
+            button_link: "https://www.arb-silva.de/"
+            button_tip: "Visit SILVA"
+            description_md: >
+              SILVA provides high-quality reference sequences for rRNA-based microbial classification.
+              Used in tools such as [<code>dada2: assignTaxonomy and addSpecies</code>]({{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/dada2_assigntaxonomyaddspecies/dada2_assignTaxonomyAddspecies), and [<code>Kraken2</code>]({{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/kraken2/kraken2)
+          - title_md: <code>Greengenes</code> - 16S rRNA reference database
+            button_link: "https://greengenes.secondgenome.com/"
+            button_tip: "Visit Greengenes"
+            description_md: >
+              A widely used 16S rRNA gene reference for microbial classification.
+              Used in tools such as [<code>dada2: assignTaxonomy and addSpecies</code>]({{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/dada2_assigntaxonomyaddspecies/dada2_assignTaxonomyAddspecies)
+          - title_md: <code>GTDB</code> - Genome Taxonomy Database
+            button_link: "https://gtdb.ecogenomic.org/"
+            button_tip: "Visit GTDB"
+            description_md: >
+              A curated genome-based taxonomy database for bacteria and archaea.
+              Used in tools such as [<code>GTDB-Tk</code>]({{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/gtdbtk_classify_wf/gtdbtk_classify_wf) and [<code>dada2: assignTaxonomy and addSpecies</code>]({{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/dada2_assigntaxonomyaddspecies/dada2_assignTaxonomyAddspecies)
+
+      - id: functional-annotation
+        title: Functional Annotation Databases
+        content:
+          - title_md: <code>KEGG</code> - Kyoto Encyclopedia of Genes and Genomes
+            button_link: "https://www.kegg.jp/"
+            button_tip: "Visit KEGG"
+            description_md: >
+              A comprehensive database of molecular interactions, reactions, and pathways.
+              Used in tools such as <code>KEGG Mapper</code>
+          - title_md: <code>eggNOG</code> - Orthologous gene groups database
+            button_link: "http://eggnog5.embl.de/"
+            button_tip: "Visit eggNOG"
+            description_md: >
+              A hierarchical database of orthologous gene families and functional annotation.
+              Used in tools such as <code>eggNOG-mapper</code>
+          - title_md: <code>MetaCyc</code> - Metabolic pathways database
+            button_link: "https://metacyc.org/"
+            button_tip: "Visit MetaCyc"
+            description_md: >
+              A curated database of metabolic pathways and enzymes from all domains of life.
+              Used in tools such as Pathway Tools e.g. [<code>KOBAS Identify</code>]({{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/kobas/kobas_identify)
+
+      - id: resistome
+        title: Antibiotic Resistance Databases
+        content:
+          - title_md: <code>CARD</code> - Comprehensive Antibiotic Resistance Database
+            button_link: "https://card.mcmaster.ca/"
+            button_tip: "Visit CARD"
+            description_md: >
+              A manually curated reference database of antimicrobial resistance genes.
+              Used in tools such as [<code>pharokka</code>]({{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/pharokka/pharokka)
+          - title_md: <code>ResFinder</code> - Identifies acquired antimicrobial resistance genes
+            button_link: "https://cge.food.dtu.dk/services/ResFinder/"
+            button_tip: "Visit ResFinder"
+            description_md: >
+              A tool for detecting antimicrobial resistance genes in bacterial genomes.
+              Used in tools such as [<code>ABRicate</code>]({{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/abricate/abricate)
+
+      - id: viral-databases
+        title: Viral Databases
+        content:
+          - title_md: <code>IMG/VR</code> - Integrated Microbial Genomes & Virome
+            button_link: "https://img.jgi.doe.gov/vr/"
+            button_tip: "Visit IMG/VR"
+            description_md: >
+              A comprehensive resource for viral and phage genomes.
+              Used in tools such as [<code>VirSorter</code>]({{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/ufz/virsorter/virsorter)
+      
+      - id: general-sequence-databases
+        title: General Sequence Databases
+        content:
+          - title_md: <code>NCBI nt</code> - Nucleotide Sequence Database
+            button_link: "https://www.ncbi.nlm.nih.gov/nucleotide/"
+            button_tip: "Visit NCBI nt"
+            description_md: >
+              The NCBI nucleotide (nt) database is a comprehensive collection of nucleotide sequences from GenBank, RefSeq, and other sources.
+              Used in tools such as [<code>BLASTn</code>]({{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/devteam/ncbi_blast_plus/ncbi_blastn_wrapper)
+          
+          - title_md: <code>NCBI nr</code> - Non-Redundant Protein Database
+            button_link: "https://www.ncbi.nlm.nih.gov/protein/"
+            button_tip: "Visit NCBI nr"
+            description_md: >
+              The NCBI protein (nr) database is a curated non-redundant protein sequence database, integrating data from multiple sources.
+              Used in tools such as [<code>BLASTp</code>]({{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/devteam/ncbi_blast_plus/ncbi_blastp_wrapper)
+
+      - id: metagenomics
+        title: Metagenomic Databases
+        content:
+          - title_md: <code>RefSeq</code> - Reference Sequence Database
+            button_link: "https://www.ncbi.nlm.nih.gov/refseq/"
+            button_tip: "Visit RefSeq"
+            description_md: >
+              A high-quality reference database of curated genomic sequences from NCBI.
+              Used in tools such as [<code>Kraken2</code>]({{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/kraken2/kraken2) and [<code>BLAST</code>]({{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/devteam/ncbi_blast_plus/ncbi_blastdbcmd_info)
+
+          - title_md: <code>MGnify</code> - EBI Metagenomics Database
+            button_link: "https://www.ebi.ac.uk/metagenomics/"
+            button_tip: "Visit MGnify"
+            description_md: >
+              A collection of metagenomic analyses and annotations from environmental and host-associated samples.
+              Used in tools such as <code>MGnify API</code>
+
+          - title_md: <code>HMP</code> - Human Microbiome Project Database
+            button_link: "https://hmpdacc.org/"
+            button_tip: "Visit HMP"
+            description_md: >
+              A reference database for human-associated microbiomes.
+              Used in tools such as [<code>MetaPhlAn</code>]({{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/metaphlan/metaphlan)
 
 - id: workflows
   title: Workflows
