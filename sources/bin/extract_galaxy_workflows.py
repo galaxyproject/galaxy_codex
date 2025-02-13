@@ -10,6 +10,7 @@ from typing import (
 
 import pandas as pd
 import shared
+from ruamel.yaml import YAML as ruamelyaml
 
 
 class Workflow:
@@ -157,6 +158,32 @@ class Workflow:
         self.keep = wf["To keep"]
         self.deprecated = wf["Deprecated"]
 
+    def get_import_link(self) -> str:
+        """
+        Get import link
+        """
+        if "WorkflowHub" in self.source:
+            return (
+                "{{ galaxy_base_url }}"
+                + f"/workflows/trs_import?trs_server={ self.source.lower() }.eu&run_form=true&trs_id={ self.id }"
+            )
+        else:
+            # to replace with "{{ galaxy_base_url }}" + f"/workflows/import/{ self.link }/download?format=json-download"
+            return self.link
+
+    def get_description(self) -> str:
+        """
+        Get description with EDAM operations and EDAM topics
+        """
+        description = ""
+        prefix = "Workflow covering"
+        if len(self.edam_operation) > 0:
+            description += f"{ prefix } operations related to { ','.join(self.edam_operation) }"
+            prefix = "on"
+        if len(self.edam_topic) > 0:
+            description += f"{ prefix } topics related to { ','.join(self.edam_topic) }"
+        return description
+
 
 class Workflows:
     """
@@ -167,6 +194,7 @@ class Workflows:
         self.workflows: List[Workflow] = []
         self.tools: Dict[Any, Any] = {}
         self.test = test
+        self.grouped_workflows: Dict[Any, Any] = {}
 
     def init_by_searching(self, tool_fp: str) -> None:
         self.tools = shared.read_suite_per_tool_id(tool_fp)
@@ -324,6 +352,80 @@ class Workflows:
         df_no_iwc = df.query("Projects != 'Intergalactic Workflow Commission (IWC)'")
         pd.concat([df_iwc, df_no_iwc]).to_csv(output_fp, sep="\t", index=False)
 
+    def group_workflows(self) -> None:
+        """
+        Split workflows in 4 levels of development
+        """
+        self.grouped_workflows = {
+            "iwc": [],
+            "other_workflowhub": [],
+            "gtn": [],
+            "public": [],
+        }
+
+        for wf in self.workflows:
+            if wf.source == "WorkflowHub":
+                if "Intergalactic Workflow Commission (IWC)" in wf.projects:
+                    self.grouped_workflows["iwc"].append(wf)
+                else:
+                    self.grouped_workflows["other_workflowhub"].append(wf)
+            elif wf.source == "dev.WorkflowHub":
+                self.grouped_workflows["gtn"].append(wf)
+            else:
+                self.grouped_workflows["public"].append(wf)
+
+    def format_wfs(self, el_id: str) -> list:
+        """
+        Format workflows for YAML
+        """
+        formatted_wfs = []
+        for wf in self.grouped_workflows[el_id]:
+            formatted_wfs.append(
+                {
+                    "title_md": wf.name,
+                    "description_md": wf.get_description(),
+                    "button_link": wf.get_import_link(),
+                    "button_tip": "View workflow",
+                    "button_icon": "view",
+                }
+            )
+        return formatted_wfs
+
+    def fill_lab_section(self, lab_fp: str) -> None:
+        """
+        Fill lab section with grouped workflows
+        """
+        lab_section = shared.load_yaml(lab_fp)
+
+        for element in lab_section["tabs"]:
+            if element["id"] in ["iwc", "other_workflowhub", "gtn"]:
+                content = [
+                    {
+                        "title_md": "Import workflows from WorkflowHub",
+                        "description_md": "WorkflowHub is a workflow management system which allows workflows to be FAIR (Findable, Accessible, Interoperable, and Reusable), citable, have managed metadata profiles, and be openly available for review and analytics.",
+                        "button_tip": "Read Tips",
+                        "button_icon": "tutorial",
+                        "button_link": "https://training.galaxyproject.org/training-material/faqs/galaxy/workflows_import.html",
+                    },
+                ]
+                content.extend(self.format_wfs(element["id"]))
+                element["content"] = content
+            elif element["id"] == "public":
+                content = [
+                    {
+                        "title_md": "Importing a workflow",
+                        "description_md": "Import a workflow from URL or a workflow file",
+                        "button_tip": "Read Tips",
+                        "button_icon": "tutorial",
+                        "button_link": "https://training.galaxyproject.org/training-material/faqs/galaxy/workflows_import.html",
+                    },
+                ]
+                content.extend(self.format_wfs("public"))
+                element["content"] = content
+
+        with open(lab_fp, "w") as lab_f:
+            ruamelyaml().dump(lab_section, lab_f)
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Extract Galaxy Workflows from WorkflowHub and public servers")
@@ -389,12 +491,32 @@ if __name__ == "__main__":
         "--curated",
         "-c",
         required=True,
+        help="Filepath to JSON with curated workflows",
+    )
+    curatewf.add_argument(
+        "--tsv-curated",
+        "-t",
+        required=True,
         help="Filepath to TSV with curated workflows",
     )
     curatewf.add_argument(
         "--status",
         "-s",
         help="Path to a TSV file with workflow status",
+    )
+
+    # Curate tools categories
+    labpop = subparser.add_parser("popLabSection", help="Fill in Lab section workflows")
+    labpop.add_argument(
+        "--curated",
+        "-c",
+        required=True,
+        help="Filepath to JSON with curated workflows",
+    )
+    labpop.add_argument(
+        "--lab",
+        required=True,
+        help="Filepath to YAML files for Lab section",
     )
 
     args = parser.parse_args()
@@ -444,4 +566,11 @@ if __name__ == "__main__":
             print("Not assigning tool status for this community !")
             status = {}
         wfs.curate_workflows(status)
-        wfs.export_workflows_to_tsv(args.curated)
+        shared.export_to_json(wfs.export_workflows_to_dict(), args.curated)
+        wfs.export_workflows_to_tsv(args.tsv_curated)
+
+    elif args.command == "popLabSection":
+        wfs = Workflows()
+        wfs.init_by_importing(wfs=shared.load_json(args.curated))
+        wfs.group_workflows()
+        wfs.fill_lab_section(args.lab)
