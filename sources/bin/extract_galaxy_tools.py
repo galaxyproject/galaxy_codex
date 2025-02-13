@@ -46,16 +46,16 @@ public_servers = project_path.joinpath("data", "available_public_servers.csv")
 GALAXY_TOOL_STATS = {}
 for server in ["eu", "org", "org.au", "fr"]:
     GALAXY_TOOL_STATS[f"Suite users (last 5 years) (usegalaxy.{ server })"] = usage_stats_path.joinpath(
-        f"{ server }/tool_users_5y_until_2024.08.31.csv"
+        f"{ server }/tool_users_5y_until_2025.01.31.csv"
     )
     GALAXY_TOOL_STATS[f"Suite users (usegalaxy.{ server })"] = usage_stats_path.joinpath(
-        f"{ server }/tool_users_until_2024.08.31.csv"
+        f"{ server }/tool_users_until_2025.01.31.csv"
     )
     GALAXY_TOOL_STATS[f"Suite runs (last 5 years) (usegalaxy.{ server })"] = usage_stats_path.joinpath(
-        f"{ server }/tool_usage_5y_until_2024.08.31.csv"
+        f"{ server }/tool_usage_5y_until_2025.01.31.csv"
     )
     GALAXY_TOOL_STATS[f"Suite runs (usegalaxy.{ server })"] = usage_stats_path.joinpath(
-        f"{ server }/tool_usage_until_2024.08.31.csv"
+        f"{ server }/tool_usage_until_2025.01.31.csv"
     )
 
 # all columns that contain the text will be summed up to a new column with summed up stats
