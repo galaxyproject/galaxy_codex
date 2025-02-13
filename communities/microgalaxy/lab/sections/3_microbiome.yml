@@ -136,7 +136,7 @@ tabs:
             <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/quast/quast" target="_blank">(meta)QUAST</a> 
 
             (33) <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/metabat2/metabat2" target="_blank">MetaBAT</a>, 
-            CONCOT, 
+            <a href="{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fconcoct%2Fconcoct">concoct</a>, 
             <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/mbernt/maxbin2/maxbin2" target="_blank">MAxBin</a>, 
             SemiBin suite, e.g. <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/semibin/semibin" target="_blank">SemiBin</a>, 
             <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/das_tool/das_tool" target="_blank">DASTool</a>, 
@@ -164,46 +164,85 @@ tabs:
   heading_md: >
     Flagship tools for microbiome analysis
   content:
-    - title_md: <code>racon</code> - A standalone consensus building tool
-      description_md: >
-        Consensus module for raw de novo DNA assembly of long uncorrected reads.
-      button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fbgruening%2Fracon%2Fracon"
-    - title_md: <code>metabat2</code> -  An adaptive binning algorithm for genome reconstruction from metagenome assemblies
-      description_md: >
-        MetaBAT2 (Metagenome Binning based on Abundance and Tetranucleotide frequency) is an automated metagenome binningsoftware that integrates empirical probabilistic distances of genome abundance and tetranucleotide frequency.
-        <ul>
-          <li><a href="{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fmetabat2%2Fmetabat2_jgi_summarize_bam_contig_depths">metabat2_jgi_summarize_bam_contig_depths</a></li>
-          <li><a href="{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fmetabat2%2Fmetabat2">metabat2</a></li>
-        </ul>
-    - title_md: <code>concoct</code> - A program for unsupervised binning of metagenomic contigs
-      description_md: >
-        CONCOCT (Clustering cONtigs with COverage and ComposiTion) does unsupervised binning of metagenomic contigs byusing nucleotide composition - kmer frequencies - and coverage data for multiple samples. CONCOCT can accurately(up to species level) bin metagenomic contigs.
-        <ul>
-          <li><a href="{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fconcoct%2Fconcoct">concoct</a></li>
-          <li><a href="{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fconcoct%2Fconcoct_coverage_table">concoct_coverage_table</a></li>
-          <li><a href="{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fconcoct%2Fconcoct_cut_up_fasta">concoct_cut_up_fasta</a></li>
-          <li><a href="{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fconcoct%2Fconcoct_extract_fasta_bins">concoct_extract_fasta_bins</a></li>
-          <li><a href="{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fconcoct%2Fconcoct_merge_cut_up_clustering">concoct_merge_cut_up_clustering</a></li>
-        </ul>
-    - title_md: <code>megahit</code> - An ultra-fast and memory-efficient NGS assembler
-      description_md: >
-        An ultra-fast single-node solution for large and complex metagenomics assembly via succinct de Bruijn graph.
-      button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fmegahit%2Fmegahit"
-    - title_md: <code>checkm</code> - A set of tools for assessing the quality of genomes recovered from isolates, single cells, or metagenomes
-      description_md: >
-        Assess the quality of microbial genomes recovered from isolates, single cells, and metagenomes
-        <ul>
-          <li><a href="{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fcheckm%2Fcheckm_analyze">checkm_analyze</a></li>
-          <li><a href="{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fcheckm%2Fcheckm_lineage_set">checkm_lineage_set</a></li>
-          <li><a href="{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fcheckm%2Fcheckm_lineage_wf">checkm_lineage_wf</a></li>
-          <li><a href="{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fcheckm%2Fcheckm_plot">checkm_plot</a></li>
-          <li><a href="{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fcheckm%2Fcheckm_qa">checkm_qa</a></li>
-          <li><a href="{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fcheckm%2Fcheckm_taxon_set">checkm_taxon_set</a></li>
-          <li><a href="{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fcheckm%2Fcheckm_taxonomy_wf">checkm_taxonomy_wf</a></li>
-          <li><a href="{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fcheckm%2Fcheckm_tetra">checkm_tetra</a></li>
-          <li><a href="{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fcheckm%2Fcheckm_tree">checkm_tree</a></li>
-          <li><a href="{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fcheckm%2Fcheckm_tree_qa">checkm_tree_qa</a></li>
-        </ul>
+    subsections:
+      - id: metabarcoding
+        title: Metabarcoding
+        content:
+        - title_md: <code>LOTUs</code> - fast OTU processing pipeline
+          button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/earlhaminst/lotus2/lotus2"
+          description_md: <p>An ultrafast and highly accurate tool for amplicon sequencing analysis.</p>
+        - title_md: <code>MaAsLin 2</code> - Microbiome Multivariable Association with Linear Models
+          button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/maaslin2/maaslin2"
+          description_md: <p>MaAsLin2 is the next generation of MaAsLin (Microbiome Multivariable Association with Linear Models).</p>
+        - title_md: <code>ALDEx2</code> - differential abundance analysis
+          button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/aldex2/aldex2"
+          description_md: <p>Analysis Of differential abundance taking sample and scale variation into account.</p>             
+      - id: metagenomics
+        title: Metagenomics
+        content:
+          - title_md: <code>Flye</code>- assembly with PacBio or Nanopore data
+            button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fbgruening%2Fflye%2Fflye"
+            description_md: >
+              <p>
+                <em>de novo</em>
+                assembly of single-molecule sequencing reads, designed for a wide range of datasets,
+                from small bacterial projects to large mammalian-scale assemblies.
+              </p>
+          - title_md: <code>racon</code> - A standalone consensus building tool
+            description_md: >
+              Consensus module for raw de novo DNA assembly of long uncorrected reads.
+          - title_md: <code>metabat2</code> -  An adaptive binning algorithm for genome reconstruction from metagenome assemblies
+            description_md: >
+              MetaBAT2 (Metagenome Binning based on Abundance and Tetranucleotide frequency) is an automated metagenome binningsoftware that integrates empirical probabilistic distances of genome abundance and tetranucleotide frequency.
+              <ul>
+                <li><a href="{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fmetabat2%2Fmetabat2_jgi_summarize_bam_contig_depths">metabat2_jgi_summarize_bam_contig_depths</a></li>
+                <li><a href="{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fmetabat2%2Fmetabat2">metabat2</a></li>
+              </ul>
+            button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fbgruening%2Fracon%2Fracon"
+          - title_md: <code>concoct</code> - A program for unsupervised binning of metagenomic contigs
+            description_md: >
+              CONCOCT (Clustering cONtigs with COverage and ComposiTion) does unsupervised binning of metagenomic contigs byusing nucleotide composition - kmer frequencies - and coverage data for multiple samples. CONCOCT can accurately(up to species level) bin metagenomic contigs.
+              <ul>
+                <li><a href="{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fconcoct%2Fconcoct">concoct</a></li>
+                <li><a href="{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fconcoct%2Fconcoct_coverage_table">concoct_coverage_table</a></li>
+                <li><a href="{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fconcoct%2Fconcoct_cut_up_fasta">concoct_cut_up_fasta</a></li>
+                <li><a href="{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fconcoct%2Fconcoct_extract_fasta_bins">concoct_extract_fasta_bins</a></li>
+                <li><a href="{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fconcoct%2Fconcoct_merge_cut_up_clustering">concoct_merge_cut_up_clustering</a></li>
+              </ul>
+          - title_md: <code>megahit</code> - An ultra-fast and memory-efficient NGS assembler
+            description_md: >
+              An ultra-fast single-node solution for large and complex metagenomics assembly via succinct de Bruijn graph.
+            button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fmegahit%2Fmegahit"
+          - title_md: <code>checkm</code> - A set of tools for assessing the quality of genomes recovered from isolates, single cells, or metagenomes
+            description_md: >
+              Assess the quality of microbial genomes recovered from isolates, single cells, and metagenomes
+              <ul>
+                <li><a href="{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fcheckm%2Fcheckm_analyze">checkm_analyze</a></li>
+                <li><a href="{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fcheckm%2Fcheckm_lineage_set">checkm_lineage_set</a></li>
+                <li><a href="{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fcheckm%2Fcheckm_lineage_wf">checkm_lineage_wf</a></li>
+                <li><a href="{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fcheckm%2Fcheckm_plot">checkm_plot</a></li>
+                <li><a href="{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fcheckm%2Fcheckm_qa">checkm_qa</a></li>
+                <li><a href="{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fcheckm%2Fcheckm_taxon_set">checkm_taxon_set</a></li>
+                <li><a href="{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fcheckm%2Fcheckm_taxonomy_wf">checkm_taxonomy_wf</a></li>
+                <li><a href="{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fcheckm%2Fcheckm_tetra">checkm_tetra</a></li>
+                <li><a href="{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fcheckm%2Fcheckm_tree">checkm_tree</a></li>
+                <li><a href="{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fcheckm%2Fcheckm_tree_qa">checkm_tree_qa</a></li>
+              </ul>
+      - id: metatranscriptomics
+        title: Metatranscriptomics
+        content:
+        - title_md: <code>NanoPlot</code> - Plotting suite for Nanopore data
+          button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/nanoplot/nanoplot"
+          description_md: <p>Plotting suite for Oxford Nanopore sequencing data and alignments.</p>
+        - title_md: <code>MetaPhlAn</code> - to profile the composition of microbial communities
+          button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/metaphlan/metaphlan"
+          description_md: <p>A computational tool for species-level microbial profiling (bacteria, archaea, eukaryotes, and viruses) from metagenomic shotgun sequencing data. StrainPhlAn (available within MetaPhlAn) allows strain-level microbial population genomics. For details on StrainPhlAn, visit its dedicated .</p>
+      - id: metaproteomics
+        title: Metaproteomics
+        content:
+        - title_md: <code>msconvert</code> - Convert and/or filter mass spectrometry files
+          button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/galaxyp/msconvert/msconvert"
+          description_md: <p>A tool to convert between various file formats, such as mzML, mz5, mgf, text, ms1, cms1, ms2, cms2, with many options.</p>
 
 - id: interactive-tools
   title: Interactive tools
