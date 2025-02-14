@@ -202,6 +202,12 @@ tabs:
       - id: metagenomics
         title: Metagenomics
         content:
+          - title_md: <code>Krona</code> - from taxonomic profile
+            button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/crs4/taxonomy_krona_chart/taxonomy_krona_chart"
+            description_md: >
+              <p>
+                Krona allows hierarchical data to be explored with zooming, multi-layered pie charts. 
+              </p>
           - title_md: <code>Kraken2</code> - for taxonomic designation
             button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fkraken2%2Fkraken2"
             description_md: >
@@ -263,6 +269,15 @@ tabs:
         - title_md: <code>msconvert</code> - Convert and/or filter mass spectrometry files
           button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/galaxyp/msconvert/msconvert"
           description_md: <p>A tool to convert between various file formats, such as mzML, mz5, mgf, text, ms1, cms1, ms2, cms2, with many options.</p>
+        - title_md: <code>MaxQuant</code> - For analyzing large mass-spectrometric
+          button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/galaxyp/maxquant/maxquant"
+          description_md: <p>MaxQuant is a quantitative proteomics software package designed for analyzing large mass-spectrometric data sets. It is specifically aimed at high-resolution MS data.</p>
+        - title_md: <code>OpenMS</code> - The open-source framework for Mass Spectrometry
+          button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/galaxyp/openms_xtandemadapter/XTandemAdapter"
+          description_md: <p>OpenMS offers an open-source C++ library (+ Python bindings) for LC/MS data management, analysis and visualization. It empowers rapid development of mass spectrometry related software.</p>
+        - title_md: <code>Metanovo</code> - An open-source pipeline for probabilistic peptide discovery in complex metaproteomic datasets
+          button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/galaxyp/metanovo/metanovo"
+          description_md: <p>MetaNovo is an open-source software pipeline that integrates existing tools with a custom algorithm to produce targeted protein sequence databases for mass spectrometry metaproteomic analysis as an intermediate filtering step prior to standard sequence database search approaches.</p>
 
 - id: interactive-tools
   title: Interactive tools
@@ -293,6 +308,12 @@ tabs:
       - id: taxonomic-classification
         title: Taxonomic Classification Databases
         content:
+          - title_md: <code>RefSeq</code> - Reference Sequence Database
+            button_link: "https://www.ncbi.nlm.nih.gov/refseq/"
+            button_tip: "Visit RefSeq"
+            description_md: >
+              A high-quality reference database of curated genomic sequences from NCBI.
+              Used in tools such as [<code>Kraken2</code>]({{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/kraken2/kraken2) and [<code>BLAST</code>]({{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/devteam/ncbi_blast_plus/ncbi_blastdbcmd_info)
           - title_md: <code>SILVA</code> - 16S/18S/28S rRNA gene reference database
             button_link: "https://www.arb-silva.de/"
             button_tip: "Visit SILVA"
@@ -311,6 +332,12 @@ tabs:
             description_md: >
               A curated genome-based taxonomy database for bacteria and archaea.
               Used in tools such as [<code>GTDB-Tk</code>]({{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/gtdbtk_classify_wf/gtdbtk_classify_wf) and [<code>dada2: assignTaxonomy and addSpecies</code>]({{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/dada2_assigntaxonomyaddspecies/dada2_assignTaxonomyAddspecies)
+          - title_md: <code>MetaPhlAn (ChocoPhlAn)</code> - Marker gene database for metagenomic profiling
+            button_link: "https://bitbucket.org/biobakery/metaphlan/src/master/"
+            button_tip: "Visit MetaPhlAn"
+            description_md: >
+              ChocoPhlAn is the core marker gene database used by MetaPhlAn for microbial community profiling.
+              Used in tools such as [<code>MetaPhlAn</code>]({{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/metaphlan/metaphlan)
 
       - id: functional-annotation
         title: Functional Annotation Databases
@@ -380,26 +407,12 @@ tabs:
       - id: metagenomics
         title: Metagenomic Databases
         content:
-          - title_md: <code>RefSeq</code> - Reference Sequence Database
-            button_link: "https://www.ncbi.nlm.nih.gov/refseq/"
-            button_tip: "Visit RefSeq"
-            description_md: >
-              A high-quality reference database of curated genomic sequences from NCBI.
-              Used in tools such as [<code>Kraken2</code>]({{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/kraken2/kraken2) and [<code>BLAST</code>]({{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/devteam/ncbi_blast_plus/ncbi_blastdbcmd_info)
-
           - title_md: <code>MGnify</code> - EBI Metagenomics Database
             button_link: "https://www.ebi.ac.uk/metagenomics/"
             button_tip: "Visit MGnify"
             description_md: >
               A collection of metagenomic analyses and annotations from environmental and host-associated samples.
-              Used in tools such as <code>MGnify API</code>
-
-          - title_md: <code>HMP</code> - Human Microbiome Project Database
-            button_link: "https://hmpdacc.org/"
-            button_tip: "Visit HMP"
-            description_md: >
-              A reference database for human-associated microbiomes.
-              Used in tools such as [<code>MetaPhlAn</code>]({{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/metaphlan/metaphlan)
+              Used in tools such as [<code>Interactive MGnify Notebook</code>]({{ galaxy_base_url }}/root?tool_id=interactive_tool_mgnify_notebook)
 
 - id: workflows
   title: Workflows
