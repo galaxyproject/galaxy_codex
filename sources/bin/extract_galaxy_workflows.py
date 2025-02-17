@@ -139,16 +139,31 @@ class Workflow:
                 if "attributes" in wfhub_project["data"] and "title" in wfhub_project["data"]["attributes"]:
                     self.projects.append(wfhub_project["data"]["attributes"]["title"])
 
-    def test_tags(self, tags: dict) -> bool:
+    def get_source_tags(self, tags: dict) -> list:
         """
-        Test if there are overlap between workflow tags and target tags
+        Get tags based on source
         """
         if "WorkflowHub" in self.source:
             source = "workflowhub"
         else:
             source = "public"
-        matches = set(self.tags) & set(tags[source])
+        return tags[source]
+
+    def test_tags(self, tags: dict) -> bool:
+        """
+        Test if there are overlap between workflow tags and target tags
+        """
+        matches = set(self.tags) & set(self.get_source_tags(tags))
         return len(matches) != 0
+
+    def test_name(self, tags: dict) -> bool:
+        """
+        Test if there are overlap between workflow tags and target tags
+        """
+        for tag in self.get_source_tags(tags):
+            if tag in self.name:
+                return True
+        return False
 
     def update_status(self, wf: dict) -> None:
         """
@@ -264,7 +279,7 @@ class Workflows:
         for w in self.workflows:
             if w.link in status:
                 w.update_status(status[w.link])
-            if w.test_tags(tags):
+            if w.test_tags(tags) or w.test_name(tags):
                 to_keep_wf.append(w)
         self.workflows = to_keep_wf
 
