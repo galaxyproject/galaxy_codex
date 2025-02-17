@@ -202,19 +202,19 @@ tabs:
       - id: metagenomics
         title: Metagenomics
         content:
-          - title_md: <code>Krona</code> - from taxonomic profile
+          - title_md: <code>Krona</code> - Visualization of taxonomic profiles
             button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/crs4/taxonomy_krona_chart/taxonomy_krona_chart"
             description_md: >
               <p>
                 Krona allows hierarchical data to be explored with zooming, multi-layered pie charts. 
               </p>
-          - title_md: <code>Kraken2</code> - for taxonomic designation
+          - title_md: <code>Kraken2</code> - Taxonomic profiler
             button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fkraken2%2Fkraken2"
             description_md: >
               <p>
                 Kraken 2 is the newest version of Kraken, a taxonomic classification system using exact k-mer matches to achieve high accuracy and fast classification speeds. 
               </p>
-          - title_md: <code>MEGAHIT</code> - An ultra-fast and memory-efficient NGS assembler
+          - title_md: <code>MEGAHIT</code> - An ultra-fast and memory-efficient short-read assembler
             button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fmegahit%2Fmegahit"
             description_md: >
               An ultra-fast single-node solution for large and complex metagenomics assembly via succinct de Bruijn graph.
@@ -426,9 +426,10 @@ tabs:
               DADA2
             description_md: Workflow covering operations related to Deposition, Variant calling,
               Analysis, Visualisation, and DNA barcoding
-            button_link: https://dev.workflowhub.eu/workflows/1105?version=2
-            button_tip: View workflow
-            button_icon: view
+            button_link: {{ galaxy_base_url }}/workflows/trs_import?trs_server=dev.workflowhub.eu&run_form=true&trs_id=1105
+            
+            button_tip: Import workflow
+            button_icon: run
           - title_md: 'Training: 16S rRNA Analysis with Nanopore Sequencing Reads'
             description_md: Workflow covering operations related to Sequence composition calculation,
               Validation, Visualisation, Sequence contamination filtering, Taxonomic classification,
