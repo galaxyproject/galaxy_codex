@@ -202,18 +202,14 @@ tabs:
       - id: metagenomics
         title: Metagenomics
         content:
-          - title_md: <code>Krona</code> - Visualization of taxonomic profiles
-            button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/crs4/taxonomy_krona_chart/taxonomy_krona_chart"
-            description_md: >
-              <p>
-                Krona allows hierarchical data to be explored with zooming, multi-layered pie charts. 
-              </p>
           - title_md: <code>Kraken2</code> - Taxonomic profiler
             button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fkraken2%2Fkraken2"
             description_md: >
-              <p>
                 Kraken 2 is the newest version of Kraken, a taxonomic classification system using exact k-mer matches to achieve high accuracy and fast classification speeds. 
-              </p>
+          - title_md: <code>Krona</code> - Visualization of taxonomic profiles
+            button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/crs4/taxonomy_krona_chart/taxonomy_krona_chart"
+            description_md: >
+                Krona allows hierarchical data to be explored with zooming, multi-layered pie charts. 
           - title_md: <code>MEGAHIT</code> - An ultra-fast and memory-efficient short-read assembler
             button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fmegahit%2Fmegahit"
             description_md: >
@@ -257,27 +253,33 @@ tabs:
       - id: metatranscriptomics
         title: Metatranscriptomics
         content:
-        - title_md: <code>MetaPhlAn</code> - to profile the composition of microbial communities
+        - title_md: <code>MetaPhlAn</code> - A tool to profile the composition of microbial communities
           button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/metaphlan/metaphlan"
-          description_md: <p>A computational tool for species-level microbial profiling (bacteria, archaea, eukaryotes, and viruses) from metagenomic shotgun sequencing data. StrainPhlAn (available within MetaPhlAn) allows strain-level microbial population genomics. For details on StrainPhlAn, visit its dedicated .</p>
+          description_md: >
+            A computational tool for species-level microbial profiling (bacteria, archaea, eukaryotes, and viruses) from metagenomic shotgun sequencing data. StrainPhlAn (available within MetaPhlAn) allows strain-level microbial population genomics. For details on StrainPhlAn, visit its dedicated .
         - title_md: <code>HUMAnN</code> - profile presence/absence and abundance of microbial pathways and gene families
           button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/humann/humann"
-          description_md: <p>HUMAnN is a method for efficiently and accurately profiling the abundance of microbial metabolic pathways and other molecular functions from metagenomic or metatranscriptomic sequencing data.</p>
+          description_md: >
+            HUMAnN is a method for efficiently and accurately profiling the abundance of microbial metabolic pathways and other molecular functions from metagenomic or metatranscriptomic sequencing data.
       - id: metaproteomics
         title: Metaproteomics
         content:
-        - title_md: <code>msconvert</code> - Convert and/or filter mass spectrometry files
+        - title_md: <code>msconvert</code> - A tool for converting and/or filtering mass spectrometry files
           button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/galaxyp/msconvert/msconvert"
-          description_md: <p>A tool to convert between various file formats, such as mzML, mz5, mgf, text, ms1, cms1, ms2, cms2, with many options.</p>
-        - title_md: <code>MaxQuant</code> - For analyzing large mass-spectrometric
+          description_md: >
+            A tool to convert between various file formats, such as mzML, mz5, mgf, text, ms1, cms1, ms2, cms2, with many options.
+        - title_md: <code>MaxQuant</code> -  A tool for analyzing large mass-spectrometric
           button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/galaxyp/maxquant/maxquant"
-          description_md: <p>MaxQuant is a quantitative proteomics software package designed for analyzing large mass-spectrometric data sets. It is specifically aimed at high-resolution MS data.</p>
-        - title_md: <code>OpenMS</code> - The open-source framework for Mass Spectrometry
+          description_md: >
+            MaxQuant is a quantitative proteomics software package designed for analyzing large mass-spectrometric data sets. It is specifically aimed at high-resolution MS data.
+        - title_md: <code>OpenMS</code> - A framework for Mass Spectrometry
           button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/galaxyp/openms_xtandemadapter/XTandemAdapter"
-          description_md: <p>OpenMS offers an open-source C++ library (+ Python bindings) for LC/MS data management, analysis and visualization. It empowers rapid development of mass spectrometry related software.</p>
-        - title_md: <code>Metanovo</code> - An open-source pipeline for probabilistic peptide discovery in complex metaproteomic datasets
+          description_md: >
+            OpenMS offers a C++ library (+ Python bindings) for LC/MS data management, analysis and visualization. It empowers rapid development of mass spectrometry related software.
+        - title_md: <code>Metanovo</code> - A pipeline for probabilistic peptide discovery in complex metaproteomic datasets
           button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/galaxyp/metanovo/metanovo"
-          description_md: <p>MetaNovo is an open-source software pipeline that integrates existing tools with a custom algorithm to produce targeted protein sequence databases for mass spectrometry metaproteomic analysis as an intermediate filtering step prior to standard sequence database search approaches.</p>
+          description_md: >
+            MetaNovo is a pipeline that integrates existing tools with a custom algorithm to produce targeted protein sequence databases for mass spectrometry metaproteomic analysis as an intermediate filtering step prior to standard sequence database search approaches.
 
 - id: interactive-tools
   title: Interactive tools
@@ -332,7 +334,7 @@ tabs:
             description_md: >
               A curated genome-based taxonomy database for bacteria and archaea.
               Used in tools such as [<code>GTDB-Tk</code>]({{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/gtdbtk_classify_wf/gtdbtk_classify_wf) and [<code>dada2: assignTaxonomy and addSpecies</code>]({{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/dada2_assigntaxonomyaddspecies/dada2_assignTaxonomyAddspecies)
-          - title_md: <code>MetaPhlAn (ChocoPhlAn)</code> - Marker gene database for metagenomic profiling
+          - title_md: <code>ChocoPhlAn (MetaPhlAn)</code> - Marker gene database for metagenomic profiling
             button_link: "https://bitbucket.org/biobakery/metaphlan/src/master/"
             button_tip: "Visit MetaPhlAn"
             description_md: >
@@ -426,8 +428,7 @@ tabs:
               DADA2
             description_md: Workflow covering operations related to Deposition, Variant calling,
               Analysis, Visualisation, and DNA barcoding
-            button_link: {{ galaxy_base_url }}/workflows/trs_import?trs_server=dev.workflowhub.eu&run_form=true&trs_id=1105
-            
+            button_link: "{{ galaxy_base_url }}/workflows/trs_import?trs_server=dev.workflowhub.eu&run_form=true&trs_id=1105"
             button_tip: Import workflow
             button_icon: run
           - title_md: 'Training: 16S rRNA Analysis with Nanopore Sequencing Reads'
@@ -435,11 +436,25 @@ tabs:
               Validation, Visualisation, Sequence contamination filtering, Taxonomic classification,
               Statistical calculation, and Sequencing quality control
             button_link: https://dev.workflowhub.eu/workflows/1064?version=1
-            button_tip: View workflow
-            button_icon: view
+            button_tip: Import workflow
+            button_icon: run
       - id: metagenomics
         title: Metagenomics Workflows
         content:
+          - title_md: Taxonomy classification using Kraken2 and Bracken
+            description_md: Workflow covering operations related to Visualisation, Taxonomic
+              classification, Aggregation, Statistical calculationon topics related to Metagenomics, and
+              Taxonomy
+            button_link: https://workflowhub.eu/workflows/1199?version=2
+            button_tip: View workflow
+            button_icon: view
+          - title_md: Analyses of shotgun metagenomics data with MetaPhlAn2
+            description_md: Workflow covering operations related to Visualisation, Phylogenetic
+              tree analysis, Nucleic acid sequence analysison topics related to Metagenomic
+              sequencing, and Metagenomics
+            button_link: https://workflowhub.eu/workflows/624?version=1
+            button_tip: View workflow
+            button_icon: view
           - title_md: Metagenomic Taxonomy and Functional Analysis
             description_md: Workflow covering operations related to Phylogenetic tree analysis,
               Species frequency estimation, Visualisation, Aggregation, Phylogenetic analysis,
@@ -460,20 +475,6 @@ tabs:
               Primer removal, Validation, Multiple sequence alignment, Statistical calculation,
               and Database search
             button_link: https://usegalaxy.eu/published/workflow?id=667bac8d7453e5f1
-            button_tip: View workflow
-            button_icon: view
-          - title_md: Taxonomy classification using Kraken2 and Bracken
-            description_md: Workflow covering operations related to Visualisation, Taxonomic
-              classification, Aggregation, Statistical calculationon topics related to Metagenomics, and
-              Taxonomy
-            button_link: https://workflowhub.eu/workflows/1199?version=2
-            button_tip: View workflow
-            button_icon: view
-          - title_md: Analyses of shotgun metagenomics data with MetaPhlAn2
-            description_md: Workflow covering operations related to Visualisation, Phylogenetic
-              tree analysis, Nucleic acid sequence analysison topics related to Metagenomic
-              sequencing, and Metagenomics
-            button_link: https://workflowhub.eu/workflows/624?version=1
             button_tip: View workflow
             button_icon: view
       - id: metatranscriptomics
