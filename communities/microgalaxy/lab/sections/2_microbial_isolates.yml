@@ -167,22 +167,44 @@ tabs:
       - id: genomics
         title: Genomics
         content:
-        - title_md: <code>MetaPhlAn</code> - A tool to profile the composition of microbial communities
-          button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/metaphlan/metaphlan"
-          description_md: >
-            A computational tool for species-level microbial profiling (bacteria, archaea, eukaryotes, and viruses) from metagenomic shotgun sequencing data. StrainPhlAn (available within MetaPhlAn) allows strain-level microbial population genomics. For details on StrainPhlAn, visit its dedicated.
         - title_md: <code>Shovill</code> - A faster SPAdes assembly of Illumina reads
           button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/shovill/shovill"
           description_md: >
             Microbial assembly pipeline for Illumina paired-end reads.
+        - title_md: <code>Bakta</code> - A rapid and standardized annotation of bacterial genomes, MAGs and plasmids
+          button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/bakta/bakta"
+          description_md: >
+            It provides dbxref-rich and sORF-including annotations in machine-readable JSON & bioinformatics standard file formats for automatic downstream analysis. Although Bakta conducts a more comprehensive workflow and provides a taxonomic-independent database that is several orders of magnitude larger, it is nevertheless as easy to use and almost as fast as Prokka.
         - title_md: <code>Clair3</code> - A germline small variant caller for long-reads
           button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/clair3/clair3"
           description_md: >
             Clair3 is a symphonizing pileup and full-alignment for high-performance long-read variant calling.
+        - title_md: <code>AMRFinderPlus</code> - An NCBI Antimicrobial Resistance Gene Finder
+          button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/amrfinderplus/amrfinderplus"
+          description_md: >
+            This tool and its accompanying database are designed to find acquired antimicrobial resistance genes and point mutations in protein and/or assembled nucleotide sequences.
+        - title_md: <code>PPanGGoLin</code> - Depicting microbial species diversity via a Partitioned PanGenome Graph Of Linked Neighbors
+          description_md: >
+            PPanGGoLin is a software suite used to create and manipulate prokaryotic pangenomes from a set of either genomic DNA sequences or provided genome annotations. It is designed to scale up to tens of thousands of genomes.            <ul>
+              <li><a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/ppanggolin_msa/ppanggolin_msa">PPanGGOLiN MSA</a></li>
+              <li><a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/ppanggolin_all/ppanggolin_all">PPanGGOLiN all</a></li>
+            </ul>
+        - title_md: <code>antiSMASH</code> - Rapid identification, annotation and analysis of secondary metabolite biosynthesis gene clusters in bacterial and fungal genome sequences
+          button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/bgruening/antismash/antismash"
+          description_md: >
+            Antismash allows the genome-wide identification, annotation and analysis of secondary metabolite biosynthesis gene clusters
 
       - id: transcriptomics
         title: Transcriptomics
         content:
+        - title_md: <code>Minimap</code> - A fast pairwise aligner for genomic and spliced nucleotide sequences
+          button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/minimap2/minimap2"
+          description_md: >
+            Minimap is a versatile sequence alignment program that aligns DNA or mRNA sequences against a large reference database.
+        - title_md: <code>Bowtie</code> - An ultrafast memory-efficient short read aligner
+          button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/devteam/bowtie2/bowtie2"
+          description_md: >
+            Bowtie is an ultrafast, memory-efficient short read aligner. It aligns short DNA sequences (reads) to the human genome at a rate of over 25 million 35-bp reads per hour.
         - title_md: <code>STAR</code> - Gapped-read mapper for RNA-seq data
           button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/rgrnastar/rna_star"
           description_md: >
@@ -195,6 +217,10 @@ tabs:
           button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/gffcompare/gffcompare"
           description_md: >
             GFFCompare can be used to compare, merge, annotate and estimate accuracy of one or more GFF files (the “query” files), when compared with a reference annotation (also provided as GFF).
+        - title_md: <code>DESeq</code> - Differential expression analysis for sequence count data
+          button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/deseq2/deseq2"
+          description_md: >
+            DESeq allows analysis of experiments with no biological replicates in one or even both of the conditions.
 
       - id: proteomics
         title: Proteomics
@@ -301,6 +327,18 @@ tabs:
       - id: genomics
         title: Genomics Workflows
         content:
+          - title_md: Data QC
+            description_md: >
+              General quality controling workflow.
+            button_link: "{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=222"
+            button_tip: Import workflow
+            button_icon: run
+          - title_md: Assembly with Flye
+            description_md: >
+              Assemble long reads with Flye, then view assembly statistics and assembly graph.
+            button_link: "{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=750"
+            button_tip: Import workflow
+            button_icon: run
           - title_md: Genome annotation workflow with Helixer
             description_md: >
               This workflow allows you to annotate a genome with Helixer and evaluate the quality of the annotation using BUSCO and Genome Annotation statistics. GFFRead is also used to predict protein sequences derived from this annotation, and BUSCO and OMArk are used to assess proteome quality.
@@ -313,22 +351,16 @@ tabs:
             button_link: "{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=1049"
             button_tip: Import workflow
             button_icon: run
-          - title_md: Assembly with Flye
-            description_md: >
-              Assemble long reads with Flye, then view assembly statistics and assembly graph.
-            button_link: "{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=750"
-            button_tip: Import workflow
-            button_icon: run
-
-      - id: transcriptomics
-        title: Transcriptomics Workflows
-        content:
           - title_md: StarAMR
             description_md: >
               Correlation between Phenotypic and In Silico Detection of Antimicrobial Resistance in Salmonella enterica in Canada Using Staramr.
             button_link: "{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=470"
             button_tip: Import workflow
             button_icon: run
+
+      - id: transcriptomics
+        title: Transcriptomics Workflows
+        content:
           - title_md: mRNA-Seq BY-COVID Pipeline
             description_md: >
               Analyse Bulk RNA-Seq data in preparation for downstream Pathways analysis with MINERVA.
@@ -345,35 +377,6 @@ tabs:
             description_md: >
               Analyse Bulk RNA-Seq data in preparation for downstream Pathways analysis with MINERVA.
             button_link: "{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=689"
-            button_tip: Import workflow
-            button_icon: run
-
-      - id: proteomics
-        title: Proteomics Workflows
-        content:
-          - title_md: 'Clinical Metaproteomics Quantification'
-            description_md: This workflow perform clinical metaproteomics quantification using MaxQuant.
-            button_link: "{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=1177"
-            button_tip: Import workflow
-            button_icon: run
-          - title_md: 'Clinical Metaproteomics Database Generation'
-            description_md: The workflow begins with the Database Generation process. The Galaxy-P team has developed a workflow that collects protein sequences from known disease-causing microorganisms to build a comprehensive database. This extensive database is then refined into a smaller, more relevant dataset using the Metanovo tool.
-            button_link: "{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=1216"
-            button_tip: Import workflow
-            button_icon: run
-          - title_md: 'Clinical Metaproteomics Data Verification'
-            description_md: In proteomics research, verifying detected peptides is essential for ensuring data accuracy and biological relevance. This tutorial continues from the clinical metaproteomics discovery workflow, focusing on verifying identified microbial peptides using the PepQuery tool.
-            button_link: "{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=1218"
-            button_tip: Import workflow
-            button_icon: run
-          - title_md: 'Clinical Metaproteomics Data Interpretation'
-            description_md: This workflow perform taxonomic and functional annotations using Unipept and statistical analysis using MSstatsTMT.
-            button_link: "{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=1219"
-            button_tip: Import workflow
-            button_icon: run
-          - title_md: 'Clinical Metaproteomics Discovery'
-            description_md: Workflow for clinical metaproteomics database searching.
-            button_link: "{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=1225"
             button_tip: Import workflow
             button_icon: run
 
