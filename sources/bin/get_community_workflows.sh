@@ -36,7 +36,8 @@ else
                                                 curate \
                                                 --filtered "communities/$community/resources/tag_filtered_workflows.json" \
                                                 --status "communities/$community/metadata/workflow_status.tsv" \
-                                                --curated "communities/$community/resources/curated_workflows.tsv"
+                                                --curated "communities/$community/resources/curated_workflows.json" \
+                                                --tsv-curated "communities/$community/resources/curated_workflows.tsv"
                                 fi;
                         fi;
                 fi;

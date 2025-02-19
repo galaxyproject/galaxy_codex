@@ -32,6 +32,7 @@ python sources/bin/populate_labs_tutorials.py \
     --filter Microbiome \
     --filter-logic include
 
-python sources/bin/populate_labs_workflows.py \
-    --tsv communities/microgalaxy/resources/curated_workflows.tsv \
-    --yml communities/microgalaxy/lab/sections/5_workflows.yml
+python sources/bin/extract_galaxy_workflows.py \
+    popLabSection \
+    --curated communities/microgalaxy/resources/curated_workflows.json \
+    --lab communities/microgalaxy/lab/sections/5_workflows.yml
