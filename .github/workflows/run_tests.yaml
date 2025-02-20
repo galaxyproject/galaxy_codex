@@ -30,7 +30,7 @@ on:
 
 jobs:
   test-tools:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     # This job runs tests for tools.
     # It checks for internal pull requests targeting the main branch,
     # as well as pushes to the dev branch.
@@ -67,7 +67,7 @@ jobs:
           bash sources/bin/format_tools.sh test
 
   test-tutorials:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     # This job runs tests for tutorials.
     # Similar to the tools job, it checks for internal pull requests
     # to the main branch and pushes to the dev branch.
@@ -99,7 +99,7 @@ jobs:
           bash sources/bin/get_community_tutorials.sh test
 
 #  test-workflows:
-#    runs-on: ubuntu-20.04
+#    runs-on: ubuntu-latest
 #    # This job runs tests for workflows.
 #    # It performs the same checks as the other jobs, ensuring
 #    # quality for workflow scripts.
