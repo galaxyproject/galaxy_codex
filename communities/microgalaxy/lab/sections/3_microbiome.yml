@@ -143,6 +143,7 @@ tabs:
             dRep (e.g. <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/drep_compare/drep_compare" target="_blank">dRep compare</a>), 
             CoverM (e.g. <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/coverm_contig/coverm_contig" target="_blank">CoverM contig</a>), 
             CheckM (e.g. <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/checkm_analyze/checkm_analyze" target="_blank">CheckM analyze</a>),
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/ufz/virsorter/virsorter" target="_blank">VirSorter</a>, 
             <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/binette/binette" target="_blank">Binette</a>
 
             (34) <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/gtdbtk_classify_wf/gtdbtk_classify_wf" target="_blank">GTDB-Tk</a> 
@@ -170,6 +171,9 @@ tabs:
       - id: metabarcoding
         title: Metabarcoding
         content:
+        - title_md: <code>QIIME2 Beta Diversity</code> - Microbiome Analysis with QIIME2
+          button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__diversity__beta/qiime2__diversity__beta"
+          description_md: Computes a user-specified phylogenetic beta diversity metric for all pairs of samples in a feature table.
         - title_md: <code>LotuS2</code> - fast OTU processing pipeline
           button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/earlhaminst/lotus2/lotus2"
           description_md: An ultrafast and highly accurate tool for amplicon sequencing analysis.
@@ -343,7 +347,7 @@ tabs:
             button_tip: "Visit MetaPhlAn"
             description_md: >
               ChocoPhlAn is the core marker gene database used by MetaPhlAn for microbial community profiling.
-              Used in tools such as [<code>MetaPhlAn</code>]({{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/metaphlan/metaphlan)
+              Used in tools such as [<code>MetaPhlAn</code>]({{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/metaphlan/metaphlan) and [<code>HUMAnN</code>]({{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/humann/humann)
 
       - id: functional-annotation
         title: Functional Annotation Databases
@@ -353,19 +357,25 @@ tabs:
             button_tip: "Visit KEGG"
             description_md: >
               A comprehensive database of molecular interactions, reactions, and pathways.
-              Used in tools such as <code>KEGG Mapper</code>
+              Used in tools such as [<code>KofamScan</code>]({{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/kofamscan/kofamscan)
           - title_md: <code>eggNOG</code> - Orthologous gene groups database
             button_link: "http://eggnog5.embl.de/"
             button_tip: "Visit eggNOG"
             description_md: >
               A hierarchical database of orthologous gene families and functional annotation.
-              Used in tools such as <code>eggNOG-mapper</code>
+              Used in tools such as [<code>eggNOG-mapper</code>]({{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/galaxyp/eggnog_mapper/eggnog_mapper)
           - title_md: <code>MetaCyc</code> - Metabolic pathways database
             button_link: "https://metacyc.org/"
             button_tip: "Visit MetaCyc"
             description_md: >
               A curated database of metabolic pathways and enzymes from all domains of life.
               Used in tools such as Pathway Tools e.g. [<code>KOBAS Identify</code>]({{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/kobas/kobas_identify)
+          - title_md: <code>UniRef</code> - Clustered UniProt Sequences
+            button_link: "https://www.uniprot.org/uniref/"
+            button_tip: "Visit UniRef"
+            description_md: >
+              A protein sequence database derived from UniProt.
+              Used in tools such as [<code>HUMAnN</code>]({{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/humann/humann)
 
       - id: resistome
         title: Antibiotic Resistance Databases
@@ -382,6 +392,18 @@ tabs:
             description_md: >
               A tool for detecting antimicrobial resistance genes in bacterial genomes.
               Used in tools such as [<code>ABRicate</code>]({{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/abricate/abricate)
+          - title_md: <code>AMRFinderPlus</code> - Antimicrobial Resistance Database
+            button_link: "https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/"
+            button_tip: "Visit AMRFinderPlus"
+            description_md: >
+              A curated database for detecting antimicrobial resistance genes.
+              Used in tools such as [<code>AMRFinderPlus</code>]({{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/amrfinderplus/amrfinderplus)
+          - title_md: <code>StarAMR Databases</code> - AMR Detection Database
+            button_link: "https://github.com/phac-nml/staramr"
+            button_tip: "Visit StarAMR"
+            description_md: >
+              A collection of resistance gene databases for bacterial genome analysis.
+              Used in tools such as [<code>StarAMR</code>]({{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/staramr/staramr_search)
 
       - id: viral-databases
         title: Viral Databases
