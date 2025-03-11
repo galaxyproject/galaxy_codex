@@ -1,7 +1,7 @@
 Galaxy Codex
 ============
 
-Galaxy Communities Dock (Galaxy CoDex) stores resources for Galaxy communities.
+Galaxy Communities Dock (Galaxy CoDex) stores resources for Galaxy community contributors - people who are actively developing for Galaxy, from testing & fixing tutorials to administrator servers.
 
 Currently, we have two main resources:
 
