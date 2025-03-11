@@ -1,0 +1,192 @@
+id: data
+title: Getting started
+tabs:
+  - id: data-import
+    title: Data import
+    heading_md: >
+      Common tools that allow for data import. 
+    content:
+      - title_md: Import data to Galaxy
+        description_md: >
+          Standard upload of data to Galaxy, from your computer or from the web.
+        button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=upload1"
+        button_tip: Upload Data
+      - title_md: Download data from NCBI GenBank/RefSeq
+        description_md: >
+          Download sequences from GenBank/RefSeq by accession through the NCBI ENTREZ API
+        button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fncbi_acc_download%2Fncbi_acc_download"
+        button_tip: Download Data from NCBI
+      - title_md: Download raw reads from NCBI SRA
+        description_md: >
+          Faster Download and Extract Reads in FASTQ format from NCBI SRA
+        button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fsra_tools%2Ffasterq_dump"
+        button_tip: Download raw reads from NCBI SRA
+      - title_md: Download run data from EBI SRA
+        description_md: >
+          ENA data can be searched and retrieved interactively and programmatically and visualized using this ENA Browser tool
+        button_link: "https://www.ebi.ac.uk/ena/browser/search?GALAXY_URL=https:%2F%2Fmicrogalaxy.usegalaxy.eu%2Ftool_runner%3Ftool_id%3Debi_sra_main"
+        button_tip: Download run data from EBI SRA
+      - title_md: Download run data from EBI Metagenomics (MGnify)
+        description_md: >
+          This tool downloads data related to a run in EBI Metagenomics database
+        button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Febi_metagenomics_run_downloader%2Febi_metagenomics_run_downloader"
+        button_tip: Download run data from MGnify
+      - title_md: Download run data from UCSC
+        description_md: >
+          Use this tool to retrieve and export data from the Genome Browser annotation track database
+        button_link: "https://genome.ucsc.edu/cgi-bin/hgTables?GALAXY_URL=https%3A//microgalaxy.usegalaxy.eu/tool_runner&tool_id=ucsc_table_direct1&sendToGalaxy=1&hgta_compressType=none&hgta_outputType=bed"
+        button_tip: Download run data from UCSC
+
+  - id: highlight-tools
+    title: Highlight tools
+    heading_md: >
+      Flagship tools for microbial research 
+    content:
+      - title_md: <code>Bakta</code> - Rapid and standardized annotation of bacterial genomes, MAGs and plasmids
+        description_md: >
+            A tool for the rapid & standardized annotation of bacterial genomes and plasmids from both isolates and Metagenomic Assembled Genomes (MAGs).
+        inputs:
+          - datatypes:
+              - fasta
+        button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/bakta/bakta"
+      - title_md: <code>ABRicate</code> - Mass screening of contigs for antimicrobial and virulence genes
+        description_md: >
+            Given a FASTA contig file or a genbank file, ABRicate will perform a mass screening of contigs and identify the presence of genes. The user can choose which database to search from a list of available databases, e.g. Virulence Factor and Antimicrobial Resistance genes.
+        inputs:
+          - datatypes:
+              - fasta
+              - Genbank
+              - EMBL
+        button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/abricate/abricate"
+      - title_md: <code>SPAdes</code> - an assembly toolkit containing various assembly pipelines including (meta)SPAdes
+        description_md: >
+            SPAdes implements the following 4 stages: assembly graph construction, k-bimer adjustment, construction of paired assembly graph and contig construction.
+            <ul>
+              <li><a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/spades_biosyntheticspades/spades_biosyntheticspades">spades_biosyntheticspades</a></li>
+              <li><a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/spades_coronaspades/spades_coronaspades">spades_coronaspades</a></li>
+              <li><a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/spades_metaplasmidspades/spades_metaplasmidspades">spades_metaplasmidspades</a></li>
+              <li><a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/nml/metaspades/metaspades">metaspades</a></li>
+              <li><a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/spades_metaviralspades/spades_metaviralspades">spades_metaviralspades</a></li>
+              <li><a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/spades_plasmidspades/spades_plasmidspades">spades_plasmidspades</a></li>
+              <li><a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/rnaspades/rnaspades">rnaspades</a></li>
+              <li><a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/spades_rnaviralspades/spades_rnaviralspades">spades_rnaviralspades</a></li>
+              <li><a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/nml/spades/spades">spades</a></li>
+            </ul>
+      - title_md: <code>Unicycler</code> - pipeline for bacterial genomes
+        description_md: >
+            Unicycler is a hybrid assembly pipeline for bacterial genomes.
+        inputs:
+          - datatypes:
+              - fastq
+              - fastqsanger
+        button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/unicycler/unicycler"
+      - title_md: <code>FastP</code> - sequence quality reports, trimming & filtering
+        description_md: >
+            Commonly used tool for trimming and quality filter. Also provides quality metrics.
+        inputs:
+          - datatypes:
+              - fastq
+        button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Ffastp%2Ffastp"
+      - title_md: <code>Kraken2</code> - Kraken2 assign taxonomic labels to sequencing reads
+        description_md: >
+            Kraken2 assign taxonomic labels to sequencing reads. 
+        inputs:
+          - datatypes:
+              - fastq
+              - fasta
+        button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fkraken2%2Fkraken2"
+      - title_md: <code>dada2</code> - Fast and accurate sample inference from amplicon data with single-nucleotide resolution
+        description_md: >
+          <ul>
+            <li><a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/dada2_assigntaxonomyaddspecies/dada2_assignTaxonomyAddspecies">dada2_assignTaxonomyAddspecies</a></li>
+            <li><a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/dada2_dada/dada2_dada">dada2_dada</a></li>
+            <li><a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/dada2_filterandtrim/dada2_filterAndTrim">dada2_filterAndTrim</a></li>
+            <li><a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/dada2_learnerrors/dada2_learnErrors">dada2_learnErrors</a></li>
+            <li><a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/dada2_makesequencetable/dada2_makeSequenceTable">dada2_makeSequenceTable</a></li>
+            <li><a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/dada2_mergepairs/dada2_mergePairs">dada2_mergePairs</a></li>
+            <li><a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/dada2_plotcomplexity/dada2_plotComplexity">dada2_plotComplexity</a></li>
+            <li><a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/dada2_plotqualityprofile/dada2_plotQualityProfile">dada2_plotQualityProfile</a></li>
+            <li><a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/dada2_primercheck/dada2_primerCheck">dada2_primerCheck</a></li>
+            <li><a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/dada2_removebimeradenovo/dada2_removeBimeraDenovo">dada2_removeBimeraDenovo</a></li>
+            <li><a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/dada2_seqcounts/dada2_seqCounts">dada2_seqCounts</a></li>
+          </ul>
+
+  - id: interactive-tools
+    title: Interactive tools
+    heading_md: >
+      Interactive tools for microbial research 
+    content:
+      - title_md: <code>Pavian</code> - Interactive analysis of metagenomics data
+        description_md: >
+            An interactive browser application for analyzing and visualization metagenomics classification results from classifiers such as Kraken, KrakenUniq, Kraken 2, Centrifuge and MetaPhlAn. Pavian also provides an alignment viewer for validation of matches to a particular genome.
+        inputs:
+          - datatypes:
+              - Kraken report
+              - MetaPhlAn report
+        button_link: "{{ galaxy_base_url }}/root?tool_id=interactive_tool_pavian"
+      - title_md: <code>Phinch</code> - A framework for visualizing bio data
+        description_md: >
+            Interactive tool for visualising Biom data.
+        inputs:
+          - datatypes:
+              - Biom
+        button_link: "{{ galaxy_base_url }}/root?tool_id=interactive_tool_phinch"
+      - title_md: <code>Phyloseq</code> - Explore microbiome profiles
+        description_md: >
+            The phyloseq package is a tool to import, store, analyze, and graphically display complex phylogenetic sequencing data that has already been clustered into Operational Taxonomic Units (OTUs), especially when there is associated sample data, phylogenetic tree, and/or taxonomic assignment of the OTUs.
+        inputs:
+          - datatypes:
+              - phyloseq R object
+        button_link: "{{ galaxy_base_url }}/root?tool_id=interactive_tool_phyloseq"
+      - title_md: <code>RStudio</code> - An integrated development environment (IDE) for R and Python
+        description_md: >
+            This familiar R analysis software suite will let you explore your datasets in depth. Comes with ggplot2, RODBC, maps, shinyapps, knitr, LaTeX, bioconductor, cummeRbund, and many more pre-installed packages.
+        button_link: "{{ galaxy_base_url }}/root?tool_id=interactive_tool_rstudio"
+      - title_md: <code>Interactive JupyterLab Notebook</code> - A web-based interactive computing platform
+        description_md: >
+            The Jupyter Notebook is an open-source web application that allows you to create and share documents that contain live code, equations, visualizations and narrative text. Uses include: data cleaning and transformation, numerical simulation, statistical modeling, data visualization, machine learning, and much more.
+        inputs:
+          - datatypes:
+              - Jupyter Notebook
+        button_link: "{{ galaxy_base_url }}/root?tool_id=interactive_tool_jupyter_notebook"
+      
+  - id: learning-pathways
+    title: Learning pathways
+    heading_md: >
+       Connected tutorials to train you to perform microbial data analysis.
+    content:
+      - title_md: Introduction to Galaxy and Sequence analysis
+        description_md: >
+          New to Galaxy and/or the field of genomics? In this learning pathway, you will learn how to use Galaxy for analysis, and will be guided through the most common first steps of any genome analysis; quality control and a mapping or assembly of your genomic sequences.
+        button_link: https://training.galaxyproject.org/training-material/learning-pathways/intro-to-galaxy-and-genomics.html
+        button_icon: tutorial
+        button_tip: Open Learning Pathway
+        heading_md: >
+          Connected tutorials to train you to perform microbial data analysis.
+      - title_md: Detection of AMR genes in bacterial genomes
+        description_md: >
+          This learning path aims to teach you the basic steps to detect and check Antimicrobial resistance (AMR) genes in bacterial genomes using Galaxy.
+        button_link: https://training.galaxyproject.org/training-material/learning-pathways/amr-gene-detection.html
+        button_icon: tutorial
+        button_tip: Open Learning Pathway
+      - title_md: Clinical metaproteomics workflows within Galaxy
+        description_md: >
+          This learning path aims to teach you the basics of how to perform metaproteomics analysis of the clinical data within the Galaxy platform. You will learn how to use Galaxy for analysis and will be guided through the most common first steps of any metaproteomics database generation to searching the database, verifying the proteins/peptides, and data analysis.
+        button_link: https://training.galaxyproject.org/training-material/learning-pathways/clinical-metaproteomics.html
+        button_icon: tutorial
+        button_tip: Open Learning Pathway
+      - title_md: Genome annotation for prokaryotes
+        description_md: >
+          Learn how to annotate a prokaryotic genome sequence: find the position and function of genes, and even set up a manual curation environment with Apollo.
+        button_link: https://training.galaxyproject.org/training-material/learning-pathways/genome-annotation-prokaryote.html
+        button_icon: tutorial
+        button_tip: Open Learning Pathway
+      - title_md: Metagenomics data processing and analysis for microbiome
+        description_md: >
+          This learning path aims to teach you the basics of Galaxy and analysis of metagenomics data. You will learn how to use Galaxy for analysis, and will be guided through the common steps of microbiome data analysis: quality control, taxonomic profiling, taxonomic binning, assembly, functional profiling, and also some applications
+        button_link: https://training.galaxyproject.org/training-material/learning-pathways/metagenomics.html
+        button_icon: tutorial
+        button_tip: Open Learning Pathway
+
+
+      

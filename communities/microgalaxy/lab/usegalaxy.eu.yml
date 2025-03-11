@@ -1,0 +1,50 @@
+# This content extends base.yml
+
+# Request this as a webpage with:
+# https://site.usegalaxy.org.au/lab/export?content_root=https://raw.githubusercontent.com/nomadscientist/galaxy_codex/tree/main/communities/microgalaxy/usegalaxy.eu.yml
+
+# -----------------------------------------------------------------------------
+# Use these variables in HTML templates like:
+# "Welcome to the Galaxy {{ site_name }} {{ lab_name }}"
+# To make the content more generic and reusable across sites
+
+# These will be rendered like "Welcome to the Galaxy {{ site_name }} {{ lab_name }}!"
+site_name: Europe
+nationality: European
+
+# Used for rendering tool/workflow links. Trailing '/' will be removed.
+galaxy_base_url: https://microbiology.usegalaxy.eu
+subdomain: microbiology
+root_domain: usegalaxy.eu
+support_url: https://help.galaxyproject.org/
+quota_request_url: https://docs.google.com/forms/d/e/1FAIpQLSf9w2MOS6KOlu9XdhRSDqWnCDkzoVBqHJ3zH_My4p8D8ZgkIQ/viewform
+data_policy_url: "#data-policy"
+terms_url: https://usegalaxy-eu.github.io/gdpr/tos.html
+
+help_links:
+  - title: General Galaxy support
+    url: https://galaxyproject.org/support/
+  - title: Galaxy EU help forum
+    url: https://help.galaxyproject.org/c/usegalaxy-eu-support/6
+  - title: microGalaxy Galaxy user community chat room
+    url: https://matrix.to/#/#galaxyproject_microGalaxy:gitter.im
+  - title: Galaxy Training Community chat
+    url: https://matrix.to/#/#Galaxy-Training-Network_Lobby:gitter.im
+  - title: Usegalaxy.eu chat
+    url: https://matrix.to/#/#usegalaxy-eu_Lobby:gitter.im
+  - title: Usegalaxy.org chat
+    url: https://matrix.to/#/#galaxyproject_Lobby:gitter.im
+
+conclusion_extra_md: >
+  <div id="data-policy">
+    {% markdown_from_url 'https://raw.githubusercontent.com/galaxyproject/galaxy-hub/master/content/eu/common/data-policy.md' %}
+  </div>
+  <section>
+    <iframe style="border: 0px" width="100%" height="150px" src="https://stats.galaxyproject.eu/d-solo/000000034/jobs-dashboard?orgId=1&amp;refresh=1m&amp;panelId=1"></iframe>
+  </section>
+
+# -----------------------------------------------------------------------------
+# Custom content relative to this file URL
+
+custom_css: usegalaxy.eu/static/custom.css
+footer_md: usegalaxy.eu/templates/footer.html

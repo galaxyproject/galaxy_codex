@@ -12,6 +12,7 @@ from typing import (
 
 import pandas as pd
 import requests
+import yaml
 from github.ContentFile import ContentFile
 from github.Repository import Repository
 from requests.exceptions import ConnectionError
@@ -76,6 +77,15 @@ def load_json(input_df: str) -> Dict:
     return content
 
 
+def load_yaml(input_df: str) -> Dict:
+    """
+    Read a YAML file
+    """
+    with Path(input_df).open("r") as t:
+        content = yaml.safe_load(t)
+    return content
+
+
 def read_suite_per_tool_id(tool_fp: str) -> Dict:
     """
     Read the tool suite table and extract a dictionary per tool id
@@ -83,7 +93,7 @@ def read_suite_per_tool_id(tool_fp: str) -> Dict:
     tool_suites = load_json(tool_fp)
     tools = {}
     for suite in tool_suites:
-        for tool in suite["Suite ID"]:
+        for tool in suite["Tool IDs"]:
             tools[tool] = {
                 "Suite ID": suite["Suite ID"],
                 "Suite owner": suite["Suite owner"],

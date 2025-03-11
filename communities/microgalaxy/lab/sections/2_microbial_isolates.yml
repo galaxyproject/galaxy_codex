@@ -1,0 +1,677 @@
+id: isolates
+title: Microbial isolates
+tabs:
+- id: overview
+  title: Overview
+  heading_md: >
+    Microbial isolates data analysis can encompass genomics, transcriptomics, and proteomics. These analyses (from raw data to differential analyses or visualization via assembly) are supported in microGalaxy with different tool suites and potential analyses available on microGalaxy. 
+  content:
+    - title_md: "Overview of possible microbial isolates data analysis tasks with corresponding tool suites and potential analysis available on microGalaxy"
+      description_md: |
+        <div>
+          <img src="{{ figure_isolates_url }}" alt="Overview of microbial isolates data analysis" style="max-width: 100%;">
+          <p style="font-size: 0.9em;">
+
+            Outputs are color-coded by type and numbers indicate available tool suites for each step.
+
+            <strong> Input data (blue)</strong> represent raw datasets, including sequencing reads and mass spectra.  
+            <strong> Intermediate outputs (gray)</strong> include cleaned reads, assemblies, and OTUs/AVSs.  
+            <strong> Taxonomic outputs (green)</strong> represent taxonomic profiling results.  
+            <strong> Functional outputs (yellow)</strong> highlight functional profiling and differential feature analysis.  
+            <strong> Other outputs (orange)</strong> indicate annotated genomes, reconstructed genomes, and antibiotic resistance genes.
+
+            <strong> Numbers correspond to tool suites:</strong>              
+            (1) <a href="{{ galaxy_base_url }}/root?toolshed.g2.bx.psu.edu/repos/iuc/falco/falco" target="_blank">falco</a>, 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/devteam/fastqc/fastqc" target="_blank">FastQC</a>, 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/lparsons/cutadapt/cutadapt" target="_blank">Cutadapt</a>, 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/fastp/fastp" target="_blank">fastp</a>, 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/multiqc/multiqc" target="_blank">MultiQC</a>,
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/porechop/porechop" target="_blank">Porechop</a>, 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/filtlong/filtlong" target="_blank">Filtlong</a>, 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/nanoplot/nanoplot" target="_blank">NanoPlot</a>, 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/pycoqc/pycoqc" target="_blank">Pycoqc</a>, 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/fastqe/fastqe" target="_blank">FastQE</a>, 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/bgruening/lighter/lighter" target="_blank">lighter</a>, 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/rasusa/rasusa" target="_blank">Rasusa</a>, 
+            BBtools (e.g. <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/bbtools_bbmap/bbtools_bbmap/39.08+galaxy2" target="_blank">BBMap</a>),
+            SeqKit (e.g. <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/seqkit_sort/seqkit_sort/2.9.0+galaxy0" target="_blank">SeqKut sort</a>),
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/ncbi_fcs_gx/ncbi_fcs_gx/0.5.4+galaxy1" target="_blank">NCBI FCS GX</a>,
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/devteam/bowtie2/bowtie2" target="_blank">Bowtie</a>, 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/devteam/bwa/bwa_mem" target="_blank">BWA</a>,
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/minimap2/minimap2" target="_blank">minimap</a>,
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/rnateam/sortmerna/bg_sortmerna" target="_blank">SortMeRNA</a>, 
+
+            (2) <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/metaphlan/metaphlan" target="_blank">MetaPhlAn</a>, 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/kraken2/kraken2" target="_blank">Kraken2</a>, 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/bracken/est_abundance" target="_blank">Bracken</a>, 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/bgruening/diamond/bg_diamond" target="_blank">Diamond</a>, 
+            [soon] Sylph, 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/bgruening/motus/motus_profiler" target="_blank">mOTUs</a>, 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/recentrifuge/recentrifuge" target="_blank">(Re)Centrifuge</a>, 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/gtdbtk_classify_wf/gtdbtk_classify_wf" target="_blank">GTDB-Tk</a>,
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/virannot/virannot_otu" target="_blank">VirAnnot</a>,
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/metabuli/metabuli_classify" target="_blank">Metabuli</a>,
+            MEGAN (e.g. <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/megan/megan_daa_meganizer" target="_blank">meganize a DIAMOND file</a>)
+            
+
+            (3) <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/shovill/shovill" target="_blank">Shovill</a>, 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/unicycler/unicycler" target="_blank">Unicycler</a>, 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/nml/spades/spades" target="_blank">SPades</a>, 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/bgruening/flye/flye" target="_blank">Flye</a>, 
+            SKESA, 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/abyss/abyss-pe" target="_blank">ABySS</a>, 
+            Velvet (e.g. <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/devteam/velvet/velveth" target="_blank">Velveth</a>), 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/bgruening/racon/racon" target="_blank">Racon</a>, 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/pilon/pilon" target="_blank">Pilon</a>, 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/polypolish/polypolish" target="_blank">Polypolish</a>, 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/quast/quast" target="_blank">QUAST</a>, 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/busco/busco" target="_blank">BUSCO</a>, 
+            CheckM (e.g. <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/checkm_analyze/checkm_analyze" target="_blank"> CheckM analyze</a>) 
+
+            (4) <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/bakta/bakta" target="_blank">Bakta</a>, 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/crs4/prokka/prokka" target="_blank">Prokka</a>, 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/maker/maker" target="_blank">Maker</a>, 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/prodigal/prodigal" target="_blank">Prodigal</a>, 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/genouest/braker3/braker3" target="_blank">braker</a>,
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/galaxyp/eggnog_mapper/eggnog_mapper" target="_blank">eggNOG Mapper</a>,
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/bgruening/interproscan/interproscan" target="_blank">InterProScan</a>,
+            Funannotate (e.g. <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/funannotate/funannotate_annotate" target="_blank"> Funannotate functional annotation</a>),
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/pharokka/pharokka" target="_blank">pharokka</a>,
+
+            (5) <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/hmmer_hmmsearch/hmmer_hmmsearch" target="_blank">HMMER</a>  
+
+            (6) <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/bakta/bakta" target="_blank">Bakta</a>, 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/amrfinderplus/amrfinderplus" target="_blank">AMRFinderPlus</a>, 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/abricate/abricate" target="_blank">ABRicate</a>, 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/fargene/fargene" target="_blank">fARGene</a>, 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/hamronize_tool/hamronize_tool" target="_blank">hAMRonization</a>,
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/argnorm/argnorm" target="_blank">argNorm</a>, 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/staramr/staramr_search" target="_blank">StarAMR</a>, 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/abritamr/abritamr" target="_blank">abriTAMR</a>, 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/tbprofiler/tb_profiler_profile" target="_blank">TB-Profiler</a>, 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/seqsero2/seqsero2" target="_blank">SeqSero2</a>
+
+            (7) <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/abricate/abricate" target="_blank">ABRicate</a>
+
+            (8) <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/isescan/isescan" target="_blank">ISEScan</a>, 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/transit_gumbel/transit_gumbel" target="_blank">Transit</a>, 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/plasmidfinder/plasmidfinder" target="_blank">PlasmidFinder</a>
+
+            (9) <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/staramr/staramr_search" target="_blank">StarAMR</a>, 
+            chewBBaca (e.g. <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/chewbbaca_createschema/chewbbaca_createschema" target="_blank">chewBBaca create schema</a>), 
+            pyMLST (e.g. <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/bvalot/pymlst/wgmlst_add_wrapper" target="_blank">Add strain to cg/wgMLST database</a>), 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/mlst/mlst" target="_blank">MLST</a>, 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/nml/sistr_cmd/sistr_cmd" target="_blank">SISTR</a>  
+
+            (10) <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/integronfinder/integron_finder" target="_blank">Integron Finder</a>,
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/dcouvin/crisprcasfinder" target="_blank">CRISPRCasFinder</a>,
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/mitos2/mitos2/2.1.9+galaxy0" target="_blank">MITOS2</a>  
+
+            (11) <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/bgruening/antismash/antismash" target="_blank">antiSMASH</a>, 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/hmmer_hmmsearch/hmmer_hmmsearch" target="_blank">HMMER</a> 
+
+            (12) Gene Ontology, 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/kobas/kobas_identify" target="_blank">KEGG</a>
+            
+            (13) <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/orthofinder_onlygroups/orthofinder_onlygroups" target="_blank">Orthofinder</a>, 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/proteinortho/proteinortho" target="_blank">Proteinortho</a>, 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/roary/roary" target="_blank">Roary</a>, 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/progressivemauve/progressivemauve" target="_blank">Mauve</a>, 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/devteam/clustalw/clustalw" target="_blank">Clustal (Omega)</a>, 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/fasttree/fasttree" target="_blank">FastTree</a>, 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/raxml/raxml" target="_blank">RAxML</a>, 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/circos/circos" target="_blank">Circos</a>, 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/ppanggolin_all/ppanggolin_all" target="_blank">PPanGGolin</a>, 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/galaxy-australia/panaroo/panaroo" target="_blank">panaroo</a> 
+            
+            (14) <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/bwa_mem2/bwa_mem2" target="_blank">BWA</a>, 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/devteam/bowtie2/bowtie2" target="_blank">Bowtie</a>, 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/minimap2/minimap2" target="_blank">Minimap</a>, 
+            Picard Tools (e.g. <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/devteam/picard/picard_artifact_metrics" target="_blank">Picard Collect Sequencing Artifact Metrics</a>) 
+            
+            (15) <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/devteam/freebayes/freebayes" target="_blank">FreeBayes</a>, 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/gatk4_mutect2/gatk4_mutect2" target="_blank">GATK</a>, 
+            Bcftools (e.g. <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/bcftools_mpileup/bcftools_mpileup" target="_blank">BCFtools mpileup</a>), 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/snippy/snippy" target="_blank">Snippy</a>, 
+            medaka (e.g. <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/medaka_consensus/medaka_consensus" target="_blank"> medaka consensus tool</a>), 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/clair3/clair3" target="_blank">Clair3</a> 
+
+            (16) VCFtools (e.g. <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/devteam/vcfcombine/vcfcombine" target="_blank">VCFcombine</a>),
+            SnpSift (e.g. <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/snpeff/snpSift_filter" target="_blank">SnpSift Filter</a>),
+            SnpEff (e.g. <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/snpeff/snpEff_build_gb" target="_blank">SnpEff build</a>), 
+            Samtools (e.g. <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/samtools_coverage/samtools_coverage" target="_blank"> Samtools coverage</a>) 
+
+            (17) STAR (e.g. <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/rgrnastar/rna_star" target="_blank">RNA STAR</a>), 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/hisat2/hisat2" target="_blank">HISAT</a>, 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/devteam/bowtie2/bowtie2" target="_blank">Bowtie</a>
+
+            (18) <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/featurecounts/featurecounts" target="_blank">featureCounts</a>, 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/hisat2/hisat2" target="_blank">HISAT</a> 
+
+            (19) <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/edger/edger" target="_blank">edgeR</a>, 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/deseq2/deseq2" target="_blank">DESeq2</a> 
+
+            (20) <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/stringtie/stringtie" target="_blank">StringTie</a>, 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/gffcompare/gffcompare" target="_blank">GFFCompare</a>, 
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/devteam/cufflinks/cufflinks" target="_blank">Cufflinks</a> 
+            
+            (21) <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/galaxyp/msconvert/msconvert" target="_blank">msconvert</a>, 
+            OpenMS (e.g. <a href="{{ galaxy_base_url }}/root?tool_id=toolsheroot?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/stringtie/stringtied.g2.bx.psu.edu/repos/galaxyp/openms_xtandemadapter/XTandemAdapter" target="_blank"> XTandemAdapter</a>)
+
+            (22) <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/galaxyp/peptideshaker/search_gui" target="_blank">SearchGUI</a>,
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/galaxyp/peptideshaker/peptide_shaker" target="_blank">PeptideShaker</a>,
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/galaxyp/maxquant/maxquant" target="_blank">MaxQuant</a>,
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/galaxyp/fragpipe/fragpipe" target="_blank">FragPipe</a>
+
+            (23) <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/galaxyp/maxquant/maxquant" target="_blank">MaxQuant</a>,
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/galaxyp/pepquery2/pepquery2" target="_blank">PepQuery</a>,
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/galaxyp/fragpipe/fragpipe" target="_blank">FragPipe</a>,
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/galaxyp/msstatstmt/msstatstmt" target="_blank">MSstatsTMT</a>,
+            iTRAQ,
+            <a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/galaxyp/unipept/unipept" target="_blank">UniPept</a>  
+
+            (24) MSStats  
+
+            <br><br>
+            <strong>Note:</strong> If a tool link does not work or is missing, it may not be installed on this server. Please contact 
+            <a href="{{ support }}">support</a> for assistance.  
+            If a tool is not listed here and you cannot find it in the tool's panel, you can request it via the microGalaxy community:  
+            <a href="mailto:microgalaxy@lists.galaxyproject.org">microgalaxy@lists.galaxyproject.org</a>.
+          </p>
+        </div>
+
+- id: tools
+  title: Tools
+  heading_md: >
+    Flagship tools for microbiome analysis
+  content:
+    subsections:
+      - id: genomics
+        title: Genomics
+        content:
+        - title_md: <code>Shovill</code> - A faster SPAdes assembly of Illumina reads
+          button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/shovill/shovill"
+          description_md: >
+            Microbial assembly pipeline for Illumina paired-end reads.
+        - title_md: <code>Bakta</code> - A rapid and standardized annotation of bacterial genomes, MAGs, and plasmids
+          button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/bakta/bakta"
+          description_md: >
+            It provides dbxref-rich and sORF-including annotations in machine-readable JSON & bioinformatics standard file formats for automatic downstream analysis. Although Bakta conducts a more comprehensive workflow and provides a taxonomic-independent database that is several orders of magnitude larger, it is nevertheless as easy to use and almost as fast as Prokka.
+        - title_md: <code>Clair3</code> - A germline small variant caller for long-reads
+          button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/clair3/clair3"
+          description_md: >
+            Clair3 is a symphonizing pileup and full alignment for high-performance long-read variant calling.
+        - title_md: <code>AMRFinderPlus</code> - An NCBI Antimicrobial Resistance Gene Finder
+          button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/amrfinderplus/amrfinderplus"
+          description_md: >
+            This tool and its accompanying database are designed to find acquired antimicrobial resistance genes and point mutations in protein and/or assembled nucleotide sequences.
+        - title_md: <code>PPanGGoLin</code> - Depicting microbial species diversity via a Partitioned PanGenome Graph Of Linked Neighbors
+          description_md: >
+            PPanGGoLin is a software suite used to create and manipulate prokaryotic pangenomes from a set of either genomic DNA sequences or provided genome annotations. It is designed to scale up to tens of thousands of genomes.
+            <ul>
+              <li><a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/ppanggolin_msa/ppanggolin_msa">PPanGGOLiN MSA</a></li>
+              <li><a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/ppanggolin_all/ppanggolin_all">PPanGGOLiN all</a></li>
+            </ul>
+        - title_md: <code>antiSMASH</code> - Rapid identification, annotation and analysis of secondary metabolite biosynthesis gene clusters in bacterial and fungal genome sequences
+          button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/bgruening/antismash/antismash"
+          description_md: >
+            Antismash allows the genome-wide identification, annotation, and analysis of secondary metabolite biosynthesis gene clusters
+
+      - id: transcriptomics
+        title: Transcriptomics
+        content:
+        - title_md: <code>Minimap</code> - A fast pairwise aligner for genomic and spliced nucleotide sequences
+          button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/minimap2/minimap2"
+          description_md: >
+            Minimap is a versatile sequence alignment program that aligns DNA or mRNA sequences against a large reference database.
+        - title_md: <code>Bowtie</code> - An ultrafast memory-efficient short read aligner
+          button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/devteam/bowtie2/bowtie2"
+          description_md: >
+            Bowtie is an ultrafast, memory-efficient short-read aligner. It aligns short DNA sequences (reads) to the human genome at a rate of over 25 million 35-bp reads per hour.
+        - title_md: <code>STAR</code> - Gapped-read mapper for RNA-seq data
+          button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/rgrnastar/rna_star"
+          description_md: >
+            STAR is an aligner designed to specifically address many of the challenges of RNA-seq data mapping using a strategy to account for spliced alignments.
+        - title_md: <code>featureCounts</code> - An ultrafast and accurate read summarization program 
+          button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/featurecounts/featurecounts"
+          description_md: >
+            featureCounts measures gene expression in RNA-Seq experiments from SAM or BAM files.
+        - title_md: <code>GFFCompare</code> - A tool that compares assembled transcripts to a reference annotation
+          button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/gffcompare/gffcompare"
+          description_md: >
+            GFFCompare can be used to compare, merge, annotate, and estimate the  accuracy of one or more GFF files (the “query” files), when compared with a reference annotation (also provided as GFF).
+        - title_md: <code>DESeq</code> - Differential expression analysis for sequence count data
+          button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/deseq2/deseq2"
+          description_md: >
+            DESeq allows the analysis of experiments with no biological replicates in one or even both of the conditions.
+
+      - id: proteomics
+        title: Proteomics
+        content:
+        - title_md: <code>msconvert</code> - A tool for converting and/or filtering mass spectrometry files
+          button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/galaxyp/msconvert/msconvert"
+          description_md: >
+            A tool to convert between various file formats, such as mzML, mz5, mgf, text, ms1, cms1, ms2, cms2, with many options.
+        - title_md: <code>MaxQuant</code> - A tool for analyzing large mass-spectrometric
+          button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/galaxyp/maxquant/maxquant"
+          description_md: >
+            MaxQuant is a quantitative proteomics software package designed for analyzing large mass-spectrometric data sets. It is specifically aimed at high-resolution MS data.
+        - title_md: <code>OpenMS</code> - A framework for Mass Spectrometry
+          button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/galaxyp/openms_xtandemadapter/XTandemAdapter"
+          description_md: >
+            OpenMS offers C++ library (+ Python bindings) for LC/MS data management, analysis, and visualization. It empowers the rapid development of mass spectrometry-related software.
+        - title_md: <code>Peptide Shaker</code> - A tool that performs protein identification
+          button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/galaxyp/peptideshaker/peptide_shaker"
+          description_md: >
+            Peptide Shaker uses various search engines based on results from SearchGUI
+
+- id: interactive-tools
+  title: Interactive tools
+  heading_md: >
+    Interactive tools for microbial research 
+  content:
+    - title_md: <code>RStudio</code> - An integrated development environment (IDE) for R and Python
+      description_md: >
+          This familiar R analysis software suite will let you explore your datasets in depth. Comes with ggplot2, RODBC, maps, shinyapps, knitr, LaTeX, bioconductor, cummeRbund, and many more pre-installed packages.
+      button_link: "{{ galaxy_base_url }}/root?tool_id=interactive_tool_rstudio"
+    - title_md: <code>Interactive JupyterLab Notebook</code> - A web-based interactive computing platform
+      description_md: >
+          The Jupyter Notebook is an open-source web application that allows you to create and share documents that contain live code, equations, visualizations, and narrative text. Uses include: data cleaning and transformation, numerical simulation, statistical modeling, data visualization, machine learning, and much more.
+      inputs:
+        - datatypes:
+            - Jupyter Notebook
+      button_link: "{{ galaxy_base_url }}/root?tool_id=interactive_tool_jupyter_notebook"
+
+- id: databases
+  title: Databases
+  heading_md: Examples of databases prebuilt in some tools by microGalaxy. Even more databases are also found in microGalaxy, such as PhageDB, MAdLandDB, SwissProt, PDB, etc.
+  content:
+    subsections:
+      - id: genomic-databases
+        title: Genomic Databases
+        content:
+          - title_md: <code>NCBI RefSeq</code> - Reference genome database
+            button_link: "https://www.ncbi.nlm.nih.gov/refseq/"
+            button_tip: "Visit NCBI RefSeq"
+            description_md: >
+              A comprehensive collection of reference genomes for bacteria, archaea, and eukaryotes.
+              Used in tools such as [<code>Prokka</code>]({{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/crs4/prokka/prokka) and [<code>Bakta</code>]({{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/bakta/bakta).
+          - title_md: <code>ENA</code> - European Nucleotide Archive
+            button_link: "https://www.ebi.ac.uk/ena"
+            button_tip: "Visit ENA"
+            description_md: >
+              A primary repository for nucleotide sequencing data.
+              Used in tools such as [<code>EBI Search</code>]({{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/ebi_search_rest_results/ebi_search_rest_results).
+          - title_md: <code>NCBI GenBank</code> - Public Sequence Database
+            button_link: "https://www.ncbi.nlm.nih.gov/genbank/"
+            button_tip: "Visit GenBank"
+            description_md: >
+              A comprehensive open-access collection of annotated nucleotide sequences.
+              Used in tools such as [<code>Prokka</code>]({{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/crs4/prokka/prokka) and [<code>Bakta</code>]({{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/bakta/bakta).
+      
+      - id: antibiotic-resistance-databases
+        title: Antibiotic Resistance Databases
+        content:
+          - title_md: <code>CARD</code> - Comprehensive Antibiotic Resistance Database
+            button_link: "https://card.mcmaster.ca/"
+            button_tip: "Visit CARD"
+            description_md: >
+              A manually curated reference database of antimicrobial resistance genes.
+              Used in tools such as [<code>StarAMR</code>]({{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/staramr/staramr_search) and [<code>AMRFinderPlus</code>]({{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/amrfinderplus/amrfinderplus).
+          - title_md: <code>ResFinder</code> - Identifies acquired antimicrobial resistance genes
+            button_link: "https://cge.food.dtu.dk/services/ResFinder/"
+            button_tip: "Visit ResFinder"
+            description_md: >
+              A tool for detecting antimicrobial resistance genes in bacterial genomes.
+              Used in tools such as [<code>ABRicate</code>]({{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/abricate/abricate).
+          - title_md: <code>NCBI AMRFinder</code> - Antimicrobial Resistance Gene Finder
+            button_link: "https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/AMRFinder/"
+            button_tip: "Visit AMRFinder"
+            description_md: >
+              A tool and database for detecting acquired antimicrobial resistance genes in bacterial genomes.
+              Used in tools such as [<code>AMRFinderPlus</code>]({{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/amrfinderplus/amrfinderplus).
+          - title_md: <code>ARG-ANNOT</code> - Antibiotic Resistance Gene Database
+            button_link: "https://www.mediterranee-infection.com/arg-annot-database/"
+            button_tip: "Visit ARG-ANNOT"
+            description_md: >
+              A database of resistance genes used for identifying antibiotic resistance determinants.
+              Used in tools such as [<code>ABRicate</code>]({{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/abricate/abricate).
+
+      - id: functional-annotation
+        title: Functional Annotation Databases
+        content:
+          - title_md: <code>KEGG</code> - Kyoto Encyclopedia of Genes and Genomes
+            button_link: "https://www.kegg.jp/"
+            button_tip: "Visit KEGG"
+            description_md: >
+              A comprehensive database of molecular interactions, reactions, and pathways.
+              Used in tools such as [<code>KofamScan</code>]({{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/kofamscan/kofamscan).
+          - title_md: <code>eggNOG</code> - Orthologous gene groups database
+            button_link: "http://eggnog5.embl.de/"
+            button_tip: "Visit eggNOG"
+            description_md: >
+              A hierarchical database of orthologous gene families and functional annotation.
+              Used in tools such as [<code>eggNOG-mapper</code>]({{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/galaxyp/eggnog_mapper/eggnog_mapper).
+          - title_md: <code>MetaCyc</code> - Metabolic pathways database
+            button_link: "https://metacyc.org/"
+            button_tip: "Visit MetaCyc"
+            description_md: >
+              A curated database of metabolic pathways and enzymes from all domains of life.
+              Used in tools such as [<code>KOBAS Identify</code>]({{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/kobas/kobas_identify).
+
+      - id: transcriptomic-databases
+        title: Transcriptomic Databases
+        content:
+          - title_md: <code>ArrayExpress</code> - Functional Genomics Data Repository
+            button_link: "https://www.ebi.ac.uk/arrayexpress/"
+            button_tip: "Visit ArrayExpress"
+            description_md: >
+              A collection of transcriptomic and functional genomic datasets.
+              Used in tools such as [<code>Limma</code>]({{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/limma_voom/limma_voom).
+
+      - id: proteomic-databases
+        title: Proteomic Databases
+        content:
+          - title_md: <code>UniProt</code> - Universal Protein Knowledgebase
+            button_link: "https://www.uniprot.org/"
+            button_tip: "Visit UniProt"
+            description_md: >
+              A comprehensive protein sequence and functional information resource.
+              Used in tools such as [<code>MaxQuant</code>]({{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/galaxyp/maxquant/maxquant).
+          - title_md: <code>PRIDE</code> - Proteomics Identification Database
+            button_link: "https://www.ebi.ac.uk/pride/"
+            button_tip: "Visit PRIDE"
+            description_md: >
+              A public repository for mass spectrometry-based proteomics data.
+              Used in tools such as [<code>Peptide Shaker</code>]({{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/galaxyp/peptideshaker/peptide_shaker).
+
+- id: workflows
+  title: Workflows
+  heading_md: Microbial isolates analysis workflows to use directly, modify or take ideas from
+  content:
+    subsections:
+      - id: genomics
+        title: Genomics Workflows
+        content:
+          - title_md: Datasets Quality Control
+            description_md: >
+              General quality controlling workflow.
+            button_link: "{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=222"
+            button_tip: Import workflow
+            button_icon: run
+          - title_md: Assembly with Flye
+            description_md: >
+              Assemble long reads with Flye, then view assembly statistics and assembly graph.
+            button_link: "{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=750"
+            button_tip: Import workflow
+            button_icon: run
+          - title_md: Bacterial Genome Assembly
+            description_md: >
+              Assembly of bacterial paired-end short read data with the generation of quality metrics and reports.
+            button_link: "{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=1043"
+            button_tip: Import workflow
+            button_icon: run
+          - title_md: Bacterial Genome Annotation
+            description_md: >
+              Annotation of assembled bacterial genomes to detect genes, potential plasmids, integrons, and Insertion sequence (IS) elements.
+            button_link: "{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=1050"
+            button_tip: Import workflow
+            button_icon: run
+          - title_md: Refining Genome Annotations with Apollo (prokaryotes)
+            description_md: >
+              Refining Genome Annotations with Apollo.
+            button_link: "{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=749"
+            button_tip: Import workflow
+            button_icon: run
+          - title_md: Genome annotation workflow with Helixer
+            description_md: >
+              This workflow allows you to annotate a genome with Helixer and evaluate the quality of the annotation using BUSCO and Genome Annotation statistics. GFFRead is also used to predict protein sequences derived from this annotation, and BUSCO and OMArk are used to assess proteome quality.
+            button_link: "{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=1255"
+            button_tip: Import workflow
+            button_icon: run
+          - title_md: AMR Gene detection
+            description_md: >
+              Antimicrobial resistance gene detection from assembled bacterial genomes.
+            button_link: "{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=1049"
+            button_tip: Import workflow
+            button_icon: run
+          - title_md: Phenotypic vs. In Silico AMR Detection in Salmonella enterica using StarAMR
+            description_md: >
+              Correlation between Phenotypic and In Silico Detection of Antimicrobial Resistance in Salmonella enterica in Canada Using StarAMR.
+            button_link: "{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=470"
+            button_tip: Import workflow
+            button_icon: run
+          - title_md: M. tuberculosis Variant Analysis
+            description_md: >
+              Predict variants and drug resistance from M. tuberculosis sequence samples (Illumina).
+            button_link: "{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=1035"
+            button_tip: Import workflow
+            button_icon: run
+
+      - id: transcriptomics
+        title: Transcriptomics Workflows
+        content:
+          - title_md: mRNA-Seq BY-COVID Pipeline
+            description_md: >
+              Analyse Bulk RNA-Seq data in preparation for downstream Pathways analysis with MINERVA.
+            button_link: "{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=685"
+            button_tip: Import workflow
+            button_icon: run
+          - title_md: mRNA-Seq BY-COVID Pipeline Counts
+            description_md: >
+              This workflow produces sets of feature Counts ready for analysis by limma/etc.
+            button_link: "{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=688"
+            button_tip: Import workflow
+            button_icon: run
+          - title_md: mRNA-Seq BY-COVID Pipeline Analysis
+            description_md: >
+              Analyse Bulk RNA-Seq data in preparation for downstream Pathways analysis with MINERVA.
+            button_link: "{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=689"
+            button_tip: Import workflow
+            button_icon: run
+
+- id: tutorials
+  title: Tutorials
+  heading_md: Tutorials to train you to perform microbial data analysis
+  content:
+  - title_md: Making sense of a newly assembled genome
+    description_md: Tutorial stored in Assembly topic on the Galaxy Training Network
+      and covering topics related to Sequence assembly, Genomics, Microbiology
+    button_link: 
+      https://training.galaxyproject.org//topics/assembly/tutorials/ecoli_comparison/tutorial.html
+    button_tip: View tutorial
+    button_icon: tutorial
+  - title_md: Assembly of metagenomic sequencing data
+    description_md: Tutorial stored in Assembly topic on the Galaxy Training Network
+      and covering topics related to Metagenomics, Sequence assembly
+    button_link: 
+      https://training.galaxyproject.org//topics/assembly/tutorials/metagenomics-assembly/tutorial.html
+    button_tip: View tutorial
+    button_icon: tutorial
+  - title_md: Genome Assembly of MRSA from Oxford Nanopore MinION data (and optionally
+      Illumina data)
+    description_md: Tutorial stored in Assembly topic on the Galaxy Training Network
+      and covering topics related to Sequence assembly, Whole genome sequencing, Public
+      health and epidemiology, Genomics, Microbiology, Antimicrobial resistance
+    button_link: 
+      https://training.galaxyproject.org//topics/assembly/tutorials/mrsa-nanopore/tutorial.html
+    button_tip: View tutorial
+    button_icon: tutorial
+  - title_md: Unicycler Assembly
+    description_md: Tutorial stored in Assembly topic on the Galaxy Training Network
+      and covering topics related to Sequence assembly, Genomics, Microbiology
+    button_link: 
+      https://training.galaxyproject.org//topics/assembly/tutorials/unicycler-assembly/tutorial.html
+    button_tip: View tutorial
+    button_icon: tutorial
+  - title_md: Genome Assembly of a bacterial genome (MRSA) sequenced using Illumina
+      MiSeq Data
+    description_md: Tutorial stored in Assembly topic on the Galaxy Training Network
+      and covering topics related to Sequence assembly, Whole genome sequencing, Public
+      health and epidemiology, Genomics, Microbiology
+    button_link: 
+      https://training.galaxyproject.org//topics/assembly/tutorials/mrsa-illumina/tutorial.html
+    button_tip: View tutorial
+    button_icon: tutorial
+  - title_md: Checking expected species and contamination in bacterial isolate
+    description_md: Tutorial stored in Ecology topic on the Galaxy Training Network
+      and covering topics related to Whole genome sequencing, Genomics, Microbiology,
+      Microbial ecology
+    button_link: 
+      https://training.galaxyproject.org//topics/ecology/tutorials/bacterial-isolate-species-contamination-checking/tutorial.html
+    button_tip: View tutorial
+    button_icon: tutorial
+  - title_md: Tree thinking for tuberculosis evolution and epidemiology
+    description_md: Tutorial stored in Evolution topic on the Galaxy Training Network
+      and covering topics related to Genomics, Microbiology, Phylogeny, Infectious
+      disease
+    button_link: 
+      https://training.galaxyproject.org//topics/evolution/tutorials/mtb_phylogeny/tutorial.html
+    button_tip: View tutorial
+    button_icon: tutorial
+  - title_md: 'Identifying tuberculosis transmission links: from SNPs to transmission
+      clusters'
+    description_md: Tutorial stored in Evolution topic on the Galaxy Training Network
+      and covering topics related to Genomics, Microbiology, Infectious disease, DNA
+      polymorphism
+    button_link: 
+      https://training.galaxyproject.org//topics/evolution/tutorials/mtb_transmission/tutorial.html
+    button_tip: View tutorial
+    button_icon: tutorial
+  - title_md: Genome annotation with Prokka
+    description_md: Tutorial stored in Genome Annotation topic on the Galaxy Training
+      Network and covering topics related to Genomics, Microbiology, Gene and protein
+      families, Sequence analysis
+    button_link: 
+      https://training.galaxyproject.org//topics/genome-annotation/tutorials/annotation-with-prokka/tutorial.html
+    button_tip: View tutorial
+    button_icon: tutorial
+  - title_md: Refining Genome Annotations with Apollo (prokaryotes)
+    description_md: Tutorial stored in Genome Annotation topic on the Galaxy Training
+      Network and covering topics related to Genomics, Microbiology, Gene and protein
+      families, Sequence analysis
+    button_link: 
+      https://training.galaxyproject.org//topics/genome-annotation/tutorials/apollo/tutorial.html
+    button_tip: View tutorial
+    button_icon: tutorial
+  - title_md: Bacterial Genome Annotation
+    description_md: Tutorial stored in Genome Annotation topic on the Galaxy Training
+      Network and covering topics related to Genomics, Microbiology, Gene and protein
+      families, Sequence analysis, Whole genome sequencing, Functional genomics, Mobile
+      genetic elements
+    button_link: 
+      https://training.galaxyproject.org//topics/genome-annotation/tutorials/bacterial-genome-annotation/tutorial.html
+    button_tip: View tutorial
+    button_icon: tutorial
+  - title_md: Identification of AMR genes in an assembled bacterial genome
+    description_md: Tutorial stored in Genome Annotation topic on the Galaxy Training
+      Network and covering topics related to Whole genome sequencing, Public health
+      and epidemiology, Genomics, Microbiology, Sequence analysis, Infectious disease,
+      Antimicrobial resistance
+    button_link: 
+      https://training.galaxyproject.org//topics/genome-annotation/tutorials/amr-gene-detection/tutorial.html
+    button_tip: View tutorial
+    button_icon: tutorial
+  - title_md: Comparative gene analysis in unannotated genomes
+    description_md: Tutorial stored in Genome Annotation topic on the Galaxy Training
+      Network and covering topics related to Genomics, Gene and protein families,
+      Sequence analysis, Phylogeny
+    button_link: 
+      https://training.galaxyproject.org//topics/genome-annotation/tutorials/gene-centric/tutorial.html
+    button_tip: View tutorial
+    button_icon: tutorial
+  - title_md: Essential genes detection with Transposon insertion sequencing
+    description_md: Tutorial stored in Genome Annotation topic on the Galaxy Training
+      Network and covering topics related to Genomics, Microbiology, Sequence analysis,
+      Mobile genetic elements
+    button_link: 
+      https://training.galaxyproject.org//topics/genome-annotation/tutorials/tnseq/tutorial.html
+    button_tip: View tutorial
+    button_icon: tutorial
+  - title_md: Microbial Variant Calling
+    description_md: Tutorial stored in Variant Analysis topic on the Galaxy Training
+      Network and covering topics related to Genomics, Sequence assembly, DNA polymorphism,
+      Microbiology, Sequence analysis, Genetic variation
+    button_link: 
+      https://training.galaxyproject.org//topics/variant-analysis/tutorials/microbial-variants/tutorial.html
+    button_tip: View tutorial
+    button_icon: tutorial
+  - title_md: M. tuberculosis Variant Analysis
+    description_md: Tutorial stored in Variant Analysis topic on the Galaxy Training
+      Network and covering topics related to Genomics, Microbiology, Sequence assembly,
+      Genetic variation, Public health and epidemiology, Infectious disease
+    button_link: 
+      https://training.galaxyproject.org//topics/variant-analysis/tutorials/tb-variant-analysis/tutorial.html
+    button_tip: View tutorial
+    button_icon: tutorial
+  - title_md: 'metaQuantome 2: Function'
+    description_md: Tutorial stored in Proteomics topic on the Galaxy Training Network
+      and covering topics related to Proteomics, Proteogenomics, Metatranscriptomics,
+      Microbial ecology, Metagenomics
+    button_link: 
+      https://training.galaxyproject.org//topics/proteomics/tutorials/metaquantome-function/tutorial.html
+    button_tip: View tutorial
+    button_icon: tutorial
+  - title_md: 'metaQuantome 1: Data creation'
+    description_md: Tutorial stored in Proteomics topic on the Galaxy Training Network
+      and covering topics related to Proteomics, Proteogenomics, Biodiversity, Taxonomy
+    button_link: 
+      https://training.galaxyproject.org//topics/proteomics/tutorials/metaquantome-data-creation/tutorial.html
+    button_tip: View tutorial
+    button_icon: tutorial
+  - title_md: Metaproteomics tutorial
+    description_md: Tutorial stored in Proteomics topic on the Galaxy Training Network
+      and covering topics related to Proteomics, Proteogenomics, Biodiversity, Taxonomy
+    button_link: 
+      https://training.galaxyproject.org//topics/proteomics/tutorials/metaproteomics/tutorial.html
+    button_tip: View tutorial
+    button_icon: tutorial
+  - title_md: 'metaQuantome 3: Taxonomy'
+    description_md: Tutorial stored in Proteomics topic on the Galaxy Training Network
+      and covering topics related to Proteomics, Proteogenomics, Metatranscriptomics,
+      Microbial ecology, Metagenomics, Taxonomy
+    button_link: 
+      https://training.galaxyproject.org//topics/proteomics/tutorials/metaquantome-taxonomy/tutorial.html
+    button_tip: View tutorial
+    button_icon: tutorial
+  - title_md: Quality and contamination control in bacterial isolate using Illumina
+      MiSeq Data
+    description_md: Tutorial stored in Sequence analysis topic on the Galaxy Training
+      Network and covering topics related to Whole genome sequencing, Genomics, Microbiology,
+      Microbial ecology
+    button_link: 
+      https://training.galaxyproject.org//topics/sequence-analysis/tutorials/quality-contamination-control/tutorial.html
+    button_tip: View tutorial
+    button_icon: tutorial
+  - title_md: Calling variants in non-diploid systems
+    description_md: Tutorial stored in Variant Analysis topic on the Galaxy Training
+      Network and covering topics related to Genomics, Sequence assembly, DNA polymorphism,
+      Microbiology, Sequence analysis, Genetic variation
+    button_link: 
+      https://training.galaxyproject.org//topics/variant-analysis/tutorials/non-dip/tutorial.html
+    button_tip: View tutorial
+    button_icon: tutorial
+
+- id: learning-pathway
+  title: Learning pathways
+  heading_md: >
+       Connected tutorials to train you to perform microbial isolates data analysis.
+  content:
+      - title_md: Detection of AMR genes in bacterial genomes
+        description_md: >
+          This learning path aims to teach you the basics of Galaxy and analysis of bacterial genomics data. You will learn how to use Galaxy for analysis and will be guided through the common steps of bacterial genomics analysis: species and contamination checking, assembly, genome annotation, and AMR gene detection.
+        button_link: https://training.galaxyproject.org/training-material/learning-pathways/amr-gene-detection.html
+        button_icon: tutorial
+        button_tip: Open Learning Pathway
+      - title_md: Proteogenomics
+        description_md: >
+          This learning path aims to teach you the analysis of proteogenomics data. You will learn how to use Galaxy for analysis and will be guided through the common steps of proteogenomics analysis: database generation, database searching, and novel peptide analysis.
+        button_link: https://training.galaxyproject.org/training-material/learning-pathways/proteogenomics.html
+        button_icon: tutorial
+        button_tip: Open Learning Pathway
+      - title_md: Genome annotation for prokaryotes
+        description_md: >
+          This learning path aims to teach you the genome annotation for prokaryotes. You will learn how to use Galaxy for analysis and will be guided through the common steps of genome annotation for prokaryotes: introduction to genome annotation, gene calling and functional annotation, and manual curation.
+        button_link: https://training.galaxyproject.org/training-material/learning-pathways/genome-annotation-prokaryote.html
+        button_icon: tutorial
+        button_tip: Open Learning Pathway

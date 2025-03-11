@@ -1,0 +1,76 @@
+# Request this as a webpage with:
+# https://site.usegalaxy.org.au/lab/export?content_root=https://raw.githubusercontent.com/galaxyproject/galaxy_codex/tree/main/communities/microgalaxy/base.yml
+
+# -----------------------------------------------------------------------------
+# Use these variables in HTML templates like:
+# "Welcome to the Galaxy {{ site_name }} {{ lab_name }}"
+# To make the content more generic and reusable across sites
+
+# These will be rendered like "Welcome to the Galaxy {{ site_name }} {{ lab_name }}!"
+site_name: European
+lab_name: Microbiology Lab
+analysis_name: Microbiology
+nationality: European
+
+# Used for rendering tool/workflow links. Trailing '/' will be removed.
+galaxy_base_url: https://microbiology.usegalaxy.eu
+subdomain: microbiology
+root_domain: usegalaxy.eu
+support_url: https://help.galaxyproject.org/
+general_support: https://galaxyproject.org/support/
+figure_microbiome_url: https://github.com/usegalaxy-eu/microgalaxy_paper_2025/blob/main/docs/figures/figure_1_B.png?raw=true
+
+# This will enable a feedback form on the webpage:
+# feedback_email: help@mygalaxy.org
+figure_isolates_url: https://github.com/usegalaxy-eu/microgalaxy_paper_2025/blob/main/docs/figures/figure_1_A.png?raw=true
+quota_request_url: https://help.galaxyproject.org
+data_policy_url: https://usegalaxy.org/static/terms.html
+terms_url: https://usegalaxy.org/static/terms.html
+microgalaxy_matrix: https://matrix.to/#/#galaxyproject_microGalaxy:gitter.im
+galaxy_help_url: https://help.galaxyproject.org
+gtn_slack_url: https://join.slack.com/t/gtnsmrgsbord/shared_invite/zt-2llyx6p8j-LmpEIsJu0t4MQkBctkN8qg
+gtn_matrix_channel: https://matrix.to/#/#galaxyproject_microGalaxy:gitter.im
+galaxy_matrix_channel: https://matrix.to/#/#galaxyproject_Lobby:gitter.im
+european_server_matrix_channel: https://matrix.to/#/#usegalaxy-eu_Lobby:gitter.im
+
+help_links:
+  - title: General Galaxy support
+    url: https://galaxyproject.org/support/
+  - title: General Galaxy help forum
+    url: https://help.galaxyproject.org
+  - title: Galaxy Training Network Slack workspace
+    url: https://join.slack.com/t/gtnsmrgsbord/shared_invite/zt-2llyx6p8j-LmpEIsJu0t4MQkBctkN8qg
+  - title: microGalaxy user community chat room (Same channel but using Matrix/Element)
+    url: https://matrix.to/#/#galaxyproject_microGalaxy:gitter.im
+  - title: Galaxy Training Community chat
+    url: https://matrix.to/#/#Galaxy-Training-Network_Lobby:gitter.im
+  - title: Usegalaxy.org chat
+    url: https://matrix.to/#/#galaxyproject_Lobby:gitter.im
+
+intro_extra_md: ""
+conclusion_extra_md: ""
+
+# -----------------------------------------------------------------------------
+# Custom content relative to this file URL
+
+header_logo: static/microgalaxy-logo.png
+custom_css: static/custom.css
+intro_md: templates/intro.html
+conclusion_md: templates/conclusion.html
+footer_md: templates/footer.html
+
+
+# Data (Tools, Workflows etc.) to be rendered into sections/tabs/accordion elements.
+# Either:
+#   1. Relative to this file URL
+#   2. Full URL to fetch globally centralized content
+sections:
+  - sections/1_data_import_and_preparation.yml
+  - sections/2_microbial_isolates.yml
+  - sections/3_microbiome.yml
+  - sections/4_tools.yml
+  - sections/5_workflows.yml
+  - sections/6_support_and_help.yml
+  - sections/7_community.yml
+
+# -----------------------------------------------------------------------------
