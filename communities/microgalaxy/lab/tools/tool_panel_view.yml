@@ -1,0 +1,1892 @@
+name: microGalaxy
+id: microgalaxy
+type: activity
+items:
+- id: general_section
+  text: General Tools
+  type: label
+- sections:
+  - getext
+  - send
+  - collection_operations
+  - plots
+  - textutil
+  - filter
+  - group
+
+- id: genome_file_manipu
+  text: Genomic File Manipulation
+  type: label
+
+- type: section
+  id: sequence_qc
+  name: FASTQ Quality Control
+  items:
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/falco/falco
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/devteam/fastqc/fastqc
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/lparsons/cutadapt/cutadapt
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/fastp/fastp
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/multiqc/multiqc
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/porechop/porechop
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/porechop/porechop
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/filtlong/filtlong
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/nanoplot/nanoplot
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/pycoqc/pycoqc
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/fastqe/fastqe
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bgruening/lighter/lighter
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bgruening/trim_galore/trim_galore
+
+- type: section
+  id: fasta_fastq
+  name: FASTQ Manipulation
+  items:
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/rasusa/rasusa
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/bbtools_bbduk/bbtools_bbduk
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/bbtools_bbmerge/bbtools_bbmerge
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/bbtools_bbnorm/bbtools_bbnorm
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/bbtools_tadpole/bbtools_tadpole
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/seqkit_fx2tab/seqkit_fx2tab
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/seqkit_locate/seqkit_locate
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/seqkit_sort/seqkit_sort
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/seqkit_stats/seqkit_stats
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/seqkit_translate/seqkit_translate
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/ncbi_fcs_gx/ncbi_fcs_gx
+
+- id: genome_analysis
+  text: Genomics Analysis
+  type: label
+
+- type: section
+  id: genome_assembly
+  name: Assembly
+  items:
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/spades_biosyntheticspades/spades_biosyntheticspades
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/spades_coronaspades/spades_coronaspades
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/spades_metaplasmidspades/spades_metaplasmidspades
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/metaspades/metaspades
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/spades_metaviralspades/spades_metaviralspades
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/spades_plasmidspades/spades_plasmidspades
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/rnaspades/rnaspades
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/spades_rnaviralspades/spades_rnaviralspades
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/spades/spades
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/unicycler/unicycler
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/shovill/shovill
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bgruening/flye/flye
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bgruening/racon/racon
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/trycycler_cluster/trycycler_cluster
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/trycycler_consensus/trycycler_consensus
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/trycycler_partition/trycycler_partition
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/trycycler_reconcile_msa/trycycler_reconcile_msa
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/trycycler_subsample/trycycler_subsample
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/abyss/abyss-pe
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/pilon/pilon
+
+- type: section
+  id: genome_assembly_qc
+  name: Assembly Quality Control
+  items:
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/busco/busco
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/checkm_analyze/checkm_analyze
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/checkm_lineage_set/checkm_lineage_set
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/checkm_lineage_wf/checkm_lineage_wf
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/checkm_plot/checkm_plot
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/checkm_qa/checkm_qa
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/checkm_taxon_set/checkm_taxon_set
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/checkm_taxonomy_wf/checkm_taxonomy_wf
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/checkm_tetra/checkm_tetra
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/checkm_tree/checkm_tree
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/checkm_tree_qa/checkm_tree_qa
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/polypolish/polypolish
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/quast/quast
+
+- type: section
+  id: mapping
+  name: Mapping
+  items:
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/devteam/bowtie2/bowtie2
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/devteam/bwa/bwa
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/devteam/bwa/bwa_mem
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/bwa_mem2/bwa_mem2
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/minimap2/minimap2
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/rgrnastar/rna_star
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/rna_starsolo/rna_starsolo
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/hisat2/hisat2
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/bbtools_bbmap/bbtools_bbmap
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bgruening/graphmap_align/graphmap_align
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bgruening/graphmap_overlap/graphmap_overlap
+
+- type: section
+  id: genome_annotation
+  name: Annotation
+  items:
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/bakta/bakta
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/crs4/prokka/prokka
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/rnateam/sortmerna/bg_sortmerna
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mitos/mitos
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mitos/mitos2
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/integronfinder/integron_finder
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/eggnog_mapper/eggnog_mapper
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/eggnog_mapper/eggnog_mapper_annotate
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/eggnog_mapper/eggnog_mapper_search
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/maker/maker
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/maker/maker_map_ids
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/genouest/braker3/braker3
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/funannotate/funannotate_annotate
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/funannotate/funannotate_clean
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/funannotate/funannotate_compare
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/funannotate/funannotate_predict
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/funannotate/funannotate_sort
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/prodigal/prodigal
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/plasmidfinder/plasmidfinder
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bgruening/antismash/antismash
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/pharokka/pharokka
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/isescan/isescan
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/transit_gumbel/transit_gumbel
+
+- type: section
+  id: antimicrobial_resistance_prediction
+  name: Antimicrobial Resistance Prediction
+  items:
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/abricate/abricate
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/abricate/abricate_list
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/abricate/abricate_summary
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/tbprofiler/tb_profiler_profile
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/hamronization/hamronize_summarize
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/hamronization/hamronize_tool
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/amrfinderplus/amrfinderplus
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/seqsero2/seqsero2
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/fargene/fargene
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/abritamr/abritamr
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/sonneityping/sonneityping
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/groot/groot
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/deeparg_predict
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/argnorm/argnorm
+
+- type: section
+  id: typing
+  name: Molecular Typing
+  items:
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/chewbbaca_allelecall/chewbbaca_allelecall
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/chewbbaca_allelecallevaluator/chewbbaca_allelecallevaluator
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/chewbbaca_createschema/chewbbaca_createschema
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/chewbbaca_downloadschema/chewbbaca_downloadschema
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/chewbbaca_extractcgmlst/chewbbaca_extractcgmlst
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/chewbbaca_joinprofiles/chewbbaca_joinprofiles
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/chewbbaca_nsstats/chewbbaca_nsstats
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/chewbbaca_prepexternalschema/chewbbaca_prepexternalschema
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bvalot/pymlst/wgmlst_remove_wrapper
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bvalot/pymlst/wgmlst_add_wrapper
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bvalot/pymlst/wgmlst_msa_wrapper
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bvalot/pymlst/wgmlst_add_wrapper
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bvalot/pymlst/clamlst_import_wrapper
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bvalot/pymlst/wgmlst_stats_wrapper
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bvalot/pymlst/wgmlst_import_wrapper
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bvalot/pymlst/wgmlst_export_wrapper
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bvalot/pymlst/wgmlst_create_wrapper
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bvalot/pymlst/wgmlst_sequence_wrapper
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bvalot/pymlst/clamlst_search_wrapper
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mlst/mlst
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/nml/sistr_cmd/sistr_cmd
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/sonneityping/sonneityping
+
+- type: section
+  id: variant_calling
+  name: Variant Calling
+  items:
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/devteam/freebayes/freebayes
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/gatk4_mutect2/gatk4_mutect2
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/bcftools/bcftools
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/bcftools_annotate/bcftools_annotate
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/bcftools_call/bcftools_call
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/bcftools_cnv/bcftools_cnv
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/bcftools_concat/bcftools_concat
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/bcftools_convert_from_vcf/bcftools_convert_from_vcf
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/bcftools_convert_to_vcf/bcftools_convert_to_vcf
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/bcftools_csq/bcftools_csq
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/bcftools_filter/bcftools_filter
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/bcftools_gtcheck/bcftools_gtcheck
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/bcftools_isec/bcftools_isec
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/bcftools_merge/bcftools_merge
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/bcftools_mpileup/bcftools_mpileup
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/bcftools_norm/bcftools_norm
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/bcftools_plugin_color_chrs/bcftools_plugin_color_chrs
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/bcftools_plugin_frameshifts/bcftools_plugin_frameshifts
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/bcftools_plugin_setgt/bcftools_plugin_setgt
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/bcftools_plugin_split_vep/bcftools_plugin_split_vep
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/bcftools_query/bcftools_query
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/bcftools_reheader/bcftools_reheader
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/bcftools_roh/bcftools_roh
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/bcftools_stats/bcftools_stats
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/bcftools_view/bcftools_view
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/snippy/snippy
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/medaka_consensus/medaka_consensus
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/medaka_consensus_pipeline/medaka_consensus_pipeline
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/medaka_variant/medaka_variant
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/medaka_variant_pipeline/medaka_variant_pipeline
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/clair3/clair3
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/bbtools/bbtools_callvariants
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/devteam/vcftools_annotate/vcftools_annotate
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/devteam/vcftools_compare/vcftools_compare
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/devteam/vcftools_isec/vcftools_isec
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/devteam/vcftools_merge/vcftools_merge
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/devteam/vcftools_slice/vcftools_slice
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/devteam/vcftools_subset/vcftools_subset
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/snpsift/snpsift
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/snpsift_dbnsfp/snpsift_dbnsfp
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/snpsift_dbnsfp_generic/snpsift_dbnsfp_generic
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/snpsift_genesets/snpsift_genesets
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/snpeff/snpeff
+
+- type: section
+  id: rna_seq
+  name: RNA-Seq
+  items:  
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/featurecounts/featurecounts
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/htseq_count/htseq_count
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/deseq2/deseq2
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/edger/edger
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/qualimap/qualimap_bamqc
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/qualimap/qualimap_counts
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/qualimap/qualimap_multi_bamqc
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/qualimap/qualimap_rnaseq
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/stringtie/stringtie
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/devteam/cuffcompare/cuffcompare
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/devteam/cuffdiff/cuffdiff
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/devteam/cufflinks/cufflinks
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/devteam/cuffmerge/cuffmerge
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/devteam/cuffnorm/cuffnorm
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/devteam/cuffquant/cuffquant
+
+- type: section
+  id: phylogenetics
+  name: Phylogenetics
+  items:
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/iqtree/iqtree
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/earlhaminst/treebest_best/treebest_best
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/earlhaminst/ete/ete_gene_csv_finder
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/earlhaminst/ete/ete_genetree_splitter
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/earlhaminst/ete/ete_homology_classifier
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/earlhaminst/ete/ete_init_taxdb
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/earlhaminst/ete/ete_lineage_generator
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/earlhaminst/ete/ete3_mod
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/earlhaminst/ete/ete_species_tree_generator
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/ete_treeviewer/ete_treeviewer
+
+- type: section
+  id: comparative_genomics
+  name: Comparative Genomics
+  items:
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/orthofinder_onlygroups/orthofinder_onlygroups
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/progressivemauve/progressivemauve
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/devteam/clustalw/clustalw
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/fasttree/fasttree
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/raxml/raxml
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/proteinortho/proteinortho
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/proteinortho/proteinortho_grab_proteins
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/proteinortho/proteinortho_summary
+
+- type: section
+  id: pangenome
+  name: Pangenome
+  items:
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/roary/roary
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/ppanggolin_msa/ppanggolin_msa
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/ppanggolin_all/ppanggolin_all
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxy-australia/panaroo/panaroo
+
+- id: metabarcoding
+  text: Metabarcoding / Amplicon
+  type: label
+
+- type: section
+  id: qiime2_suite
+  name: QIIME2
+  items:
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__vizard__lineplot/qiime2__vizard__lineplot
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__vizard__heatmap/qiime2__vizard__heatmap
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__vizard__scatterplot_2d/qiime2__vizard__scatterplot_2d
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__vizard__boxplot/qiime2__vizard__boxplot
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__stats__collate_stats/qiime2__stats__collate_stats
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__stats__wilcoxon_srt/qiime2__stats__wilcoxon_srt
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__stats__plot_rainclouds/qiime2__stats__plot_rainclouds
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__stats__wilcoxon_srt_facet/qiime2__stats__wilcoxon_srt_facet
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__stats__facet_across/qiime2__stats__facet_across
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__stats__facet_within/qiime2__stats__facet_within
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__stats__prep_alpha_distribution/qiime2__stats__prep_alpha_distribution
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__stats__mann_whitney_u_facet/qiime2__stats__mann_whitney_u_facet
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__stats__alpha_group_significance/qiime2__stats__alpha_group_significance
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__rescript__get_bv_brc_genome_features/qiime2__rescript__get_bv_brc_genome_features
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__rescript__get_bv_brc_genomes/qiime2__rescript__get_bv_brc_genomes
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__rescript__get_bv_brc_metadata/qiime2__rescript__get_bv_brc_metadata
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__alignment__mafft/qiime2__alignment__mafft
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__alignment__mafft_add/qiime2__alignment__mafft_add
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__alignment__mask/qiime2__alignment__mask
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__composition__add_pseudocount/qiime2__composition__add_pseudocount
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__composition__ancom/qiime2__composition__ancom
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__composition__ancombc/qiime2__composition__ancombc
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__composition__tabulate/qiime2__composition__tabulate
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__cutadapt__demux_paired/qiime2__cutadapt__demux_paired
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__cutadapt__demux_single/qiime2__cutadapt__demux_single
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__cutadapt__trim_paired/qiime2__cutadapt__trim_paired
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__cutadapt__trim_single/qiime2__cutadapt__trim_single
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__dada2__denoise_ccs/qiime2__dada2__denoise_ccs
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__dada2__denoise_paired/qiime2__dada2__denoise_paired
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__dada2__denoise_pyro/qiime2__dada2__denoise_pyro
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__dada2__denoise_single/qiime2__dada2__denoise_single
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__deblur__denoise_16S/qiime2__deblur__denoise_16S
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__deblur__denoise_other/qiime2__deblur__denoise_other
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__deblur__visualize_stats/qiime2__deblur__visualize_stats
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__demux__emp_paired/qiime2__demux__emp_paired
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__demux__emp_single/qiime2__demux__emp_single
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__demux__filter_samples/qiime2__demux__filter_samples
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__demux__subsample_paired/qiime2__demux__subsample_paired
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__demux__subsample_single/qiime2__demux__subsample_single
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__demux__summarize/qiime2__demux__summarize
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__diversity__adonis/qiime2__diversity__adonis
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__diversity__alpha/qiime2__diversity__alpha
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__diversity__alpha_correlation/qiime2__diversity__alpha_correlation
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__diversity__alpha_group_significance/qiime2__diversity__alpha_group_significance
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__diversity__alpha_phylogenetic/qiime2__diversity__alpha_phylogenetic
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__diversity__alpha_rarefaction/qiime2__diversity__alpha_rarefaction
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__diversity__beta/qiime2__diversity__beta
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__diversity__beta_correlation/qiime2__diversity__beta_correlation
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__diversity__beta_group_significance/qiime2__diversity__beta_group_significance
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__diversity__beta_phylogenetic/qiime2__diversity__beta_phylogenetic
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__diversity__beta_rarefaction/qiime2__diversity__beta_rarefaction
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__diversity__bioenv/qiime2__diversity__bioenv
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__diversity__core_metrics/qiime2__diversity__core_metrics
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__diversity__core_metrics_phylogenetic/qiime2__diversity__core_metrics_phylogenetic
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__diversity__filter_alpha_diversity/qiime2__diversity__filter_alpha_diversity
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__diversity__filter_distance_matrix/qiime2__diversity__filter_distance_matrix
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__diversity__mantel/qiime2__diversity__mantel
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__diversity__pcoa/qiime2__diversity__pcoa
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__diversity__pcoa_biplot/qiime2__diversity__pcoa_biplot
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__diversity__procrustes_analysis/qiime2__diversity__procrustes_analysis
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__diversity__tsne/qiime2__diversity__tsne
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__diversity__umap/qiime2__diversity__umap
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__diversity_lib__alpha_passthrough/qiime2__diversity_lib__alpha_passthrough
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__diversity_lib__beta_passthrough/qiime2__diversity_lib__beta_passthrough
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__diversity_lib__beta_phylogenetic_meta_passthrough/qiime2__diversity_lib__beta_phylogenetic_meta_passthrough
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__diversity_lib__beta_phylogenetic_passthrough/qiime2__diversity_lib__beta_phylogenetic_passthrough
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__diversity_lib__bray_curtis/qiime2__diversity_lib__bray_curtis
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__diversity_lib__faith_pd/qiime2__diversity_lib__faith_pd
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__diversity_lib__jaccard/qiime2__diversity_lib__jaccard
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__diversity_lib__observed_features/qiime2__diversity_lib__observed_features
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__diversity_lib__pielou_evenness/qiime2__diversity_lib__pielou_evenness
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__diversity_lib__shannon_entropy/qiime2__diversity_lib__shannon_entropy
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__diversity_lib__unweighted_unifrac/qiime2__diversity_lib__unweighted_unifrac
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__diversity_lib__weighted_unifrac/qiime2__diversity_lib__weighted_unifrac
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__emperor__biplot/qiime2__emperor__biplot
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__emperor__plot/qiime2__emperor__plot
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__emperor__procrustes_plot/qiime2__emperor__procrustes_plot
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__feature_classifier__blast/qiime2__feature_classifier__blast
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__feature_classifier__classify_consensus_blast/qiime2__feature_classifier__classify_consensus_blast
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__feature_classifier__classify_consensus_vsearch/qiime2__feature_classifier__classify_consensus_vsearch
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__feature_classifier__classify_hybrid_vsearch_sklearn/qiime2__feature_classifier__classify_hybrid_vsearch_sklearn
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__feature_classifier__classify_sklearn/qiime2__feature_classifier__classify_sklearn
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__feature_classifier__extract_reads/qiime2__feature_classifier__extract_reads
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__feature_classifier__find_consensus_annotation/qiime2__feature_classifier__find_consensus_annotation
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__feature_classifier__fit_classifier_naive_bayes/qiime2__feature_classifier__fit_classifier_naive_bayes
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__feature_classifier__fit_classifier_sklearn/qiime2__feature_classifier__fit_classifier_sklearn
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__feature_classifier__vsearch_global/qiime2__feature_classifier__vsearch_global
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__feature_table__core_features/qiime2__feature_table__core_features
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__feature_table__filter_features/qiime2__feature_table__filter_features
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__feature_table__filter_features_conditionally/qiime2__feature_table__filter_features_conditionally
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__feature_table__filter_samples/qiime2__feature_table__filter_samples
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__feature_table__filter_seqs/qiime2__feature_table__filter_seqs
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__feature_table__group/qiime2__feature_table__group
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__feature_table__heatmap/qiime2__feature_table__heatmap
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__feature_table__merge/qiime2__feature_table__merge
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__feature_table__merge_seqs/qiime2__feature_table__merge_seqs
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__feature_table__merge_taxa/qiime2__feature_table__merge_taxa
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__feature_table__presence_absence/qiime2__feature_table__presence_absence
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__feature_table__rarefy/qiime2__feature_table__rarefy
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__feature_table__relative_frequency/qiime2__feature_table__relative_frequency
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__feature_table__rename_ids/qiime2__feature_table__rename_ids
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__feature_table__subsample/qiime2__feature_table__subsample
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__feature_table__summarize/qiime2__feature_table__summarize
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__feature_table__tabulate_seqs/qiime2__feature_table__tabulate_seqs
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__feature_table__transpose/qiime2__feature_table__transpose
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__fragment_insertion__classify_otus_experimental/qiime2__fragment_insertion__classify_otus_experimental
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__fragment_insertion__filter_features/qiime2__fragment_insertion__filter_features
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__fragment_insertion__sepp/qiime2__fragment_insertion__sepp
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__gneiss__assign_ids/qiime2__gneiss__assign_ids
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__gneiss__correlation_clustering/qiime2__gneiss__correlation_clustering
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__gneiss__dendrogram_heatmap/qiime2__gneiss__dendrogram_heatmap
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__gneiss__gradient_clustering/qiime2__gneiss__gradient_clustering
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__gneiss__ilr_hierarchical/qiime2__gneiss__ilr_hierarchical
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__gneiss__ilr_phylogenetic/qiime2__gneiss__ilr_phylogenetic
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__gneiss__ilr_phylogenetic_differential/qiime2__gneiss__ilr_phylogenetic_differential
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__gneiss__ilr_phylogenetic_ordination/qiime2__gneiss__ilr_phylogenetic_ordination
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__longitudinal__anova/qiime2__longitudinal__anova
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__longitudinal__feature_volatility/qiime2__longitudinal__feature_volatility
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__longitudinal__first_differences/qiime2__longitudinal__first_differences
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__longitudinal__first_distances/qiime2__longitudinal__first_distances
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__longitudinal__linear_mixed_effects/qiime2__longitudinal__linear_mixed_effects
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__longitudinal__maturity_index/qiime2__longitudinal__maturity_index
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__longitudinal__nmit/qiime2__longitudinal__nmit
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__longitudinal__pairwise_differences/qiime2__longitudinal__pairwise_differences
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__longitudinal__pairwise_distances/qiime2__longitudinal__pairwise_distances
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__longitudinal__plot_feature_volatility/qiime2__longitudinal__plot_feature_volatility
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__longitudinal__volatility/qiime2__longitudinal__volatility
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__metadata__distance_matrix/qiime2__metadata__distance_matrix
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__metadata__shuffle_groups/qiime2__metadata__shuffle_groups
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__metadata__tabulate/qiime2__metadata__tabulate
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__phylogeny__align_to_tree_mafft_fasttree/qiime2__phylogeny__align_to_tree_mafft_fasttree
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__phylogeny__align_to_tree_mafft_iqtree/qiime2__phylogeny__align_to_tree_mafft_iqtree
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__phylogeny__align_to_tree_mafft_raxml/qiime2__phylogeny__align_to_tree_mafft_raxml
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__phylogeny__fasttree/qiime2__phylogeny__fasttree
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__phylogeny__filter_table/qiime2__phylogeny__filter_table
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__phylogeny__filter_tree/qiime2__phylogeny__filter_tree
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__phylogeny__iqtree/qiime2__phylogeny__iqtree
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__phylogeny__iqtree_ultrafast_bootstrap/qiime2__phylogeny__iqtree_ultrafast_bootstrap
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__phylogeny__midpoint_root/qiime2__phylogeny__midpoint_root
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__phylogeny__raxml/qiime2__phylogeny__raxml
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__phylogeny__raxml_rapid_bootstrap/qiime2__phylogeny__raxml_rapid_bootstrap
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__phylogeny__robinson_foulds/qiime2__phylogeny__robinson_foulds
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__quality_control__bowtie2_build/qiime2__quality_control__bowtie2_build
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__quality_control__evaluate_composition/qiime2__quality_control__evaluate_composition
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__quality_control__evaluate_seqs/qiime2__quality_control__evaluate_seqs
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__quality_control__evaluate_taxonomy/qiime2__quality_control__evaluate_taxonomy
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__quality_control__exclude_seqs/qiime2__quality_control__exclude_seqs
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__quality_control__filter_reads/qiime2__quality_control__filter_reads
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__quality_filter__q_score/qiime2__quality_filter__q_score
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__sample_classifier__classify_samples/qiime2__sample_classifier__classify_samples
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__sample_classifier__classify_samples_from_dist/qiime2__sample_classifier__classify_samples_from_dist
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__sample_classifier__classify_samples_ncv/qiime2__sample_classifier__classify_samples_ncv
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__sample_classifier__confusion_matrix/qiime2__sample_classifier__confusion_matrix
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__sample_classifier__fit_classifier/qiime2__sample_classifier__fit_classifier
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__sample_classifier__fit_regressor/qiime2__sample_classifier__fit_regressor
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__sample_classifier__heatmap/qiime2__sample_classifier__heatmap
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__sample_classifier__metatable/qiime2__sample_classifier__metatable
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__sample_classifier__predict_classification/qiime2__sample_classifier__predict_classification
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__sample_classifier__predict_regression/qiime2__sample_classifier__predict_regression
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__sample_classifier__regress_samples/qiime2__sample_classifier__regress_samples
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__sample_classifier__regress_samples_ncv/qiime2__sample_classifier__regress_samples_ncv
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__sample_classifier__scatterplot/qiime2__sample_classifier__scatterplot
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__sample_classifier__split_table/qiime2__sample_classifier__split_table
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__sample_classifier__summarize/qiime2__sample_classifier__summarize
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__taxa__barplot/qiime2__taxa__barplot
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__taxa__collapse/qiime2__taxa__collapse
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__taxa__filter_seqs/qiime2__taxa__filter_seqs
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__taxa__filter_table/qiime2__taxa__filter_table
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__vsearch__cluster_features_closed_reference/qiime2__vsearch__cluster_features_closed_reference
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__vsearch__cluster_features_de_novo/qiime2__vsearch__cluster_features_de_novo
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__vsearch__cluster_features_open_reference/qiime2__vsearch__cluster_features_open_reference
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__vsearch__dereplicate_sequences/qiime2__vsearch__dereplicate_sequences
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__vsearch__fastq_stats/qiime2__vsearch__fastq_stats
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__vsearch__merge_pairs/qiime2__vsearch__merge_pairs
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__vsearch__uchime_denovo/qiime2__vsearch__uchime_denovo
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2__vsearch__uchime_ref/qiime2__vsearch__uchime_ref
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2_core__tools__export/qiime2_core__tools__export
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2_core__tools__import/qiime2_core__tools__import
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/q2d2/qiime2_core__tools__import_fastq/qiime2_core__tools__import_fastq
+
+- type: section
+  id: dada2_suite
+  name: dada2
+  items:
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/dada2_assignTaxonomyAddspecies/dada2_assignTaxonomyAddspecies
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/dada2_dada/dada2_dada
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/dada2_filterAndTrim/dada2_filterAndTrim
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/dada2_learnErrors/dada2_learnErrors
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/dada2_makeSequenceTable/dada2_makeSequenceTable
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/dada2_mergePairs/dada2_mergePairs
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/dada2_plotComplexity/dada2_plotComplexity
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/dada2_plotQualityProfile/dada2_plotQualityProfile
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/dada2_primerCheck/dada2_primerCheck
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/dada2_removeBimeraDenovo/dada2_removeBimeraDenovo
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/dada2_seqcounts/dada2_seqCounts
+
+- type: section
+  id: frogs_suite
+  name: FROGS
+  items:
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/frogs/frogs/FROGS_affiliation_filters
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/frogs/frogs/FROGS_affiliation_postprocess
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/frogs/frogs/FROGS_affiliation_stats
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/frogs/frogs/FROGS_biom_to_stdBiom
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/frogs/frogs/FROGS_biom_to_tsv
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/frogs/frogs/FROGS_cluster_filters
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/frogs/frogs/FROGS_cluster_stats
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/frogs/frogs/FROGS_clustering
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/frogs/frogs/FROGS_demultiplex
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/frogs/frogs/FROGSSTAT_DESeq2_Preprocess
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/frogs/frogs/FROGSSTAT_DESeq2_Visualisation
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/frogs/frogs/FROGSFUNC_step2_functions
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/frogs/frogs/FROGSFUNC_step3_pathways
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/frogs/frogs/FROGSFUNC_step1_placeseqs
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/frogs/frogs/FROGS_itsx
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/frogs/frogs/FROGS_normalisation
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/frogs/frogs/FROGSSTAT_Phyloseq_Alpha_Diversity
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/frogs/frogs/FROGSSTAT_Phyloseq_Beta_Diversity
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/frogs/frogs/FROGSSTAT_Phyloseq_Sample_Clustering
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/frogs/frogs/FROGSSTAT_Phyloseq_Composition_Visualisation
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/frogs/frogs/FROGSSTAT_Phyloseq_Import_Data
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/frogs/frogs/FROGSSTAT_Phyloseq_Multivariate_Analysis_Of_Variance
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/frogs/frogs/FROGSSTAT_Phyloseq_Structure_Visualisation
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/frogs/frogs/FROGS_preprocess
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/frogs/frogs/FROGS_remove_chimera
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/frogs/frogs/FROGS_taxonomic_affiliation
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/frogs/frogs/FROGS_Tree
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/frogs/frogs/FROGS_tsv_to_biom
+
+- type: section
+  id: phyloseq_suite
+  name: Phyloseq
+  items:
+- type: tool
+  id: toolshed.g2.bx.psu.edu/repos/iuc/phyloseq_add_rank_names/phyloseq_add_rank_names
+- type: tool
+  id: toolshed.g2.bx.psu.edu/repos/iuc/phyloseq_from_biom/phyloseq_from_biom
+- type: tool
+  id: toolshed.g2.bx.psu.edu/repos/iuc/phyloseq_from_dada2/phyloseq_from_dada2
+- type: tool
+  id: toolshed.g2.bx.psu.edu/repos/iuc/phyloseq_plot_bar/phyloseq_plot_bar
+- type: tool
+  id: toolshed.g2.bx.psu.edu/repos/iuc/phyloseq_plot_ordination/phyloseq_plot_ordination
+- type: tool
+  id: toolshed.g2.bx.psu.edu/repos/iuc/phyloseq_plot_richness/phyloseq_plot_richness
+
+- type: section
+  id: mothur_suite
+  name: Mothur
+  items:
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_align_check/mothur_align_check
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_align_seqs/mothur_align_seqs
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/momothur_amovathur/mothur_amova
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_anosim/mothur_anosim
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_bin_seqs/mothur_bin_seqs
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_biom_info/mothur_biom_info
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_chimera_bellerophon/mothur_chimera_bellerophon
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_chimera_ccode/mothur_chimera_ccode
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_chimera_check/mothur_chimera_check
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_chimera_perseus/mothur_chimera_perseus
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_chimera_pintail/mothur_chimera_pintail
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_chimera_slayer/mothur_chimera_slayer
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_chimera_uchime/mothur_chimera_uchime
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_chimera_vsearch/mothur_chimera_vsearch
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_chop_seqs/mothur_chop_seqs
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_classify_otu/mothur_classify_otu
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_classify_seqs/mothur_classify_seqs
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_classify_tree/mothur_classify_tree
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_clearcut/mothur_clearcut
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_cluster_classic/mothur_cluster_classic
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_cluster_fragments/mothur_cluster_fragments
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_cluster_split/mothur_cluster_split
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_cluster/mothur_cluster
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_collect_shared/mothur_collect_shared
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_collect_single/mothur_collect_single
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_consensus_seqs/mothur_consensus_seqs
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_cooccurrence/mothur_cooccurrence
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_corr_axes/mothur_corr_axes
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_count_groups/mothur_count_groups
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_count_seqs/mothur_count_seqs
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mmothur_create_databaseothur/mothur_create_database
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_degap_seqs/mothur_degap_seqs
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_deunique_seqs/mothur_deunique_seqs
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_deunique_tree/mothur_deunique_tree
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_dist_seqs/mothur_dist_seqs
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_dist_shared/mothur_dist_shared
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_fastq_info/mothur_fastq_info
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_filter_seqs/mothur_filter_seqs
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_filter_shared/mothur_filter_shared
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_get_communitytype/mothur_get_communitytype
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_get_coremicrobiome/mothur_get_coremicrobiome
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_get_dists/mothur_get_dists
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_get_group/mothur_get_group
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_get_groups/mothur_get_groups
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_get_label/mothur_get_label
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_get_lineage/mothur_get_lineage
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_get_mimarkspackage/mothur_get_mimarkspackage
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_get_otulabels/mothur_get_otulabels
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_get_otulist/mothur_get_otulist
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_get_oturep/mothur_get_oturep
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_get_otus/mothur_get_otus
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_get_rabund/mothur_get_rabund
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_get_relabund/mothur_get_relabund
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_get_sabund/mothur_get_sabund
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_get_seqs/mothur_get_seqs
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_get_sharedseqs/mothur_get_sharedseqs
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_heatmap_bin/mothur_heatmap_bin
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_heatmap_sim/mothur_heatmap_sim
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_homova/mothur_homova
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_indicator/mothur_indicator
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_lefse/mothur_lefse
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_libshuff/mothur_libshuff
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_list_otulabels/mothur_list_otulabels
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_list_seqs/mothur_list_seqs
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_make_biom/mothur_make_biom
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_make_contigs/mothur_make_contigs
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_make_design/mothur_make_design
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_make_fastq/mothur_make_fastq
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_make_group/mothur_make_group
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_make_lefse/mothur_make_lefse
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_make_lookup/mothur_make_lookup
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_make_shared/mothur_make_shared
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_make_sra/mothur_make_sra
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_mantel/mothur_mantel
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_merge_count/mothur_merge_count
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_merge_files/mothur_merge_files
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_merge_groups/mothur_merge_groups
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_merge_sfffiles/mothur_merge_sfffiles
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_merge_taxsummary/mothur_merge_taxsummary
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_metastats/mothur_metastats
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_mimarks_attributes/mothur_mimarks_attributes
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_nmds/mothur_nmds
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_normalize_shared/mothur_normalize_shared
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_otu_association/mothur_otu_association
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_otu_hierarchy/mothur_otu_hierarchy
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_pairwise_seqs/mothur_pairwise_seqs
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_parse_list/mothur_parse_list
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_parsimony/mothur_parsimony
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_pca/mothur_pca
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_pcoa/mothur_pcoa
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_pcr_seqs/mothur_pcr_seqs
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_phylo_diversity/mothur_phylo_diversity
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_phylotype/mothur_phylotype
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_pre_cluster/mothur_pre_cluster
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_primer_design/mothur_primer_design
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_rarefaction_shared/mothur_rarefaction_shared
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_rarefaction_single/mothur_rarefaction_single
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_remove_dists/mothur_remove_dists
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_remove_groups/mothur_remove_groups
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_remove_lineage/mothur_remove_lineage
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_remove_otulabels/mothur_remove_otulabels
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_remove_otus/mothur_remove_otus
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_remove_rare/mothur_remove_rare
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_remove_seqs/mothur_remove_seqs
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_rename_seqs/mothur_rename_seqs
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_reverse_seqs/mothur_reverse_seqs
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_screen_seqs/mothur_screen_seqs
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_sens_spec/mothur_sens_spec
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_seq_error/mothur_seq_error
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_sffinfo/mothur_sffinfo
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_shhh_flows/mothur_shhh_flows
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_shhh_seqs/mothur_shhh_seqs
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_sort_seqs/mothur_sort_seqs
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_split_abund/mothur_split_abund
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_split_groups/mothur_split_groups
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_sub_sample/mothur_sub_sample
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_summary_qual/mothur_summary_qual
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_summary_seqs/mothur_summary_seqs
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_summary_shared/mothur_summary_shared
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_summary_single/mothur_summary_single
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_summary_tax/mothur_summary_tax
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_taxonomy_to_krona/mothur_taxonomy_to_krona
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_tree_shared/mothur_tree_shared
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_trim_flows/mothur_trim_flows
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_trim_seqs/mothur_trim_seqs
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_unifrac_unweighted/mothur_unifrac_unweighted
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_unifrac_weighted/mothur_unifrac_weighted
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_unique_seqs/mothur_unique_seqs
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/mothur_venn/mothur_venn
+
+- type: section
+  id: picrust_suite
+  name: PICRUSt
+  items:
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/picrust_categorize/picrust_categorize
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/picrust_compare_biom/picrust_compare_biom
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/picrust_format_tree_and_trait_table/picrust_format_tree_and_trait_table
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/picrust_metagenome_contributions/picrust_metagenome_contributions
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/picrust_normalize_by_copy_number/picrust_normalize_by_copy_number
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/picrust_predict_metagenomes/picrust_predict_metagenomes
+
+- type: section
+  id: other_metabarcoding
+  name: Other Metabarcoding Tools
+  items:
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/earlhaminst/lotus2/lotus2
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/bgruening/motus/motus
+
+
+- id: meta_genomics_transcriptomics
+  text: Metagenomics / Metatranscriptomics
+  type: label
+
+- type: section
+  id: taxonomic_profiling
+  name: Taxonomic Classification / Profiling Tools
+  items:
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/gtdbtk_classify_wf/gtdbtk_classify_wf
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/recentrifuge/recentrifuge
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ufz/genomad_end_to_end/genomad_end_to_end
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ufz/genomad_build_database/genomad_build_database
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/metabuli/metabuli_classify
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/virannot_blast2tsv/virannot_blast2tsv
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/virannot_otu/virannot_otu
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/virAnnot_rps2tsv/virAnnot_rps2tsv
+
+- type: section
+  id: kraken_suite
+  name: Kraken
+  items:
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/kraken2/kraken2
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/devteam/kraken/kraken-filter
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/devteam/kraken/kraken-mpa-report
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/devteam/kraken/kraken-report
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/devteam/kraken/kraken-translate
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/devteam/kraken/kraken
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/krakentools/krakentools_alpha_diversity
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/krakentools/krakentools_beta_diversity
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/krakentools/krakentools_combine_kreports
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/krakentools/krakentools_extract_kraken_reads
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/krakentools/krakentools_kreport2krona
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/krakentools/krakentools_kreport2mpa
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/kraken_taxonomy_report/kraken_taxonomy_report
+
+- type: section
+  id: metaphlan_suite
+  name: MetaPhlAn
+  items:
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/metaphlan/metaphlan
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/metaphlan/customize_metaphlan_database
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/metaphlan/extract_metaphlan_database
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/metaphlan/merge_metaphlan_tables
+
+- type: section
+  id: cat_suite
+  name: Contig Annotation Tool (CAT)
+  items:
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/contig_annotation_tool/cat_add_names
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/contig_annotation_tool/cat_bins
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/contig_annotation_tool/cat_contigs
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/contig_annotation_tool/cat_prepare
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/contig_annotation_tool/cat_summarise
+
+- type: section
+  id: megan_suite
+  name: MEGAN
+  items:
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/megan/megan_blast2lca
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/megan/megan_blast2rma
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/megan/megan_daa2info
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/megan/megan_daa2rma
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/megan/megan_daa_meganizer
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/megan/megan_read_extractor
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/megan/megan_sam2rma
+
+- type: section
+  id: humann_suite
+  name: HUMAnN
+  items:
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/humann/humann
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/humann/humann_barplot
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/humann/humann_join_tables
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/humann/humann_reduce_table
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/humann/humann_regroup_table
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/humann/humann_rename_table
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/humann/humann_renorm_table
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/humann/humann_split_stratified_table
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/humann/humann_split_table
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/humann/humann_unpack_pathways
+
+- type: section
+  id: differential_analysis
+  name: Differential Analysis
+  items:
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/maaslin2/maaslin2
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/ancombc/ancombc
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/aldex2/aldex2
+
+- type: section
+  id: metagenomics_assembly
+  name: Metagenomics Assembly
+  items:
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/megahit/megahit
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/spades/metaspades
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bgruening/flye/flye
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/unicycler/unicycler
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/quast/quast
+
+- type: section
+  id: metagenomics_binning
+  name: Metagenomics Binning
+  items:
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxy-australia/metawrapmg_binning/metawrapmg_binning
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/metabat2/metabat2_jgi_summarize_bam_contig_depths
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/metabat2/metabat2
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/concoct/concoct
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/concoct/concoct_coverage_table
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/concoct/concoct_cut_up_fasta
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/concoct/concoct_extract_fasta_bins
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/concoct/concoct_merge_cut_up_clustering
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/binning_refiner/bin_refiner
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/mbernt/maxbin2/maxbin2
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/semibin/semibin
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/semibin_bin/semibin_bin
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/semibin_concatenate_fasta/semibin_concatenate_fasta
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/semibin_generate_cannot_links/semibin_generate_cannot_links
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/semibin_generate_sequence_features/semibin_generate_sequence_features
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/semibin_train/semibin_train
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/das_tool/das_tool
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/drep_compare/drep_compare
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/drep_dereplicate/drep_dereplicate
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/binette/binette
+
+- type: section
+  id: metagenomics_assembly_qc
+  name: Metagenomics Assembly Quality Control
+  items:
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/checkm/checkm_analyze
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/checkm/checkm_lineage_set
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/checkm/checkm_lineage_wf
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/checkm/checkm_plot
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/checkm/checkm_qa
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/checkm/checkm_taxon_set
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/checkm/checkm_taxonomy_wf
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/checkm/checkm_tetra
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/checkm/checkm_tree
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/checkm/checkm_tree_qa
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/quast/quast
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/coverm_contig/coverm_contig
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/coverm_genome/coverm_genome
+
+- id: proteomics
+  text: (Meta)proteomics
+  type: label
+
+- type: section
+  id: proteomics
+  name: Proteomics
+  items:
+  - type: tool
+    id: msconvert
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/peptideshaker/peptide_shaker
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/peptideshaker/search_gui
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/peptideshaker/ident_params
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/metanovo/metanovo
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/fragpipe/fragpipe
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/pepquery/pepquery
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/pepquery2/pepquery2
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/pepquery2_show_sets/pepquery2_show_sets
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/peppepquery2_indexquery2/pepquery2_index
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/msstatstmt/msstatstmt
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/msstats/msstats
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/unipept/unipept
+
+- type: section
+  id: openms_suite
+  items:
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_rnadigestor/RNADigestor
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_spectrafilterbernnorm/SpectraFilterBernNorm
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_nucleicacidsearchengine/NucleicAcidSearchEngine
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_idfilter/IDFilter
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_ticcalculator/TICCalculator
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_spectrafilterparentpeakmower/SpectraFilterParentPeakMower
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_featurefindersuperhirn/FeatureFinderSuperHirn
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_featurefindercentroided/FeatureFinderCentroided
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_precursorionselector/PrecursorIonSelector
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_maraclusteradapter/MaRaClusterAdapter
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_labeledeval/LabeledEval
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_semanticvalidator/SemanticValidator
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_mascotadapteronline/MascotAdapterOnline
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_msgfplusadapter/MSGFPlusAdapter
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_idripper/IDRipper
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_proteininference/ProteinInference
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_ptmodel/PTModel
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_spectramerger/SpectraMerger
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_spectrafilterthresholdmower/SpectraFilterThresholdMower
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_spectrafilternlargest/SpectraFilterNLargest
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_psmfeatureextractor/PSMFeatureExtractor
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_mzmlsplitter/MzMLSplitter
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_fuzzydiff/FuzzyDiff
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_proteinquantifier/ProteinQuantifier
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_metaprosip/MetaProSIP
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_dtaextractor/DTAExtractor
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_maprttransformer/MapRTTransformer
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_peptideindexer/PeptideIndexer
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_digestor/Digestor
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_masstraceextractor/MassTraceExtractor
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_internalcalibration/InternalCalibration
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_spectrafilternormalizer/SpectraFilterNormalizer
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_qcexporter/QCExporter
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_rtevaluation/RTEvaluation
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_metabolitespectralmatcher/MetaboliteSpectralMatcher
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_idmerger/IDMerger
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_mrmtransitiongrouppicker/MRMTransitionGroupPicker
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_qcmerger/QCMerger
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_featurelinkerlabeled/FeatureLinkerLabeled
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_xtandemadapter/XTandemAdapter
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_spectrafilterwindowmower/SpectraFilterWindowMower
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_pepnovoadapter/PepNovoAdapter
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_idsplitter/IDSplitter
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_openswathassaygenerator/OpenSwathAssayGenerator
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_sequencecoveragecalculator/SequenceCoverageCalculator
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_idconflictresolver/IDConflictResolver
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_peakpickerwavelet/PeakPickerWavelet
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_peakpickeriterative/PeakPickerIterative
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_decharger/Decharger
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_compnovocid/CompNovoCID
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_fileconverter/FileConverter
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_masscalculator/MassCalculator
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_openswathworkflow/OpenSwathWorkflow
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_mapalignerposeclustering/MapAlignerPoseClustering
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_qcembedder/QCEmbedder
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_epifany/Epifany
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_idrtcalibration/IDRTCalibration
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_msfraggeradapter/MSFraggerAdapter
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_mapaligneridentification/MapAlignerIdentification
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_siriusadapter/SiriusAdapter
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_qccalculator/QCCalculator
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_phosphoscoring/PhosphoScoring
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_featurelinkerunlabeled/ FeatureLinkerUnlabeled
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_filefilter/FileFilter
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_featurefindermetabo/FeatureFinderMetabo
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_featurefindermultiplex/FeatureFinderMultiplex
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_spectrafilterscaler/SpectraFilterScaler
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_mssimulator/MSSimulator
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_featurelinkerunlabeledkd/FeatureLinkerUnlabeledKD
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_proteinresolver/ProteinResolver
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_isobaricanalyzer/IsobaricAnalyzer
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_filemerger/FileMerger
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_qcextractor/QCExtractor
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_fileinfo/FileInfo
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_spectrastsearchadapter/SpectraSTSearchAdapter
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_seedlistgenerator/SeedListGenerator
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_mapalignertreeguided/MapAlignerTreeGuided
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_speclibsearcher/SpecLibSearcher
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_compnovo/CompNovo
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_spectrafiltermarkermower/SpectraFilterMarkerMower
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_noisefiltersgolay/NoiseFilterSGolay
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_idfileconverter/IDFileConverter
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_targetedfileconverter/TargetedFileConverter
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_cometadapter/CometAdapter
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_externalcalibration/ExternalCalibration
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_featurefinderisotopewavelet/FeatureFinderIsotopeWavelet
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_falsediscoveryrate/FalseDiscoveryRate
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_cruxadapter/CruxAdapter
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_idmapper/IDMapper
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_featurefinderidentification/FeatureFinderIdentification
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_mrmmapper/MRMMapper
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_omssaadapter/OMSSAAdapter
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_eicextractor/EICExtractor
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_mapalignerspectrum/MapAlignerSpectrum
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_openswathfilesplitter/OpenSwathFileSplitter
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_msstatsconverter/MSstatsConverter
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_tofcalibration/TOFCalibration
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_rnpxlsearch/RNPxlSearch
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_featurelinkerunlabeledqt/FeatureLinkerUnlabeledQT
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_clustermasstracesbyprecursor/ClusterMassTracesByPrecursor
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_mztabexporter/MzTabExporter
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_svmtheoreticalspectrumgeneratortrainer/SvmTheoreticalSpectrumGeneratorTrainer
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_rnpxlxicfilter/RNPxlXICFilter
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_openswathfeaturexmltotsv/OpenSwathFeatureXMLToTSV
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_erpairfinder/ERPairFinder
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_gnpsexport/GNPSExport
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_xmlvalidator/XMLValidator
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_myrimatchadapter/MyriMatchAdapter
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_featurefindermetaboident/FeatureFinderMetaboIdent
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_qcimporter/QCImporter
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_consensusid/ConsensusID
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_speclibcreator/SpecLibCreator
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_multiplexresolver/MultiplexResolver
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_metaboliteadductdecharger/MetaboliteAdductDecharger
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_simplesearchengine/SimpleSearchEngine
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_featurefindermrm/FeatureFinderMRM
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_qualitycontrol/QualityControl
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_consensusmapnormalizer/ConsensusMapNormalizer
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_openswathchromatogramextractor/OpenSwathChromatogramExtractor
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_mapnormalizer/MapNormalizer
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_spectrafiltersqrtmower/SpectraFilterSqrtMower
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_transformationevaluation/TransformationEvaluation
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_clustermasstraces/ClusterMassTraces
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_precursormasscorrector/PrecursorMassCorrector
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_assaygeneratormetabo/AssayGeneratorMetabo
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_openswathconfidencescoring/OpenSwathConfidenceScoring
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_rnamasscalculator/RNAMassCalculator
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_openpepxllf/OpenPepXLLF
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_idmassaccuracy/IDMassAccuracy
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_accuratemasssearch/AccurateMassSearch
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_noisefiltergaussian/NoiseFilterGaussian
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_openswathrtnormalizer/OpenSwathRTNormalizer
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_mascotadapter/MascotAdapter
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_rtmodel/RTModel
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_ffeval/FFEval
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_demeanderize/DeMeanderize
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_lowmempeakpickerhiresrandomaccess/LowMemPeakPickerHiResRandomAccess
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_lowmempeakpickerhires/LowMemPeakPickerHiRes
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_percolatoradapter/PercolatorAdapter
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_fidoadapter/FidoAdapter
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_xfdr/XFDR
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_idposteriorerrorprobability/IDPosteriorErrorProbability
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_baselinefilter/BaselineFilter
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_peakpickerhires/PeakPickerHiRes
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_mapstatistics/MapStatistics
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_decoydatabase/DecoyDatabase
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_idscoreswitcher/IDScoreSwitcher
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_idextractor/IDExtractor
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_textexporter/TextExporter
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_luciphoradapter/LuciphorAdapter
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_openswathrewritetofeaturexml/OpenSwathRewriteToFeatureXML
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_qcshrinker/QCShrinker
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_highresprecursormasscorrector/HighResPrecursorMassCorrector
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_novoradapter/NovorAdapter
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_openswathanalyzer/OpenSwathAnalyzer
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_cvinspector/CVInspector
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_openswathmzmlfilecacher/OpenSwathMzMLFileCacher
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_mrmpairfinder/MRMPairFinder
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_openswathdecoygenerator/OpenSwathDecoyGenerator
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_openpepxl/OpenPepXL
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/openms_databasefilter/DatabaseFilter
+
+- type: section
+  id: metaquantome_suite
+  name: MetaQuantome
+  items:
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/metaquantome_db/metaquantome_db
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/metaquantome_expand/metaquantome_expand
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/metaquantome_filter/metaquantome_filter
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/metaquantome_sample/metaquantome_sample
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/metaquantome_stat/metaquantome_stat
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/metaquantome_viz/metaquantome_viz
+
+
+- id: visualization
+  text: Visualization
+  type: label
+
+- type: section
+  id: visualization_tools
+  name: Visualization tools
+  items:
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/graphlan/graphlan
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/crs4/taxonomy_krona_chart/taxonomy_krona_chart
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/pygenometracks/pygenomeTracks
+  - type: tool
+    id: interactive_tool_pavian
+  - type: tool
+    id: interactive_tool_phinch

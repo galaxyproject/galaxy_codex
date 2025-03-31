@@ -161,6 +161,16 @@ def get_feedback_per_tutorials() -> Dict:
     return feedback_per_tuto
 
 
+def test_in_tuto_list(tuto: dict, tutos: list) -> bool:
+    """
+    Test if tutorial in a list of tutorial
+    """
+    for t in tutos:
+        if t["tutorial_name"] == tuto["tutorial_name"] and t["topic_name"] == tuto["topic_name"]:
+            return True
+    return False
+
+
 def get_tutorials(
     tool_fp: str,
     plausible_api: str,
@@ -175,7 +185,7 @@ def get_tutorials(
     topics = shared.get_request_json("https://training.galaxyproject.org/training-material/api/topics.json", {})
     if run_test:
         topics = {"microbiome": topics["microbiome"]}
-    tutos = []
+    tutos: list[dict] = []
     for topic in topics:
         topic_information = shared.get_request_json(
             f"https://training.galaxyproject.org/training-material/api/topics/{topic}.json", {}
@@ -184,7 +194,8 @@ def get_tutorials(
             if tuto is None:
                 continue
             format_tutorial(tuto, edam_ontology, tools, feedback, plausible_api)
-            tutos.append(tuto)
+            if not test_in_tuto_list(tuto, tutos):
+                tutos.append(tuto)
     return tutos
 
 

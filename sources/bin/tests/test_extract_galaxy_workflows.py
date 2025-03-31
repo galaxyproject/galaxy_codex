@@ -68,7 +68,7 @@ class TestAddWorkflowsFromWorkflowHub(unittest.TestCase):
         mock_get_request_json.assert_any_call("https://workflowhub.eu/workflows/1189", {"Accept": "application/json"})
         mock_get_request_json.assert_any_call("https://workflowhub.eu/workflows/1190", {"Accept": "application/json"})
 
-        self.assertEqual(mock_get_request_json.call_count, 3)  # Adjust based on the expected number of calls
+        self.assertEqual(mock_get_request_json.call_count, 7)  # Adjust based on the expected number of calls
 
         # check if edam terms are transferred from the tools to the workflow
         self.assertEqual(

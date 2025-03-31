@@ -1,0 +1,52 @@
+{% load markdown %}
+
+<!-- <section class="my-5">
+  {% if help_links %}
+  <h4 class="mb-3">microGalaxy community support</h4>
+  <ul>
+    {% for link in help_links %}
+    <li>
+      <a href="{{ link.url }}" target="_blank">{{ link.title }}</a>
+    </li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+</section> 
+
+<section>
+  <h4 class="mb-3">News and Events</h4>
+
+  <div class="row justify-content-center">
+    <div class="col">
+      <iframe width="400px" height="600px" src="https://training.galaxyproject.org/training-material/topics/microbiome/feed.w.xml"></iframe>
+    </div>
+    <div class="col">
+      <iframe width="400px" height="600px" src="https://training.galaxyproject.org/training-material/feeds/microbiome-month.w.xml"></iframe>
+    </div>
+  </div>
+</section> -->
+
+{% if feedback_email %}
+<section class="my-5">
+  <h4 class="my-3">What do you think of the {{ lab_name }}?</h4>
+  <button
+    class="ga-btn"
+    data-bs-toggle="modal"
+    data-bs-target="#feedbackModal"
+  >
+    Give feedback
+  </button>
+</section>
+{% endif %}
+
+<section class="my-5">
+  <h4 class="mb-3">Cite Us</h4>
+  <p>
+    If you find the Microbiology Lab and the effort of the microGalaxy community useful for your research, please cite us using our 
+    <a href="https://www.biorxiv.org/content/10.1101/2024.12.23.629682v1" target="_blank" rel="noopener noreferrer">preprint</a>.
+  </p>
+</section>
+
+<section id="conclusionExtra">
+  {{ conclusion_extra_md|safe }}
+</section>

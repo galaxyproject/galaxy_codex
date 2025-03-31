@@ -15,6 +15,7 @@ from typing import (
     Optional,
 )
 
+import numpy as np
 import pandas as pd
 import requests
 import shared
@@ -23,6 +24,8 @@ from github import Github
 from github.ContentFile import ContentFile
 from github.Repository import Repository
 from owlready2 import get_ontology
+from ruamel.yaml import YAML as ruamelyaml
+from ruamel.yaml.scalarstring import LiteralScalarString
 
 # Config variables
 BIOTOOLS_API_URL = "https://bio.tools"
@@ -35,24 +38,24 @@ USEGALAXY_SERVER_URLS = {
 }
 
 project_path = Path(__file__).resolve().parent.parent  # galaxy_tool_extractor folder
-usage_stats_path = project_path.joinpath("data", "usage_stats", "usage_stats_31.08.2024")
+usage_stats_path = project_path.joinpath("data", "usage_stats", "usage_stats_31.01.2025")
 conf_path = project_path.joinpath("data", "conf.yml")
 public_servers = project_path.joinpath("data", "available_public_servers.csv")
 
 
 GALAXY_TOOL_STATS = {}
-for server in ["eu", "org", "org.au"]:
+for server in ["eu", "org", "org.au", "fr"]:
     GALAXY_TOOL_STATS[f"Suite users (last 5 years) (usegalaxy.{ server })"] = usage_stats_path.joinpath(
-        f"{ server }/tool_users_5y_until_2024.08.31.csv"
+        f"{ server }/tool_users_5y_until_2025.01.31.csv"
     )
     GALAXY_TOOL_STATS[f"Suite users (usegalaxy.{ server })"] = usage_stats_path.joinpath(
-        f"{ server }/tool_users_until_2024.08.31.csv"
+        f"{ server }/tool_users_until_2025.01.31.csv"
     )
     GALAXY_TOOL_STATS[f"Suite runs (last 5 years) (usegalaxy.{ server })"] = usage_stats_path.joinpath(
-        f"{ server }/tool_usage_5y_until_2024.08.31.csv"
+        f"{ server }/tool_usage_5y_until_2025.01.31.csv"
     )
     GALAXY_TOOL_STATS[f"Suite runs (usegalaxy.{ server })"] = usage_stats_path.joinpath(
-        f"{ server }/tool_usage_until_2024.08.31.csv"
+        f"{ server }/tool_usage_until_2025.01.31.csv"
     )
 
 # all columns that contain the text will be summed up to a new column with summed up stats
@@ -385,6 +388,15 @@ def get_tool_metadata(tool: ContentFile, repo: Repository) -> Optional[Dict[str,
                 if "id" in root.attrib:
                     metadata["Tool IDs"].append(root.attrib["id"])
 
+    # when `name` not in .shed.yml file
+    if metadata["Suite ID"] is None:
+        if metadata["Suite conda package"] is not None:
+            metadata["Suite ID"] = metadata["Suite conda package"]
+        elif metadata["bio.tool ID"] is not None:
+            metadata["Suite ID"] = metadata["bio.tool ID"].lower()
+        else:
+            metadata["Suite ID"] = tool.path.split("/")[-1]
+
     # get latest conda version and compare to the wrapper version
     if metadata["Suite conda package"] is not None:
         r = requests.get(f'https://api.anaconda.org/package/bioconda/{metadata["Suite conda package"]}')
@@ -557,33 +569,39 @@ def export_tools_to_tsv(
     df.to_csv(output_fp, sep="\t", index=False)
 
 
-def add_status(tool: Dict, tool_status: Dict) -> None:
+def add_status(tool: Dict, tool_status: pd.DataFrame) -> None:
     """
     Add status to tool
 
     :param tool: dictionary with tools and their metadata
-    :param tool_status: dictionary with tools and their 2 status: Keep and Deprecated
+    :param tool_status: dataframe with suite ID and owner and their 2 status: Keep and Deprecated
     """
     name = tool["Suite ID"]
-    if name in tool_status:
-        tool["To keep"] = tool_status[name]["To keep"]
-        tool["Deprecated"] = tool_status[name]["Deprecated"]
+    owner = tool["Suite owner"]
+    if "Suite owner" in tool_status:
+        query = tool_status.query(f"`Suite ID` == '{name}' and `Suite owner` == '{owner}'")
     else:
+        query = tool_status.query(f"`Suite ID` == '{name}'")
+    if query.empty:
         tool["To keep"] = None
         tool["Deprecated"] = None
+    else:
+        selected_query = query.iloc[0]
+        tool["To keep"] = bool(selected_query["To keep"]) if selected_query["To keep"] is not None else None
+        tool["Deprecated"] = bool(selected_query["Deprecated"]) if selected_query["Deprecated"] is not None else None
 
 
 def filter_tools(
     tools: List[Dict],
     ts_cat: List[str],
-    tool_status: Dict,
+    tool_status: pd.DataFrame,
 ) -> list:
     """
     Filter tools for specific ToolShed categories
 
     :param tools: dictionary with tools and their metadata
     :param ts_cat: list of ToolShed categories to keep in the extraction
-    :param tool_status: dictionary with tools and their 2 status: Keep and Deprecated
+    :param tool_status: dataframe with suite ID and owner and their 2 status: Keep and Deprecated
     """
     filtered_tools = []
     for tool in tools:
@@ -596,13 +614,13 @@ def filter_tools(
 
 def curate_tools(
     tools: List[Dict],
-    tool_status: Dict,
+    tool_status: pd.DataFrame,
 ) -> tuple:
     """
     Filter tools for specific ToolShed categories
 
     :param tools: dictionary with tools and their metadata
-    :param tool_status: dictionary with tools and their 2 status: Keep and Deprecated
+    :param tool_status: dataframe with suite ID and owner and their 2 status: Keep and Deprecated
     """
     curated_tools = []
     tools_wo_biotools = []
@@ -717,6 +735,172 @@ def get_tools(repo_list: list, edam_ontology: dict) -> List[Dict]:
     return tools
 
 
+def extract_top_tools_per_category(
+    tool_fp: str, count_column: str = "Suite runs on main servers", category_nb: int = 10, top_tool_nb: int = 10
+) -> pd.DataFrame:
+    """
+    Extract top tools per categories
+    """
+    tools = pd.read_csv(tool_fp, sep="\t")
+
+    # Step 1: Split the categories into separate rows and strip whitespace
+    df = tools.assign(Category=tools["EDAM operations"].str.split(",")).explode("Category")
+    df["Category"] = df["Category"].str.strip()  # Strip whitespace
+
+    # Step 2: Group by category to calculate total count and item count
+    grouped = (
+        df.groupby("Category")
+        .agg(
+            total_count=(count_column, "sum"),
+            item_count=("Suite ID", "size"),  # Count distinct items if necessary, use 'nunique'
+        )
+        .reset_index()
+    )
+
+    # Step 3: Filter categories with at least 5 items
+    filtered = grouped[grouped["item_count"] >= 5]
+
+    # Step 4: Sort by total count in descending order
+    top_categories = filtered.sort_values(by="total_count", ascending=False).head(category_nb)["Category"]
+
+    # Step 5: Assign each tool to the first category it appears in
+    # Sort by 'Galaxy wrapper id' to ensure we assign based on first appearance
+    df_unique = df[df["Category"].isin(top_categories)]  # Filter rows for top 5 categories
+    df_unique = df_unique.sort_values(by=["Suite ID", "Category"])  # Sort by tool ID to keep first category only
+
+    # Step 6: Remove duplicates, keeping the first appearance of each tool
+    df_unique = df_unique.drop_duplicates(subset=["Suite ID"], keep="first")
+
+    # Step 7: Extract top X items per category based on total count
+    top_tools_per_category = (
+        df_unique.groupby("Category", group_keys=False)  # Group by category
+        .apply(lambda group: group.nlargest(top_tool_nb, count_column))  # Get top items per category
+        .reset_index(drop=True)  # Reset index for clean output
+    )
+    return top_tools_per_category
+
+
+def fill_lab_tool_section(
+    lab_section: dict, top_items_per_category: pd.DataFrame, count_column: str = "Suite runs on main servers"
+) -> dict:
+    """
+    Fill Lab tool section
+    """
+    tabs = []
+    for element in lab_section["tabs"]:
+        if element["id"] == "more_tools":
+            tabs.append(element)
+
+    for grp_id, group in top_items_per_category.groupby("Category"):
+        group_id = str(grp_id)
+        tool_entries = []
+        for _index, row in group.iterrows():
+
+            # Prepare the description with an HTML unordered list and links for each Galaxy tool ID
+            description = f"{row['Description']}\n (Tool usage: {row[count_column]})"
+            tool_ids = row["Tool IDs"]
+            owner = row["Suite owner"]
+            wrapper_id = row["Suite ID"]
+
+            # Split the tool IDs by comma if it's a valid string, otherwise handle as an empty list
+            tool_ids_list = tool_ids.split(",") if isinstance(tool_ids, str) else []
+
+            # Create the base URL template for each tool link
+            url_template = "/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2F{owner}%2F{wrapper_id}%2F{tool_id}"
+
+            # Build HTML list items with links
+            description += "\n<ul>\n"
+            for tool_id in tool_ids_list:
+                tool_id = tool_id.strip()  # Trim whitespace
+                # Format the URL with owner, wrapper ID, and tool ID
+                url = "{{ galaxy_base_url }}" + url_template.format(owner=owner, wrapper_id=wrapper_id, tool_id=tool_id)
+                description += f'  <li><a href="{url}">{tool_id}</a></li>\n'
+            description += "</ul>"
+
+            # Use LiteralScalarString to enforce literal block style for the description
+            description_md = LiteralScalarString(description.strip())
+
+            # Create the tool entry
+            tool_entry = {
+                "title_md": wrapper_id,
+                "description_md": description_md,
+            }
+
+            tool_entries.append(tool_entry)
+
+        # Create table entry for each EDAM
+        tabs.append(
+            {
+                "id": group_id.replace(" ", "_").lower(),
+                "title": group_id,
+                "heading_md": f"Top 10 for the EDAM operation: {group_id}",
+                "content": tool_entries,
+            }
+        )
+
+    new_lab_section = {
+        "id": lab_section["id"],
+        "title": lab_section["title"],
+        "tabs": tabs,
+    }
+    return new_lab_section
+
+
+def extract_missing_tools_per_servers(tool_fp: str) -> dict:
+    """
+    Extract missing tools per servers that could be installed in a Lab
+    """
+    top_tools_per_category = extract_top_tools_per_category(tool_fp)
+    tools = pd.read_csv(tool_fp, sep="\t").fillna("")
+
+    servers = [col.replace("Number of tools on ", "") for col in tools.filter(regex="Number of tools on").columns]
+    missing_tools: dict[str, dict] = {}
+    for _index, tool in tools.iterrows():
+        tool_ids = tool["Tool IDs"].split(", ")
+        # individual tools to install
+        to_install = [{"name": t_id, "owner": tool["Suite owner"], "tool_panel_section_id": ""} for t_id in tool_ids]
+        # identify servers missing tools
+        for server in servers:
+            if tool[f"Number of tools on { server }"] < len(tool_ids):  # Missing tools condition
+                if server not in missing_tools:
+                    missing_tools[server] = {"all": [], "top": []}
+                missing_tools[server]["all"].extend(to_install)
+                if sum(top_tools_per_category["Suite ID"].str.contains(tool["Suite ID"])) == 1:
+                    missing_tools[server]["top"].extend(to_install)
+    return missing_tools
+
+
+def export_missing_tools_to_yaml(server_f: Path, tools: list) -> None:
+    """
+    Export missing tools in a YAML file
+    """
+    tool_dict = {
+        "install_tool_dependencies": True,
+        "install_repository_dependencies": True,
+        "install_resolver_dependencies": True,
+        "tools": tools,
+    }
+    with server_f.open("w") as output:
+        yaml.dump(tool_dict, output, default_flow_style=False)
+
+
+def export_missing_tools(missing_tools: dict, tool_dp: str) -> None:
+    """
+    Export missing tools with a YAML per Galaxy server
+    """
+    all_d = Path(tool_dp) / Path("all")
+    all_d.mkdir(parents=True, exist_ok=True)
+
+    top_d = Path(tool_dp) / Path("top")
+    top_d.mkdir(parents=True, exist_ok=True)
+
+    for server, tools in missing_tools.items():
+        server = server.replace("(", "").replace(")", "").replace(" ", "_").replace(".", "_")
+        server_fn = f"{ server }.yaml"
+        export_missing_tools_to_yaml(Path(all_d) / Path(server_fn), tools["all"])
+        export_missing_tools_to_yaml(Path(top_d) / Path(server_fn), tools["top"])
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description="Extract Galaxy tools from GitHub repositories together with biotools and conda metadata"
@@ -770,12 +954,6 @@ if __name__ == "__main__":
         help="Filepath to JSON with tools filtered based on ToolShed category",
     )
     filtertools.add_argument(
-        "--tsv-filtered",
-        "-t",
-        required=True,
-        help="Filepath to TSV with tools filtered based on ToolShed category",
-    )
-    filtertools.add_argument(
         "--status",
         "-s",
         help="Path to a TSV file with tool status - at least 3 columns: IDs of tool suites, Boolean with True to keep and False to exclude, Boolean with True if deprecated and False if not",
@@ -810,6 +988,35 @@ if __name__ == "__main__":
         "-s",
         help="Path to a TSV file with tool status - at least 3 columns: IDs of tool suites, Boolean with True to keep and False to exclude, Boolean with True if deprecated and False if not",
     )
+
+    # Curate tools categories
+    labpop = subparser.add_parser("popLabSection", help="Fill in Lab section tools")
+    labpop.add_argument(
+        "--curated",
+        "-c",
+        required=True,
+        help="Filepath to TSV with curated tools",
+    )
+    labpop.add_argument(
+        "--lab",
+        required=True,
+        help="Filepath to YAML files for Lab section",
+    )
+
+    # Extract tools to install on servers
+    labtools = subparser.add_parser("getLabTools", help="Extract tools to install on servers for a Lab")
+    labtools.add_argument(
+        "--curated",
+        "-f",
+        required=True,
+        help="Filepath to TSV with curated tools",
+    )
+    labtools.add_argument(
+        "--tools",
+        required=True,
+        help="Path to folder for generating subfolders (all, tools) with server YAML files with missing tools for a Lab",
+    )
+
     args = parser.parse_args()
 
     if args.command == "extract":
@@ -834,19 +1041,19 @@ if __name__ == "__main__":
         # get categories and tools to exclude
         categories = shared.read_file(args.categories)
         # get status if file provided
-        if args.status:
-            status = pd.read_csv(args.status, sep="\t", index_col=0).to_dict("index")
+        if args.status and Path(args.status).exists():
+            status = pd.read_csv(args.status, sep="\t").replace(np.nan, None)
         else:
-            status = {}
+            status = pd.DataFrame(columns=["Suite ID", "Suite owner", "Description", "To keep", "Deprecated"])
         # filter tool lists
         filtered_tools = filter_tools(tools, categories, status)
         if filtered_tools:
             export_tools_to_json(filtered_tools, args.filtered)
             export_tools_to_tsv(
                 filtered_tools,
-                args.tsv_filtered,
+                args.status,
                 format_list_col=True,
-                to_keep_columns=["Suite ID", "Description", "To keep", "Deprecated"],
+                to_keep_columns=["Suite ID", "Suite owner", "Description", "To keep", "Deprecated"],
             )
         else:
             # if there are no ts filtered tools
@@ -856,14 +1063,15 @@ if __name__ == "__main__":
         with Path(args.filtered).open() as f:
             tools = json.load(f)
         try:
-            status = pd.read_csv(args.status, sep="\t", index_col=0).to_dict("index")
+            status = pd.read_csv(args.status, sep="\t").replace(np.nan, None)
         except Exception as ex:
             print(f"Failed to load tool_status.tsv file with:\n{ex}")
             print("Not assigning tool status for this community !")
-            status = {}
+            status = pd.DataFrame(columns=["Suite ID", "Suite owner", "Description", "To keep", "Deprecated"])
 
         curated_tools, tools_wo_biotools, tools_with_biotools = curate_tools(tools, status)
         if curated_tools:
+            export_tools_to_json(curated_tools, args.filtered)
             export_tools_to_tsv(
                 curated_tools,
                 args.curated,
@@ -884,3 +1092,15 @@ if __name__ == "__main__":
         else:
             # if there are no ts filtered tools
             print("No tools left after curation")
+
+    elif args.command == "popLabSection":
+        lab_section = shared.load_yaml(args.lab)
+        top_tools_per_category = extract_top_tools_per_category(args.curated)
+        lab_section = fill_lab_tool_section(lab_section, top_tools_per_category)
+
+        with open(args.lab, "w") as lab_f:
+            ruamelyaml().dump(lab_section, lab_f)
+
+    elif args.command == "getLabTools":
+        missing_tools = extract_missing_tools_per_servers(args.curated)
+        export_missing_tools(missing_tools, args.tools)
