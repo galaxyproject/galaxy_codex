@@ -32,7 +32,7 @@ BRANCH_NAME = os.environ["BRANCH_NAME"]
 HEAD_REPO = os.getenv("HEAD_REPO")
 
 
-def test_lab(lab_name):
+def test_lab(lab_name: str) -> bool:
     """Iterate through each YAML root file for the given lab name.
     For files that exist, build a URL for that Lab page, check the HTTP status
     code and post the URLs with pass/fail status as a comment on the PR.
@@ -71,13 +71,13 @@ def test_lab(lab_name):
     return success
 
 
-def write_comment(lab_name, md):
+def write_comment(lab_name: str, md: str) -> None:
     os.makedirs(OUTPUT_DIR, exist_ok=True)
     with open(f"{OUTPUT_DIR}/{lab_name}.md", "w") as f:
         f.write(md)
 
 
-def http_status_for(url):
+def http_status_for(url: str) -> int:
     try:
         response = urlopen(url)
         return response.getcode()
@@ -85,17 +85,21 @@ def http_status_for(url):
         return e.code
 
 
-def build_url(content_path):
-    return URL_TEMPLATE.format(repo=HEAD_REPO, branch_name=BRANCH_NAME, lab_content_path=content_path)
+def build_url(content_path: str) -> str:
+    return URL_TEMPLATE.format(
+        repo=HEAD_REPO,
+        branch_name=BRANCH_NAME,
+        lab_content_path=content_path,
+    )
 
 
-def main():
-    path = sys.argv[1] if len(sys.argv) else "paths.txt"
+def main() -> None:
+    path = sys.argv[1] if len(sys.argv) > 1 else "paths.txt"
     with open(path) as f:
         files = f.read().splitlines()
 
     success = True
-    directories = []
+    directories: list[str] = []
 
     # Check each file to see if it is in a "Lab" directory
     for path in files:

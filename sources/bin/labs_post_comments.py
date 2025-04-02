@@ -30,7 +30,10 @@ PR_NUMBER = int(os.environ["PR_NUMBER"])
 BASE_REPO = os.getenv("BASE_REPO")
 
 
-def get_comment(pull_request, id_string):
+def get_comment(
+    pull_request: Github.PullRequest.PullRequest,
+    id_string: str,
+) -> Github.IssueComment.IssueComment | None:
     """Fetches PR comments and scans for the COMMENT_TITLE_TEMPLATE."""
     for comment in pull_request.get_issue_comments():
         if id_string in comment.body:
@@ -38,7 +41,7 @@ def get_comment(pull_request, id_string):
     return None
 
 
-def create_or_update_comment(lab_name, body_md):
+def create_or_update_comment(lab_name: str, body_md: str) -> None:
     """Creates or updates a comment for the given lab name.
 
     Checks for an existing comment by looking for the COMMENT_TITLE_TEMPLATE
@@ -58,9 +61,13 @@ def create_or_update_comment(lab_name, body_md):
         pull_request.create_issue_comment(body_md)
 
 
-def main():
+def main() -> None:
     comments_dir = Path(sys.argv[1] if len(sys.argv) else "comments")
-    if comments_dir.exists() and comments_dir.is_dir() and list(comments_dir.glob("*.md")):
+    if (
+        comments_dir.exists()
+        and comments_dir.is_dir()
+        and list(comments_dir.glob("*.md"))
+    ):
         for path in comments_dir.glob("*.md"):
             with open(path) as f:
                 comment_md = f.read()
