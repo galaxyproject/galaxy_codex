@@ -18,10 +18,10 @@ URL_TEMPLATE = (
     "&cache=false"
 )
 TRY_FILES = [
-    'base.yml',
-    'usegalaxy.eu.yml',
-    'usegalaxy.org.yml',
-    'usegalaxy.org.au.yml',
+    "base.yml",
+    "usegalaxy.eu.yml",
+    "usegalaxy.org.yml",
+    "usegalaxy.org.au.yml",
 ]
 
 # Environment variables from GitHub Actions
@@ -37,19 +37,16 @@ def test_lab(lab_name):
     success = True
     title_string = COMMENT_TITLE_TEMPLATE.format(lab_name=lab_name)
     comment_md = f"### {title_string}\n\n"
-    test_paths = [
-        f'communities/{lab_name}/lab/{f}'
-        for f in TRY_FILES
-    ]
+    test_paths = [f"communities/{lab_name}/lab/{f}" for f in TRY_FILES]
 
     for path in test_paths:
-        if not os.path.exists('head/' + path):
+        if not os.path.exists("head/" + path):
             print(f"Skipping {path}: file not found in head repo")
             continue
         url = build_url(path)
         try:
             http_status = http_status_for(url)
-            filename = path.split('/')[-1]
+            filename = path.split("/")[-1]
             if http_status < 400:
                 line = f"- ✅ {filename} [HTTP {http_status}]: {url}\n\n"
             else:
@@ -73,7 +70,7 @@ def test_lab(lab_name):
 
 def write_comment(lab_name, md):
     os.makedirs(OUTPUT_DIR, exist_ok=True)
-    with open(f'{OUTPUT_DIR}/{lab_name}.md', 'w') as f:
+    with open(f"{OUTPUT_DIR}/{lab_name}.md", "w") as f:
         f.write(md)
 
 
@@ -86,10 +83,7 @@ def http_status_for(url):
 
 
 def build_url(content_path):
-    return URL_TEMPLATE.format(
-        repo=HEAD_REPO,
-        branch_name=BRANCH_NAME,
-        lab_content_path=content_path)
+    return URL_TEMPLATE.format(repo=HEAD_REPO, branch_name=BRANCH_NAME, lab_content_path=content_path)
 
 
 def main():
