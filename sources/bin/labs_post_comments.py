@@ -63,11 +63,7 @@ def create_or_update_comment(lab_name: str, body_md: str) -> None:
 
 def main() -> None:
     comments_dir = Path(sys.argv[1] if len(sys.argv) else "comments")
-    if (
-        comments_dir.exists()
-        and comments_dir.is_dir()
-        and list(comments_dir.glob("*.md"))
-    ):
+    if comments_dir.exists() and comments_dir.is_dir() and list(comments_dir.glob("*.md")):
         for path in comments_dir.glob("*.md"):
             with open(path) as f:
                 comment_md = f.read()
