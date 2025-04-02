@@ -6,8 +6,11 @@ in a PR comment.
 
 import os
 import sys
+from urllib.error import (
+    HTTPError,
+    URLError,
+)
 from urllib.request import urlopen
-from urllib.error import URLError, HTTPError
 
 OUTPUT_DIR = "output"
 COMMENT_TITLE_TEMPLATE = "Preview changes to {lab_name} Lab <!--=-->"

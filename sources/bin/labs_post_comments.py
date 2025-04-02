@@ -6,8 +6,9 @@ in a PR comment.
 
 import os
 import sys
-from github import Github
 from pathlib import Path
+
+from github import Github
 
 COMMENT_TITLE_TEMPLATE = "Preview changes to {lab_name} Lab <!--=-->"
 URL_TEMPLATE = (
