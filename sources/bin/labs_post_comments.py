@@ -9,6 +9,8 @@ import sys
 from pathlib import Path
 
 from github import Github
+from github.IssueComment import IssueComment
+from github.PullRequest import PullRequest
 
 COMMENT_TITLE_TEMPLATE = "Preview changes to {lab_name} Lab <!--=-->"
 URL_TEMPLATE = (
@@ -31,9 +33,9 @@ BASE_REPO = os.getenv("BASE_REPO")
 
 
 def get_comment(
-    pull_request: Github.PullRequest.PullRequest,
+    pull_request: PullRequest,
     id_string: str,
-) -> Github.IssueComment.IssueComment | None:
+) -> IssueComment | None:
     """Fetches PR comments and scans for the COMMENT_TITLE_TEMPLATE."""
     for comment in pull_request.get_issue_comments():
         if id_string in comment.body:
