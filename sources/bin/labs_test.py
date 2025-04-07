@@ -47,7 +47,6 @@ def test_lab(lab_name: str) -> bool:
             print(f"Skipping {path}: file not found in head repo")
             continue
         url = build_url(path)
-        print(f"Fetching Lab page: {url}...")
         try:
             http_status = http_status_for(url)
             filename = path.split("/")[-1]
