@@ -34,6 +34,7 @@ jobs:
         run: |
           if [ -s paths.txt ]; then
             echo "Changed files found. Updating Labs Engine cache and running tests..."
+            ln -s . head  # script expects repo to be here
             python3 sources/bin/labs_test.py paths.txt
           else
             echo "No changes to Galaxy Labs found"
