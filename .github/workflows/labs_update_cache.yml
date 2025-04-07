@@ -7,7 +7,7 @@ on:
       - main
 
 jobs:
-  check_diff:
+  update_cache:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
 
@@ -20,7 +20,7 @@ jobs:
       - name: Get list of changed files
         run: |
           BASE=${{ github.event.pull_request.base.sha }}
-          HEAD=${{ github.event.pull_request.head.sha }}
+          HEAD=${{ github.event.pull_request.merge_commit_sha }}
           git diff --name-only $BASE $HEAD | grep "^communities/[^/]\+/lab" > paths.txt
           echo ""
           echo "Changed files:"
