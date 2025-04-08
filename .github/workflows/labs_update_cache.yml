@@ -21,7 +21,7 @@ jobs:
         run: |
           BASE=${{ github.event.pull_request.base.sha }}
           HEAD=${{ github.event.pull_request.merge_commit_sha }}
-          git diff --name-only $BASE $HEAD | grep "^communities/[^/]\+/lab" > paths.txt
+          git diff --name-only $BASE $HEAD | grep "^communities/[^/]\+/lab" > paths.txt || true
           echo ""
           echo "Changed files:"
           cat paths.txt
