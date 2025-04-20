@@ -36,8 +36,8 @@ bam2mappingstats	nml	Generates mapping stats from a bam file.	False	False
 bamclipper	nml	Soft-clip gene-specific primers from BAM alignment file based on genomic coordinates of primer pairs in BEDPE format.	False	False
 bamhash	bgruening	Hash BAM and FASTQ files to verify data integrity	False	False
 bamparse	artbio	Generates hit count lists from bam alignments.	False	False
-bamtools	devteam	Operate on and transform BAM datasets in various ways using bamtools	True	False
 bamtools	iuc	Utility for filtering BAM files. It is based on the BAMtools suiteof tools by Derek Barnett.	False	False
+bamtools	devteam	Operate on and transform BAM datasets in various ways using bamtools	True	False
 bamtools_filter	devteam	Filter BAM datasets on various attributes using bamtools filter	False	False
 bamutil	iuc	bamUtil is a repository that contains several programs that perform operations on SAM/BAM files.	False	False
 bandage	iuc	Bandage - A Bioinformatics Application for Navigating De novo Assembly Graphs Easily	True	False
@@ -171,6 +171,7 @@ delete_overlapping_indels	devteam	Delete Overlapping Indels from a chromosome in
 deseq2	iuc	Differential gene expression analysis based on the negative binomial distribution	True	False
 dewseq	rnateam	DEWSeq is a sliding window based peak caller for eCLIP/iCLIP data	False	False
 dexseq	iuc	Inference of differential exon usage in RNA-Seq	False	False
+dfast	ufz	Prokaryotic genome annotation		
 dia_umpire	galaxyp	DIA-Umpire analysis for data independent acquisition (DIA) mass spectrometry-based proteomics	False	False
 dialignr	galaxyp	DIAlignR is an R package for retention time alignment of targeted mass spectrometric data, including DIA and SWATH-MS data. This tool works with MS2 chromatograms directly and uses dynamic programming for alignment of raw chromatographic traces. DIAlignR uses a hybrid approach of global (feature-based) and local (raw data-based) alignment to establish correspondence between peaks.	False	False
 diamond	bgruening	DIAMOND is a new alignment tool for aligning short DNA sequencing reads to a protein reference database such as NCBI-NR.	True	False
@@ -360,6 +361,7 @@ kc_align	iuc	Kc-Align custom tool	False	False
 khmer	iuc	In-memory nucleotide sequence k-mer counting, filtering, graph traversal and more	True	False
 kinwalker	rnateam	Kinwalker splits the folding process into a series of events where each event can either be a folding event or a transcription event.	False	False
 kleborate	iuc	Screen genome assemblies of Klebsiella pneumoniae and the Klebsiella pneumoniae species complex (KpSC)	True	False
+kmer2stats	iuc	A tool for creating data files for statistics based on kmers		
 kofamscan	iuc	Gene function annotation tool based on KEGG Orthology and hidden Markov model	True	False
 kraken	devteam	Kraken is a system for assigning taxonomic labels to short DNAsequences, usually obtained through metagenomic studies. Previous attempts by otherbioinformatics software to accomplish this task have often used sequence alignmentor machine learning techniques that were quite slow, leading to the developmentof less sensitive but much faster abundance estimation programs. Kraken aims toachieve high sensitivity and high speed by utilizing exact alignments of k-mersand a novel classification algorithm.	True	False
 kraken2	iuc	Kraken2 for taxonomic designation.	True	False
@@ -494,8 +496,8 @@ ocean_data_view_manager	ecology	The tool merges various datasets with a common v
 odgi	iuc	Representing large genomic variation graphs with minimal memory overhead requires a careful encoding of the graph entities. odgi follows the dynamic GBWT in developing a byte-packed version of the graph and paths through it.	False	False
 omark	iuc	Proteome quality assessment software	True	False
 ont_fast5_api	iuc	ont_fast5_api is a simple interface to HDF5 files of the Oxford Nanopore FAST5 file format.	False	False
-openms	galaxyp	OpenMS Suite for LC/MS data management and analyses	False	False
 openms	bgruening	OpenMS in version 2.1.	False	False
+openms	galaxyp	OpenMS Suite for LC/MS data management and analyses	False	False
 optitype	iuc	Precision HLA typing from NGS data	False	False
 orfipy	iuc	Galaxy wrapper for ORFIPY	True	False
 orthofinder	iuc	Accurate inference of orthologous gene groups made easy	True	False
@@ -568,6 +570,7 @@ pseudogenome	nml	Create a pseudogenome from a multiple fasta file either with a 
 psm_to_sam	galaxyp	PSM to SAM	False	False
 psm_validation	galaxyp	Validate PSM from Ion Fragmentation	False	False
 psy_maps	climate	Visualization of regular geographical data on a map with psyplot	False	False
+ptxqc	galaxyp	Quality control reports for MaxQuant results		
 pureclip	iuc	PureCLIP is an HMM based peak caller specifically designed for eCLIP/iCLIP data	False	False
 purge_dups	iuc	Purge haplotigs and overlaps in an assembly based on read depth	False	False
 pycoqc	iuc	QC metrics for ONT Basecalling	True	False
@@ -611,17 +614,17 @@ quasitools	nml	A collection of tools for analysing Viral Quasispecies	False	Fals
 quast	iuc	Quast (Quality ASsessment Tool) evaluates genome assemblies.	True	False
 quickmerge	iuc	Merge long-read and hybrid assemblies to increase contiguity	True	False
 quicktree	iuc	neighbour-joining phylogenetic inference	True	False
-r-base	ecology	This tool is a wrapper for OGC API Processes coming from https://osf.io/gfbws/.	False	False
+r-base	ecology	Compute biodiversity indicators for remote sensing data from Sentinel 2	False	False
+r-base	ecology	This tool is a wrapper for OGC API Processes (OTB) coming from terrabyte (https://docs.terrabyte.lrz.de/).	False	False
+r-base	ecology	Compute indicators for turnover boulders fields	False	False
+r-base	ecology	This tool is a wrapper for OGC API Processes (OTB) coming from the Zoo Project (https://zoo-project.github.io/docs/intro.html) and was created using the OGC-API-Process2Galaxy tool (https://github.com/AquaINFRA/OGC-API-Process2Galaxy). Check the README in the repository for more information.	False	False
+r-base	ecology	Compute biodiveristy indicators for marine data from obis	False	False
 r-base	ecology	Robust Estimation of Open Ocean CO2 Variables and Nutrient Concentrations From T, S, and O2 Data Using Bayesian Neural Networks	False	False
 r-base	ecology	Outputs a monoband image which is the result of a mathematical operation on several multi-band images.	False	False
 r-base	ecology	This application smooths an image using the MeanShift algorithm.	False	False
 r-base	iuc	ggplot2 is a system for declaratively creating graphics, based on The Grammar of Graphics.You provide the data, tell ggplot2 how to map variables to aesthetics, what graphical primitives to use,and it takes care of the details.	False	False
-r-base	ecology	Compute biodiveristy indicators for marine data from obis	False	False
-r-base	ecology	This tool is a wrapper for OGC API Processes (OTB) coming from the Zoo Project (https://zoo-project.github.io/docs/intro.html) and was created using the OGC-API-Process2Galaxy tool (https://github.com/AquaINFRA/OGC-API-Process2Galaxy). Check the README in the repository for more information.	False	False
+r-base	ecology	This tool is a wrapper for OGC API Processes coming from https://osf.io/gfbws/.	False	False
 r-base	ecology	Wrapper for OGC API Processes developed in the AquaINFRA project.	False	False
-r-base	ecology	Compute biodiversity indicators for remote sensing data from Sentinel 2	False	False
-r-base	ecology	This tool is a wrapper for OGC API Processes (OTB) coming from terrabyte (https://docs.terrabyte.lrz.de/).	False	False
-r-base	ecology	Compute indicators for turnover boulders fields	False	False
 r-getopt	ecology	Run IDW interpolation based on a .csv and .geojson file	False	False
 r-mgcv	ecology		False	False
 r-qqman	iuc		False	False
@@ -744,8 +747,8 @@ spotyping	iuc	SpoTyping allows fast and accurate in silico Mycobacterium spoligo
 squirrel	iuc	QC and Phylogenetic analysis of MPXV	True	False
 sr_bowtie	artbio	bowtie wrapper tool to align small RNA sequencing reads	True	False
 sr_bowtie_dataset_annotation	artbio	Maps iteratively small RNA sequencing datasets to reference sequences.	False	False
-srst2	nml	Short Read Sequence Typing for Bacterial Pathogens	True	False
 srst2	iuc	SRST2 Short Read Sequence Typing for Bacterial Pathogens	True	False
+srst2	nml	Short Read Sequence Typing for Bacterial Pathogens	True	False
 sshmm	rnateam	ssHMM is an RNA sequence-structure motif finder for RNA-binding protein data, such as CLIP-Seq data	False	False
 stacks	iuc	Stacks is a software pipeline for building loci from short-read sequences, such as RAD-seq	False	False
 stacks	iuc	Stacks is a software pipeline for building loci from short-read sequences, such as RAD-seq	False	False
