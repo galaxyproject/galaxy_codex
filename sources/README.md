@@ -207,7 +207,10 @@ $ python sources/bin/create_interactive_table.py \
 To contribute to the CoDex Source code:
 1. fork the repository,
 2. create a branch and add your changes
-3. make a pull request to the **dev branch** of the CoDex repository. 
+3. add a unittest for your changes, see [unittests](sources/bin/tests) for examples. New functions now require a unittest to be merged !
+4. make a pull request to the **dev branch** of the CoDex repository. 
+
+The unittest framework will run on your PR, fix the tests if required.
 
 Upon review the maintainer will merge your pull request. 
 Automatic tests will run on the dev branch. 
