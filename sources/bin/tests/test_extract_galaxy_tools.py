@@ -5,7 +5,12 @@ from unittest.mock import (
     patch,
 )
 
-from extract_galaxy_tools import get_tool_github_repositories
+from extract_galaxy_tools import (
+    get_github_repo,
+    get_last_url_position,
+    get_tool_github_repositories,
+)
+from github import Github
 
 
 class TestGetToolGithubRepositories(unittest.TestCase):
@@ -92,3 +97,94 @@ class TestGetToolGithubRepositories(unittest.TestCase):
                 "https://github.com/extra/repo",
             ],
         )
+
+
+class TestGetGithubRepo(unittest.TestCase):
+    """
+    Unit tests for the get_github_repo function.
+    """
+
+    def test_valid_repo_url(self) -> None:
+        """
+        Test that a valid GitHub URL returns the correct mocked repository object.
+        """
+        mock_repo = MagicMock()
+        mock_user = MagicMock()
+        mock_user.get_repo.return_value = mock_repo
+
+        mock_g = MagicMock(spec=Github)
+        mock_g.get_user.return_value = mock_user
+
+        url = "https://github.com/galaxyproject/galaxy"
+        result = get_github_repo(url, mock_g)
+
+        self.assertEqual(result, mock_repo)
+        mock_g.get_user.assert_called_once_with("galaxyproject")
+        mock_user.get_repo.assert_called_once_with("galaxy")
+
+    def test_url_with_trailing_slash(self) -> None:
+        """
+        Test that URLs ending with a slash are handled correctly.
+        """
+        mock_repo = MagicMock()
+        mock_user = MagicMock()
+        mock_user.get_repo.return_value = mock_repo
+
+        mock_g = MagicMock()
+        mock_g.get_user.return_value = mock_user
+
+        url = "https://github.com/usegalaxy-eu/tools-iuc/"
+        result = get_github_repo(url, mock_g)
+
+        self.assertEqual(result, mock_repo)
+        mock_g.get_user.assert_called_once_with("usegalaxy-eu")
+        mock_user.get_repo.assert_called_once_with("tools-iuc")
+
+    def test_url_with_dot_git_suffix(self) -> None:
+        """
+        Test that URLs ending with .git are cleaned and handled.
+        """
+        mock_repo = MagicMock()
+        mock_user = MagicMock()
+        mock_user.get_repo.return_value = mock_repo
+
+        mock_g = MagicMock()
+        mock_g.get_user.return_value = mock_user
+
+        url = "https://github.com/usegalaxy-eu/tools-iuc.git"
+        result = get_github_repo(url, mock_g)
+
+        self.assertEqual(result, mock_repo)
+        mock_g.get_user.assert_called_once_with("usegalaxy-eu")
+        mock_user.get_repo.assert_called_once_with("tools-iuc")
+
+    def test_invalid_url(self) -> None:
+        """
+        Test that a ValueError is raised when the URL does not start with the expected prefix.
+        """
+        mock_g = MagicMock()
+
+        with self.assertRaises(ValueError):
+            get_github_repo("http://example.com/repo", mock_g)
+
+
+class TestGetLastUrlPosition(unittest.TestCase):
+    """
+    Unit tests for the get_last_url_position function.
+    """
+
+    def test_toolshed_url(self) -> None:
+        """
+        Should return the last component of a toolshed-style ID.
+        """
+        tool_id = "toolshed.g2.bx.psu.edu/repos/iuc/snpsift/snpSift_filter"
+        expected = "snpSift_filter"
+        self.assertEqual(get_last_url_position(tool_id), expected)
+
+    def test_no_slashes(self) -> None:
+        """
+        Should return the input unchanged if there's no '/'.
+        """
+        tool_id = "fastqc"
+        expected = "fastqc"
+        self.assertEqual(get_last_url_position(tool_id), expected)
