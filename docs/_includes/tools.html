@@ -10,18 +10,16 @@
     <table class="tooltable table display table-bordered table-striped w-100">
         <thead>
             <tr>
-                <th style="text-align: center">Galaxy wrapper id (+link)</th>
-                <th style="text-align: center">Galaxy wrapper version</th>
+                <th style="text-align: center">Suite ID</th>
+                <th style="text-align: center">Suite version</th>
                 <th style="text-align: center">Date of first commit of the suite</th>
-                <th style="text-align: center">Galaxy tool ids</th>
+                <th style="text-align: center">Tool IDs</th>
                 <th style="text-align: center">Description</th>
                 <th style="text-align: center">EDAM topic(s)</th>
                 <th style="text-align: center">EDAM operation(s)</th>
-                <th style="text-align: center">Tool usage (all time, all main servers)</th>
-                <th style="text-align: center">Source</th>
+                <th style="text-align: center">Suite runs on main servers</th>
                 <th style="text-align: center">bio.tools (if available)</th>
                 <th style="text-align: center">Conda id</th>
-                <th style="text-align: center">Conda version</th>
                 <th style="text-align: center">biii</th>
                 <th style="text-align: center">Status</th>
                 <th style="text-align: center">Availability across Galaxies</th>
@@ -32,17 +30,17 @@
             <tr>
                 <td>
                 <div>
-                  {% if tool.["Galaxy wrapper source"] != "" %}
-                    <a href='{{ tool.["Galaxy wrapper source"] }}'>{{ tool.["Galaxy wrapper id"] }}</a>
+                  {% if tool.["Suite ID"] != "" %}
+                    <a href='{{ tool.["Suite source"] }}'>{{ tool.["Suite ID"] }}</a>
                   {% else %}
-                    <a href="#">{{ tool.["Galaxy wrapper id"] }}</a>
+                    <a href="#">{{ tool.["Suite ID"] }}</a>
                   {% endif %}
                 </div>
                 </td>
-                <td style="text-align: center">{{tool.["Galaxy wrapper version"]}}</td>
+                <td style="text-align: center">{{tool.["Suite version"]}}</td>
                 <td style="text-align: center">{{tool.["Date of first commit of the suite"]}}</td>
                 <td style="text-align: center">
-                    {% if tool.["Galaxy tool ids"] %} {%- for id in tool.["Galaxy tool ids"] %}
+                    {% if tool.["Tool IDs"] %} {%- for id in tool.["Tool IDs"] %}
                     <span class="badge text-bg-light">
                         {{id}}
                     </span>
@@ -50,29 +48,24 @@
                 </td>
                 <td>{{tool.Description}}</td>
                 <td style="text-align: center">
-                    {% if tool.["EDAM topic"] %} {%- for topic in tool.["EDAM topic"] %}
+                    {% if tool.["EDAM topics"] %} {%- for topic in tool.["EDAM topics"] %}
                     <span class="badge text-bg-light">
                         {{topic}}
                     </span>
                     {%- endfor %} {%- endif %}
                 </td>
                 <td style="text-align: center">
-                    {% if tool.["EDAM operation"] %} {%- for operation in tool.["EDAM operation"] %}
+                    {% if tool.["EDAM operations"] %} {%- for operation in tool.["EDAM operations"] %}
                     <span class="badge text-bg-light">
                         {{operation}}
                     </span>
                     {%- endfor %} {%- endif %}
                 </td>
-                <td style="text-align: center">{{tool.["Tool usage (all time) - all main servers"]}}</td>
+                <td style="text-align: center">{{tool.["Suite runs on main servers"]}}</td>
                 <td style="text-align: center">
                 <div>
-                <a href="{{tool.Source}}">Link</a>
-                </div>
-                </td>
-                <td style="text-align: center">
-                <div>
-                  {% if tool.["bio.tool id"] != "null" %}
-                    <a href='https://bio.tools/{{ tool.["bio.tool id"] }}'>{{ tool.["bio.tool id"] }}</a>
+                  {% if tool.["bio.tool ID"] != "null" %}
+                    <a href='https://bio.tools/{{ tool.["bio.tool ID"] }}'>{{ tool.["bio.tool ID"] }}</a>
                   {% else %}
                     <a href="#">""</a>
                   {% endif %}
@@ -80,32 +73,23 @@
                 </td>
                 <td style="text-align: center">
                 <div>
-                  {% if tool.["Conda id"] != "null" %}
+                  {% if tool.["Suite conda package"] != "null" %}
                     <span class="badge text-bg-light">
-                        {{ tool.["Conda id"] }}
+                        {{ tool.["Suite conda package"] }}
                     </span>
                   {% endif %}
                 </div>
                 </td>
                 <td style="text-align: center">
                 <div>
-                  {% if tool.["Conda version"] != "null" %}
+                  {% if tool.["biii ID"] != "null" %}
                     <span class="badge text-bg-light">
-                        {{ tool.["Conda version"] }}
+                        {{ tool.["biii ID"] }}
                     </span>
                   {% endif %}
                 </div>
                 </td>
-                <td style="text-align: center">
-                <div>
-                  {% if tool.biii != "null" %}
-                    <span class="badge text-bg-light">
-                        {{ tool.biii }}
-                    </span>
-                  {% endif %}
-                </div>
-                </td>
-                <td>{{tool.Status}}</td>
+                <td>{{tool.["Suite version status"]}}</td>
                 <td>
                 <div>
                   {% if tool.availability %} {%- for instance in tool.availability %}
