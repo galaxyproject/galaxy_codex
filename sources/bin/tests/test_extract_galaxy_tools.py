@@ -203,7 +203,7 @@ class TestGetAllInstalledToolIdsOnServer(unittest.TestCase):
         # Clear the cache so each test starts fresh
         get_all_installed_tool_ids_on_server.cache_clear()
 
-        # Load the JSON fixture
+        # Load the JSON Galaxy API mock data
         with open(GALAX_TOOLS_API_PATH, encoding="utf-8") as f:
             self.sample_json = json.load(f)
 
