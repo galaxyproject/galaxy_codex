@@ -1,26 +1,35 @@
 Galaxy Codex
 ============
 
-Galaxy Communities Dock (Galaxy CoDex) is a catalog of resources for Galaxy communities.
+Galaxy Communities Dock (Galaxy CoDex) stores resources for Galaxy community contributors - people who are actively developing for Galaxy, from testing & fixing tutorials to administrator servers.
 
 Currently, we have two main resources:
 
-1. **Galaxy Community Catalog**: from tools, training & workflows
-2. **Galaxy Labs**: (led by Galaxy Australia!) main and tool panel content for communities to spin up subdomain pages
+1. **Galaxy Community Catalog**: from tools, training & workflows.  The catalog is automatically updated every week.
+2. **Galaxy Labs**: (led by Galaxy Australia!) main and tool panel content for communities to spin up UI-tested & informed subdomain pages
 
-This repository stores the sources to build all of this content. The catalog is automatically updated every week.
 
 # Join the CoDex
 Any Galaxy Community can be added to this project and benefit from the dedicated resources.
 **Learn [how to add your community](https://training.galaxyproject.org/training-material/topics/community/faqs/codex.html)** in the dedicated GTN tutorial.
 
-# Galaxy Community Catalog
-To generate interactive tables that can be embedded into Galaxy Labs (subdomains) and websites via an iframe. 
+# 1. Galaxy Community Catalog
+To generate interactive tables that can be embedded into subdomains and websites via an iframe. 
 **Learn [how to generate the Galaxy Community Catalog](https://training.galaxyproject.org/training-material//topics/dev/tutorials/community-tool-table/tutorial.html)** in the dedicated GTN tutorial. 
 
-# Galaxy Lab
-To generate GalaxyLab content, you can follow our documentation (to be added!).
-To spin up a GalaxyLab on your server, you can follow our documentation (to be added!).
+# 2. Galaxy Lab
+To generate Galaxy Lab content, you can follow [our documentation](https://labs.usegalaxy.org.au/).
+
+# Vocabulary
+- **Galaxy Community**: Galaxy Community of Practice. You can see a full list of Special Interest Groups in the [SIG Directory](https://galaxyproject.org/community/sig).
+- **Galaxy Server**: Computational power/infrastructure that a Galaxy instance uses, such as usegalaxy.eu or usegalaxy.org
+- **Subdomain**: General term for Galaxy instance aimed at specific community (like microbiome or single-cell). Uses a specific Galaxy server.
+- **Galaxy Lab**: Specific style of UI-informed subdomain, Galaxy Australia built a new method for generating the main and tool panels, known as a Galaxy Lab.
+
+# Editorial Board
+We thank these people for maintaining this resource and providing reviews to pull requests:
+@paulzierep, @bebatut, @neoformit
+Would you be willing to help with reviewing pull requests? Get in touch with any of the editorial board members!
 
 # Galaxy Community Catalog content
 
@@ -59,6 +68,4 @@ Suite runs on main servers  | Number of runs of the suite tools on all UseGalaxy
 Deprecated | Deprecation status after review by a domain expert
 To keep | Status to add to a community after review by a domain expert
 
-# Vocabulary
-**Galaxy Lab**: Formerly known as Subdomains, Galaxy Australia built a new method for generating the main and tool panels for a Galaxy subdomain, known as a Galaxy Lab.
-**Galaxy Community**: Galaxy Community of Practice. You can see a full list of Special Interest Groups in the [SIG Directory](https://galaxyproject.org/community/sig).
+
