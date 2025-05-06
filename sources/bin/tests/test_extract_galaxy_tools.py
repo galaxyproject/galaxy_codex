@@ -1,3 +1,5 @@
+import json
+import os
 import unittest
 from typing import Any
 from unittest.mock import (
@@ -6,11 +8,16 @@ from unittest.mock import (
 )
 
 from extract_galaxy_tools import (
+    get_all_installed_tool_ids_on_server,
     get_github_repo,
     get_last_url_position,
     get_tool_github_repositories,
 )
 from github import Github
+from requests import HTTPError
+
+SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
+GALAX_TOOLS_API_PATH = os.path.join(SCRIPT_DIR, "test-data", "galaxy_api_tool_mock.json")
 
 
 class TestGetToolGithubRepositories(unittest.TestCase):
@@ -185,3 +192,55 @@ class TestGetLastUrlPosition(unittest.TestCase):
         tool_id = "fastqc"
         expected = "fastqc"
         self.assertEqual(get_last_url_position(tool_id), expected)
+
+
+class TestGetAllInstalledToolIdsOnServer(unittest.TestCase):
+    """
+    Unit tests for get_all_installed_tool_ids_on_server.
+    """
+
+    def setUp(self) -> None:
+        # Clear the cache so each test starts fresh
+        get_all_installed_tool_ids_on_server.cache_clear()
+
+        # Load the JSON fixture
+        with open(GALAX_TOOLS_API_PATH, "r", encoding="utf-8") as f:
+            self.sample_json = json.load(f)
+
+    @patch("extract_galaxy_tools.requests.get")
+    def test_successful_fetch(self, mock_get: MagicMock) -> None:
+        """When the server returns valid JSON, we get back the list of IDs."""
+        mock_resp = MagicMock()
+        mock_resp.raise_for_status.return_value = None
+        mock_resp.json.return_value = self.sample_json
+        mock_get.return_value = mock_resp
+
+        ids1 = get_all_installed_tool_ids_on_server("https://usegalaxy.org")
+        ids2 = get_all_installed_tool_ids_on_server("https://usegalaxy.org/")
+
+        expected = ["upload1", "ds_seek_test"]
+        self.assertEqual(ids1, expected)
+        self.assertEqual(ids2, expected)
+
+        mock_get.assert_called_with("https://usegalaxy.org/api/tools", params={"in_panel": False})
+
+    @patch("extract_galaxy_tools.requests.get")
+    def test_raise_for_status_failure(self, mock_get: MagicMock) -> None:
+        """If raise_for_status raises, return an empty list."""
+        mock_resp = MagicMock()
+        mock_resp.raise_for_status.side_effect = HTTPError("Bad request")
+        mock_get.return_value = mock_resp
+
+        result = get_all_installed_tool_ids_on_server("https://usegalaxy.org")
+        self.assertEqual(result, [])
+
+    @patch("extract_galaxy_tools.requests.get")
+    def test_json_parse_failure(self, mock_get: MagicMock) -> None:
+        """If .json() raises, return an empty list."""
+        mock_resp = MagicMock()
+        mock_resp.raise_for_status.return_value = None
+        mock_resp.json.side_effect = ValueError("Invalid JSON")
+        mock_get.return_value = mock_resp
+
+        result = get_all_installed_tool_ids_on_server("https://usegalaxy.org")
+        self.assertEqual(result, [])
