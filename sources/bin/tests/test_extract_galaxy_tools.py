@@ -204,7 +204,7 @@ class TestGetAllInstalledToolIdsOnServer(unittest.TestCase):
         get_all_installed_tool_ids_on_server.cache_clear()
 
         # Load the JSON fixture
-        with open(GALAX_TOOLS_API_PATH, "r", encoding="utf-8") as f:
+        with open(GALAX_TOOLS_API_PATH, encoding="utf-8") as f:
             self.sample_json = json.load(f)
 
     @patch("extract_galaxy_tools.requests.get")
