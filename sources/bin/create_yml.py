@@ -14,7 +14,7 @@ def create_tool_yml(data_source: str, yml_output_path: str):
         availability = {}
         for field in data[tool]:
             field_value = data[tool][field]
-            availability_match_string = "[Aa]vailable on"
+            availability_match_string = "[Nn]umber of tools"
             if re.search(availability_match_string, field):
                 instance_match_string = "[Uu]se[Gg]alaxy\.[a-z]{2}"
                 if re.search(instance_match_string, field):
