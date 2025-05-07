@@ -1,6 +1,15 @@
 import unittest
-from unittest.mock import patch, MagicMock
-from extract_gtn_tutorials import get_visits, get_youtube_stats, format_tutorial, filter_tutorials
+from unittest.mock import (
+    MagicMock,
+    patch,
+)
+
+from extract_gtn_tutorials import (
+    filter_tutorials,
+    format_tutorial,
+    get_visits,
+    get_youtube_stats,
+)
 
 
 class TestGetVisits(unittest.TestCase):
