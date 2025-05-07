@@ -561,6 +561,9 @@ def export_tools_to_tsv(
         df["EDAM reduced operations"] = shared.format_list_column(df["EDAM reduced operations"])
         df["EDAM reduced topics"] = shared.format_list_column(df["EDAM reduced topics"])
 
+        df["Related Workflows"] = shared.format_list_column(df["Related Workflows"])
+        df["Related Tutorials"] = shared.format_list_column(df["Related Tutorials"])
+
         # the Galaxy tools need to be formatted for the add_instances_to_table to work
         df["Tool IDs"] = shared.format_list_column(df["Tool IDs"])
 
