@@ -1,7 +1,5 @@
 import unittest
 from unittest.mock import patch, MagicMock
-import pandas as pd
-
 from extract_gtn_tutorials import (
     get_visits,
     get_youtube_stats,
