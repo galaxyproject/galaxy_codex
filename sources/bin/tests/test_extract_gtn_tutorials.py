@@ -132,7 +132,7 @@ class TestGetYoutubeStats(unittest.TestCase):
         tutorial = {
             "tutorial_name": "example_tutorial",
             "recordings": [{"youtube_id": "dQw4w9WgXcQ"}, {"youtube_id": "dQw4w9WgYz"}],
-            }
+        }
         get_youtube_stats(tutorial)
 
         # Check if total views and video count are correctly calculated
