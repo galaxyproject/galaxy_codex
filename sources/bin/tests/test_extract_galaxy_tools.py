@@ -1,5 +1,6 @@
 import json
 import os
+import tempfile
 import unittest
 from typing import Any
 from unittest.mock import (
@@ -8,6 +9,8 @@ from unittest.mock import (
 )
 
 from extract_galaxy_tools import (
+    add_tutorial_ids_to_tools,
+    add_workflow_ids_to_tools,
     get_all_installed_tool_ids_on_server,
     get_github_repo,
     get_last_url_position,
@@ -18,6 +21,79 @@ from requests import HTTPError
 
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
 GALAX_TOOLS_API_PATH = os.path.join(SCRIPT_DIR, "test-data", "galaxy_api_tool_mock.json")
+
+
+class TestAddTutorialIdsToTools(unittest.TestCase):
+
+    def setUp(self) -> None:
+        # Sample tools data
+        self.tools: List[Dict[str, Any]] = [
+            {"Tool IDs": ["taxonomy_krona_chart"], "name": "Krona"},
+            {"Tool IDs": ["humann2"], "name": "HUMAnN2"},
+            {"Tool IDs": ["non_matching_tool"], "name": "UnknownTool"},
+        ]
+
+        # Sample tutorials JSON (as a list)
+        self.tutorials = [
+            {"id": "microbiome/introduction", "short_tools": ["taxonomy_krona_chart", "humann2"]},
+            {"id": "metagenomics/analysis", "short_tools": ["humann2"]},
+        ]
+
+        # Write tutorial data to a temp file
+        self.temp_file = tempfile.NamedTemporaryFile(delete=False, mode="w", suffix=".json")
+        json.dump(self.tutorials, self.temp_file)
+        self.temp_file.close()
+        self.tutorial_path = self.temp_file.name
+
+    def tearDown(self) -> None:
+        os.remove(self.tutorial_path)
+
+    def test_add_tutorial_ids_to_tools(self) -> None:
+        updated_tools = add_tutorial_ids_to_tools(self.tools, self.tutorial_path)
+
+        expected = {
+            "taxonomy_krona_chart": ["microbiome/introduction"],
+            "humann2": ["microbiome/introduction", "metagenomics/analysis"],
+            "non_matching_tool": [],
+        }
+
+        for tool in updated_tools:
+            tool_id = tool["Tool IDs"][0]
+            self.assertEqual(sorted(tool["Related Tutorials"]), sorted(expected[tool_id]))
+
+
+class TestAddWorkflowIdsToTools(unittest.TestCase):
+
+    def setUp(self) -> None:
+        self.workflows: List[Dict[str, Any]] = [
+            {"link": "workflow_1", "tools": ["tool_a", "tool_b"]},
+            {"link": "workflow_2", "tools": ["tool_c"]},
+            {"link": "workflow_3", "tools": ["tool_a"]},
+        ]
+
+        self.temp_file = tempfile.NamedTemporaryFile(delete=False, mode="w", suffix=".json")
+        json.dump(self.workflows, self.temp_file)
+        self.temp_file.close()
+
+    def tearDown(self) -> None:
+        os.unlink(self.temp_file.name)
+
+    def test_adds_related_workflows(self) -> None:
+        tools: List[Dict[str, Any]] = [
+            {"Tool IDs": ["tool_a", "tool_c"]},
+            {"Tool IDs": ["tool_b"]},
+            {"Tool IDs": ["nonexistent_tool"]},
+        ]
+
+        expected: List[Dict[str, Any]] = [
+            {"Tool IDs": ["tool_a", "tool_c"], "Related Workflows": ["workflow_1", "workflow_2", "workflow_3"]},
+            {"Tool IDs": ["tool_b"], "Related Workflows": ["workflow_1"]},
+            {"Tool IDs": ["nonexistent_tool"], "Related Workflows": []},
+        ]
+
+        result: List[Dict[str, Any]] = add_workflow_ids_to_tools(tools, self.temp_file.name)
+        for res, exp in zip(result, expected):
+            self.assertEqual(sorted(res["Related Workflows"]), sorted(exp["Related Workflows"]))
 
 
 class TestGetToolGithubRepositories(unittest.TestCase):
