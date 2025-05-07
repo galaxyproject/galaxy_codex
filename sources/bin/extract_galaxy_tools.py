@@ -761,7 +761,7 @@ def add_workflow_ids_to_tools(tools: List[Dict[str, Any]], all_workflows: str) -
                 workflows = json.load(f)
 
             for workflow in workflows:
-                link = workflow.get("link")
+                link = workflow.get("link")  # todo: change workflow funcs. to use link as ID
                 for tool_id in workflow.get("tools", []):
                     tool_to_workflow_links.setdefault(tool_id, []).append(link)
         except (json.JSONDecodeError, OSError) as e:
