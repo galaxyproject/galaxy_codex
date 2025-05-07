@@ -2,9 +2,13 @@ import json
 import os
 import tempfile
 import unittest
-from typing import Any
+from typing import (
+    Any,
+    Dict,
+)
 from unittest.mock import (
     MagicMock,
+    Mock,
     patch,
 )
 
@@ -14,6 +18,7 @@ from extract_galaxy_tools import (
     get_all_installed_tool_ids_on_server,
     get_github_repo,
     get_last_url_position,
+    get_suite_ID_fallback,
     get_tool_github_repositories,
 )
 from github import Github
@@ -94,6 +99,30 @@ class TestAddWorkflowIdsToTools(unittest.TestCase):
         result: List[Dict[str, Any]] = add_workflow_ids_to_tools(tools, self.temp_file.name)
         for res, exp in zip(result, expected):
             self.assertEqual(sorted(res["Related Workflows"]), sorted(exp["Related Workflows"]))
+
+            
+class TestGetSuiteIDFallback(unittest.TestCase):
+
+    def test_suite_id_already_set(self) -> None:
+        metadata: Dict[str, Any] = {"Suite ID": "existing_suite", "bio.tool ID": "SomeTool"}
+        tool = Mock()
+        tool.path = "some/path/to/tool_folder"
+        result = get_suite_ID_fallback(metadata, tool)
+        self.assertEqual(result["Suite ID"], "existing_suite")
+
+    def test_suite_id_none_bio_tool_id_present(self) -> None:
+        metadata: Dict[str, Any] = {"Suite ID": None, "bio.tool ID": "MyToolSuite"}
+        tool = Mock()
+        tool.path = "some/path/to/tool_folder"
+        result = get_suite_ID_fallback(metadata, tool)
+        self.assertEqual(result["Suite ID"], "mytoolsuite")
+
+    def test_suite_id_and_bio_tool_id_none(self) -> None:
+        metadata: Dict[str, Any] = {"Suite ID": None, "bio.tool ID": None}
+        tool = Mock()
+        tool.path = "toolshed/repos/dev/suite_xyz"
+        result = get_suite_ID_fallback(metadata, tool)
+        self.assertEqual(result["Suite ID"], "suite_xyz")
 
 
 class TestGetToolGithubRepositories(unittest.TestCase):
