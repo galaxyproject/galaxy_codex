@@ -19,7 +19,7 @@ class TestGetVisits(unittest.TestCase):
 
     # Test successful response from the API
     @patch("extract_gtn_tutorials.shared.get_request_json")
-    def test_get_visits_success(self, mock_get_request_json):
+    def test_get_visits_success(self, mock_get_request_json) -> None:
         mock_get_request_json.return_value = {
             "results": {
                 "visitors": {"value": 123},
@@ -49,7 +49,7 @@ class TestGetVisits(unittest.TestCase):
 
     # Test when the API response has no results
     @patch("extract_gtn_tutorials.shared.get_request_json")
-    def test_get_visits_no_results(self, mock_get_request_json):
+    def test_get_visits_no_results(self, mock_get_request_json) -> None:
         mock_get_request_json.return_value = {}
         tuto = {
             "tutorial_name": "example_tutorial",
@@ -70,7 +70,7 @@ class TestGetVisits(unittest.TestCase):
 
     # Test when the API response is malformed or unexpected
     @patch("extract_gtn_tutorials.shared.get_request_json")
-    def test_get_visits_malformed_response(self, mock_get_request_json):
+    def test_get_visits_malformed_response(self, mock_get_request_json) -> None:
         mock_get_request_json.return_value = {"unexpected_key": "unexpected_value"}
         tuto = {
             "tutorial_name": "example_tutorial",
@@ -97,7 +97,7 @@ class TestGetYoutubeStats(unittest.TestCase):
 
     # Test successful retrieval of YouTube video statistics
     @patch("yt_dlp.YoutubeDL")
-    def test_youtube_stats_success(self, mock_ytdl_class):
+    def test_youtube_stats_success(self, mock_ytdl_class) -> None:
         mock_ytdl_instance = mock_ytdl_class.return_value.__enter__.return_value
         mock_ytdl_instance.extract_info.return_value = {"view_count": 1000}
         mock_ytdl_instance.sanitize_info.return_value = {"view_count": 1000}
@@ -112,7 +112,7 @@ class TestGetYoutubeStats(unittest.TestCase):
 
     # Test failure case when the video is not found
     @patch("yt_dlp.YoutubeDL")
-    def test_youtube_stats_failure(self, mock_ytdl_class):
+    def test_youtube_stats_failure(self, mock_ytdl_class) -> None:
         mock_ytdl_instance = mock_ytdl_class.return_value.__enter__.return_value
         mock_ytdl_instance.extract_info.side_effect = Exception("Video not found")
 
@@ -123,7 +123,7 @@ class TestGetYoutubeStats(unittest.TestCase):
 
     # Test when there are no recordings in the tutorial
     @patch("yt_dlp.YoutubeDL")
-    def test_youtube_stats_no_recordings(self, mock_ytdl_class):
+    def test_youtube_stats_no_recordings(self, mock_ytdl_class) -> None:
         tutorial = {"tutorial_name": "example_tutorial", "recordings": []}
         get_youtube_stats(tutorial)
 
@@ -133,7 +133,7 @@ class TestGetYoutubeStats(unittest.TestCase):
 
     # Test when there are multiple YouTube videos for a tutorial
     @patch("yt_dlp.YoutubeDL")
-    def test_youtube_stats_multiple_videos(self, mock_ytdl_class):
+    def test_youtube_stats_multiple_videos(self, mock_ytdl_class) -> None:
         mock_ytdl_instance = mock_ytdl_class.return_value.__enter__.return_value
         mock_ytdl_instance.extract_info.return_value = {"view_count": 500}
         mock_ytdl_instance.sanitize_info.return_value = {"view_count": 500}
@@ -154,7 +154,7 @@ class TestFormatTutorial(unittest.TestCase):
     Unit tests for the format_tutorial function.
     """
 
-    def setUp(self):
+    def setUp(self) -> None:
         # Setup initial tutorial data for testing
         self.test_tutorial = {
             "url": "training-material/topics/microbiome/tutorials/amr/path",
@@ -189,7 +189,7 @@ class TestFormatTutorial(unittest.TestCase):
     @patch("extract_gtn_tutorials.shared.format_date", side_effect=lambda x: x)
     def test_format_tutorial_full(
         self, mock_format_date, mock_shorten_tool_id, mock_get_edam_ops, mock_get_visits, mock_get_youtube_stats
-    ):
+    ) -> None:
         formatted = format_tutorial(
             self.test_tutorial,
             self.mock_edam_ontology,
@@ -217,7 +217,7 @@ class TestFilterTutorials(unittest.TestCase):
     """
 
     # Test filtering tutorials when no tags are provided
-    def test_filter_tutorials_empty_tags(self):
+    def test_filter_tutorials_empty_tags(self) -> None:
         tutorials = [
             {"tags": ["bioinformatics", "genomics"], "tutorial_name": "tuto1"},
             {"tags": ["python", "bioinformatics"], "tutorial_name": "tuto2"},
@@ -227,7 +227,7 @@ class TestFilterTutorials(unittest.TestCase):
         self.assertEqual(filtered_tutorials, [])
 
     # Test when no tutorials match the given tags
-    def test_filter_tutorials_no_matching_tags(self):
+    def test_filter_tutorials_no_matching_tags(self) -> None:
         tutorials = [
             {"tags": ["bioinformatics", "genomics"], "tutorial_name": "tuto1"},
             {"tags": ["python", "bioinformatics"], "tutorial_name": "tuto2"},
@@ -237,7 +237,7 @@ class TestFilterTutorials(unittest.TestCase):
         self.assertEqual(filtered_tutorials, [])
 
     # Test filtering tutorials when some have no tags
-    def test_filter_tutorials_no_tags(self):
+    def test_filter_tutorials_no_tags(self) -> None:
         tutorials = [
             {"tags": ["bioinformatics", "genomics"], "tutorial_name": "tuto1"},
             {"tags": [], "tutorial_name": "tuto2"},
