@@ -256,6 +256,23 @@ def check_categories(ts_categories: str, ts_cat: List[str]) -> bool:
     return bool(set(ts_cat) & set(ts_cats))
 
 
+def get_suite_ID_fallback(metadata: Dict, tool: ContentFile) -> Dict:
+    """
+    Set suite ID fallbacks
+
+    :param metadata: the metadata dict
+    """
+
+    # when `name` not in .shed.yml file
+    if metadata["Suite ID"] is None:
+        if metadata["bio.tool ID"] is not None:
+            metadata["Suite ID"] = metadata["bio.tool ID"].lower()
+        else:
+            metadata["Suite ID"] = tool.path.split("/")[-1]
+
+    return metadata
+
+
 def get_tool_metadata(tool: ContentFile, repo: Repository) -> Optional[Dict[str, Any]]:
     """
     Get tool metadata from the .shed.yaml, requirements in the macros or xml
@@ -388,14 +405,7 @@ def get_tool_metadata(tool: ContentFile, repo: Repository) -> Optional[Dict[str,
                 if "id" in root.attrib:
                     metadata["Tool IDs"].append(root.attrib["id"])
 
-    # when `name` not in .shed.yml file
-    if metadata["Suite ID"] is None:
-        if metadata["Suite conda package"] is not None:
-            metadata["Suite ID"] = metadata["Suite conda package"]
-        elif metadata["bio.tool ID"] is not None:
-            metadata["Suite ID"] = metadata["bio.tool ID"].lower()
-        else:
-            metadata["Suite ID"] = tool.path.split("/")[-1]
+    metadata = get_suite_ID_fallback(metadata, tool)
 
     # get latest conda version and compare to the wrapper version
     if metadata["Suite conda package"] is not None:
