@@ -1,11 +1,7 @@
 import unittest
 from unittest.mock import patch, MagicMock
-from extract_gtn_tutorials import (
-    get_visits,
-    get_youtube_stats,
-    format_tutorial,
-    filter_tutorials
-)
+from extract_gtn_tutorials import get_visits, get_youtube_stats, format_tutorial, filter_tutorials
+
 
 class TestGetVisits(unittest.TestCase):
     """
@@ -84,6 +80,7 @@ class TestGetVisits(unittest.TestCase):
         self.assertEqual(tuto["pageviews"], 0)
         self.assertEqual(tuto["visit_duration"], 0)
 
+
 class TestGetYoutubeStats(unittest.TestCase):
     """
     Unit tests for the get_youtube_stats function.
@@ -112,10 +109,7 @@ class TestGetYoutubeStats(unittest.TestCase):
 
         # Expect an exception to be raised
         with self.assertRaises(Exception) as context:
-            get_youtube_stats({
-                "tutorial_name": "example_tutorial",
-                "recordings": [{"youtube_id": "dQw4w9WgXcQ"}]
-            })
+            get_youtube_stats({"tutorial_name": "example_tutorial", "recordings": [{"youtube_id": "dQw4w9WgXcQ"}]})
         self.assertIn("Video not found", str(context.exception))
 
     # Test when there are no recordings in the tutorial
@@ -135,12 +129,16 @@ class TestGetYoutubeStats(unittest.TestCase):
         mock_ytdl_instance.extract_info.return_value = {"view_count": 500}
         mock_ytdl_instance.sanitize_info.return_value = {"view_count": 500}
 
-        tutorial = {"tutorial_name": "example_tutorial", "recordings": [{"youtube_id": "dQw4w9WgXcQ"}, {"youtube_id": "dQw4w9WgYz"}]}
+        tutorial = {
+            "tutorial_name": "example_tutorial",
+            "recordings": [{"youtube_id": "dQw4w9WgXcQ"}, {"youtube_id": "dQw4w9WgYz"}],
+            }
         get_youtube_stats(tutorial)
 
         # Check if total views and video count are correctly calculated
         self.assertEqual(tutorial["video_view"], 1000)
         self.assertEqual(tutorial["video_versions"], 2)
+
 
 class TestFormatTutorial(unittest.TestCase):
     """
@@ -169,17 +167,9 @@ class TestFormatTutorial(unittest.TestCase):
             "video_versions": 1,
         }
 
-        self.mock_edam_ontology = {
-            "https://edamontology.org/topic_3174": MagicMock(label=["Microbiology"])
-        }
-        self.mock_tools = {
-            "fastqc": {
-                "edam_operations": ["Sequence quality control"]
-            }
-        }
-        self.mock_feedback = {
-            "Microbiome AMR Tutorial": {"number": 5, "mean note": 4.2}
-        }
+        self.mock_edam_ontology = {"https://edamontology.org/topic_3174": MagicMock(label=["Microbiology"])}
+        self.mock_tools = {"fastqc": {"edam_operations": ["Sequence quality control"]}}
+        self.mock_feedback = {"Microbiome AMR Tutorial": {"number": 5, "mean note": 4.2}}
         self.plausible_api = "dummy_token"
 
     # Test formatting the tutorial data
@@ -189,12 +179,7 @@ class TestFormatTutorial(unittest.TestCase):
     @patch("extract_gtn_tutorials.shared.shorten_tool_id", return_value="fastqc")
     @patch("extract_gtn_tutorials.shared.format_date", side_effect=lambda x: x)
     def test_format_tutorial_full(
-        self,
-        mock_format_date,
-        mock_shorten_tool_id,
-        mock_get_edam_ops,
-        mock_get_visits,
-        mock_get_youtube_stats
+        self, mock_format_date, mock_shorten_tool_id, mock_get_edam_ops, mock_get_visits, mock_get_youtube_stats
     ):
         formatted = format_tutorial(
             self.test_tutorial,
@@ -215,6 +200,7 @@ class TestFormatTutorial(unittest.TestCase):
         # Check if external functions were called
         mock_get_visits.assert_called_once()
         mock_get_youtube_stats.assert_called_once()
+
 
 class TestFilterTutorials(unittest.TestCase):
     """
