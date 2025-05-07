@@ -37,25 +37,4 @@ def create_yml(data_source: str, yml_output_path: str):
         yaml.dump(data, file, default_flow_style=False)
 
 create_yml(data_source = "./communities/all/resources/workflows.json", yml_output_path = "./docs/_data/workflows.yml")
-
-
-def create_training_yml(data_source: str, yml_output_path: str, fields: list):
-
-    with open(data_source, mode="r", encoding="utf-8") as file:
-        data = json.load(file)
-
-    updated_training_data = {}
-
-    for index in range(len(data)):
-        temp_training_data = {}
-        for field in fields:
-            if field in data[index]:
-                temp_training_data[field] = data[index][field]
-        updated_training_data[index] = temp_training_data
-
-    with open(yml_output_path, 'w') as file:
-        yaml.dump(updated_training_data, file, default_flow_style=False)
-
-required_fields = ["title", "hands_on", "url", "slides", "mod_date", "version", "exact_supported_servers", "inexact_supported_servers", "topic_name_human", "video", "edam_topic", "edam_operation"]
-
-create_training_yml(data_source = "./communities/all/resources/tutorials.json", yml_output_path = "./docs/_data/tutorials.yml", fields = required_fields)
+create_yml(data_source = "./communities/all/resources/tutorials.json", yml_output_path = "./docs/_data/tutorials.yml")
