@@ -46,16 +46,16 @@ def create_training_yml(data_source: str, yml_output_path: str, fields: list):
 
     updated_training_data = {}
 
-    for training in data:
-        id = training["id"]
-        updated_training_data[id] = {}
+    for index in range(len(data)):
+        temp_training_data = {}
         for field in fields:
-            if field in training:
-                updated_training_data[id][field] = training[field]
+            if field in data[index]:
+                temp_training_data[field] = data[index][field]
+        updated_training_data[index] = temp_training_data
 
     with open(yml_output_path, 'w') as file:
         yaml.dump(updated_training_data, file, default_flow_style=False)
 
-required_fields = ["title", "hands_on", "url", "slides", "mod_date", "pub_date", "version", "short_tools", "exact_supported_servers","inexact_supported_servers", "topic_name_human", "video", "edam_topic", "edam_operation", "feedback_number", "feedback_mean_note", "visitors", "pageviews", "visit_duration", "video_versions", "video_view"]
+required_fields = ["title", "hands_on", "url", "slides", "mod_date", "version", "exact_supported_servers", "inexact_supported_servers", "topic_name_human", "video", "edam_topic", "edam_operation"]
 
 create_training_yml(data_source = "./communities/all/resources/tutorials.json", yml_output_path = "./docs/_data/tutorials.yml", fields = required_fields)
