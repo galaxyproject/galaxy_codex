@@ -5,7 +5,6 @@ import json
 import sys
 import time
 import traceback
-import warnings
 import xml.etree.ElementTree as et
 from functools import lru_cache
 from pathlib import Path
