@@ -692,7 +692,7 @@ def reduce_ontology_terms(terms: List, ontology: Any) -> List:
 
 
 def get_tools(
-    repo_list: list, all_workflows: str = "", all_tutorials: str = "", edam_ontology: dict = {}
+    repo_list: list, all_workflows: str = "", all_tutorials: str = "", edam_ontology: dict = None
 ) -> List[Dict]:
     """
     Parse tools in GitHub repositories to extract metadata,
@@ -775,9 +775,9 @@ def add_workflow_ids_to_tools(tools: List[Dict[str, Any]], all_workflows: str) -
                 for tool_id in workflow.get("tools", []):
                     tool_to_workflow_links.setdefault(tool_id, []).append(link)
         except (json.JSONDecodeError, OSError) as e:
-            warnings.warn(f"Failed to load workflows from {workflow_path}: {e}", RuntimeWarning)
+            print(f"Failed to load workflows from {workflow_path}: {e}")
     else:
-        warnings.warn(f"Workflows file '{workflow_path}' does not exist. Skipping workflow mapping.", RuntimeWarning)
+        print(f"Workflows file '{workflow_path}' does not exist. Skipping workflow mapping.")
 
     for tool in tools:
         related = set()
@@ -812,9 +812,9 @@ def add_tutorial_ids_to_tools(tools: List[Dict[str, Any]], all_tutorials: str) -
                         if tool_name:
                             tool_to_tutorial_ids.setdefault(tool_name, []).append(tutorial_id)
         except (json.JSONDecodeError, OSError) as e:
-            warnings.warn(f"Failed to load tutorials from {tutorial_path}: {e}", RuntimeWarning)
+            print(f"Failed to load tutorials from {tutorial_path}: {e}")
     else:
-        warnings.warn(f"Tutorials file '{tutorial_path}' does not exist. Skipping tutorial mapping.", RuntimeWarning)
+        print(f"Tutorials file '{tutorial_path}' does not exist. Skipping tutorial mapping.")
 
     for tool in tools:
         related = set()
