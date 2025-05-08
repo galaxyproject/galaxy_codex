@@ -101,7 +101,7 @@ class TestAddWorkflowIdsToTools(unittest.TestCase):
         for res, exp in zip(result, expected):
             self.assertEqual(sorted(res["Related Workflows"]), sorted(exp["Related Workflows"]))
 
-            
+
 class TestGetSuiteIDFallback(unittest.TestCase):
 
     def test_suite_id_already_set(self) -> None:
