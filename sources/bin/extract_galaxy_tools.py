@@ -691,7 +691,7 @@ def reduce_ontology_terms(terms: List, ontology: Any) -> List:
 
 
 def get_tools(
-    repo_list: list, all_workflows: str = "", all_tutorials: str = "", edam_ontology: dict = None
+    repo_list: list, all_workflows: str = "", all_tutorials: str = "", edam_ontology: Optional[Dict] = None
 ) -> List[Dict]:
     """
     Parse tools in GitHub repositories to extract metadata,
