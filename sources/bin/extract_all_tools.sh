@@ -10,6 +10,8 @@ then
                         --api $GITHUB_API_KEY \
                         --all-tsv "communities/all/resources/test_tools.tsv" \
                         --all "communities/all/resources/test_tools.json" \
+                        --all-workflows "communities/all/resources/test_workflows.json" \
+                        --all-tutorials "communities/all/resources/test_tutorials.json" \
                         --planemo-repository-list "test.list" \
                         --test
         else
@@ -22,6 +24,8 @@ then
                         --api $GITHUB_API_KEY \
                         --all-tsv $tsv_output \
                         --all $json_output \
+                        --all-workflows "communities/all/resources/workflows.json" \
+                        --all-tutorials "communities/all/resources/tutorials.json" \
                         --planemo-repository-list $1
                 else
                 python sources/bin/extract_galaxy_tools.py \
@@ -29,6 +33,8 @@ then
                         --api $GITHUB_API_KEY \
                         --all-tsv $tsv_output \
                         --all $json_output \
+                        --all-workflows "communities/all/resources/workflows.json" \
+                        --all-tutorials "communities/all/resources/tutorials.json" \
                         --planemo-repository-list $1 \
                         --avoid-extra-repositories
                 fi
@@ -39,6 +45,8 @@ else
                 extract \
                 --api $GITHUB_API_KEY \
                 --all-tsv 'communities/all/resources/tools.tsv' \
-                --all 'communities/all/resources/tools.json'
+                --all 'communities/all/resources/tools.json' \
+                --all-workflows "communities/all/resources/workflows.json" \
+                --all-tutorials "communities/all/resources/tutorials.json" 
 fi
 
