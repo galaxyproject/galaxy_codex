@@ -20,7 +20,7 @@ else
                         if [ "$community" != "all" ]; then
                                 echo "$community"
 
-                                if [[ -f "communities/$community/metadata/tutorial_tags" && -f "communities/$community/resources/tutorials.tsv" ]]; then
+                                if [[ -f "communities/$community/metadata/tutorial_tags" ]]; then
                                         echo "Filter tutorials"
 
                                         python sources/bin/extract_gtn_tutorials.py \
