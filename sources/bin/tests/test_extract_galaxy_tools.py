@@ -75,10 +75,10 @@ class TestAddTutorialIdsToTools(unittest.TestCase):
 class TestAddWorkflowIdsToTools(unittest.TestCase):
 
     def setUp(self) -> None:
-        self.tools_dict = shared.load_json(TEST_TOOL_PATH)
+        self.tools = shared.load_json(TEST_TOOL_PATH)
 
     def test_adds_related_workflows(self) -> None:
-        result: List[Dict[str, Any]] = add_workflow_ids_to_tools(self.tools_dict, TEST_WORKFLOW_PATH)
+        result: List[Dict[str, Any]] = add_workflow_ids_to_tools(self.tools, TEST_WORKFLOW_PATH)
         # check for some tools if the correct workflows are added
         expected_mapping: Dict[str, List] = {
             "aldex2": [],
