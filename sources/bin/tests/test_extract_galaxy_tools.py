@@ -13,6 +13,7 @@ from unittest.mock import (
     patch,
 )
 
+import shared
 from extract_galaxy_tools import (
     add_tutorial_ids_to_tools,
     add_workflow_ids_to_tools,
@@ -27,6 +28,9 @@ from requests import HTTPError
 
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
 GALAX_TOOLS_API_PATH = os.path.join(SCRIPT_DIR, "test-data", "galaxy_api_tool_mock.json")
+
+TEST_TOOL_PATH = os.path.join(SCRIPT_DIR, "test-data", "test_tools.json")
+TEST_WORKFLOW_PATH = os.path.join(SCRIPT_DIR, "test-data", "test_workflows.json")
 
 
 class TestAddTutorialIdsToTools(unittest.TestCase):
@@ -71,35 +75,28 @@ class TestAddTutorialIdsToTools(unittest.TestCase):
 class TestAddWorkflowIdsToTools(unittest.TestCase):
 
     def setUp(self) -> None:
-        self.workflows: List[Dict[str, Any]] = [
-            {"link": "workflow_1", "tools": ["tool_a", "tool_b"]},
-            {"link": "workflow_2", "tools": ["tool_c"]},
-            {"link": "workflow_3", "tools": ["tool_a"]},
-        ]
-
-        self.temp_file = tempfile.NamedTemporaryFile(delete=False, mode="w", suffix=".json")
-        json.dump(self.workflows, self.temp_file)
-        self.temp_file.close()
-
-    def tearDown(self) -> None:
-        os.unlink(self.temp_file.name)
+        self.tools_dict = shared.load_json(TEST_TOOL_PATH)
 
     def test_adds_related_workflows(self) -> None:
-        tools: List[Dict[str, Any]] = [
-            {"Tool IDs": ["tool_a", "tool_c"]},
-            {"Tool IDs": ["tool_b"]},
-            {"Tool IDs": ["nonexistent_tool"]},
-        ]
-
-        expected: List[Dict[str, Any]] = [
-            {"Tool IDs": ["tool_a", "tool_c"], "Related Workflows": ["workflow_1", "workflow_2", "workflow_3"]},
-            {"Tool IDs": ["tool_b"], "Related Workflows": ["workflow_1"]},
-            {"Tool IDs": ["nonexistent_tool"], "Related Workflows": []},
-        ]
-
-        result: List[Dict[str, Any]] = add_workflow_ids_to_tools(tools, self.temp_file.name)
-        for res, exp in zip(result, expected):
-            self.assertEqual(sorted(res["Related Workflows"]), sorted(exp["Related Workflows"]))
+        result: List[Dict[str, Any]] = add_workflow_ids_to_tools(self.tools_dict, TEST_WORKFLOW_PATH)
+        # check for some tools if the correct workflows are added
+        expected_mapping: Dict[str, List] = {
+            "aldex2": [],
+            "shovill": ["https://usegalaxy.eu/published/workflow?id=7e48134082dab0a3"],
+            "fastp": [
+                "https://usegalaxy.eu/published/workflow?id=2fa2f67603772413",
+                "https://usegalaxy.eu/published/workflow?id=96c61a584cb2e5e9",
+                "https://usegalaxy.eu/published/workflow?id=aff44f1665a14e23",
+                "https://usegalaxy.eu/published/workflow?id=b14845359b702444",
+                "https://usegalaxy.eu/published/workflow?id=b426e137396acb14",
+                "https://usegalaxy.eu/published/workflow?id=deec04097a871646",
+                "https://workflowhub.eu/workflows/1103?version=3",
+                "https://workflowhub.eu/workflows/1104?version=2",
+            ],
+        }
+        for res in result:
+            if res["Suite ID"] in expected_mapping:
+                self.assertEqual(sorted(expected_mapping[res["Suite ID"]]), sorted(res["Related Workflows"]))
 
 
 class TestGetSuiteIDFallback(unittest.TestCase):

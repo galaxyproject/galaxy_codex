@@ -20,6 +20,7 @@ import pandas as pd
 import requests
 import shared
 import yaml
+from extract_galaxy_workflows import Workflows
 from github import Github
 from github.ContentFile import ContentFile
 from github.Repository import Repository
@@ -766,14 +767,14 @@ def add_workflow_ids_to_tools(tools: List[Dict[str, Any]], all_workflows: str) -
 
     if workflow_path.exists():
         try:
-            with workflow_path.open("r", encoding="utf-8") as f:
-                workflows = json.load(f)
+            wfs = Workflows()
+            wfs.init_by_importing(wfs=shared.load_json(all_workflows))
 
-            for workflow in workflows:
-                link = workflow.get("link")  # todo: change workflow funcs. to use link as ID
-                for tool_id in workflow.get("tools", []):
+            for workflow in wfs.workflows:
+                link = workflow.link  # todo: change workflow funcs. to use link as ID
+                for tool_id in workflow.tools:
                     tool_to_workflow_links.setdefault(tool_id, []).append(link)
-        except (json.JSONDecodeError, OSError) as e:
+        except Exception as e:
             print(f"Failed to load workflows from {workflow_path}: {e}")
     else:
         print(f"Workflows file '{workflow_path}' does not exist. Skipping workflow mapping.")
