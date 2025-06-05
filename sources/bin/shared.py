@@ -5,6 +5,7 @@ import time
 from datetime import datetime
 from pathlib import Path
 from typing import (
+    Any,
     Dict,
     List,
     Optional,
@@ -68,7 +69,7 @@ def export_to_json(data: List[Dict], output_fp: str) -> None:
         json.dump(data, f, indent=4, sort_keys=True)
 
 
-def load_json(input_df: str) -> Dict:
+def load_json(input_df: str) -> Any:
     """
     Read a JSON file
     """

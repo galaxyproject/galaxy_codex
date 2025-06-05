@@ -66,6 +66,9 @@ Suite users on main servers  | Number of users of the suite on all UseGalaxy ser
 Suite runs (last 5 years) on main servers  | Number of runs of the suite tools in the last 5 years on all UseGalaxy servers
 Suite runs on main servers  | Number of runs of the suite tools on all UseGalaxy servers
 Deprecated | Deprecation status after review by a domain expert
+Related Workflows | Workflows that use at least one tool of the suite
+Related Tutorials | Tutorials that use at least one tool of the suite
 To keep | Status to add to a community after review by a domain expert
+
 
 

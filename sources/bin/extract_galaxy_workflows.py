@@ -218,6 +218,10 @@ class Workflows:
         self.add_workflows_from_public_servers()
 
     def init_by_importing(self, wfs: dict) -> None:
+        """
+        Loads the workflows from a dict following the structure in communities/all/resources/test_workflows.json
+        (the json created by init_by_searching)
+        """
         for iwf in wfs:
             wf = Workflow()
             wf.init_by_importing(iwf)

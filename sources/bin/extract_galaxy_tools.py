@@ -20,6 +20,7 @@ import pandas as pd
 import requests
 import shared
 import yaml
+from extract_galaxy_workflows import Workflows
 from github import Github
 from github.ContentFile import ContentFile
 from github.Repository import Repository
@@ -570,6 +571,9 @@ def export_tools_to_tsv(
         df["EDAM reduced operations"] = shared.format_list_column(df["EDAM reduced operations"])
         df["EDAM reduced topics"] = shared.format_list_column(df["EDAM reduced topics"])
 
+        df["Related Workflows"] = shared.format_list_column(df["Related Workflows"])
+        df["Related Tutorials"] = shared.format_list_column(df["Related Tutorials"])
+
         # the Galaxy tools need to be formatted for the add_instances_to_table to work
         df["Tool IDs"] = shared.format_list_column(df["Tool IDs"])
 
@@ -687,7 +691,9 @@ def reduce_ontology_terms(terms: List, ontology: Any) -> List:
     return new_terms
 
 
-def get_tools(repo_list: list, edam_ontology: dict) -> List[Dict]:
+def get_tools(
+    repo_list: list, all_workflows: str = "", all_tutorials: str = "", edam_ontology: Optional[Dict] = None
+) -> List[Dict]:
     """
     Parse tools in GitHub repositories to extract metadata,
     filter by TS categories, additional information
@@ -741,6 +747,80 @@ def get_tools(repo_list: list, edam_ontology: dict) -> List[Dict]:
                 if names_to_match in col_name:
                     summed_stat += tool[col_name]
             tool[f"{names_to_match} on main servers"] = summed_stat
+
+    tools = add_workflow_ids_to_tools(tools, all_workflows)
+    tools = add_tutorial_ids_to_tools(tools, all_tutorials)
+
+    return tools
+
+
+def add_workflow_ids_to_tools(tools: List[Dict[str, Any]], all_workflows: str) -> List[Dict[str, Any]]:
+    """
+    Add related workflow links to the tools dict.
+
+    :param tools: List of tool dictionaries.
+    :param all_workflows: Path to a JSON file containing all workflows.
+    :return: Updated list of tool dictionaries with Related Workflows added.
+    """
+    workflow_path = Path(all_workflows)
+    tool_to_workflow_links: Dict[str, List[str]] = {}
+
+    if workflow_path.exists():
+        try:
+            wfs = Workflows()
+            wfs.init_by_importing(wfs=shared.load_json(all_workflows))
+
+            for workflow in wfs.workflows:
+                link = workflow.link  # todo: change workflow funcs. to use link as ID
+                for tool_id in workflow.tools:
+                    tool_to_workflow_links.setdefault(tool_id, []).append(link)
+        except Exception as e:
+            print(f"Failed to load workflows from {workflow_path}: {e}")
+    else:
+        print(f"Workflows file '{workflow_path}' does not exist. Skipping workflow mapping.")
+
+    for tool in tools:
+        related = set()
+        for tool_id in tool.get("Tool IDs", []):
+            related.update(tool_to_workflow_links.get(tool_id, []))
+        tool["Related Workflows"] = sorted(related)
+
+    return tools
+
+
+def add_tutorial_ids_to_tools(tools: List[Dict[str, Any]], all_tutorials: str) -> List[Dict[str, Any]]:
+    """
+    Add related tutorial IDs to the tools dict.
+
+    :param tools: List of tool dictionaries.
+    :param all_tutorials: Path to a JSON file containing all tutorials.
+    :return: Updated list of tool dictionaries with Related Tutorial IDs added.
+    """
+    tutorial_path = Path(all_tutorials)
+    tool_to_tutorial_ids: Dict[str, List[str]] = {}
+
+    if tutorial_path.exists():
+        try:
+            with tutorial_path.open("r", encoding="utf-8") as f:
+                tutorials = json.load(f)
+
+            # Expecting tutorials to be a list
+            for tutorial_data in tutorials:
+                tutorial_id = tutorial_data.get("id")
+                if tutorial_id:
+                    for tool_name in tutorial_data.get("short_tools", []):
+                        if tool_name:
+                            tool_to_tutorial_ids.setdefault(tool_name, []).append(tutorial_id)
+        except (json.JSONDecodeError, OSError) as e:
+            print(f"Failed to load tutorials from {tutorial_path}: {e}")
+    else:
+        print(f"Tutorials file '{tutorial_path}' does not exist. Skipping tutorial mapping.")
+
+    for tool in tools:
+        related = set()
+        for tool_id in tool.get("Tool IDs", []):
+            related.update(tool_to_tutorial_ids.get(tool_id, []))
+        tool["Related Tutorials"] = sorted(related)
 
     return tools
 
@@ -922,6 +1002,18 @@ if __name__ == "__main__":
     extract.add_argument("--all", "-o", required=True, help="Filepath to JSON with all extracted tools")
     extract.add_argument("--all-tsv", "-j", required=True, help="Filepath to TSV with all extracted tools")
     extract.add_argument(
+        "--all-workflows",
+        "-aw",
+        required=False,
+        help="Filepath to JSON with all extracted workflows. Created with extract --all command of workflows.",
+    )
+    extract.add_argument(
+        "--all-tutorials",
+        "-at",
+        required=False,
+        help="Filepath to JSON with all extracted trainings. Created with extract --all command of tutorials.",
+    )
+    extract.add_argument(
         "--planemo-repository-list",
         "-pr",
         required=False,
@@ -1041,7 +1133,7 @@ if __name__ == "__main__":
         )
         # parse tools in GitHub repositories to extract metadata, filter by TS categories and export to output file
         edam_ontology = get_ontology("https://edamontology.org/EDAM_1.25.owl").load()
-        tools = get_tools(repo_list, edam_ontology)
+        tools = get_tools(repo_list, args.all_workflows, args.all_tutorials, edam_ontology)
         export_tools_to_json(tools, args.all)
         export_tools_to_tsv(tools, args.all_tsv, format_list_col=True)
 
