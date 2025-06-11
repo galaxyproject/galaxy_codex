@@ -1,2 +1,2 @@
-# microGalaxy subdomain/Lab
+# Biodiversity subdomain/Lab
 
