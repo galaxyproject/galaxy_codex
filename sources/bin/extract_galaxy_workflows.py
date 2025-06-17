@@ -73,7 +73,8 @@ class Workflow:
             self.update_time = shared.format_date(wf["data"]["attributes"]["updated_at"])
             self.latest_version = wf["data"]["attributes"]["latest_version"]
             self.versions = len(wf["data"]["attributes"]["versions"])
-            self.number_of_steps = len(wf["data"]["attributes"]["internals"]["steps"])
+            #self.number_of_steps = len(wf["data"]["attributes"]["internals"]["steps"])
+            self.number_of_steps = len(wf["data"]["attributes"]["steps"])
             self.license = wf["data"]["attributes"]["license"]
             self.doi = wf["data"]["attributes"]["doi"]
             self.edam_topic = [t["label"] for t in wf["data"]["attributes"]["topic_annotations"]]
@@ -118,7 +119,8 @@ class Workflow:
         """
         tools = set()
         if "WorkflowHub" in self.source:
-            for tool in wf["data"]["attributes"]["internals"]["steps"]:
+#            for tool in wf["data"]["attributes"]["internals"]["steps"]:
+            for tool in wf["data"]["attributes"]["steps"]:
                 if tool["description"] is not None:
                     tools.add(shared.shorten_tool_id(tool["description"]))
         else:
