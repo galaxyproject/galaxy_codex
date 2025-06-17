@@ -73,7 +73,6 @@ class Workflow:
             self.update_time = shared.format_date(wf["data"]["attributes"]["updated_at"])
             self.latest_version = wf["data"]["attributes"]["latest_version"]
             self.versions = len(wf["data"]["attributes"]["versions"])
-            #self.number_of_steps = len(wf["data"]["attributes"]["internals"]["steps"])
             internals = wf["data"]["attributes"].get("internals", {})
             steps = internals.get("steps")
             if steps is not None:
@@ -124,9 +123,6 @@ class Workflow:
         """
         tools = set()
         if "WorkflowHub" in self.source:
-            #for tool in wf["data"]["attributes"]["internals"]["steps"]:
-                #if tool["description"] is not None:
-                    #tools.add(shared.shorten_tool_id(tool["description"]))
             internals = wf["data"]["attributes"].get("internals", {})
             steps = internals.get("steps")
             if steps is not None:
