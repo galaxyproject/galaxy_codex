@@ -124,9 +124,15 @@ class Workflow:
         """
         tools = set()
         if "WorkflowHub" in self.source:
-            for tool in wf["data"]["attributes"]["internals"]["steps"]:
-                if tool["description"] is not None:
-                    tools.add(shared.shorten_tool_id(tool["description"]))
+            #for tool in wf["data"]["attributes"]["internals"]["steps"]:
+                #if tool["description"] is not None:
+                    #tools.add(shared.shorten_tool_id(tool["description"]))
+            internals = wf["data"]["attributes"].get("internals", {})
+            steps = internals.get("steps")
+            if steps is not None:
+                for tool in steps:
+                    if tool.get("description") is not None:
+                        tools.add(shared.shorten_tool_id(tool["description"]))
         else:
             for step in wf["steps"].values():
                 if "tool_id" in step and step["tool_id"] is not None:
