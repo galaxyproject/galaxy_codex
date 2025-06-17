@@ -73,7 +73,7 @@ class Workflow:
             self.update_time = shared.format_date(wf["data"]["attributes"]["updated_at"])
             self.latest_version = wf["data"]["attributes"]["latest_version"]
             self.versions = len(wf["data"]["attributes"]["versions"])
-            self.number_of_steps = len(wf["data"]["attributes"]["number_of_steps"])
+            #self.number_of_steps = len(wf["data"]["attributes"]["number_of_steps"])
                         #self.number_of_steps = len(wf["data"]["attributes"]["internals"]["number_of_steps"])
             self.license = wf["data"]["attributes"]["license"]
             self.doi = wf["data"]["attributes"]["doi"]
