@@ -29,7 +29,7 @@ class Workflow:
         self.update_time = ""
         self.latest_version = 0
         self.versions = 0
-        self.number_of_steps = 0
+        #self.number_of_steps = 0
         self.tools: List[str] = []
         self.edam_operation: List[str] = []
         self.edam_topic: List[str] = []
@@ -50,7 +50,7 @@ class Workflow:
         self.update_time = wf["update_time"]
         self.latest_version = wf["latest_version"]
         self.versions = wf["versions"]
-        self.number_of_steps = wf["number_of_steps"]
+        #self.number_of_steps = wf["number_of_steps"]
         self.tools = wf["tools"]
         self.edam_operation = wf["edam_operation"]
         self.edam_topic = wf["edam_topic"]
@@ -73,8 +73,7 @@ class Workflow:
             self.update_time = shared.format_date(wf["data"]["attributes"]["updated_at"])
             self.latest_version = wf["data"]["attributes"]["latest_version"]
             self.versions = len(wf["data"]["attributes"]["versions"])
-            #self.number_of_steps = len(wf["data"]["attributes"]["number_of_steps"])
-                        #self.number_of_steps = len(wf["data"]["attributes"]["internals"]["number_of_steps"])
+           #self.number_of_steps = len(wf["data"]["attributes"]["internals"]["number_of_steps"])
             self.license = wf["data"]["attributes"]["license"]
             self.doi = wf["data"]["attributes"]["doi"]
             self.edam_topic = [t["label"] for t in wf["data"]["attributes"]["topic_annotations"]]
@@ -83,7 +82,7 @@ class Workflow:
             self.link = f"{ source }/published/workflow?id={ wf['id'] }"
             self.name = wf["name"]
             self.add_creators(wf)
-            self.number_of_steps = wf["number_of_steps"] if "number_of_steps" in wf else len(wf["steps"].keys())
+            #self.number_of_steps = wf["number_of_steps"] if "number_of_steps" in wf else len(wf["steps"].keys())
             self.tags = [w.lower() for w in wf["tags"]]
             self.create_time = shared.format_date(wf["create_time"])
             self.update_time = shared.format_date(wf["update_time"])
@@ -343,7 +342,7 @@ class Workflows:
             "update_time": "Update time",
             "latest_version": "Latest version",
             "versions": "Versions",
-            "number_of_steps": "Number of steps",
+            #"number_of_steps": "Number of steps",
             "tools": "Tools",
             "edam_operation": "EDAM operations",
             "edam_topic": "EDAM topics",
