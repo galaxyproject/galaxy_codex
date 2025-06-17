@@ -73,7 +73,13 @@ class Workflow:
             self.update_time = shared.format_date(wf["data"]["attributes"]["updated_at"])
             self.latest_version = wf["data"]["attributes"]["latest_version"]
             self.versions = len(wf["data"]["attributes"]["versions"])
-            self.number_of_steps = len(wf["data"]["attributes"]["internals"]["steps"])
+            #self.number_of_steps = len(wf["data"]["attributes"]["internals"]["steps"])
+            internals = wf["data"]["attributes"].get("internals", {})
+            steps = internals.get("steps")
+            if steps is not None:
+                self.number_of_steps = len(steps)
+            else:
+                self.number_of_steps = 0
             self.license = wf["data"]["attributes"]["license"]
             self.doi = wf["data"]["attributes"]["doi"]
             self.edam_topic = [t["label"] for t in wf["data"]["attributes"]["topic_annotations"]]
