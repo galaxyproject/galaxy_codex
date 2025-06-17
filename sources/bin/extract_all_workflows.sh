@@ -8,6 +8,6 @@ then
                 --test
 else
         python sources/bin/extract_galaxy_workflows.py extract \
-                --all communities/all/resources/workflows.json \
-                --tools communities/all/resources/tools.json
+                --all "communities/all/resources/workflows.json" \
+                --tools "communities/all/resources/tools.json" --test
 fi
