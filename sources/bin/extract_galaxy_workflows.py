@@ -283,9 +283,12 @@ class Workflows:
         count = 0
         for wf in server_wfs:
             print(wf)
-            if wf["published"] and wf["importable"] and not wf["deleted"] and not wf["hidden"]:
+            if wf["published"] and wf["importable"] and not wf["deleted"] and not wf["hidden"] :
                 count += 1
                 print(count)
+                print(wf['id'])
+                if wf['id']='b30c294a094c90bc' :
+                    continue
                 server_wf = shared.get_request_json(
                     f"{server}/api/workflows/{wf['id']}",
                     header,
