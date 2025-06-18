@@ -226,6 +226,7 @@ class Workflows:
         print("addworkflowsfromwfhub_done")
         self.add_workflows_from_workflowhub("dev.")
         print("addworkflowsfromwfhubdev_done")
+        # add_workflows_from_public_servers is the issue
         self.add_workflows_from_public_servers()
         print("addworkflowsfromwpubservers_done")
 
@@ -287,14 +288,21 @@ class Workflows:
                     f"{server}/api/workflows/{wf['id']}",
                     header,
                 )
+                print("add_workflow_from_a_server")
                 wf = Workflow()
                 wf.init_from_search(wf=server_wf, source=server, tools=self.tools)
+                print("add_workflow_from_a_server__init_from_search")
                 self.workflows.append(wf)
+                print("add_workflow_from_a_server__wf_append")
         print(f"Workflows from {server}: {count}")
 
     def add_workflows_from_public_servers(self) -> None:
         """
         Extract workflows from UseGalaxy servers
+        This step bugs
+        https://usegalaxy.eu is printed
+        https://usegalaxy.org is NOT printed
+        Bug with https://usegalaxy.eu
         """
         server_urls = [
             "https://usegalaxy.fr",
