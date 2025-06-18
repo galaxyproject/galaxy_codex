@@ -279,6 +279,9 @@ class Workflows:
         for wf in server_wfs:
             if wf["published"] and wf["importable"] and not wf["deleted"] and not wf["hidden"]:
                 count += 1
+                # The following workflow (id=f65a2f2a19bea880) caused the request to crash, it was reported to the Galaxy team, in the meantime, we are skipping it
+                if wf["id"] == "f65a2f2a19bea880":
+                    continue
                 server_wf = shared.get_request_json(
                     f"{server}/api/workflows/{wf['id']}",
                     header,
