@@ -221,14 +221,9 @@ class Workflows:
 
     def init_by_searching(self, tool_fp: str) -> None:
         self.tools = shared.read_suite_per_tool_id(tool_fp)
-        print("selftools_done")
-        #self.add_workflows_from_workflowhub()
-        #print("addworkflowsfromwfhub_done")
-        #self.add_workflows_from_workflowhub("dev.")
-        #print("addworkflowsfromwfhubdev_done")
-        # add_workflows_from_public_servers is the issue
+        self.add_workflows_from_workflowhub()
+        self.add_workflows_from_workflowhub("dev.")
         self.add_workflows_from_public_servers()
-        print("addworkflowsfromwpubservers_done")
 
     def init_by_importing(self, wfs: dict) -> None:
         """
@@ -282,32 +277,23 @@ class Workflows:
 
         count = 0
         for wf in server_wfs:
-            print(wf)
             if wf["published"] and wf["importable"] and not wf["deleted"] and not wf["hidden"] :
                 count += 1
-                print(count)
-                print(wf['id'])
+                #The following workflow (id=f65a2f2a19bea880) caused the request to crash, it was reported to the Galaxy team, in the meantime, we are skipping it
                 if wf['id'] == 'f65a2f2a19bea880' :
                     continue
                 server_wf = shared.get_request_json(
                     f"{server}/api/workflows/{wf['id']}",
                     header,
                 )
-                print("add_workflow_from_a_server")
                 wf = Workflow()
                 wf.init_from_search(wf=server_wf, source=server, tools=self.tools)
-                print("add_workflow_from_a_server__init_from_search")
                 self.workflows.append(wf)
-                print("add_workflow_from_a_server__wf_append")
         print(f"Workflows from {server}: {count}")
 
     def add_workflows_from_public_servers(self) -> None:
         """
         Extract workflows from UseGalaxy servers
-        This step bugs
-        https://usegalaxy.eu is printed
-        https://usegalaxy.org is NOT printed
-        Bug with https://usegalaxy.eu
         """
         server_urls = [
             "https://usegalaxy.fr",
@@ -566,11 +552,8 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     if args.command == "extract":
-        print("extract_started")
         wfs = Workflows(test=args.test)
-        print("wfs_done")
         wfs.init_by_searching(args.tools)
-        print("init_by_searching_done")
         shared.export_to_json(wfs.export_workflows_to_dict(), args.all)
 
     elif args.command == "filter":
