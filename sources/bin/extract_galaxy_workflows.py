@@ -221,9 +221,13 @@ class Workflows:
 
     def init_by_searching(self, tool_fp: str) -> None:
         self.tools = shared.read_suite_per_tool_id(tool_fp)
+        print("selftools_done")
         self.add_workflows_from_workflowhub()
+        print("addworkflowsfromwfhub_done")
         self.add_workflows_from_workflowhub("dev.")
+        print("addworkflowsfromwfhubdev_done")
         self.add_workflows_from_public_servers()
+        print("addworkflowsfromwpubservers_done")
 
     def init_by_importing(self, wfs: dict) -> None:
         """
@@ -549,8 +553,11 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     if args.command == "extract":
+        print(extract_started")
         wfs = Workflows(test=args.test)
+        print("wfs_done")
         wfs.init_by_searching(args.tools)
+        print("init_by_searching_done")
         shared.export_to_json(wfs.export_workflows_to_dict(), args.all)
 
     elif args.command == "filter":
