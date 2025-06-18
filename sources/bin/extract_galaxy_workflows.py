@@ -553,7 +553,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     if args.command == "extract":
-        print(extract_started")
+        print("extract_started")
         wfs = Workflows(test=args.test)
         print("wfs_done")
         wfs.init_by_searching(args.tools)
