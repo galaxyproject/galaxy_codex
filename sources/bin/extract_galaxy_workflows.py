@@ -222,10 +222,10 @@ class Workflows:
     def init_by_searching(self, tool_fp: str) -> None:
         self.tools = shared.read_suite_per_tool_id(tool_fp)
         print("selftools_done")
-        self.add_workflows_from_workflowhub()
-        print("addworkflowsfromwfhub_done")
-        self.add_workflows_from_workflowhub("dev.")
-        print("addworkflowsfromwfhubdev_done")
+        #self.add_workflows_from_workflowhub()
+        #print("addworkflowsfromwfhub_done")
+        #self.add_workflows_from_workflowhub("dev.")
+        #print("addworkflowsfromwfhubdev_done")
         # add_workflows_from_public_servers is the issue
         self.add_workflows_from_public_servers()
         print("addworkflowsfromwpubservers_done")
