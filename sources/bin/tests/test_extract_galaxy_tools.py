@@ -6,6 +6,7 @@ from typing import (
     Any,
     Dict,
     List,
+    Union,
 )
 from unittest.mock import (
     MagicMock,
@@ -13,15 +14,19 @@ from unittest.mock import (
     patch,
 )
 
+import pandas as pd
 import shared
 from extract_galaxy_tools import (
     add_tutorial_ids_to_tools,
     add_workflow_ids_to_tools,
+    aggregate_tool_stats,
     get_all_installed_tool_ids_on_server,
     get_github_repo,
     get_last_url_position,
     get_suite_ID_fallback,
     get_tool_github_repositories,
+    get_tool_stats_from_stats_file,
+    STATS_SUM,
 )
 from github import Github
 from requests import HTTPError
@@ -31,6 +36,66 @@ GALAX_TOOLS_API_PATH = os.path.join(SCRIPT_DIR, "test-data", "galaxy_api_tool_mo
 
 TEST_TOOL_PATH = os.path.join(SCRIPT_DIR, "test-data", "test_tools.json")
 TEST_WORKFLOW_PATH = os.path.join(SCRIPT_DIR, "test-data", "test_workflows.json")
+
+
+class TestGetToolStatsFromStatsFile(unittest.TestCase):
+
+    def setUp(self) -> None:
+        # Sample dataframe mocking stats data
+        self.df = pd.DataFrame(
+            {
+                "tool_name": [
+                    "toolshed.g2.bx.psu.edu/repos/iuc/snpsift/snpSift_filter",
+                    "toolshed.g2.bx.psu.edu/repos/iuc/snpsift/snpSift_filter",
+                    "toolshed.g2.bx.psu.edu/repos/iuc/freebayes/freebayes",
+                    "toolshed.g2.bx.psu.edu/repos/iuc/freebayes/freebayes",
+                ],
+                "count": [5, 10, 20, 25],
+            }
+        )
+
+    def test_sum_mode(self) -> None:
+        tool_ids: List[str] = ["snpSift_filter", "freebayes"]
+        result: int = get_tool_stats_from_stats_file(self.df, tool_ids, mode="sum")
+        self.assertEqual(result, 60)  # 15 + 45
+
+    def test_max_mode(self) -> None:
+        tool_ids: List[str] = ["snpSift_filter", "freebayes"]
+        result: int = get_tool_stats_from_stats_file(self.df, tool_ids, mode="max")
+        self.assertEqual(result, 45)  # max(15, 45)
+
+    def test_tool_not_present(self) -> None:
+        tool_ids: List[str] = ["nonexistent"]
+        result: int = get_tool_stats_from_stats_file(self.df, tool_ids, mode="sum")
+        self.assertEqual(result, 0)
+
+
+class TestAggregateToolStats(unittest.TestCase):
+    def test_basic_aggregation(self) -> None:
+        tool: Dict[str, Union[int, float]] = {
+            "Suite users (usegalaxy.eu)": 4130,
+            "Suite users (last 5 years) (usegalaxy.eu)": 4097,
+            "Suite users (usegalaxy.org)": 2915,
+            "Suite users (last 5 years) (usegalaxy.org)": 2915,
+            "Suite runs (usegalaxy.eu)": 622353,
+            "Suite runs (last 5 years) (usegalaxy.eu)": 619817,
+            "Suite runs (usegalaxy.org)": 320454,
+            "Suite runs (last 5 years) (usegalaxy.org)": 320454,
+        }
+
+        result: Dict[str, Union[int, float]] = aggregate_tool_stats(tool.copy(), STATS_SUM)
+
+        expected_users_max: int = 4130 + 2915
+        self.assertEqual(result["Suite users on main servers"], expected_users_max)
+
+        expected_users_5y_max: int = 4097 + 2915
+        self.assertEqual(result["Suite users (last 5 years) on main servers"], expected_users_5y_max)
+
+        expected_runs_sum: int = 622353 + 320454
+        self.assertEqual(result["Suite runs on main servers"], expected_runs_sum)
+
+        expected_runs_5y_sum: int = 619817 + 320454
+        self.assertEqual(result["Suite runs (last 5 years) on main servers"], expected_runs_5y_sum)
 
 
 class TestAddTutorialIdsToTools(unittest.TestCase):
