@@ -2,6 +2,7 @@
 import argparse
 import base64
 import json
+import re
 import sys
 import time
 import traceback
@@ -12,7 +13,10 @@ from typing import (
     Any,
     Dict,
     List,
+    Literal,
     Optional,
+    Pattern,
+    Union,
 )
 
 import numpy as np
@@ -59,13 +63,15 @@ for server in ["eu", "org", "org.au", "fr"]:
         f"{ server }/tool_usage_until_2025.01.31.csv"
     )
 
-# all columns that contain the text will be summed up to a new column with summed up stats
-GALAXY_TOOL_STATS_SUM = [
-    "Suite users (last 5 years)",
-    "Suite users",
-    "Suite runs (last 5 years)",
-    "Suite runs",
-]
+
+# We use a regex since Suite users matches Suite users (last 5 years) as well
+
+STATS_SUM = {
+    "Suite runs": re.compile(r"^Suite runs \((?!last 5 years\)).+\)$"),
+    "Suite runs (last 5 years)": re.compile(r"^Suite runs \(last 5 years\) \(.+\)$"),
+    "Suite users": re.compile(r"^Suite users \((?!last 5 years\)).+\)$"),
+    "Suite users (last 5 years)": re.compile(r"^Suite users \(last 5 years\) \(.+\)$"),
+}
 
 # load the configs globally
 with open(conf_path) as f:
@@ -86,32 +92,31 @@ def get_last_url_position(toot_id: str) -> str:
     return toot_id
 
 
-def get_tool_stats_from_stats_file(tool_stats_df: pd.DataFrame, tool_ids: List[str]) -> int:
+def get_tool_stats_from_stats_file(
+    tool_stats_df: pd.DataFrame, tool_ids: List[str], mode: Literal["sum", "max"] = "sum"
+) -> int:
     """
-    Computes a count for tool stats based on the tool id. The counts for local and toolshed installed tools are
-    aggregated. All tool versions are also aggregated.
+    Aggregates statistics for a list of tool IDs from a DataFrame, using either sum or max.
+    Tool versions are not distinguished — tools are grouped by suite-level ID.
 
-
-    :param tools_stats_df: df with tools stats in the form `toolshed.g2.bx.psu.edu/repos/iuc/snpsift/snpSift_filter,3394539`
-    :tool_ids: tool ids to get statistics for and aggregate
+    :param tool_stats_df: DataFrame with 'tool_name' and 'count' columns. (toolshed.g2.bx.psu.edu/repos/iuc/snpsift/snpSift_filter,3394539)
+    :param tool_ids: List of tool suite IDs to match.
+    :param mode: Aggregation mode: "sum" or "max".
+    :return: Aggregated count based on mode.
     """
-
-    # extract tool id
+    # extract suite-level tool ID from full tool_name path
     tool_stats_df["Suite ID"] = tool_stats_df["tool_name"].apply(get_last_url_position)
-    # print(tool_stats_df["Suite ID"].to_list())
 
-    agg_count = 0
-    for tool_id in tool_ids:
-        if tool_id in tool_stats_df["Suite ID"].to_list():
+    # Group by Suite ID and sum all version counts
+    grouped = tool_stats_df.groupby("Suite ID")["count"].sum()
 
-            # get stats of the tool for all versions
-            counts = tool_stats_df.loc[(tool_stats_df["Suite ID"] == tool_id), "count"]
-            agg_versions = counts.sum()
+    # Get values for tool_ids that are present in grouped index
+    relevant_counts: List[int] = [int(grouped[tid]) for tid in tool_ids if tid in grouped]
 
-            # aggregate all counts for all tools in the suite
-            agg_count += agg_versions
+    if not relevant_counts:
+        return 0
 
-    return int(agg_count)
+    return max(relevant_counts) if mode == "max" else sum(relevant_counts)
 
 
 def get_string_content(cf: ContentFile) -> str:
@@ -691,6 +696,31 @@ def reduce_ontology_terms(terms: List, ontology: Any) -> List:
     return new_terms
 
 
+def aggregate_tool_stats(
+    tool: Dict[str, Union[int, float]],
+    stats_sum: Dict[str, Pattern[str]],
+) -> Dict[str, Union[int, float]]:
+    """
+    Aggregate tool stats by applying sum aggregation
+    according to the provided regex patterns.
+
+    Args:
+        tool: A dict of tool stats with keys as stat names.
+        stats_sum: Dict mapping stat base names to regex patterns for sum aggregation.
+
+    Returns:
+        The original tool dict updated with aggregated stats added.
+    """
+
+    for stat_name, pattern in stats_sum.items():
+        matching_values = [
+            value for key, value in tool.items() if pattern.match(key) and isinstance(value, (int, float))
+        ]
+        tool[f"{stat_name} on main servers"] = sum(matching_values)
+
+    return tool
+
+
 def get_tools(
     repo_list: list, all_workflows: str = "", all_tutorials: str = "", edam_ontology: Optional[Dict] = None
 ) -> List[Dict]:
@@ -738,15 +768,19 @@ def get_tools(
         # add tool stats
         for name, path in GALAXY_TOOL_STATS.items():
             tool_stats_df = pd.read_csv(path)
-            tool[name] = get_tool_stats_from_stats_file(tool_stats_df, tool["Tool IDs"])
+
+            # we take the max for suite users being conservative, since one user can use multiple tools
+            # in the suite
+            mode: Literal["sum", "max"]
+            if "Suite users" in name:
+                mode = "max"
+            else:
+                mode = "sum"
+
+            tool[name] = get_tool_stats_from_stats_file(tool_stats_df, tool["Tool IDs"], mode=mode)
 
         # sum up tool stats
-        for names_to_match in GALAXY_TOOL_STATS_SUM:
-            summed_stat = 0
-            for col_name in tool.keys():
-                if names_to_match in col_name:
-                    summed_stat += tool[col_name]
-            tool[f"{names_to_match} on main servers"] = summed_stat
+        tool = aggregate_tool_stats(tool, STATS_SUM)
 
     tools = add_workflow_ids_to_tools(tools, all_workflows)
     tools = add_tutorial_ids_to_tools(tools, all_tutorials)
