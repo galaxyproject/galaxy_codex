@@ -153,27 +153,27 @@ jobs:
           path: communities/all/resources/
       - name: Display structure of downloaded files
         run: ls -R communities/all/resources/
-      - name: Merge all tools
-        run: | #merge files with only one header -> https://stackoverflow.com/questions/16890582/unixmerge-multiple-csv-files-with-same-header-by-keeping-the-header-of-the-firs; map(.[]) -> https://stackoverflow.com/questions/42011086/merge-arrays-of-json (get flat array, one tool per entry)
-          awk 'FNR==1 && NR!=1{next;}{print}' communities/all/resources/repositories*.list_tools.tsv > communities/all/resources/tools.tsv
-          jq -s 'map(.[])' communities/all/resources/repositories*.list_tools.json > communities/all/resources/tools.json 
-          rm communities/all/resources/repositories*.list_tools.json
-          rm communities/all/resources/repositories*.list_tools.tsv
-      - name: Generate wordcloud and interactive table
-        run: |
-          bash sources/bin/format_tools.sh
-      - name: Filter workflows for communities
-        run: | 
-          bash sources/bin/get_community_workflows.sh
-      - name: Filter tutorials for communities
-        run: | 
-          bash sources/bin/get_community_tutorials.sh
+#      - name: Merge all tools
+#        run: | #merge files with only one header -> https://stackoverflow.com/questions/16890582/unixmerge-multiple-csv-files-with-same-header-by-keeping-the-header-of-the-firs; map(.[]) -> https://stackoverflow.com/questions/42011086/merge-arrays-of-json (get flat array, one tool per entry)
+#          awk 'FNR==1 && NR!=1{next;}{print}' communities/all/resources/repositories*.list_tools.tsv > communities/all/resources/tools.tsv
+#          jq -s 'map(.[])' communities/all/resources/repositories*.list_tools.json > communities/all/resources/tools.json 
+#          rm communities/all/resources/repositories*.list_tools.json
+#          rm communities/all/resources/repositories*.list_tools.tsv
+#      - name: Generate wordcloud and interactive table
+#        run: |
+#          bash sources/bin/format_tools.sh
+#      - name: Filter workflows for communities
+#        run: | 
+#          bash sources/bin/get_community_workflows.sh
+#      - name: Filter tutorials for communities
+#        run: | 
+#          bash sources/bin/get_community_tutorials.sh
       #- name: Update tool to keep and exclude for communities
       #  run: | 
       #    bash sources/bin/update_tools_to_keep_exclude.sh
-      - name: Filter tools for communities
-        run: | 
-          bash sources/bin/get_community_tools.sh
+#      - name: Filter tools for communities
+#        run: | 
+#          bash sources/bin/get_community_tools.sh
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
         with:
