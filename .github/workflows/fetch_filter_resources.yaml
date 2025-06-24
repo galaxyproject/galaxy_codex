@@ -139,10 +139,16 @@ jobs:
           pattern: tools-*
           merge-multiple: true
           path: communities/all/resources/
-      - name: Download stepwise tool lists
+      - name: Download tutorials
         uses: actions/download-artifact@v4
         with:
           pattern: tutorials
+          merge-multiple: true
+          path: communities/all/resources/
+      - name: Download workflows
+        uses: actions/download-artifact@v4
+        with:
+          pattern: workflows
           merge-multiple: true
           path: communities/all/resources/
       - name: Display structure of downloaded files
