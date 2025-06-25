@@ -3,6 +3,13 @@
 ## Change the community variable to match your community
 COMMUNITY="biodiversity"
 
+#Create files if they do not yet exist
+if [[ ! -e communities/$COMMUNITY/lab/sections/4_tools.yml ]]; then
+    touch communities/$COMMUNITY/lab/sections/4_tools.yml
+    touch communities/$COMMUNITY/lab/sections/5_workflows.yml
+    touch communities/$COMMUNITY/lab/sections/6_tutorials.yml
+fi
+
 #Tools
 python sources/bin/extract_galaxy_tools.py \
     popLabSection \
