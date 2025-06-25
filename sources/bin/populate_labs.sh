@@ -3,15 +3,20 @@
 ## Change the community variable to match your community
 COMMUNITY="biodiversity"
 
-#Tools
+#Tools - Works (stand alone)
 python sources/bin/extract_galaxy_tools.py \
     getLabTools \
     --curated communities/$COMMUNITY/resources/curated_tools.tsv \
     --tools communities/$COMMUNITY/lab/tools
 
+#Workflows
+python sources/bin/extract_galaxy_workflows.py \
+    popLabSection \
+    --curated communities/$COMMUNITY/resources/curated_workflows.json \
+    --lab communities/$COMMUNITY/lab/sections/5_workflows.yml
+
 #Create files if they do not yet exist
 : ' if [[ ! -e communities/$COMMUNITY/lab/sections/4_tools.yml ]]; then
-    mkdir communities/$COMMUNITY/lab/
     mkdir communities/$COMMUNITY/lab/sections/
     touch communities/$COMMUNITY/lab/sections/4_tools.yml
     touch communities/$COMMUNITY/lab/sections/5_workflows.yml
@@ -25,11 +30,7 @@ python sources/bin/extract_galaxy_tools.py \
     --curated communities/$COMMUNITY/resources/curated_tools.tsv \
     --lab communities/$COMMUNITY/lab/sections/4_tools.yml
 
-#Workflows
-python sources/bin/extract_galaxy_workflows.py \
-    popLabSection \
-    --curated communities/$COMMUNITY/resources/curated_workflows.json \
-    --lab communities/$COMMUNITY/lab/sections/5_workflows.yml
+
 
 #Tutorials
 python sources/bin/populate_labs_tutorials.py \
