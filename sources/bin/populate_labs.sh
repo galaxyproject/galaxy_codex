@@ -15,16 +15,22 @@ python sources/bin/extract_galaxy_workflows.py \
     --curated communities/$COMMUNITY/resources/curated_workflows.json \
     --lab communities/$COMMUNITY/lab/sections/5_workflows.yml
 
-#Create files if they do not yet exist
-: ' if [[ ! -e communities/$COMMUNITY/lab/sections/4_tools.yml ]]; then
+#Copy files from another community if they do not yet exist
+if [[ ! -e communities/$COMMUNITY/lab/sections/4_tools.yml ]]; then
     mkdir communities/$COMMUNITY/lab/sections/
-    touch communities/$COMMUNITY/lab/sections/4_tools.yml
-    touch communities/$COMMUNITY/lab/sections/5_workflows.yml
-    touch communities/$COMMUNITY/lab/sections/6_tutorials.yml
+    cp communities/microgalaxy/lab/sections/4_tools.yml communities/$COMMUNITY/lab/sections/4_tools.yml
+fi
+
+if [[ ! -e communities/$COMMUNITY/lab/sections/5_workflows.yml ]]; then
+    cp communities/microgalaxy/lab/sections/5_workflows.yml communities/$COMMUNITY/lab/sections/5_workflows.yml
+fi
+
+if [[ ! -e communities/$COMMUNITY/lab/sections/6_tutorials.yml ]]; then
+    cp communities/microgalaxy/lab/sections/6_tutorials.yml communities/$COMMUNITY/lab/sections/6_tutorials.yml
 fi
 
 
-
+: '
 python sources/bin/extract_galaxy_tools.py \
     popLabSection \
     --curated communities/$COMMUNITY/resources/curated_tools.tsv \
