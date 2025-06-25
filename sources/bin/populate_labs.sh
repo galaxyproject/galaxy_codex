@@ -32,21 +32,21 @@ python sources/bin/extract_galaxy_workflows.py \
     --lab communities/$COMMUNITY/lab/sections/5_workflows.yml
 
 
-#Tutorials
+#Tutorials - TO DO (No microgalaxy tuto file to pull from)
 #Copy tutorial file from another community if they do not yet exist
-if [[ ! -e communities/$COMMUNITY/lab/sections/6_tutorials.yml ]]; then
-    cp communities/microgalaxy/lab/sections/6_tutorials.yml communities/$COMMUNITY/lab/sections/6_tutorials.yml
-fi
+#if [[ ! -e communities/$COMMUNITY/lab/sections/6_tutorials.yml ]]; then
+#    cp communities/microgalaxy/lab/sections/6_tutorials.yml communities/$COMMUNITY/lab/sections/6_tutorials.yml
+#fi
 #Update the tutorial file
-python sources/bin/populate_labs_tutorials.py \
-    --tsv communities/$COMMUNITY/resources/tutorials.tsv \
-    --yml communities/$COMMUNITY/lab/sections/6_tutorials.yml \
-    --title-column Title \
-    --description-column Title \
-    --button-link-column Link \
-    --filter-column Topic \
-    --filter $COMMUNITY \
-    --filter-logic exclude
+#python sources/bin/populate_labs_tutorials.py \
+#    --tsv communities/$COMMUNITY/resources/tutorials.tsv \
+#    --yml communities/$COMMUNITY/lab/sections/6_tutorials.yml \
+#    --title-column Title \
+#    --description-column Title \
+#    --button-link-column Link \
+#    --filter-column Topic \
+#    --filter $COMMUNITY \
+#    --filter-logic exclude
 
 
 # Below are scripts used by the microgalaxy community:
