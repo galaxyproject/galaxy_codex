@@ -56,7 +56,7 @@ if [[ ! -e $tutorials_section ]]; then
 fi
 
 #Update the tutorial file
-python communities/all/labs/populate_labs_tutorials.py \
+python sources/bin/populate_labs_tutorials.py \
     --tsv communities/$COMMUNITY/resources/tutorials.tsv \
     --yml $tutorials_section \
     --title-column Title \
@@ -85,14 +85,14 @@ fi
 
 ##Tools
 #This creates a tools folder (in the communauty lab folder) with one yaml files per tool
-python communities/all/labs/extract_galaxy_tools.py \
+python sources/bin/extract_galaxy_tools.py \
     getLabTools \
     --curated communities/$COMMUNITY/resources/curated_tools.tsv \
     --tools communities/$COMMUNITY/lab/tools
 
 
 # Below are scripts used by the microgalaxy community to create other sections:
-#python communities/all/labs/populate_labs_tutorials.py \
+#python sources/bin/populate_labs_tutorials.py \
 #    --tsv communities/microgalaxy/resources/tutorials.tsv \
 #    --yml communities/microgalaxy/lab/sections/2_microbial_isolates.yml \
 #    --title-column Title \
@@ -102,7 +102,7 @@ python communities/all/labs/extract_galaxy_tools.py \
 #    --filter Microbiome \
 #    --filter-logic exclude
 
-#python communities/all/labs/populate_labs_tutorials.py \
+#python sources/bin/populate_labs_tutorials.py \
 #    --tsv communities/microgalaxy/resources/tutorials.tsv \
 #    --yml communities/microgalaxy/lab/sections/3_microbiome.yml \
 #    --title-column Title \
