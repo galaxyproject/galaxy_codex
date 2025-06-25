@@ -8,7 +8,21 @@ python sources/bin/extract_galaxy_tools.py \
     getLabTools \
     --curated communities/$COMMUNITY/resources/curated_tools.tsv \
     --tools communities/$COMMUNITY/lab/tools
+    
+#Copy tool file from another community if they do not yet exist
+if [[ ! -e communities/$COMMUNITY/lab/sections/4_tools.yml ]]; then
+    mkdir communities/$COMMUNITY/lab/sections/
+    cp communities/microgalaxy/lab/sections/4_tools.yml communities/$COMMUNITY/lab/sections/4_tools.yml
+fi
+#Update the tool file
+python sources/bin/extract_galaxy_tools.py \
+    popLabSection \
+    --curated communities/$COMMUNITY/resources/curated_tools.tsv \
+    --lab communities/$COMMUNITY/lab/sections/4_tools.yml
 
+
+
+: '
 #Workflows
 #Copy file from another community if they do not yet exist
 if [[ ! -e communities/$COMMUNITY/lab/sections/5_workflows.yml ]]; then
@@ -20,18 +34,6 @@ python sources/bin/extract_galaxy_workflows.py \
     --curated communities/$COMMUNITY/resources/curated_workflows.json \
     --lab communities/$COMMUNITY/lab/sections/5_workflows.yml
 
-
-: '
-#Copy tool file from another community if they do not yet exist
-if [[ ! -e communities/$COMMUNITY/lab/sections/4_tools.yml ]]; then
-    mkdir communities/$COMMUNITY/lab/sections/
-    cp communities/microgalaxy/lab/sections/4_tools.yml communities/$COMMUNITY/lab/sections/4_tools.yml
-fi
-#Update the tool file
-python sources/bin/extract_galaxy_tools.py \
-    popLabSection \
-    --curated communities/$COMMUNITY/resources/curated_tools.tsv \
-    --lab communities/$COMMUNITY/lab/sections/4_tools.yml
 
 #Tutorials
 #Copy tutorial file from another community if they do not yet exist
