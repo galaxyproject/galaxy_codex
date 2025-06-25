@@ -56,8 +56,8 @@ id: tutorials
 EOF
 fi
 
-show("tutorials_file")
-show($tutorials_file)
+echo("tutorials_file")
+echo($tutorials_file)
 
 #Update the tutorial file
 python sources/bin/populate_labs_tutorials.py \
