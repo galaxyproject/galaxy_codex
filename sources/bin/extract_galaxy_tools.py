@@ -1233,7 +1233,7 @@ if __name__ == "__main__":
         print("args lab")
         print(args.lab) 
         #lab_section = shared.load_yaml(args.lab)
-        lab_section="biodiversity"
+        lab_section="3"
         print("lab_section 1")
         print(lab_section)
         top_tools_per_category = extract_top_tools_per_category(args.curated)
