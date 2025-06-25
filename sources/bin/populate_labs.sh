@@ -5,6 +5,7 @@ COMMUNITY="biodiversity"
 
 #Create files if they do not yet exist
 if [[ ! -e communities/$COMMUNITY/lab/sections/4_tools.yml ]]; then
+    mkdir communities/$COMMUNITY/lab/
     touch communities/$COMMUNITY/lab/sections/4_tools.yml
     touch communities/$COMMUNITY/lab/sections/5_workflows.yml
     touch communities/$COMMUNITY/lab/sections/6_tutorials.yml
