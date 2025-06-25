@@ -14,14 +14,14 @@ fi
 
 #Tools
 python sources/bin/extract_galaxy_tools.py \
-    popLabSection \
-    --curated communities/$COMMUNITY/resources/curated_tools.tsv \
-    --lab communities/$COMMUNITY/lab/sections/4_tools.yml
-
-python sources/bin/extract_galaxy_tools.py \
     getLabTools \
     --curated communities/$COMMUNITY/resources/curated_tools.tsv \
     --tools communities/$COMMUNITY/lab/tools
+
+python sources/bin/extract_galaxy_tools.py \
+    popLabSection \
+    --curated communities/$COMMUNITY/resources/curated_tools.tsv \
+    --lab communities/$COMMUNITY/lab/sections/4_tools.yml
 
 #Workflows
 python sources/bin/extract_galaxy_workflows.py \
