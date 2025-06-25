@@ -17,7 +17,7 @@ mkdir -p communities/$COMMUNITY/lab/sections/
 #Some sections are commented at the bottom and are potential addition for your community
 data_import_export_section="communities/$COMMUNITY/lab/sections/1_data_import_and_preparation.yml
 if [[ ! -e $data_import_export_section ]]; then
-   cp sources/bin/sections_templates/1_data_import_and_preparation.yml $data_import_export_section
+   cp communities/all/labs/sections_templates/1_data_import_and_preparation.yml $data_import_export_section
 fi
 
 #Tools
@@ -25,10 +25,10 @@ fi
 tools_section="communities/$COMMUNITY/lab/sections/2_tools.yml"
 #Copy tools file from the template file if it does not yet exist
 if [[ ! -e $tools_section ]]; then
-    cp sources/bin/sections_templates/2_tools.yml $tools_section
+    cp communities/all/labs/sections_templates/2_tools.yml $tools_section
 fi
 #Update the tool file
-python sources/bin/extract_galaxy_tools.py \
+python communities/all/labs/extract_galaxy_tools.py \
     popLabSection \
     --curated communities/$COMMUNITY/resources/curated_tools.tsv \
     --lab $tools_section
@@ -37,11 +37,11 @@ python sources/bin/extract_galaxy_tools.py \
 workflows_section="communities/$COMMUNITY/lab/sections/3_workflows.yml"
 #Copy workflows file from the template file if it does not yet exist
 if [[ ! -e $workflows_section ]]; then
-    cp sources/bin/sections_templates/3_workflows.yml $workflows_section
+    cp communities/all/labs/sections_templates/3_workflows.yml $workflows_section
 fi
 
 #Script to include the expected workflows
-python sources/bin/extract_galaxy_workflows.py \
+python communities/all/labs/extract_galaxy_workflows.py \
     popLabSection \
     --curated communities/$COMMUNITY/resources/curated_workflows.json \
     --lab $workflows_section
@@ -52,11 +52,11 @@ tutorials_section="communities/$COMMUNITY/lab/sections/4_tutorials.yml"
 
 #Copy tutorials file from the template file if it does not yet exist
 if [[ ! -e $tutorials_section ]]; then
-    cp sources/bin/sections_templates/4_tutorials.yml $tutorials_section
+    cp communities/all/labs/sections_templates/4_tutorials.yml $tutorials_section
 fi
 
 #Update the tutorial file
-python sources/bin/populate_labs_tutorials.py \
+python communities/all/labs/populate_labs_tutorials.py \
     --tsv communities/$COMMUNITY/resources/tutorials.tsv \
     --yml $tutorials_section \
     --title-column Title \
@@ -71,7 +71,7 @@ python sources/bin/populate_labs_tutorials.py \
 #Some sections are commented at the bottom and are potential addition for your community
 support_help_section="communities/$COMMUNITY/lab/sections/5_support_and_help.yml
 if [[ ! -e $support_help_section ]]; then
-   cp sources/bin/sections_templates/5_support_and_help.yml $support_help_section
+   cp communities/all/labs/sections_templates/5_support_and_help.yml $support_help_section
 fi
 
 #Comunity
@@ -79,20 +79,20 @@ fi
 #Some sections are commented at the bottom and are potential addition for your community
 community_section="communities/$COMMUNITY/lab/sections/6_community.yml
 if [[ ! -e $community_section ]]; then
-   cp sources/bin/sections_templates/6_community.yml $community_section
+   cp communities/all/labs/sections_templates/6_community.yml $community_section
 fi
 
 
 ##Tools
 #This creates a tools folder (in the communauty lab folder) with one yaml files per tool
-python sources/bin/extract_galaxy_tools.py \
+python communities/all/labs/extract_galaxy_tools.py \
     getLabTools \
     --curated communities/$COMMUNITY/resources/curated_tools.tsv \
     --tools communities/$COMMUNITY/lab/tools
 
 
 # Below are scripts used by the microgalaxy community to create other sections:
-#python sources/bin/populate_labs_tutorials.py \
+#python communities/all/labs/populate_labs_tutorials.py \
 #    --tsv communities/microgalaxy/resources/tutorials.tsv \
 #    --yml communities/microgalaxy/lab/sections/2_microbial_isolates.yml \
 #    --title-column Title \
@@ -102,7 +102,7 @@ python sources/bin/extract_galaxy_tools.py \
 #    --filter Microbiome \
 #    --filter-logic exclude
 
-#python sources/bin/populate_labs_tutorials.py \
+#python communities/all/labs/populate_labs_tutorials.py \
 #    --tsv communities/microgalaxy/resources/tutorials.tsv \
 #    --yml communities/microgalaxy/lab/sections/3_microbiome.yml \
 #    --title-column Title \
