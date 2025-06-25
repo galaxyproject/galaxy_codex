@@ -38,15 +38,15 @@ python sources/bin/extract_galaxy_workflows.py \
 #    cp communities/microgalaxy/lab/sections/6_tutorials.yml communities/$COMMUNITY/lab/sections/6_tutorials.yml
 #fi
 #Update the tutorial file
-#python sources/bin/populate_labs_tutorials.py \
-#    --tsv communities/$COMMUNITY/resources/tutorials.tsv \
-#    --yml communities/$COMMUNITY/lab/sections/6_tutorials.yml \
-#    --title-column Title \
-#    --description-column Title \
-#    --button-link-column Link \
-#    --filter-column Topic \
-#    --filter $COMMUNITY \
-#    --filter-logic exclude
+python sources/bin/populate_labs_tutorials.py \
+    --tsv communities/$COMMUNITY/resources/tutorials.tsv \
+    --yml communities/$COMMUNITY/lab/sections/6_tutorials.yml \
+    --title-column Title \
+    --description-column Title \
+    --button-link-column Link \
+    --filter-column Topic \
+    --filter $COMMUNITY \
+    --filter-logic exclude
 
 
 # Below are scripts used by the microgalaxy community:
