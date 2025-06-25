@@ -69,7 +69,8 @@ python sources/bin/populate_labs_tutorials.py \
 #Support and Help
 #This is general enough to be the same between several communities.
 #Some sections are commented at the bottom and are potential addition for your community
-support_help_section="communities/$COMMUNITY/lab/sections/5_support_and_help.yml
+support_help_section="communities/$COMMUNITY/lab/sections/5_support_and_help.yml"
+
 if [[ ! -e $support_help_section ]]; then
    cp communities/all/labs/sections_templates/5_support_and_help.yml $support_help_section
 fi
@@ -77,7 +78,8 @@ fi
 #Comunity
 #This need manual review to add links that are community specific (matrix, etc)
 #Some sections are commented at the bottom and are potential addition for your community
-community_section="communities/$COMMUNITY/lab/sections/6_community.yml
+community_section="communities/$COMMUNITY/lab/sections/6_community.yml"
+
 if [[ ! -e $community_section ]]; then
    cp communities/all/labs/sections_templates/6_community.yml $community_section
 fi
