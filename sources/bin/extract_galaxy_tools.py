@@ -1230,18 +1230,9 @@ if __name__ == "__main__":
             print("No tools left after curation")
 
     elif args.command == "popLabSection":
-        print("args lab")
-        print(args.lab) 
         lab_section = shared.load_yaml(args.lab)
-        #lab_section="3"
-        print("lab_section 1")
-        print(lab_section)
-        top_tools_per_category = extract_top_tools_per_category(args.curated)
-        print("top_tools_per_category")
-        print(top_tools_per_category)        
-        lab_section_2 = fill_lab_tool_section(lab_section, top_tools_per_category)
-        print("lab_section 2")
-        print(lab_section_2)
+        top_tools_per_category = extract_top_tools_per_category(args.curated)  
+        lab_section = fill_lab_tool_section(lab_section, top_tools_per_category)
         
         with open(args.lab, "w") as lab_f:
             ruamelyaml().dump(lab_section, lab_f)
