@@ -1230,6 +1230,8 @@ if __name__ == "__main__":
             print("No tools left after curation")
 
     elif args.command == "popLabSection":
+        print("args lab")
+        print(args.lab) 
         lab_section = shared.load_yaml(args.lab)
         print("lab_section 1")
         print(lab_section)
