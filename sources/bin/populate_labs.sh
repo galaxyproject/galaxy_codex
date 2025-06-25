@@ -20,7 +20,7 @@ python sources/bin/extract_galaxy_tools.py \
 tools_file="communities/$COMMUNITY/lab/sections/4_tools.yml"
 #Copy tool file from another community if they do not yet exist
 if [[ ! -e $tools_file ]]; then
-    cat <<EOF > "$tutorials_file"
+    cat <<EOF > "$tools_file"
 id: Tools
 title: Community curated tools
 tabs: []
@@ -36,7 +36,7 @@ python sources/bin/extract_galaxy_tools.py \
 #Workflows
 workflows_file="communities/$COMMUNITY/lab/sections/5_workflows.yml"
 if [[ ! -e $workflows_file ]]; then
-    cat <<EOF > "$tutorials_file"
+    cat <<EOF > "$workflows_file"
 id: Workflows
 title: Community workflows
 tabs: []
