@@ -1,24 +1,31 @@
 #!/usr/bin/env bash
 
+#This scirpt is meant to create or update a community lab. 
+#To launch this script, you need to do so manually from the GitHub action
+#Potential future upgrade : Weekly update labs for each community with active labs
+
 ## Change the community variable to match your community
 COMMUNITY="biodiversity"
 
-#Tools - Works (stand alone)
+#Tools
+#This creates a tools folder (in the communauty lab folder) with one yaml files per tool
 python sources/bin/extract_galaxy_tools.py \
     getLabTools \
     --curated communities/$COMMUNITY/resources/curated_tools.tsv \
     --tools communities/$COMMUNITY/lab/tools
-    
+
+#This creates or update the tool file
+tools_file="communities/$COMMUNITY/lab/sections/4_tools.yml"
 #Copy tool file from another community if they do not yet exist
-if [[ ! -e communities/$COMMUNITY/lab/sections/4_tools.yml ]]; then
+if [[ ! -e $tools_file ]]; then
     mkdir communities/$COMMUNITY/lab/sections/
-    cp communities/microgalaxy/lab/sections/4_tools.yml communities/$COMMUNITY/lab/sections/4_tools.yml
+    cp communities/microgalaxy/lab/sections/4_tools.yml $tools_file
 fi
 #Update the tool file
 python sources/bin/extract_galaxy_tools.py \
     popLabSection \
     --curated communities/$COMMUNITY/resources/curated_tools.tsv \
-    --lab communities/$COMMUNITY/lab/sections/4_tools.yml
+    --lab $tools_file
 
 #Workflows
 workflows_file="communities/$COMMUNITY/lab/sections/5_workflows.yml"
@@ -42,16 +49,20 @@ if [[ ! -e "$tutorials_file" ]]; then
 
     # Create the file with correct indentation (no leading spaces)
     cat <<EOF > "$tutorials_file"
-id: workflows
-title: Community workflows
+id: Tutorials
+title: Community tutorials
 tabs:
+id: tutorials
 EOF
 fi
+
+show("tutorials_file")
+show($tutorials_file)
 
 #Update the tutorial file
 python sources/bin/populate_labs_tutorials.py \
     --tsv communities/$COMMUNITY/resources/tutorials.tsv \
-    --yml communities/$COMMUNITY/lab/sections/6_tutorials.yml \
+    --yml $tutorials_file \
     --title-column Title \
     --description-column Title \
     --button-link-column Link \
@@ -59,24 +70,11 @@ python sources/bin/populate_labs_tutorials.py \
     --filter $COMMUNITY \
     --filter-logic exclude
 
-awk '
-/^- id: best_practices/ {flag=1; next}
-/^- id:/ {flag=0}
-!flag
-' communities/biodiversity/lab/sections/6_tutorials.yml > tmp.yml && mv tmp.yml communities/biodiversity/lab/sections/6_tutorials.yml
-
-awk '
-/^- id: iwc/ {flag=1; next}
-/^- id:/ {flag=0}
-!flag
-' communities/biodiversity/lab/sections/6_tutorials.yml > tmp.yml && mv tmp.yml communities/biodiversity/lab/sections/6_tutorials.yml
-
-awk '
-/^- id: other_workflowhub/ {flag=1; next}
-/^- id:/ {flag=0}
-!flag
-' communities/biodiversity/lab/sections/6_tutorials.yml > tmp.yml && mv tmp.yml communities/biodiversity/lab/sections/6_tutorials.yml
-
+#awk '
+#/^- id: best_practices/ {flag=1; next}
+#/^- id:/ {flag=0}
+#!flag
+#' communities/biodiversity/lab/sections/6_tutorials.yml > tmp.yml && mv tmp.yml communities/biodiversity/lab/sections/6_tutorials.yml
 
 # Below are scripts used by the microgalaxy community:
 #python sources/bin/populate_labs_tutorials.py \
