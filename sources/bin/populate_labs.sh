@@ -21,22 +21,33 @@ python sources/bin/extract_galaxy_tools.py \
     --lab communities/$COMMUNITY/lab/sections/4_tools.yml
 
 #Workflows
+workflows_file="communities/$COMMUNITY/lab/sections/5_workflows.yml"
 #Copy file from another community if they do not yet exist
-if [[ ! -e communities/$COMMUNITY/lab/sections/5_workflows.yml ]]; then
-    cp communities/microgalaxy/lab/sections/5_workflows.yml communities/$COMMUNITY/lab/sections/5_workflows.yml
+if [[ ! -e $workflows_file ]]; then
+    cp communities/microgalaxy/lab/sections/5_workflows.yml $workflows_file
 fi
 #Script to include the expected workflows
 python sources/bin/extract_galaxy_workflows.py \
     popLabSection \
     --curated communities/$COMMUNITY/resources/curated_workflows.json \
-    --lab communities/$COMMUNITY/lab/sections/5_workflows.yml
+    --lab $workflows_file
 
 
-#Tutorials - TO DO (No microgalaxy tuto file to pull from)
-#Copy tutorial file from another community if they do not yet exist
-if [[ ! -e communities/$COMMUNITY/lab/sections/6_tutorials.yml ]]; then
-    cp communities/microgalaxy/lab/sections/5_workflows.yml communities/$COMMUNITY/lab/sections/6_tutorials.yml
+#Tutorials
+tutorials_file="communities/$COMMUNITY/lab/sections/6_tutorials.yml"
+
+if [[ ! -e "$tutorials_file" ]]; then
+    # Optionally copy a template if needed
+    # cp "communities/microgalaxy/lab/sections/5_workflows.yml" "$tutorials_file"
+
+    # Create the file with correct indentation (no leading spaces)
+    cat <<EOF > "$tutorials_file"
+id: workflows
+title: Community workflows
+tabs:
+EOF
 fi
+
 #Update the tutorial file
 python sources/bin/populate_labs_tutorials.py \
     --tsv communities/$COMMUNITY/resources/tutorials.tsv \
