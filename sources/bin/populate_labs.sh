@@ -48,6 +48,24 @@ python sources/bin/populate_labs_tutorials.py \
     --filter $COMMUNITY \
     --filter-logic exclude
 
+awk '
+/^- id: best_practices/ {flag=1; next}
+/^- id:/ {flag=0}
+!flag
+' communities/biodiversity/lab/sections/6_tutorials.yml > tmp.yml && mv tmp.yml communities/biodiversity/lab/sections/6_tutorials.yml
+
+awk '
+/^- id: iwc/ {flag=1; next}
+/^- id:/ {flag=0}
+!flag
+' communities/biodiversity/lab/sections/6_tutorials.yml > tmp.yml && mv tmp.yml communities/biodiversity/lab/sections/6_tutorials.yml
+
+awk '
+/^- id: other_workflowhub/ {flag=1; next}
+/^- id:/ {flag=0}
+!flag
+' communities/biodiversity/lab/sections/6_tutorials.yml > tmp.yml && mv tmp.yml communities/biodiversity/lab/sections/6_tutorials.yml
+
 
 # Below are scripts used by the microgalaxy community:
 #python sources/bin/populate_labs_tutorials.py \
