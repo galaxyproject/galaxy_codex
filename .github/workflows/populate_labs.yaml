@@ -30,3 +30,12 @@ jobs:
 #      - name: Populate labs with tuto
 #        run: | 
 #          python sources/bin/populate_labs_tutorials.py
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v4
+        with:
+          commit-message: Update resources
+          title: Populate labs
+          body: Populate labs done via GitHub Action
+          base: main
+          branch: populate-labs
+          delete-branch: true
