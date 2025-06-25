@@ -28,7 +28,7 @@ if [[ ! -e $tools_section ]]; then
     cp communities/all/labs/sections_templates/2_tools.yml $tools_section
 fi
 #Update the tool file
-python communities/all/labs/extract_galaxy_tools.py \
+python sources/bin/extract_galaxy_tools.py \
     popLabSection \
     --curated communities/$COMMUNITY/resources/curated_tools.tsv \
     --lab $tools_section
@@ -41,7 +41,7 @@ if [[ ! -e $workflows_section ]]; then
 fi
 
 #Script to include the expected workflows
-python communities/all/labs/extract_galaxy_workflows.py \
+python sources/bin/extract_galaxy_workflows.py \
     popLabSection \
     --curated communities/$COMMUNITY/resources/curated_workflows.json \
     --lab $workflows_section
