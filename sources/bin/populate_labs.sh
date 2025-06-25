@@ -34,9 +34,9 @@ python sources/bin/extract_galaxy_workflows.py \
 
 #Tutorials - TO DO (No microgalaxy tuto file to pull from)
 #Copy tutorial file from another community if they do not yet exist
-#if [[ ! -e communities/$COMMUNITY/lab/sections/6_tutorials.yml ]]; then
-#    cp communities/microgalaxy/lab/sections/6_tutorials.yml communities/$COMMUNITY/lab/sections/6_tutorials.yml
-#fi
+if [[ ! -e communities/$COMMUNITY/lab/sections/6_tutorials.yml ]]; then
+    cp communities/microgalaxy/lab/sections/5_workflows.yml communities/$COMMUNITY/lab/sections/6_tutorials.yml
+fi
 #Update the tutorial file
 python sources/bin/populate_labs_tutorials.py \
     --tsv communities/$COMMUNITY/resources/tutorials.tsv \
