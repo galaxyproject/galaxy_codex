@@ -20,9 +20,6 @@ python sources/bin/extract_galaxy_tools.py \
     --curated communities/$COMMUNITY/resources/curated_tools.tsv \
     --lab communities/$COMMUNITY/lab/sections/4_tools.yml
 
-
-
-: '
 #Workflows
 #Copy file from another community if they do not yet exist
 if [[ ! -e communities/$COMMUNITY/lab/sections/5_workflows.yml ]]; then
@@ -50,7 +47,8 @@ python sources/bin/populate_labs_tutorials.py \
     --filter-column Topic \
     --filter $COMMUNITY \
     --filter-logic exclude
-'
+
+
 # Below are scripts used by the microgalaxy community:
 #python sources/bin/populate_labs_tutorials.py \
 #    --tsv communities/microgalaxy/resources/tutorials.tsv \
