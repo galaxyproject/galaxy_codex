@@ -82,7 +82,6 @@ if [[ ! -e $community_section ]]; then
    cp communities/all/labs/sections_templates/6_community.yml $community_section
 fi
 
-
 ##Tools
 #This creates a tools folder (in the communauty lab folder) with one yaml files per tool
 python sources/bin/extract_galaxy_tools.py \
