@@ -1,0 +1,32 @@
+name: Populate labs
+
+on:
+  push:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'sources/bin/**'
+
+jobs:
+  populate_labs:
+    runs-on: ubuntu-latest
+    name: populate_labs
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install requirement
+        run: |
+          python -m pip install -r requirements.txt
+          sudo apt-get install jq
+      - name: Populate labs
+        run: | 
+          bash sources/bin/populate_labs.sh
+        env: 
+          PLAUSIBLE_API_KEY: ${{ secrets.PLAUSIBLE_API_TOKEN }}  
+      - name: Populate labs with tuto
+        run: | 
+          python sources/bin/populate_labs_tutorials.py
