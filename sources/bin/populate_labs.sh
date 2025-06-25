@@ -7,6 +7,8 @@
 ## Change the community variable to match your community
 COMMUNITY="biodiversity"
 
+mkdir -p communities/$COMMUNITY/lab/sections/
+
 #Tools
 #This creates a tools folder (in the communauty lab folder) with one yaml files per tool
 python sources/bin/extract_galaxy_tools.py \
@@ -18,9 +20,13 @@ python sources/bin/extract_galaxy_tools.py \
 tools_file="communities/$COMMUNITY/lab/sections/4_tools.yml"
 #Copy tool file from another community if they do not yet exist
 if [[ ! -e $tools_file ]]; then
-    mkdir communities/$COMMUNITY/lab/sections/
-    cp communities/microgalaxy/lab/sections/4_tools.yml $tools_file
+    cat <<EOF > "$tutorials_file"
+id: Tools
+title: Community curated tools
+tabs: []
+EOF
 fi
+
 #Update the tool file
 python sources/bin/extract_galaxy_tools.py \
     popLabSection \
@@ -29,10 +35,14 @@ python sources/bin/extract_galaxy_tools.py \
 
 #Workflows
 workflows_file="communities/$COMMUNITY/lab/sections/5_workflows.yml"
-#Copy file from another community if they do not yet exist
 if [[ ! -e $workflows_file ]]; then
-    cp communities/microgalaxy/lab/sections/5_workflows.yml $workflows_file
+    cat <<EOF > "$tutorials_file"
+id: Workflows
+title: Community workflows
+tabs: []
+EOF
 fi
+
 #Script to include the expected workflows
 python sources/bin/extract_galaxy_workflows.py \
     popLabSection \
@@ -44,10 +54,7 @@ python sources/bin/extract_galaxy_workflows.py \
 tutorials_file="communities/$COMMUNITY/lab/sections/6_tutorials.yml"
 
 if [[ ! -e "$tutorials_file" ]]; then
-    # Optionally copy a template if needed
-    # cp "communities/microgalaxy/lab/sections/5_workflows.yml" "$tutorials_file"
-
-    # Create the file with correct indentation (no leading spaces)
+    # Create the file with correct indentation
     cat <<EOF > "$tutorials_file"
 id: Tutorials
 title: Community tutorials
