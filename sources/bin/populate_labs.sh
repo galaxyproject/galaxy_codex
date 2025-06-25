@@ -15,7 +15,7 @@ mkdir -p communities/$COMMUNITY/lab/sections/
 # Data import and preparation
 #This is general enough to be the same between several communities.
 #Some sections are commented at the bottom and are potential addition for your community
-data_import_export_section="communities/$COMMUNITY/lab/sections/1_data_import_and_preparation.yml
+data_import_export_section="communities/$COMMUNITY/lab/sections/1_data_import_and_preparation.yml"
 if [[ ! -e $data_import_export_section ]]; then
    cp communities/all/labs/sections_templates/1_data_import_and_preparation.yml $data_import_export_section
 fi
