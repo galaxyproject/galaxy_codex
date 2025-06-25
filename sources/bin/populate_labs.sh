@@ -3,8 +3,14 @@
 ## Change the community variable to match your community
 COMMUNITY="biodiversity"
 
+#Tools
+python sources/bin/extract_galaxy_tools.py \
+    getLabTools \
+    --curated communities/$COMMUNITY/resources/curated_tools.tsv \
+    --tools communities/$COMMUNITY/lab/tools
+
 #Create files if they do not yet exist
-if [[ ! -e communities/$COMMUNITY/lab/sections/4_tools.yml ]]; then
+<<! if [[ ! -e communities/$COMMUNITY/lab/sections/4_tools.yml ]]; then
     mkdir communities/$COMMUNITY/lab/
     mkdir communities/$COMMUNITY/lab/sections/
     touch communities/$COMMUNITY/lab/sections/4_tools.yml
@@ -12,11 +18,7 @@ if [[ ! -e communities/$COMMUNITY/lab/sections/4_tools.yml ]]; then
     touch communities/$COMMUNITY/lab/sections/6_tutorials.yml
 fi
 
-#Tools
-python sources/bin/extract_galaxy_tools.py \
-    getLabTools \
-    --curated communities/$COMMUNITY/resources/curated_tools.tsv \
-    --tools communities/$COMMUNITY/lab/tools
+
 
 python sources/bin/extract_galaxy_tools.py \
     popLabSection \
@@ -39,7 +41,7 @@ python sources/bin/populate_labs_tutorials.py \
     --filter-column Topic \
     --filter $COMMUNITY \
     --filter-logic exclude
-
+!>>
 # Below are scripts used by the microgalaxy community:
 #python sources/bin/populate_labs_tutorials.py \
 #    --tsv communities/microgalaxy/resources/tutorials.tsv \
