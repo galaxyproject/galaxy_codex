@@ -10,35 +10,35 @@ python sources/bin/extract_galaxy_tools.py \
     --tools communities/$COMMUNITY/lab/tools
 
 #Workflows
+#Copy file from another community if they do not yet exist
+if [[ ! -e communities/$COMMUNITY/lab/sections/5_workflows.yml ]]; then
+    cp communities/microgalaxy/lab/sections/5_workflows.yml communities/$COMMUNITY/lab/sections/5_workflows.yml
+fi
+#Script to include the expected workflows
 python sources/bin/extract_galaxy_workflows.py \
     popLabSection \
     --curated communities/$COMMUNITY/resources/curated_workflows.json \
     --lab communities/$COMMUNITY/lab/sections/5_workflows.yml
 
-#Copy files from another community if they do not yet exist
+
+: '
+#Copy tool file from another community if they do not yet exist
 if [[ ! -e communities/$COMMUNITY/lab/sections/4_tools.yml ]]; then
     mkdir communities/$COMMUNITY/lab/sections/
     cp communities/microgalaxy/lab/sections/4_tools.yml communities/$COMMUNITY/lab/sections/4_tools.yml
 fi
-
-if [[ ! -e communities/$COMMUNITY/lab/sections/5_workflows.yml ]]; then
-    cp communities/microgalaxy/lab/sections/5_workflows.yml communities/$COMMUNITY/lab/sections/5_workflows.yml
-fi
-
-if [[ ! -e communities/$COMMUNITY/lab/sections/6_tutorials.yml ]]; then
-    cp communities/microgalaxy/lab/sections/6_tutorials.yml communities/$COMMUNITY/lab/sections/6_tutorials.yml
-fi
-
-
-: '
+#Update the tool file
 python sources/bin/extract_galaxy_tools.py \
     popLabSection \
     --curated communities/$COMMUNITY/resources/curated_tools.tsv \
     --lab communities/$COMMUNITY/lab/sections/4_tools.yml
 
-
-
 #Tutorials
+#Copy tutorial file from another community if they do not yet exist
+if [[ ! -e communities/$COMMUNITY/lab/sections/6_tutorials.yml ]]; then
+    cp communities/microgalaxy/lab/sections/6_tutorials.yml communities/$COMMUNITY/lab/sections/6_tutorials.yml
+fi
+#Update the tutorial file
 python sources/bin/populate_labs_tutorials.py \
     --tsv communities/$COMMUNITY/resources/tutorials.tsv \
     --yml communities/$COMMUNITY/lab/sections/6_tutorials.yml \
