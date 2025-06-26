@@ -1231,9 +1231,9 @@ if __name__ == "__main__":
 
     elif args.command == "popLabSection":
         lab_section = shared.load_yaml(args.lab)
-        top_tools_per_category = extract_top_tools_per_category(args.curated)  
+        top_tools_per_category = extract_top_tools_per_category(args.curated)
         lab_section = fill_lab_tool_section(lab_section, top_tools_per_category)
-        
+
         with open(args.lab, "w") as lab_f:
             ruamelyaml().dump(lab_section, lab_f)
 
