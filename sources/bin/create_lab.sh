@@ -3,9 +3,6 @@
 #This scirpt is meant to create the html pages to build a community lab on the public galaxy instances. 
 #To launch this script, you need to do so manually from the GitHub action
 
-## Change the community variable to match your community
-COMMUNITY="biodiversity"
-
 #Copy the expected files from the template folder to your community folder
 #Remember to check the files manually once they are in your community folder!
 
