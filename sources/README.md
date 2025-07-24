@@ -294,6 +294,16 @@ To see an example, check out Galaxy Australia's Genome Lab at
 https://genome.usegalaxy.org.au.
 
 
+## How can I create a Lab?
+
+You can copy the Lab folder of an existing community in their folder and adapt it for your community or use the following script:
+
+```bash
+$ export COMMUNITY="<your community>"
+$ bash sources/bin/create_lab.sh
+```
+
+
 ## What does the framework do?
 
 It builds a custom Galaxy Lab welcome page from YAML and Markdown/HTML content.
