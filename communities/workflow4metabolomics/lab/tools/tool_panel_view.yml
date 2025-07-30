@@ -1,0 +1,365 @@
+name: workflow4metabolomics
+id: workflow4metabolomics
+type: activity
+items:
+# Common tools
+- id: general_text_label
+  type: label
+- id: stats_viz
+  type: label
+- sections:
+  - collection_operations
+  - text_manipulation
+  - filter_and_sort
+  - graph_display_data
+  - interactivetools
+
+- type: section
+  id: getext
+  items:
+  - type: tool
+    id: upload1
+
+# Workflow4metabolomics specific tools
+- id: metabolomics_label
+  type: label
+
+- type: section
+  id: metabolomics_getext
+  items:
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/prog/mtblsdwnld
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/fgiacomoni/downloader_bank_hmdb
+
+- type: section
+  id: metabolomics_preprocessing_lcms
+  items:
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/lecorguille/msnbase_readmsdata
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/lecorguille/xcms_export_samplemetadata
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/lecorguille/xcms_xcmsset
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/lecorguille/xcms_plot_chromatogram
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/lecorguille/xcms_merge
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/lecorguille/xcms_group
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/lecorguille/xcms_retcor
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/lecorguille/xcms_fillpeaks
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/lecorguille/camera_annotate
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/lecorguille/xcms_summary
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/workflow4metabolomics/camera_groupfwhm
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/workflow4metabolomics/camera_groupcorr
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/workflow4metabolomics/camera_findisotopes
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/workflow4metabolomics/camera_findadducts
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/workflow4metabolomics/camera_combinexsannos
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/recetox/aplcms_generate_feature_table
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/recetox/aplcms_recover_weaker_signals
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/recetox/aplcms_correct_time
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/recetox/aplcms_compute_clusters
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/recetox/aplcms_remove_noise
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/recetox/aplcms_merge_known_table
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/recetox/aplcms_compute_template
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/recetox/aplcms_align_features
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/lain/xseekerpreparator
+
+- type: section
+  id: metabolomics_preprocessing_fiams
+  items:
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ethevenot/profia
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/computational-metabolomics/dimspy_process_scans
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/computational-metabolomics/dimspy_replicate_filter
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/computational-metabolomics/dimspy_align_samples
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/computational-metabolomics/dimspy_blank_filter
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/computational-metabolomics/dimspy_sample_filter
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/computational-metabolomics/dimspy_missing_values_sample_filter
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/computational-metabolomics/dimspy_merge_peaklists
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/computational-metabolomics/dimspy_get_peaklists
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/computational-metabolomics/dimspy_hdf5_to_txt
+
+- type: section
+  id: metabolomics_preprocessing_gcms
+  items:
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/yguitton/metams_rungc
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/recetox/ramclustr
+
+- type: section
+  id: metabolomics_preprocessing_nmr
+  items:
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/marie-tremblay-metatoul/nmr_preprocessing
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/marie-tremblay-metatoul/nmr_alignment
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/marie-tremblay-metatoul/nmr_bucketing
+
+- type: section
+  id: metabolomics_quality_processing_ms
+  items:
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/melpetera/batchcorrection
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/melpetera/acorf
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/workflow4metabolomics/correlation_analysis
+
+- type: section
+  id: metabolomics_quality_processing_all
+  items:
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ethevenot/normalization
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ethevenot/transformation
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ethevenot/qualitymetrics
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/yguitton/withinvariation
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/melpetera/intensity_checks
+
+- type: section
+  id: metabolomics_statistics_all
+  items:
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ethevenot/univariate
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ethevenot/multivariate
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/lecorguille/anova
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/workflow4metabolomics/mixmodel4repeated_measures
+  - type: tool  
+    id: toolshed.g2.bx.psu.edu/repos/marie-tremblay-metatoul/asca
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ethevenot/biosigner
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/melpetera/corr_table
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ethevenot/heatmap
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/recetox/waveica
+
+- type: section
+  id: metabolomics_annotation_ms
+  items:
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/recetox/rmassbank
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/recetox/biotransformer
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/recetox/msmetaenhancer
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/recetox/riassigner
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/recetox/ramclustr
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/recetox/ramclustr_define_experiment
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/recetox/recetox_xmsannotator_advanced
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/recetox/matchms_convert
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/recetox/matchms_filtering
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/recetox/matchms_fingerprint_similarity
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/recetox/matchms_formatter
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/recetox/matchms_metadata_export
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/recetox/matchms_metadata_match
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/recetox/matchms_networking
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/recetox/matchms_similarity
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/recetox/matchms_spectral_similarity
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/recetox/matchms_split
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/recetox/matchms_subsetting
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/recetox/matchms_metadata_merge
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/workflow4metabolomics/xcms_plot_eic
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/workflow4metabolomics
+
+- type: section
+  id: metabolomics_annotation_lcms_fiams
+  items:
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/fgiacomoni/hmdb_ms_search
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/fgiacomoni/bank_inhouse
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/fgiacomoni/bih4maconda
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/fgiacomoni/hr2
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/prog/lcmsmatching
+
+- type: section
+  id: metabolomics_annotation_lcms
+  items: []
+
+- type: section
+  id: metabolomics_annotation_gcms
+  items:
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/fgiacomoni/golm_ws_lib_search
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/recetox/riassigner
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/recetox/recetox_msfinder
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/recetox/matchms
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/recetox/matchms_filtering
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/recetox/matchms_formatter
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/recetox/matchms_networking
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/recetox/xtb_molecular_optimization
+
+- type: section
+  id: metabolomics_annotation_nmr
+  items:
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/marie-tremblay-metatoul/nmr_annotation
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/marie-tremblay-metatoul/2dnmrannotation
+
+- type: section
+  id: metabolomics_data_handling_all
+  items:
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/galaxyp/msconvert
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/workflow4metabolomics/mzxmlshaper
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/melpetera/generic_filter
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/melpetera/tablemerge
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ethevenot/checkformat
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/workflow4metabolomics/w4mconcatenate
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/melpetera/idchoice
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/prog/isa2w4m
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/prog/isaextractor
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/workflow4metabolomics/skyline2isocor
+
+- type: section
+  id: metabolomics_msms
+  items:
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/computational-metabolomics/mspurity_puritya
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/computational-metabolomics/mspurity_frag4feature
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/computational-metabolomics/mspurity_filterfragspectra
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/computational-metabolomics/mspurity_averagefragspectra
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/computational-metabolomics/mspurity_createdatabase
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/computational-metabolomics/mspurity_spectralmatching
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/computational-metabolomics/mspurity_createmsp
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/computational-metabolomics/metfrag
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/computational-metabolomics/sirius_csifingerid
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/computational-metabolomics/mspurity_combineannotations
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/computational-metabolomics/mspurity_flagremove
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/computational-metabolomics/mspurity_purityx
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/computational-metabolomics/mspurity_dimspredictpuritysingle
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/workflow4metabolomics/ms2snoop
+
+- type: section
+  id: metabolomics_fluxomics_all
+  items:
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/workflow4metabolomics/influx_si
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/gmat/isocor
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/workflow4metabolomics/isoplot
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/workflow4metabolomics/physiofit
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/workflow4metabolomics/physiofit_manager
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/workflow4metabolomics/influx_si_data_manager
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/dimet_abundance_plot
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/dimet_differential_analysis
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/dimet_differential_multigroup_analysis
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/dimet_enrichment_plot
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/dimet_isotopologues_plot
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/dimet_metabologram
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/dimet_pca_analysis
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/dimet_pca_plot
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/dimet_timecourse_analysis
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/dimet_bivariate_analysis
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/tracegroomer
+
+- type: section
+  id: metabolomics_interactivetools
+  items: []
+
+
