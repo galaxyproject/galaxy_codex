@@ -28,7 +28,7 @@ cleanup() {
     cd "$ORIGINAL_DIR"
     rm -rf "$TEST_TEMP_DIR"
     # Clean up any act containers
-    docker ps -a --filter "name=act-Test-changed-Lab-pages" --format "{{.ID}}" | xargs -r docker rm -f 2>/dev/null || true
+    docker ps -a --filter "name=act-" --format "{{.ID}}" | xargs -r docker rm -f 2>/dev/null || true
     # Ensure we're back on the original branch
     git checkout "$ORIGINAL_BRANCH" 2>/dev/null || true
 }

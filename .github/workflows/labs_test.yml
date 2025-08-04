@@ -34,7 +34,9 @@ jobs:
           # For local testing, check if upstream remote already exists, otherwise try to add it
           if ! git remote get-url upstream >/dev/null 2>&1; then
             # Check if we can add the upstream remote (for real GitHub workflows)
-            if curl -s --head https://github.com/${{ github.event.pull_request.base.repo.full_name }}/archive/refs/heads/${{ github.event.pull_request.base.ref }}.tar.gz | head -n 1 | grep -q "200 OK"; then
+            URL="https://github.com/${{ github.event.pull_request.base.repo.full_name }}/archive/refs/heads/${{ github.event.pull_request.base.ref }}.tar.gz"
+            HTTP_STATUS_LINE=$(curl -s --head "$URL" | head -n 1)
+            if echo "$HTTP_STATUS_LINE" | grep -q "200 OK"; then
               git remote add upstream https://github.com/${{ github.event.pull_request.base.repo.full_name }}.git
               git fetch --no-tags --depth=1 upstream ${{ github.event.pull_request.base.ref }}
               BASE_REF="upstream/${{ github.event.pull_request.base.ref }}"
@@ -64,8 +66,8 @@ jobs:
         run: |
           if [ -s output/paths.txt ]; then
             echo "Changed files found"
-            if [ -f "base/sources/bin/labs_test.py" ]; then
-              python3 base/sources/bin/labs_test.py output/paths.txt
+            if [ -f "sources/bin/labs_test.py" ]; then
+              python3 sources/bin/labs_test.py output/paths.txt
             else
               echo "labs_test.py not found - skipping lab tests (this is expected for testing)"
               exit 0
