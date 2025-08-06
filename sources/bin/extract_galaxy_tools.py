@@ -478,7 +478,7 @@ def parse_tools(repo: Repository) -> List[Dict[str, Any]]:
     for folder in tool_folders:
         for tool in folder:
             # to avoid API request limit issue, wait for one hour
-            if g.get_rate_limit().core.remaining < 200:
+            if g.get_rate_limit().resources.core.remaining < 200:
                 print("WAITING for 1 hour to retrieve GitHub API request access !!!")
                 print()
                 time.sleep(60 * 60)
