@@ -1,0 +1,350 @@
+id: assembly-annotation
+title: Genome Assembly and Annotation
+tabs:
+- id: overview
+  title: Overview
+  heading_md: "Genome assembly and annotation are essential in biodiversity research. Annotated reference genomes enable comparisons within and between species, helping scientists analyze population structures and evolutionary processes. \n"
+ - id: tools
+  title: Tools
+  heading_md: "Flagship tools for genome assembly and annotation\n"
+  content:
+    subsections:
+    - id: assembly
+      title: Genome Assembly
+      content:
+      - title_md: <code>Hifiasm</code> - A haplotype-resolved assembler for accurate Hifi reads
+        button_link: '{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/hifiasm/hifiasm'
+        description_md: "Hifiasm.\n"
+    - id: annotation
+      title: Genome Annotation
+      content:
+      - title_md: <code>EGAPx</code> - Eukaryotic Genome Annotation Pipeline - External
+        button_link: '{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/richard-burhans/ncbi_egapx/ncbi_egapx'
+        description_md: "EGAPx.\n"
+- id: interactive-tools
+  title: Interactive tools
+  heading_md: "Interactive tools for genome annotation and assembly \n"
+  content:
+  - title_md: <code>RStudio</code> - An integrated development environment (IDE)
+      for R and Python
+    description_md: "This familiar R analysis software suite will let you explore
+      your datasets in depth. Comes with ggplot2, RODBC, maps, shinyapps, knitr, LaTeX,
+      bioconductor, cummeRbund, and many more pre-installed packages.\n"
+    button_link: '{{ galaxy_base_url }}/root?tool_id=interactive_tool_rstudio'
+  - title_md: <code>Interactive JupyterLab Notebook</code> - A web-based 
+      interactive computing platform
+    description_md: "The Jupyter Notebook is an open-source web application that allows
+      you to create and share documents that contain live code, equations, visualizations,
+      and narrative text. Uses include: data cleaning and transformation, numerical
+      simulation, statistical modeling, data visualization, machine learning, and
+      much more.\n"
+    inputs:
+    - datatypes:
+      - Jupyter Notebook
+    button_link: '{{ galaxy_base_url }}/root?tool_id=interactive_tool_jupyter_notebook'
+- id: databases
+  title: Databases
+  heading_md: Examples of databases that can be relevant for genomic assembly and annotation.
+  content:
+    subsections:
+    - id: genomic-databases
+      title: Genomic Databases
+      content:
+      - title_md: <code>NCBI RefSeq</code> - Reference genome database
+        button_link: https://www.ncbi.nlm.nih.gov/refseq/
+        button_tip: Visit NCBI RefSeq
+        description_md: "A comprehensive collection of reference genomes for bacteria,
+          archaea, and eukaryotes. Used in tools such as [<code>Prokka</code>]({{
+          galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/crs4/prokka/prokka)
+          and [<code>Bakta</code>]({{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/bakta/bakta).\n"
+      - title_md: <code>ENA</code> - European Nucleotide Archive
+        button_link: https://www.ebi.ac.uk/ena
+        button_tip: Visit ENA
+        description_md: "A primary repository for nucleotide sequencing data. Used
+          in tools such as [<code>EBI Search</code>]({{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/ebi_search_rest_results/ebi_search_rest_results).\n"
+      - title_md: <code>NCBI GenBank</code> - Public Sequence Database
+        button_link: https://www.ncbi.nlm.nih.gov/genbank/
+        button_tip: Visit GenBank
+        description_md: "A comprehensive open-access collection of annotated nucleotide
+          sequences. Used in tools such as [<code>Prokka</code>]({{ galaxy_base_url
+          }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/crs4/prokka/prokka) and [<code>Bakta</code>]({{
+          galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/bakta/bakta).\n"
+- id: workflows
+  title: Workflows
+  heading_md: Genome Assembly and Annotation workflows to use directly, modify or 
+    take ideas from
+  content:
+    subsections:
+    - id: assembly
+      title: Genome Assembly
+      content:
+      - title_md: Datasets Quality Control
+        description_md: "General quality controlling workflow.\n"
+        button_link: '{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=222'
+        button_tip: Import workflow
+        button_icon: run
+      - title_md: Assembly with Flye
+        description_md: "Assemble long reads with Flye, then view assembly statistics
+          and assembly graph.\n"
+        button_link: '{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=750'
+        button_tip: Import workflow
+        button_icon: run
+    - id: annotation
+      title: Genome Annotation
+      content:
+      - title_md: Refining Genome Annotations with Apollo (prokaryotes)
+        description_md: "Refining Genome Annotations with Apollo.\n"
+        button_link: '{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=749'
+        button_tip: Import workflow
+        button_icon: run
+      - title_md: Genome annotation workflow with Helixer
+        description_md: "This workflow allows you to annotate a genome with Helixer
+          and evaluate the quality of the annotation using BUSCO and Genome Annotation
+          statistics. GFFRead is also used to predict protein sequences derived from
+          this annotation, and BUSCO and OMArk are used to assess proteome quality.\n"
+        button_link: '{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=1255'
+        button_tip: Import workflow
+        button_icon: run
+- id: tutorials
+  title: Tutorials
+  heading_md: Tutorials to train you to perform genome assembly and annotation
+  content:
+  - title_md: Genome Assembly of MRSA from Oxford Nanopore MinION data (and 
+      optionally Illumina data)
+    description_md: Tutorial stored in Assembly topic on the Galaxy Training 
+      Network and covering topics related to Sequence assembly, Whole genome 
+      sequencing, Public health and epidemiology, Genomics, Microbiology, 
+      Antimicrobial resistance
+    button_link: 
+      https://training.galaxyproject.org//topics/assembly/tutorials/mrsa-nanopore/tutorial.html
+    button_tip: View tutorial
+    button_icon: tutorial
+  - title_md: Unicycler Assembly
+    description_md: Tutorial stored in Assembly topic on the Galaxy Training 
+      Network and covering topics related to Sequence assembly, Genomics, 
+      Microbiology
+    button_link: 
+      https://training.galaxyproject.org//topics/assembly/tutorials/unicycler-assembly/tutorial.html
+    button_tip: View tutorial
+    button_icon: tutorial
+  - title_md: Making sense of a newly assembled genome
+    description_md: Tutorial stored in Assembly topic on the Galaxy Training 
+      Network and covering topics related to Sequence assembly, Genomics, 
+      Microbiology
+    button_link: 
+      https://training.galaxyproject.org//topics/assembly/tutorials/ecoli_comparison/tutorial.html
+    button_tip: View tutorial
+    button_icon: tutorial
+  - title_md: Assembly of metagenomic sequencing data
+    description_md: Tutorial stored in Assembly topic on the Galaxy Training 
+      Network and covering topics related to Metagenomics, Sequence assembly
+    button_link: 
+      https://training.galaxyproject.org//topics/assembly/tutorials/metagenomics-assembly/tutorial.html
+    button_tip: View tutorial
+    button_icon: tutorial
+  - title_md: Genome Assembly of a bacterial genome (MRSA) sequenced using 
+      Illumina MiSeq Data
+    description_md: Tutorial stored in Assembly topic on the Galaxy Training 
+      Network and covering topics related to Sequence assembly, Whole genome 
+      sequencing, Public health and epidemiology, Genomics, Microbiology
+    button_link: 
+      https://training.galaxyproject.org//topics/assembly/tutorials/mrsa-illumina/tutorial.html
+    button_tip: View tutorial
+    button_icon: tutorial
+  - title_md: Checking expected species and contamination in bacterial isolate
+    description_md: Tutorial stored in Ecology topic on the Galaxy Training 
+      Network and covering topics related to Whole genome sequencing, Genomics, 
+      Microbiology, Microbial ecology
+    button_link: 
+      https://training.galaxyproject.org//topics/ecology/tutorials/bacterial-isolate-species-contamination-checking/tutorial.html
+    button_tip: View tutorial
+    button_icon: tutorial
+  - title_md: 'Identifying tuberculosis transmission links: from SNPs to transmission
+      clusters'
+    description_md: Tutorial stored in Evolution topic on the Galaxy Training 
+      Network and covering topics related to Genomics, Microbiology, Infectious 
+      disease, DNA polymorphism
+    button_link: 
+      https://training.galaxyproject.org//topics/evolution/tutorials/mtb_transmission/tutorial.html
+    button_tip: View tutorial
+    button_icon: tutorial
+  - title_md: Tree thinking for tuberculosis evolution and epidemiology
+    description_md: Tutorial stored in Evolution topic on the Galaxy Training 
+      Network and covering topics related to Genomics, Microbiology, Phylogeny, 
+      Infectious disease
+    button_link: 
+      https://training.galaxyproject.org//topics/evolution/tutorials/mtb_phylogeny/tutorial.html
+    button_tip: View tutorial
+    button_icon: tutorial
+  - title_md: Phylogenetic analysis for bacterial comparative genomics
+    description_md: Tutorial stored in Evolution topic on the Galaxy Training 
+      Network and covering topics related to Genomics, Microbiology, Phylogeny
+    button_link: 
+      https://training.galaxyproject.org//topics/evolution/tutorials/bacterial-comparative-genomics/tutorial.html
+    button_tip: View tutorial
+    button_icon: tutorial
+  - title_md: Genome annotation with Prokka
+    description_md: Tutorial stored in Genome Annotation topic on the Galaxy 
+      Training Network and covering topics related to Genomics, Microbiology, 
+      Gene and protein families, Sequence analysis
+    button_link: 
+      https://training.galaxyproject.org//topics/genome-annotation/tutorials/annotation-with-prokka/tutorial.html
+    button_tip: View tutorial
+    button_icon: tutorial
+  - title_md: Identification of AMR genes in an assembled bacterial genome
+    description_md: Tutorial stored in Genome Annotation topic on the Galaxy 
+      Training Network and covering topics related to Whole genome sequencing, 
+      Public health and epidemiology, Genomics, Microbiology, Sequence analysis,
+      Infectious disease, Antimicrobial resistance
+    button_link: 
+      https://training.galaxyproject.org//topics/genome-annotation/tutorials/amr-gene-detection/tutorial.html
+    button_tip: View tutorial
+    button_icon: tutorial
+  - title_md: Refining Genome Annotations with Apollo (prokaryotes)
+    description_md: Tutorial stored in Genome Annotation topic on the Galaxy 
+      Training Network and covering topics related to Genomics, Microbiology, 
+      Gene and protein families, Sequence analysis
+    button_link: 
+      https://training.galaxyproject.org//topics/genome-annotation/tutorials/apollo/tutorial.html
+    button_tip: View tutorial
+    button_icon: tutorial
+  - title_md: Bacterial Genome Annotation
+    description_md: Tutorial stored in Genome Annotation topic on the Galaxy 
+      Training Network and covering topics related to Genomics, Microbiology, 
+      Gene and protein families, Sequence analysis, Whole genome sequencing, 
+      Functional genomics, Mobile genetic elements
+    button_link: 
+      https://training.galaxyproject.org//topics/genome-annotation/tutorials/bacterial-genome-annotation/tutorial.html
+    button_tip: View tutorial
+    button_icon: tutorial
+  - title_md: Dataset construction for bacterial comparative genomics
+    description_md: Tutorial stored in Genome Annotation topic on the Galaxy 
+      Training Network and covering topics related to Genomics, Microbiology
+    button_link: 
+      https://training.galaxyproject.org//topics/genome-annotation/tutorials/bacterial-comparative-genomics-dataset-construction/tutorial.html
+    button_tip: View tutorial
+    button_icon: tutorial
+  - title_md: Bacterial genome quality control
+    description_md: Tutorial stored in Genome Annotation topic on the Galaxy 
+      Training Network and covering topics related to Genomics, Microbiology
+    button_link: 
+      https://training.galaxyproject.org//topics/genome-annotation/tutorials/bacterial-genome-quality-control/tutorial.html
+    button_tip: View tutorial
+    button_icon: tutorial
+  - title_md: Comparative gene analysis in unannotated genomes
+    description_md: Tutorial stored in Genome Annotation topic on the Galaxy 
+      Training Network and covering topics related to Genomics, Gene and protein
+      families, Sequence analysis, Phylogeny, Comparative genomics
+    button_link: 
+      https://training.galaxyproject.org//topics/genome-annotation/tutorials/gene-centric/tutorial.html
+    button_tip: View tutorial
+    button_icon: tutorial
+  - title_md: Essential genes detection with Transposon insertion sequencing
+    description_md: Tutorial stored in Genome Annotation topic on the Galaxy 
+      Training Network and covering topics related to Genomics, Microbiology, 
+      Sequence analysis, Mobile genetic elements
+    button_link: 
+      https://training.galaxyproject.org//topics/genome-annotation/tutorials/tnseq/tutorial.html
+    button_tip: View tutorial
+    button_icon: tutorial
+  - title_md: Microbial Variant Calling
+    description_md: Tutorial stored in Variant Analysis topic on the Galaxy 
+      Training Network and covering topics related to Genomics, Sequence 
+      assembly, DNA polymorphism, Microbiology, Sequence analysis, Genetic 
+      variation
+    button_link: 
+      https://training.galaxyproject.org//topics/variant-analysis/tutorials/microbial-variants/tutorial.html
+    button_tip: View tutorial
+    button_icon: tutorial
+  - title_md: M. tuberculosis Variant Analysis
+    description_md: Tutorial stored in Variant Analysis topic on the Galaxy 
+      Training Network and covering topics related to Genomics, Microbiology, 
+      Sequence assembly, Genetic variation, Public health and epidemiology, 
+      Infectious disease
+    button_link: 
+      https://training.galaxyproject.org//topics/variant-analysis/tutorials/tb-variant-analysis/tutorial.html
+    button_tip: View tutorial
+    button_icon: tutorial
+  - title_md: 'metaQuantome 1: Data creation'
+    description_md: Tutorial stored in Proteomics topic on the Galaxy Training 
+      Network and covering topics related to Proteomics, Proteogenomics, 
+      Biodiversity, Taxonomy
+    button_link: 
+      https://training.galaxyproject.org//topics/proteomics/tutorials/metaquantome-data-creation/tutorial.html
+    button_tip: View tutorial
+    button_icon: tutorial
+  - title_md: 'metaQuantome 3: Taxonomy'
+    description_md: Tutorial stored in Proteomics topic on the Galaxy Training 
+      Network and covering topics related to Proteomics, Proteogenomics, 
+      Metatranscriptomics, Microbial ecology, Metagenomics, Taxonomy
+    button_link: 
+      https://training.galaxyproject.org//topics/proteomics/tutorials/metaquantome-taxonomy/tutorial.html
+    button_tip: View tutorial
+    button_icon: tutorial
+  - title_md: 'metaQuantome 2: Function'
+    description_md: Tutorial stored in Proteomics topic on the Galaxy Training 
+      Network and covering topics related to Proteomics, Proteogenomics, 
+      Metatranscriptomics, Microbial ecology, Metagenomics
+    button_link: 
+      https://training.galaxyproject.org//topics/proteomics/tutorials/metaquantome-function/tutorial.html
+    button_tip: View tutorial
+    button_icon: tutorial
+  - title_md: Metaproteomics tutorial
+    description_md: Tutorial stored in Proteomics topic on the Galaxy Training 
+      Network and covering topics related to Proteomics, Proteogenomics, 
+      Biodiversity, Taxonomy
+    button_link: 
+      https://training.galaxyproject.org//topics/proteomics/tutorials/metaproteomics/tutorial.html
+    button_tip: View tutorial
+    button_icon: tutorial
+  - title_md: Quality and contamination control in bacterial isolate using 
+      Illumina MiSeq Data
+    description_md: Tutorial stored in Sequence analysis topic on the Galaxy 
+      Training Network and covering topics related to Whole genome sequencing, 
+      Genomics, Microbiology, Microbial ecology
+    button_link: 
+      https://training.galaxyproject.org//topics/sequence-analysis/tutorials/quality-contamination-control/tutorial.html
+    button_tip: View tutorial
+    button_icon: tutorial
+  - title_md: Calling variants in non-diploid systems
+    description_md: Tutorial stored in Variant Analysis topic on the Galaxy 
+      Training Network and covering topics related to Genomics, Sequence 
+      assembly, DNA polymorphism, Microbiology, Sequence analysis, Genetic 
+      variation
+    button_link: 
+      https://training.galaxyproject.org//topics/variant-analysis/tutorials/non-dip/tutorial.html
+    button_tip: View tutorial
+    button_icon: tutorial
+- id: learning-pathway
+  title: Learning pathways
+  heading_md: "Connected tutorials to train you to perform microbial isolates data
+    analysis.\n"
+  content:
+  - title_md: Detection of AMR genes in bacterial genomes
+    description_md: "This learning path aims to teach you the basics of Galaxy and
+      analysis of bacterial genomics data. You will learn how to use Galaxy for analysis
+      and will be guided through the common steps of bacterial genomics analysis:
+      species and contamination checking, assembly, genome annotation, and AMR gene
+      detection.\n"
+    button_link: 
+      https://training.galaxyproject.org/training-material/learning-pathways/amr-gene-detection.html
+    button_icon: tutorial
+    button_tip: Open Learning Pathway
+  - title_md: Proteogenomics
+    description_md: "This learning path aims to teach you the analysis of proteogenomics
+      data. You will learn how to use Galaxy for analysis and will be guided through
+      the common steps of proteogenomics analysis: database generation, database searching,
+      and novel peptide analysis.\n"
+    button_link: 
+      https://training.galaxyproject.org/training-material/learning-pathways/proteogenomics.html
+    button_icon: tutorial
+    button_tip: Open Learning Pathway
+  - title_md: Genome annotation for prokaryotes
+    description_md: "This learning path aims to teach you the genome annotation for
+      prokaryotes. You will learn how to use Galaxy for analysis and will be guided
+      through the common steps of genome annotation for prokaryotes: introduction
+      to genome annotation, gene calling and functional annotation, and manual curation.\n"
+    button_link: 
+      https://training.galaxyproject.org/training-material/learning-pathways/genome-annotation-prokaryote.html
+    button_icon: tutorial
+    button_tip: Open Learning Pathway
