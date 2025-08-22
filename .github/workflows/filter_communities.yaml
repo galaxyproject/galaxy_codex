@@ -1,18 +1,11 @@
-name: Filter community tools
+name: Filter community resources
 
 on:
   workflow_dispatch:
-
-  # the workflow it triggered when all tools are fetched
-  workflow_run:
-      workflows: ["Fetch all tools"]
-      types:
-        - completed
-
   # the workflow it also triggered when the community definitions are changed
   push:
     paths:
-    - 'data/communities**'
+    - 'data/communities/*/metadata/*'
     branches: ["main"]
 
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
@@ -21,78 +14,33 @@ concurrency:
   group: "filter"
   cancel-in-progress: false
 
-permissions:
-  contents: write
-
 jobs:
-  filter-all-tutorials:
-    runs-on: ubuntu-20.04
+  filter-resources:
+    name: Filter resources for communities
+    runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout main
+      uses: actions/checkout@v4
     - uses: actions/setup-python@v5
       with:
-        python-version: '3.8' 
+        python-version: '3.11' 
     - name: Install requirement
       run: python -m pip install -r requirements.txt
-    - name: Run script
+    - name: Filter tutorials for communities
       run: | 
-        bash ./bin/get_community_tutorials.sh
-    - name: Commit results
-      # commit the new filtered data, only if stuff was changed
-      run: |
-        git config user.name github-actions
-        git config user.email github-actions@github.com
-        git pull --no-rebase -s recursive -X ours
-        git add results
-        git status
-        git diff --quiet && git diff --staged --quiet || (git commit -m "fetch all tutorials / tools bot  - step tutorial filter") 
-        git push
-
-  update-tools-to-keep-exclude:
-    runs-on: ubuntu-20.04
-    steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-python@v5
+        bash bin/get_community_tutorials.sh
+    - name: Update tool to keep and exclude for communities
+      run: | 
+        bash bin/update_tools_to_keep_exclude.sh
+    - name: Filter tools for communities
+      run: | 
+        bash bin/get_community_tools.sh
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v4
       with:
-        python-version: '3.8' 
-    - name: Install requirement
-      run: python -m pip install -r requirements.txt
-    - name: Run script
-      run: | 
-        bash ./bin/update_tools_to_keep_exclude.sh
-    - name: Commit results
-      # commit the new filtered data, only if stuff was changed
-      run: |
-        git config user.name github-actions
-        git config user.email github-actions@github.com
-        git pull --no-rebase -s recursive -X ours
-        git add results
-        git status
-        git diff --quiet && git diff --staged --quiet || (git commit -m "fetch all tutorials / tools bot  - step exluded/kept tool list update") 
-        git push
-  
-  filter-all-tools:
-    runs-on: ubuntu-20.04
-    steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-python@v5
-      with:
-        python-version: '3.8' 
-    - name: Install requirement
-      run: python -m pip install -r requirements.txt
-    - name: Run script
-      run: | 
-        bash ./bin/get_community_tools.sh
-    - name: Commit results
-      # commit the new filtered data, only if stuff was changed
-      run: |
-        git config user.name github-actions
-        git config user.email github-actions@github.com
-        git pull --no-rebase -s recursive -X ours
-        git add results
-        git status
-        git diff --quiet && git diff --staged --quiet || (git commit -m "fetch all tools bot  - step tool filter") 
-        git push
-  
-
-  
+        commit-message: Update resources
+        title: Resource filtering
+        body: Resource filering done via GitHub Action when the community definitions are changed 
+        base: main
+        branch: resource-filtering
+        delete-branch: true

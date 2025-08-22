@@ -1,162 +1,74 @@
-Galaxy Tool Metadata Extractor
-=====================
+Galaxy Codex
+============
 
-# What is the tool doing?
+Galaxy Communities Dock (Galaxy CoDex) stores resources for Galaxy community contributors - people who are actively developing for Galaxy, from testing & fixing tutorials to administrator servers.
 
-![plot](docs/images/Preprint_flowchart.png)
+Currently, we have two main resources:
+
+1. **Galaxy Community Catalog**: from tools, training & workflows.  The catalog is automatically updated every week.
+2. **Galaxy Labs**: (led by Galaxy Australia!) main and tool panel content for communities to spin up UI-tested & informed subdomain pages
 
 
-This tool automatically collects a table of all available Galaxy tools including their metadata. Therefore, various sources are parsed to collect the metadata, such as:
-* github (parsing each tool wrapper)
-* bio.tools
-* bioconda
-* Galaxy instances (availability, statistics)
+# Join the CoDex
+Any Galaxy Community can be added to this project and benefit from the dedicated resources.
+**Learn [how to add your community](https://training.galaxyproject.org/training-material/topics/community/faqs/codex.html)** in the dedicated GTN tutorial.
 
-The created table can be filtered to only show the tools relevant for a specific community. 
+# 1. Galaxy Community Catalog
+To generate interactive tables that can be embedded into subdomains and websites via an iframe. 
+**Learn [how to generate the Galaxy Community Catalog](https://training.galaxyproject.org/training-material//topics/dev/tutorials/community-tool-table/tutorial.html)** in the dedicated GTN tutorial. 
 
-Any Galaxy community can be added to this project and benefit from a dedicated interactive table that can be embedded into subdomains and website via an iframe. **Learn [how to add your community](https://training.galaxyproject.org/training-material//topics/dev/tutorials/community-tool-table/tutorial.html) in the dedicated GTN toturial**. 
+# 2. Galaxy Lab
+To generate Galaxy Lab content, you can follow [our documentation](https://labs.usegalaxy.org.au/).
 
-The interactive table benefits from EDAM annotations of the tools, this requires, that the tools are annotation via bio.tools.
-**Learn [how to improve metadata for Galaxy tools using the bio.tools registry](https://training.galaxyproject.org/training-material//topics/dev/tutorials/tool-annotation/tutorial.html)**.
+# Vocabulary
+- **Galaxy Community**: Galaxy Community of Practice. You can see a full list of Special Interest Groups in the [SIG Directory](https://galaxyproject.org/community/sig).
+- **Galaxy Server**: Computational power/infrastructure that a Galaxy instance uses, such as usegalaxy.eu or usegalaxy.org
+- **Subdomain**: General term for Galaxy instance aimed at specific community (like microbiome or single-cell). Uses a specific Galaxy server.
+- **Galaxy Lab**: Specific style of UI-informed subdomain, Galaxy Australia built a new method for generating the main and tool panels, known as a Galaxy Lab.
 
-# Tool workflows
+# Editorial Board
+We thank these people for maintaining this resource and providing reviews to pull requests:
+@paulzierep, @bebatut, @neoformit
+Would you be willing to help with reviewing pull requests? Get in touch with any of the editorial board members!
 
-The tool performs the following steps:
+# Galaxy Community Catalog content
 
-- Parse tool GitHub repository from [Planemo monitor listed](https://github.com/galaxyproject/planemo-monitor)
-- Check in each repo, their `.shed.yaml` file and filter for categories, such as metagenomics 
-- Extract metadata from the `.shed.yaml`
-- Extract the requirements in the macros or xml to get version supported in Galaxy
-- Check available against conda version
-- Extract bio.tools information if available in the macros or xml
-- Check available on the 3 main galaxy instances (usegalaxy.eu, usegalaxy.org, usegalaxy.org.au)
-- Get usage statistics form usegalaxy.eu
-- Creates an interactive table for all tools: [All tools](https://galaxyproject.github.io/galaxy_tool_metadata_extractor/)
-- Creates an interactive table for all registered communities, e.g. [microGalaxy](https://galaxyproject.github.io/galaxy_tool_metadata_extractor/microgalaxy/)
+## Tool table
 
-# Usage
+Column | Description
+--- | ---
+Suite ID | ID of Galaxy suite
+Tool IDs | List of Galaxy tool IDs
+Description | Description of the suite
+Homepage | Homepage for tool
+Suite version | Version of the Galaxy suite
+Suite Conda package | Conda package used as requirement for the suite 
+Latest suite conda package version | Latest Conda package version on anaconda
+Suite version status | Update status derived by comparing the suite version to the latest conda package version
+ToolShed categories | 
+EDAM operations | EDAM operations extracted using bio.tools
+EDAM reduced operations | EDAM operations where only the most specific terms are kept, i.e. all terms that are superclasses of other terms are removed
+EDAM topics | EDAM topics extracted using bio.tools
+EDAM reduced topics | EDAM topics where only the most specific terms are kept, i.e. all terms that are superclasses of other terms are removed
+Suite owner | Owner of the Galaxy suite
+Suite source | Path to the Galaxy suite
+bio.tools ID | ID of the bio.tools entry corresponding to the tool
+bio.tools name | Name of the bio.tools entry corresponding to the tool
+bio.tools description | Description in bio.tools entry corresponding to the tool
+bii ID | ID of BII entry corresponding to the tool
+Number of tools available on ...  | Number of tools available on given Galaxy server
+Suite users (last 5 years) on ...  | Number of users of the suite in the last 5 years on given Galaxy server
+Suite users on ...  | Number of users of the suite on given Galaxy server
+Suite runs (last 5 years) on ...  |  Number of runs of the suite tools in the last 5 years on given Galaxy server
+Suite runs on ...  | Number of runs of the suite tools on given Galaxy server
+Suite users (last 5 years) on main servers  |  Number of users of the suite in the last 5 years on all UseGalaxy servers
+Suite users on main servers  | Number of users of the suite on all UseGalaxy servers
+Suite runs (last 5 years) on main servers  | Number of runs of the suite tools in the last 5 years on all UseGalaxy servers
+Suite runs on main servers  | Number of runs of the suite tools on all UseGalaxy servers
+Deprecated | Deprecation status after review by a domain expert
+Related Workflows | Workflows that use at least one tool of the suite
+Related Tutorials | Tutorials that use at least one tool of the suite
+To keep | Status to add to a community after review by a domain expert
 
-## Prepare environment
 
-- Install virtualenv (if not already there)
 
-    ```
-    $ python3 -m pip install --user virtualenv
-    ```
-
-- Create virtual environment
-
-    ```
-    $ python3 -m venv env
-    ```
-
-- Activate virtual environment
-
-    ```
-    $ source env/bin/activate
-    ```
-
-- Install requirements
-
-    ```
-    $ python3 -m pip install -r requirements.txt
-    ```
-
-## Tools
-
-### Extract all tools
-
-1. Get an API key ([personal token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)) for GitHub
-2. Export the GitHub API key as an environment variable:
-
-    ```
-    $ export GITHUB_API_KEY=<your GitHub API key>
-    ```
-
-3. Run the script
-
-    ```
-    $ python bin/extract_all_tools.sh
-    ```
-
-The script will generate a TSV file with each tool found in the list of GitHub repositories and metadata for these tools:
-
-1. Galaxy wrapper id
-2. Description
-3. bio.tool id
-4. bio.tool name
-5. bio.tool description
-6. EDAM operation
-7. EDAM topic
-8. Status
-9. Source
-10. ToolShed categories
-11. ToolShed id
-12. Galaxy wrapper owner
-13. Galaxy wrapper source
-14. Galaxy wrapper version
-15. Conda id
-16. Conda version
-
-### Filter tools based on their categories in the ToolShed
-
-1. Run the extraction as explained before
-2. (Optional) Create a text file with ToolShed categories for which tools need to be extracted: 1 ToolShed category per row ([example for microbial data analysis](data/microgalaxy/categories))
-3. (Optional) Create a TSV (tabular) file with tool status (1 tool suite per row) as 3 columns:
-    - ToolShed ids of tool suites (one per line)
-    - Boolean with True to keep and False to exclude
-    - Boolean with True if deprecated and False if not
-
-    [Example for microbial data analysis](data/microgalaxy/tools_to_keep_exclude.tsv)
-    
-4. Run the tool extractor script
-
-    ```
-    $ python bin/extract_galaxy_tools.py \
-        --tools <Path to JSON file with all extracted tools> \
-        --ts-filtered-tools <Path to output TSV with tools filtered based on ToolShed category>
-        --filtered-tools <Path to output TSV with filtered tools based on ToolShed category and manual curation> \
-        [--categories <Path to ToolShed category file>] \
-        [--status <Path to a TSV file with tool status - 3 columns: ToolShed ids of tool suites, Boolean with True to keep and False to exclude, Boolean with True if deprecated and False if not>]
-    ```
-
-## Training
-
-### Extract tutorials from GTN
-
-1. Get an API key ([personal token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)) for Plausible
-2. Export the Plausible API key as an environment variable:
-
-    ```
-    $ export PLAUSIBLE_API_KEY=<your GitHub API key>
-    ```
-
-3. Run the script
-
-    ```
-    $ python bin/extract_all_tutorials.sh
-    ```
-
-### Filter tutorials based on tags
-
-1. Run the extraction as explained before
-2. Create a file named `tutorial_tags` in your community `data` folder with the list of tutorial tags to keep
-3. Run the following command
-
-    ```
-    $ python bin/extract_gtn_tutorials.py \
-        filtertutorials \
-        --all_tutorials "results/all_tutorials.json" \
-        --filtered_tutorials "results/<your community>/tutorials.tsv" \
-        --tags "data/communities/<your community>/tutorial_tags"
-    ```
-
-## Development
-
-To make a test run of the tool to check its functionalities follow [Usage](#Usage) to set-up the environnement and the API key, then run
-
-```bash
-bash ./bin/extract_all_tools_test.sh test.list
-```
-
-This runs the tool, but only parses the test repository [Galaxy-Tool-Metadata-Extractor-Test-Wrapper](https://github.com/paulzierep/Galaxy-Tool-Metadata-Extractor-Test-Wrapper)

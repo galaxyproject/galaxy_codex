@@ -1,0 +1,442 @@
+name: Single Cell
+type: generic
+id: singlecell
+items:
+- id: general_section
+  text: General Tools
+  type: label
+- sections:
+  # These will be named differently on each server:
+  - getext  # "Get Data"
+  - send    # "Send Data"
+  - collection_operations
+  - plots
+  - textutil
+  - filter
+  - group
+- id: sc_tools
+  text: Single Cell Tools
+  type: label
+- id: importSC
+  name: Import/manipulate SC data
+  type: section
+  items:
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bgruening/alevin/alevin
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/anndata_ops/anndata_ops
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bgruening/music_construct_eset/music_construct_eset
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bgruening/10x_bamtofastq/10x_bamtofastq
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/droplet_barcode_plot/_dropletBarcodePlot
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/dropletutils/dropletutils
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/dropletutils_empty_drops/dropletutils_empty_drops
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/dropletutils_read_10x/dropletutils_read_10x
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/retrieve_scxa/retrieve_scxa
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/anndata_export/anndata_export
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/anndata_inspect/anndata_inspect
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bgruening/music_inspect_eset/music_inspect_eset
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/anndata_manipulate/anndata_manipulate
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/modify_loom/modify_loom
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/monocle3_create/monocle3_create
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/salmon_kallisto_mtx_to_10x/_salmon_kallisto_mtx_to_10x
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/scater_read_10x_results/scater_read_10x_results
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/sceasy_convert/sceasy_convert
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/scpipe/scpipe
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/artbio/gsc_scran_normalize/scran_normalize
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/umi_tools_count/umi_tools_count
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/umi_tools_dedup/umi_tools_dedup
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/umi_tools_extract/umi_tools_extract
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/umi_tools_group/umi_tools_group
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/umi_tools_whitelist/umi_tools_whitelist
+- id: scanpy
+  type: section
+  name: Scanpy
+  items:
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/scanpy_cluster_reduce_dimension/scanpy_cluster_reduce_dimension
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/scanpy_filter/scanpy_filter
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/scanpy_inspect/scanpy_inspect
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/scanpy_normalize/scanpy_normalize
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/scanpy_plot/scanpy_plot
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/scanpy_remove_confounders/scanpy_remove_confounders
+- id: monocle3
+  type: section
+  name: Monocle3
+  items:
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/monocle3_create/monocle3_create
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/monocle3_diffexp/monocle3_diffExp
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/monocle3_learngraph/monocle3_learnGraph
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/monocle3_ordercells/monocle3_orderCells
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/monocle3_partition/monocle3_partition
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/monocle3_plotcells/monocle3_plotCells
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/monocle3_preprocess/monocle3_preprocess
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/monocle3_reducedim/monocle3_reduceDim
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/monocle3_topmarkers/monocle3_topmarkers
+- id: inference
+  type: section
+  name: Inference
+  items:
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bgruening/music_deconvolution/music_deconvolution
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bgruening/music_compare/music_compare
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/velocyto_cli/velocyto_cli
+- id: spatial
+  type: section
+  name: Spatial
+  items:
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/perssond/quantification/quantification
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/goeckslab/cell_intensity_processing/cell_intensity_processing
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/perssond/s3segmenter/s3segmenter
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/imgteam/slice_image/ip_slice_image
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/goeckslab/squidpy/squidpy_spatial
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/goeckslab/vitessce_spatial/vitessce_spatial
+- id: multiomics
+  type: section
+  name: Multiomics
+  items:
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/episcanpy_build_matrix/episcanpy_build_matrix
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/cite_seq_count/cite_seq_count
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/episcanpy_cluster_embed/episcanpy_cluster_embed
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/episcanpy_preprocess/episcanpy_preprocess
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/sinto_barcode/sinto_barcode
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/sinto_fragments/sinto_fragments
+- id: hca-scanpy
+  type: section
+  name: HCA-Scanpy
+  items:
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/anndata_ops/anndata_ops
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/seurat_plot/seurat_plot
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/scanpy_integrate_bbknn/scanpy_integrate_bbknn
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/scanpy_integrate_combat/scanpy_integrate_combat
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/scanpy_compute_graph/scanpy_compute_graph
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/scanpy_run_diffmap/scanpy_run_diffmap
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/scanpy_run_dpt/scanpy_run_dpt
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/scanpy_filter_cells/scanpy_filter_cells
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/scanpy_filter_genes/scanpy_filter_genes
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/scanpy_find_cluster/scanpy_find_cluster
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/scanpy_find_markers/scanpy_find_markers
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/scanpy_find_variable_genes/scanpy_find_variable_genes
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/scanpy_integrate_harmony/scanpy_integrate_harmony
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/scanpy_integrate_mnn/scanpy_integrate_mnn
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/scanpy_normalise_data/scanpy_normalise_data
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/scanpy_run_paga/scanpy_run_paga
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/scanpy_parameter_iterator/scanpy_parameter_iterator
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/scanpy_plot_scrublet/scanpy_plot_scrublet
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/scanpy_plot_embed/scanpy_plot_embed
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/scanpy_plot_trajectory/scanpy_plot_trajectory
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/scanpy_read_10x/scanpy_read_10x
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/scanpy_regress_variable/scanpy_regress_variable
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/scanpy_run_fdg/scanpy_run_fdg
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/scanpy_run_pca/scanpy_run_pca
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/scanpy_run_tsne/scanpy_run_tsne
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/scanpy_run_umap/scanpy_run_umap
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/scanpy_scale_data/scanpy_scale_data
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/scanpy_multiplet_scrublet/scanpy_multiplet_scrublet
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/seurat_run_umap/seurat_run_umap
+- id: seurat
+  type: section
+  name: Seurat
+  items:
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/seurat/seurat
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/seurat_create_seurat_object/seurat_create_seurat_object
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/seurat_export_cellbrowser/seurat_export_cellbrowser
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/seurat_filter_cells/seurat_filter_cells
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/seurat_find_clusters/seurat_find_clusters
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/seurat_find_markers/seurat_find_markers
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/seurat_find_neighbours/seurat_find_neighbours
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/seurat_find_variable_genes/seurat_find_variable_genes
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/seurat_normalise_data/seurat_normalise_data
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/seurat_dim_plot/seurat_dim_plot
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/seurat_read10x/seurat_read10x
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/seurat_run_pca/seurat_run_pca
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/seurat_run_tsne/seurat_run_tsne
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/seurat_scale_data/seurat_scale_data
+- id: raceid
+  type: section
+  name: RaceID
+  items:
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/raceid_inspectclusters/raceid_inspectclusters
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/raceid_clustering/raceid_clustering
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/raceid_filtnormconf/raceid_filtnormconf
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/raceid_inspecttrajectory/raceid_inspecttrajectory
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/raceid_trajectory/raceid_trajectory
+- id: hicexplorer
+  type: section
+  name: HiCExplorer
+  items:
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bgruening/hicexplorer_chicaggregatestatistic/hicexplorer_chicaggregatestatistic
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bgruening/hicexplorer_chicdifferentialtest/hicexplorer_chicdifferentialtest
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bgruening/hicexplorer_chicexportdata/hicexplorer_chicexportdata
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bgruening/hicexplorer_chicplotviewpoint/hicexplorer_chicplotviewpoint
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bgruening/hicexplorer_chicqualitycontrol/hicexplorer_chicqualitycontrol
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bgruening/hicexplorer_chicsignificantinteractions/hicexplorer_chicsignificantinteractions
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bgruening/hicexplorer_chicviewpoint/hicexplorer_chicviewpoint
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bgruening/hicexplorer_chicqualitycontrol/hicexplorer_chicqualitycontrol
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bgruening/hicexplorer_chicsignificantinteractions/hicexplorer_chicsignificantinteractions
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bgruening/hicexplorer_chicviewpoint/hicexplorer_chicviewpoint
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bgruening/hicexplorer_chicviewpointbackgroundmodel/hicexplorer_chicviewpointbackgroundmodel
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bgruening/hicexplorer_hicadjustmatrix/hicexplorer_hicadjustmatrix
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bgruening/hicexplorer_hicaggregatecontacts/hicexplorer_hicaggregatecontacts
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bgruening/hicexplorer_hicaverageregions/hicexplorer_hicaverageregions
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bgruening/hicexplorer_hicbuildmatrix/hicexplorer_hicbuildmatrix
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bgruening/hicexplorer_hiccomparematrices/hicexplorer_hiccomparematrices
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bgruening/hicexplorer_hiccompartmentspolarization/hicexplorer_hiccompartmentspolarization
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bgruening/hicexplorer_hicconvertformat/hicexplorer_hicconvertformat
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bgruening/hicexplorer_hiccorrectmatrix/hicexplorer_hiccorrectmatrix
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bgruening/hicexplorer_hiccorrelate/hicexplorer_hiccorrelate
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bgruening/hicexplorer_hicdetectloops/hicexplorer_hicdetectloops
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bgruening/hicexplorer_hicdifferentialtad/hicexplorer_hicdifferentialtad
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bgruening/hicexplorer_hicfindrestrictionsites/hicexplorer_hicfindrestrictionsites
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bgruening/hicexplorer_hicfindtads/hicexplorer_hicfindtads
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bgruening/hicexplorer_hichyperoptdetectloops/hicexplorer_hichyperoptDetectLoops
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bgruening/hicexplorer_hicinfo/hicexplorer_hicinfo
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bgruening/hicexplorer_hicinterintratad/hicexplorer_hicinterintratad
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bgruening/hicexplorer_hicmergedomains/hicexplorer_hicmergedomains
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bgruening/hicexplorer_hicmergeloops/hicexplorer_hicmergeloops
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bgruening/hicexplorer_hicmergematrixbins/hicexplorer_hicmergematrixbins
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bgruening/hicexplorer_hicnormalize/hicexplorer_hicnormalize
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bgruening/hicexplorer_hicpca/hicexplorer_hicpca
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bgruening/hicexplorer_hicplotaverageregions/hicexplorer_hicplotaverageregions
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bgruening/hicexplorer_hicplotdistvscounts/hicexplorer_hicplotdistvscounts
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bgruening/hicexplorer_hicplotmatrix/hicexplorer_hicplotmatrix
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bgruening/hicexplorer_hicplotsvl/hicexplorer_hicplotsvl
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bgruening/hicexplorer_hicplottads/hicexplorer_hicplottads
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bgruening/hicexplorer_hicplotviewpoint/hicexplorer_hicplotviewpoint+galaxy0
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bgruening/hicexplorer_hicquickqc/hicexplorer_hicquickqc
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bgruening/hicexplorer_hicsummatrices/hicexplorer_hicsummatrices
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bgruening/hicexplorer_hictadclassifier/hicexplorer_hictadclassifier
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bgruening/hicexplorer_hictraintadclassifier/hicexplorer_hictraintadclassifier
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bgruening/hicexplorer_hictransform/hicexplorer_hictransform
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/bgruening/hicexplorer_hicvalidatelocations/hicexplorer_hicvalidatelocations
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/schicexplorer_schicadjustmatrix/schicexplorer_schicadjustmatrix
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/schicexplorer_schiccluster/schicexplorer_schiccluster
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/schicexplorer_schicclustercompartments/schicexplorer_schicclustercompartments
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/schicexplorer_schicclusterminhash/schicexplorer_schicclusterminhash
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/schicexplorer_schicclustersvl/schicexplorer_schicclustersvl
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/schicexplorer_schicconsensusmatrices/schicexplorer_schicconsensusmatrices
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/schicexplorer_schiccorrectmatrices/schicexplorer_schiccorrectmatrices
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/schicexplorer_schiccreatebulkmatrix/schicexplorer_schiccreatebulkmatrix
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/schicexplorer_schicdemultiplex/schicexplorer_schicdemultiplex
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/schicexplorer_schicinfo/schicexplorer_schicinfo
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/schicexplorer_schicmergematrixbins/schicexplorer_schicmergematrixbins
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/schicexplorer_schicmergetoscool/schicexplorer_schicmergetoscool
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/schicexplorer_schicnormalize/schicexplorer_schicnormalize
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/schicexplorer_schicplotclusterprofiles/schicexplorer_schicplotclusterprofiles
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/schicexplorer_schicplotconsensusmatrices/schicexplorer_schicplotconsensusmatrices
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/schicexplorer_schicqualitycontrol/schicexplorer_schicqualitycontrol
+- id: sccaf
+  type: section
+  name: SCCAF
+  items:
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/run_sccaf/run_sccaf
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/sccaf_asses/sccaf_asses
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/sccaf_asses_merger/sccaf_asses_merger
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/sccaf_regress_out/sccaf_regress_out
+- id: others-sc
+  type: section
+  name: Other Single Cell Tools
+  items:
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/baredsc_1d/baredsc_1d
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/baredsc_2d/baredsc_2d
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/baredsc_combine_1d/baredsc_combine_1d
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/baredsc_combine_2d/baredsc_combine_2d
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/anndata_import/anndata_import
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/artbio/gsc_scran_normalize/scran_normalize
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/snapatac2_clustering/snapatac2_clustering
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/snapatac2_peaks_and_motif/snapatac2_peaks_and_motif
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/snapatac2_plotting/snapatac2_plotting
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/iuc/snapatac2_preprocessing/snapatac2_preprocessing
+- id: interactive_tools
+  text: Interactive tools
+  type: label
+- id: it
+  type: section
+  name: Interactive Tools
+  items:
+  - type: tool
+    id: interactive_tool_cellxgene
+  - type: tool
+    id: interactive_tool_jupyter_notebook
+  - type: tool
+    id: interactive_tool_isee
+  - type: tool
+    id: interactive_tool_rstudio
+  - type: tool
+    id: toolshed.g2.bx.psu.edu/repos/ebi-gxa/ucsc_cell_browser/ucsc_cell_browser
+  - type: tool
+    id: interactive_tool_cellxgene
+  - type: tool
+    id: interactive_tool_isee
