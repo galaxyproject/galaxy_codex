@@ -1168,6 +1168,7 @@ if __name__ == "__main__":
         # parse tools in GitHub repositories to extract metadata, filter by TS categories and export to output file
         edam_ontology = get_ontology("https://edamontology.org/EDAM_1.25.owl").load()
         tools = get_tools(repo_list, args.all_workflows, args.all_tutorials, edam_ontology)
+        print(tools)
         export_tools_to_json(tools, args.all)
         export_tools_to_tsv(tools, args.all_tsv, format_list_col=True)
 
