@@ -1,0 +1,208 @@
+id: assembly-annotation
+title: Genome Assembly and Annotation
+tabs:
+- id: overview
+  title: Overview
+  heading_md: "Genome assembly and annotation are essential in biodiversity research. Annotated reference genomes enable comparisons within and between species, helping scientists analyze population structures and evolutionary processes. \n"
+  content:
+- id: tools
+  title: Tools
+  heading_md: "Flagship tools for genome assembly and annotation\n"
+  content:
+    subsections:
+    - id: assembly
+      title: Genome Assembly
+      content:
+      - title_md: <code>Hifiasm</code> - A haplotype-resolved assembler for accurate Hifi reads
+        button_link: '{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/hifiasm/hifiasm'
+        description_md: "Hifiasm.\n"
+    - id: annotation
+      title: Genome Annotation
+      content:
+      - title_md: <code>EGAPx</code> - Eukaryotic Genome Annotation Pipeline - External
+        button_link: '{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/richard-burhans/ncbi_egapx/ncbi_egapx'
+        description_md: "EGAPx.\n"
+- id: interactive-tools
+  title: Interactive tools
+  heading_md: "Interactive tools for genome annotation and assembly \n"
+  content:
+  - title_md: <code>RStudio</code> - An integrated development environment (IDE)
+      for R and Python
+    description_md: "This familiar R analysis software suite will let you explore
+      your datasets in depth. Comes with ggplot2, RODBC, maps, shinyapps, knitr, LaTeX,
+      bioconductor, cummeRbund, and many more pre-installed packages.\n"
+    button_link: '{{ galaxy_base_url }}/root?tool_id=interactive_tool_rstudio'
+  - title_md: <code>Interactive JupyterLab Notebook</code> - A web-based 
+      interactive computing platform
+    description_md: "The Jupyter Notebook is an open-source web application that allows
+      you to create and share documents that contain live code, equations, visualizations,
+      and narrative text. Uses include: data cleaning and transformation, numerical
+      simulation, statistical modeling, data visualization, machine learning, and
+      much more.\n"
+    inputs:
+    - datatypes:
+      - Jupyter Notebook
+    button_link: '{{ galaxy_base_url }}/root?tool_id=interactive_tool_jupyter_notebook'
+- id: databases
+  title: Databases
+  heading_md: Examples of databases that can be relevant for genomic assembly and annotation.
+  content:
+    subsections:
+    - id: genomic-databases
+      title: Genomic Databases
+      content:
+      - title_md: <code>NCBI RefSeq</code> - Reference genome database
+        button_link: https://www.ncbi.nlm.nih.gov/refseq/
+        button_tip: Visit NCBI RefSeq
+        description_md: "A comprehensive collection of reference genomes for bacteria,
+          archaea, and eukaryotes. Used in tools such as [<code>Prokka</code>]({{
+          galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/crs4/prokka/prokka)
+          and [<code>Bakta</code>]({{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/bakta/bakta).\n"
+      - title_md: <code>ENA</code> - European Nucleotide Archive
+        button_link: https://www.ebi.ac.uk/ena
+        button_tip: Visit ENA
+        description_md: "A primary repository for nucleotide sequencing data. Used
+          in tools such as [<code>EBI Search</code>]({{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/ebi_search_rest_results/ebi_search_rest_results).\n"
+      - title_md: <code>NCBI GenBank</code> - Public Sequence Database
+        button_link: https://www.ncbi.nlm.nih.gov/genbank/
+        button_tip: Visit GenBank
+        description_md: "A comprehensive open-access collection of annotated nucleotide
+          sequences. Used in tools such as [<code>Prokka</code>]({{ galaxy_base_url
+          }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/crs4/prokka/prokka) and [<code>Bakta</code>]({{
+          galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/bakta/bakta).\n"
+- id: workflows
+  title: Workflows
+  heading_md: Genome Assembly and Annotation workflows to use directly, modify or 
+    take ideas from
+  content:
+    subsections:
+    - id: assembly
+      title: Genome Assembly
+      content:
+      - title_md: Datasets Quality Control
+        description_md: "General quality controlling workflow.\n"
+        button_link: '{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=222'
+        button_tip: Import workflow
+        button_icon: run
+      - title_md: Assembly with Flye
+        description_md: "Assemble long reads with Flye, then view assembly statistics
+          and assembly graph.\n"
+        button_link: '{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=750'
+        button_tip: Import workflow
+        button_icon: run
+    - id: annotation
+      title: Genome Annotation
+      content:
+      - title_md: Refining Genome Annotations with Apollo (prokaryotes)
+        description_md: "Refining Genome Annotations with Apollo.\n"
+        button_link: '{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=749'
+        button_tip: Import workflow
+        button_icon: run
+      - title_md: Genome annotation workflow with Helixer
+        description_md: "This workflow allows you to annotate a genome with Helixer
+          and evaluate the quality of the annotation using BUSCO and Genome Annotation
+          statistics. GFFRead is also used to predict protein sequences derived from
+          this annotation, and BUSCO and OMArk are used to assess proteome quality.\n"
+        button_link: '{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=1255'
+        button_tip: Import workflow
+        button_icon: run
+- id: tutorials
+  title: Tutorials
+  heading_md: Tutorials to train you to perform genome assembly and annotation
+  content:
+    subsections:
+    - id: assembly
+      title: Genome Assembly
+      content:
+      - title_md: An Introduction to Genome Assembly
+        description_md: How to perform a very basic genome assembly from short read data
+        button_link: 
+          https://training.galaxyproject.org/training-material/topics/assembly/tutorials/general-introduction/tutorial.html
+        button_tip: View tutorial
+        button_icon: tutorial
+      - title_md: De Bruijn Graph Assembly
+        description_md: Perform de novo assemblies of a short read set using the Velvet Optimiser and the SPAdes assemblers
+        button_link: 
+          https://training.galaxyproject.org/training-material/topics/assembly/tutorials/debruijn-graph-assembly/tutorial.html
+        button_tip: View tutorial
+        button_icon: tutorial
+      - title_md: Genome assembly using PacBio data
+        description_md: In this tutorial, we will assemble a genome of a species of fungi in the family Aspergillus, Aspergillus niger, from PacBio sequencing data. These data will be downloaded from ENA. The quality of the assembly obtained will be analyzed, in particular by comparing it to a reference assembly, available on ENA.
+        button_link: 
+          https://training.galaxyproject.org/training-material/topics/assembly/tutorials/hifi-assembly/tutorial.html
+        button_tip: View tutorial
+        button_icon: tutorial
+      - title_md: Vertebrate genome assembly using HiFi, Bionano and Hi-C data - Step by Step
+        description_md: This tutorial will guide you step by step to assemble a high-quality genome using the VGP assembly pipeline, including multiple Quality Control (QC) evaluations.
+        button_link: 
+          https://training.galaxyproject.org/training-material/topics/assembly/tutorials/vgp_genome_assembly/tutorial.html
+        button_tip: View tutorial
+        button_icon: tutorial
+      - title_md: Using the VGP workflows to assemble a vertebrate genome with HiFi and Hi-C data
+        description_md: This tutorial provides a quick example of how to run these workflows for one particular scenario, which is, based on our experience, the most common, assembling genomes using HiFi Reads combined with Hi-C data (both generated from the same individual).
+        button_link: 
+          https://training.galaxyproject.org/training-material/topics/assembly/tutorials/vgp_workflow_training/tutorial.html
+        button_tip: View tutorial
+        button_icon: tutorial
+      - title_md: Large genome assembly and polishing
+        description_md: How to assemble a large plant or animal genome.
+        button_link: 
+          https://training.galaxyproject.org/training-material/topics/assembly/tutorials/largegenome/tutorial.html
+        button_tip: View tutorial
+        button_icon: tutorial    
+      - title_md: Decontamination of a genome assembly
+        description_md: Remove contaminant sequences from your assembly
+        button_link: 
+          https://training.galaxyproject.org/training-material/topics/assembly/tutorials/assembly-decontamination/tutorial.html
+        button_tip: View tutorial
+        button_icon: tutorial
+      - title_md: ERGA post-assembly QC
+        description_md: In this tutorial you will learn how to implement the ERGA Genome Assembly QC pipeline, and how to interpretate the potential outcomes.
+        button_link: 
+          https://training.galaxyproject.org/training-material/topics/assembly/tutorials/ERGA-post-assembly-QC/tutorial.html
+        button_tip: View tutorial
+        button_icon: tutorial
+      - title_md: Genome Assembly Quality Control
+        description_md: In this tutorial, we will assess the assembly quality of 2 assemblies generated with Hifiasm and Flye using PacBio HiFi reads of a species of fungi, Saccharomyces cerevisiae INSC1019 and compare the results with the actual reference genome Saccharomyces cerevisiae S288C.
+        button_link: 
+          https://training.galaxyproject.org/training-material/topics/assembly/tutorials/assembly-quality-control/tutorial.html
+        button_tip: View tutorial
+        button_icon: tutorial
+    - id: annotation
+      title: Genome Annotation
+      content:
+      - title_md: Genome annotation with Braker3
+        description_md: In this tutorial we will use a software tool called Braker3 to annotate the genome sequence of a small eukaryote, Mucor mucedo (a fungal plant pathogen).
+        button_link: 
+            https://training.galaxyproject.org/training-material/topics/genome-annotation/tutorials/braker3/tutorial.html
+        button_tip: View tutorial
+        button_icon: tutorial
+      - title_md: Genome annotation with Helixer
+        description_md: In this tutorial we will use a software tool called Helixer to annotate the genome sequence of a small eukaryote, Mucor mucedo (a fungal plant pathogen).
+        button_link: https://training.galaxyproject.org/training-material/topics/genome-annotation/tutorials/helixer/tutorial.html
+        button_tip: View tutorial
+        button_icon: tutorial
+      - title_md: Genome annotation with Funannotate
+        description_md: In this tutorial, you will learn how to perform a structural genome annotation, and how to evaluate its quality. Then, you will learn how to run functional annotation, using EggNOG-mapper and InterProScan to automatically assign names and functions to the annotated genes. And you will also learn how Funannotate can prepare files ready for submission of your annotation to the NCBI. Finally, you will learn how to use the JBrowse genome browser to visualise your new annotation.).
+        button_link: 
+          https://training.galaxyproject.org/training-material/topics/genome-annotation/tutorials/funannotate/tutorial.html
+        button_tip: View tutorial
+        button_icon: tutorial
+      - title_md: Genome annotation with Maker
+        description_md: In this tutorial we will use a software tool called Maker Campbell et al. 2014 to annotate the genome sequence of a small eukaryote, Schizosaccharomyces pombe (a yeast).
+        button_link: 
+          https://training.galaxyproject.org/training-material/topics/genome-annotation/tutorials/annotation-with-maker/tutorial.html
+        button_tip: View tutorial
+        button_icon: tutorial
+      - title_md: Long non-coding RNAs (lncRNAs) annotation with FEELnc
+        description_md: In this tutorial, we will use a software tool called StringTie to assemble the transcripts and then FEELnc to annotate the assembled transcripts of a small eukaryote, Mucor mucedo (a fungal plant pathogen).
+        button_link: 
+            https://training.galaxyproject.org/training-material/topics/genome-annotation/tutorials/lncrna/tutorial.html
+        button_tip: View tutorial
+        button_icon: tutorial
+      - title_md: Functional annotation of protein sequences
+        description_md: In this short tutorial, we will run the most commonly used tools to perform functional annotation, starting from the predicted protein sequences of a few example genes.
+        button_link: 
+            https://training.galaxyproject.org/training-material/topics/genome-annotation/tutorials/functional/tutorial.html
+        button_tip: View tutorial
+        button_icon: tutorial
