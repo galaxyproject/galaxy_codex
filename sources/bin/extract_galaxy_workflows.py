@@ -397,6 +397,8 @@ class Workflows:
             if wf.source == "WorkflowHub":
                 if "Intergalactic Workflow Commission (IWC)" in wf.projects:
                     self.grouped_workflows["iwc"].append(wf)
+                elif "Galaxy Training Network" in wf.projects:
+                    self.grouped_workflows["gtn"].append(wf)
                 else:
                     self.grouped_workflows["other_workflowhub"].append(wf)
             elif wf.source == "dev.WorkflowHub":
