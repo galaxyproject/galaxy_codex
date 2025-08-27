@@ -1,12 +1,676 @@
 [
     {
+        "create_time": "2025-08-22",
+        "creators": [
+            "ABRomics None",
+            "Pierre Marin",
+            "Clea Siguret"
+        ],
+        "deprecated": false,
+        "doi": null,
+        "edam_operation": [
+            "Sequence assembly validation",
+            "Taxonomic classification",
+            "Sequence composition calculation",
+            "Expression analysis",
+            "Visualisation",
+            "Statistical calculation",
+            "Sequencing quality control",
+            "Data parsing",
+            "Cross-assembly",
+            "Validation"
+        ],
+        "edam_topic": [],
+        "id": "1882",
+        "keep": true,
+        "latest_version": 1,
+        "license": "GPL-3.0-or-later",
+        "link": "https://workflowhub.eu/workflows/1882?version=1",
+        "name": "bacterial-quality-and-contamination-control-post-assembly/main",
+        "number_of_steps": 14,
+        "projects": [
+            "Intergalactic Workflow Commission (IWC)"
+        ],
+        "source": "WorkflowHub",
+        "tags": [],
+        "tools": [
+            "kraken2",
+            "tooldistillator",
+            "collapse_dataset",
+            "pick_value",
+            "checkm2",
+            "quast",
+            "recentrifuge",
+            "est_abundance",
+            "tooldistillator_summarize"
+        ],
+        "update_time": "2025-08-22",
+        "versions": 1
+    },
+    {
+        "create_time": "2025-07-31",
+        "creators": [
+            "Peter van Heusden"
+        ],
+        "deprecated": false,
+        "doi": null,
+        "edam_operation": [
+            "Read mapping",
+            "Generation",
+            "Variant classification",
+            "Variant calling",
+            "Tree-based sequence alignment",
+            "Sequence contamination filtering",
+            "Primer removal",
+            "Genome indexing",
+            "SNP detection",
+            "Sequencing quality control",
+            "Sequence alignment",
+            "Validation",
+            "Methylation analysis"
+        ],
+        "edam_topic": [],
+        "id": "155",
+        "keep": true,
+        "latest_version": 6,
+        "license": "MIT",
+        "link": "https://workflowhub.eu/workflows/155?version=6",
+        "name": "sars-cov-2-pe-illumina-artic-ivar-analysis/SARS-COV-2-ILLUMINA-AMPLICON-IVAR-PANGOLIN-NEXTCLADE",
+        "number_of_steps": 16,
+        "projects": [
+            "Intergalactic Workflow Commission (IWC)"
+        ],
+        "source": "WorkflowHub",
+        "tags": [
+            "virology"
+        ],
+        "tools": [
+            "ivar_trim",
+            "qualimap_bamqc",
+            "__FLATTEN__",
+            "pangolin",
+            "nextclade",
+            "ivar_variants",
+            "multiqc",
+            "fastp",
+            "snpeff_sars_cov_2",
+            "ivar_consensus",
+            "tp_cat",
+            "tp_sed_tool",
+            "bwa_mem",
+            "samtools_stats",
+            "samtools_view"
+        ],
+        "update_time": "2025-08-19",
+        "versions": 6
+    },
+    {
+        "create_time": "2021-12-21",
+        "creators": [
+            "Wolfgang Maier"
+        ],
+        "deprecated": false,
+        "doi": null,
+        "edam_operation": [
+            "Read mapping",
+            "Generation",
+            "Sequence contamination filtering",
+            "Genome indexing",
+            "Formatting",
+            "SNP detection",
+            "Sequencing quality control",
+            "Sequence alignment",
+            "Validation"
+        ],
+        "edam_topic": [],
+        "id": "113",
+        "keep": true,
+        "latest_version": 4,
+        "license": "MIT",
+        "link": "https://workflowhub.eu/workflows/113?version=4",
+        "name": "sars-cov-2-pe-illumina-wgs-variant-calling/COVID-19-PE-WGS-ILLUMINA",
+        "number_of_steps": 11,
+        "projects": [
+            "Intergalactic Workflow Commission (IWC)"
+        ],
+        "source": "WorkflowHub",
+        "tags": [
+            "virology",
+            "covid-19",
+            "covid19.galaxyproject.org",
+            "emergen_validated"
+        ],
+        "tools": [
+            "lofreq_call",
+            "picard_MarkDuplicates",
+            "snpeff_sars_cov_2",
+            "multiqc",
+            "fastp",
+            "lofreq_viterbi",
+            "bwa_mem",
+            "lofreq_indelqual",
+            "samtools_stats",
+            "samtools_view",
+            "lofreq_filter"
+        ],
+        "update_time": "2025-08-19",
+        "versions": 4
+    },
+    {
+        "create_time": "2025-08-19",
+        "creators": [
+            "Peter van Heusden",
+            "Wolfgang Maier"
+        ],
+        "deprecated": false,
+        "doi": null,
+        "edam_operation": [
+            "Read mapping",
+            "Generation",
+            "Sequence contamination filtering",
+            "Primer removal",
+            "Genome indexing",
+            "Sequencing quality control",
+            "Sequence alignment",
+            "Validation"
+        ],
+        "edam_topic": [],
+        "id": "1876",
+        "keep": true,
+        "latest_version": 1,
+        "license": "AGPL-3.0-or-later",
+        "link": "https://workflowhub.eu/workflows/1876?version=1",
+        "name": "generic-non-segmented-viral-variant-calling/main",
+        "number_of_steps": 23,
+        "projects": [
+            "Intergalactic Workflow Commission (IWC)"
+        ],
+        "source": "WorkflowHub",
+        "tags": [
+            "virology"
+        ],
+        "tools": [
+            "ivar_trim",
+            "ivar_variants",
+            "multiqc",
+            "calculate_numeric_param",
+            "samtools_view",
+            "__FILTER_FAILED_DATASETS__",
+            "snpEff",
+            "map_param_value",
+            "collapse_dataset",
+            "bwa_mem",
+            "snpSift_extractFields",
+            "samtools_stats",
+            "tp_find_and_replace",
+            "snpEff_build_gb",
+            "lofreq_viterbi",
+            "__FLATTEN__",
+            "qualimap_bamqc",
+            "fastp",
+            "pick_value",
+            "ivar_consensus",
+            "tp_cat",
+            "tp_sed_tool"
+        ],
+        "update_time": "2025-08-19",
+        "versions": 1
+    },
+    {
+        "create_time": "2025-05-14",
+        "creators": [
+            "Viktoria Isabel Schwarz",
+            "Wolfgang Maier",
+            "Aaron Kolbecher",
+            "Saim Momin"
+        ],
+        "deprecated": false,
+        "doi": null,
+        "edam_operation": [
+            "Read mapping",
+            "Multiple sequence alignment",
+            "Generation",
+            "Data retrieval",
+            "Sequence analysis",
+            "Phylogenetic analysis",
+            "Sequence contamination filtering",
+            "Primer removal",
+            "Base position variability plotting",
+            "Genome indexing",
+            "Sequence alignment analysis",
+            "Data handling",
+            "Sequencing quality control",
+            "Sequence file editing",
+            "Sequence alignment",
+            "De-novo assembly"
+        ],
+        "edam_topic": [],
+        "id": "1260",
+        "keep": true,
+        "latest_version": 2,
+        "license": "AGPL-3.0-or-later",
+        "link": "https://workflowhub.eu/workflows/1260?version=2",
+        "name": "influenza-isolates-consensus-and-subtyping/main",
+        "number_of_steps": 41,
+        "projects": [
+            "Intergalactic Workflow Commission (IWC)"
+        ],
+        "source": "WorkflowHub",
+        "tags": [
+            "virology"
+        ],
+        "tools": [
+            "__APPLY_RULES__",
+            "Paste1",
+            "bamtools_split_ref",
+            "samtools_view",
+            "Show beginning1",
+            "__UNZIP_COLLECTION__",
+            "__EXTRACT_DATASET__",
+            "collection_element_identifiers",
+            "map_param_value",
+            "vapor",
+            "rbc_mafft",
+            "Grep1",
+            "collapse_dataset",
+            "bwa_mem",
+            "wc_gnu",
+            "tp_find_and_replace",
+            "qualimap_bamqc",
+            "iqtree",
+            "fastp",
+            "seqtk_subseq",
+            "ivar_consensus",
+            "pick_value",
+            "snipit",
+            "__RELABEL_FROM_FILE__",
+            "__DUPLICATE_FILE_TO_COLLECTION__",
+            "param_value_from_file"
+        ],
+        "update_time": "2025-08-19",
+        "versions": 2
+    },
+    {
+        "create_time": "2025-03-26",
+        "creators": [
+            "Viktoria Isabel Schwarz",
+            "Wolfgang Maier"
+        ],
+        "deprecated": false,
+        "doi": null,
+        "edam_operation": [
+            "Read mapping",
+            "Generation",
+            "Sequence analysis",
+            "Sequence contamination filtering",
+            "Primer removal",
+            "Genome indexing",
+            "Sequence alignment analysis",
+            "Global alignment",
+            "Sequencing quality control",
+            "Local alignment",
+            "Sequence alignment",
+            "Validation"
+        ],
+        "edam_topic": [],
+        "id": "439",
+        "keep": true,
+        "latest_version": 3,
+        "license": "MIT",
+        "link": "https://workflowhub.eu/workflows/439?version=3",
+        "name": "pox-virus-amplicon/main",
+        "number_of_steps": 40,
+        "projects": [
+            "Intergalactic Workflow Commission (IWC)"
+        ],
+        "source": "WorkflowHub",
+        "tags": [
+            "virology",
+            "pox"
+        ],
+        "tools": [
+            "ivar_trim",
+            "multiqc",
+            "compose_text_param",
+            "\n __FLATTEN__",
+            "datamash_ops",
+            "samtools_view",
+            "\n Cut1",
+            "\n __ZIP_COLLECTION__",
+            "collection_element_identifiers",
+            "\n Grep1",
+            "bwa_mem",
+            "\n param_value_from_file",
+            "samtools_stats",
+            "\n __APPLY_RULES__",
+            "qualimap_bamqc",
+            "fasta_compute_length",
+            "samtools_merge",
+            "split_file_to_collection",
+            "fastp",
+            "ivar_consensus",
+            "tp_cat",
+            "\n __SORTLIST__",
+            "tp_sed_tool",
+            "\n __FILTER_FAILED_DATASETS__",
+            "EMBOSS: maskseq51"
+        ],
+        "update_time": "2025-08-18",
+        "versions": 3
+    },
+    {
+        "create_time": "2025-08-11",
+        "creators": [],
+        "deprecated": false,
+        "doi": null,
+        "edam_operation": [
+            "Mapping",
+            "k-mer counting",
+            "Visualisation",
+            "Formatting"
+        ],
+        "edam_topic": [],
+        "id": "1856",
+        "keep": true,
+        "latest_version": 1,
+        "license": "Apache-2.0",
+        "link": "https://workflowhub.eu/workflows/1856?version=1",
+        "name": "MGnify's amplicon pipeline v5.0 - ITS",
+        "number_of_steps": 30,
+        "projects": [
+            "Galaxy Training Network"
+        ],
+        "source": "WorkflowHub",
+        "tags": [
+            "amplicon",
+            "gtn",
+            "galaxy",
+            "metagenomics",
+            "mgnify_amplicon",
+            "name:microgalaxy"
+        ],
+        "tools": [
+            "bedtools_maskfastabed",
+            "",
+            "biom_convert",
+            "mapseq",
+            "tp_awk_tool",
+            "collection_element_identifiers",
+            "taxonomy_krona_chart",
+            "__FILTER_EMPTY_DATASETS__",
+            "__FILTER_FROM_FILE__"
+        ],
+        "update_time": "2025-08-11",
+        "versions": 1
+    },
+    {
+        "create_time": "2025-08-11",
+        "creators": [],
+        "deprecated": false,
+        "doi": null,
+        "edam_operation": [
+            "Analysis",
+            "Visualisation"
+        ],
+        "edam_topic": [],
+        "id": "1855",
+        "keep": true,
+        "latest_version": 1,
+        "license": "MIT",
+        "link": "https://workflowhub.eu/workflows/1855?version=1",
+        "name": "MAPseq to ampvis2",
+        "number_of_steps": 9,
+        "projects": [
+            "Galaxy Training Network"
+        ],
+        "source": "WorkflowHub",
+        "tags": [
+            "gtn",
+            "galaxy",
+            "microbiome"
+        ],
+        "tools": [
+            "tp_awk_tool",
+            "collection_column_join",
+            "collapse_dataset",
+            "ampvis2_load",
+            "query_tabular"
+        ],
+        "update_time": "2025-08-11",
+        "versions": 1
+    },
+    {
+        "create_time": "2025-08-11",
+        "creators": [],
+        "deprecated": false,
+        "doi": null,
+        "edam_operation": [
+            "Read pre-processing",
+            "Sequence composition calculation",
+            "Sequence contamination filtering",
+            "Statistical calculation",
+            "Sequencing quality control",
+            "Nucleic acid design",
+            "Validation",
+            "Sequence trimming"
+        ],
+        "edam_topic": [],
+        "id": "1854",
+        "keep": true,
+        "latest_version": 1,
+        "license": "Apache-2.0",
+        "link": "https://workflowhub.eu/workflows/1854?version=1",
+        "name": "MGnify's amplicon pipeline v5.0 - Quality control PE",
+        "number_of_steps": 17,
+        "projects": [
+            "Galaxy Training Network"
+        ],
+        "source": "WorkflowHub",
+        "tags": [
+            "amplicon",
+            "gtn",
+            "galaxy",
+            "metagenomics",
+            "mgnify_amplicon",
+            "name:microgalaxy"
+        ],
+        "tools": [
+            "__UNZIP_COLLECTION__",
+            "multiqc",
+            "fastp",
+            "trimmomatic",
+            "mgnify_seqprep",
+            "fastqc",
+            "fastq_filter",
+            "prinseq",
+            "fastq_to_fasta_python",
+            "cshl_fasta_formatter",
+            "tp_find_and_replace"
+        ],
+        "update_time": "2025-08-11",
+        "versions": 1
+    },
+    {
+        "create_time": "2025-08-11",
+        "creators": [],
+        "deprecated": false,
+        "doi": null,
+        "edam_operation": [],
+        "edam_topic": [],
+        "id": "1853",
+        "keep": true,
+        "latest_version": 1,
+        "license": "Apache-2.0",
+        "link": "https://workflowhub.eu/workflows/1853?version=1",
+        "name": "MGnify's amplicon pipeline v5.0",
+        "number_of_steps": 20,
+        "projects": [
+            "Galaxy Training Network"
+        ],
+        "source": "WorkflowHub",
+        "tags": [
+            "amplicon",
+            "gtn",
+            "galaxy",
+            "metagenomics",
+            "mgnify_amplicon",
+            "name:microgalaxy"
+        ],
+        "tools": [
+            "",
+            "fastq_dl",
+            "tp_awk_tool",
+            "CONVERTER_uncompressed_to_gz",
+            "__MERGE_COLLECTION__",
+            "CONVERTER_gz_to_uncompressed"
+        ],
+        "update_time": "2025-08-11",
+        "versions": 1
+    },
+    {
+        "create_time": "2025-08-11",
+        "creators": [],
+        "deprecated": false,
+        "doi": null,
+        "edam_operation": [],
+        "edam_topic": [],
+        "id": "1851",
+        "keep": true,
+        "latest_version": 1,
+        "license": "MIT",
+        "link": "https://workflowhub.eu/workflows/1851?version=1",
+        "name": "MGnify amplicon summary tables",
+        "number_of_steps": 10,
+        "projects": [
+            "Galaxy Training Network"
+        ],
+        "source": "WorkflowHub",
+        "tags": [
+            "amplicon",
+            "gtn",
+            "galaxy",
+            "metagenomics",
+            "mgnify_amplicon",
+            "name:microgalaxy"
+        ],
+        "tools": [
+            "tp_awk_tool",
+            "collection_column_join",
+            "filter_tabular",
+            "Grouping1",
+            "query_tabular"
+        ],
+        "update_time": "2025-08-11",
+        "versions": 1
+    },
+    {
+        "create_time": "2025-08-11",
+        "creators": [],
+        "deprecated": false,
+        "doi": null,
+        "edam_operation": [
+            "Statistical calculation",
+            "Sequencing quality control",
+            "Read pre-processing",
+            "Validation",
+            "Sequence composition calculation",
+            "Sequence contamination filtering",
+            "Sequence trimming"
+        ],
+        "edam_topic": [],
+        "id": "1850",
+        "keep": true,
+        "latest_version": 1,
+        "license": "Apache-2.0",
+        "link": "https://workflowhub.eu/workflows/1850?version=1",
+        "name": "MGnify's amplicon pipeline v5.0 - Quality control SE",
+        "number_of_steps": 14,
+        "projects": [
+            "Galaxy Training Network"
+        ],
+        "source": "WorkflowHub",
+        "tags": [
+            "amplicon",
+            "gtn",
+            "galaxy",
+            "metagenomics",
+            "mgnify_amplicon",
+            "name:microgalaxy"
+        ],
+        "tools": [
+            "multiqc",
+            "trimmomatic",
+            "fastqc",
+            "prinseq",
+            "fastq_filter",
+            "fastq_to_fasta_python",
+            "cshl_fasta_formatter",
+            "tp_find_and_replace"
+        ],
+        "update_time": "2025-08-11",
+        "versions": 1
+    },
+    {
+        "create_time": "2025-08-04",
+        "creators": [],
+        "deprecated": false,
+        "doi": null,
+        "edam_operation": [
+            "Mapping",
+            "Comparison",
+            "Nucleic acid feature detection",
+            "Alignment",
+            "k-mer counting",
+            "Visualisation",
+            "Formatting"
+        ],
+        "edam_topic": [],
+        "id": "1842",
+        "keep": true,
+        "latest_version": 1,
+        "license": "Apache-2.0",
+        "link": "https://workflowhub.eu/workflows/1842?version=1",
+        "name": "MGnify's amplicon pipeline v5.0 - rRNA prediction",
+        "number_of_steps": 47,
+        "projects": [
+            "Galaxy Training Network"
+        ],
+        "source": "WorkflowHub",
+        "tags": [
+            "amplicon",
+            "gtn",
+            "galaxy",
+            "metagenomics",
+            "mgnify_amplicon",
+            "name:microgalaxy"
+        ],
+        "tools": [
+            "",
+            "biom_convert",
+            "tp_awk_tool",
+            "gops_concat_1",
+            "infernal_cmsearch",
+            "mapseq",
+            "collection_element_identifiers",
+            "taxonomy_krona_chart",
+            "cmsearch_deoverlap",
+            "__FILTER_EMPTY_DATASETS__",
+            "cshl_fasta_formatter",
+            "__FILTER_FROM_FILE__",
+            "query_tabular",
+            "bedtools_getfastabed"
+        ],
+        "update_time": "2025-08-11",
+        "versions": 1
+    },
+    {
         "create_time": "2025-07-14",
         "creators": [],
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Phylogenetic analysis",
             "Taxonomic classification",
+            "Phylogenetic analysis",
             "Species frequency estimation"
         ],
         "edam_topic": [],
@@ -28,15 +692,15 @@
             "metagenomics"
         ],
         "tools": [
-            "tp_find_and_replace",
-            "humann_renorm_table",
-            "humann_regroup_table",
-            "combine_metaphlan2_humann2",
-            "Cut1",
-            "humann_rename_table",
             "Grep1",
             "humann_split_stratified_table",
-            "humann_unpack_pathways"
+            "combine_metaphlan2_humann2",
+            "humann_unpack_pathways",
+            "humann_regroup_table",
+            "humann_renorm_table",
+            "tp_find_and_replace",
+            "humann_rename_table",
+            "Cut1"
         ],
         "update_time": "2025-07-14",
         "versions": 2
@@ -47,11 +711,11 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Deposition",
-            "Visualisation",
+            "DNA barcoding",
             "Analysis",
+            "Deposition",
             "Variant calling",
-            "DNA barcoding"
+            "Visualisation"
         ],
         "edam_topic": [],
         "id": "1395",
@@ -72,23 +736,23 @@
         ],
         "tools": [
             "Add_a_column1",
-            "tp_replace_in_line",
+            "__UNZIP_COLLECTION__",
+            "dada2_plotQualityProfile",
+            "dada2_removeBimeraDenovo",
+            "dada2_learnErrors",
             "dada2_makeSequenceTable",
             "collection_element_identifiers",
-            "dada2_seqCounts",
-            "cat1",
-            "__UNZIP_COLLECTION__",
-            "tp_replace_in_column",
-            "__SORTLIST__",
-            "dada2_filterAndTrim",
-            "dada2_assignTaxonomyAddspecies",
             "dada2_mergePairs",
-            "dada2_learnErrors",
-            "phyloseq_from_dada2",
-            "dada2_removeBimeraDenovo",
+            "dada2_seqCounts",
+            "dada2_filterAndTrim",
             "dada2_dada",
-            "dada2_plotQualityProfile",
-            "tp_head_tool"
+            "tp_replace_in_column",
+            "cat1",
+            "dada2_assignTaxonomyAddspecies",
+            "phyloseq_from_dada2",
+            "__SORTLIST__",
+            "tp_head_tool",
+            "tp_replace_in_line"
         ],
         "update_time": "2025-07-07",
         "versions": 2
@@ -99,25 +763,25 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Phylogenetic analysis",
             "Taxonomic classification",
-            "Validation",
-            "Sequence alignment analysis",
-            "Primer removal",
-            "Phylogenetic tree editing",
+            "Phylogenetic analysis",
             "Read pre-processing",
-            "Sequence trimming",
-            "Sequence composition calculation",
-            "Aggregation",
-            "Sequencing quality control",
-            "Phylogenetic inference",
-            "Sequence similarity search",
+            "Primer removal",
             "Visualisation",
-            "Phylogenetic tree visualisation",
-            "Conversion",
+            "Sequence comparison",
+            "Sequence alignment analysis",
+            "Sequencing quality control",
+            "Validation",
+            "Sequence similarity search",
+            "Sequence composition calculation",
             "Species frequency estimation",
+            "Phylogenetic tree visualisation",
             "Statistical calculation",
-            "Sequence comparison"
+            "Phylogenetic tree editing",
+            "Phylogenetic inference",
+            "Conversion",
+            "Sequence trimming",
+            "Aggregation"
         ],
         "edam_topic": [],
         "id": "1466",
@@ -137,28 +801,28 @@
             "microbiome"
         ],
         "tools": [
-            "humann_renorm_table",
-            "humann_regroup_table",
-            "bg_sortmerna",
+            "export2graphlan",
+            "multiqc",
+            "taxonomy_krona_chart",
             "Cut1",
-            "Grouping1",
-            "humann_split_stratified_table",
-            "humann",
+            "tp_sort_header_tool",
             "combine_metaphlan_humann",
             "fastqc",
-            "tp_find_and_replace",
-            "cutadapt",
-            "humann_rename_table",
-            "tp_sort_header_tool",
-            "graphlan",
-            "Grep1",
-            "humann_unpack_pathways",
-            "graphlan_annotate",
-            "multiqc",
+            "humann_regroup_table",
             "metaphlan",
-            "taxonomy_krona_chart",
-            "export2graphlan",
-            "fastq_paired_end_interlacer"
+            "graphlan",
+            "Grouping1",
+            "humann",
+            "Grep1",
+            "cutadapt",
+            "tp_find_and_replace",
+            "humann_rename_table",
+            "fastq_paired_end_interlacer",
+            "humann_split_stratified_table",
+            "graphlan_annotate",
+            "bg_sortmerna",
+            "humann_renorm_table",
+            "humann_unpack_pathways"
         ],
         "update_time": "2025-06-23",
         "versions": 2
@@ -169,12 +833,12 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Visualisation",
-            "Phylogenetic tree editing",
             "Taxonomic classification",
+            "Visualisation",
             "Phylogenetic tree visualisation",
-            "Conversion",
-            "Phylogenetic inference"
+            "Phylogenetic tree editing",
+            "Phylogenetic inference",
+            "Conversion"
         ],
         "edam_topic": [],
         "id": "1451",
@@ -194,12 +858,12 @@
             "microbiome"
         ],
         "tools": [
+            "export2graphlan",
+            "taxonomy_krona_chart",
             "graphlan_annotate",
             "metaphlan",
-            "Cut1",
             "graphlan",
-            "taxonomy_krona_chart",
-            "export2graphlan"
+            "Cut1"
         ],
         "update_time": "2025-06-23",
         "versions": 2
@@ -210,16 +874,16 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
+            "Sequence similarity search",
+            "Read pre-processing",
+            "Sequence composition calculation",
+            "Primer removal",
+            "Sequence comparison",
+            "Sequence alignment analysis",
+            "Statistical calculation",
             "Sequencing quality control",
             "Validation",
-            "Sequence alignment analysis",
-            "Sequence similarity search",
-            "Primer removal",
-            "Read pre-processing",
-            "Sequence trimming",
-            "Statistical calculation",
-            "Sequence composition calculation",
-            "Sequence comparison"
+            "Sequence trimming"
         ],
         "edam_topic": [],
         "id": "1444",
@@ -239,11 +903,11 @@
             "microbiome"
         ],
         "tools": [
-            "multiqc",
-            "bg_sortmerna",
             "cutadapt",
-            "fastq_paired_end_interlacer",
-            "fastqc"
+            "multiqc",
+            "fastqc",
+            "bg_sortmerna",
+            "fastq_paired_end_interlacer"
         ],
         "update_time": "2025-06-23",
         "versions": 2
@@ -254,8 +918,8 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Phylogenetic analysis",
             "Taxonomic classification",
+            "Phylogenetic analysis",
             "Species frequency estimation"
         ],
         "edam_topic": [],
@@ -276,14 +940,14 @@
             "microbiome"
         ],
         "tools": [
-            "humann_renorm_table",
-            "tp_find_and_replace",
-            "humann_regroup_table",
-            "humann_unpack_pathways",
-            "humann_rename_table",
             "tp_sort_header_tool",
             "Grep1",
             "humann_split_stratified_table",
+            "humann_regroup_table",
+            "humann_renorm_table",
+            "tp_find_and_replace",
+            "humann_rename_table",
+            "humann_unpack_pathways",
             "humann"
         ],
         "update_time": "2025-06-23",
@@ -295,12 +959,12 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Visualisation",
-            "Read mapping",
             "Sequence assembly validation",
+            "Read mapping",
             "Local alignment",
-            "Genome assembly",
-            "Sequence assembly visualisation"
+            "Sequence assembly visualisation",
+            "Visualisation",
+            "Genome assembly"
         ],
         "edam_topic": [],
         "id": "1390",
@@ -320,15 +984,15 @@
             "microbiome"
         ],
         "tools": [
-            "megahit_contig2fastg",
-            "quast",
-            "bandage_info",
-            "bowtie2",
-            "megahit",
-            "bandage_image",
-            "coverm_contig",
             "metaspades",
-            "collection_column_join"
+            "bandage_info",
+            "megahit",
+            "collection_column_join",
+            "coverm_contig",
+            "bandage_image",
+            "quast",
+            "megahit_contig2fastg",
+            "bowtie2"
         ],
         "update_time": "2025-06-16",
         "versions": 2
@@ -360,10 +1024,10 @@
             "galaxy"
         ],
         "tools": [
+            "fastp",
             "cshl_fastq_to_fasta",
             "Count1",
-            "ncbi_blastn_wrapper",
-            "fastp"
+            "ncbi_blastn_wrapper"
         ],
         "update_time": "2025-06-02",
         "versions": 1
@@ -374,10 +1038,10 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Cross-assembly",
             "Taxonomic classification",
             "Statistical calculation",
-            "Expression analysis"
+            "Expression analysis",
+            "Cross-assembly"
         ],
         "edam_topic": [],
         "id": "1674",
@@ -397,9 +1061,9 @@
             "galaxy"
         ],
         "tools": [
-            "est_abundance",
+            "kraken2",
             "recentrifuge",
-            "kraken2"
+            "est_abundance"
         ],
         "update_time": "2025-06-02",
         "versions": 1
@@ -410,19 +1074,19 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Antimicrobial resistance prediction",
-            "Sequencing quality control",
-            "Validation",
-            "Global alignment",
-            "Sequence alignment analysis",
-            "Variant calling",
-            "Sequence analysis",
             "Taxonomic classification",
-            "Phylogenetic tree generation",
+            "Antimicrobial resistance prediction",
+            "Sequence analysis",
+            "Variant calling",
             "Sequence contamination filtering",
+            "Sequence alignment analysis",
+            "Global alignment",
+            "Phylogenetic tree visualisation",
             "Sequence alignment",
+            "Sequencing quality control",
             "Local alignment",
-            "Phylogenetic tree visualisation"
+            "Phylogenetic tree generation",
+            "Validation"
         ],
         "edam_topic": [],
         "id": "1647",
@@ -443,20 +1107,20 @@
             "tuberculosis"
         ],
         "tools": [
-            "tbvcfreport",
-            "multiqc",
-            "EMBOSS: seqret84",
-            "mosdepth",
-            "tp_awk_tool",
-            "tb_variant_filter",
             "__FLATTEN__",
-            "snippy",
-            "tp_sed_tool",
             "kraken2",
-            "tb_profiler_profile",
-            "bcftools_consensus",
             "qualimap_bamqc",
-            "fastp"
+            "snippy",
+            "tb_variant_filter",
+            "tp_awk_tool",
+            "bcftools_consensus",
+            "multiqc",
+            "fastp",
+            "tp_sed_tool",
+            "tb_profiler_profile",
+            "tbvcfreport",
+            "EMBOSS: seqret84",
+            "mosdepth"
         ],
         "update_time": "2025-06-02",
         "versions": 1
@@ -467,14 +1131,14 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Cross-assembly",
-            "Sequencing quality control",
-            "Taxonomic classification",
-            "Expression analysis",
-            "Sequence contamination filtering",
-            "Visualisation",
             "Read mapping",
-            "Statistical calculation"
+            "Taxonomic classification",
+            "Statistical calculation",
+            "Sequencing quality control",
+            "Cross-assembly",
+            "Sequence contamination filtering",
+            "Expression analysis",
+            "Visualisation"
         ],
         "edam_topic": [],
         "id": "1644",
@@ -494,11 +1158,11 @@
             "sequence-analysis"
         ],
         "tools": [
-            "falco",
-            "est_abundance",
             "kraken2",
+            "falco",
+            "fastp",
             "recentrifuge",
-            "fastp"
+            "est_abundance"
         ],
         "update_time": "2025-06-02",
         "versions": 1
@@ -509,10 +1173,10 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Sequence alignment",
-            "Local alignment",
-            "Global alignment",
             "Sequence analysis",
+            "Local alignment",
+            "Sequence alignment",
+            "Global alignment",
             "Sequence alignment analysis"
         ],
         "edam_topic": [],
@@ -534,13 +1198,13 @@
         ],
         "tools": [
             "Add_a_column1",
-            "param_value_from_file",
-            "datamash_ops",
+            "Grep1",
             "fasta_compute_length",
-            "EMBOSS: maskseq51",
-            "Cut1",
             "compose_text_param",
-            "Grep1"
+            "EMBOSS: maskseq51",
+            "datamash_ops",
+            "param_value_from_file",
+            "Cut1"
         ],
         "update_time": "2025-06-02",
         "versions": 1
@@ -551,16 +1215,16 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Sequence assembly visualisation",
+            "Mapping assembly",
             "Antimicrobial resistance prediction",
             "Sequence analysis",
-            "Genome assembly",
-            "Pairwise sequence alignment",
-            "Mapping assembly",
-            "Box-Whisker plot plotting",
             "Scatter plot plotting",
-            "De-novo assembly",
-            "Aggregation"
+            "Aggregation",
+            "Sequence assembly visualisation",
+            "Box-Whisker plot plotting",
+            "Pairwise sequence alignment",
+            "Genome assembly",
+            "De-novo assembly"
         ],
         "edam_topic": [],
         "id": "1477",
@@ -581,14 +1245,14 @@
         ],
         "tools": [
             "gfa_to_fa",
+            "PlasFlow",
+            "nanoplot",
+            "minimap2",
+            "miniasm",
             "bandage_image",
             "racon",
-            "miniasm",
-            "PlasFlow",
-            "unicycler",
-            "nanoplot",
             "staramr_search",
-            "minimap2"
+            "unicycler"
         ],
         "update_time": "2025-06-02",
         "versions": 1
@@ -599,13 +1263,13 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Phylogenetic analysis",
-            "Sequencing quality control",
             "Taxonomic classification",
-            "Visualisation",
-            "Sequence read processing",
             "DNA barcoding",
-            "Sequence clustering"
+            "Sequence clustering",
+            "Phylogenetic analysis",
+            "Visualisation",
+            "Sequencing quality control",
+            "Sequence read processing"
         ],
         "edam_topic": [],
         "id": "1476",
@@ -625,21 +1289,21 @@
             "microbiome"
         ],
         "tools": [
-            "mothur_classify_seqs",
+            "mothur_pre_cluster",
+            "mothur_summary_seqs",
+            "mothur_screen_seqs",
             "mothur_filter_seqs",
+            "krona-text",
+            "mothur_classify_seqs",
             "mothur_unique_seqs",
             "mothur_make_shared",
-            "krona-text",
-            "mothur_merge_files",
-            "mothur_screen_seqs",
-            "mothur_align_seqs",
-            "mothur_make_biom",
             "mothur_count_seqs",
-            "mothur_pre_cluster",
-            "mothur_classify_otu",
-            "mothur_cluster_split",
+            "mothur_merge_files",
+            "mothur_align_seqs",
             "mothur_make_group",
-            "mothur_summary_seqs"
+            "mothur_cluster_split",
+            "mothur_classify_otu",
+            "mothur_make_biom"
         ],
         "update_time": "2025-06-02",
         "versions": 1
@@ -650,13 +1314,13 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Sequence contamination filtering",
-            "Visualisation",
             "Taxonomic classification",
+            "Statistical calculation",
             "Sequencing quality control",
             "Validation",
-            "Statistical calculation",
-            "Sequence composition calculation"
+            "Sequence composition calculation",
+            "Sequence contamination filtering",
+            "Visualisation"
         ],
         "edam_topic": [],
         "id": "1473",
@@ -676,15 +1340,15 @@
             "microbiome"
         ],
         "tools": [
-            "tp_replace_in_line",
-            "porechop",
-            "multiqc",
-            "Remove beginning1",
             "kraken2",
+            "multiqc",
+            "fastp",
+            "Remove beginning1",
             "datamash_reverse",
-            "taxonomy_krona_chart",
             "fastqc",
-            "fastp"
+            "taxonomy_krona_chart",
+            "porechop",
+            "tp_replace_in_line"
         ],
         "update_time": "2025-06-02",
         "versions": 1
@@ -715,12 +1379,12 @@
             "microbiome"
         ],
         "tools": [
-            "metaphlan2krona",
             "humann2_regroup_table",
             "humann2_renorm_table",
-            "humann2",
+            "metaphlan2",
             "taxonomy_krona_chart",
-            "metaphlan2"
+            "metaphlan2krona",
+            "humann2"
         ],
         "update_time": "2025-06-02",
         "versions": 1
@@ -731,11 +1395,11 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Visualisation",
             "Taxonomic classification",
-            "Genome annotation",
             "Statistical calculation",
-            "Aggregation"
+            "Genome annotation",
+            "Aggregation",
+            "Visualisation"
         ],
         "edam_topic": [],
         "id": "1470",
@@ -755,15 +1419,15 @@
             "microbiome"
         ],
         "tools": [
-            "kraken_biom",
-            "est_abundance",
+            "kraken2",
             "__UNZIP_COLLECTION__",
+            "interactive_tool_pavian",
+            "kraken_biom",
+            "krakentools_kreport2krona",
+            "taxonomy_krona_chart",
             "metaphlan",
             "interactive_tool_phinch",
-            "krakentools_kreport2krona",
-            "kraken2",
-            "taxonomy_krona_chart",
-            "interactive_tool_pavian"
+            "est_abundance"
         ],
         "update_time": "2025-06-02",
         "versions": 1
@@ -774,8 +1438,8 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Visualisation",
-            "Pairwise sequence alignment"
+            "Pairwise sequence alignment",
+            "Visualisation"
         ],
         "edam_topic": [],
         "id": "1469",
@@ -797,24 +1461,24 @@
             "name:microgalaxy"
         ],
         "tools": [
+            "CONVERTER_fasta_to_tabular",
             "Add_a_column1",
-            "Filter1",
-            "tab2fasta",
-            "ggplot2_histogram",
+            "join1",
+            "minimap2",
             "MQoutputfilter",
-            "tp_replace_in_column",
+            "Filter1",
+            "ggplot2_histogram",
+            "tab2fasta",
+            "sort1",
+            "count_gff_features",
             "cat1",
-            "Cut1",
+            "tp_replace_in_column",
             "histogram_rpy",
             "add_column_headers",
-            "CONVERTER_fasta_to_tabular",
-            "sort1",
-            "tp_sorted_uniq",
             "tp_tail_tool",
             "Grouping1",
-            "join1",
-            "count_gff_features",
-            "minimap2"
+            "Cut1",
+            "tp_sorted_uniq"
         ],
         "update_time": "2025-06-02",
         "versions": 1
@@ -825,16 +1489,16 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Phylogenetic tree reconstruction",
-            "Phylogenetic analysis",
-            "Sequencing quality control",
             "Taxonomic classification",
-            "Phylogenetic tree generation",
-            "Visualisation",
-            "Phylogenetic tree analysis",
-            "Sequence read processing",
             "DNA barcoding",
-            "Sequence clustering"
+            "Sequence clustering",
+            "Phylogenetic analysis",
+            "Phylogenetic tree analysis",
+            "Visualisation",
+            "Sequencing quality control",
+            "Phylogenetic tree generation",
+            "Phylogenetic tree reconstruction",
+            "Sequence read processing"
         ],
         "edam_topic": [],
         "id": "1465",
@@ -854,39 +1518,39 @@
             "microbiome"
         ],
         "tools": [
-            "mothur_make_shared",
+            "mothur_pre_cluster",
+            "mothur_taxonomy_to_krona",
+            "mothur_screen_seqs",
+            "mothur_make_contigs",
+            "mothur_filter_seqs",
+            "taxonomy_krona_chart",
             "mothur_tree_shared",
+            "mothur_count_groups",
+            "mothur_remove_groups",
             "mothur_count_seqs",
-            "mothur_remove_lineage",
-            "mothur_classify_otu",
+            "mothur_venn",
             "mothur_summary_single",
             "mothur_summary_seqs",
-            "mothur_filter_seqs",
-            "mothur_heatmap_sim",
-            "mothur_sub_sample",
-            "mothur_remove_groups",
-            "mothur_seq_error",
-            "newick_display",
-            "mothur_dist_seqs",
-            "mothur_make_contigs",
-            "mothur_unique_seqs",
-            "mothur_venn",
-            "mothur_get_groups",
-            "mothur_align_seqs",
-            "mothur_screen_seqs",
-            "mothur_make_biom",
-            "mothur_chimera_vsearch",
             "mothur_dist_shared",
-            "taxonomy_krona_chart",
-            "mothur_cluster_split",
-            "mothur_remove_seqs",
-            "mothur_taxonomy_to_krona",
-            "XY_Plot_1",
-            "mothur_count_groups",
-            "mothur_pre_cluster",
+            "mothur_make_biom",
+            "newick_display",
+            "mothur_make_shared",
+            "mothur_sub_sample",
+            "mothur_chimera_vsearch",
+            "mothur_dist_seqs",
             "mothur_cluster",
+            "mothur_seq_error",
+            "XY_Plot_1",
+            "mothur_classify_seqs",
+            "mothur_remove_lineage",
             "mothur_rarefaction_single",
-            "mothur_classify_seqs"
+            "mothur_align_seqs",
+            "mothur_get_groups",
+            "mothur_unique_seqs",
+            "mothur_cluster_split",
+            "mothur_classify_otu",
+            "mothur_heatmap_sim",
+            "mothur_remove_seqs"
         ],
         "update_time": "2025-06-02",
         "versions": 1
@@ -932,13 +1596,13 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Sequence contamination filtering",
-            "Visualisation",
             "Taxonomic classification",
-            "Sequencing quality control",
             "Statistical calculation",
+            "Sequencing quality control",
             "Sequence composition calculation",
-            "Aggregation"
+            "Sequence contamination filtering",
+            "Aggregation",
+            "Visualisation"
         ],
         "edam_topic": [],
         "id": "1439",
@@ -958,13 +1622,13 @@
             "microbiome"
         ],
         "tools": [
-            "porechop",
-            "Filter1",
-            "krakentools_kreport2krona",
             "kraken2",
-            "taxonomy_krona_chart",
+            "fastp",
+            "krakentools_kreport2krona",
+            "Filter1",
             "fastqc",
-            "fastp"
+            "taxonomy_krona_chart",
+            "porechop"
         ],
         "update_time": "2025-06-02",
         "versions": 1
@@ -975,8 +1639,8 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Visualisation",
-            "Aggregation"
+            "Aggregation",
+            "Visualisation"
         ],
         "edam_topic": [],
         "id": "1431",
@@ -1008,13 +1672,13 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Phylogenetic analysis",
-            "Sequencing quality control",
             "Taxonomic classification",
-            "Visualisation",
-            "Sequence read processing",
             "DNA barcoding",
-            "Sequence clustering"
+            "Sequence clustering",
+            "Phylogenetic analysis",
+            "Visualisation",
+            "Sequencing quality control",
+            "Sequence read processing"
         ],
         "edam_topic": [],
         "id": "1428",
@@ -1035,8 +1699,8 @@
         ],
         "tools": [
             "mothur_remove_lineage",
-            "mothur_classify_seqs",
-            "mothur_summary_seqs"
+            "mothur_summary_seqs",
+            "mothur_classify_seqs"
         ],
         "update_time": "2025-06-02",
         "versions": 1
@@ -1047,13 +1711,13 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Phylogenetic analysis",
-            "Sequencing quality control",
             "Taxonomic classification",
-            "Visualisation",
-            "Sequence read processing",
             "DNA barcoding",
-            "Sequence clustering"
+            "Sequence clustering",
+            "Phylogenetic analysis",
+            "Visualisation",
+            "Sequencing quality control",
+            "Sequence read processing"
         ],
         "edam_topic": [],
         "id": "1422",
@@ -1074,8 +1738,8 @@
         ],
         "tools": [
             "mothur_unique_seqs",
-            "mothur_screen_seqs",
             "mothur_summary_seqs",
+            "mothur_screen_seqs",
             "mothur_count_seqs"
         ],
         "update_time": "2025-06-02",
@@ -1087,16 +1751,16 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Phylogenetic tree reconstruction",
-            "Phylogenetic analysis",
-            "Sequencing quality control",
             "Taxonomic classification",
-            "Phylogenetic tree generation",
-            "Visualisation",
-            "Phylogenetic tree analysis",
-            "Sequence read processing",
             "DNA barcoding",
-            "Sequence clustering"
+            "Sequence clustering",
+            "Phylogenetic analysis",
+            "Phylogenetic tree analysis",
+            "Visualisation",
+            "Sequencing quality control",
+            "Phylogenetic tree generation",
+            "Phylogenetic tree reconstruction",
+            "Sequence read processing"
         ],
         "edam_topic": [],
         "id": "1418",
@@ -1116,12 +1780,12 @@
             "microbiome"
         ],
         "tools": [
-            "mothur_heatmap_sim",
-            "mothur_venn",
-            "collapse_dataset",
-            "mothur_tree_shared",
             "mothur_dist_shared",
-            "newick_display"
+            "collapse_dataset",
+            "newick_display",
+            "mothur_tree_shared",
+            "mothur_heatmap_sim",
+            "mothur_venn"
         ],
         "update_time": "2025-06-02",
         "versions": 1
@@ -1132,13 +1796,13 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Phylogenetic analysis",
-            "Sequencing quality control",
             "Taxonomic classification",
-            "Visualisation",
-            "Sequence read processing",
             "DNA barcoding",
-            "Sequence clustering"
+            "Sequence clustering",
+            "Phylogenetic analysis",
+            "Visualisation",
+            "Sequencing quality control",
+            "Sequence read processing"
         ],
         "edam_topic": [],
         "id": "1412",
@@ -1171,13 +1835,13 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Phylogenetic analysis",
-            "Sequencing quality control",
             "Taxonomic classification",
-            "Visualisation",
-            "Sequence read processing",
             "DNA barcoding",
-            "Sequence clustering"
+            "Sequence clustering",
+            "Phylogenetic analysis",
+            "Visualisation",
+            "Sequencing quality control",
+            "Sequence read processing"
         ],
         "edam_topic": [],
         "id": "1408",
@@ -1198,9 +1862,9 @@
         ],
         "tools": [
             "mothur_make_shared",
-            "mothur_rarefaction_single",
+            "mothur_dist_seqs",
             "mothur_cluster",
-            "mothur_dist_seqs"
+            "mothur_rarefaction_single"
         ],
         "update_time": "2025-06-02",
         "versions": 1
@@ -1211,13 +1875,13 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Phylogenetic analysis",
-            "Sequencing quality control",
             "Taxonomic classification",
-            "Visualisation",
-            "Sequence read processing",
             "DNA barcoding",
-            "Sequence clustering"
+            "Sequence clustering",
+            "Phylogenetic analysis",
+            "Visualisation",
+            "Sequencing quality control",
+            "Sequence read processing"
         ],
         "edam_topic": [],
         "id": "1404",
@@ -1237,12 +1901,12 @@
             "microbiome"
         ],
         "tools": [
+            "mothur_count_groups",
+            "mothur_remove_groups",
             "mothur_make_shared",
             "mothur_sub_sample",
-            "mothur_remove_groups",
-            "mothur_count_groups",
-            "mothur_classify_otu",
-            "mothur_cluster_split"
+            "mothur_cluster_split",
+            "mothur_classify_otu"
         ],
         "update_time": "2025-06-02",
         "versions": 1
@@ -1253,13 +1917,13 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Phylogenetic analysis",
-            "Sequencing quality control",
             "Taxonomic classification",
-            "Visualisation",
-            "Sequence read processing",
             "DNA barcoding",
-            "Sequence clustering"
+            "Sequence clustering",
+            "Phylogenetic analysis",
+            "Visualisation",
+            "Sequencing quality control",
+            "Sequence read processing"
         ],
         "edam_topic": [],
         "id": "1400",
@@ -1279,13 +1943,13 @@
             "microbiome"
         ],
         "tools": [
-            "mothur_filter_seqs",
-            "mothur_unique_seqs",
-            "mothur_screen_seqs",
-            "mothur_chimera_vsearch",
             "mothur_pre_cluster",
-            "mothur_remove_seqs",
-            "mothur_summary_seqs"
+            "mothur_summary_seqs",
+            "mothur_screen_seqs",
+            "mothur_filter_seqs",
+            "mothur_chimera_vsearch",
+            "mothur_unique_seqs",
+            "mothur_remove_seqs"
         ],
         "update_time": "2025-06-02",
         "versions": 1
@@ -1300,8 +1964,8 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Pairwise sequence alignment",
-            "Variant calling"
+            "Variant calling",
+            "Pairwise sequence alignment"
         ],
         "edam_topic": [],
         "id": "1063",
@@ -1317,26 +1981,26 @@
         "source": "WorkflowHub",
         "tags": [],
         "tools": [
-            "samtools_coverage",
+            "bcftools_norm",
+            "bcftools_consensus",
+            "Remove beginning1",
+            "collapse_dataset",
+            "minimap2",
+            "samtools_depth",
+            "Paste1",
+            "clair3",
             "Count1",
             "CONVERTER_gz_to_uncompressed",
-            "Paste1",
-            "regexColumn1",
-            "snpSift_filter",
             "snpSift_extractFields",
-            "bcftools_norm",
-            "Cut1",
             "tp_cut_tool",
-            "Remove beginning1",
+            "snpSift_filter",
             "table_compute",
-            "bcftools_consensus",
-            "collapse_dataset",
-            "clair3",
-            "samtools_depth",
-            "minimap2",
+            "regexColumn1",
+            "samtools_coverage",
+            "Cut1",
             "tp_head_tool"
         ],
-        "update_time": "2025-03-26",
+        "update_time": "2025-08-18",
         "versions": 5
     },
     {
@@ -1363,13 +2027,13 @@
         "tags": [],
         "tools": [
             "",
-            "CONVERTER_gz_to_uncompressed",
-            "CONVERTER_uncompressed_to_gz",
+            "fastq_dl",
             "tp_awk_tool",
+            "CONVERTER_uncompressed_to_gz",
             "__MERGE_COLLECTION__",
-            "fastq_dl"
+            "CONVERTER_gz_to_uncompressed"
         ],
-        "update_time": "2025-03-26",
+        "update_time": "2025-08-18",
         "versions": 2
     },
     {
@@ -1381,10 +2045,10 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Formatting",
             "Mapping",
             "k-mer counting",
-            "Visualisation"
+            "Visualisation",
+            "Formatting"
         ],
         "edam_topic": [],
         "id": "1273",
@@ -1400,17 +2064,17 @@
         "source": "WorkflowHub",
         "tags": [],
         "tools": [
+            "bedtools_maskfastabed",
             "",
-            "collection_element_identifiers",
-            "__FILTER_EMPTY_DATASETS__",
+            "biom_convert",
             "mapseq",
             "tp_awk_tool",
-            "biom_convert",
-            "bedtools_maskfastabed",
-            "__FILTER_FROM_FILE__",
-            "taxonomy_krona_chart"
+            "collection_element_identifiers",
+            "taxonomy_krona_chart",
+            "__FILTER_EMPTY_DATASETS__",
+            "__FILTER_FROM_FILE__"
         ],
-        "update_time": "2025-03-26",
+        "update_time": "2025-08-18",
         "versions": 2
     },
     {
@@ -1422,14 +2086,14 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Sequencing quality control",
-            "Validation",
-            "Sequence contamination filtering",
-            "Nucleic acid design",
             "Read pre-processing",
-            "Sequence trimming",
+            "Sequence composition calculation",
+            "Sequence contamination filtering",
             "Statistical calculation",
-            "Sequence composition calculation"
+            "Sequencing quality control",
+            "Nucleic acid design",
+            "Validation",
+            "Sequence trimming"
         ],
         "edam_topic": [],
         "id": "1272",
@@ -1445,19 +2109,19 @@
         "source": "WorkflowHub",
         "tags": [],
         "tools": [
-            "tp_find_and_replace",
-            "multiqc",
-            "trimmomatic",
             "__UNZIP_COLLECTION__",
-            "fastq_to_fasta_python",
-            "fastq_filter",
-            "cshl_fasta_formatter",
-            "prinseq",
+            "multiqc",
+            "fastp",
+            "trimmomatic",
             "mgnify_seqprep",
             "fastqc",
-            "fastp"
+            "fastq_filter",
+            "prinseq",
+            "fastq_to_fasta_python",
+            "cshl_fasta_formatter",
+            "tp_find_and_replace"
         ],
-        "update_time": "2025-03-26",
+        "update_time": "2025-08-18",
         "versions": 2
     },
     {
@@ -1469,13 +2133,13 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Sequence contamination filtering",
-            "Sequencing quality control",
-            "Validation",
-            "Read pre-processing",
-            "Sequence trimming",
             "Statistical calculation",
-            "Sequence composition calculation"
+            "Sequencing quality control",
+            "Read pre-processing",
+            "Validation",
+            "Sequence composition calculation",
+            "Sequence contamination filtering",
+            "Sequence trimming"
         ],
         "edam_topic": [],
         "id": "1271",
@@ -1491,16 +2155,16 @@
         "source": "WorkflowHub",
         "tags": [],
         "tools": [
-            "tp_find_and_replace",
             "multiqc",
             "trimmomatic",
-            "fastq_to_fasta_python",
-            "fastq_filter",
-            "cshl_fasta_formatter",
+            "fastqc",
             "prinseq",
-            "fastqc"
+            "fastq_filter",
+            "fastq_to_fasta_python",
+            "cshl_fasta_formatter",
+            "tp_find_and_replace"
         ],
-        "update_time": "2025-03-26",
+        "update_time": "2025-08-18",
         "versions": 3
     },
     {
@@ -1512,13 +2176,13 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Nucleic acid feature detection",
-            "Formatting",
-            "k-mer counting",
-            "Alignment",
             "Mapping",
+            "Comparison",
+            "Nucleic acid feature detection",
+            "Alignment",
+            "k-mer counting",
             "Visualisation",
-            "Comparison"
+            "Formatting"
         ],
         "edam_topic": [],
         "id": "1270",
@@ -1535,21 +2199,21 @@
         "tags": [],
         "tools": [
             "",
-            "collection_element_identifiers",
-            "__FILTER_EMPTY_DATASETS__",
-            "infernal_cmsearch",
-            "query_tabular",
-            "tp_awk_tool",
-            "cshl_fasta_formatter",
-            "cmsearch_deoverlap",
-            "mapseq",
             "biom_convert",
-            "bedtools_getfastabed",
+            "tp_awk_tool",
             "gops_concat_1",
+            "infernal_cmsearch",
+            "mapseq",
+            "collection_element_identifiers",
+            "taxonomy_krona_chart",
+            "cmsearch_deoverlap",
+            "__FILTER_EMPTY_DATASETS__",
+            "cshl_fasta_formatter",
             "__FILTER_FROM_FILE__",
-            "taxonomy_krona_chart"
+            "query_tabular",
+            "bedtools_getfastabed"
         ],
-        "update_time": "2025-03-26",
+        "update_time": "2025-08-18",
         "versions": 2
     },
     {
@@ -1574,13 +2238,13 @@
         "source": "WorkflowHub",
         "tags": [],
         "tools": [
-            "filter_tabular",
-            "query_tabular",
             "tp_awk_tool",
+            "collection_column_join",
+            "filter_tabular",
             "Grouping1",
-            "collection_column_join"
+            "query_tabular"
         ],
-        "update_time": "2025-03-26",
+        "update_time": "2025-08-18",
         "versions": 2
     },
     {
@@ -1592,15 +2256,15 @@
         "doi": null,
         "edam_operation": [
             "Standardisation and normalisation",
-            "Filtering",
-            "Clustering",
-            "Visualisation",
-            "Principal component plotting",
-            "Formatting",
-            "Imputation",
             "Heat map generation",
+            "Clustering",
+            "Filtering",
+            "Protein quantification",
+            "Visualisation",
+            "Formatting",
+            "Principal component plotting",
             "Statistical calculation",
-            "Protein quantification"
+            "Imputation"
         ],
         "edam_topic": [],
         "id": "1225",
@@ -1616,25 +2280,25 @@
         "source": "WorkflowHub",
         "tags": [],
         "tools": [
-            "fasta_cli",
-            "Filter1",
-            "dbbuilder",
-            "search_gui",
-            "maxquant",
-            "filter_tabular",
-            "query_tabular",
-            "Cut1",
-            "Remove beginning1",
+            "ident_params",
             "fasta2tab",
             "Grep1",
-            "Grouping1",
-            "ident_params",
-            "peptide_shaker",
             "msconvert",
+            "Remove beginning1",
+            "filter_tabular",
+            "Filter1",
             "tp_cat",
-            "fasta_merge_files_and_filter_unique_sequences"
+            "peptide_shaker",
+            "dbbuilder",
+            "fasta_cli",
+            "maxquant",
+            "search_gui",
+            "fasta_merge_files_and_filter_unique_sequences",
+            "query_tabular",
+            "Grouping1",
+            "Cut1"
         ],
-        "update_time": "2025-01-13",
+        "update_time": "2025-08-18",
         "versions": 1
     },
     {
@@ -1646,10 +2310,10 @@
         "deprecated": false,
         "doi": "10.48546/workflowhub.workflow.1199.2",
         "edam_operation": [
-            "Visualisation",
             "Taxonomic classification",
             "Statistical calculation",
-            "Aggregation"
+            "Aggregation",
+            "Visualisation"
         ],
         "edam_topic": [
             "Metagenomics",
@@ -1673,24 +2337,24 @@
             "shotgun"
         ],
         "tools": [
-            "collection_element_identifiers",
-            "regex1",
-            "__RELABEL_FROM_FILE__",
-            "est_abundance",
-            "krakentools_combine_kreports",
-            "collection_column_join",
-            "Fisher results contains a header line we want to exclude \"Fisher's alpha...loading\"\nShow tail1",
+            "kraken2",
+            "krakentools_alpha_diversity",
             "Prepare alpha diversity summary file (paste sample identifiers and Simpson results)\nPaste1",
-            "cat_multiple",
+            "collection_column_join",
+            "krakentools_combine_kreports",
             "krakentools_kreport2krona",
             "Prepare alpha diversity summary file (paste Simpson and Fisher results)\nPaste1",
-            "krakentools_alpha_diversity",
-            "add_line_to_file",
-            "Prepare alpha diversity summary file\nPaste1",
-            "kraken2",
-            "taxonomy_krona_chart",
+            "krakentools_beta_diversity",
             "Extract column name and fraction_total_reads from Bracken report\nCut1",
-            "krakentools_beta_diversity"
+            "collection_element_identifiers",
+            "Fisher results contains a header line we want to exclude \"Fisher's alpha...loading\"\nShow tail1",
+            "taxonomy_krona_chart",
+            "regex1",
+            "__RELABEL_FROM_FILE__",
+            "add_line_to_file",
+            "cat_multiple",
+            "Prepare alpha diversity summary file\nPaste1",
+            "est_abundance"
         ],
         "update_time": "2024-12-10",
         "versions": 2
@@ -1703,8 +2367,8 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Visualisation",
-            "Prediction and recognition"
+            "Prediction and recognition",
+            "Visualisation"
         ],
         "edam_topic": [],
         "id": "1219",
@@ -1720,11 +2384,11 @@
         "source": "WorkflowHub",
         "tags": [],
         "tools": [
-            "msstatstmt",
             "unipept",
-            "Grep1"
+            "Grep1",
+            "msstatstmt"
         ],
-        "update_time": "2024-12-06",
+        "update_time": "2025-08-18",
         "versions": 1
     },
     {
@@ -1750,18 +2414,18 @@
         "tags": [],
         "tools": [
             "pepquery2",
-            "Filter1",
-            "dbbuilder",
-            "uniprotxml_downloader",
-            "query_tabular",
-            "Cut1",
             "Remove beginning1",
             "collapse_dataset",
-            "Grouping1",
             "tp_cat",
-            "fasta_merge_files_and_filter_unique_sequences"
+            "Filter1",
+            "Grouping1",
+            "uniprotxml_downloader",
+            "dbbuilder",
+            "fasta_merge_files_and_filter_unique_sequences",
+            "query_tabular",
+            "Cut1"
         ],
-        "update_time": "2024-12-06",
+        "update_time": "2025-08-18",
         "versions": 1
     },
     {
@@ -1772,11 +2436,11 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Target-Decoy",
             "Protein identification",
+            "Target-Decoy",
+            "de Novo sequencing",
             "Tag-based peptide identification",
-            "Expression analysis",
-            "de Novo sequencing"
+            "Expression analysis"
         ],
         "edam_topic": [],
         "id": "1216",
@@ -1795,7 +2459,7 @@
             "metanovo",
             "fasta_merge_files_and_filter_unique_sequences"
         ],
-        "update_time": "2024-12-06",
+        "update_time": "2025-08-18",
         "versions": 1
     },
     {
@@ -1808,9 +2472,9 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
+            "Data handling",
             "Parsing",
             "Antimicrobial resistance prediction",
-            "Data handling",
             "Genome assembly"
         ],
         "edam_topic": [],
@@ -1833,24 +2497,24 @@
         ],
         "tools": [
             "",
-            "hamronize_tool",
+            "abricate",
+            "shovill",
+            "__MERGE_COLLECTION__",
+            "__APPLY_RULES__",
+            "cat1",
             "datamash_ops",
             "Cut1",
-            "tp_text_file_with_recurring_lines",
-            "tp_split_on_column",
-            "cat_multi_datasets",
-            "__APPLY_RULES__",
-            "shovill",
-            "tp_find_and_replace",
-            "cat1",
-            "__MERGE_COLLECTION__",
-            "collapse_dataset",
-            "Grep1",
-            "abricate",
-            "cast",
             "hamronize_summarize",
+            "cast",
+            "Grep1",
             "addValue",
-            "staramr_search"
+            "collapse_dataset",
+            "tp_find_and_replace",
+            "staramr_search",
+            "hamronize_tool",
+            "cat_multi_datasets",
+            "tp_text_file_with_recurring_lines",
+            "tp_split_on_column"
         ],
         "update_time": "2024-12-24",
         "versions": 2
@@ -1864,13 +2528,13 @@
         "doi": null,
         "edam_operation": [
             "Standardisation and normalisation",
+            "Heat map generation",
             "Clustering",
+            "Protein quantification",
             "Visualisation",
             "Principal component plotting",
-            "Imputation",
-            "Heat map generation",
             "Statistical calculation",
-            "Protein quantification"
+            "Imputation"
         ],
         "edam_topic": [],
         "id": "1177",
@@ -1886,19 +2550,19 @@
         "source": "WorkflowHub",
         "tags": [],
         "tools": [
-            "extract peptides\nCut1",
-            "maxquant",
-            "extract proteins\nCut1",
-            "extracting microbial Peptides\nGrep1",
             "Quantified-Peptides\nGrouping1",
+            "extract proteins\nCut1",
+            "Quantified-Proteins\nGrouping1",
+            "maxquant",
             "extracting microbial Proteins\nGrep1",
-            "Quantified-Proteins\nGrouping1"
+            "extracting microbial Peptides\nGrep1",
+            "extract peptides\nCut1"
         ],
-        "update_time": "2024-10-07",
+        "update_time": "2025-08-18",
         "versions": 1
     },
     {
-        "create_time": "2025-06-19",
+        "create_time": "2025-08-19",
         "creators": [
             "Abromics None",
             "Pierre Marin",
@@ -1907,18 +2571,18 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Visualisation",
             "Sequence assembly validation",
             "Data parsing",
-            "Genome assembly",
-            "Sequence assembly visualisation"
+            "Sequence assembly visualisation",
+            "Visualisation",
+            "Genome assembly"
         ],
         "edam_topic": [],
         "id": "1043",
         "keep": true,
-        "latest_version": 9,
+        "latest_version": 11,
         "license": "GPL-3.0-or-later",
-        "link": "https://workflowhub.eu/workflows/1043?version=9",
+        "link": "https://workflowhub.eu/workflows/1043?version=11",
         "name": "bacterial-genome-assembly/main",
         "number_of_steps": 7,
         "projects": [
@@ -1935,16 +2599,16 @@
             "quality"
         ],
         "tools": [
-            "shovill",
             "bandage_info",
+            "tooldistillator",
+            "shovill",
+            "bandage_image",
             "quast",
             "refseq_masher_matches",
-            "bandage_image",
-            "tooldistillator",
             "tooldistillator_summarize"
         ],
-        "update_time": "2025-06-19",
-        "versions": 9
+        "update_time": "2025-08-19",
+        "versions": 11
     },
     {
         "create_time": "2025-06-19",
@@ -1956,12 +2620,12 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Sequence contamination filtering",
-            "Cross-assembly",
             "Taxonomic classification",
+            "Statistical calculation",
             "Sequencing quality control",
             "Data parsing",
-            "Statistical calculation",
+            "Cross-assembly",
+            "Sequence contamination filtering",
             "Expression analysis"
         ],
         "edam_topic": [],
@@ -1987,14 +2651,14 @@
             "trimming"
         ],
         "tools": [
-            "tooldistillator",
-            "est_abundance",
-            "tooldistillator_summarize",
             "kraken2",
+            "tooldistillator",
+            "fastp",
             "recentrifuge",
-            "fastp"
+            "est_abundance",
+            "tooldistillator_summarize"
         ],
-        "update_time": "2025-06-19",
+        "update_time": "2025-08-18",
         "versions": 11
     },
     {
@@ -2003,22 +2667,22 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Antimicrobial resistance prediction",
-            "Data handling",
-            "Genome indexing",
-            "Read binning",
-            "Sequence analysis",
-            "Genome assembly",
-            "Multilocus sequence typing",
-            "Sequence contamination filtering",
-            "Parsing",
             "Read mapping",
-            "Sequence alignment",
-            "Visualisation",
             "Clustering",
+            "Sequence contamination filtering",
+            "Multilocus sequence typing",
+            "Visualisation",
+            "Genome indexing",
+            "Data handling",
             "Genome alignment",
-            "Sequence trimming",
-            "RNA-Seq analysis"
+            "Genome assembly",
+            "Parsing",
+            "Antimicrobial resistance prediction",
+            "Sequence analysis",
+            "Read binning",
+            "RNA-Seq analysis",
+            "Sequence alignment",
+            "Sequence trimming"
         ],
         "edam_topic": [],
         "id": "407",
@@ -2038,16 +2702,16 @@
         ],
         "tools": [
             "hamronize_tool",
-            "shovill",
-            "bbtools_bbduk",
-            "kma_map",
-            "srst2",
             "__UNZIP_COLLECTION__",
-            "bbtools_tadpole",
-            "hamronize_summarize",
             "seqsero2",
+            "bbtools_bbduk",
+            "shovill",
+            "srst2",
             "sistr_cmd",
-            "mob_recon"
+            "hamronize_summarize",
+            "bbtools_tadpole",
+            "mob_recon",
+            "kma_map"
         ],
         "update_time": "2024-09-09",
         "versions": 1
@@ -2083,9 +2747,9 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
+            "Data handling",
             "Parsing",
             "Antimicrobial resistance prediction",
-            "Data handling",
             "Genome assembly"
         ],
         "edam_topic": [],
@@ -2108,12 +2772,12 @@
             "antimicrobial resistance"
         ],
         "tools": [
-            "shovill",
-            "hamronize_tool",
-            "tp_find_and_replace",
-            "hamronize_summarize",
-            "collapse_dataset",
             "abricate",
+            "hamronize_tool",
+            "shovill",
+            "collapse_dataset",
+            "hamronize_summarize",
+            "tp_find_and_replace",
             "staramr_search"
         ],
         "update_time": "2024-09-09",
@@ -2169,10 +2833,10 @@
         "tags": [],
         "tools": [
             "Phylogenetic tree for diversity analysis",
-            "Taxonomic analysis",
-            "Rarefaction"
+            "Rarefaction",
+            "Taxonomic analysis"
         ],
-        "update_time": "2024-12-06",
+        "update_time": "2025-08-18",
         "versions": 2
     },
     {
@@ -2185,15 +2849,15 @@
         "deprecated": false,
         "doi": "10.48546/workflowhub.workflow.1062.1",
         "edam_operation": [
-            "Base-calling",
-            "Antimicrobial resistance prediction",
-            "Cross-assembly",
-            "Variant calling",
-            "Genome assembly",
             "Mapping assembly",
+            "Antimicrobial resistance prediction",
+            "Variant calling",
+            "Base-calling",
             "Sequence assembly",
-            "De-novo assembly",
-            "Sequence assembly visualisation"
+            "Cross-assembly",
+            "Sequence assembly visualisation",
+            "Genome assembly",
+            "De-novo assembly"
         ],
         "edam_topic": [],
         "id": "1062",
@@ -2209,20 +2873,20 @@
         "source": "WorkflowHub",
         "tags": [],
         "tools": [
+            "__BUILD_LIST__",
+            "abricate",
+            "fasta2tab",
             "split_file_to_collection",
-            "collection_element_identifiers",
-            "tp_find_and_replace",
-            "param_value_from_file",
+            "flye",
             "bandage_image",
             "tab2fasta",
-            "flye",
             "medaka_consensus_pipeline",
-            "__BUILD_LIST__",
+            "collection_element_identifiers",
             "compose_text_param",
-            "fasta2tab",
-            "abricate"
+            "tp_find_and_replace",
+            "param_value_from_file"
         ],
-        "update_time": "2024-07-15",
+        "update_time": "2025-08-18",
         "versions": 1
     },
     {
@@ -2235,14 +2899,14 @@
         "deprecated": false,
         "doi": "10.48546/workflowhub.workflow.1060.1",
         "edam_operation": [
-            "Visualisation",
+            "Phylogenetic tree generation",
             "Mapping",
+            "Multiple sequence alignment",
+            "Phylogenetic tree generation (from molecular sequences)",
             "Phylogenetic tree analysis",
             "Phylogenetic tree reconstruction",
             "Phylogenetic tree generation (maximum likelihood and Bayesian methods)",
-            "Multiple sequence alignment",
-            "Phylogenetic tree generation",
-            "Phylogenetic tree generation (from molecular sequences)"
+            "Visualisation"
         ],
         "edam_topic": [],
         "id": "1060",
@@ -2258,30 +2922,30 @@
         "source": "WorkflowHub",
         "tags": [],
         "tools": [
-            "__FILTER_EMPTY_DATASETS__",
-            "tp_replace_in_column",
+            "collection_column_join",
+            "regexColumn1",
             "Cut1",
-            "Remove beginning1",
-            "bedtools_getfastabed",
-            "fasttree",
+            "__FILTER_FAILED_DATASETS__",
+            "tab2fasta",
+            "__FILTER_EMPTY_DATASETS__",
             "Grouping1",
-            "tp_split_on_column",
-            "ggplot2_heatmap",
+            "fasttree",
+            "bedtools_getfastabed",
+            "tp_sorted_uniq",
+            "fasta2tab",
             "tp_multijoin_tool",
             "collapse_dataset",
-            "__FILTER_FAILED_DATASETS__",
-            "fasta2tab",
             "newick_display",
-            "regex1",
-            "fasta_merge_files_and_filter_unique_sequences",
-            "Count1",
-            "regexColumn1",
-            "tab2fasta",
+            "tp_replace_in_column",
+            "ggplot2_heatmap",
+            "Remove beginning1",
             "clustalw",
-            "collection_column_join",
-            "tp_sorted_uniq"
+            "Count1",
+            "fasta_merge_files_and_filter_unique_sequences",
+            "tp_split_on_column",
+            "regex1"
         ],
-        "update_time": "2024-07-15",
+        "update_time": "2025-08-18",
         "versions": 1
     },
     {
@@ -2294,9 +2958,9 @@
         "deprecated": false,
         "doi": "10.48546/workflowhub.workflow.1059.1",
         "edam_operation": [
-            "Visualisation",
             "Taxonomic classification",
-            "Aggregation"
+            "Aggregation",
+            "Visualisation"
         ],
         "edam_topic": [],
         "id": "1059",
@@ -2313,14 +2977,14 @@
         "tags": [],
         "tools": [
             "taxonomy_krona_chart",
-            "krakentools_kreport2krona",
-            "kraken2"
+            "kraken2",
+            "krakentools_kreport2krona"
         ],
-        "update_time": "2024-07-15",
+        "update_time": "2025-08-18",
         "versions": 1
     },
     {
-        "create_time": "2025-07-16",
+        "create_time": "2025-07-31",
         "creators": [
             "ABRomics None",
             "Pierre Marin",
@@ -2329,22 +2993,22 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Data parsing",
-            "Genome annotation",
-            "Multilocus sequence typing",
-            "Genome assembly",
-            "Protein feature detection",
             "Sequence motif recognition",
+            "Multilocus sequence typing",
+            "Genome annotation",
+            "Structural variation detection",
+            "Protein feature detection",
+            "Data parsing",
             "Nucleic acid feature detection",
             "Scaffolding",
-            "Structural variation detection"
+            "Genome assembly"
         ],
         "edam_topic": [],
         "id": "1050",
         "keep": true,
-        "latest_version": 11,
+        "latest_version": 12,
         "license": "GPL-3.0-or-later",
-        "link": "https://workflowhub.eu/workflows/1050?version=11",
+        "link": "https://workflowhub.eu/workflows/1050?version=12",
         "name": "bacterial_genome_annotation/main",
         "number_of_steps": 6,
         "projects": [
@@ -2361,14 +3025,14 @@
         ],
         "tools": [
             "integron_finder",
-            "bakta",
             "tooldistillator",
-            "plasmidfinder",
             "isescan",
+            "bakta",
+            "plasmidfinder",
             "tooldistillator_summarize"
         ],
-        "update_time": "2025-07-16",
-        "versions": 11
+        "update_time": "2025-08-18",
+        "versions": 12
     },
     {
         "create_time": "2024-10-26",
@@ -2407,13 +3071,13 @@
             "fasta"
         ],
         "tools": [
+            "abricate",
             "tooldistillator",
             "amrfinderplus",
-            "abricate",
             "staramr_search",
             "tooldistillator_summarize"
         ],
-        "update_time": "2024-10-27",
+        "update_time": "2025-08-18",
         "versions": 7
     },
     {
@@ -2424,19 +3088,19 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Antimicrobial resistance prediction",
-            "Sequencing quality control",
-            "Validation",
-            "Global alignment",
-            "Sequence alignment analysis",
-            "Variant calling",
-            "Sequence analysis",
             "Taxonomic classification",
-            "Phylogenetic tree generation",
+            "Antimicrobial resistance prediction",
+            "Sequence analysis",
+            "Variant calling",
             "Sequence contamination filtering",
+            "Sequence alignment analysis",
+            "Global alignment",
+            "Phylogenetic tree visualisation",
             "Sequence alignment",
+            "Sequencing quality control",
             "Local alignment",
-            "Phylogenetic tree visualisation"
+            "Phylogenetic tree generation",
+            "Validation"
         ],
         "edam_topic": [
             "Genetic variation",
@@ -2461,20 +3125,20 @@
             "tuberculosis"
         ],
         "tools": [
-            "tbvcfreport",
-            "multiqc",
-            "EMBOSS: seqret84",
-            "mosdepth",
-            "tp_awk_tool",
-            "tb_variant_filter",
             "__FLATTEN__",
-            "snippy",
-            "tp_sed_tool",
             "kraken2",
-            "tb_profiler_profile",
-            "bcftools_consensus",
             "qualimap_bamqc",
-            "fastp"
+            "snippy",
+            "tb_variant_filter",
+            "tp_awk_tool",
+            "bcftools_consensus",
+            "multiqc",
+            "fastp",
+            "tp_sed_tool",
+            "tb_profiler_profile",
+            "tbvcfreport",
+            "EMBOSS: seqret84",
+            "mosdepth"
         ],
         "update_time": "2024-06-12",
         "versions": 1
@@ -2487,8 +3151,8 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "DNA barcoding",
-            "Variant calling"
+            "Variant calling",
+            "DNA barcoding"
         ],
         "edam_topic": [],
         "id": "790",
@@ -2506,19 +3170,19 @@
             "name:amplicon"
         ],
         "tools": [
-            "dada2_makeSequenceTable",
-            "dada2_seqCounts",
             "__UNZIP_COLLECTION__",
-            "dada2_assignTaxonomyAddspecies",
-            "dada2_filterAndTrim",
-            "dada2_mergePairs",
-            "dada2_learnErrors",
-            "dada2_removeBimeraDenovo",
-            "dada2_dada",
             "dada2_plotQualityProfile",
-            "__APPLY_RULES__"
+            "dada2_removeBimeraDenovo",
+            "dada2_learnErrors",
+            "dada2_makeSequenceTable",
+            "__APPLY_RULES__",
+            "dada2_mergePairs",
+            "dada2_seqCounts",
+            "dada2_filterAndTrim",
+            "dada2_dada",
+            "dada2_assignTaxonomyAddspecies"
         ],
-        "update_time": "2025-03-26",
+        "update_time": "2025-08-18",
         "versions": 3
     },
     {
@@ -2547,13 +3211,13 @@
             "genome-annotation"
         ],
         "tools": [
-            "list_organism",
-            "create_or_update",
-            "jbrowse",
             "create_account",
-            "iframe"
+            "jbrowse",
+            "list_organism",
+            "iframe",
+            "create_or_update"
         ],
-        "update_time": "2024-02-15",
+        "update_time": "2025-07-31",
         "versions": 1
     },
     {
@@ -2567,8 +3231,8 @@
         "deprecated": false,
         "doi": "10.48546/workflowhub.workflow.624.1",
         "edam_operation": [
-            "Visualisation",
-            "Taxonomic classification"
+            "Taxonomic classification",
+            "Visualisation"
         ],
         "edam_topic": [
             "Metagenomic sequencing",
@@ -2592,14 +3256,14 @@
         ],
         "tools": [
             "",
-            "metaphlan2krona",
             "humann2_regroup_table",
-            "Cut1",
-            "humann2",
+            "metaphlan2",
             "humann2_renorm_table",
-            "merge_metaphlan_tables",
             "taxonomy_krona_chart",
-            "metaphlan2"
+            "merge_metaphlan_tables",
+            "metaphlan2krona",
+            "Cut1",
+            "humann2"
         ],
         "update_time": "2024-04-05",
         "versions": 1
@@ -2615,16 +3279,16 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Phylogenetic tree reconstruction",
-            "Phylogenetic analysis",
-            "Sequencing quality control",
             "Taxonomic classification",
-            "Phylogenetic tree generation",
-            "Visualisation",
-            "Phylogenetic tree analysis",
-            "Sequence read processing",
             "DNA barcoding",
-            "Sequence clustering"
+            "Sequence clustering",
+            "Phylogenetic analysis",
+            "Phylogenetic tree analysis",
+            "Visualisation",
+            "Sequencing quality control",
+            "Phylogenetic tree generation",
+            "Phylogenetic tree reconstruction",
+            "Sequence read processing"
         ],
         "edam_topic": [],
         "id": "653",
@@ -2642,10 +3306,10 @@
             "metagenomics"
         ],
         "tools": [
-            "mothur_heatmap_sim",
-            "newick_display",
             "mothur_tree_shared",
-            "mothur_dist_shared"
+            "mothur_dist_shared",
+            "mothur_heatmap_sim",
+            "newick_display"
         ],
         "update_time": "2023-11-09",
         "versions": 1
@@ -2661,13 +3325,13 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Phylogenetic analysis",
-            "Sequencing quality control",
             "Taxonomic classification",
-            "Visualisation",
-            "Sequence read processing",
             "DNA barcoding",
-            "Sequence clustering"
+            "Sequence clustering",
+            "Phylogenetic analysis",
+            "Visualisation",
+            "Sequencing quality control",
+            "Sequence read processing"
         ],
         "edam_topic": [],
         "id": "652",
@@ -2703,13 +3367,13 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Phylogenetic analysis",
-            "Sequencing quality control",
             "Taxonomic classification",
-            "Visualisation",
-            "Sequence read processing",
             "DNA barcoding",
-            "Sequence clustering"
+            "Sequence clustering",
+            "Phylogenetic analysis",
+            "Visualisation",
+            "Sequencing quality control",
+            "Sequence read processing"
         ],
         "edam_topic": [],
         "id": "651",
@@ -2727,11 +3391,11 @@
             "metagenomics"
         ],
         "tools": [
+            "mothur_count_groups",
             "mothur_make_shared",
             "mothur_sub_sample",
-            "mothur_count_groups",
-            "mothur_classify_otu",
-            "mothur_cluster_split"
+            "mothur_cluster_split",
+            "mothur_classify_otu"
         ],
         "update_time": "2023-11-09",
         "versions": 1
@@ -2747,13 +3411,13 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Phylogenetic analysis",
-            "Sequencing quality control",
             "Taxonomic classification",
-            "Visualisation",
-            "Sequence read processing",
             "DNA barcoding",
-            "Sequence clustering"
+            "Sequence clustering",
+            "Phylogenetic analysis",
+            "Visualisation",
+            "Sequencing quality control",
+            "Sequence read processing"
         ],
         "edam_topic": [],
         "id": "650",
@@ -2788,13 +3452,13 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Phylogenetic analysis",
-            "Sequencing quality control",
             "Taxonomic classification",
-            "Visualisation",
-            "Sequence read processing",
             "DNA barcoding",
-            "Sequence clustering"
+            "Sequence clustering",
+            "Phylogenetic analysis",
+            "Visualisation",
+            "Sequencing quality control",
+            "Sequence read processing"
         ],
         "edam_topic": [],
         "id": "648",
@@ -2813,8 +3477,8 @@
         ],
         "tools": [
             "mothur_unique_seqs",
-            "mothur_screen_seqs",
             "mothur_summary_seqs",
+            "mothur_screen_seqs",
             "mothur_count_seqs"
         ],
         "update_time": "2023-11-09",
@@ -2831,13 +3495,13 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Phylogenetic analysis",
-            "Sequencing quality control",
             "Taxonomic classification",
-            "Visualisation",
-            "Sequence read processing",
             "DNA barcoding",
-            "Sequence clustering"
+            "Sequence clustering",
+            "Phylogenetic analysis",
+            "Visualisation",
+            "Sequencing quality control",
+            "Sequence read processing"
         ],
         "edam_topic": [],
         "id": "649",
@@ -2855,84 +3519,16 @@
             "metagenomics"
         ],
         "tools": [
-            "mothur_filter_seqs",
-            "mothur_unique_seqs",
-            "mothur_screen_seqs",
-            "mothur_chimera_vsearch",
             "mothur_pre_cluster",
-            "mothur_remove_seqs",
-            "mothur_summary_seqs"
+            "mothur_summary_seqs",
+            "mothur_screen_seqs",
+            "mothur_filter_seqs",
+            "mothur_chimera_vsearch",
+            "mothur_unique_seqs",
+            "mothur_remove_seqs"
         ],
         "update_time": "2023-11-09",
         "versions": 1
-    },
-    {
-        "create_time": "2025-03-26",
-        "creators": [
-            "Viktoria Isabel Schwarz",
-            "Wolfgang Maier"
-        ],
-        "deprecated": false,
-        "doi": null,
-        "edam_operation": [
-            "Sequencing quality control",
-            "Validation",
-            "Genome indexing",
-            "Global alignment",
-            "Sequence alignment analysis",
-            "Sequence analysis",
-            "Sequence contamination filtering",
-            "Primer removal",
-            "Sequence alignment",
-            "Read mapping",
-            "Local alignment",
-            "Generation"
-        ],
-        "edam_topic": [],
-        "id": "439",
-        "keep": true,
-        "latest_version": 3,
-        "license": "MIT",
-        "link": "https://workflowhub.eu/workflows/439?version=3",
-        "name": "pox-virus-amplicon/main",
-        "number_of_steps": 40,
-        "projects": [
-            "Intergalactic Workflow Commission (IWC)"
-        ],
-        "source": "WorkflowHub",
-        "tags": [
-            "virology",
-            "pox"
-        ],
-        "tools": [
-            "collection_element_identifiers",
-            "datamash_ops",
-            "\n __FILTER_FAILED_DATASETS__",
-            "bwa_mem",
-            "tp_sed_tool",
-            "compose_text_param",
-            "\n __SORTLIST__",
-            "qualimap_bamqc",
-            "tp_cat",
-            "\n param_value_from_file",
-            "split_file_to_collection",
-            "fastp",
-            "\n Grep1",
-            "ivar_trim",
-            "EMBOSS: maskseq51",
-            "\n __FLATTEN__",
-            "samtools_stats",
-            "\n Cut1",
-            "samtools_view",
-            "multiqc",
-            "\n __APPLY_RULES__",
-            "fasta_compute_length",
-            "\n __ZIP_COLLECTION__",
-            "ivar_consensus",
-            "samtools_merge"
-        ],
-        "update_time": "2025-03-26",
-        "versions": 3
     },
     {
         "create_time": "2021-02-04",
@@ -2941,8 +3537,8 @@
         "doi": null,
         "edam_operation": [
             "Sequence contamination filtering",
-            "Genome assembly",
-            "Sequencing quality control"
+            "Sequencing quality control",
+            "Genome assembly"
         ],
         "edam_topic": [],
         "id": "103",
@@ -2962,8 +3558,8 @@
             "exploration"
         ],
         "tools": [
-            "shovill",
-            "fastp"
+            "fastp",
+            "shovill"
         ],
         "update_time": "2023-02-13",
         "versions": 1
@@ -2974,13 +3570,13 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Sequence contamination filtering",
-            "Formatting",
             "Sequencing quality control",
-            "Variant calling",
             "Read pre-processing",
+            "Variant calling",
+            "Sequence contamination filtering",
             "Pairwise sequence alignment",
-            "Genome assembly"
+            "Genome assembly",
+            "Formatting"
         ],
         "edam_topic": [],
         "id": "102",
@@ -3003,12 +3599,12 @@
         ],
         "tools": [
             "shovill",
-            "ncbi_blastn_wrapper",
-            "ngsutils_bam_filter",
-            "picard_SamToFastq",
-            "samtools_stats",
             "minimap2",
-            "fasta_merge_files_and_filter_unique_sequences"
+            "ngsutils_bam_filter",
+            "samtools_stats",
+            "fasta_merge_files_and_filter_unique_sequences",
+            "picard_SamToFastq",
+            "ncbi_blastn_wrapper"
         ],
         "update_time": "2023-02-13",
         "versions": 1
@@ -3022,16 +3618,16 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Sequence assembly visualisation",
+            "Mapping assembly",
             "Antimicrobial resistance prediction",
             "Sequence analysis",
-            "Genome assembly",
-            "Pairwise sequence alignment",
-            "Mapping assembly",
-            "Box-Whisker plot plotting",
             "Scatter plot plotting",
-            "De-novo assembly",
-            "Aggregation"
+            "Aggregation",
+            "Sequence assembly visualisation",
+            "Box-Whisker plot plotting",
+            "Pairwise sequence alignment",
+            "Genome assembly",
+            "De-novo assembly"
         ],
         "edam_topic": [
             "Microbiology"
@@ -3052,14 +3648,14 @@
         ],
         "tools": [
             "gfa_to_fa",
+            "PlasFlow",
+            "nanoplot",
+            "minimap2",
+            "miniasm",
             "bandage_image",
             "racon",
-            "miniasm",
-            "PlasFlow",
-            "unicycler",
-            "nanoplot",
             "staramr_search",
-            "minimap2"
+            "unicycler"
         ],
         "update_time": "2023-02-13",
         "versions": 1
@@ -3070,8 +3666,8 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Visualisation",
-            "Taxonomic classification"
+            "Taxonomic classification",
+            "Visualisation"
         ],
         "edam_topic": [],
         "id": "124",
@@ -3090,9 +3686,9 @@
             "kraken"
         ],
         "tools": [
-            "taxonomy_krona_chart",
             "Kraken2Tax",
-            "kraken2"
+            "kraken2",
+            "taxonomy_krona_chart"
         ],
         "update_time": "2023-02-13",
         "versions": 1
@@ -3103,8 +3699,8 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Visualisation",
-            "Taxonomic classification"
+            "Taxonomic classification",
+            "Visualisation"
         ],
         "edam_topic": [],
         "id": "101",
@@ -3123,9 +3719,9 @@
             "kraken"
         ],
         "tools": [
-            "taxonomy_krona_chart",
             "Kraken2Tax",
-            "kraken2"
+            "kraken2",
+            "taxonomy_krona_chart"
         ],
         "update_time": "2023-02-13",
         "versions": 1
@@ -3136,8 +3732,8 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Visualisation",
-            "Pairwise sequence alignment"
+            "Pairwise sequence alignment",
+            "Visualisation"
         ],
         "edam_topic": [],
         "id": "1380",
@@ -3159,24 +3755,24 @@
             "metagenomics"
         ],
         "tools": [
+            "CONVERTER_fasta_to_tabular",
             "Add_a_column1",
-            "Filter1",
-            "tab2fasta",
-            "ggplot2_histogram",
+            "join1",
+            "minimap2",
             "MQoutputfilter",
-            "tp_replace_in_column",
+            "Filter1",
+            "ggplot2_histogram",
+            "tab2fasta",
+            "sort1",
+            "count_gff_features",
             "cat1",
-            "Cut1",
+            "tp_replace_in_column",
             "histogram_rpy",
             "add_column_headers",
-            "CONVERTER_fasta_to_tabular",
-            "sort1",
-            "tp_sorted_uniq",
             "tp_tail_tool",
             "Grouping1",
-            "join1",
-            "count_gff_features",
-            "minimap2"
+            "Cut1",
+            "tp_sorted_uniq"
         ],
         "update_time": "2025-01-20",
         "versions": 1
@@ -3222,8 +3818,8 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Visualisation",
-            "Aggregation"
+            "Aggregation",
+            "Visualisation"
         ],
         "edam_topic": [],
         "id": "1349",
@@ -3255,13 +3851,13 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Expression analysis",
-            "Sequence contamination filtering",
-            "Cross-assembly",
-            "Sequencing quality control",
             "Taxonomic classification",
             "Statistical calculation",
-            "Sequence composition calculation"
+            "Sequencing quality control",
+            "Cross-assembly",
+            "Sequence composition calculation",
+            "Sequence contamination filtering",
+            "Expression analysis"
         ],
         "edam_topic": [],
         "id": "1344",
@@ -3281,11 +3877,11 @@
             "sequence-analysis"
         ],
         "tools": [
-            "est_abundance",
-            "fastqc",
             "kraken2",
+            "fastp",
+            "fastqc",
             "recentrifuge",
-            "fastp"
+            "est_abundance"
         ],
         "update_time": "2024-10-07",
         "versions": 1
@@ -3296,10 +3892,10 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Cross-assembly",
             "Taxonomic classification",
             "Statistical calculation",
-            "Expression analysis"
+            "Expression analysis",
+            "Cross-assembly"
         ],
         "edam_topic": [],
         "id": "1217",
@@ -3319,9 +3915,9 @@
             "ecology"
         ],
         "tools": [
-            "est_abundance",
+            "kraken2",
             "recentrifuge",
-            "kraken2"
+            "est_abundance"
         ],
         "update_time": "2024-10-07",
         "versions": 2
@@ -3332,13 +3928,13 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Phylogenetic analysis",
-            "Sequencing quality control",
             "Taxonomic classification",
-            "Visualisation",
-            "Sequence read processing",
             "DNA barcoding",
-            "Sequence clustering"
+            "Sequence clustering",
+            "Phylogenetic analysis",
+            "Visualisation",
+            "Sequencing quality control",
+            "Sequence read processing"
         ],
         "edam_topic": [],
         "id": "1133",
@@ -3358,12 +3954,12 @@
             "microbiome"
         ],
         "tools": [
+            "mothur_count_groups",
+            "mothur_remove_groups",
             "mothur_make_shared",
             "mothur_sub_sample",
-            "mothur_remove_groups",
-            "mothur_count_groups",
-            "mothur_classify_otu",
-            "mothur_cluster_split"
+            "mothur_cluster_split",
+            "mothur_classify_otu"
         ],
         "update_time": "2024-10-07",
         "versions": 1
@@ -3374,13 +3970,13 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Phylogenetic analysis",
-            "Sequencing quality control",
             "Taxonomic classification",
-            "Visualisation",
-            "Sequence read processing",
             "DNA barcoding",
-            "Sequence clustering"
+            "Sequence clustering",
+            "Phylogenetic analysis",
+            "Visualisation",
+            "Sequencing quality control",
+            "Sequence read processing"
         ],
         "edam_topic": [],
         "id": "1129",
@@ -3413,13 +4009,13 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Phylogenetic analysis",
-            "Sequencing quality control",
             "Taxonomic classification",
-            "Visualisation",
-            "Sequence read processing",
             "DNA barcoding",
-            "Sequence clustering"
+            "Sequence clustering",
+            "Phylogenetic analysis",
+            "Visualisation",
+            "Sequencing quality control",
+            "Sequence read processing"
         ],
         "edam_topic": [],
         "id": "1125",
@@ -3440,9 +4036,9 @@
         ],
         "tools": [
             "mothur_make_shared",
-            "mothur_rarefaction_single",
+            "mothur_dist_seqs",
             "mothur_cluster",
-            "mothur_dist_seqs"
+            "mothur_rarefaction_single"
         ],
         "update_time": "2024-10-07",
         "versions": 1
@@ -3453,13 +4049,13 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Phylogenetic analysis",
-            "Sequencing quality control",
             "Taxonomic classification",
-            "Visualisation",
-            "Sequence read processing",
             "DNA barcoding",
-            "Sequence clustering"
+            "Sequence clustering",
+            "Phylogenetic analysis",
+            "Visualisation",
+            "Sequencing quality control",
+            "Sequence read processing"
         ],
         "edam_topic": [],
         "id": "1121",
@@ -3480,8 +4076,8 @@
         ],
         "tools": [
             "mothur_unique_seqs",
-            "mothur_screen_seqs",
             "mothur_summary_seqs",
+            "mothur_screen_seqs",
             "mothur_count_seqs"
         ],
         "update_time": "2024-10-07",
@@ -3493,16 +4089,16 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Phylogenetic tree reconstruction",
-            "Phylogenetic analysis",
-            "Sequencing quality control",
             "Taxonomic classification",
-            "Phylogenetic tree generation",
-            "Visualisation",
-            "Phylogenetic tree analysis",
-            "Sequence read processing",
             "DNA barcoding",
-            "Sequence clustering"
+            "Sequence clustering",
+            "Phylogenetic analysis",
+            "Phylogenetic tree analysis",
+            "Visualisation",
+            "Sequencing quality control",
+            "Phylogenetic tree generation",
+            "Phylogenetic tree reconstruction",
+            "Sequence read processing"
         ],
         "edam_topic": [],
         "id": "1117",
@@ -3522,12 +4118,12 @@
             "microbiome"
         ],
         "tools": [
-            "mothur_heatmap_sim",
-            "mothur_venn",
-            "collapse_dataset",
-            "mothur_tree_shared",
             "mothur_dist_shared",
-            "newick_display"
+            "collapse_dataset",
+            "newick_display",
+            "mothur_tree_shared",
+            "mothur_heatmap_sim",
+            "mothur_venn"
         ],
         "update_time": "2024-10-07",
         "versions": 1
@@ -3538,13 +4134,13 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Phylogenetic analysis",
-            "Sequencing quality control",
             "Taxonomic classification",
-            "Visualisation",
-            "Sequence read processing",
             "DNA barcoding",
-            "Sequence clustering"
+            "Sequence clustering",
+            "Phylogenetic analysis",
+            "Visualisation",
+            "Sequencing quality control",
+            "Sequence read processing"
         ],
         "edam_topic": [],
         "id": "1112",
@@ -3564,13 +4160,13 @@
             "microbiome"
         ],
         "tools": [
-            "mothur_filter_seqs",
-            "mothur_unique_seqs",
-            "mothur_screen_seqs",
-            "mothur_chimera_vsearch",
             "mothur_pre_cluster",
-            "mothur_remove_seqs",
-            "mothur_summary_seqs"
+            "mothur_summary_seqs",
+            "mothur_screen_seqs",
+            "mothur_filter_seqs",
+            "mothur_chimera_vsearch",
+            "mothur_unique_seqs",
+            "mothur_remove_seqs"
         ],
         "update_time": "2024-10-07",
         "versions": 1
@@ -3581,16 +4177,16 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Sequence assembly visualisation",
+            "Mapping assembly",
             "Antimicrobial resistance prediction",
             "Sequence analysis",
-            "Genome assembly",
-            "Pairwise sequence alignment",
-            "Mapping assembly",
-            "Box-Whisker plot plotting",
             "Scatter plot plotting",
-            "De-novo assembly",
-            "Aggregation"
+            "Aggregation",
+            "Sequence assembly visualisation",
+            "Box-Whisker plot plotting",
+            "Pairwise sequence alignment",
+            "Genome assembly",
+            "De-novo assembly"
         ],
         "edam_topic": [],
         "id": "1107",
@@ -3611,14 +4207,14 @@
         ],
         "tools": [
             "gfa_to_fa",
+            "PlasFlow",
+            "nanoplot",
+            "minimap2",
+            "miniasm",
             "bandage_image",
             "racon",
-            "miniasm",
-            "PlasFlow",
-            "unicycler",
-            "nanoplot",
             "staramr_search",
-            "minimap2"
+            "unicycler"
         ],
         "update_time": "2024-10-07",
         "versions": 1
@@ -3629,11 +4225,11 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Deposition",
-            "Visualisation",
+            "DNA barcoding",
             "Analysis",
+            "Deposition",
             "Variant calling",
-            "DNA barcoding"
+            "Visualisation"
         ],
         "edam_topic": [],
         "id": "1105",
@@ -3654,23 +4250,23 @@
         ],
         "tools": [
             "Add_a_column1",
-            "tp_replace_in_line",
+            "__UNZIP_COLLECTION__",
+            "dada2_plotQualityProfile",
+            "dada2_removeBimeraDenovo",
+            "dada2_learnErrors",
             "dada2_makeSequenceTable",
             "collection_element_identifiers",
-            "dada2_seqCounts",
-            "cat1",
-            "__UNZIP_COLLECTION__",
-            "tp_replace_in_column",
-            "__SORTLIST__",
-            "dada2_filterAndTrim",
-            "dada2_assignTaxonomyAddspecies",
             "dada2_mergePairs",
-            "dada2_learnErrors",
-            "phyloseq_from_dada2",
-            "dada2_removeBimeraDenovo",
+            "dada2_seqCounts",
+            "dada2_filterAndTrim",
             "dada2_dada",
-            "dada2_plotQualityProfile",
-            "tp_head_tool"
+            "tp_replace_in_column",
+            "cat1",
+            "dada2_assignTaxonomyAddspecies",
+            "phyloseq_from_dada2",
+            "__SORTLIST__",
+            "tp_head_tool",
+            "tp_replace_in_line"
         ],
         "update_time": "2024-10-07",
         "versions": 2
@@ -3681,16 +4277,16 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Phylogenetic tree reconstruction",
-            "Phylogenetic analysis",
-            "Sequencing quality control",
             "Taxonomic classification",
-            "Phylogenetic tree generation",
-            "Visualisation",
-            "Phylogenetic tree analysis",
-            "Sequence read processing",
             "DNA barcoding",
-            "Sequence clustering"
+            "Sequence clustering",
+            "Phylogenetic analysis",
+            "Phylogenetic tree analysis",
+            "Visualisation",
+            "Sequencing quality control",
+            "Phylogenetic tree generation",
+            "Phylogenetic tree reconstruction",
+            "Sequence read processing"
         ],
         "edam_topic": [],
         "id": "1101",
@@ -3710,39 +4306,39 @@
             "microbiome"
         ],
         "tools": [
-            "mothur_make_shared",
+            "mothur_pre_cluster",
+            "mothur_taxonomy_to_krona",
+            "mothur_screen_seqs",
+            "mothur_make_contigs",
+            "mothur_filter_seqs",
+            "taxonomy_krona_chart",
             "mothur_tree_shared",
+            "mothur_count_groups",
+            "mothur_remove_groups",
             "mothur_count_seqs",
-            "mothur_remove_lineage",
-            "mothur_classify_otu",
+            "mothur_venn",
             "mothur_summary_single",
             "mothur_summary_seqs",
-            "mothur_filter_seqs",
-            "mothur_heatmap_sim",
-            "mothur_sub_sample",
-            "mothur_remove_groups",
-            "mothur_seq_error",
-            "newick_display",
-            "mothur_dist_seqs",
-            "mothur_make_contigs",
-            "mothur_unique_seqs",
-            "mothur_venn",
-            "mothur_get_groups",
-            "mothur_align_seqs",
-            "mothur_screen_seqs",
-            "mothur_make_biom",
-            "mothur_chimera_vsearch",
             "mothur_dist_shared",
-            "taxonomy_krona_chart",
-            "mothur_cluster_split",
-            "mothur_remove_seqs",
-            "mothur_taxonomy_to_krona",
-            "XY_Plot_1",
-            "mothur_count_groups",
-            "mothur_pre_cluster",
+            "mothur_make_biom",
+            "newick_display",
+            "mothur_make_shared",
+            "mothur_sub_sample",
+            "mothur_chimera_vsearch",
+            "mothur_dist_seqs",
             "mothur_cluster",
+            "mothur_seq_error",
+            "XY_Plot_1",
+            "mothur_classify_seqs",
+            "mothur_remove_lineage",
             "mothur_rarefaction_single",
-            "mothur_classify_seqs"
+            "mothur_align_seqs",
+            "mothur_get_groups",
+            "mothur_unique_seqs",
+            "mothur_cluster_split",
+            "mothur_classify_otu",
+            "mothur_heatmap_sim",
+            "mothur_remove_seqs"
         ],
         "update_time": "2024-10-07",
         "versions": 1
@@ -3753,13 +4349,13 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Sequence contamination filtering",
-            "Visualisation",
             "Taxonomic classification",
-            "Sequencing quality control",
             "Statistical calculation",
+            "Sequencing quality control",
             "Sequence composition calculation",
-            "Aggregation"
+            "Sequence contamination filtering",
+            "Aggregation",
+            "Visualisation"
         ],
         "edam_topic": [],
         "id": "1097",
@@ -3779,13 +4375,13 @@
             "microbiome"
         ],
         "tools": [
-            "porechop",
-            "Filter1",
-            "krakentools_kreport2krona",
             "kraken2",
-            "taxonomy_krona_chart",
+            "fastp",
+            "krakentools_kreport2krona",
+            "Filter1",
             "fastqc",
-            "fastp"
+            "taxonomy_krona_chart",
+            "porechop"
         ],
         "update_time": "2024-10-07",
         "versions": 1
@@ -3796,11 +4392,11 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Visualisation",
             "Taxonomic classification",
-            "Genome annotation",
             "Statistical calculation",
-            "Aggregation"
+            "Genome annotation",
+            "Aggregation",
+            "Visualisation"
         ],
         "edam_topic": [],
         "id": "1095",
@@ -3820,15 +4416,15 @@
             "microbiome"
         ],
         "tools": [
-            "kraken_biom",
-            "est_abundance",
+            "kraken2",
             "__UNZIP_COLLECTION__",
+            "interactive_tool_pavian",
+            "kraken_biom",
+            "krakentools_kreport2krona",
+            "taxonomy_krona_chart",
             "metaphlan",
             "interactive_tool_phinch",
-            "krakentools_kreport2krona",
-            "kraken2",
-            "taxonomy_krona_chart",
-            "interactive_tool_pavian"
+            "est_abundance"
         ],
         "update_time": "2024-10-07",
         "versions": 1
@@ -3839,8 +4435,8 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Phylogenetic analysis",
             "Taxonomic classification",
+            "Phylogenetic analysis",
             "Species frequency estimation"
         ],
         "edam_topic": [],
@@ -3862,15 +4458,15 @@
             "metagenomics"
         ],
         "tools": [
-            "tp_find_and_replace",
-            "humann_renorm_table",
-            "humann_regroup_table",
-            "combine_metaphlan2_humann2",
-            "Cut1",
-            "humann_rename_table",
             "Grep1",
             "humann_split_stratified_table",
-            "humann_unpack_pathways"
+            "combine_metaphlan2_humann2",
+            "humann_unpack_pathways",
+            "humann_regroup_table",
+            "humann_renorm_table",
+            "tp_find_and_replace",
+            "humann_rename_table",
+            "Cut1"
         ],
         "update_time": "2024-10-07",
         "versions": 1
@@ -3881,10 +4477,10 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Sequence alignment",
-            "Local alignment",
-            "Global alignment",
             "Sequence analysis",
+            "Local alignment",
+            "Sequence alignment",
+            "Global alignment",
             "Sequence alignment analysis"
         ],
         "edam_topic": [],
@@ -3906,13 +4502,13 @@
         ],
         "tools": [
             "Add_a_column1",
-            "param_value_from_file",
-            "datamash_ops",
+            "Grep1",
             "fasta_compute_length",
-            "EMBOSS: maskseq51",
-            "Cut1",
             "compose_text_param",
-            "Grep1"
+            "EMBOSS: maskseq51",
+            "datamash_ops",
+            "param_value_from_file",
+            "Cut1"
         ],
         "update_time": "2024-10-07",
         "versions": 1
@@ -3923,13 +4519,13 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Phylogenetic analysis",
-            "Sequencing quality control",
             "Taxonomic classification",
-            "Visualisation",
-            "Sequence read processing",
             "DNA barcoding",
-            "Sequence clustering"
+            "Sequence clustering",
+            "Phylogenetic analysis",
+            "Visualisation",
+            "Sequencing quality control",
+            "Sequence read processing"
         ],
         "edam_topic": [],
         "id": "1070",
@@ -3949,21 +4545,21 @@
             "microbiome"
         ],
         "tools": [
-            "mothur_classify_seqs",
+            "mothur_pre_cluster",
+            "mothur_summary_seqs",
+            "mothur_screen_seqs",
             "mothur_filter_seqs",
+            "krona-text",
+            "mothur_classify_seqs",
             "mothur_unique_seqs",
             "mothur_make_shared",
-            "krona-text",
-            "mothur_merge_files",
-            "mothur_screen_seqs",
-            "mothur_align_seqs",
-            "mothur_make_biom",
             "mothur_count_seqs",
-            "mothur_pre_cluster",
-            "mothur_classify_otu",
-            "mothur_cluster_split",
+            "mothur_merge_files",
+            "mothur_align_seqs",
             "mothur_make_group",
-            "mothur_summary_seqs"
+            "mothur_cluster_split",
+            "mothur_classify_otu",
+            "mothur_make_biom"
         ],
         "update_time": "2024-10-07",
         "versions": 1
@@ -3974,19 +4570,19 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Antimicrobial resistance prediction",
-            "Sequencing quality control",
-            "Validation",
-            "Global alignment",
-            "Sequence alignment analysis",
-            "Variant calling",
-            "Sequence analysis",
             "Taxonomic classification",
-            "Phylogenetic tree generation",
+            "Antimicrobial resistance prediction",
+            "Sequence analysis",
+            "Variant calling",
             "Sequence contamination filtering",
+            "Sequence alignment analysis",
+            "Global alignment",
+            "Phylogenetic tree visualisation",
             "Sequence alignment",
+            "Sequencing quality control",
             "Local alignment",
-            "Phylogenetic tree visualisation"
+            "Phylogenetic tree generation",
+            "Validation"
         ],
         "edam_topic": [],
         "id": "1069",
@@ -4007,20 +4603,20 @@
             "tuberculosis"
         ],
         "tools": [
-            "tbvcfreport",
-            "multiqc",
-            "EMBOSS: seqret84",
-            "mosdepth",
-            "tp_awk_tool",
-            "tb_variant_filter",
             "__FLATTEN__",
-            "snippy",
-            "tp_sed_tool",
             "kraken2",
-            "tb_profiler_profile",
-            "bcftools_consensus",
             "qualimap_bamqc",
-            "fastp"
+            "snippy",
+            "tb_variant_filter",
+            "tp_awk_tool",
+            "bcftools_consensus",
+            "multiqc",
+            "fastp",
+            "tp_sed_tool",
+            "tb_profiler_profile",
+            "tbvcfreport",
+            "EMBOSS: seqret84",
+            "mosdepth"
         ],
         "update_time": "2024-10-07",
         "versions": 2
@@ -4051,12 +4647,12 @@
             "microbiome"
         ],
         "tools": [
-            "metaphlan2krona",
             "humann2_regroup_table",
             "humann2_renorm_table",
-            "humann2",
+            "metaphlan2",
             "taxonomy_krona_chart",
-            "metaphlan2"
+            "metaphlan2krona",
+            "humann2"
         ],
         "update_time": "2024-10-07",
         "versions": 1
@@ -4067,13 +4663,13 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Sequence contamination filtering",
-            "Visualisation",
             "Taxonomic classification",
+            "Statistical calculation",
             "Sequencing quality control",
             "Validation",
-            "Statistical calculation",
-            "Sequence composition calculation"
+            "Sequence composition calculation",
+            "Sequence contamination filtering",
+            "Visualisation"
         ],
         "edam_topic": [],
         "id": "1064",
@@ -4093,15 +4689,15 @@
             "microbiome"
         ],
         "tools": [
-            "tp_replace_in_line",
-            "porechop",
-            "multiqc",
-            "Remove beginning1",
             "kraken2",
+            "multiqc",
+            "fastp",
+            "Remove beginning1",
             "datamash_reverse",
-            "taxonomy_krona_chart",
             "fastqc",
-            "fastp"
+            "taxonomy_krona_chart",
+            "porechop",
+            "tp_replace_in_line"
         ],
         "update_time": "2024-10-07",
         "versions": 1
@@ -4112,13 +4708,13 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Phylogenetic analysis",
-            "Sequencing quality control",
             "Taxonomic classification",
-            "Visualisation",
-            "Sequence read processing",
             "DNA barcoding",
-            "Sequence clustering"
+            "Sequence clustering",
+            "Phylogenetic analysis",
+            "Visualisation",
+            "Sequencing quality control",
+            "Sequence read processing"
         ],
         "edam_topic": [],
         "id": "1060",
@@ -4139,8 +4735,8 @@
         ],
         "tools": [
             "mothur_remove_lineage",
-            "mothur_classify_seqs",
-            "mothur_summary_seqs"
+            "mothur_summary_seqs",
+            "mothur_classify_seqs"
         ],
         "update_time": "2024-10-07",
         "versions": 1
@@ -4155,22 +4751,22 @@
         "doi": "",
         "edam_operation": [
             "Standardisation and normalisation",
-            "Phylogenetic analysis",
             "Taxonomic classification",
-            "Sequencing quality control",
-            "Sequence contamination filtering",
-            "Formatting",
             "Read mapping",
-            "Visualisation",
-            "Conversion",
+            "Phylogenetic analysis",
             "Species frequency estimation",
+            "Sequence contamination filtering",
+            "Visualisation",
+            "Formatting",
             "Statistical calculation",
+            "Sequencing quality control",
+            "Conversion",
             "Aggregation"
         ],
         "edam_topic": [],
         "id": "cb2df493f5e334f7",
         "keep": true,
-        "latest_version": 5,
+        "latest_version": 17,
         "license": "MIT",
         "link": "https://usegalaxy.eu/published/workflow?id=cb2df493f5e334f7",
         "name": "Metagenomic Taxonomy and Functional Analysis",
@@ -4184,40 +4780,41 @@
             "name:microgalaxy"
         ],
         "tools": [
-            "collection_element_identifiers",
-            "humann_renorm_table",
-            "bowtie2",
-            "humann_regroup_table",
-            "tp_awk_tool",
-            "tp_text_file_with_recurring_lines",
-            "Remove beginning1",
-            "tp_sed_tool",
-            "humann",
-            "fastp",
-            "cat1",
-            "__UNZIP_COLLECTION__",
-            "humann_rename_table",
-            "collapse_dataset",
-            "csv_to_tabular",
-            "kraken2",
-            "humann_unpack_pathways",
-            "tp_replace_in_line",
-            "est_abundance",
-            "metaphlan",
-            "taxpasta",
+            "sylph_profile",
+            "krakentools_alpha_diversity",
+            "collection_column_join",
             "__ZIP_COLLECTION__",
             "taxonomy_krona_chart",
-            "collection_column_join",
-            "tp_easyjoin_tool",
-            "datamash_transpose",
-            "krakentools_kreport2krona",
-            "krakentools_alpha_diversity",
+            "cat1",
             "add_line_to_file",
+            "est_abundance",
+            "taxpasta",
+            "__UNZIP_COLLECTION__",
+            "tp_awk_tool",
+            "krakentools_kreport2krona",
+            "humann_regroup_table",
+            "collection_element_identifiers",
+            "metaphlan",
+            "humann",
+            "kraken2",
+            "collapse_dataset",
+            "bowtie2",
             "fastq_paired_end_interlacer",
-            "sort1"
+            "humann_rename_table",
+            "csv_to_tabular",
+            "Remove beginning1",
+            "tp_text_file_with_recurring_lines",
+            "fastp",
+            "tp_sed_tool",
+            "datamash_transpose",
+            "sort1",
+            "humann_renorm_table",
+            "tp_easyjoin_tool",
+            "humann_unpack_pathways",
+            "tp_replace_in_line"
         ],
-        "update_time": "2025-07-19",
-        "versions": 5
+        "update_time": "2025-07-24",
+        "versions": 17
     },
     {
         "create_time": "2023-06-30",
@@ -4228,19 +4825,19 @@
         "deprecated": false,
         "doi": "",
         "edam_operation": [
-            "Deposition",
             "Standardisation and normalisation",
-            "Analysis",
-            "Sequencing quality control",
-            "Validation",
             "DNA barcoding",
-            "Sequence feature detection",
             "Filtering",
+            "Sequence composition calculation",
+            "Classification",
+            "Sequence feature detection",
             "Visualisation",
             "Formatting",
-            "Classification",
             "Statistical calculation",
-            "Sequence composition calculation"
+            "Sequencing quality control",
+            "Analysis",
+            "Deposition",
+            "Validation"
         ],
         "edam_topic": [],
         "id": "466bdd8ba7b67264",
@@ -4259,34 +4856,34 @@
             "name:pallori"
         ],
         "tools": [
-            "ampvis2_load",
-            "tp_awk_tool",
-            "tp_cut_tool",
-            "Remove beginning1",
-            "biom_convert",
+            "multiqc",
             "calculate_numeric_param",
             "compose_text_param",
-            "fastqc",
-            "ampvis2_export_otu",
-            "ampvis2_heatmap",
-            "phyloseq_tax_glom",
-            "regex1",
-            "ampvis2_ordinate",
-            "multiqc",
-            "lotus2",
-            "bg_column_arrange_by_header",
-            "decontam",
-            "maaslin2",
-            "unzip",
-            "__FLATTEN__",
-            "mmuphin",
-            "datamash_transpose",
-            "tp_easyjoin_tool",
-            "param_value_from_file",
-            "phyloseq_from_biom",
             "phyloseq_add_rank_names",
+            "phyloseq_tax_glom",
+            "tp_awk_tool",
+            "fastqc",
+            "ampvis2_load",
+            "unzip",
+            "phyloseq_from_biom",
+            "ampvis2_export_otu",
+            "lotus2",
+            "biom_convert",
+            "maaslin2",
+            "tp_cut_tool",
+            "mmuphin",
+            "__FLATTEN__",
+            "ampvis2_heatmap",
+            "decontam",
+            "Remove beginning1",
+            "ampvis2_ordinate",
+            "datamash_transpose",
+            "bg_column_arrange_by_header",
+            "ampvis2_subset_samples",
+            "param_value_from_file",
+            "tp_easyjoin_tool",
             "volcanoplot",
-            "ampvis2_subset_samples"
+            "regex1"
         ],
         "update_time": "2025-06-26",
         "versions": 191
@@ -4300,13 +4897,13 @@
         "deprecated": false,
         "doi": "",
         "edam_operation": [
-            "Sequence alignment",
-            "Read summarisation",
-            "Sequencing quality control",
-            "Validation",
             "Statistical calculation",
+            "Sequencing quality control",
             "RNA-Seq quantification",
-            "Sequence composition calculation"
+            "Sequence alignment",
+            "Validation",
+            "Sequence composition calculation",
+            "Read summarisation"
         ],
         "edam_topic": [],
         "id": "ca9d3233b0912765",
@@ -4327,14 +4924,14 @@
             "name:transcriptomics"
         ],
         "tools": [
-            "umi_tools_dedup",
             "rna_star",
-            "featurecounts",
-            "multiqc",
-            "umi_tools_extract",
-            "__FILTER_FAILED_DATASETS__",
             "collection_column_join",
-            "fastqc"
+            "multiqc",
+            "umi_tools_dedup",
+            "__FILTER_FAILED_DATASETS__",
+            "fastqc",
+            "featurecounts",
+            "umi_tools_extract"
         ],
         "update_time": "2025-06-26",
         "versions": 48
@@ -4349,34 +4946,34 @@
         "deprecated": false,
         "doi": "",
         "edam_operation": [
-            "Taxonomic classification",
-            "Validation",
-            "Sequence analysis",
-            "Sequence generation",
-            "Protein feature detection",
-            "Formatting",
-            "Probabilistic sequence generation",
-            "Gene prediction",
-            "Sequence assembly",
-            "Primer removal",
-            "Sequence profile generation",
-            "Read pre-processing",
-            "Sequence trimming",
-            "Gene functional annotation",
-            "Data retrieval",
-            "Sequence composition calculation",
-            "Sequencing quality control",
-            "Database search",
-            "Format validation",
             "Multiple sequence alignment",
+            "Taxonomic classification",
+            "Database search",
+            "Data retrieval",
+            "Gene prediction",
+            "Read pre-processing",
             "Sequence motif recognition",
+            "Probabilistic sequence generation",
+            "Format validation",
             "Visualisation",
-            "Sequence database search",
-            "Sequence assembly validation",
+            "Primer removal",
+            "Formatting",
+            "Sequencing quality control",
             "Local alignment",
-            "Conversion",
+            "Validation",
+            "Sequence assembly validation",
+            "Sequence analysis",
+            "Gene functional annotation",
+            "Sequence composition calculation",
+            "Protein feature detection",
+            "Sequence generation",
+            "Coding region prediction",
+            "Sequence assembly",
+            "Sequence database search",
             "Statistical calculation",
-            "Coding region prediction"
+            "Conversion",
+            "Sequence profile generation",
+            "Sequence trimming"
         ],
         "edam_topic": [],
         "id": "667bac8d7453e5f1",
@@ -4394,23 +4991,23 @@
             "name:mags"
         ],
         "tools": [
-            "maxbin2",
-            "quast",
-            "hmmer_hmmscan",
             "interproscan",
-            "tp_cat",
-            "tp_grep_tool",
-            "checkm_lineage_wf",
-            "tp_awk_tool",
-            "coverm_contig",
             "cat_bins",
-            "fraggenescan",
             "fasplit",
-            "kofamscan",
-            "coverm_genome",
-            "sort1",
+            "tp_awk_tool",
+            "hmmer_hmmscan",
+            "coverm_contig",
+            "tp_cat",
             "fastqc",
-            "trim_galore"
+            "quast",
+            "sort1",
+            "trim_galore",
+            "coverm_genome",
+            "maxbin2",
+            "fraggenescan",
+            "checkm_lineage_wf",
+            "tp_grep_tool",
+            "kofamscan"
         ],
         "update_time": "2024-12-21",
         "versions": 14
@@ -4436,23 +5033,23 @@
         "deprecated": false,
         "doi": "",
         "edam_operation": [
-            "Sequencing quality control",
             "Taxonomic classification",
-            "Sequence alignment analysis",
-            "Validation",
-            "Phylogenetic inference",
             "Sequence similarity search",
+            "Read pre-processing",
+            "Sequence composition calculation",
             "Primer removal",
-            "Phylogenetic tree editing",
             "Visualisation",
             "Formatting",
-            "Read pre-processing",
+            "Sequence comparison",
             "Phylogenetic tree visualisation",
-            "Conversion",
-            "Sequence trimming",
             "Statistical calculation",
-            "Sequence composition calculation",
-            "Sequence comparison"
+            "Sequencing quality control",
+            "Phylogenetic tree editing",
+            "Conversion",
+            "Phylogenetic inference",
+            "Sequence alignment analysis",
+            "Validation",
+            "Sequence trimming"
         ],
         "edam_topic": [],
         "id": "096b75501c8e0888",
@@ -4472,27 +5069,27 @@
             "name:microgalaxy"
         ],
         "tools": [
+            "export2graphlan",
+            "multiqc",
             "combine_metaphlan2_humann2",
-            "bg_sortmerna",
-            "humann2_unpack_pathways",
-            "Grouping1",
-            "humann2",
+            "format_metaphlan2_output",
             "metaphlan2",
+            "taxonomy_krona_chart",
+            "tp_sort_header_tool",
             "fastqc",
             "group_humann2_uniref_abundances_to_go",
-            "cutadapt",
-            "humann2_genefamilies_genus_level",
-            "tp_sort_header_tool",
             "graphlan",
+            "Grouping1",
             "Grep1",
-            "graphlan_annotate",
-            "metaphlan2krona",
-            "multiqc",
-            "taxonomy_krona_chart",
-            "export2graphlan",
+            "cutadapt",
             "humann2_renorm_table",
+            "humann2_unpack_pathways",
             "fastq_paired_end_interlacer",
-            "format_metaphlan2_output"
+            "graphlan_annotate",
+            "bg_sortmerna",
+            "humann2_genefamilies_genus_level",
+            "metaphlan2krona",
+            "humann2"
         ],
         "update_time": "2024-12-20",
         "versions": 3
@@ -4516,16 +5113,16 @@
         "deprecated": false,
         "doi": "",
         "edam_operation": [
-            "Sequencing quality control",
-            "Sequence alignment analysis",
             "Gene expression profiling",
             "Sequence similarity search",
-            "Primer removal",
             "Read pre-processing",
-            "Sequence trimming",
-            "Statistical calculation",
             "Sequence composition calculation",
-            "Sequence comparison"
+            "Primer removal",
+            "Sequence comparison",
+            "Sequence alignment analysis",
+            "Statistical calculation",
+            "Sequencing quality control",
+            "Sequence trimming"
         ],
         "edam_topic": [],
         "id": "fd90652d475ed739",
@@ -4543,12 +5140,12 @@
             "microbiome"
         ],
         "tools": [
-            "bg_sortmerna",
             "__UNZIP_COLLECTION__",
             "kallisto_quant",
             "collection_column_join",
             "fastqc",
-            "trim_galore"
+            "trim_galore",
+            "bg_sortmerna"
         ],
         "update_time": "2024-12-20",
         "versions": 6
@@ -4561,9 +5158,9 @@
         "deprecated": false,
         "doi": "",
         "edam_operation": [
-            "Sequence alignment analysis",
+            "Phylogenetic tree generation",
             "Multiple sequence alignment",
-            "Phylogenetic tree generation"
+            "Sequence alignment analysis"
         ],
         "edam_topic": [],
         "id": "a2c46deea34d9d80",
@@ -4580,20 +5177,20 @@
             "name:microgalaxy"
         ],
         "tools": [
+            "join1",
             "Add_a_column1",
-            "gops_intersect_1",
-            "regexColumn1",
-            "Filter1",
-            "rbc_mafft",
-            "tab2fasta",
-            "cat1",
-            "Cut1",
+            "bg_diamond_view",
             "rapidnj",
             "collapse_dataset",
-            "join1",
-            "bg_diamond_view",
+            "Filter1",
+            "tab2fasta",
+            "rbc_mafft",
+            "cat1",
+            "bg_diamond",
+            "regexColumn1",
+            "gops_intersect_1",
             "tp_split_on_column",
-            "bg_diamond"
+            "Cut1"
         ],
         "update_time": "2024-12-05",
         "versions": 2
@@ -4610,8 +5207,8 @@
         "deprecated": false,
         "doi": "",
         "edam_operation": [
-            "Visualisation",
-            "Prediction and recognition"
+            "Prediction and recognition",
+            "Visualisation"
         ],
         "edam_topic": [],
         "id": "cefc49c13ff73231",
@@ -4631,10 +5228,10 @@
         ],
         "tools": [
             "sqlite_to_tabular",
-            "search_gui",
-            "query_tabular",
+            "unipept",
             "peptide_shaker",
-            "unipept"
+            "search_gui",
+            "query_tabular"
         ],
         "update_time": "2024-11-21",
         "versions": 40
@@ -4668,11 +5265,11 @@
             "limma-rle"
         ],
         "tools": [
-            "map_param_value",
-            "__FILTER_EMPTY_DATASETS__",
-            "__EXTRACT_DATASET__",
             "__BUILD_LIST__",
-            "Grep1"
+            "Grep1",
+            "__EXTRACT_DATASET__",
+            "map_param_value",
+            "__FILTER_EMPTY_DATASETS__"
         ],
         "update_time": "2024-11-21",
         "versions": 5
@@ -4689,11 +5286,11 @@
         "deprecated": false,
         "doi": "",
         "edam_operation": [
-            "Formatting",
-            "Visualisation",
             "Prediction and recognition",
             "Filtering",
-            "Label-free quantification"
+            "Label-free quantification",
+            "Visualisation",
+            "Formatting"
         ],
         "edam_topic": [],
         "id": "cd675ab32d3e7833",
@@ -4710,18 +5307,18 @@
             "name:microgalaxy"
         ],
         "tools": [
-            "tp_replace_in_line",
+            "Remove beginning1",
+            "msconvert",
+            "unipept",
+            "flashlfq",
             "Filter1",
+            "peptide_shaker",
             "search_gui",
             "tp_replace_in_column",
-            "flashlfq",
             "query_tabular",
-            "Cut1",
-            "Remove beginning1",
             "regex1",
-            "peptide_shaker",
-            "msconvert",
-            "unipept"
+            "Cut1",
+            "tp_replace_in_line"
         ],
         "update_time": "2024-11-21",
         "versions": 1
@@ -4739,16 +5336,16 @@
         "deprecated": false,
         "doi": "",
         "edam_operation": [
-            "Query and retrieval",
-            "Functional clustering",
-            "Principal component visualisation",
             "Heat map generation",
-            "Filtering",
             "Statistical inference",
+            "Filtering",
             "Visualisation",
-            "Indexing",
+            "Functional clustering",
             "Quantification",
-            "Differential protein expression analysis"
+            "Differential protein expression analysis",
+            "Query and retrieval",
+            "Principal component visualisation",
+            "Indexing"
         ],
         "edam_topic": [],
         "id": "e5a89ef7b5f1c1d9",
@@ -4765,12 +5362,12 @@
             "name:microgalaxy"
         ],
         "tools": [
+            "metaquantome_expand",
             "metaquantome_db",
-            "metaquantome_filter",
-            "metaquantome_stat",
-            "metaquantome_sample",
             "metaquantome_viz",
-            "metaquantome_expand"
+            "metaquantome_stat",
+            "metaquantome_filter",
+            "metaquantome_sample"
         ],
         "update_time": "2024-11-21",
         "versions": 3
@@ -4787,9 +5384,9 @@
         "doi": "",
         "edam_operation": [
             "Read mapping",
-            "Cross-assembly",
             "Taxonomic classification",
-            "Expression analysis"
+            "Expression analysis",
+            "Cross-assembly"
         ],
         "edam_topic": [],
         "id": "c09159d7aad0f264",
@@ -4807,12 +5404,12 @@
             "name:microgalaxy"
         ],
         "tools": [
-            "bowtie2",
+            "kraken2",
+            "seq_filter_by_id",
             "filter_tabular",
             "fastq_to_tabular",
-            "seq_filter_by_id",
-            "kraken2",
-            "recentrifuge"
+            "recentrifuge",
+            "bowtie2"
         ],
         "update_time": "2024-11-21",
         "versions": 2
@@ -4828,11 +5425,11 @@
         "deprecated": false,
         "doi": "",
         "edam_operation": [
-            "Read summarisation",
             "Read mapping",
             "Sequencing quality control",
+            "RNA-Seq quantification",
             "Validation",
-            "RNA-Seq quantification"
+            "Read summarisation"
         ],
         "edam_topic": [],
         "id": "63478edcea3f449a",
@@ -4850,9 +5447,9 @@
             "name:microgalaxy"
         ],
         "tools": [
+            "bowtie2",
             "featurecounts",
-            "multiqc",
-            "bowtie2"
+            "multiqc"
         ],
         "update_time": "2024-11-21",
         "versions": 4
@@ -4868,9 +5465,9 @@
         "deprecated": false,
         "doi": "",
         "edam_operation": [
+            "Statistical calculation",
             "Sequencing quality control",
             "Validation",
-            "Statistical calculation",
             "Sequence composition calculation"
         ],
         "edam_topic": [],
@@ -4916,8 +5513,8 @@
             "name:microgalaxy"
         ],
         "tools": [
-            "interactive_tool_jupyter_notebook",
-            "__BUILD_LIST__"
+            "__BUILD_LIST__",
+            "interactive_tool_jupyter_notebook"
         ],
         "update_time": "2024-03-15",
         "versions": 128
@@ -4928,9 +5525,9 @@
         "deprecated": false,
         "doi": "",
         "edam_operation": [
-            "Sequence alignment",
             "Read mapping",
-            "Mapping"
+            "Mapping",
+            "Sequence alignment"
         ],
         "edam_topic": [],
         "id": "0e492839192d26e0",
@@ -4947,26 +5544,26 @@
             "name:microgalaxy"
         ],
         "tools": [
-            "Filter1",
-            "datamash_ops",
-            "fasta_filter_by_length",
-            "Cut1",
-            "tp_sed_tool",
-            "lastz_wrapper_2",
-            "bedtools_intersectbed",
-            "join1",
-            "tp_cat",
-            "bedtools_complementbed",
             "cat1",
-            "random_lines1",
-            "collapse_dataset",
-            "tp_sort_header_tool",
-            "Grep1",
+            "datamash_ops",
             "tp_grep_tool",
-            "bedtools_sortbed",
-            "addValue",
+            "Cut1",
+            "tp_sort_header_tool",
             "mergeCols1",
-            "fasta_compute_length"
+            "random_lines1",
+            "join1",
+            "Grep1",
+            "addValue",
+            "bedtools_complementbed",
+            "collapse_dataset",
+            "lastz_wrapper_2",
+            "fasta_compute_length",
+            "bedtools_sortbed",
+            "bedtools_intersectbed",
+            "Filter1",
+            "tp_cat",
+            "tp_sed_tool",
+            "fasta_filter_by_length"
         ],
         "update_time": "2023-12-14",
         "versions": 0
@@ -4979,9 +5576,9 @@
         "deprecated": false,
         "doi": "",
         "edam_operation": [
-            "Sequence alignment analysis",
+            "Phylogenetic tree generation",
             "Multiple sequence alignment",
-            "Phylogenetic tree generation"
+            "Sequence alignment analysis"
         ],
         "edam_topic": [],
         "id": "86900be4282d4b1d",
@@ -4999,20 +5596,20 @@
             "name:microgalaxy"
         ],
         "tools": [
+            "join1",
             "Add_a_column1",
-            "gops_intersect_1",
-            "regexColumn1",
-            "Filter1",
-            "rbc_mafft",
-            "tab2fasta",
-            "cat1",
-            "Cut1",
+            "bg_diamond_view",
             "rapidnj",
             "collapse_dataset",
-            "join1",
-            "bg_diamond_view",
+            "Filter1",
+            "tab2fasta",
+            "rbc_mafft",
+            "cat1",
+            "bg_diamond",
+            "regexColumn1",
+            "gops_intersect_1",
             "tp_split_on_column",
-            "bg_diamond"
+            "Cut1"
         ],
         "update_time": "2023-12-14",
         "versions": 0
@@ -5040,11 +5637,11 @@
             "name:microgalaxy"
         ],
         "tools": [
-            "list_organism",
-            "create_or_update",
-            "jbrowse",
             "create_account",
-            "iframe"
+            "jbrowse",
+            "list_organism",
+            "iframe",
+            "create_or_update"
         ],
         "update_time": "2023-12-14",
         "versions": 0
@@ -5055,24 +5652,24 @@
         "deprecated": false,
         "doi": "",
         "edam_operation": [
-            "Base-calling",
+            "Gene prediction",
+            "Mapping assembly",
+            "Sequence visualisation",
+            "Sequence analysis",
             "Antimicrobial resistance prediction",
-            "Cross-assembly",
             "Variant calling",
             "Genome annotation",
-            "Sequence analysis",
-            "Genome assembly",
-            "Sequence visualisation",
-            "Genome visualisation",
-            "Pairwise sequence alignment",
-            "Mapping assembly",
-            "Box-Whisker plot plotting",
+            "Base-calling",
             "Sequence assembly",
             "Scatter plot plotting",
-            "De-novo assembly",
-            "Gene prediction",
             "Coding region prediction",
-            "Sequence assembly visualisation"
+            "Cross-assembly",
+            "Sequence assembly visualisation",
+            "Box-Whisker plot plotting",
+            "Pairwise sequence alignment",
+            "Genome visualisation",
+            "Genome assembly",
+            "De-novo assembly"
         ],
         "edam_topic": [],
         "id": "152223c8aed27357",
@@ -5090,41 +5687,41 @@
         ],
         "tools": [
             "Add_a_column1",
-            "circos_interval_to_tile",
-            "Filter1",
-            "tbl2gff3",
-            "Cut1",
-            "tp_text_file_with_recurring_lines",
-            "tp_cut_tool",
-            "nanoplot",
-            "join1",
-            "tp_split_on_column",
-            "gff2bed1",
-            "tp_cat",
-            "circos_wiggle_to_scatter",
-            "prokka",
-            "PlasFlow",
-            "tp_sort_header_tool",
-            "fasta2tab",
-            "Grep1",
-            "regex1",
-            "circos_gc_skew",
-            "bandage_image",
-            "tab2fasta",
             "flye",
             "medaka_consensus_pipeline",
-            "ncbi_blastn_wrapper",
-            "bg_column_arrange_by_header",
+            "gff2bed1",
+            "Cut1",
+            "tp_sort_header_tool",
             "jbrowse",
-            "staramr_search",
-            "tp_easyjoin_tool",
-            "circos",
+            "PlasFlow",
             "trimmomatic",
-            "regex_replace",
-            "fasta_compute_length",
-            "minimap2",
+            "bandage_image",
+            "tab2fasta",
+            "tbl2gff3",
             "deeptools_bam_coverage",
-            "tp_head_tool"
+            "circos_wiggle_to_scatter",
+            "circos",
+            "join1",
+            "fasta2tab",
+            "Grep1",
+            "nanoplot",
+            "circos_interval_to_tile",
+            "circos_gc_skew",
+            "prokka",
+            "tp_cut_tool",
+            "staramr_search",
+            "regex_replace",
+            "tp_head_tool",
+            "fasta_compute_length",
+            "tp_text_file_with_recurring_lines",
+            "minimap2",
+            "tp_cat",
+            "Filter1",
+            "bg_column_arrange_by_header",
+            "tp_easyjoin_tool",
+            "tp_split_on_column",
+            "regex1",
+            "ncbi_blastn_wrapper"
         ],
         "update_time": "2023-12-14",
         "versions": 0
@@ -5150,11 +5747,11 @@
             "name:microgalaxy"
         ],
         "tools": [
-            "snp_sites",
             "tb_variant_filter",
-            "snp_dists",
             "bcftools_consensus",
-            "tp_cat"
+            "tp_cat",
+            "snp_dists",
+            "snp_sites"
         ],
         "update_time": "2023-12-14",
         "versions": 0
@@ -5165,8 +5762,8 @@
         "deprecated": false,
         "doi": "",
         "edam_operation": [
-            "Phylogenetic tree visualisation",
             "Variant calling",
+            "Phylogenetic tree visualisation",
             "Phylogenetic tree generation"
         ],
         "edam_topic": [],
@@ -5184,10 +5781,10 @@
             "name:microgalaxy"
         ],
         "tools": [
+            "__MERGE_COLLECTION__",
             "trimmomatic",
             "tb_variant_filter",
-            "snippy",
-            "__MERGE_COLLECTION__"
+            "snippy"
         ],
         "update_time": "2023-12-14",
         "versions": 0
@@ -5215,14 +5812,14 @@
             "name:microgalaxy"
         ],
         "tools": [
-            "tp_replace_in_line",
-            "samtools_view",
-            "tp_grep_tool",
-            "tp_cat",
             "__MERGE_COLLECTION__",
+            "tp_cat",
+            "addName",
             "tp_sed_tool",
             "tb_profiler_profile",
-            "addName"
+            "samtools_view",
+            "tp_grep_tool",
+            "tp_replace_in_line"
         ],
         "update_time": "2023-12-14",
         "versions": 0
@@ -5233,9 +5830,9 @@
         "deprecated": false,
         "doi": "",
         "edam_operation": [
-            "Read mapping",
+            "Variant calling",
             "Statistical calculation",
-            "Variant calling"
+            "Read mapping"
         ],
         "edam_topic": [],
         "id": "21a39ac4c1becb31",
@@ -5252,13 +5849,13 @@
             "hpylori"
         ],
         "tools": [
-            "bowtie2",
-            "snpSift_filter",
-            "vcf2tsv",
             "bcftools_norm",
-            "tp_awk_tool",
             "bcftools_view",
-            "freebayes"
+            "tp_awk_tool",
+            "vcf2tsv",
+            "freebayes",
+            "snpSift_filter",
+            "bowtie2"
         ],
         "update_time": "2023-12-13",
         "versions": 2
@@ -5269,9 +5866,9 @@
         "deprecated": false,
         "doi": "",
         "edam_operation": [
-            "Read mapping",
+            "Variant calling",
             "Statistical calculation",
-            "Variant calling"
+            "Read mapping"
         ],
         "edam_topic": [],
         "id": "61fe08fb3d5e83f8",
@@ -5288,15 +5885,15 @@
             "hpylori"
         ],
         "tools": [
-            "samtools_coverage",
-            "collection_element_identifiers",
-            "bowtie2",
-            "vcf2tsv",
             "bcftools_norm",
             "collapse_dataset",
+            "vcf2tsv",
             "samtools_depth",
+            "tp_cat",
             "freebayes",
-            "tp_cat"
+            "collection_element_identifiers",
+            "bowtie2",
+            "samtools_coverage"
         ],
         "update_time": "2023-12-13",
         "versions": 13
@@ -5328,11 +5925,11 @@
             "name:microgalaxy"
         ],
         "tools": [
-            "CONVERTER_gz_to_uncompressed",
-            "CONVERTER_uncompressed_to_gz",
+            "fastq_dl",
             "tp_awk_tool",
+            "CONVERTER_uncompressed_to_gz",
             "__MERGE_COLLECTION__",
-            "fastq_dl"
+            "CONVERTER_gz_to_uncompressed"
         ],
         "update_time": "2025-04-25",
         "versions": 1
@@ -5347,10 +5944,10 @@
         "deprecated": false,
         "doi": "",
         "edam_operation": [
-            "Formatting",
             "Mapping",
             "k-mer counting",
-            "Visualisation"
+            "Visualisation",
+            "Formatting"
         ],
         "edam_topic": [],
         "id": "45f959d5bf505b15",
@@ -5369,14 +5966,14 @@
             "name:microgalaxy"
         ],
         "tools": [
-            "collection_element_identifiers",
-            "__FILTER_EMPTY_DATASETS__",
+            "bedtools_maskfastabed",
+            "biom_convert",
             "mapseq",
             "tp_awk_tool",
-            "biom_convert",
-            "bedtools_maskfastabed",
-            "__FILTER_FROM_FILE__",
-            "taxonomy_krona_chart"
+            "collection_element_identifiers",
+            "taxonomy_krona_chart",
+            "__FILTER_EMPTY_DATASETS__",
+            "__FILTER_FROM_FILE__"
         ],
         "update_time": "2025-04-25",
         "versions": 1
@@ -5391,14 +5988,14 @@
         "deprecated": false,
         "doi": "",
         "edam_operation": [
-            "Sequencing quality control",
-            "Validation",
-            "Sequence contamination filtering",
-            "Nucleic acid design",
             "Read pre-processing",
-            "Sequence trimming",
+            "Sequence composition calculation",
+            "Sequence contamination filtering",
             "Statistical calculation",
-            "Sequence composition calculation"
+            "Sequencing quality control",
+            "Nucleic acid design",
+            "Validation",
+            "Sequence trimming"
         ],
         "edam_topic": [],
         "id": "a71fcbc60caae8b6",
@@ -5417,17 +6014,17 @@
             "name:microgalaxy"
         ],
         "tools": [
-            "tp_find_and_replace",
-            "multiqc",
-            "trimmomatic",
             "__UNZIP_COLLECTION__",
-            "fastq_to_fasta_python",
-            "fastq_filter",
-            "cshl_fasta_formatter",
-            "prinseq",
+            "multiqc",
+            "fastp",
+            "trimmomatic",
             "mgnify_seqprep",
             "fastqc",
-            "fastp"
+            "fastq_filter",
+            "prinseq",
+            "fastq_to_fasta_python",
+            "cshl_fasta_formatter",
+            "tp_find_and_replace"
         ],
         "update_time": "2025-04-25",
         "versions": 1
@@ -5442,13 +6039,13 @@
         "deprecated": false,
         "doi": "",
         "edam_operation": [
-            "Sequence contamination filtering",
-            "Sequencing quality control",
-            "Validation",
-            "Read pre-processing",
-            "Sequence trimming",
             "Statistical calculation",
-            "Sequence composition calculation"
+            "Sequencing quality control",
+            "Read pre-processing",
+            "Validation",
+            "Sequence composition calculation",
+            "Sequence contamination filtering",
+            "Sequence trimming"
         ],
         "edam_topic": [],
         "id": "5f878c4cc3bff68c",
@@ -5467,14 +6064,14 @@
             "name:microgalaxy"
         ],
         "tools": [
-            "tp_find_and_replace",
             "multiqc",
             "trimmomatic",
-            "fastq_to_fasta_python",
-            "fastq_filter",
-            "cshl_fasta_formatter",
+            "fastqc",
             "prinseq",
-            "fastqc"
+            "fastq_filter",
+            "fastq_to_fasta_python",
+            "cshl_fasta_formatter",
+            "tp_find_and_replace"
         ],
         "update_time": "2025-04-25",
         "versions": 1
@@ -5489,8 +6086,8 @@
         "deprecated": false,
         "doi": "",
         "edam_operation": [
-            "Pairwise sequence alignment",
-            "Variant calling"
+            "Variant calling",
+            "Pairwise sequence alignment"
         ],
         "edam_topic": [],
         "id": "3e703abaeb870f6f",
@@ -5509,23 +6106,23 @@
             "name:iwc"
         ],
         "tools": [
-            "samtools_coverage",
+            "bcftools_norm",
+            "bcftools_consensus",
+            "Remove beginning1",
+            "collapse_dataset",
+            "minimap2",
+            "samtools_depth",
+            "Paste1",
+            "clair3",
             "Count1",
             "CONVERTER_gz_to_uncompressed",
-            "Paste1",
-            "regexColumn1",
-            "snpSift_filter",
             "snpSift_extractFields",
-            "bcftools_norm",
-            "Cut1",
             "tp_cut_tool",
-            "Remove beginning1",
+            "snpSift_filter",
             "table_compute",
-            "bcftools_consensus",
-            "collapse_dataset",
-            "clair3",
-            "samtools_depth",
-            "minimap2",
+            "regexColumn1",
+            "samtools_coverage",
+            "Cut1",
             "tp_head_tool"
         ],
         "update_time": "2025-04-25",
@@ -5541,13 +6138,13 @@
         "deprecated": false,
         "doi": "",
         "edam_operation": [
-            "Sequence contamination filtering",
-            "Sequencing quality control",
-            "Validation",
-            "Read pre-processing",
-            "Sequence trimming",
             "Statistical calculation",
-            "Sequence composition calculation"
+            "Sequencing quality control",
+            "Read pre-processing",
+            "Validation",
+            "Sequence composition calculation",
+            "Sequence contamination filtering",
+            "Sequence trimming"
         ],
         "edam_topic": [],
         "id": "afb67b4b9952f57d",
@@ -5566,14 +6163,14 @@
             "name:microgalaxy"
         ],
         "tools": [
-            "tp_find_and_replace",
             "multiqc",
             "trimmomatic",
-            "fastq_to_fasta_python",
-            "fastq_filter",
-            "cshl_fasta_formatter",
+            "fastqc",
             "prinseq",
-            "fastqc"
+            "fastq_filter",
+            "fastq_to_fasta_python",
+            "cshl_fasta_formatter",
+            "tp_find_and_replace"
         ],
         "update_time": "2025-04-25",
         "versions": 1
@@ -5588,8 +6185,8 @@
         "deprecated": false,
         "doi": "",
         "edam_operation": [
-            "Pairwise sequence alignment",
-            "Variant calling"
+            "Variant calling",
+            "Pairwise sequence alignment"
         ],
         "edam_topic": [],
         "id": "cb810cdaa4915f4b",
@@ -5608,23 +6205,23 @@
             "name:iwc"
         ],
         "tools": [
-            "samtools_coverage",
+            "bcftools_norm",
+            "bcftools_consensus",
+            "Remove beginning1",
+            "collapse_dataset",
+            "minimap2",
+            "samtools_depth",
+            "Paste1",
+            "clair3",
             "Count1",
             "CONVERTER_gz_to_uncompressed",
-            "Paste1",
-            "regexColumn1",
-            "snpSift_filter",
             "snpSift_extractFields",
-            "bcftools_norm",
-            "Cut1",
             "tp_cut_tool",
-            "Remove beginning1",
+            "snpSift_filter",
             "table_compute",
-            "bcftools_consensus",
-            "collapse_dataset",
-            "clair3",
-            "samtools_depth",
-            "minimap2",
+            "regexColumn1",
+            "samtools_coverage",
+            "Cut1",
             "tp_head_tool"
         ],
         "update_time": "2025-04-25",
@@ -5657,11 +6254,11 @@
             "name:microgalaxy"
         ],
         "tools": [
-            "CONVERTER_gz_to_uncompressed",
-            "CONVERTER_uncompressed_to_gz",
+            "fastq_dl",
             "tp_awk_tool",
+            "CONVERTER_uncompressed_to_gz",
             "__MERGE_COLLECTION__",
-            "fastq_dl"
+            "CONVERTER_gz_to_uncompressed"
         ],
         "update_time": "2025-04-25",
         "versions": 1
@@ -5676,10 +6273,10 @@
         "deprecated": false,
         "doi": "",
         "edam_operation": [
-            "Formatting",
             "Mapping",
             "k-mer counting",
-            "Visualisation"
+            "Visualisation",
+            "Formatting"
         ],
         "edam_topic": [],
         "id": "8151be18aab3a3c6",
@@ -5698,14 +6295,14 @@
             "name:microgalaxy"
         ],
         "tools": [
-            "collection_element_identifiers",
-            "__FILTER_EMPTY_DATASETS__",
+            "bedtools_maskfastabed",
+            "biom_convert",
             "mapseq",
             "tp_awk_tool",
-            "biom_convert",
-            "bedtools_maskfastabed",
-            "__FILTER_FROM_FILE__",
-            "taxonomy_krona_chart"
+            "collection_element_identifiers",
+            "taxonomy_krona_chart",
+            "__FILTER_EMPTY_DATASETS__",
+            "__FILTER_FROM_FILE__"
         ],
         "update_time": "2025-04-25",
         "versions": 1
@@ -5720,14 +6317,14 @@
         "deprecated": false,
         "doi": "",
         "edam_operation": [
-            "Sequencing quality control",
-            "Validation",
-            "Sequence contamination filtering",
-            "Nucleic acid design",
             "Read pre-processing",
-            "Sequence trimming",
+            "Sequence composition calculation",
+            "Sequence contamination filtering",
             "Statistical calculation",
-            "Sequence composition calculation"
+            "Sequencing quality control",
+            "Nucleic acid design",
+            "Validation",
+            "Sequence trimming"
         ],
         "edam_topic": [],
         "id": "20b7ae4b517a80fd",
@@ -5746,17 +6343,17 @@
             "name:microgalaxy"
         ],
         "tools": [
-            "tp_find_and_replace",
-            "multiqc",
-            "trimmomatic",
             "__UNZIP_COLLECTION__",
-            "fastq_to_fasta_python",
-            "fastq_filter",
-            "cshl_fasta_formatter",
-            "prinseq",
+            "multiqc",
+            "fastp",
+            "trimmomatic",
             "mgnify_seqprep",
             "fastqc",
-            "fastp"
+            "fastq_filter",
+            "prinseq",
+            "fastq_to_fasta_python",
+            "cshl_fasta_formatter",
+            "tp_find_and_replace"
         ],
         "update_time": "2025-04-25",
         "versions": 1
@@ -5771,13 +6368,13 @@
         "deprecated": false,
         "doi": "",
         "edam_operation": [
-            "Sequence contamination filtering",
-            "Sequencing quality control",
-            "Validation",
-            "Read pre-processing",
-            "Sequence trimming",
             "Statistical calculation",
-            "Sequence composition calculation"
+            "Sequencing quality control",
+            "Read pre-processing",
+            "Validation",
+            "Sequence composition calculation",
+            "Sequence contamination filtering",
+            "Sequence trimming"
         ],
         "edam_topic": [],
         "id": "46f184a0e95f3c1c",
@@ -5796,14 +6393,14 @@
             "name:microgalaxy"
         ],
         "tools": [
-            "tp_find_and_replace",
             "multiqc",
             "trimmomatic",
-            "fastq_to_fasta_python",
-            "fastq_filter",
-            "cshl_fasta_formatter",
+            "fastqc",
             "prinseq",
-            "fastqc"
+            "fastq_filter",
+            "fastq_to_fasta_python",
+            "cshl_fasta_formatter",
+            "tp_find_and_replace"
         ],
         "update_time": "2025-04-25",
         "versions": 1
@@ -5818,19 +6415,19 @@
         "deprecated": false,
         "doi": "",
         "edam_operation": [
-            "Data handling",
             "Taxonomic classification",
-            "Sequence alignment analysis",
-            "Sequencing quality control",
-            "Validation",
+            "Sequence composition calculation",
             "Sequence contamination filtering",
             "Visualisation",
-            "Box-Whisker plot plotting",
-            "Scatter plot plotting",
-            "Pairwise sequence alignment",
+            "Sequence alignment analysis",
+            "Data handling",
+            "Aggregation",
             "Statistical calculation",
-            "Sequence composition calculation",
-            "Aggregation"
+            "Sequencing quality control",
+            "Validation",
+            "Box-Whisker plot plotting",
+            "Pairwise sequence alignment",
+            "Scatter plot plotting"
         ],
         "edam_topic": [],
         "id": "a8b9252fad5fe06a",
@@ -5850,23 +6447,23 @@
             "name:iwc"
         ],
         "tools": [
+            "kraken2",
+            "Grep1",
             "Add_a_column1",
+            "collection_column_join",
+            "multiqc",
+            "fastp",
+            "nanoplot",
+            "minimap2",
             "bamtools_split_mapped",
             "samtools_fastx",
-            "porechop",
-            "kraken2",
-            "krakentools_extract_kraken_reads",
-            "multiqc",
-            "regexColumn1",
-            "Cut1",
             "collapse_dataset",
-            "nanoplot",
-            "__FILTER_FAILED_DATASETS__",
-            "Grep1",
-            "collection_column_join",
-            "minimap2",
             "fastqc",
-            "fastp"
+            "__FILTER_FAILED_DATASETS__",
+            "krakentools_extract_kraken_reads",
+            "regexColumn1",
+            "porechop",
+            "Cut1"
         ],
         "update_time": "2025-04-25",
         "versions": 1
@@ -5881,8 +6478,8 @@
         "deprecated": false,
         "doi": "",
         "edam_operation": [
-            "Pairwise sequence alignment",
-            "Variant calling"
+            "Variant calling",
+            "Pairwise sequence alignment"
         ],
         "edam_topic": [],
         "id": "0e11619979c2830c",
@@ -5901,23 +6498,23 @@
             "name:iwc"
         ],
         "tools": [
-            "samtools_coverage",
+            "bcftools_norm",
+            "bcftools_consensus",
+            "Remove beginning1",
+            "collapse_dataset",
+            "minimap2",
+            "samtools_depth",
+            "Paste1",
+            "clair3",
             "Count1",
             "CONVERTER_gz_to_uncompressed",
-            "Paste1",
-            "regexColumn1",
-            "snpSift_filter",
             "snpSift_extractFields",
-            "bcftools_norm",
-            "Cut1",
             "tp_cut_tool",
-            "Remove beginning1",
+            "snpSift_filter",
             "table_compute",
-            "bcftools_consensus",
-            "collapse_dataset",
-            "clair3",
-            "samtools_depth",
-            "minimap2",
+            "regexColumn1",
+            "samtools_coverage",
+            "Cut1",
             "tp_head_tool"
         ],
         "update_time": "2025-04-25",
@@ -5933,8 +6530,8 @@
         "deprecated": false,
         "doi": "",
         "edam_operation": [
-            "Pairwise sequence alignment",
-            "Variant calling"
+            "Variant calling",
+            "Pairwise sequence alignment"
         ],
         "edam_topic": [],
         "id": "76a0a3af8de11622",
@@ -5953,23 +6550,23 @@
             "name:iwc"
         ],
         "tools": [
-            "samtools_coverage",
+            "bcftools_norm",
+            "bcftools_consensus",
+            "Remove beginning1",
+            "collapse_dataset",
+            "minimap2",
+            "samtools_depth",
+            "Paste1",
+            "clair3",
             "Count1",
             "CONVERTER_gz_to_uncompressed",
-            "Paste1",
-            "regexColumn1",
-            "snpSift_filter",
             "snpSift_extractFields",
-            "bcftools_norm",
-            "Cut1",
             "tp_cut_tool",
-            "Remove beginning1",
+            "snpSift_filter",
             "table_compute",
-            "bcftools_consensus",
-            "collapse_dataset",
-            "clair3",
-            "samtools_depth",
-            "minimap2",
+            "regexColumn1",
+            "samtools_coverage",
+            "Cut1",
             "tp_head_tool"
         ],
         "update_time": "2025-04-25",
