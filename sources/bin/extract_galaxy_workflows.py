@@ -222,7 +222,7 @@ class Workflows:
     def init_by_searching(self, tool_fp: str) -> None:
         self.tools = shared.read_suite_per_tool_id(tool_fp)
         self.add_workflows_from_workflowhub()
-        self.add_workflows_from_workflowhub("dev.")
+        # self.add_workflows_from_workflowhub("dev.")
         self.add_workflows_from_public_servers()
 
     def init_by_importing(self, wfs: dict) -> None:
