@@ -3,12 +3,7 @@
 import argparse
 import time
 from datetime import date
-from typing import (
-    Dict,
-    List,
-    Any,
-    Optional
-)
+from typing import Dict, List, Any, Optional
 
 import pandas as pd
 import shared
@@ -200,8 +195,9 @@ def get_tutorials(
                 tutos.append(tuto)
     return tutos
 
+
 def filter_tutorials(tutorials: Any, tags: Optional[List[Any]]) -> List[Any]:
-    #def filter_tutorials(tutorials: dict, tags: List) -> List:
+    # def filter_tutorials(tutorials: dict, tags: List) -> List:
     """
     Filter training based on a list of tags
     If tags is None or an empty list, returns all tutorials.
