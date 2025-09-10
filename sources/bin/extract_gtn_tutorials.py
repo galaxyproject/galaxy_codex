@@ -6,13 +6,14 @@ from datetime import date
 from typing import (
     Dict,
     List,
+    Any,
+    Optional
 )
 
 import pandas as pd
 import shared
 import yt_dlp
 from owlready2 import get_ontology
-from typing import List, Dict, Any, Optional
 
 PLAUSIBLE_REQUEST_NB = 0
 
