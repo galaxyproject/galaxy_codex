@@ -12,6 +12,7 @@ import pandas as pd
 import shared
 import yt_dlp
 from owlready2 import get_ontology
+from typing import List, Dict, Any, Optional
 
 PLAUSIBLE_REQUEST_NB = 0
 
@@ -198,12 +199,15 @@ def get_tutorials(
                 tutos.append(tuto)
     return tutos
 
-
-def filter_tutorials(tutorials: dict, tags: List) -> List:
+def filter_tutorials(tutorials: Any, tags: Optional[List[Any]]) -> List[Any]:
+    #def filter_tutorials(tutorials: dict, tags: List) -> List:
     """
     Filter training based on a list of tags
     If tags is None or an empty list, returns all tutorials.
     """
+    # Normalize input: always work with a list
+    if isinstance(tutorials, dict):
+        tutorials = list(tutorials.values())
     if not tags:
         # No tags specified, return all tutorials
         return list(tutorials.values())
