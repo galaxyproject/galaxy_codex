@@ -199,7 +199,7 @@ def get_tutorials(
     return tutos
 
 
-def filter_tutorials(tutorials: dict, tags: List) -> List:
+def filter_tutorials(tutorials: list, tags: Optional[List[Any]]) -> list:
     """
     Filter training based on a list of tags
     If tags is None or an empty list, returns all tutorials.
