@@ -212,7 +212,7 @@ def filter_tutorials(tutorials: Any, tags: Optional[List[Any]]) -> List[Any]:
         tutorials = list(tutorials.values())
     if not tags:
         # No tags specified, return all tutorials
-        return list(tutorials.values())
+        return tutorials
 
     filtered_tutorials = []
     for tuto in tutorials:
