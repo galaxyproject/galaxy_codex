@@ -206,7 +206,7 @@ def filter_tutorials(tutorials: dict, tags: List) -> List:
     """
     if not tags:
         # No tags specified, return all tutorials
-        return tutorials
+        return list(tutorials.values())
 
     filtered_tutorials = []
     for tuto in tutorials:
