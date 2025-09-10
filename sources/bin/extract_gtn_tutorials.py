@@ -207,7 +207,7 @@ def filter_tutorials(tutorials: dict, tags: List) -> List:
     if not tags:
         # No tags specified, return all tutorials
         return tutorials
-    
+
     filtered_tutorials = []
     for tuto in tutorials:
         to_keep = False
@@ -218,6 +218,7 @@ def filter_tutorials(tutorials: dict, tags: List) -> List:
         if to_keep:
             filtered_tutorials.append(tuto)
     return filtered_tutorials
+
 
 def export_tutorials_to_tsv(tutorials: list, output_fp: str) -> None:
     """
