@@ -206,8 +206,7 @@ def filter_tutorials(tutorials: dict, tags: List) -> List:
     """
     if not tags:
         # No tags specified, return all tutorials
-        tutorials_list = list(tutorials.values())
-        return tutorials_list
+        return tutorials
 
     filtered_tutorials = []
     for tuto in tutorials:
@@ -345,6 +344,5 @@ if __name__ == "__main__":
         # get categories and training to exclude
         tags = shared.read_file(args.tags) if args.tags else None
         # filter training lists
-        tags = tags or []
         filtered_tutorials = filter_tutorials(all_tutorials, tags)
         export_tutorials_to_tsv(filtered_tutorials, args.filtered)
