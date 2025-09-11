@@ -1,6 +1,7 @@
 import json
 import re
 import os 
+from shutil import copyfile
 
 import yaml
 
@@ -33,8 +34,8 @@ def create_tool_yml(data_source: str, yml_output_path: str) -> None:
 
 
 create_tool_yml(data_source="./communities/all/resources/tools.json", yml_output_path="./communities/all/resources/tools.yml")
-os.symlink("./communities/all/resources/tools.yml", "website/_data/tools.yml")
-
+#os.symlink("./communities/all/resources/tools.yml", "./website/_data/tools.yml")
+copyfile("./communities/all/resources/tools.yml", "./website/_data/tools.yml")
 
 def create_yml(data_source: str, yml_output_path: str) -> None:
 
@@ -46,6 +47,6 @@ def create_yml(data_source: str, yml_output_path: str) -> None:
 
 
 create_yml(data_source="./communities/all/resources/workflows.json", yml_output_path="./communities/all/resources/workflows.yml")
-os.symlink("./communities/all/resources/workflows.yml", "./website/_data/workflows.yml")
+#os.symlink("./communities/all/resources/workflows.yml", "./website/_data/workflows.yml")
 create_yml(data_source="./communities/all/resources/tutorials.json", yml_output_path="./communities/all/resources/tutorials.yml")
-os.symlink("./communities/all/resources/tutorials.yml", "./website/_data/tutorials.yml")
+#os.symlink("./communities/all/resources/tutorials.yml", "./website/_data/tutorials.yml")
