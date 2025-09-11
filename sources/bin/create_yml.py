@@ -1,6 +1,6 @@
-import yaml
 import json
 import re
+import yaml
 
 
 def create_tool_yml(data_source: str, yml_output_path: str):
