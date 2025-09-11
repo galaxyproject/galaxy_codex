@@ -2,6 +2,7 @@
 import argparse
 import base64
 import json
+import re
 import sys
 import time
 import traceback
@@ -12,7 +13,10 @@ from typing import (
     Any,
     Dict,
     List,
+    Literal,
     Optional,
+    Pattern,
+    Union,
 )
 
 import numpy as np
@@ -20,6 +24,7 @@ import pandas as pd
 import requests
 import shared
 import yaml
+from extract_galaxy_workflows import Workflows
 from github import Github
 from github.ContentFile import ContentFile
 from github.Repository import Repository
@@ -58,13 +63,15 @@ for server in ["eu", "org", "org.au", "fr"]:
         f"{ server }/tool_usage_until_2025.01.31.csv"
     )
 
-# all columns that contain the text will be summed up to a new column with summed up stats
-GALAXY_TOOL_STATS_SUM = [
-    "Suite users (last 5 years)",
-    "Suite users",
-    "Suite runs (last 5 years)",
-    "Suite runs",
-]
+
+# We use a regex since Suite users matches Suite users (last 5 years) as well
+
+STATS_SUM = {
+    "Suite runs": re.compile(r"^Suite runs \((?!last 5 years\)).+\)$"),
+    "Suite runs (last 5 years)": re.compile(r"^Suite runs \(last 5 years\) \(.+\)$"),
+    "Suite users": re.compile(r"^Suite users \((?!last 5 years\)).+\)$"),
+    "Suite users (last 5 years)": re.compile(r"^Suite users \(last 5 years\) \(.+\)$"),
+}
 
 # load the configs globally
 with open(conf_path) as f:
@@ -85,32 +92,31 @@ def get_last_url_position(toot_id: str) -> str:
     return toot_id
 
 
-def get_tool_stats_from_stats_file(tool_stats_df: pd.DataFrame, tool_ids: List[str]) -> int:
+def get_tool_stats_from_stats_file(
+    tool_stats_df: pd.DataFrame, tool_ids: List[str], mode: Literal["sum", "max"] = "sum"
+) -> int:
     """
-    Computes a count for tool stats based on the tool id. The counts for local and toolshed installed tools are
-    aggregated. All tool versions are also aggregated.
+    Aggregates statistics for a list of tool IDs from a DataFrame, using either sum or max.
+    Tool versions are not distinguished — tools are grouped by suite-level ID.
 
-
-    :param tools_stats_df: df with tools stats in the form `toolshed.g2.bx.psu.edu/repos/iuc/snpsift/snpSift_filter,3394539`
-    :tool_ids: tool ids to get statistics for and aggregate
+    :param tool_stats_df: DataFrame with 'tool_name' and 'count' columns. (toolshed.g2.bx.psu.edu/repos/iuc/snpsift/snpSift_filter,3394539)
+    :param tool_ids: List of tool suite IDs to match.
+    :param mode: Aggregation mode: "sum" or "max".
+    :return: Aggregated count based on mode.
     """
-
-    # extract tool id
+    # extract suite-level tool ID from full tool_name path
     tool_stats_df["Suite ID"] = tool_stats_df["tool_name"].apply(get_last_url_position)
-    # print(tool_stats_df["Suite ID"].to_list())
 
-    agg_count = 0
-    for tool_id in tool_ids:
-        if tool_id in tool_stats_df["Suite ID"].to_list():
+    # Group by Suite ID and sum all version counts
+    grouped = tool_stats_df.groupby("Suite ID")["count"].sum()
 
-            # get stats of the tool for all versions
-            counts = tool_stats_df.loc[(tool_stats_df["Suite ID"] == tool_id), "count"]
-            agg_versions = counts.sum()
+    # Get values for tool_ids that are present in grouped index
+    relevant_counts: List[int] = [int(grouped[tid]) for tid in tool_ids if tid in grouped]
 
-            # aggregate all counts for all tools in the suite
-            agg_count += agg_versions
+    if not relevant_counts:
+        return 0
 
-    return int(agg_count)
+    return max(relevant_counts) if mode == "max" else sum(relevant_counts)
 
 
 def get_string_content(cf: ContentFile) -> str:
@@ -256,6 +262,23 @@ def check_categories(ts_categories: str, ts_cat: List[str]) -> bool:
     return bool(set(ts_cat) & set(ts_cats))
 
 
+def get_suite_ID_fallback(metadata: Dict, tool: ContentFile) -> Dict:
+    """
+    Set suite ID fallbacks
+
+    :param metadata: the metadata dict
+    """
+
+    # when `name` not in .shed.yml file
+    if metadata["Suite ID"] is None:
+        if metadata["bio.tool ID"] is not None:
+            metadata["Suite ID"] = metadata["bio.tool ID"].lower()
+        else:
+            metadata["Suite ID"] = tool.path.split("/")[-1]
+
+    return metadata
+
+
 def get_tool_metadata(tool: ContentFile, repo: Repository) -> Optional[Dict[str, Any]]:
     """
     Get tool metadata from the .shed.yaml, requirements in the macros or xml
@@ -388,14 +411,7 @@ def get_tool_metadata(tool: ContentFile, repo: Repository) -> Optional[Dict[str,
                 if "id" in root.attrib:
                     metadata["Tool IDs"].append(root.attrib["id"])
 
-    # when `name` not in .shed.yml file
-    if metadata["Suite ID"] is None:
-        if metadata["Suite conda package"] is not None:
-            metadata["Suite ID"] = metadata["Suite conda package"]
-        elif metadata["bio.tool ID"] is not None:
-            metadata["Suite ID"] = metadata["bio.tool ID"].lower()
-        else:
-            metadata["Suite ID"] = tool.path.split("/")[-1]
+    metadata = get_suite_ID_fallback(metadata, tool)
 
     # get latest conda version and compare to the wrapper version
     if metadata["Suite conda package"] is not None:
@@ -462,7 +478,7 @@ def parse_tools(repo: Repository) -> List[Dict[str, Any]]:
     for folder in tool_folders:
         for tool in folder:
             # to avoid API request limit issue, wait for one hour
-            if g.get_rate_limit().core.remaining < 200:
+            if g.get_rate_limit().resources.core.remaining < 200:
                 print("WAITING for 1 hour to retrieve GitHub API request access !!!")
                 print()
                 time.sleep(60 * 60)
@@ -559,6 +575,9 @@ def export_tools_to_tsv(
 
         df["EDAM reduced operations"] = shared.format_list_column(df["EDAM reduced operations"])
         df["EDAM reduced topics"] = shared.format_list_column(df["EDAM reduced topics"])
+
+        df["Related Workflows"] = shared.format_list_column(df["Related Workflows"])
+        df["Related Tutorials"] = shared.format_list_column(df["Related Tutorials"])
 
         # the Galaxy tools need to be formatted for the add_instances_to_table to work
         df["Tool IDs"] = shared.format_list_column(df["Tool IDs"])
@@ -677,7 +696,34 @@ def reduce_ontology_terms(terms: List, ontology: Any) -> List:
     return new_terms
 
 
-def get_tools(repo_list: list, edam_ontology: dict) -> List[Dict]:
+def aggregate_tool_stats(
+    tool: Dict[str, Union[int, float]],
+    stats_sum: Dict[str, Pattern[str]],
+) -> Dict[str, Union[int, float]]:
+    """
+    Aggregate tool stats by applying sum aggregation
+    according to the provided regex patterns.
+
+    Args:
+        tool: A dict of tool stats with keys as stat names.
+        stats_sum: Dict mapping stat base names to regex patterns for sum aggregation.
+
+    Returns:
+        The original tool dict updated with aggregated stats added.
+    """
+
+    for stat_name, pattern in stats_sum.items():
+        matching_values = [
+            value for key, value in tool.items() if pattern.match(key) and isinstance(value, (int, float))
+        ]
+        tool[f"{stat_name} on main servers"] = sum(matching_values)
+
+    return tool
+
+
+def get_tools(
+    repo_list: list, all_workflows: str = "", all_tutorials: str = "", edam_ontology: Optional[Dict] = None
+) -> List[Dict]:
     """
     Parse tools in GitHub repositories to extract metadata,
     filter by TS categories, additional information
@@ -722,15 +768,93 @@ def get_tools(repo_list: list, edam_ontology: dict) -> List[Dict]:
         # add tool stats
         for name, path in GALAXY_TOOL_STATS.items():
             tool_stats_df = pd.read_csv(path)
-            tool[name] = get_tool_stats_from_stats_file(tool_stats_df, tool["Tool IDs"])
+
+            # we take the max for suite users being conservative, since one user can use multiple tools
+            # in the suite
+            mode: Literal["sum", "max"]
+            if "Suite users" in name:
+                mode = "max"
+            else:
+                mode = "sum"
+
+            tool[name] = get_tool_stats_from_stats_file(tool_stats_df, tool["Tool IDs"], mode=mode)
 
         # sum up tool stats
-        for names_to_match in GALAXY_TOOL_STATS_SUM:
-            summed_stat = 0
-            for col_name in tool.keys():
-                if names_to_match in col_name:
-                    summed_stat += tool[col_name]
-            tool[f"{names_to_match} on main servers"] = summed_stat
+        tool = aggregate_tool_stats(tool, STATS_SUM)
+
+    tools = add_workflow_ids_to_tools(tools, all_workflows)
+    tools = add_tutorial_ids_to_tools(tools, all_tutorials)
+
+    return tools
+
+
+def add_workflow_ids_to_tools(tools: List[Dict[str, Any]], all_workflows: str) -> List[Dict[str, Any]]:
+    """
+    Add related workflow links to the tools dict.
+
+    :param tools: List of tool dictionaries.
+    :param all_workflows: Path to a JSON file containing all workflows.
+    :return: Updated list of tool dictionaries with Related Workflows added.
+    """
+    workflow_path = Path(all_workflows)
+    tool_to_workflow_links: Dict[str, List[str]] = {}
+
+    if workflow_path.exists():
+        try:
+            wfs = Workflows()
+            wfs.init_by_importing(wfs=shared.load_json(all_workflows))
+
+            for workflow in wfs.workflows:
+                link = workflow.link  # todo: change workflow funcs. to use link as ID
+                for tool_id in workflow.tools:
+                    tool_to_workflow_links.setdefault(tool_id, []).append(link)
+        except Exception as e:
+            print(f"Failed to load workflows from {workflow_path}: {e}")
+    else:
+        print(f"Workflows file '{workflow_path}' does not exist. Skipping workflow mapping.")
+
+    for tool in tools:
+        related = set()
+        for tool_id in tool.get("Tool IDs", []):
+            related.update(tool_to_workflow_links.get(tool_id, []))
+        tool["Related Workflows"] = sorted(related)
+
+    return tools
+
+
+def add_tutorial_ids_to_tools(tools: List[Dict[str, Any]], all_tutorials: str) -> List[Dict[str, Any]]:
+    """
+    Add related tutorial IDs to the tools dict.
+
+    :param tools: List of tool dictionaries.
+    :param all_tutorials: Path to a JSON file containing all tutorials.
+    :return: Updated list of tool dictionaries with Related Tutorial IDs added.
+    """
+    tutorial_path = Path(all_tutorials)
+    tool_to_tutorial_ids: Dict[str, List[str]] = {}
+
+    if tutorial_path.exists():
+        try:
+            with tutorial_path.open("r", encoding="utf-8") as f:
+                tutorials = json.load(f)
+
+            # Expecting tutorials to be a list
+            for tutorial_data in tutorials:
+                tutorial_id = tutorial_data.get("id")
+                if tutorial_id:
+                    for tool_name in tutorial_data.get("short_tools", []):
+                        if tool_name:
+                            tool_to_tutorial_ids.setdefault(tool_name, []).append(tutorial_id)
+        except (json.JSONDecodeError, OSError) as e:
+            print(f"Failed to load tutorials from {tutorial_path}: {e}")
+    else:
+        print(f"Tutorials file '{tutorial_path}' does not exist. Skipping tutorial mapping.")
+
+    for tool in tools:
+        related = set()
+        for tool_id in tool.get("Tool IDs", []):
+            related.update(tool_to_tutorial_ids.get(tool_id, []))
+        tool["Related Tutorials"] = sorted(related)
 
     return tools
 
@@ -912,6 +1036,18 @@ if __name__ == "__main__":
     extract.add_argument("--all", "-o", required=True, help="Filepath to JSON with all extracted tools")
     extract.add_argument("--all-tsv", "-j", required=True, help="Filepath to TSV with all extracted tools")
     extract.add_argument(
+        "--all-workflows",
+        "-aw",
+        required=False,
+        help="Filepath to JSON with all extracted workflows. Created with extract --all command of workflows.",
+    )
+    extract.add_argument(
+        "--all-tutorials",
+        "-at",
+        required=False,
+        help="Filepath to JSON with all extracted trainings. Created with extract --all command of tutorials.",
+    )
+    extract.add_argument(
         "--planemo-repository-list",
         "-pr",
         required=False,
@@ -1031,7 +1167,7 @@ if __name__ == "__main__":
         )
         # parse tools in GitHub repositories to extract metadata, filter by TS categories and export to output file
         edam_ontology = get_ontology("https://edamontology.org/EDAM_1.25.owl").load()
-        tools = get_tools(repo_list, edam_ontology)
+        tools = get_tools(repo_list, args.all_workflows, args.all_tutorials, edam_ontology)
         export_tools_to_json(tools, args.all)
         export_tools_to_tsv(tools, args.all_tsv, format_list_col=True)
 
