@@ -4,7 +4,7 @@ import re
 import yaml
 
 
-def create_tool_yml(data_source: str, yml_output_path: str):
+def create_tool_yml(data_source: str, yml_output_path: str) -> None:
 
     with open(data_source, encoding="utf-8") as file:
         data = json.load(file)
@@ -31,7 +31,7 @@ def create_tool_yml(data_source: str, yml_output_path: str):
 create_tool_yml(data_source="./communities/all/resources/tools.json", yml_output_path="./docs/_data/tools.yml")
 
 
-def create_yml(data_source: str, yml_output_path: str):
+def create_yml(data_source: str, yml_output_path: str) -> None:
 
     with open(data_source, encoding="utf-8") as file:
         data = json.load(file)
