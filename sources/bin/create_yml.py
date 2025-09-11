@@ -19,9 +19,12 @@ def create_tool_yml(data_source: str, yml_output_path: str) -> None:
             if re.search(availability_match_string, field):
                 instance_match_string = "[Uu]se[Gg]alaxy\.[a-z]{2}"
                 if re.search(instance_match_string, field):
-                    field_name = re.search(instance_match_string, field).group(0)
-                if field_value != 0:
-                    availability[field_name] = field_value
+                    #field_name = re.search(instance_match_string, field).group(0)
+                    match = re.search(instance_match_string, field)
+                    if match:
+                        field_name = match.group(0)
+                        if field_value != 0:
+                            availability[field_name] = field_value
         data[tool]["availability"] = availability
 
     with open(yml_output_path, "w") as file:
