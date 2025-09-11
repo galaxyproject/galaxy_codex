@@ -4,8 +4,10 @@ import argparse
 import time
 from datetime import date
 from typing import (
+    Any,
     Dict,
     List,
+    Optional,
 )
 
 import pandas as pd
@@ -199,10 +201,19 @@ def get_tutorials(
     return tutos
 
 
-def filter_tutorials(tutorials: dict, tags: List) -> List:
+def filter_tutorials(tutorials: Any, tags: Optional[List[Any]]) -> List[Any]:
+    # def filter_tutorials(tutorials: dict, tags: List) -> List:
     """
     Filter training based on a list of tags
+    If tags is None or an empty list, returns all tutorials.
     """
+    # Normalize input: always work with a list
+    if isinstance(tutorials, dict):
+        tutorials = list(tutorials.values())
+    if not tags:
+        # No tags specified, return all tutorials
+        return tutorials
+
     filtered_tutorials = []
     for tuto in tutorials:
         to_keep = False
@@ -337,7 +348,7 @@ if __name__ == "__main__":
     elif args.command == "filter":
         all_tutorials = shared.load_json(args.all)
         # get categories and training to exclude
-        tags = shared.read_file(args.tags)
+        tags = shared.read_file(args.tags) if args.tags else None
         # filter training lists
         filtered_tutorials = filter_tutorials(all_tutorials, tags)
         export_tutorials_to_tsv(filtered_tutorials, args.filtered)
