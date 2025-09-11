@@ -31,7 +31,7 @@ def create_tool_yml(data_source: str, yml_output_path: str) -> None:
         yaml.dump(data, file, default_flow_style=False)
 
 
-create_tool_yml(data_source="./communities/all/resources/tools.json", yml_output_path="./docs/_data/tools.yml")
+create_tool_yml(data_source="./communities/all/resources/tools.json", yml_output_path="./website/_data/tools.yml")
 
 
 def create_yml(data_source: str, yml_output_path: str) -> None:
@@ -43,5 +43,5 @@ def create_yml(data_source: str, yml_output_path: str) -> None:
         yaml.dump(data, file, default_flow_style=False)
 
 
-create_yml(data_source="./communities/all/resources/workflows.json", yml_output_path="./docs/_data/workflows.yml")
-create_yml(data_source="./communities/all/resources/tutorials.json", yml_output_path="./docs/_data/tutorials.yml")
+create_yml(data_source="./communities/all/resources/workflows.json", yml_output_path="./website/_data/workflows.yml")
+create_yml(data_source="./communities/all/resources/tutorials.json", yml_output_path="./website/_data/tutorials.yml")
