@@ -5,7 +5,7 @@ import re
 
 def create_tool_yml(data_source: str, yml_output_path: str):
 
-    with open(data_source, mode="r", encoding="utf-8") as file:
+    with open(data_source, encoding="utf-8") as file:
         data = json.load(file)
 
     ### https://stackoverflow.com/a/12595082
@@ -30,7 +30,7 @@ create_tool_yml(data_source = "./communities/all/resources/tools.json", yml_outp
 
 def create_yml(data_source: str, yml_output_path: str):
 
-    with open(data_source, mode="r", encoding="utf-8") as file:
+    with open(data_source, encoding="utf-8") as file:
         data = json.load(file)
 
     with open(yml_output_path, 'w') as file:
