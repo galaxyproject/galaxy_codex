@@ -42,8 +42,9 @@ USEGALAXY_SERVER_URLS = {
     "UseGalaxy.fr": "https://usegalaxy.fr",
 }
 
+stat_usage_date = "2025.08.31"
 project_path = Path(__file__).resolve().parent.parent  # galaxy_tool_extractor folder
-usage_stats_path = project_path.joinpath("data", "usage_stats", "usage_stats_31.01.2025")
+usage_stats_path = project_path.joinpath("data", "usage_stats", f"usage_stats_{ stat_usage_date }")
 conf_path = project_path.joinpath("data", "conf.yml")
 public_servers = project_path.joinpath("data", "available_public_servers.csv")
 
@@ -51,16 +52,16 @@ public_servers = project_path.joinpath("data", "available_public_servers.csv")
 GALAXY_TOOL_STATS = {}
 for server in ["eu", "org", "org.au", "fr"]:
     GALAXY_TOOL_STATS[f"Suite users (last 5 years) (usegalaxy.{ server })"] = usage_stats_path.joinpath(
-        f"{ server }/tool_users_5y_until_2025.01.31.csv"
+        f"{ server }/tool_users_5y_until_{ stat_usage_date }.csv"
     )
     GALAXY_TOOL_STATS[f"Suite users (usegalaxy.{ server })"] = usage_stats_path.joinpath(
-        f"{ server }/tool_users_until_2025.01.31.csv"
+        f"{ server }/tool_users_until_{ stat_usage_date }.csv"
     )
     GALAXY_TOOL_STATS[f"Suite runs (last 5 years) (usegalaxy.{ server })"] = usage_stats_path.joinpath(
-        f"{ server }/tool_usage_5y_until_2025.01.31.csv"
+        f"{ server }/tool_usage_5y_until_{ stat_usage_date }.csv"
     )
     GALAXY_TOOL_STATS[f"Suite runs (usegalaxy.{ server })"] = usage_stats_path.joinpath(
-        f"{ server }/tool_usage_until_2025.01.31.csv"
+        f"{ server }/tool_usage_until_{ stat_usage_date }.csv"
     )
 
 
