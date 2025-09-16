@@ -387,7 +387,7 @@ tabs:
 
 The above content will create the following section:
 
-![example section from YAML content](../docs/images/labs/example-section.png)
+![example section from YAML content](../website/images/labs/example-section.png)
 
 In addition to learning the Labs Engine YAML schema, an understanding of the
 following is required:
