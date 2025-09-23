@@ -157,16 +157,29 @@ if [[ ! -e $intro ]]; then
 fi
 
 eu_instance_file="communities/$COMMUNITY/lab/usegalaxy.eu.yml"
-if [[ ! -e $intro ]]; then
-   cp communities/all/labs/page_templates/usegalaxy.eu.yml $intro
+if [[ ! -e $eu_instance_file ]]; then
+   cp communities/all/labs/page_templates/usegalaxy.eu.yml $eu_instance_file
 fi
 
 fr_instance_file="communities/$COMMUNITY/lab/usegalaxy.fr.yml"
-if [[ ! -e $intro ]]; then
-   cp communities/all/labs/page_templates/usegalaxy.fr.yml $intro
+if [[ ! -e $fr_instance_file ]]; then
+   cp communities/all/labs/page_templates/usegalaxy.fr.yml $fr_instance_file
 fi
 
 org_instance_file="communities/$COMMUNITY/lab/usegalaxy.org.yml"
-if [[ ! -e $intro ]]; then
-   cp communities/all/labs/page_templates/usegalaxy.org.yml $intro
+if [[ ! -e $org_instance_file ]]; then
+   cp communities/all/labs/page_templates/usegalaxy.org.yml $org_instance_file
+fi
+
+# Files necessary for the EU instance
+mkdir -p communities/$COMMUNITY/lab/static/
+custom_css="communities/$COMMUNITY/lab/static/custom.css"
+if [[ ! -e $custom_css ]]; then
+   cp communities/all/labs/page_templates/custom.css $custom_css
+fi
+
+mkdir -p communities/$COMMUNITY/lab/templates/
+footer_md="communities/$COMMUNITY/lab/templates/footer.html"
+if [[ ! -e $footer_md ]]; then
+   cp communities/all/labs/page_templates/footer.html $footer_md
 fi
