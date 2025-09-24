@@ -22,9 +22,6 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-24.04
-    defaults:
-      run:
-        working-directory: website
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -54,16 +51,13 @@ jobs:
         # Automatically uploads an artifact from the './_site' directory by default
         uses: actions/upload-pages-artifact@v4
         with:
-          path: website/_site
+          path: _site
 
   deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: website
     needs: build
     steps:
       - name: Deploy to GitHub Pages
