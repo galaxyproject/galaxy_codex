@@ -250,13 +250,13 @@ class Workflows:
         if self.test:
             data = data[:10]
         for wf in data:
-            print(wf)
             wfhub_wf = shared.get_request_json(
                 f"https://{ prefix }workflowhub.eu{wf['links']['self']}",
                 header,
             )
             if wfhub_wf:
                 wf = Workflow()
+                print(wf)
                 wf.init_from_search(wf=wfhub_wf, source=f"{ prefix }WorkflowHub", tools=self.tools)
                 self.workflows.append(wf)
         print(len(self.workflows))
