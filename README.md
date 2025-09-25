@@ -14,7 +14,7 @@ Currently, we have two main resources:
 
     Check the [complete catalogue](https://galaxyproject.github.io/galaxy_codex/).
 
-2. **Galaxy Labs** (led by Galaxy Australia!): a centralised webpage that enables communities to rapidly aggregate, curate, integrate, display, and launch relevant tools, workflows, and training on different Galaxy servers.
+2. **Galaxy Labs** (led by Galaxy Australia!): main and tool panel content for communities to spin up UI-tested & informed subdomain pages.
 
 For example, you can access the [Microbiology Lab on the EU instance](https://microbiology.usegalaxy.eu/).
 
