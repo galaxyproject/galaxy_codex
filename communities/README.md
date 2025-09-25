@@ -17,7 +17,10 @@ To generate interactive tables that can be embedded into subdomains and websites
 - For [tutorials](https://training.galaxyproject.org/training-material/topics/community/tutorials/community-tutorial-table/tutorial.html)
 
 ## 2. Galaxy Lab
-To generate Galaxy Lab content, you can follow tutorial 4 of the [learning pathway](https://training.galaxyproject.org/training-material/learning-pathways/sig-and-codex-creation.html) and follow [The Galaxy Labs Engine documentation](https://labs.usegalaxy.org.au/).
+
+To generate a Galaxy Lab for your community, you can 
+1. Follow the dedication tutorial,
+2. Read [the Galaxy Labs Engine documentation](https://labs.usegalaxy.org.au/).
 
 
 # Folder organisation
