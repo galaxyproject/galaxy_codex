@@ -1,4 +1,4 @@
-** For general and technical information on the Codex, please, refer to the [main Readme file](https://github.com/galaxyproject/galaxy_codex) **
+**For general and technical information on the Codex, please, refer to the [main Readme file](https://github.com/galaxyproject/galaxy_codex)**
 
 
 Galaxy Community Codex
@@ -6,14 +6,14 @@ Galaxy Community Codex
 
 # Join the CoDex
 Any Galaxy Community can be added to this project and benefit from the dedicated resources.
-**Learn [how to add your community](https://training.galaxyproject.org/training-material/learning-pathways/sig-and-codex-creation.html)** in the dedicated GTN learning pathway.
+
+Learn [how to add your community](https://training.galaxyproject.org/training-material/learning-pathways/sig-and-codex-creation.html) in the dedicated GTN learning pathway.
 
 ## 1. Galaxy Community Catalog
-To generate interactive tables that can be embedded into subdomains and websites via an iframe. 
-**Learn [how to generate the Galaxy Community Catalog](https://training.galaxyproject.org/training-material/learning-pathways/sig-and-codex-creation.html)** in tutorials 1, 2 and 3 of the learning pathway. 
+To generate interactive tables that can be embedded into subdomains and websites via an iframe, follow tutorials 1, 2 and 3 of the [learning pathway](https://training.galaxyproject.org/training-material/learning-pathways/sig-and-codex-creation.html). 
 
 ## 2. Galaxy Lab
-To generate Galaxy Lab content, you can follow tutorial 4 of the [learning pathway](https://training.galaxyproject.org/training-material/learning-pathways/sig-and-codex-creation.html)and follow [The Galaxy Labs Engine documentation](https://labs.usegalaxy.org.au/).
+To generate Galaxy Lab content, you can follow tutorial 4 of the [learning pathway](https://training.galaxyproject.org/training-material/learning-pathways/sig-and-codex-creation.html) and follow [The Galaxy Labs Engine documentation](https://labs.usegalaxy.org.au/).
 
 
 # Folder organisation
@@ -98,6 +98,8 @@ Video views | Number of times the video was viewed
 
 The list of workflows included in the workflow table contains workflows with specific tags, automatically pulled from the public Galaxy instances and [WorkflowHub](https://workflowhub.eu/) on a weekly basis. 
 
+Column | Description
+--- | ---
 Name | Workflow name
 Source | Workflow source (i.e. WorkflowHub, galaxy instance name, etc)
 ID | Workflow unique ID
