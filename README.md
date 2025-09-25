@@ -1,4 +1,4 @@
-**If you are looking for community specific information and/or resources, go to the community folder and check [the community readme](https://github.com/galaxyproject/galaxy_codex/tree/main/communities).**
+**If you are looking for community-specific information and/or resources, go to the community folder and check [the `communities` folder `README` file](communities).**
 
 
 Galaxy Codex
