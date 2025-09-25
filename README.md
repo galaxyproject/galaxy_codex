@@ -8,9 +8,11 @@ Galaxy Communities Dock (Galaxy CoDex) stores resources for Galaxy users, commun
 
 Currently, we have two main resources:
 
-1. **Galaxy Community Catalog**: for tools, training (tutorials) & workflows. Several catalogs are available : The complete catalog and the community-specific catalogs. Each catalog is automatically updated every week.
+1. **Galaxy Community Catalog**: for tools, training (tutorials) & workflows. 
 
-Check the [complete catalogue](https://galaxyproject.github.io/galaxy_codex/).
+    Several catalogs are available: the complete catalog and the community-specific catalogs. Each catalog is semi-automatically updated every week.
+
+    Check the [complete catalogue](https://galaxyproject.github.io/galaxy_codex/).
 
 2. **Galaxy Labs** (led by Galaxy Australia!): a centralised webpage that enables communities to rapidly aggregate, curate, integrate, display, and launch relevant tools, workflows, and training on different Galaxy servers.
 
