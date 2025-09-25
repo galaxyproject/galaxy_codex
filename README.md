@@ -18,7 +18,7 @@ Currently, we have two main resources:
 
 For example, you can access the [Microbiology Lab on the EU instance](https://microbiology.usegalaxy.eu/).
 
-**To create community specific resources, check the guide in the [community folder readme](https://github.com/galaxyproject/galaxy_codex/tree/main/communities).**
+**To create community specific resources, check the guide in the [`communities` folder `README` file](communities).**
 
 
 # Vocabulary
