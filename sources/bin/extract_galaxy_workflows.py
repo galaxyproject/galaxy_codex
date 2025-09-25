@@ -94,7 +94,8 @@ class Workflow:
             self.latest_version = wf["version"]
             self.versions = wf["version"]
             self.license = wf["license"]
-
+        print(self.id)
+        print(self.link)
         self.add_creators(wf)
         self.add_tools(wf)
         self.edam_operation = shared.get_edam_operation_from_tools(self.tools, tools)
