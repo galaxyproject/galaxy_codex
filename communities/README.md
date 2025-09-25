@@ -18,7 +18,7 @@ To generate Galaxy Lab content, you can follow tutorial 4 of the [learning pathw
 
 # Folder organisation
 
-There is a folder 'all' with all the tools, workflows and tutorials extracted weekly from public databases.
+There is a folder `all` with all the tools, workflows, and tutorials extracted weekly from public databases.
 
 Then, each community have their own folder, with a specific organization, with community-specific resources necessary for generating the codex (catalogs and labs). To learn how to create a codex for your community, follow the steps explained in the Learning Pathway available above.
 
