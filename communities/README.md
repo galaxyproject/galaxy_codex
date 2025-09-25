@@ -10,7 +10,11 @@ Any Galaxy Community can be added to this project and benefit from the dedicated
 Learn [how to add your community](https://training.galaxyproject.org/training-material/learning-pathways/sig-and-codex-creation.html) in the dedicated GTN learning pathway.
 
 ## 1. Galaxy Community Catalog
-To generate interactive tables that can be embedded into subdomains and websites via an iframe, follow tutorials 1, 2 and 3 of the [learning pathway](https://training.galaxyproject.org/training-material/learning-pathways/sig-and-codex-creation.html). 
+
+To generate interactive tables that can be embedded into subdomains and websites, follow the different tutorials:
+- For [tools](https://training.galaxyproject.org/training-material/topics/community/tutorials/community-tool-table/tutorial.html)
+- For [workflows](https://training.galaxyproject.org/training-material/topics/community/tutorials/community-workflow-table/tutorial.html)
+- For [tutorials](https://training.galaxyproject.org/training-material/topics/community/tutorials/community-tutorial-table/tutorial.html)
 
 ## 2. Galaxy Lab
 To generate Galaxy Lab content, you can follow tutorial 4 of the [learning pathway](https://training.galaxyproject.org/training-material/learning-pathways/sig-and-codex-creation.html) and follow [The Galaxy Labs Engine documentation](https://labs.usegalaxy.org.au/).
