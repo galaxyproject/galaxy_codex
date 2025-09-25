@@ -1,4 +1,4 @@
-**If you are looking for community specific information and/or resources, go to the community folder and check [the community readme](https://github.com/galaxyproject/galaxy_codex/communities).**
+**If you are looking for community specific information and/or resources, go to the community folder and check [the community readme](https://github.com/galaxyproject/galaxy_codex/tree/main/communities).**
 
 
 Galaxy Codex
@@ -16,7 +16,7 @@ Check the [complete catalogue](https://galaxyproject.github.io/galaxy_codex/).
 
 For example, you can access the [microgalaxy lab on the EU instance](https://microbiology.usegalaxy.eu/).
 
-**To create community specific resources, check the guide in the [community folder readme](https://github.com/galaxyproject/galaxy_codex/communities).**
+**To create community specific resources, check the guide in the [community folder readme](https://github.com/galaxyproject/galaxy_codex/tree/main/communities).**
 
 
 # Vocabulary
