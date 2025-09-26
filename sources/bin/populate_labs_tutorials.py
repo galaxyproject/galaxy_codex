@@ -108,7 +108,7 @@ def main() -> None:
             {
                 "id": "tutorials",
                 "title": "Tutorials",
-                "heading_md": "Tutorials to train you to perform microbial data analysis",
+                "heading_md": "Tutorials to train you to perform data analysis",
                 "content": tutorial_content,
             }
         )
