@@ -128,3 +128,58 @@ fi
 if [[ ! -e $community_section ]]; then
    cp communities/all/labs/sections_templates/6_community.yml $community_section
 fi
+
+#Copy the page templates if they don't already exist
+
+contributors="communities/$COMMUNITY/lab/CONTRIBUTORS"
+if [[ ! -e $contributors ]]; then
+   cp communities/all/labs/page_templates/CONTRIBUTORS $contributors
+fi
+
+readme="communities/$COMMUNITY/lab/README.md"
+if [[ ! -e $readme ]]; then
+   cp communities/all/labs/page_templates/README.md $readme
+fi
+
+base="communities/$COMMUNITY/lab/base.yml"
+if [[ ! -e $base ]]; then
+   cp communities/all/labs/page_templates/base.yml $base
+fi
+
+conclusion="communities/$COMMUNITY/lab/conclusion.html"
+if [[ ! -e $conclusion ]]; then
+   cp communities/all/labs/page_templates/conclusion.html $conclusion
+fi
+
+intro="communities/$COMMUNITY/lab/intro.html"
+if [[ ! -e $intro ]]; then
+   cp communities/all/labs/page_templates/intro.html $intro
+fi
+
+eu_instance_file="communities/$COMMUNITY/lab/usegalaxy.eu.yml"
+if [[ ! -e $eu_instance_file ]]; then
+   cp communities/all/labs/page_templates/usegalaxy.eu.yml $eu_instance_file
+fi
+
+fr_instance_file="communities/$COMMUNITY/lab/usegalaxy.fr.yml"
+if [[ ! -e $fr_instance_file ]]; then
+   cp communities/all/labs/page_templates/usegalaxy.fr.yml $fr_instance_file
+fi
+
+org_instance_file="communities/$COMMUNITY/lab/usegalaxy.org.yml"
+if [[ ! -e $org_instance_file ]]; then
+   cp communities/all/labs/page_templates/usegalaxy.org.yml $org_instance_file
+fi
+
+# Files necessary for the EU instance
+mkdir -p communities/$COMMUNITY/lab/static/
+custom_css="communities/$COMMUNITY/lab/static/custom.css"
+if [[ ! -e $custom_css ]]; then
+   cp communities/all/labs/page_templates/custom.css $custom_css
+fi
+
+mkdir -p communities/$COMMUNITY/lab/templates/
+footer_md="communities/$COMMUNITY/lab/templates/footer.html"
+if [[ ! -e $footer_md ]]; then
+   cp communities/all/labs/page_templates/footer.html $footer_md
+fi
