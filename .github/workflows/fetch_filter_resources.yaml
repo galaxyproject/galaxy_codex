@@ -177,6 +177,8 @@ jobs:
       - name: Populate biodiversity lab
         run: |
           bash sources/bin/populate_labs.sh
+        env: 
+          COMMUNITY: biodiversity
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
         with:
