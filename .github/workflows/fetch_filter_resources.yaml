@@ -111,7 +111,7 @@ jobs:
           bash sources/bin/extract_all_workflows.sh 
         env: 
           PLAUSIBLE_API_KEY: ${{ secrets.PLAUSIBLE_API_TOKEN }}
-      - name: Archive tutorials artifacts
+      - name: Archive workflows artifacts
         uses: actions/upload-artifact@v4
         with:
           name: workflows
@@ -174,6 +174,11 @@ jobs:
       - name: Filter tools for communities
         run: | 
           bash sources/bin/get_community_tools.sh
+      - name: Archive communities artifacts (tools, workflows, tutorials)
+        uses: actions/upload-artifact@v4
+        with:
+          name: communities-artifacts
+          path: communities/*/resources/*
   populate_labs:
     runs-on: ubuntu-latest
     name: Populate labs
@@ -187,6 +192,11 @@ jobs:
         run: |
           python -m pip install -r requirements.txt
           sudo apt-get install jq
+      - name: Download communities-artifacts
+        uses: actions/download-artifact@v5
+        with:
+          name: communities-artifacts
+          path: communities/*/resources/
       - name: Populate MicroGalaxy Lab
         run: | 
           bash sources/bin/populate_labs.sh
