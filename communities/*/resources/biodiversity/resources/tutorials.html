@@ -1,0 +1,1071 @@
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/searchbuilder/1.6.0/js/dataTables.searchBuilder.min.js"></script>
+<script src="https://cdn.datatables.net/datetime/1.5.1/js/dataTables.dateTime.min.js"></script>
+
+<script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/searchbuilder/1.6.0/css/searchBuilder.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/datetime/1.5.1/css/dataTables.dateTime.min.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+<style type="text/css">
+  .tooltip {
+    font-family: Georgia;
+    font-size: 18px;
+  }
+  .tooltip .tooltip-inner {
+    background-color: #00FFFF;
+    color: #000000;
+    min-width: 400px;
+  }
+  </style>
+
+<script>
+    $(document).ready(function() {
+    $('#dataframe').DataTable( {
+        "sScrollX": "100%",
+        "dom": "Qlfrtip",
+
+        responsive: {
+            details: {
+                type: 'column'
+            }
+        },
+        "bAutoWidth": false,
+        columnDefs: [ {
+            className: 'control',
+            orderable: false,
+            targets:   [ 0 ],
+            width: 100,
+        },
+        { type: 'natural', targets: 1 } // allow normal sorting
+        ],
+
+    });
+});
+</script>
+
+<div class="display nowrap" style="width:80%" width="100%">
+
+<table class="dataframe display nowrap" id="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Expand</th>
+      <th>Topic</th>
+      <th>Title</th>
+      <th>Link</th>
+      <th>EDAM topic</th>
+      <th>EDAM operation</th>
+      <th>Creation</th>
+      <th>Last modification</th>
+      <th>Version</th>
+      <th>Tutorial</th>
+      <th>Slides</th>
+      <th>Video</th>
+      <th>Workflows</th>
+      <th>Tools</th>
+      <th>Servers with precise tool versions</th>
+      <th>Servers with tool but different versions</th>
+      <th>Feedback number</th>
+      <th>Feedback mean note</th>
+      <th>Visitors</th>
+      <th>Page views</th>
+      <th>Visit duration</th>
+      <th>Video views</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td></td>
+      <td>Assembly</td>
+      <td>Genome Assembly Quality Control</td>
+      <td>https://training.galaxyproject.org//topics/assembly/tutorials/assembly-quality-control/tutorial.html</td>
+      <td>Biodiversity, Sequence assembly, Data quality management</td>
+      <td>Scaffolding, Phasing, Genome assembly, k-mer counting, Visualisation, De-novo assembly, Sequence assembly validation</td>
+      <td>2022-08-26</td>
+      <td>2025-06-04</td>
+      <td>6</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>True</td>
+      <td>meryl, busco, quast, chromeister, merqury</td>
+      <td>UseGalaxy.eu, UseGalaxy.fr, UseGalaxy.org.au</td>
+      <td>UseGalaxy.cz</td>
+      <td>0</td>
+      <td></td>
+      <td>1960876</td>
+      <td>4601999</td>
+      <td>4.483333</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Assembly</td>
+      <td>Large genome assembly and polishing</td>
+      <td>https://training.galaxyproject.org//topics/assembly/tutorials/largegenome/tutorial.html</td>
+      <td>Genomics, Sequence assembly, Biodiversity</td>
+      <td>Mapping assembly, Cross-assembly, Sequence composition calculation, Box-Whisker plot plotting, Validation, Sequence assembly visualisation, Genome assembly, Base-calling, Variant calling, Scatter plot plotting, Pairwise sequence alignment, De-novo assembly, Sequence assembly validation, Sequence assembly, Statistical calculation, Visualisation, Sequencing quality control, Sequence contamination filtering</td>
+      <td>2023-03-06</td>
+      <td>2025-06-04</td>
+      <td>14</td>
+      <td>True</td>
+      <td>False</td>
+      <td>True</td>
+      <td>True</td>
+      <td>racon, fastqc, bandage_image, meryl, busco, medaka_consensus_pipeline, minimap2, genomescope, nanoplot, quast, multiqc, flye, fasta-stats, barchart_gnuplot, fastp</td>
+      <td>UseGalaxy.eu, UseGalaxy.org.au</td>
+      <td>UseGalaxy.cz</td>
+      <td>0</td>
+      <td></td>
+      <td>7130</td>
+      <td>9279</td>
+      <td>2.033333</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Assembly</td>
+      <td>ERGA post-assembly QC</td>
+      <td>https://training.galaxyproject.org//topics/assembly/tutorials/ERGA-post-assembly-QC/tutorial.html</td>
+      <td>Genomics, Sequence assembly, Biodiversity</td>
+      <td>Sequence alignment, Sequence alignment analysis, Sequence trimming, Genotyping, Sequence assembly visualisation, Genome assembly, Data parsing, Pairwise sequence alignment, Scaffolding, Phasing, De-novo assembly, Sequence assembly validation, Data handling, Visualisation, Data deposition, k-mer counting</td>
+      <td>2023-06-23</td>
+      <td>2025-06-04</td>
+      <td>8</td>
+      <td>True</td>
+      <td>False</td>
+      <td>True</td>
+      <td>True</td>
+      <td>blobtoolkit, busco, genomescope, pretext_map, samtools_stats, collapse_dataset, smudgeplot, meryl, minimap2, bg_diamond, interactive_tool_blobtoolkit, bwa_mem2, gfastats, bellerophon, tp_find_and_replace, pretext_snapshot, bandage_image, merqury, __EXTRACT_DATASET__, CONVERTER_gz_to_uncompressed</td>
+      <td>UseGalaxy.eu</td>
+      <td>UseGalaxy.org (Main), UseGalaxy.org.au</td>
+      <td>0</td>
+      <td></td>
+      <td>1879</td>
+      <td>2409</td>
+      <td>1.950000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Assembly</td>
+      <td>Chloroplast genome assembly</td>
+      <td>https://training.galaxyproject.org//topics/assembly/tutorials/chloroplast-assembly/tutorial.html</td>
+      <td></td>
+      <td>Sequence alignment, Mapping assembly, Generation, Cross-assembly, Box-Whisker plot plotting, Coding region prediction, Read alignment, Genome indexing, Scatter plot plotting, Genome assembly, Gene prediction, Genome annotation, Read mapping, De-novo assembly, Genome visualisation, Sequence assembly, Sequence assembly visualisation, Analysis</td>
+      <td>2020-12-04</td>
+      <td>2025-05-15</td>
+      <td>21</td>
+      <td>True</td>
+      <td>False</td>
+      <td>True</td>
+      <td>True</td>
+      <td>jbrowse, pilon, prokka, bwa_mem, bandage_image, nanoplot, flye, bandage_info, upload1, fasta-stats</td>
+      <td>UseGalaxy.eu</td>
+      <td>GalaxyTrakr, UseGalaxy.be, UseGalaxy.cz, UseGalaxy.fr, UseGalaxy.no, UseGalaxy.org (Main)</td>
+      <td>0</td>
+      <td></td>
+      <td>7846</td>
+      <td>12165</td>
+      <td>2.800000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Assembly</td>
+      <td>Assembly of the mitochondrial genome from PacBio HiFi reads</td>
+      <td>https://training.galaxyproject.org//topics/assembly/tutorials/mitochondrion-assembly/tutorial.html</td>
+      <td>Genomics, Sequence assembly, Biodiversity, Mitochondria</td>
+      <td></td>
+      <td>2024-09-03</td>
+      <td>2025-06-04</td>
+      <td>4</td>
+      <td>True</td>
+      <td>False</td>
+      <td>True</td>
+      <td>True</td>
+      <td>mitohifi, compress_file</td>
+      <td>UseGalaxy.cz, UseGalaxy.eu, UseGalaxy.org (Main), UseGalaxy.org.au</td>
+      <td></td>
+      <td>0</td>
+      <td></td>
+      <td>817</td>
+      <td>1001</td>
+      <td>2.016667</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Assembly</td>
+      <td>Decontamination of a genome assembly</td>
+      <td>https://training.galaxyproject.org//topics/assembly/tutorials/assembly-decontamination/tutorial.html</td>
+      <td>Genomics, Sequence assembly, Biodiversity</td>
+      <td>Data handling, Taxonomic classification</td>
+      <td>2024-09-04</td>
+      <td>2025-06-04</td>
+      <td>5</td>
+      <td>True</td>
+      <td>False</td>
+      <td>True</td>
+      <td>True</td>
+      <td>Filter1, Cut1, ncbi_dustmasker_wrapper, kraken2, gfastats, tp_sed_tool, ncbi_blastn_wrapper, tp_cat, parse_mito_blast</td>
+      <td>UseGalaxy.eu, UseGalaxy.org (Main), UseGalaxy.org.au</td>
+      <td>UseGalaxy.cz</td>
+      <td>0</td>
+      <td></td>
+      <td>1543</td>
+      <td>1928</td>
+      <td>2.550000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Assembly</td>
+      <td>Unicycler Assembly</td>
+      <td>https://training.galaxyproject.org//topics/assembly/tutorials/unicycler-assembly/tutorial.html</td>
+      <td>Sequence assembly, Genomics, Microbiology</td>
+      <td>Aggregation, Sequence composition calculation, Sequence assembly validation, Validation, Coding region prediction, Visualisation, Genome assembly, Statistical calculation, Gene prediction, Sequencing quality control, Genome annotation</td>
+      <td>2017-10-11</td>
+      <td>2025-05-15</td>
+      <td>24</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>True</td>
+      <td>unicycler, fastqc, prokka, quast, multiqc</td>
+      <td>UseGalaxy.eu, UseGalaxy.org (Main), UseGalaxy.org.au</td>
+      <td>Galaxy@AuBi, GalaxyTrakr, MISSISSIPPI, UseGalaxy.be, UseGalaxy.cz, UseGalaxy.fr, UseGalaxy.no</td>
+      <td>0</td>
+      <td></td>
+      <td>2876306</td>
+      <td>7578142</td>
+      <td>4.500000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Assembly</td>
+      <td>Unicycler assembly of SARS-CoV-2 genome with preprocessing to remove human genome reads</td>
+      <td>https://training.galaxyproject.org//topics/assembly/tutorials/assembly-with-preprocessing/tutorial.html</td>
+      <td></td>
+      <td>Aggregation, Read mapping, Pairwise sequence alignment, Sequence file editing, Box-Whisker plot plotting, Validation, Data handling, Genome assembly, Scatter plot plotting, Sequence assembly visualisation, Sequencing quality control, Sequence contamination filtering</td>
+      <td>2020-04-21</td>
+      <td>2025-05-15</td>
+      <td>14</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>seqtk_sample, unicycler, fastp, bowtie2, collapse_dataset, bandage_image, samtools_view, minimap2, nanoplot, __ZIP_COLLECTION__, multiqc, bandage_info, fasta_filter_by_length, fasterq_dump, samtools_fastx, samtools_stats</td>
+      <td>UseGalaxy.eu, UseGalaxy.org.au</td>
+      <td>Galaxy@AuBi, MISSISSIPPI, UseGalaxy.be, UseGalaxy.cz, UseGalaxy.fr, UseGalaxy.no, UseGalaxy.org (Main)</td>
+      <td>0</td>
+      <td></td>
+      <td>2869255</td>
+      <td>7565860</td>
+      <td>5.716667</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Assembly</td>
+      <td>Vertebrate genome assembly using HiFi, Bionano and Hi-C data - Step by Step</td>
+      <td>https://training.galaxyproject.org//topics/assembly/tutorials/vgp_genome_assembly/tutorial.html</td>
+      <td>Genomics, Sequence assembly, Biodiversity</td>
+      <td>Scaffolding, Sequence alignment, Phasing, Primer removal, Sequence trimming, k-mer counting, De-novo assembly, Sequence assembly validation, Mapping, Data handling, Genome assembly, Read pre-processing, Visualisation, Pairwise sequence alignment, Read binning</td>
+      <td>2021-06-04</td>
+      <td>2025-06-04</td>
+      <td>57</td>
+      <td>True</td>
+      <td>False</td>
+      <td>True</td>
+      <td>True</td>
+      <td>busco, genomescope, pretext_map, bedtools_bamtobed, purge_dups, Convert characters1, collapse_dataset, meryl, yahs, quast, minimap2, hifiasm, gfa_to_fa, collection_column_join, cutadapt, cat1, tp_grep_tool, bwa_mem2, gfastats, bellerophon, tp_cut_tool, Add_a_column1, sort1, salsa, tp_find_and_replace, pretext_snapshot, bionano_scaffold, merqury</td>
+      <td></td>
+      <td>UseGalaxy.cz</td>
+      <td>0</td>
+      <td></td>
+      <td>15580</td>
+      <td>23604</td>
+      <td>1.983333</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Assembly</td>
+      <td>Genome assembly using PacBio data</td>
+      <td>https://training.galaxyproject.org//topics/assembly/tutorials/hifi-assembly/tutorial.html</td>
+      <td>Genomics, Sequence assembly, Biodiversity</td>
+      <td>Mapping assembly, Genome assembly, Cross-assembly, Visualisation, De-novo assembly, Sequence assembly validation</td>
+      <td>2021-11-29</td>
+      <td>2025-06-04</td>
+      <td>2</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>busco, quast, flye, hifiasm, gfa_to_fa, fasta-stats</td>
+      <td>UseGalaxy.eu, UseGalaxy.fr, UseGalaxy.org (Main), UseGalaxy.org.au</td>
+      <td>GalaxyTrakr, UseGalaxy.cz</td>
+      <td>0</td>
+      <td></td>
+      <td>715</td>
+      <td>845</td>
+      <td>1.483333</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Assembly</td>
+      <td>Using the VGP workflows to assemble a vertebrate genome with HiFi and Hi-C data</td>
+      <td>https://training.galaxyproject.org//topics/assembly/tutorials/vgp_workflow_training/tutorial.html</td>
+      <td>Sequence assembly, Chromosome conformation capture</td>
+      <td>Visualisation, Sequence assembly validation</td>
+      <td>2022-04-06</td>
+      <td>2025-09-09</td>
+      <td>26</td>
+      <td>True</td>
+      <td>False</td>
+      <td>True</td>
+      <td>False</td>
+      <td>quast</td>
+      <td>Galaxy@AuBi, GalaxyTrakr, MISSISSIPPI, UseGalaxy.be, UseGalaxy.cz, UseGalaxy.eu, UseGalaxy.fr, UseGalaxy.no, UseGalaxy.org (Main), UseGalaxy.org.au</td>
+      <td></td>
+      <td>0</td>
+      <td></td>
+      <td>3436</td>
+      <td>4768</td>
+      <td>2.700000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Climate</td>
+      <td>Getting your hands-on earth data</td>
+      <td>https://training.galaxyproject.org//topics/climate/tutorials/earth_system/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2024-10-04</td>
+      <td>2025-05-10</td>
+      <td>2</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>argo_getdata, obis_data, spocc_occ, c3s</td>
+      <td>UseGalaxy.eu</td>
+      <td></td>
+      <td>0</td>
+      <td></td>
+      <td>96</td>
+      <td>130</td>
+      <td>2.633333</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Ecology</td>
+      <td>Sentinel 2 biodiversity</td>
+      <td>https://training.galaxyproject.org//topics/ecology/tutorials/remote-sensing/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2023-04-13</td>
+      <td>2025-06-03</td>
+      <td>6</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>srs_spectral_indices, srs_diversity_maps, srs_preprocess_s2, srs_pca, srs_global_indices, srs_process_data</td>
+      <td>UseGalaxy.cz, UseGalaxy.eu, UseGalaxy.fr</td>
+      <td></td>
+      <td>0</td>
+      <td></td>
+      <td>593</td>
+      <td>763</td>
+      <td>1.550000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Ecology</td>
+      <td>Compute and analyze biodiversity metrics with PAMPA toolsuite</td>
+      <td>https://training.galaxyproject.org//topics/ecology/tutorials/PAMPA-toolsuite-tutorial/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2020-11-19</td>
+      <td>2025-09-03</td>
+      <td>23</td>
+      <td>True</td>
+      <td>False</td>
+      <td>True</td>
+      <td>True</td>
+      <td>Count1, Filter1, pampa_plotglm, tp_easyjoin_tool, regexColumn1, tp_sort_header_tool, regex1, mergeCols1, pampa_communitymetrics, tp_cut_tool, pampa_presabs, pampa_glmsp, tp_cat, datamash_transpose, pampa_glmcomm</td>
+      <td>UseGalaxy.eu</td>
+      <td>UseGalaxy.cz, UseGalaxy.fr, UseGalaxy.org.au</td>
+      <td>0</td>
+      <td></td>
+      <td>1085</td>
+      <td>1432</td>
+      <td>1.833333</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Ecology</td>
+      <td>RAD-Seq to construct genetic maps</td>
+      <td>https://training.galaxyproject.org//topics/ecology/tutorials/genetic-map-rad-seq/tutorial.html</td>
+      <td></td>
+      <td>Data handling</td>
+      <td>2017-02-14</td>
+      <td>2025-06-03</td>
+      <td>13</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>stacks_genotypes, stacks_denovomap</td>
+      <td>UseGalaxy.be, UseGalaxy.cz, UseGalaxy.eu, UseGalaxy.no, UseGalaxy.org.au</td>
+      <td></td>
+      <td>0</td>
+      <td></td>
+      <td>873</td>
+      <td>1230</td>
+      <td>1.366667</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Ecology</td>
+      <td>Champs blocs indicators</td>
+      <td>https://training.galaxyproject.org//topics/ecology/tutorials/champs-blocs/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2023-01-04</td>
+      <td>2025-06-03</td>
+      <td>11</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>cb_qecb, cb_eco, cb_div, cb_dissim, cb_ivr</td>
+      <td></td>
+      <td></td>
+      <td>0</td>
+      <td></td>
+      <td>169</td>
+      <td>318</td>
+      <td>2.016667</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Ecology</td>
+      <td>Species distribution modeling</td>
+      <td>https://training.galaxyproject.org//topics/ecology/tutorials/species-distribution-modeling/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2019-07-04</td>
+      <td>2025-06-03</td>
+      <td>18</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>Filter1, tp_find_and_replace, tabular_to_csv, spocc_occ, tp_cut_tool, interactive_tool_wallace</td>
+      <td>UseGalaxy.eu, UseGalaxy.fr</td>
+      <td></td>
+      <td>0</td>
+      <td></td>
+      <td>3135</td>
+      <td>4755</td>
+      <td>1.150000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Ecology</td>
+      <td>RAD-Seq de-novo data analysis</td>
+      <td>https://training.galaxyproject.org//topics/ecology/tutorials/de-novo-rad-seq/tutorial.html</td>
+      <td></td>
+      <td>Statistical calculation, Sequencing quality control, Data handling, Sequence composition calculation</td>
+      <td>2017-02-14</td>
+      <td>2025-06-03</td>
+      <td>14</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>stacks_denovomap, stacks_procrad, stacks_populations, fastqc</td>
+      <td>UseGalaxy.be, UseGalaxy.eu</td>
+      <td>UseGalaxy.cz, UseGalaxy.no, UseGalaxy.org.au</td>
+      <td>0</td>
+      <td></td>
+      <td>2631</td>
+      <td>4213</td>
+      <td>2.083333</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Ecology</td>
+      <td>Regional GAM</td>
+      <td>https://training.galaxyproject.org//topics/ecology/tutorials/regionalGAM/tutorial.html</td>
+      <td>Ecology</td>
+      <td>Visualisation</td>
+      <td>2019-07-04</td>
+      <td>2025-06-03</td>
+      <td>18</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>Count1, Remove beginning1, Filter1, regionalgam_flight_curve, csv2tab_R, regionalgam_ab_index, tab2csv_R, regionalgam_plot_trend, regexColumn1, regionalgam_glmmpql, mergeCols1, regionalgam_gls, flight-curve, ggplot2_point, tp_awk_tool, regionalgam_autocor_acf, Paste1</td>
+      <td></td>
+      <td></td>
+      <td>0</td>
+      <td></td>
+      <td>336</td>
+      <td>451</td>
+      <td>3.516667</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Ecology</td>
+      <td>Metabarcoding/eDNA through Obitools</td>
+      <td>https://training.galaxyproject.org//topics/ecology/tutorials/Obitools-metabarcoding/tutorial.html</td>
+      <td></td>
+      <td>Sequence analysis, Sequence composition calculation, Statistical calculation, Sequencing quality control</td>
+      <td>2022-02-28</td>
+      <td>2025-06-03</td>
+      <td>12</td>
+      <td>True</td>
+      <td>False</td>
+      <td>True</td>
+      <td>True</td>
+      <td>Filter1, Cut1, obi_clean, fastqc, fastq_groomer, unzip, obi_uniq, obi_ngsfilter, seq_filter_by_id, wc_gnu, obi_tab, obi_annotate, obi_grep, obi_illumina_pairend, obi_stat, ncbi_blastn_wrapper, join1</td>
+      <td>UseGalaxy.eu, UseGalaxy.no, UseGalaxy.org.au</td>
+      <td>UseGalaxy.cz, UseGalaxy.fr</td>
+      <td>0</td>
+      <td></td>
+      <td>4413</td>
+      <td>6128</td>
+      <td>1.933333</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Ecology</td>
+      <td>Obis marine indicators</td>
+      <td>https://training.galaxyproject.org//topics/ecology/tutorials/obisindicators/tutorial.html</td>
+      <td>Biodiversity, Ecology, Data mining</td>
+      <td></td>
+      <td>2023-04-11</td>
+      <td>2025-06-03</td>
+      <td>9</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>tp_cut_tool, obisindicators, obis_data</td>
+      <td>UseGalaxy.eu</td>
+      <td></td>
+      <td>0</td>
+      <td></td>
+      <td>308</td>
+      <td>387</td>
+      <td>2.083333</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Ecology</td>
+      <td>Preparing genomic data for phylogeny reconstruction</td>
+      <td>https://training.galaxyproject.org//topics/ecology/tutorials/phylogeny-data-prep/tutorial.html</td>
+      <td></td>
+      <td>Sequence clustering, Multiple sequence alignment, Sequence analysis, Genetic variation analysis, Genome annotation, Sequence assembly validation</td>
+      <td>2022-10-21</td>
+      <td>2025-06-03</td>
+      <td>5</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>Filter1, funannotate_predict, proteinortho_grab_proteins, collapse_dataset, regex1, busco, clustalw, tp_replace_in_line, glimmer_gbk_to_orf, proteinortho, repeatmasker_wrapper, phykit_alignment_based, clipkit</td>
+      <td></td>
+      <td></td>
+      <td>0</td>
+      <td></td>
+      <td>2142</td>
+      <td>2932</td>
+      <td>2.700000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Ecology</td>
+      <td>Ecoregionalization workflow tutorial</td>
+      <td>https://training.galaxyproject.org//topics/ecology/tutorials/Ecoregionalization_tutorial/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2024-09-16</td>
+      <td>2025-06-03</td>
+      <td>7</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>ecoregion_brt_analysis, ecoregion_cluster_estimate, ecoregion_taxa_seeker, regexColumn1, unzip, mergeCols1, filter_tabular, tp_cut_tool, ecoregion_eco_map, ecoregion_GeoNearestNeighbor, ecoregion_clara_cluster, interactive_tool_jupyter_notebook</td>
+      <td>UseGalaxy.eu</td>
+      <td></td>
+      <td>0</td>
+      <td></td>
+      <td>239</td>
+      <td>326</td>
+      <td>3.216667</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Ecology</td>
+      <td>Life Traits Ecoregionalization workflow</td>
+      <td>https://training.galaxyproject.org//topics/ecology/tutorials/ecoregiolifetraits/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2025-06-02</td>
+      <td>2025-06-10</td>
+      <td>3</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>ecoregion_brt_analysis, Filter1, ecoregion_taxa_seeker, regexColumn1, unzip, tp_cut_tool, ClaraGuess, ecoregion_eco_map, ecoregion_GeoNearestNeighbor, WormsMeasurements, column_remove_by_header</td>
+      <td>UseGalaxy.eu</td>
+      <td></td>
+      <td>0</td>
+      <td></td>
+      <td>27</td>
+      <td>30</td>
+      <td>3.750000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Ecology</td>
+      <td>RAD-Seq Reference-based data analysis</td>
+      <td>https://training.galaxyproject.org//topics/ecology/tutorials/ref-based-rad-seq/tutorial.html</td>
+      <td></td>
+      <td>Sequence alignment, Generation, Sequence composition calculation, Read mapping, Validation, Genome indexing, Data handling, Statistical calculation, Sequencing quality control</td>
+      <td>2017-02-14</td>
+      <td>2025-06-03</td>
+      <td>14</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>Count1, Filter1, Cut1, cat1, regex_replace, Convert characters1, tp_sort_header_tool, fastqc, stacks_refmap, bwa, tp_replace_in_line, addValue, multiqc, stacks_populations, stacks_procrad, Summary_Statistics1, bwa_wrapper, Grep1</td>
+      <td></td>
+      <td></td>
+      <td>0</td>
+      <td></td>
+      <td>3004</td>
+      <td>4721</td>
+      <td>1.783333</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Ecology</td>
+      <td>Creating FAIR Quality assessment reports and draft of Data Papers from EML metadata with MetaShRIMPS</td>
+      <td>https://training.galaxyproject.org//topics/ecology/tutorials/Metashrimps_tutorial/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2024-01-22</td>
+      <td>2025-06-03</td>
+      <td>6</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>interactive_tool_metashrimps</td>
+      <td>UseGalaxy.eu</td>
+      <td></td>
+      <td>0</td>
+      <td></td>
+      <td>99</td>
+      <td>106</td>
+      <td>1.933333</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Ecology</td>
+      <td>Taxonomic Analysis of eDNA</td>
+      <td>https://training.galaxyproject.org//topics/ecology/tutorials/eDNA-taxonomic-analysis/tutorial.html</td>
+      <td></td>
+      <td>Sequencing quality control, Sequence contamination filtering</td>
+      <td>2025-06-02</td>
+      <td>2025-06-03</td>
+      <td>2</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>Count1, cshl_fastq_to_fasta, ncbi_blastn_wrapper, fastp</td>
+      <td>UseGalaxy.cz, UseGalaxy.eu, UseGalaxy.fr, UseGalaxy.org (Main), UseGalaxy.org.au</td>
+      <td>Galaxy@AuBi, MISSISSIPPI, UseGalaxy.be, UseGalaxy.no</td>
+      <td>0</td>
+      <td></td>
+      <td>393</td>
+      <td>499</td>
+      <td>0.800000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Ecology</td>
+      <td>Cleaning GBIF data for the use in Ecology</td>
+      <td>https://training.galaxyproject.org//topics/ecology/tutorials/gbif_cleaning/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2022-10-28</td>
+      <td>2025-06-03</td>
+      <td>6</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>Count1, Filter1, gdal_ogr2ogr, spocc_occ, Summary_Statistics1</td>
+      <td>UseGalaxy.cz, UseGalaxy.eu, UseGalaxy.fr, UseGalaxy.no</td>
+      <td></td>
+      <td>0</td>
+      <td></td>
+      <td>624</td>
+      <td>777</td>
+      <td>0.950000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Ecology</td>
+      <td>Marine Omics identifying biosynthetic gene clusters</td>
+      <td>https://training.galaxyproject.org//topics/ecology/tutorials/marine_omics_bgc/tutorial.html</td>
+      <td></td>
+      <td>Sequence motif recognition, Protein feature detection, Genome annotation</td>
+      <td>2024-08-19</td>
+      <td>2025-06-03</td>
+      <td>3</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>prodigal, regex1, SanntiS_marine, sanntis_marine, interproscan</td>
+      <td></td>
+      <td></td>
+      <td>0</td>
+      <td></td>
+      <td>164</td>
+      <td>192</td>
+      <td>2.733333</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Ecology</td>
+      <td>Biodiversity data exploration</td>
+      <td>https://training.galaxyproject.org//topics/ecology/tutorials/biodiversity-data-exploration/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2022-03-01</td>
+      <td>2025-06-03</td>
+      <td>15</td>
+      <td>True</td>
+      <td>False</td>
+      <td>True</td>
+      <td>True</td>
+      <td>ecology_beta_diversity, Remove beginning1, ecology_link_between_var, regexColumn1, ecology_stat_presence_abs, ecology_homogeneity_normality, tp_cut_tool, ecology_presence_abs_abund, tool_anonymization</td>
+      <td>UseGalaxy.eu</td>
+      <td>UseGalaxy.cz, UseGalaxy.fr</td>
+      <td>0</td>
+      <td></td>
+      <td>1586</td>
+      <td>2224</td>
+      <td>2.733333</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Ecology</td>
+      <td>Cleaning GBIF data using OpenRefine</td>
+      <td>https://training.galaxyproject.org//topics/ecology/tutorials/openrefine_gbif/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2025-01-21</td>
+      <td>2025-06-03</td>
+      <td>5</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>interactive_tool_openrefine, regex1</td>
+      <td>UseGalaxy.eu, UseGalaxy.fr</td>
+      <td></td>
+      <td>0</td>
+      <td></td>
+      <td>138</td>
+      <td>165</td>
+      <td>0.850000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Ecology</td>
+      <td>QGIS Web Feature Services</td>
+      <td>https://training.galaxyproject.org//topics/ecology/tutorials/QGIS_Web_Feature_Services/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2023-10-11</td>
+      <td>2025-06-03</td>
+      <td>6</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>interactive_tool_qgis</td>
+      <td>UseGalaxy.eu</td>
+      <td></td>
+      <td>0</td>
+      <td></td>
+      <td>266</td>
+      <td>307</td>
+      <td>1.633333</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Genome Annotation</td>
+      <td>Comparison of two annotation tools - Helixer and Braker3</td>
+      <td>https://training.galaxyproject.org//topics/genome-annotation/tutorials/comparison-braker-helixer-annotation/tutorial.html</td>
+      <td>Sequence assembly, Genomics</td>
+      <td>Sequence alignment, Differential protein expression profiling, Sequence annotation, Sequence assembly validation, Genome visualisation, Gene prediction, Genome annotation</td>
+      <td>2025-06-20</td>
+      <td>2025-06-25</td>
+      <td>2</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>jbrowse, helixer, busco, gffread, omark, rna_star, braker3</td>
+      <td></td>
+      <td></td>
+      <td>0</td>
+      <td></td>
+      <td>274</td>
+      <td>333</td>
+      <td>1.983333</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Genome Annotation</td>
+      <td>Masking repeats with RepeatMasker</td>
+      <td>https://training.galaxyproject.org//topics/genome-annotation/tutorials/repeatmasker/tutorial.html</td>
+      <td>Sequence composition, complexity and repeats, Genomics</td>
+      <td>Repeat sequence detection, Mapping, RNA-Seq analysis, Genome annotation, Editing</td>
+      <td>2021-11-29</td>
+      <td>2025-06-03</td>
+      <td>22</td>
+      <td>True</td>
+      <td>False</td>
+      <td>True</td>
+      <td>True</td>
+      <td>red, bedtools_maskfastabed, repeatmodeler, repeatmasker_wrapper</td>
+      <td>UseGalaxy.cz, UseGalaxy.eu, UseGalaxy.fr, UseGalaxy.org (Main), UseGalaxy.org.au</td>
+      <td></td>
+      <td>0</td>
+      <td></td>
+      <td>9852</td>
+      <td>12581</td>
+      <td>1.400000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Genome Annotation</td>
+      <td>Refining Genome Annotations with Apollo (prokaryotes)</td>
+      <td>https://training.galaxyproject.org//topics/genome-annotation/tutorials/apollo/tutorial.html</td>
+      <td>Genomics, Microbiology, Gene and protein families, Sequence analysis</td>
+      <td>Genome visualisation</td>
+      <td>2021-06-04</td>
+      <td>2025-05-15</td>
+      <td>22</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>jbrowse, create_or_update, iframe, create_account, list_organism</td>
+      <td></td>
+      <td>UseGalaxy.cz, UseGalaxy.eu, UseGalaxy.no</td>
+      <td>0</td>
+      <td></td>
+      <td>2638250</td>
+      <td>6779406</td>
+      <td>5.150000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Genome Annotation</td>
+      <td>Genome annotation with Braker3</td>
+      <td>https://training.galaxyproject.org//topics/genome-annotation/tutorials/braker3/tutorial.html</td>
+      <td>Sequence assembly, Genomics, Biodiversity, Zoology, Plant biology</td>
+      <td>Sequence alignment, Genome visualisation, Differential protein expression profiling, Sequence annotation, Gene prediction, Genome annotation, Sequence assembly validation</td>
+      <td>2025-03-17</td>
+      <td>2025-06-20</td>
+      <td>4</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>jbrowse, busco, gffread, omark, fasta-stats, rna_star, braker3</td>
+      <td></td>
+      <td></td>
+      <td>0</td>
+      <td></td>
+      <td>1173</td>
+      <td>1460</td>
+      <td>2.033333</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Genome Annotation</td>
+      <td>Genome annotation with Helixer</td>
+      <td>https://training.galaxyproject.org//topics/genome-annotation/tutorials/helixer/tutorial.html</td>
+      <td>Biodiversity, Genomics, Zoology, Plant biology</td>
+      <td>Genome visualisation, Differential protein expression profiling, Sequence annotation, Gene prediction, Genome annotation, Sequence assembly validation</td>
+      <td>2024-08-21</td>
+      <td>2025-06-04</td>
+      <td>8</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>jbrowse, helixer, busco, gffread, omark, jcvi_gff_stats</td>
+      <td></td>
+      <td></td>
+      <td>0</td>
+      <td></td>
+      <td>1119</td>
+      <td>1342</td>
+      <td>1.700000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Genome Annotation</td>
+      <td>Genome annotation with Funannotate</td>
+      <td>https://training.galaxyproject.org//topics/genome-annotation/tutorials/funannotate/tutorial.html</td>
+      <td>Gene and protein families</td>
+      <td>Sequence alignment, Information extraction, Sequence annotation, Sequence motif recognition, Protein feature detection, Formatting, Sequence assembly validation, Genome visualisation, Homology-based gene prediction, Query and retrieval, Genome annotation, Fold recognition</td>
+      <td>2021-11-29</td>
+      <td>2025-06-10</td>
+      <td>26</td>
+      <td>True</td>
+      <td>False</td>
+      <td>True</td>
+      <td>True</td>
+      <td>jbrowse, aegean_parseval, funannotate_annotate, funannotate_predict, rna_star, busco, picard_MergeSamFiles, eggnog_mapper, interproscan, funannotate_compare</td>
+      <td>UseGalaxy.eu, UseGalaxy.fr, UseGalaxy.org (Main)</td>
+      <td>UseGalaxy.be, UseGalaxy.cz, UseGalaxy.org.au</td>
+      <td>0</td>
+      <td></td>
+      <td>10431</td>
+      <td>14824</td>
+      <td>1.966667</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Genome Annotation</td>
+      <td>Comparative gene analysis in unannotated genomes</td>
+      <td>https://training.galaxyproject.org//topics/genome-annotation/tutorials/gene-centric/tutorial.html</td>
+      <td>Genomics, Gene and protein families, Sequence analysis, Phylogeny, Comparative genomics</td>
+      <td>Coding region prediction, Phylogenetic tree generation, Database search, Multiple sequence alignment, Sequence alignment analysis, Transcriptome assembly, De-novo assembly</td>
+      <td>2022-09-08</td>
+      <td>2025-06-03</td>
+      <td>10</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>bg_diamond, bg_diamond_view, Filter1, Cut1, cat1, tp_split_on_column, orfipy, bg_diamond_makedb, regexColumn1, collapse_dataset, tab2fasta, Add_a_column1, join1, rapidnj, rbc_mafft, gops_intersect_1</td>
+      <td>UseGalaxy.eu, UseGalaxy.org (Main)</td>
+      <td>UseGalaxy.cz</td>
+      <td>0</td>
+      <td></td>
+      <td>1796</td>
+      <td>2542</td>
+      <td>3.083333</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Genome Annotation</td>
+      <td>Functional annotation of protein sequences</td>
+      <td>https://training.galaxyproject.org//topics/genome-annotation/tutorials/functional/tutorial.html</td>
+      <td>Function analysis, Protein sites, features and motifs</td>
+      <td>Homology-based gene prediction, Information extraction, Sequence alignment analysis, Query and retrieval, Sequence motif recognition, Protein feature detection, Genome annotation, Fold recognition</td>
+      <td>2022-07-20</td>
+      <td>2025-06-03</td>
+      <td>12</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>bg_diamond, ncbi_blastp_wrapper, eggnog_mapper, interproscan</td>
+      <td>UseGalaxy.cz, UseGalaxy.eu, UseGalaxy.fr, UseGalaxy.org (Main), UseGalaxy.org.au</td>
+      <td>UseGalaxy.no</td>
+      <td>0</td>
+      <td></td>
+      <td>4045</td>
+      <td>5453</td>
+      <td>1.683333</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Genome Annotation</td>
+      <td>Refining Genome Annotations with Apollo (eukaryotes)</td>
+      <td>https://training.galaxyproject.org//topics/genome-annotation/tutorials/apollo-euk/tutorial.html</td>
+      <td>Genomics</td>
+      <td>Genome visualisation</td>
+      <td>2022-08-22</td>
+      <td>2025-06-03</td>
+      <td>16</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>iframe, create_or_update, jbrowse</td>
+      <td>UseGalaxy.no</td>
+      <td>UseGalaxy.cz, UseGalaxy.eu</td>
+      <td>0</td>
+      <td></td>
+      <td>1410</td>
+      <td>2168</td>
+      <td>2.433333</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+
+</div>
