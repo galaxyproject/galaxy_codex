@@ -181,6 +181,8 @@ jobs:
           path: communities/*/resources/*
   populate_labs:
     runs-on: ubuntu-latest
+    needs: 
+      - merge-fetch-filter
     name: Populate labs
     steps:
       - name: Checkout main
