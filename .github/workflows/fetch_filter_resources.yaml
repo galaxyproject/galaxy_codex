@@ -43,10 +43,10 @@ jobs:
       #max-parallel: 1 #need to run one after another, since otherwise there is a chance, that mulitple jobs want to push to the results branch at the same time (which fails due to merge)
       matrix:
         subset:
-#         - repositories01.list
+         - repositories01.list
          - repositories02.list
-#         - repositories03.list
-#         - repositories04.list
+         - repositories03.list
+         - repositories04.list
     steps:
       - name: Checkout main
         uses: actions/checkout@v5
@@ -174,7 +174,7 @@ jobs:
       - name: Filter tools for communities
         run: | 
           bash sources/bin/get_community_tools.sh
-      - name: Archive communities artifacts (tools, workflows, tutorials)
+      - name: Archive communities artifacts
         uses: actions/upload-artifact@v4
         with:
           name: communities-artifacts
@@ -198,7 +198,7 @@ jobs:
         uses: actions/download-artifact@v5
         with:
           name: communities-artifacts
-          path: communities/*/resources/
+          path: communities/all/resources/
       - name: Populate MicroGalaxy Lab
         run: | 
           bash sources/bin/populate_labs.sh
