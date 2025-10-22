@@ -178,7 +178,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: communities-artifacts
-          path: communities/**/resources/tools_wordcloud.png
+          path: communities/all/resources/tools_wordcloud.png
   populate_labs:
     runs-on: ubuntu-latest
     needs: 
@@ -210,11 +210,11 @@ jobs:
         env: 
           COMMUNITY: biodiversity
 #To initiate a lab, we recommend adding it below. It will automatically create the folders and structures required.
-      - name: Populate <community-name> Lab
-        run: |
-          bash sources/bin/populate_labs.sh
-        env: 
-          COMMUNITY: TEST
+#      - name: Populate <community-name> Lab
+#        run: |
+#          bash sources/bin/populate_labs.sh
+#        env: 
+#          COMMUNITY: <community-name>
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
         with:
