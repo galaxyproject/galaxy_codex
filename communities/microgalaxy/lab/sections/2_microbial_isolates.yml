@@ -231,10 +231,17 @@ tabs:
         button_link: '{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/minimap2/minimap2'
         description_md: "Minimap is a versatile sequence alignment program that aligns
           DNA or mRNA sequences against a large reference database.\n"
-      - title_md: <code>Bowtie2</code> - An ultrafast memory-efficient short read
-          aligner
+      - title_md: <code>Bowtie2</code> - An ultrafast memory-efficient short 
+          read aligner
         button_link: '{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/devteam/bowtie2/bowtie2'
-        description_md: "Bowtie2 is an ultrafast and memory-efficient tool for aligning sequencing reads to long reference sequences. It is particularly good at aligning reads of about 50 up to 100s or 1,000s of characters to relatively long (e.g. mammalian) genomes. Bowtie 2 supports gapped, local, and paired-end alignment modes. Galaxy wrapper for Bowtie 2 outputs alignments in BAM format, enabling interoperation with a large number of other tools available at this site. Majority of information in this page is derived from an excellent Bowtie2 manual written by Ben Langmead.\n"
+        description_md: "Bowtie2 is an ultrafast and memory-efficient tool for aligning
+          sequencing reads to long reference sequences. It is particularly good at
+          aligning reads of about 50 up to 100s or 1,000s of characters to relatively
+          long (e.g. mammalian) genomes. Bowtie 2 supports gapped, local, and paired-end
+          alignment modes. Galaxy wrapper for Bowtie 2 outputs alignments in BAM format,
+          enabling interoperation with a large number of other tools available at
+          this site. Majority of information in this page is derived from an excellent
+          Bowtie2 manual written by Ben Langmead.\n"
       - title_md: <code>STAR</code> - Gapped-read mapper for RNA-seq data
         button_link: '{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/rgrnastar/rna_star'
         description_md: "STAR is an aligner designed to specifically address many
@@ -344,9 +351,9 @@ tabs:
           resistance genes
         button_link: https://cge.food.dtu.dk/services/ResFinder/
         button_tip: Visit ResFinder
-        description_md: "A database that is used by microbiological tools to detect antimicrobial resistance genes in bacterial
-          genomes. Used in tools such as [<code>ABRicate</code>]({{ galaxy_base_url
-          }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/abricate/abricate).\n"
+        description_md: "A database that is used by microbiological tools to detect
+          antimicrobial resistance genes in bacterial genomes. Used in tools such
+          as [<code>ABRicate</code>]({{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/abricate/abricate).\n"
       - title_md: <code>NCBI AMRFinder</code> - Antimicrobial Resistance Gene 
           Finder
         button_link: 
@@ -356,7 +363,8 @@ tabs:
           resistance genes in bacterial genomes. Used in tools such as [<code>AMRFinderPlus</code>]({{
           galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/amrfinderplus/amrfinderplus).\n"
       - title_md: <code>ARG-ANNOT</code> - Antibiotic Resistance Gene Database
-        button_link: https://www.mediterranee-infection.com/acces-ressources/base-de-donnees/arg-annot-2/
+        button_link: 
+          https://www.mediterranee-infection.com/acces-ressources/base-de-donnees/arg-annot-2/
         button_tip: Visit ARG-ANNOT
         description_md: "A database of resistance genes used for identifying antibiotic
           resistance determinants. Used in tools such as [<code>ABRicate</code>]({{
@@ -495,22 +503,21 @@ tabs:
   title: Tutorials
   heading_md: Tutorials to train you to perform microbial data analysis
   content:
-  - title_md: Genome Assembly of MRSA from Oxford Nanopore MinION data (and 
-      optionally Illumina data)
-    description_md: Tutorial stored in Assembly topic on the Galaxy Training 
-      Network and covering topics related to Sequence assembly, Whole genome 
-      sequencing, Public health and epidemiology, Genomics, Microbiology, 
-      Antimicrobial resistance
-    button_link: 
-      https://training.galaxyproject.org//topics/assembly/tutorials/mrsa-nanopore/tutorial.html
-    button_tip: View tutorial
-    button_icon: tutorial
   - title_md: Unicycler Assembly
     description_md: Tutorial stored in Assembly topic on the Galaxy Training 
       Network and covering topics related to Sequence assembly, Genomics, 
       Microbiology
     button_link: 
       https://training.galaxyproject.org//topics/assembly/tutorials/unicycler-assembly/tutorial.html
+    button_tip: View tutorial
+    button_icon: tutorial
+  - title_md: Genome Assembly of a bacterial genome (MRSA) sequenced using 
+      Illumina MiSeq Data
+    description_md: Tutorial stored in Assembly topic on the Galaxy Training 
+      Network and covering topics related to Sequence assembly, Whole genome 
+      sequencing, Public health and epidemiology, Genomics, Microbiology
+    button_link: 
+      https://training.galaxyproject.org//topics/assembly/tutorials/mrsa-illumina/tutorial.html
     button_tip: View tutorial
     button_icon: tutorial
   - title_md: Making sense of a newly assembled genome
@@ -528,13 +535,14 @@ tabs:
       https://training.galaxyproject.org//topics/assembly/tutorials/metagenomics-assembly/tutorial.html
     button_tip: View tutorial
     button_icon: tutorial
-  - title_md: Genome Assembly of a bacterial genome (MRSA) sequenced using 
-      Illumina MiSeq Data
+  - title_md: Genome Assembly of MRSA from Oxford Nanopore MinION data (and 
+      optionally Illumina data)
     description_md: Tutorial stored in Assembly topic on the Galaxy Training 
       Network and covering topics related to Sequence assembly, Whole genome 
-      sequencing, Public health and epidemiology, Genomics, Microbiology
+      sequencing, Public health and epidemiology, Genomics, Microbiology, 
+      Antimicrobial resistance
     button_link: 
-      https://training.galaxyproject.org//topics/assembly/tutorials/mrsa-illumina/tutorial.html
+      https://training.galaxyproject.org//topics/assembly/tutorials/mrsa-nanopore/tutorial.html
     button_tip: View tutorial
     button_icon: tutorial
   - title_md: Checking expected species and contamination in bacterial isolate
@@ -545,6 +553,14 @@ tabs:
       https://training.galaxyproject.org//topics/ecology/tutorials/bacterial-isolate-species-contamination-checking/tutorial.html
     button_tip: View tutorial
     button_icon: tutorial
+  - title_md: Tree thinking for tuberculosis evolution and epidemiology
+    description_md: Tutorial stored in Evolution topic on the Galaxy Training 
+      Network and covering topics related to Genomics, Microbiology, Phylogeny, 
+      Infectious disease
+    button_link: 
+      https://training.galaxyproject.org//topics/evolution/tutorials/mtb_phylogeny/tutorial.html
+    button_tip: View tutorial
+    button_icon: tutorial
   - title_md: 'Identifying tuberculosis transmission links: from SNPs to transmission
       clusters'
     description_md: Tutorial stored in Evolution topic on the Galaxy Training 
@@ -552,14 +568,6 @@ tabs:
       disease, DNA polymorphism
     button_link: 
       https://training.galaxyproject.org//topics/evolution/tutorials/mtb_transmission/tutorial.html
-    button_tip: View tutorial
-    button_icon: tutorial
-  - title_md: Tree thinking for tuberculosis evolution and epidemiology
-    description_md: Tutorial stored in Evolution topic on the Galaxy Training 
-      Network and covering topics related to Genomics, Microbiology, Phylogeny, 
-      Infectious disease
-    button_link: 
-      https://training.galaxyproject.org//topics/evolution/tutorials/mtb_phylogeny/tutorial.html
     button_tip: View tutorial
     button_icon: tutorial
   - title_md: Phylogenetic analysis for bacterial comparative genomics
@@ -577,6 +585,14 @@ tabs:
       https://training.galaxyproject.org//topics/genome-annotation/tutorials/annotation-with-prokka/tutorial.html
     button_tip: View tutorial
     button_icon: tutorial
+  - title_md: Refining Genome Annotations with Apollo (prokaryotes)
+    description_md: Tutorial stored in Genome Annotation topic on the Galaxy 
+      Training Network and covering topics related to Genomics, Microbiology, 
+      Gene and protein families, Sequence analysis
+    button_link: 
+      https://training.galaxyproject.org//topics/genome-annotation/tutorials/apollo/tutorial.html
+    button_tip: View tutorial
+    button_icon: tutorial
   - title_md: Identification of AMR genes in an assembled bacterial genome
     description_md: Tutorial stored in Genome Annotation topic on the Galaxy 
       Training Network and covering topics related to Whole genome sequencing, 
@@ -584,14 +600,6 @@ tabs:
       Infectious disease, Antimicrobial resistance
     button_link: 
       https://training.galaxyproject.org//topics/genome-annotation/tutorials/amr-gene-detection/tutorial.html
-    button_tip: View tutorial
-    button_icon: tutorial
-  - title_md: Refining Genome Annotations with Apollo (prokaryotes)
-    description_md: Tutorial stored in Genome Annotation topic on the Galaxy 
-      Training Network and covering topics related to Genomics, Microbiology, 
-      Gene and protein families, Sequence analysis
-    button_link: 
-      https://training.galaxyproject.org//topics/genome-annotation/tutorials/apollo/tutorial.html
     button_tip: View tutorial
     button_icon: tutorial
   - title_md: Bacterial Genome Annotation
@@ -603,18 +611,18 @@ tabs:
       https://training.galaxyproject.org//topics/genome-annotation/tutorials/bacterial-genome-annotation/tutorial.html
     button_tip: View tutorial
     button_icon: tutorial
-  - title_md: Dataset construction for bacterial comparative genomics
-    description_md: Tutorial stored in Genome Annotation topic on the Galaxy 
-      Training Network and covering topics related to Genomics, Microbiology
-    button_link: 
-      https://training.galaxyproject.org//topics/genome-annotation/tutorials/bacterial-comparative-genomics-dataset-construction/tutorial.html
-    button_tip: View tutorial
-    button_icon: tutorial
   - title_md: Bacterial genome quality control
     description_md: Tutorial stored in Genome Annotation topic on the Galaxy 
       Training Network and covering topics related to Genomics, Microbiology
     button_link: 
       https://training.galaxyproject.org//topics/genome-annotation/tutorials/bacterial-genome-quality-control/tutorial.html
+    button_tip: View tutorial
+    button_icon: tutorial
+  - title_md: Dataset construction for bacterial comparative genomics
+    description_md: Tutorial stored in Genome Annotation topic on the Galaxy 
+      Training Network and covering topics related to Genomics, Microbiology
+    button_link: 
+      https://training.galaxyproject.org//topics/genome-annotation/tutorials/bacterial-comparative-genomics-dataset-construction/tutorial.html
     button_tip: View tutorial
     button_icon: tutorial
   - title_md: Comparative gene analysis in unannotated genomes
@@ -651,20 +659,20 @@ tabs:
       https://training.galaxyproject.org//topics/variant-analysis/tutorials/tb-variant-analysis/tutorial.html
     button_tip: View tutorial
     button_icon: tutorial
-  - title_md: 'metaQuantome 1: Data creation'
-    description_md: Tutorial stored in Proteomics topic on the Galaxy Training 
-      Network and covering topics related to Proteomics, Proteogenomics, 
-      Biodiversity, Taxonomy
-    button_link: 
-      https://training.galaxyproject.org//topics/proteomics/tutorials/metaquantome-data-creation/tutorial.html
-    button_tip: View tutorial
-    button_icon: tutorial
   - title_md: 'metaQuantome 3: Taxonomy'
     description_md: Tutorial stored in Proteomics topic on the Galaxy Training 
       Network and covering topics related to Proteomics, Proteogenomics, 
       Metatranscriptomics, Microbial ecology, Metagenomics, Taxonomy
     button_link: 
       https://training.galaxyproject.org//topics/proteomics/tutorials/metaquantome-taxonomy/tutorial.html
+    button_tip: View tutorial
+    button_icon: tutorial
+  - title_md: 'metaQuantome 1: Data creation'
+    description_md: Tutorial stored in Proteomics topic on the Galaxy Training 
+      Network and covering topics related to Proteomics, Proteogenomics, 
+      Biodiversity, Taxonomy
+    button_link: 
+      https://training.galaxyproject.org//topics/proteomics/tutorials/metaquantome-data-creation/tutorial.html
     button_tip: View tutorial
     button_icon: tutorial
   - title_md: 'metaQuantome 2: Function'
