@@ -14,6 +14,8 @@ import pandas as pd
 import shared
 import yt_dlp
 from owlready2 import get_ontology
+from ruamel.yaml import YAML as ruamelyaml
+from ruamel.yaml.scalarstring import LiteralScalarString
 
 PLAUSIBLE_REQUEST_NB = 0
 
@@ -296,6 +298,108 @@ def export_tutorials_to_tsv(tutorials: list, output_fp: str) -> None:
     df.to_csv(output_fp, sep="\t", index=False)
 
 
+def extract_top_tutorials_per_category(
+    tutorial_fp: str, count_column: str = "Visitors", category_nb: int = 10, top_tutorial_nb: int = 10
+) -> pd.DataFrame:
+    """
+    Extract top tutorials per categories
+    """
+    tutorials = pd.read_csv(tutorial_fp, sep="\t")
+
+    # Step 1: Split the categories into separate rows and strip whitespace
+    df = tutorials.assign(Category=tutorials["Topic"].str.split(",")).explode("Category")
+    df["Category"] = df["Category"].str.strip()  # Strip whitespace
+
+    # Step 2: Group by category to calculate total count and item count
+    grouped = (
+        df.groupby("Category")
+        .agg(
+            total_count=(count_column, "sum"),
+            item_count=("Link", "size"),  # Count distinct items if necessary, use 'nunique'
+        )
+        .reset_index()
+    )
+
+    # Step 3: Filter categories with at least 5 items
+    filtered = grouped[grouped["item_count"] >= 5]
+
+    # Step 4: Sort by total count in descending order
+    top_categories = filtered.sort_values(by="total_count", ascending=False).head(category_nb)["Category"]
+
+    # Step 5: Assign each tutorial to the first category it appears in
+    # Sort by 'Galaxy wrapper id' to ensure we assign based on first appearance
+    df_unique = df[df["Category"].isin(top_categories)]  # Filter rows for top 5 categories
+    df_unique = df_unique.sort_values(by=["Link", "Category"])  # Sort by tutorial ID to keep first category only
+
+    # Step 6: Remove duplicates, keeping the first appearance of each tutorial
+    df_unique = df_unique.drop_duplicates(subset=["Link"], keep="first")
+
+    # Step 7: Extract top X items per category based on total count
+    top_tutorials_per_category = (
+        df_unique.groupby("Category", group_keys=False)  # Group by category
+        .apply(lambda group: group.nlargest(top_tutorial_nb, count_column))  # Get top items per category
+        .reset_index(drop=True)  # Reset index for clean output
+    )
+    return top_tutorials_per_category
+
+
+def fill_lab_tutorial_section(
+    lab_section: dict, top_items_per_category: pd.DataFrame, count_column: str = "Visitors"
+) -> dict:
+    """
+    Fill Lab tutorial section
+    """
+    tabs = []
+# If we want a static tab with static content : 
+#    for element in lab_section["tabs"]:
+#        if element["id"] == "more_tools":
+#            tabs.append(element)
+
+    for grp_id, group in top_items_per_category.groupby("Category"):
+        group_id = str(grp_id)
+        tutorial_entries = []
+        for _index, row in group.iterrows():
+
+            # Prepare the description with an HTML unordered list and links for each tutorial link (only unique id)
+            title = f"{row['Title']}\n (Visitors: {row[count_column]})"
+            tool_ids = row["Tools"]
+            description = f"Tutorial stored in {row['Topic']} topic on the Galaxy Training Network and covering topics related to {row['EDAM topic']}",
+            link = row["Link"]
+            #owner = row["Suite owner"]
+            #wrapper_id = row["Suite ID"]
+
+            # Use LiteralScalarString to enforce literal block style for the description
+            #description_md = LiteralScalarString(description.strip())
+
+            # Create the tutorial entry
+            tutorial_entry = {
+                "title_md": title,
+                "description_md": description,
+                "button_link": link,
+                "button_tip": "View tutorial",
+                "button_icon": "tutorial",
+            }
+
+            tutorial_entries.append(tutorial_entry)
+
+        # Create table entry for each Topic
+        tabs.append(
+            {
+                "id": group_id.replace(" ", "_").lower(),
+                "title": group_id,
+                "heading_md": f"Top 10 most visited tutorials for the Topic : {group_id}",
+                "content": tutorial_entries,
+            }
+        )
+
+    new_lab_section = {
+        "id": lab_section["id"],
+        "title": lab_section["title"],
+        "tabs": tabs,
+    }
+    return new_lab_section
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description="Extract Galaxy Training Materials from GTN API together with statistics"
@@ -339,6 +443,20 @@ if __name__ == "__main__":
         help="Path to a file with tags to keep in the extraction (one per line)",
     )
 
+    # Add tutorials to the lab section
+    labpop = subparser.add_parser("popLabSection", help="Fill in Lab section tutorials")
+    labpop.add_argument(
+        "--tsv",
+        "-t",
+        required=True,
+        help="Filepath to TSV with curated tutorials",
+    )
+    labpop.add_argument(
+        "--lab",
+        required=True,
+        help="Filepath to YAML files for Lab section",
+    )
+
     args = parser.parse_args()
 
     if args.command == "extract":
@@ -352,3 +470,11 @@ if __name__ == "__main__":
         # filter training lists
         filtered_tutorials = filter_tutorials(all_tutorials, tags)
         export_tutorials_to_tsv(filtered_tutorials, args.filtered)
+
+    elif args.command == "popLabSection":
+        lab_section = shared.load_yaml(args.lab)
+        top_tutorials_per_category = extract_top_tutorials_per_category(args.tsv)
+        lab_section = fill_lab_tutorial_section(lab_section, top_tutorials_per_category)
+
+        with open(args.lab, "w") as lab_f:
+            ruamelyaml().dump(lab_section, lab_f)

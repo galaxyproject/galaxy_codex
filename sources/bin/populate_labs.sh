@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+COMMUNITY="microgalaxy"
+
 # This script is meant to create or update communities labs and is launched weekly (Every Sunday at 8:00 am)
 # To add you community, modify `.github/workflows/fetch_filter_resources.yaml` (instructions available in the yaml document)
 
@@ -57,23 +59,23 @@ python sources/bin/extract_galaxy_workflows.py \
 ## TUTORIALS
 if [ "$COMMUNITY" != "microgalaxy" ]; then
     tutorials_section="communities/$COMMUNITY/lab/sections/4_tutorials.yml"
-
-    ### Copy tutorials file from the template file if it does not yet exist
-    if [[ ! -e $tutorials_section ]]; then
-        cp communities/all/labs/sections_templates/4_tutorials.yml $tutorials_section
-    fi
-
-    ### Update the tutorial file
-    python sources/bin/populate_labs_tutorials.py \
-        --tsv communities/$COMMUNITY/resources/tutorials.tsv \
-        --yml $tutorials_section \
-        --title-column Title \
-        --description-column Title \
-        --button-link-column Link \
-        --filter-column Topic \
-        --filter $COMMUNITY \
-        --filter-logic exclude
 else
+    tutorials_section="communities/$COMMUNITY/lab/sections/8_tutorials.yml"
+fi
+
+### Copy tutorials file from the template file if it does not yet exist
+if [[ ! -e $tutorials_section ]]; then
+    cp communities/all/labs/sections_templates/4_tutorials.yml $tutorials_section
+fi
+
+### Creat/Update the tutorial file
+python sources/bin/extract_gtn_tutorials.py \
+    popLabSection \
+    --tsv communities/$COMMUNITY/resources/tutorials.tsv \
+    --lab $tutorials_section
+    
+##Update the tutorial in the topic sections of the microbiology labs
+if [ "$COMMUNITY" == "microgalaxy" ]; then
     python sources/bin/populate_labs_tutorials.py \
         --tsv communities/$COMMUNITY/resources/tutorials.tsv \
         --yml communities/$COMMUNITY/lab/sections/2_microbial_isolates.yml \
