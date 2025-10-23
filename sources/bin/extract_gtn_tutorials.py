@@ -15,7 +15,6 @@ import shared
 import yt_dlp
 from owlready2 import get_ontology
 from ruamel.yaml import YAML as ruamelyaml
-from ruamel.yaml.scalarstring import LiteralScalarString
 
 PLAUSIBLE_REQUEST_NB = 0
 
@@ -362,9 +361,9 @@ def fill_lab_tutorial_section(
 
             # Prepare the description with an HTML unordered list and links for each tutorial link (only unique id)
             title = f"{row['Title']}\n (Visitors: {row[count_column]})"
-            tool_ids = row["Tools"]
             description = f"Tutorial stored in {row['Topic']} topic on the Galaxy Training Network and covering topics related to {row['EDAM topic']}",
             link = row["Link"]
+            #tool_ids = row["Tools"]
             #owner = row["Suite owner"]
             #wrapper_id = row["Suite ID"]
 
