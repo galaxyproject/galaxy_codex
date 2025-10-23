@@ -349,10 +349,10 @@ def fill_lab_tutorial_section(
     Fill Lab tutorial section
     """
     tabs = []
-# If we want a static tab with static content : 
-#    for element in lab_section["tabs"]:
-#        if element["id"] == "more_tools":
-#            tabs.append(element)
+    # If we want a static tab with static content : 
+    #    for element in lab_section["tabs"]:
+    #        if element["id"] == "more_tools":
+    #            tabs.append(element)
 
     for grp_id, group in top_items_per_category.groupby("Category"):
         group_id = str(grp_id)
@@ -361,14 +361,10 @@ def fill_lab_tutorial_section(
 
             # Prepare the description with an HTML unordered list and links for each tutorial link (only unique id)
             title = f"{row['Title']}\n (Visitors: {row[count_column]})"
-            description = f"Tutorial stored in {row['Topic']} topic on the Galaxy Training Network and covering topics related to {row['EDAM topic']}",
+            description = (
+                f"Tutorial stored in {row['Topic']} topic on the Galaxy Training Network and covering topics related to {row['EDAM topic']}"
+            )
             link = row["Link"]
-            #tool_ids = row["Tools"]
-            #owner = row["Suite owner"]
-            #wrapper_id = row["Suite ID"]
-
-            # Use LiteralScalarString to enforce literal block style for the description
-            #description_md = LiteralScalarString(description.strip())
 
             # Create the tutorial entry
             tutorial_entry = {
