@@ -67,14 +67,16 @@ if [ "$COMMUNITY" != "microgalaxy" ]; then
     python sources/bin/populate_labs_tutorials.py \
         --tsv communities/$COMMUNITY/resources/tutorials.tsv \
         --yml $tutorials_section \
-        --title-column Title \
+        --title-column Topic \
         --description-column Title \
         --button-link-column Link \
         --filter-column Topic \
         --filter $COMMUNITY \
         --filter-logic exclude
 else
-    python sources/bin/populate_labs_tutorials.py \
+    # The microgalaxy community has it's own version as they have tutorials as a tab in a topic specific tables (microbial isolates and microbiome).
+    # By default, the tutorail is it's own table (similarly to tools & workflows)
+    python sources/bin/populate_labs_tutorials_microbio.py \
         --tsv communities/$COMMUNITY/resources/tutorials.tsv \
         --yml communities/$COMMUNITY/lab/sections/2_microbial_isolates.yml \
         --title-column Title \
@@ -84,7 +86,7 @@ else
         --filter Microbiome \
         --filter-logic exclude
 
-    python sources/bin/populate_labs_tutorials.py \
+    python sources/bin/populate_labs_tutorials_microbio.py \
         --tsv communities/$COMMUNITY/resources/tutorials.tsv \
         --yml communities/$COMMUNITY/lab/sections/3_microbiome.yml \
         --title-column Title \
