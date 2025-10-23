@@ -958,7 +958,8 @@ def fill_lab_tool_section(
             {
                 "id": group_id.replace(" ", "_").lower(),
                 "title": group_id,
-                "heading_md": f"Top 10 for the EDAM operation: {group_id}",
+                "heading_md": f"Top 10 most used tools* for the EDAM operation: {group_id} <br>
+                *based on usage statistics from Galaxy’s main servers over the last five years",
                 "content": tool_entries,
             }
         )
