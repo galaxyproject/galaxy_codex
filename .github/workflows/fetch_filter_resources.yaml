@@ -122,7 +122,7 @@ jobs:
       - fetch-tools-stepwise
       - fetch-tutorials
       - fetch-workflows
-    name: Merge tools, fetch tutorials and filter the resources for communities
+    name: Merge tools, fetch tutorials, filter the resources for communities and populate labs
     steps:
       - name: Checkout main
         uses: actions/checkout@v5
@@ -174,16 +174,22 @@ jobs:
       - name: Filter tools for communities
         run: | 
           bash sources/bin/get_community_tools.sh
-#      - name: Populate biodiversity lab
+      - name: Populate MicroGalaxy Lab
+        run: | 
+          bash sources/bin/populate_labs.sh
+        env: 
+          COMMUNITY: microgalaxy
+      - name: Populate biodiversity lab
+        run: |
+          bash sources/bin/populate_labs.sh
+        env: 
+          COMMUNITY: biodiversity
+#To initiate a lab, we recommend adding it below. It will automatically create the folders and structures required.
+#      - name: Populate <community-name> Lab
 #        run: |
 #          bash sources/bin/populate_labs.sh
 #        env: 
-#          COMMUNITY: biodiversity
-#      - name: Populate microGalaxy Lab
-#        run: | 
-#          bash sources/bin/populate_labs.sh
-#        env: 
-#          COMMUNITY: microgalaxy
+#          COMMUNITY: <community-name>
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
         with:
