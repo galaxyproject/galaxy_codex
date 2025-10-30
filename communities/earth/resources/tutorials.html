@@ -1,0 +1,519 @@
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/searchbuilder/1.6.0/js/dataTables.searchBuilder.min.js"></script>
+<script src="https://cdn.datatables.net/datetime/1.5.1/js/dataTables.dateTime.min.js"></script>
+
+<script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/searchbuilder/1.6.0/css/searchBuilder.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/datetime/1.5.1/css/dataTables.dateTime.min.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+<style type="text/css">
+  .tooltip {
+    font-family: Georgia;
+    font-size: 18px;
+  }
+  .tooltip .tooltip-inner {
+    background-color: #00FFFF;
+    color: #000000;
+    min-width: 400px;
+  }
+  </style>
+
+<script>
+    $(document).ready(function() {
+    $('#dataframe').DataTable( {
+        "sScrollX": "100%",
+        "dom": "Qlfrtip",
+
+        responsive: {
+            details: {
+                type: 'column'
+            }
+        },
+        "bAutoWidth": false,
+        columnDefs: [ {
+            className: 'control',
+            orderable: false,
+            targets:   [ 0 ],
+            width: 100,
+        },
+        { type: 'natural', targets: 1 } // allow normal sorting
+        ],
+
+    });
+});
+</script>
+
+<div class="display nowrap" style="width:80%" width="100%">
+
+<table class="dataframe display nowrap" id="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Expand</th>
+      <th>Topic</th>
+      <th>Title</th>
+      <th>Link</th>
+      <th>EDAM topic</th>
+      <th>EDAM operation</th>
+      <th>Creation</th>
+      <th>Last modification</th>
+      <th>Version</th>
+      <th>Tutorial</th>
+      <th>Slides</th>
+      <th>Video</th>
+      <th>Workflows</th>
+      <th>Tools</th>
+      <th>Servers with precise tool versions</th>
+      <th>Servers with tool but different versions</th>
+      <th>Feedback number</th>
+      <th>Feedback mean note</th>
+      <th>Visitors</th>
+      <th>Page views</th>
+      <th>Visit duration</th>
+      <th>Video views</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td></td>
+      <td>Galaxy Server administration</td>
+      <td>Create a subdomain for your community on UseGalaxy.eu</td>
+      <td>https://training.galaxyproject.org//topics/admin/tutorials/subdomain/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2024-11-27</td>
+      <td>2024-12-13</td>
+      <td>2</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>0</td>
+      <td></td>
+      <td>34</td>
+      <td>39</td>
+      <td>3.800000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Galaxy Server administration</td>
+      <td>Adding file-sources to Galaxy</td>
+      <td>https://training.galaxyproject.org//topics/admin/tutorials/file_sources/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2025-01-20</td>
+      <td>2025-01-20</td>
+      <td>1</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>0</td>
+      <td></td>
+      <td>51</td>
+      <td>69</td>
+      <td>3.166667</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Climate</td>
+      <td>Sentinel 5P data visualisation</td>
+      <td>https://training.galaxyproject.org//topics/climate/tutorials/sentinel5_data/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2024-01-26</td>
+      <td>2025-05-10</td>
+      <td>2</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>interactive_tool_copernicus, interactive_tool_copernicus_notebook, interactive_tool_panoply</td>
+      <td></td>
+      <td></td>
+      <td>0</td>
+      <td></td>
+      <td>293</td>
+      <td>339</td>
+      <td>0.516667</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Climate</td>
+      <td>Pangeo Notebook in Galaxy - Introduction to Xarray</td>
+      <td>https://training.galaxyproject.org//topics/climate/tutorials/pangeo-notebook/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2022-02-18</td>
+      <td>2025-05-10</td>
+      <td>11</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>interactive_tool_pangeo_notebook</td>
+      <td>UseGalaxy.eu</td>
+      <td></td>
+      <td>0</td>
+      <td></td>
+      <td>2309887</td>
+      <td>5614195</td>
+      <td>4.300000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Climate</td>
+      <td>Analyse Argo data</td>
+      <td>https://training.galaxyproject.org//topics/climate/tutorials/argo_pangeo/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2024-03-24</td>
+      <td>2025-05-10</td>
+      <td>2</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>argo_getdata, interactive_tool_odv, xarray_coords_info, xarray_metadata_info, timeseries_extraction</td>
+      <td>UseGalaxy.eu</td>
+      <td></td>
+      <td>0</td>
+      <td></td>
+      <td>304</td>
+      <td>365</td>
+      <td>1.150000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Climate</td>
+      <td>Pangeo ecosystem 101 for everyone - Introduction to Xarray Galaxy Tools</td>
+      <td>https://training.galaxyproject.org//topics/climate/tutorials/pangeo/tutorial.html</td>
+      <td></td>
+      <td>Visualisation</td>
+      <td>2022-02-18</td>
+      <td>2025-05-10</td>
+      <td>6</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>xarray_coords_info, climate_stripes, xarray_mapplot, xarray_select, xarray_metadata_info, __EXTRACT_DATASET__, graphicsmagick_image_montage, xarray_netcdf2netcdf, regexColumn1, ggplot2_point, __MERGE_COLLECTION__</td>
+      <td>UseGalaxy.eu, UseGalaxy.org (Main)</td>
+      <td>UseGalaxy.cz</td>
+      <td>0</td>
+      <td></td>
+      <td>2309668</td>
+      <td>5613692</td>
+      <td>5.166667</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Climate</td>
+      <td>Ocean's variables study</td>
+      <td>https://training.galaxyproject.org//topics/climate/tutorials/ocean-variables/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2023-11-29</td>
+      <td>2025-05-10</td>
+      <td>5</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>interactive_tool_odv, interactive_tool_divand, divand_full_analysis</td>
+      <td>UseGalaxy.eu</td>
+      <td></td>
+      <td>0</td>
+      <td></td>
+      <td>221</td>
+      <td>268</td>
+      <td>1.800000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Climate</td>
+      <td>Nitrate DMQC for autonomous platforms such as Argo floats</td>
+      <td>https://training.galaxyproject.org//topics/climate/tutorials/ocean_qcv_analysis/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2025-08-08</td>
+      <td>2025-09-16</td>
+      <td>3</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>tool_biogeochemical_calibration, interactive_tool_odv, tool_odv, harmonize_insitu_to_netcdf, tool_odv_history</td>
+      <td>UseGalaxy.eu</td>
+      <td></td>
+      <td>0</td>
+      <td></td>
+      <td>37</td>
+      <td>48</td>
+      <td>2.216667</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Climate</td>
+      <td>Ocean Data View (ODV)</td>
+      <td>https://training.galaxyproject.org//topics/climate/tutorials/ocean-data-view/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2023-11-27</td>
+      <td>2025-05-10</td>
+      <td>2</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>interactive_tool_odv</td>
+      <td>UseGalaxy.eu, UseGalaxy.fr</td>
+      <td></td>
+      <td>0</td>
+      <td></td>
+      <td>398</td>
+      <td>480</td>
+      <td>1.150000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Climate</td>
+      <td>Getting your hands-on earth data</td>
+      <td>https://training.galaxyproject.org//topics/climate/tutorials/earth_system/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2024-10-04</td>
+      <td>2025-05-10</td>
+      <td>2</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>argo_getdata, obis_data, c3s, spocc_occ</td>
+      <td>UseGalaxy.eu</td>
+      <td></td>
+      <td>0</td>
+      <td></td>
+      <td>102</td>
+      <td>136</td>
+      <td>2.366667</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Galaxy Community Building</td>
+      <td>Make your tools available on your subdomain</td>
+      <td>https://training.galaxyproject.org//topics/community/tutorials/tools_subdomains/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2024-12-03</td>
+      <td>2024-12-20</td>
+      <td>2</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>0</td>
+      <td></td>
+      <td>41</td>
+      <td>56</td>
+      <td>9.666667</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Ecology</td>
+      <td>Visualization of Climate Data using  NetCDF xarray Map Plotting</td>
+      <td>https://training.galaxyproject.org//topics/ecology/tutorials/x-array-map-plot/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2022-10-26</td>
+      <td>2024-06-27</td>
+      <td>9</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>xarray_coords_info, xarray_mapplot, xarray_metadata_info, cdo_operations, graphicsmagick_image_montage</td>
+      <td>UseGalaxy.eu</td>
+      <td>UseGalaxy.cz</td>
+      <td>0</td>
+      <td></td>
+      <td>2355</td>
+      <td>2727</td>
+      <td>0.466667</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Ecology</td>
+      <td>Obis marine indicators</td>
+      <td>https://training.galaxyproject.org//topics/ecology/tutorials/obisindicators/tutorial.html</td>
+      <td>Biodiversity, Ecology, Data mining</td>
+      <td></td>
+      <td>2023-04-11</td>
+      <td>2025-06-03</td>
+      <td>9</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>tp_cut_tool, obis_data, obisindicators</td>
+      <td>UseGalaxy.eu</td>
+      <td></td>
+      <td>0</td>
+      <td></td>
+      <td>311</td>
+      <td>391</td>
+      <td>2.083333</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Ecology</td>
+      <td>Ecoregionalization workflow tutorial</td>
+      <td>https://training.galaxyproject.org//topics/ecology/tutorials/Ecoregionalization_tutorial/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2024-09-16</td>
+      <td>2025-06-03</td>
+      <td>7</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>tp_cut_tool, ecoregion_cluster_estimate, ecoregion_GeoNearestNeighbor, mergeCols1, ecoregion_brt_analysis, ecoregion_clara_cluster, filter_tabular, ecoregion_eco_map, ecoregion_taxa_seeker, unzip, regexColumn1, interactive_tool_jupyter_notebook</td>
+      <td>UseGalaxy.eu</td>
+      <td></td>
+      <td>0</td>
+      <td></td>
+      <td>240</td>
+      <td>327</td>
+      <td>3.200000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Ecology</td>
+      <td>From NDVI data with OpenEO to time series visualisation with Holoviews</td>
+      <td>https://training.galaxyproject.org//topics/ecology/tutorials/ndvi_openeo/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2024-01-24</td>
+      <td>2024-06-29</td>
+      <td>3</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>interactive_tool_copernicus_notebook, interactive_tool_holoviz</td>
+      <td>UseGalaxy.eu</td>
+      <td></td>
+      <td>0</td>
+      <td></td>
+      <td>191</td>
+      <td>229</td>
+      <td>1.150000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Ecology</td>
+      <td>Marine Omics identifying biosynthetic gene clusters</td>
+      <td>https://training.galaxyproject.org//topics/ecology/tutorials/marine_omics_bgc/tutorial.html</td>
+      <td></td>
+      <td>Protein feature detection, Genome annotation, Sequence motif recognition</td>
+      <td>2024-08-19</td>
+      <td>2025-06-03</td>
+      <td>3</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>sanntis_marine, regex1, prodigal, SanntiS_marine, interproscan</td>
+      <td></td>
+      <td></td>
+      <td>0</td>
+      <td></td>
+      <td>171</td>
+      <td>204</td>
+      <td>2.700000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Ecology</td>
+      <td>QGIS Web Feature Services</td>
+      <td>https://training.galaxyproject.org//topics/ecology/tutorials/QGIS_Web_Feature_Services/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2023-10-11</td>
+      <td>2025-06-03</td>
+      <td>6</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>interactive_tool_qgis</td>
+      <td>UseGalaxy.eu</td>
+      <td></td>
+      <td>0</td>
+      <td></td>
+      <td>270</td>
+      <td>311</td>
+      <td>1.616667</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>FAIR Data, Workflows, and Research</td>
+      <td>An earth-system RO-Crate</td>
+      <td>https://training.galaxyproject.org//topics/fair/tutorials/earth_system_rocrate/slides.html</td>
+      <td></td>
+      <td></td>
+      <td>2024-12-02</td>
+      <td>2024-12-02</td>
+      <td>1</td>
+      <td>False</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td></td>
+      <td></td>
+      <td>UseGalaxy.eu, UseGalaxy.org, UseGalaxy.org.au, UseGalaxy.fr</td>
+      <td>0</td>
+      <td></td>
+      <td>684239</td>
+      <td>1490269</td>
+      <td>1.933333</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+
+</div>
