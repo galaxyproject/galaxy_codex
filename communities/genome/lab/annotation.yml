@@ -46,6 +46,18 @@ tabs:
               - fasta
             label: Genome assembly
         button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fbgruening%2Frepeat_masker%2Frepeatmasker_wrapper"
+
+      - title_md: <code>Red</code> - fast de-novo repeat masking
+        description_md: >
+          <p>
+            Red detects and masks repeats. It needs no additional input data.
+          </p>
+        inputs:
+          - datatypes:
+              - fasta
+            label: Genome assembly
+        button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fred%2Fred"      
+      
       - title_md: <code>InterProScan</code> - Scans InterPro database and assigns functional annotations
         description_md: >
           <p>
@@ -66,6 +78,20 @@ tabs:
               - fasta
             label: Genome assemblies to compare
         button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Ffunannotate_compare%2Ffunannotate_compare"
+
+      - title_md: <code>Helixer</code> - structural genome annotation
+        description_md: >
+          <p>
+            Gene calling based on deep learning. Four models currently available: land plant, fungi, vertebrate and invertebrate.
+          </p>
+        inputs:
+          - datatypes:
+              - fasta
+              - fasta.gz
+            label: Genome assembly
+        button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fgenouest%2Fhelixer%2Fhelixer"
+
+
       - title_md: <code>JBrowse</code> - Genome browser to visualize annotations
         description_md: ''
         inputs:
@@ -88,6 +114,15 @@ tabs:
               - fasta
             label: Genome assembly
         button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fcrs4%2Fprokka%2Fprokka"
+
+      - title_md: <code>Bakta</code> - Genome annotation for bacteria, MAGs and plasmids
+        description_md: ''
+        inputs:
+          - datatypes:
+              - fasta
+              - fasta.gz
+            label: Genome assembly
+        button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fbakta%2Fbakta"
 
       - title_md: <code>FGenesH</code> - Genome annotation
         description_md: >

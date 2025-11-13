@@ -6,12 +6,13 @@ tabs:
     heading_md: >
       Common tools are listed here, or search for more in the full tool panel to the left.
     content:
-      - title_md: <code>Hifiasm</code> - assembly with PacBio HiFi data
+      - title_md: <code>Hifiasm</code> - assembly with PacBio HiFi and/or Nanopore data
         description_md: >
-          A haplotype-resolved assembler for PacBio HiFi reads.
+          A haplotype-resolved assembler for PacBio HiFi and/or Oxford Nanopore reads.
         inputs:
           - datatypes:
               - fasta
+              - fastq
         button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fbgruening%2Fhifiasm%2Fhifiasm"
       - title_md: <code>Flye</code> - assembly with PacBio or Nanopore data
         description_md: >
@@ -21,6 +22,18 @@ tabs:
               - fasta
               - fastq
         button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fbgruening%2Fflye%2Fflye"
+
+      - title_md: <code>Verkko</code> - assembly with PacBio and Nanopore data
+        description_md: >
+          Uses both Hifi and, optionally, corrected Nanopore reads for assembly. 
+        inputs:
+          - datatypes:
+              - fastq
+              - fastqsanger
+        button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fverkko%2Fverkko"      
+      
+      
+      
       - title_md: <code>Unicycler</code> - assembly with Illumina, PacBio or Nanopore data - bacteria only
         description_md: >
           Hybrid assembly pipeline for bacterial genomes, uses both Illumina reads and long reads (PacBio or Nanopore).
@@ -62,6 +75,19 @@ tabs:
               - fastq
               - genbank
         button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fbgruening%2Fmitohifi%2Fmitohifi"
+
+      - title_md: <code>Dorado correct</code> - correct Nanopore reads
+        description_md: >
+          Uses the HERRO algorithm to correct raw Nanopore reads. 
+        inputs:
+          - datatypes:
+              - fastq
+              - paf
+        button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fgalaxy-australia%2Fdorado_error_correct%2Fdorado_error_correct"
+
+
+
+
 
   - id: workflows
     title: Workflows
