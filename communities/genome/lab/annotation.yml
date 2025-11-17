@@ -249,6 +249,7 @@ tabs:
                 - datatypes:
                     - fasta
                   label: Masked genome <code>masked_genome.fasta</code>
+                - datatypes:
                     - fastqsanger.gz
                   label: "For each tissue: Trimmed and merged RNAseq R1 files <code>R1.fastqsanger.gz</code>; Trimmed and merged RNAseq R2 files <code>R2.fastqsanger.gz</code>"
               buttons:
@@ -267,11 +268,13 @@ tabs:
               inputs:
                 - datatypes:
                     - fasta
-                  label: Masked genome <code>masked_genome.fasta</code>
+                  label: Masked genome
+                - datatypes:
                     - gtf
-                  label: Multiple transcriptomes in a collection <code>transcriptome.gtf</code>
+                  label: Multiple transcriptomes in a collection
+                - datatypes:
                     - fasta.gz
-                  label: Coding and non-coding sequences from NCBI <code>coding_seqs.fna.gz</code> <code>non-coding_seqs.fna.gz</code>
+                  label: Coding and non-coding sequences from NCBI
               buttons:
                 - icon: run
                   link: "{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=878"
@@ -306,8 +309,7 @@ tabs:
               inputs:
                 - datatypes:
                     - fasta
-                  label: Transdecoder nucleotides <code>transdecoder_nucleotides.fasta</code>
-                  label: Transdecoder peptides <code>transdecoder_peptides.fasta</code>
+                  label: Transdecoder nucleotides/peptides
               buttons:
                 - icon: run
                   link: "{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=880"
