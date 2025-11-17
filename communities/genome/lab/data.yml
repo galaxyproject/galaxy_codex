@@ -13,9 +13,10 @@ tabs:
           <p>
             You can upload your data to Galaxy using the Upload tool from anywhere in Galaxy. Just look for the "Upload data" button at the top of the tool panel.
           </p>
-        button_md: More info
-        button_link: https://training.galaxyproject.org/training-material/topics/galaxy-interface/
-        button_tip: ""
+        buttons:
+          - label_md: More info
+            link: https://training.galaxyproject.org/training-material/topics/galaxy-interface/
+            tip: Learn more about the Galaxy interface
 
       - title_md: How can I subsample my data?
         description_md: >
@@ -27,8 +28,10 @@ tabs:
           <p>
             BioPlatforms Australia allows data downloads via URL. Once you have generated one of these URLs in the BPA portal, you can import it into Galaxy using the "Fetch data" feature of the Upload tool.
           </p>
-        button_md: More info
-        button_link: https://australianbiocommons.github.io/how-to-guides/genome_assembly/hifi_assembly#in-depth-workflow-guide
+        buttons:
+          - label_md: More info
+            link: https://australianbiocommons.github.io/how-to-guides/genome_assembly/hifi_assembly#in-depth-workflow-guide
+            tip: Learn how to import data from BPA portal
 
       - title_md: Can I upload sensitive data?
         description_md: >
@@ -48,36 +51,40 @@ tabs:
           <p>
             Please submit a quota request if your Galaxy Australia account reaches its data storage limit. Requests are usually provisioned quickly if you provide a reasonable use case for your request.
           </p>
-        button_md: Request
-        button_link: https://site.usegalaxy.org.au/request/quota
-        button_tip: ""
+        buttons:
+          - label_md: Request
+            link: https://site.usegalaxy.org.au/request/quota
+            tip: Request a storage quota increase
 
       - title_md: "Tutorial: Quality Control"
         description_md: >
           <p>
             Quality control and data cleaning is an essential first step in any NGS analysis. This tutorial will show you how to use and interpret results from <code>FastQC</code>, <code>NanoPlot</code> and <code>PycoQC</code>.
           </p>
-        button_md: Tutorial
-        button_link: https://training.galaxyproject.org/training-material/topics/sequence-analysis/tutorials/quality-control/tutorial.html
-        button_tip: ""
+        buttons:
+          - label_md: Tutorial
+            link: https://training.galaxyproject.org/training-material/topics/sequence-analysis/tutorials/quality-control/tutorial.html
+            tip: Learn about quality control
 
       - title_md: "Tutorial: introduction to Genomics and Galaxy"
         description_md: >
           <p>
             This practical aims to familiarize you with the Galaxy user interface. It will teach you how to perform basic tasks such as importing data, running tools, working with histories, creating workflows, and sharing your work.
           </p>
-        button_md: Tutorial
-        button_link: https://training.galaxyproject.org/training-material/topics/introduction/tutorials/galaxy-intro-strands/tutorial.html
-        button_tip: ""
+        buttons:
+          - label_md: Tutorial
+            link: https://training.galaxyproject.org/training-material/topics/introduction/tutorials/galaxy-intro-strands/tutorial.html
+            tip: Introduction to Genomics and Galaxy
 
       - title_md: Galaxy Australia support
         description_md: >
           <p>
             Any user of Galaxy Australia can request support through an online form.
           </p>
-        button_md: Request support
-        button_link: https://site.usegalaxy.org.au/request/support
-        button_tip: ""
+        buttons:
+          - label_md: Request support
+            link: https://site.usegalaxy.org.au/request/support
+            tip: Request support from Galaxy Australia
 
   - id: tools
     title: Tools
@@ -151,25 +158,34 @@ tabs:
           <p>
             Report statistics from sequencing reads. <br> <br> Tools: <code>nanoplot</code> <code>fastqc</code> <code>multiqc</code>
           </p>
-        button_link: "{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=222"
-        view_link: https://workflowhub.eu/workflows/222
-        view_tip: View in WorkflowHub
-        button_tip: Import to Galaxy AU
+        buttons:
+          - label_md: Import to Galaxy AU
+            link: "{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=222"
+            tip: Import to Galaxy AU
+          - icon: view
+            link: https://workflowhub.eu/workflows/222
+            tip: View in WorkflowHub
       - title_md: Kmer counting to estimate genome size
         description_md: >
           <p>
             Estimates genome size and heterozygosity based on counts of kmers. <br> <br> Tools: <code>meryl</code> <code>genomescope</code>
           </p>
-        button_link: "{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=223"
-        view_link: https://workflowhub.eu/workflows/223
-        view_tip: View in WorkflowHub
-        button_tip: Import to Galaxy AU
+        buttons:
+          - label_md: Import to Galaxy AU
+            link: "{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=223"
+            tip: Import to Galaxy AU
+          - icon: view
+            link: https://workflowhub.eu/workflows/223
+            tip: View in WorkflowHub
       - title_md: Trim and filter reads
         description_md: >
           <p>
             Trims and filters raw sequence reads according to specified settings. <br> <br> Tools: <code>fastp</code>
           </p>
-        button_link: "{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=224"
-        view_link: https://workflowhub.eu/workflows/224
-        view_tip: View in WorkflowHub
-        button_tip: Import to Galaxy AU
+        buttons:
+          - label_md: Import to Galaxy AU
+            link: "{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=224"
+            tip: Import to Galaxy AU
+          - icon: view
+            link: https://workflowhub.eu/workflows/224
+            tip: View in WorkflowHub
