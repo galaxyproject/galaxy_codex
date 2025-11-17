@@ -10,25 +10,22 @@ tabs:
     content:
       - title_md: How can I import my genomics data?
         description_md: >
-          <p>
-            You can upload your data to Galaxy using the Upload tool from anywhere in Galaxy. Just look for the "Upload data" button at the top of the tool panel.
-          </p>
-        button_md: More info
-        button_link: https://training.galaxyproject.org/training-material/topics/galaxy-interface/
-        button_tip: Click for more info
+          You can upload your data to Galaxy using the Upload tool from anywhere in Galaxy. Just look for the "Upload data" button at the top of the tool panel.
+        buttons:
+          - label_md: More info
+            link: https://training.galaxyproject.org/training-material/topics/galaxy-interface/
+
       - title_md: How can I subsample my data?
         description_md: >
-          <p>
-            We recommend subsampling large data sets to test tools and workflows. A useful tool is <code>seqtk_seq</code>, setting the parameter at "Sample fraction of sequences".
-          </p>
+          We recommend subsampling large data sets to test tools and workflows. A useful tool is <code>seqtk_seq</code>, setting the parameter at "Sample fraction of sequences".
       - title_md: How can I import data from the BPA portal?
         description_md: >
-          <p>
-            BioPlatforms Australia allows data downloads via URL. Once you have generated one of these URLs in the BPA portal, you can import it into Galaxy using the "Fetch data" feature of the Upload tool.
-          </p>
-        button_md: More info
-        button_link: https://australianbiocommons.github.io/how-to-guides/genome_assembly/hifi_assembly#in-depth-workflow-guide
-        button_tip: Click for more info
+          BioPlatforms Australia allows data downloads via URL. Once you have generated one of these URLs in the BPA portal, you can import it into Galaxy using the "Fetch data" feature of the Upload tool.
+        buttons:
+          - label_md: More info
+            link: https://australianbiocommons.github.io/how-to-guides/genome_assembly/hifi_assembly#in-depth-workflow-guide
+            tip: Learn how to import data from BPA portal
+
       - title_md: Can I upload sensitive data?
         description_md: >
           <p>
@@ -39,41 +36,39 @@ tabs:
           </p>
       - title_md: Is my data private?
         description_md: >
-          <p>
-            Please read our <a href="https://site.usegalaxy.org.au/about#data-privacy">Privacy Policy</a> for information on your personal data and any data that you upload.
-          </p>
+          Please read our <a href="https://site.usegalaxy.org.au/about#data-privacy">Privacy Policy</a> for information on your personal data and any data that you upload.
       - title_md: How can I increase my storage quota?
         description_md: >
-          <p>
-            Please submit a quota request if your Galaxy Australia account reaches its data storage limit. Requests are usually provisioned quickly if you provide a reasonable use case for your request.
-          </p>
-        button_md: Request
-        button_link: https://site.usegalaxy.org.au/request/quota
-        button_tip: Click to request
+          Please submit a quota request if your Galaxy {{ site_name }} account reaches its data storage limit. Requests are usually provisioned quickly if you provide a reasonable use case for your request.
+        buttons:
+          - label_md: Request
+            link: https://site.usegalaxy.org.au/request/quota
+            tip: Request a storage quota increase
+
       - title_md: "Tutorial: Quality Control"
         description_md: >
-          <p>
-            Quality control and data cleaning is an essential first step in any NGS analysis. This tutorial will show you how to use and interpret results from <code>FastQC</code>, <code>NanoPlot</code> and <code>PycoQC</code>.
-          </p>
-        button_md: Tutorial
-        button_link: https://training.galaxyproject.org/training-material/topics/sequence-analysis/tutorials/quality-control/tutorial.html
-        button_tip: Click for tutorial
+          Quality control and data cleaning is an essential first step in any NGS analysis. This tutorial will show you how to use and interpret results from <code>FastQC</code>, <code>NanoPlot</code> and <code>PycoQC</code>.
+        buttons:
+          - label_md: Tutorial
+            link: https://training.galaxyproject.org/training-material/topics/sequence-analysis/tutorials/quality-control/tutorial.html
+            tip: Learn about quality control
+
       - title_md: "Tutorial: introduction to Genomics and Galaxy"
         description_md: >
-          <p>
-            This practical aims to familiarize you with the Galaxy user interface. It will teach you how to perform basic tasks such as importing data, running tools, working with histories, creating workflows, and sharing your work.
-          </p>
-        button_md: Tutorial
-        button_link: https://training.galaxyproject.org/training-material/topics/introduction/tutorials/galaxy-intro-strands/tutorial.html
-        button_tip: Click for tutorial
-      - title_md: Galaxy Australia support
+          This practical aims to familiarize you with the Galaxy user interface. It will teach you how to perform basic tasks such as importing data, running tools, working with histories, creating workflows, and sharing your work.
+        buttons:
+          - label_md: Tutorial
+            link: https://training.galaxyproject.org/training-material/topics/introduction/tutorials/galaxy-intro-strands/tutorial.html
+            tip: Introduction to Genomics and Galaxy
+
+      - title_md: Galaxy {{ site_name }} support
         description_md: >
-          <p>
-            Any user of Galaxy Australia can request support through an online form.
-          </p>
-        button_md: Request support
-        button_link: https://site.usegalaxy.org.au/request/support
-        button_tip: Click to request
+          Any user of Galaxy {{ site_name }} can request support through an online form.
+        buttons:
+          - label_md: Request support
+            link: "{{ support_url }}"
+            tip: Request support from Galaxy {{ site_name }}
+
   - id: tools
     title: Tools
     heading_md: >
@@ -82,59 +77,67 @@ tabs:
       - title_md: Import data to Galaxy
         description_md: >
           Standard upload of data to Galaxy, from your computer or from the web.
-        button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=upload1"
+        buttons:
+          - icon: run
+            link: "{{ galaxy_base_url }}/tool_runner?tool_id=upload1"
+            tip: Run this tool
       - title_md: <code>FastQC</code> - sequence quality reports
         description_md: >
-          <p>
-            Before using your sequencing data, it's important to ensure that
-            the data quality is sufficient for your analysis.
-          </p>
+          Before using your sequencing data, it's important to ensure that
+          the data quality is sufficient for your analysis.
         inputs:
           - datatypes:
               - fastq
               - bam
               - sam
-        button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fdevteam%2Ffastqc%2Ffastqc"
+        buttons:
+          - icon: run
+            link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fdevteam%2Ffastqc%2Ffastqc"
+            tip: Run this tool
       - title_md: <code>FastP</code> - sequence quality reports, trimming & filtering
         description_md: >
-          <p>
-            Faster run than FastQC, this tool can also trim reads and filter by quality.
-          </p>
+          Faster run than FastQC, this tool can also trim reads and filter by quality.
         inputs:
           - datatypes:
               - fastq
-        button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Ffastp%2Ffastp"
+        buttons:
+          - icon: run
+            link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Ffastp%2Ffastp"
+            tip: Run this tool
       - title_md: <code>NanoPlot</code> - visualize Oxford Nanopore data
         description_md: >
-          <p>
-            A plotting suite for Oxford Nanopore sequencing data and alignments.
-          </p>
+          A plotting suite for Oxford Nanopore sequencing data and alignments.
         inputs:
           - datatypes:
               - fastq
               - fasta
               - vcf_bgzip
-        button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fnanoplot%2Fnanoplot"
+        buttons:
+          - icon: run
+            link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fnanoplot%2Fnanoplot"
+            tip: Run this tool
       - title_md: <code>GenomeScope</code> - estimate genome size
         description_md: >
-          <p>
-            A set of metrics and graphs to visualize genome size and complexity prior to assembly.
-          </p>
+          A set of metrics and graphs to visualize genome size and complexity prior to assembly.
         inputs:
           - datatypes:
               - tabular
             label: Output from <code>Meryl</code> or <code>Jellyfish histo</code>
-        button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fgenomescope%2Fgenomescope"
+        buttons:
+          - icon: run
+            link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fgenomescope%2Fgenomescope"
+            tip: Run this tool
       - title_md: <code>Meryl</code> - count kmers
         description_md: >
-          <p>
-            Prepare kmer count histogram for input to GenomeScope.
-          </p>
+          Prepare kmer count histogram for input to GenomeScope.
         inputs:
           - datatypes:
               - fastq
               - fasta
-        button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fmeryl%2Fmeryl"
+        buttons:
+          - icon: run
+            link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fmeryl%2Fmeryl"
+            tip: Run this tool
   - id: workflows
     title: Workflows
     heading_md: >
@@ -143,28 +146,33 @@ tabs:
     content:
       - title_md: Data QC
         description_md: >
-          <p>
-            Report statistics from sequencing reads. <br> <br> Tools: <code>nanoplot</code> <code>fastqc</code> <code>multiqc</code>
-          </p>
-        button_link: "{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=222"
-        view_link: https://workflowhub.eu/workflows/222
-        view_tip: View in WorkflowHub
-        button_tip: Import to Galaxy AU
+          Report statistics from sequencing reads.
+          <br><br>
+          Tools: <code>nanoplot</code> <code>fastqc</code> <code>multiqc</code>
+        buttons:
+          - icon: run
+            link: "{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=222"
+            tip: Import and run this workflow
+          - icon: view
+            link: https://workflowhub.eu/workflows/222
+            tip: View in WorkflowHub
       - title_md: Kmer counting to estimate genome size
         description_md: >
-          <p>
-            Estimates genome size and heterozygosity based on counts of kmers. <br> <br> Tools: <code>meryl</code> <code>genomescope</code>
-          </p>
-        button_link: "{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=223"
-        view_link: https://workflowhub.eu/workflows/223
-        view_tip: View in WorkflowHub
-        button_tip: Import to Galaxy AU
+          Estimates genome size and heterozygosity based on counts of kmers. <br> <br> Tools: <code>meryl</code> <code>genomescope</code>
+        buttons:
+          - icon: run
+            link: "{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=223"
+            tip: Import and run this workflow
+          - icon: view
+            link: https://workflowhub.eu/workflows/223
+            tip: View in WorkflowHub
       - title_md: Trim and filter reads
         description_md: >
-          <p>
-            Trims and filters raw sequence reads according to specified settings. <br> <br> Tools: <code>fastp</code>
-          </p>
-        button_link: "{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=224"
-        view_link: https://workflowhub.eu/workflows/224
-        view_tip: View in WorkflowHub
-        button_tip: Import to Galaxy AU
+          Trims and filters raw sequence reads according to specified settings. <br> <br> Tools: <code>fastp</code>
+        buttons:
+          - icon: run
+            link: "{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=224"
+            tip: Import and run this workflow
+          - icon: view
+            link: https://workflowhub.eu/workflows/224
+            tip: View in WorkflowHub

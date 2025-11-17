@@ -46,6 +46,18 @@ tabs:
               - fasta
             label: Genome assembly
         button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fbgruening%2Frepeat_masker%2Frepeatmasker_wrapper"
+
+      - title_md: <code>Red</code> - fast de-novo repeat masking
+        description_md: >
+          <p>
+            Red detects and masks repeats. It needs no additional input data.
+          </p>
+        inputs:
+          - datatypes:
+              - fasta
+            label: Genome assembly
+        button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fred%2Fred"      
+      
       - title_md: <code>InterProScan</code> - Scans InterPro database and assigns functional annotations
         description_md: >
           <p>
@@ -66,6 +78,20 @@ tabs:
               - fasta
             label: Genome assemblies to compare
         button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Ffunannotate_compare%2Ffunannotate_compare"
+
+      - title_md: <code>Helixer</code> - structural genome annotation
+        description_md: >
+          <p>
+            Gene calling based on deep learning. Four models currently available: land plant, fungi, vertebrate and invertebrate.
+          </p>
+        inputs:
+          - datatypes:
+              - fasta
+              - fasta.gz
+            label: Genome assembly
+        button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fgenouest%2Fhelixer%2Fhelixer"
+
+
       - title_md: <code>JBrowse</code> - Genome browser to visualize annotations
         description_md: ''
         inputs:
@@ -88,6 +114,15 @@ tabs:
               - fasta
             label: Genome assembly
         button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fcrs4%2Fprokka%2Fprokka"
+
+      - title_md: <code>Bakta</code> - Genome annotation for bacteria, MAGs and plasmids
+        description_md: ''
+        inputs:
+          - datatypes:
+              - fasta
+              - fasta.gz
+            label: Genome assembly
+        button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fbakta%2Fbakta"
 
       - title_md: <code>FGenesH</code> - Genome annotation
         description_md: >
@@ -123,9 +158,9 @@ tabs:
           content:
             - title_md: Annotation with Maker
               description_md: >
-                <p>
-                  Annotates a genome using multiple rounds of Maker, including gene prediction using SNAP and Augustus. <br> <br> Tools: <code>maker</code> <code>snap</code> <code>augustus</code> <code>busco</code> <code>jbrowse</code>
-                </p>
+                Annotates a genome using multiple rounds of Maker, including gene prediction using SNAP and Augustus.
+                <br><br>
+                Tools: <code>maker</code> <code>snap</code> <code>augustus</code> <code>busco</code> <code>jbrowse</code>
               inputs:
                 - label: Genome assembly
                   datatypes:
@@ -136,15 +171,13 @@ tabs:
                 - label: Proteins
                   datatypes:
                     - fasta
-              button_link: "{{ galaxy_base_url }}/u/anna/w/genome-annotation-with-maker"
-              view_link: ''
-              view_tip: ''
-              button_tip: Run in Galaxy AU
+              buttons:
+                - icon: run
+                  link: "{{ galaxy_base_url }}/u/anna/w/genome-annotation-with-maker"
+                  tip: Run this workflow in Galaxy {{ site_name }}
             - title_md: Annotation with Funannotate
               description_md: >
-                <p>
-                  Annotates a genome using Funannotate, includes RNAseq data with RNAstar, and protein predictions from EggNOG. <br> <br> Tools: <code>RNAstar</code> <code>funannotate</code> <code>eggnog</code> <code>busco</code> <code>jbrowse</code> <code>aegean parseval</code>
-                </p>
+                Annotates a genome using Funannotate, includes RNAseq data with RNAstar, and protein predictions from EggNOG. <br> <br> Tools: <code>RNAstar</code> <code>funannotate</code> <code>eggnog</code> <code>busco</code> <code>jbrowse</code> <code>aegean parseval</code>
               inputs:
                 - label: Genome assembly (soft-masked)
                   datatypes:
@@ -158,119 +191,123 @@ tabs:
                 - label: Alternative annotation
                   datatypes:
                     - gbk
-              button_link: "{{ galaxy_base_url }}/u/anna/w/annotation-funannotate"
-              view_link: ''
-              view_tip: ''
-              button_tip: Run in Galaxy AU
+              buttons:
+                - icon: run
+                  link: "{{ galaxy_base_url }}/u/anna/w/annotation-funannotate"
+                  tip: Run this workflow in Galaxy {{ site_name }}
 
         - id: tsi_transcripts
           title: Transcript alignment
           content:
             - title_md: About these workflows
               description_md: >
-                <p>
-                  This <a href="https://australianbiocommons.github.io/how-to-guides/genome_annotation/Transcriptome" target="_blank"> How-to-Guide </a> will describe the steps required to align transcript data to your genome on the Galaxy Australia platform, using multiple workflows. The outputs from these workflows can then be used as inputs into the next annotation workflow using FgenesH++.
-                </p>
+                This <a href="https://australianbiocommons.github.io/how-to-guides/genome_annotation/Transcriptome" target="_blank"> How-to-Guide </a> will describe the steps required to align transcript data to your genome on the Galaxy {{ site_name }} platform, using multiple workflows. The outputs from these workflows can then be used as inputs into the next annotation workflow using FgenesH++.
             - title_md: Repeat masking
               description_md: >
-                <p>
-                  Mask repeats in the genome.
-                </p>
+                Mask repeats in the genome.
               inputs:
                 - datatypes:
                     - fasta
                   label: Assembled genome <code>genome.fasta</code>
-              button_link: "{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=875"
-              view_link: https://workflowhub.eu/workflows/875
-              view_tip: View in WorkflowHub
-              button_tip: Import to Galaxy Australia
+              buttons:
+                - icon: run
+                  link: "{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=875"
+                  tip: Run this workflow in Galaxy {{ site_name }}
+                - icon: view
+                  link: https://workflowhub.eu/workflows/875
+                  tip: View in WorkflowHub
 
             - title_md: QC and trimming of RNAseq
               description_md: >
-                <p>
-                  Trim and merge RNAseq reads.
-                </p>
+                Trim and merge RNAseq reads.
               inputs:
                 - datatypes:
                     - fastqsanger.gz
                   label: "For each tissue: RNAseq R1 files in a collection <code>R1.fastqsanger.gz</code>; RNAseq R2 files in a collection <code>R2.fastqsanger.gz</code>"
-              button_link: "{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=876"
-              view_link: https://workflowhub.eu/workflows/876
-              view_tip: View in WorkflowHub
-              button_tip: Import to Galaxy Australia
+              buttons:
+                - icon: run
+                  link: "{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=876"
+                  tip: Run this workflow in Galaxy {{ site_name }}
+                - icon: view
+                  link: https://workflowhub.eu/workflows/876
+                  tip: View in WorkflowHub
 
             - title_md: Find transcripts
               description_md: >
-                <p>
-                  Align RNAseq to genome to find transcripts.
-                </p>
+                Align RNAseq to genome to find transcripts.
               inputs:
                 - datatypes:
                     - fasta
                   label: Masked genome <code>masked_genome.fasta</code>
+                - datatypes:
                     - fastqsanger.gz
                   label: "For each tissue: Trimmed and merged RNAseq R1 files <code>R1.fastqsanger.gz</code>; Trimmed and merged RNAseq R2 files <code>R2.fastqsanger.gz</code>"
-              button_link: "{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=877"
-              view_link: https://workflowhub.eu/workflows/877
-              view_tip: View in WorkflowHub
-              button_tip: Import to Galaxy Australia
+              buttons:
+                - icon: run
+                  link: "{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=877"
+                  tip: Run this workflow in Galaxy {{ site_name }}
+                - icon: view
+                  link: https://workflowhub.eu/workflows/877
+                  tip: View in WorkflowHub
 
             - title_md: Combine transcripts
               description_md: >
-                <p>
-                  Merge transcriptomes from different tissues, and filter out non-coding sequences.
-                </p>
+                Merge transcriptomes from different tissues, and filter out non-coding sequences.
               inputs:
                 - datatypes:
                     - fasta
-                  label: Masked genome <code>masked_genome.fasta</code>
+                  label: Masked genome
+                - datatypes:
                     - gtf
-                  label: Multiple transcriptomes in a collection <code>transcriptome.gtf</code>
+                  label: Multiple transcriptomes in a collection
+                - datatypes:
                     - fasta.gz
-                  label: Coding and non-coding sequences from NCBI <code>coding_seqs.fna.gz</code> <code>non-coding_seqs.fna.gz</code>
-              button_link: "{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=878"
-              view_link: https://workflowhub.eu/workflows/878
-              view_tip: View in WorkflowHub
-              button_tip: Import to Galaxy Australia
+                  label: Coding and non-coding sequences from NCBI
+              buttons:
+                - icon: run
+                  link: "{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=878"
+                  tip: Run this workflow in Galaxy {{ site_name }}
+                - icon: view
+                  link: https://workflowhub.eu/workflows/878
+                  tip: View in WorkflowHub
 
             - title_md: Extract transcripts
               description_md: >
-                <p>
-                  Extract longest transcripts.
-                </p>
+                Extract longest transcripts.
               inputs:
                 - datatypes:
                     - fasta
-                  label: Merged transcriptomes <code>merged_transcriptomes.fasta</code>
-              button_link: "{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=879"
-              view_link: https://workflowhub.eu/workflows/879
-              view_tip: View in WorkflowHub
-              button_tip: Import to Galaxy Australia
+                  label: Merged transcriptomes
+              buttons:
+                - icon: run
+                  link: "{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=879"
+                  tip: Run this workflow in Galaxy {{ site_name }}
+                - icon: view
+                  link: https://workflowhub.eu/workflows/879
+                  tip: View in WorkflowHub
 
 
             - title_md: Convert formats
               description_md: >
-                <p>
-                  Convert formats for FgenesH++
-                </p>
+                Convert formats for FgenesH++
               inputs:
                 - datatypes:
                     - fasta
-                  label: Transdecoder nucleotides <code>transdecoder_nucleotides.fasta</code>
-                  label: Transdecoder peptides <code>transdecoder_peptides.fasta</code>
-              button_link: "{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=880"
-              view_link: https://workflowhub.eu/workflows/880
-              view_tip: View in WorkflowHub
-              button_tip: Import to Galaxy Australia
+                  label: Transdecoder nucleotides/peptides
+              buttons:
+                - icon: run
+                  link: "{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=880"
+                  tip: Run this workflow in Galaxy {{ site_name }}
+                - icon: view
+                  link: https://workflowhub.eu/workflows/880
+                  tip: View in WorkflowHub
 
         - id: tsi_annotation
           title: Annotation with FgenesH++
           content:
             - title_md: About these workflows
               description_md: >
-                <p>
-                  This <a href="https://australianbiocommons.github.io/how-to-guides/genome_annotation/Fgenesh" target="_blank"> How-to-Guide </a> will describe the steps required to annotate your genome on the Galaxy Australia platform, using multiple workflows.
-                </p>
+                This <a href="https://australianbiocommons.github.io/how-to-guides/genome_annotation/Fgenesh" target="_blank"> How-to-Guide </a> will describe the steps required to annotate your genome on the Galaxy {{ site_name }} platform, using multiple workflows.
             - title_md: Annotation with FgenesH++
               description_md: >
                 Annotate the genome using outputs from the TSI transcriptome workflows.
@@ -293,19 +330,20 @@ tabs:
                   label: >
                     Outputs from TSI convert formats workflow
                     (<code>file.cdna</code> <code>file.pro</code> <code>file.dat</code>)
-              button_link: "{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=881"
-              view_link: https://workflowhub.eu/workflows/881
-              view_tip: View in WorkflowHub
-              button_tip: Import to Galaxy Australia
+              buttons:
+                - icon: run
+                  link: "{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=881"
+                  tip: Run this workflow in Galaxy {{ site_name }}
+                - icon: view
+                  link: https://workflowhub.eu/workflows/881
+                  tip: View in WorkflowHub
 
   - id: help
     title: Help
     content:
       - title_md: What is genome annotation?
         description_md: >
-          <p>
-            These <a href="https://training.galaxyproject.org/training-material/topics/genome-annotation/tutorials/introduction/slides.html#1" target="_blank">slides</a> from the Galaxy training network explain the process of genome annotation in detail. You can use the <code style="font-size: 1.5rem;">&larr;</code> and <code style="font-size: 1.5rem;">&rarr;</code> keys to navigate through the slides.
-          </p>
+          These <a href="https://training.galaxyproject.org/training-material/topics/genome-annotation/tutorials/introduction/slides.html#1" target="_blank">slides</a> from the Galaxy training network explain the process of genome annotation in detail. You can use the <code style="font-size: 1.5rem;">&larr;</code> and <code style="font-size: 1.5rem;">&rarr;</code> keys to navigate through the slides.
       - title_md: Genome annotation overview
         description_md: >
           <p>
@@ -317,12 +355,11 @@ tabs:
           </p>
       - title_md: Can I use Fgenesh++ for annotation?
         description_md: >
-          <p>
-            <a href="http://www.softberry.com/berry.phtml?group=help&subgroup=pipelines&topic=fgenesh_plus_plus" target="_blank"> Fgenesh++ </a> is a bioinformatics pipeline for automatic prediction of genes in eukaryotic genomes. It is now installed in Galaxy Australia. Australian researchers can apply for access through the Australian BioCommons.
-          </p>
-        button_md: Apply
-        button_link: https://site.usegalaxy.org.au/request/access/fgenesh
-        button_tip: Apply for access to Fgenesh++
+          <a href="http://www.softberry.com/berry.phtml?group=help&subgroup=pipelines&topic=fgenesh_plus_plus" target="_blank"> Fgenesh++ </a> is a bioinformatics pipeline for automatic prediction of genes in eukaryotic genomes. It is now installed in Galaxy {{ site_name }}. Australian researchers can apply for access through the Australian BioCommons.
+        buttons:
+          - label_md: Apply
+            link: https://site.usegalaxy.org.au/request/access/fgenesh
+            tip: Apply for access to Fgenesh++
       - title_md: Can I use Apollo to share and edit the annotated genome?
         description_md: >
           <p>
@@ -334,9 +371,11 @@ tabs:
           <p>
             This <a href="https://training.galaxyproject.org/training-material/topics/genome-annotation/tutorials/apollo-euk/tutorial.html" target="_blank"> Galaxy tutorial </a> provides a complete walkthrough of the process of refining eukaryotic genome annotations with Apollo.
           </p>
-        button_md: More info
-        button_link: https://apollo-portal.genome.edu.au/
-        button_tip: Click for more info
+        buttons:
+          - label_md: More info
+            link: https://apollo-portal.genome.edu.au/
+            tip: More information about Apollo Portal
+
       - title_md: Tutorials
         description_md: >
           <p class="lead">
@@ -352,11 +391,10 @@ tabs:
           <p>
             This <a href="https://training.galaxyproject.org/training-material/topics/genome-annotation/tutorials/funannotate/tutorial.html" target="_blank"> Galaxy tutorial </a> provides a complete walkthrough of the process of annotation with Funannotate, including the preparation of RNAseq data, structural annotation, functional annotation, visualisation, and comparing annotations.
           </p>
-      - title_md: Galaxy Australia support
+      - title_md: Galaxy {{ site_name }} support
         description_md: >
-          <p>
-            Any user of Galaxy Australia can request support through an online form.
-          </p>
-        button_md: Request support
-        button_link: https://site.usegalaxy.org.au/request/support
-        button_tip: Click to request
+          Any user of Galaxy {{ site_name }} can request support through an online form.
+        buttons:
+          - label_md: Request support
+            link: "{{ support_url}}"
+            tip: Request support from Galaxy {{ site_name }}
