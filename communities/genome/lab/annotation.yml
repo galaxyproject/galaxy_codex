@@ -158,9 +158,9 @@ tabs:
           content:
             - title_md: Annotation with Maker
               description_md: >
-                <p>
-                  Annotates a genome using multiple rounds of Maker, including gene prediction using SNAP and Augustus. <br> <br> Tools: <code>maker</code> <code>snap</code> <code>augustus</code> <code>busco</code> <code>jbrowse</code>
-                </p>
+                Annotates a genome using multiple rounds of Maker, including gene prediction using SNAP and Augustus.
+                <br><br>
+                Tools: <code>maker</code> <code>snap</code> <code>augustus</code> <code>busco</code> <code>jbrowse</code>
               inputs:
                 - label: Genome assembly
                   datatypes:
@@ -177,9 +177,7 @@ tabs:
                   tip: Run this workflow in Galaxy {{ site_name }}
             - title_md: Annotation with Funannotate
               description_md: >
-                <p>
-                  Annotates a genome using Funannotate, includes RNAseq data with RNAstar, and protein predictions from EggNOG. <br> <br> Tools: <code>RNAstar</code> <code>funannotate</code> <code>eggnog</code> <code>busco</code> <code>jbrowse</code> <code>aegean parseval</code>
-                </p>
+                Annotates a genome using Funannotate, includes RNAseq data with RNAstar, and protein predictions from EggNOG. <br> <br> Tools: <code>RNAstar</code> <code>funannotate</code> <code>eggnog</code> <code>busco</code> <code>jbrowse</code> <code>aegean parseval</code>
               inputs:
                 - label: Genome assembly (soft-masked)
                   datatypes:
@@ -203,14 +201,10 @@ tabs:
           content:
             - title_md: About these workflows
               description_md: >
-                <p>
-                  This <a href="https://australianbiocommons.github.io/how-to-guides/genome_annotation/Transcriptome" target="_blank"> How-to-Guide </a> will describe the steps required to align transcript data to your genome on the Galaxy {{ site_name }} platform, using multiple workflows. The outputs from these workflows can then be used as inputs into the next annotation workflow using FgenesH++.
-                </p>
+                This <a href="https://australianbiocommons.github.io/how-to-guides/genome_annotation/Transcriptome" target="_blank"> How-to-Guide </a> will describe the steps required to align transcript data to your genome on the Galaxy {{ site_name }} platform, using multiple workflows. The outputs from these workflows can then be used as inputs into the next annotation workflow using FgenesH++.
             - title_md: Repeat masking
               description_md: >
-                <p>
-                  Mask repeats in the genome.
-                </p>
+                Mask repeats in the genome.
               inputs:
                 - datatypes:
                     - fasta
@@ -225,9 +219,7 @@ tabs:
 
             - title_md: QC and trimming of RNAseq
               description_md: >
-                <p>
-                  Trim and merge RNAseq reads.
-                </p>
+                Trim and merge RNAseq reads.
               inputs:
                 - datatypes:
                     - fastqsanger.gz
@@ -242,9 +234,7 @@ tabs:
 
             - title_md: Find transcripts
               description_md: >
-                <p>
-                  Align RNAseq to genome to find transcripts.
-                </p>
+                Align RNAseq to genome to find transcripts.
               inputs:
                 - datatypes:
                     - fasta
@@ -262,9 +252,7 @@ tabs:
 
             - title_md: Combine transcripts
               description_md: >
-                <p>
-                  Merge transcriptomes from different tissues, and filter out non-coding sequences.
-                </p>
+                Merge transcriptomes from different tissues, and filter out non-coding sequences.
               inputs:
                 - datatypes:
                     - fasta
@@ -285,13 +273,11 @@ tabs:
 
             - title_md: Extract transcripts
               description_md: >
-                <p>
-                  Extract longest transcripts.
-                </p>
+                Extract longest transcripts.
               inputs:
                 - datatypes:
                     - fasta
-                  label: Merged transcriptomes <code>merged_transcriptomes.fasta</code>
+                  label: Merged transcriptomes
               buttons:
                 - icon: run
                   link: "{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=879"
@@ -303,9 +289,7 @@ tabs:
 
             - title_md: Convert formats
               description_md: >
-                <p>
-                  Convert formats for FgenesH++
-                </p>
+                Convert formats for FgenesH++
               inputs:
                 - datatypes:
                     - fasta
@@ -323,9 +307,7 @@ tabs:
           content:
             - title_md: About these workflows
               description_md: >
-                <p>
-                  This <a href="https://australianbiocommons.github.io/how-to-guides/genome_annotation/Fgenesh" target="_blank"> How-to-Guide </a> will describe the steps required to annotate your genome on the Galaxy {{ site_name }} platform, using multiple workflows.
-                </p>
+                This <a href="https://australianbiocommons.github.io/how-to-guides/genome_annotation/Fgenesh" target="_blank"> How-to-Guide </a> will describe the steps required to annotate your genome on the Galaxy {{ site_name }} platform, using multiple workflows.
             - title_md: Annotation with FgenesH++
               description_md: >
                 Annotate the genome using outputs from the TSI transcriptome workflows.
@@ -361,9 +343,7 @@ tabs:
     content:
       - title_md: What is genome annotation?
         description_md: >
-          <p>
-            These <a href="https://training.galaxyproject.org/training-material/topics/genome-annotation/tutorials/introduction/slides.html#1" target="_blank">slides</a> from the Galaxy training network explain the process of genome annotation in detail. You can use the <code style="font-size: 1.5rem;">&larr;</code> and <code style="font-size: 1.5rem;">&rarr;</code> keys to navigate through the slides.
-          </p>
+          These <a href="https://training.galaxyproject.org/training-material/topics/genome-annotation/tutorials/introduction/slides.html#1" target="_blank">slides</a> from the Galaxy training network explain the process of genome annotation in detail. You can use the <code style="font-size: 1.5rem;">&larr;</code> and <code style="font-size: 1.5rem;">&rarr;</code> keys to navigate through the slides.
       - title_md: Genome annotation overview
         description_md: >
           <p>
@@ -375,9 +355,7 @@ tabs:
           </p>
       - title_md: Can I use Fgenesh++ for annotation?
         description_md: >
-          <p>
-            <a href="http://www.softberry.com/berry.phtml?group=help&subgroup=pipelines&topic=fgenesh_plus_plus" target="_blank"> Fgenesh++ </a> is a bioinformatics pipeline for automatic prediction of genes in eukaryotic genomes. It is now installed in Galaxy {{ site_name }}. Australian researchers can apply for access through the Australian BioCommons.
-          </p>
+          <a href="http://www.softberry.com/berry.phtml?group=help&subgroup=pipelines&topic=fgenesh_plus_plus" target="_blank"> Fgenesh++ </a> is a bioinformatics pipeline for automatic prediction of genes in eukaryotic genomes. It is now installed in Galaxy {{ site_name }}. Australian researchers can apply for access through the Australian BioCommons.
         buttons:
           - label_md: Apply
             link: https://site.usegalaxy.org.au/request/access/fgenesh
@@ -415,9 +393,7 @@ tabs:
           </p>
       - title_md: Galaxy {{ site_name }} support
         description_md: >
-          <p>
-            Any user of Galaxy {{ site_name }} can request support through an online form.
-          </p>
+          Any user of Galaxy {{ site_name }} can request support through an online form.
         buttons:
           - label_md: Request support
             link: "{{ support_url}}"
