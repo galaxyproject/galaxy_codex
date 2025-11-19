@@ -1,1 +1,1 @@
-# Biodiversity subdomain/Lab
+# Biodiversity Genomics subdomain/Lab
