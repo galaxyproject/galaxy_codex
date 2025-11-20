@@ -586,7 +586,7 @@ def export_tools_to_tsv(
 
         if to_keep_columns is not None:
             df = df[to_keep_columns]
-    else: # Create a DataFrame with the specified headers and save it
+    else:  # Create a DataFrame with the specified headers and save it
         df = pd.DataFrame(columns=["Suite ID", "bio.tool name", "EDAM operations", "EDAM topics"])
 
     df.to_csv(output_fp, sep="\t", index=False)
