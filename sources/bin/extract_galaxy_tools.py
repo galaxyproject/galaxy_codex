@@ -568,23 +568,26 @@ def export_tools_to_tsv(
     :param format_list_col: boolean indicating if list columns should be formatting
     """
 
-    df = pd.DataFrame(tools).sort_values("Suite ID")
-    if format_list_col:
-        df["ToolShed categories"] = shared.format_list_column(df["ToolShed categories"])
-        df["EDAM operations"] = shared.format_list_column(df["EDAM operations"])
-        df["EDAM topics"] = shared.format_list_column(df["EDAM topics"])
+    if tools:  # Only proceed if 'tools' is not empty
+        df = pd.DataFrame(tools).sort_values("Suite ID")
+        if format_list_col:
+            df["ToolShed categories"] = shared.format_list_column(df["ToolShed categories"])
+            df["EDAM operations"] = shared.format_list_column(df["EDAM operations"])
+            df["EDAM topics"] = shared.format_list_column(df["EDAM topics"])
 
-        df["EDAM reduced operations"] = shared.format_list_column(df["EDAM reduced operations"])
-        df["EDAM reduced topics"] = shared.format_list_column(df["EDAM reduced topics"])
+            df["EDAM reduced operations"] = shared.format_list_column(df["EDAM reduced operations"])
+            df["EDAM reduced topics"] = shared.format_list_column(df["EDAM reduced topics"])
 
-        df["Related Workflows"] = shared.format_list_column(df["Related Workflows"])
-        df["Related Tutorials"] = shared.format_list_column(df["Related Tutorials"])
+            df["Related Workflows"] = shared.format_list_column(df["Related Workflows"])
+            df["Related Tutorials"] = shared.format_list_column(df["Related Tutorials"])
 
-        # the Galaxy tools need to be formatted for the add_instances_to_table to work
-        df["Tool IDs"] = shared.format_list_column(df["Tool IDs"])
+            # the Galaxy tools need to be formatted for the add_instances_to_table to work
+            df["Tool IDs"] = shared.format_list_column(df["Tool IDs"])
 
-    if to_keep_columns is not None:
-        df = df[to_keep_columns]
+        if to_keep_columns is not None:
+            df = df[to_keep_columns]
+    else:  # Create a DataFrame with the specified headers and save it
+        df = pd.DataFrame(columns=["Suite ID", "bio.tool name", "EDAM operations", "EDAM topics"])
 
     df.to_csv(output_fp, sep="\t", index=False)
 
