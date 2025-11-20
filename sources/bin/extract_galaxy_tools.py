@@ -1175,23 +1175,30 @@ if __name__ == "__main__":
     elif args.command == "filter":
         with Path(args.all).open() as f:
             tools = json.load(f)
+            print("filter - tools loaded")
         # get categories and tools to exclude
         categories = shared.read_file(args.categories)
+        print("filter - categories loaded")
         # get status if file provided
         if args.status and Path(args.status).exists():
             status = pd.read_csv(args.status, sep="\t").replace(np.nan, None)
+            print("filter - status loaded")
         else:
             status = pd.DataFrame(columns=["Suite ID", "Suite owner", "Description", "To keep", "Deprecated"])
+            print("filter - status created")
         # filter tool lists
         filtered_tools = filter_tools(tools, categories, status)
+        print("filtered_tools done")
         if filtered_tools:
             export_tools_to_json(filtered_tools, args.filtered)
+            print("filter - export_tools_to_json done")
             export_tools_to_tsv(
                 filtered_tools,
                 args.status,
                 format_list_col=True,
                 to_keep_columns=["Suite ID", "Suite owner", "Description", "To keep", "Deprecated"],
             )
+            print("filter - export_tools_to_tsv done")
         else:
             # if there are no ts filtered tools
             print(f"No tools found for category {args.filtered}")
@@ -1199,33 +1206,40 @@ if __name__ == "__main__":
     elif args.command == "curate":
         with Path(args.filtered).open() as f:
             tools = json.load(f)
+            print("curation - tools loaded ")
         try:
             status = pd.read_csv(args.status, sep="\t").replace(np.nan, None)
+            print("curation - status loaded ")
         except Exception as ex:
             print(f"Failed to load tool_status.tsv file with:\n{ex}")
             print("Not assigning tool status for this community !")
             status = pd.DataFrame(columns=["Suite ID", "Suite owner", "Description", "To keep", "Deprecated"])
 
         curated_tools, tools_wo_biotools, tools_with_biotools = curate_tools(tools, status)
+        print("curation - curate_tools loaded ")
         if curated_tools:
             export_tools_to_json(curated_tools, args.filtered)
+            print("curation - curate_tools loaded ")
             export_tools_to_tsv(
                 curated_tools,
                 args.curated,
                 format_list_col=True,
             )
+            print("curation - export_tools_to_tsv 1 done ")
             export_tools_to_tsv(
                 tools_wo_biotools,
                 args.wo_biotools,
                 format_list_col=True,
                 to_keep_columns=["Suite ID", "Homepage", "Suite source"],
             )
+            print("curation - export_tools_to_tsv 2 done ")
             export_tools_to_tsv(
                 tools_with_biotools,
                 args.w_biotools,
                 format_list_col=True,
                 to_keep_columns=["Suite ID", "bio.tool name", "EDAM operations", "EDAM topics"],
             )
+            print("curation - export_tools_to_tsv 3 done ")
         else:
             # if there are no ts filtered tools
             print("No tools left after curation")
