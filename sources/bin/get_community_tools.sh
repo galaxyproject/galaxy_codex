@@ -33,7 +33,8 @@ else
 
                         if [[ "$community" != "all" && -f "communities/$community/metadata/categories" ]]; then
                                 echo "$community";
-                                mkdir -p "communities/$community/resources"
+                                mkdir -p "communities/$community/resources";
+                                echo "filtering started"
 
                                 python sources/bin/extract_galaxy_tools.py \
                                         filter \
@@ -43,6 +44,7 @@ else
                                         --status "communities/$community/metadata/tool_status.tsv"
 
                                 if [[ -e "communities/$community/metadata/tool_status.tsv" ]]; then
+                                        echo "curation started"
                                         python sources/bin/extract_galaxy_tools.py \
                                                 curate \
                                                 --filtered "communities/$community/resources/tools_filtered_by_ts_categories.json" \
@@ -52,6 +54,7 @@ else
                                                 --w-biotools "communities/$community/resources/curated_tools_w_biotools.tsv"
 
                                         if [[ -e "communities/$community/resources/curated_tools.tsv" ]]; then
+                                                echo "wordcloud started"
                                                 python sources/bin/create_wordcloud.py \
                                                         --input "communities/$community/resources/curated_tools.tsv" \
                                                         --name-col "Suite ID" \
