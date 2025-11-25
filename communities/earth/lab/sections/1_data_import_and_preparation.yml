@@ -1,74 +1,52 @@
 id: data
 title: Getting started
 tabs:
-  - id: data-import
-    title: Data import
-    heading_md: >
+ - id: guide_tour
+   title: Guide tour
+   heading_md: >
+      Are you new to Galaxy, or returning after a long time, and looking for help to get started?
+      [Take a guide tour through Galaxy’s user interface.](https://earth-system.usegalaxy.eu/tours/core.galaxy_ui)
+      
+ - id: data-import
+   title: Data import
+   heading_md: >
       Common tools that allow for data import. 
-    content:
+   content:
       - title_md: Import data to Galaxy
         description_md: >
           Standard upload of data to Galaxy, from your computer or from the web.
         button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=upload1"
-        button_tip: Upload Data
-      - title_md: Download data from NCBI GenBank/RefSeq
+        button_tip: Upload Data        
+      - title_md: Download Argo data
         description_md: >
-          Download sequences from GenBank/RefSeq by accession through the NCBI ENTREZ API
-        button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fncbi_acc_download%2Fncbi_acc_download"
-        button_tip: Download Data from NCBI
-      - title_md: Download raw reads from NCBI SRA
+         This tool allow access, download and format Argo data into netcdf files.
+        button_link: https://earth-system.usegalaxy.eu/root?tool_id=toolshed.g2.bx.psu.edu/repos/ecology/argo_getdata/argo_getdata/0.1.15+galaxy0
+        button_tip: Access Argo data tool
+      - title_md: Download Obis occurrences data
         description_md: >
-          Faster Download and Extract Reads in FASTQ format from NCBI SRA
-        button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fsra_tools%2Ffasterq_dump"
-        button_tip: Download raw reads from NCBI SRA
-      - title_md: Download run data from EBI SRA
+          Search and retrieve species occurences across OBIS database.
+        button_link: https://earth-system.usegalaxy.eu/root?tool_id=toolshed.g2.bx.psu.edu/repos/ecology/obis_data/obis_data/0.0.2
+        button_tip: Access Obis occurrences data tool
+      - title_md: Use sample notebooks to access and discover Copernicus Data Space Ecosystem (CDSE) data  
         description_md: >
-          ENA data can be searched and retrieved interactively and programmatically and visualized using this ENA Browser tool
-        button_link: "https://www.ebi.ac.uk/ena/browser/search"
-        button_tip: Download run data from EBI SRA
-      - title_md: Download run data from UCSC
+          This tool enables you to leverage the Copernicus Data Space Ecosystem services and access data effortlessly.
+        button_link: https://earth-system.usegalaxy.eu/root?tool_id=interactive_tool_copernicus_notebook
+        button_tip: Download data from Copernicus Data Space Ecosystem.
+        
+ - id: learning-pathways
+   title: Learning pathways
+   heading_md: >
+       Connected tutorials to train you to perform climate analysis.
+   content:
+      - title_md: Introduction to Galaxy and climate analysis
         description_md: >
-          Use this tool to retrieve and export data from the Genome Browser annotation track database
-        button_link: "https://genome.ucsc.edu/cgi-bin/hgTables"
-        button_tip: Download run data from UCSC
-  
-#  - id: highlight-tools
-#    title: Highlight tools
-#    heading_md: >
-#      Flagship tools for <your-community> 
-#    content:
-#      - title_md: <code>Bakta</code> - Rapid and standardized annotation of bacterial genomes, MAGs and plasmids
-#        description_md: >
-#           A tool for the rapid & standardized annotation of bacterial genomes and plasmids from both isolates and Metagenomic Assembled Genomes (MAGs).
-#        inputs:
-#          - datatypes:
-#              - fasta
-#        button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/bakta/bakta"
-
-#  - id: interactive-tools
-#    title: Interactive tools
-#    heading_md: >
-#      Interactive tools for <your-community>  
-#    content:
-#      - title_md: <code>Pavian</code> - Interactive analysis of metagenomics data
-#        description_md: >
-#            An interactive browser application for analyzing and visualization metagenomics classification results from classifiers such as Kraken, KrakenUniq, Kraken 2, Centrifuge and MetaPhlAn. Pavian also provides an alignment viewer for validation of matches to a particular genome.
-#        inputs:
-#          - datatypes:
-#              - Kraken report
-#              - MetaPhlAn report
-#        button_link: "{{ galaxy_base_url }}/root?tool_id=interactive_tool_pavian"
-     
-#  - id: learning-pathways
-#    title: Learning pathways
-#    heading_md: >
-#       Connected tutorials to train you to perform microbial data analysis.
-#    content:
-#      - title_md: Introduction to Galaxy and Sequence analysis
-#        description_md: >
-#          New to Galaxy and/or the field of genomics? In this learning pathway, you will learn how to use Galaxy for analysis, and will be guided through the most common first steps of any genome analysis; quality control and a mapping or assembly of your genomic sequences.
-#        button_link: https://training.galaxyproject.org/training-material/learning-pathways/intro-to-galaxy-and-genomics.html
-#        button_icon: tutorial
-#        button_tip: Open Learning Pathway
-#        heading_md: >
-#          Connected tutorials to train you to perform microbial data analysis.
+          New to Galaxy and/or the field of climate? In this learning pathway, you will learn how to use Galaxy for analysis, and will be guided to understand and see  plenty of the multiple features of galaxy and learning about climate analysis.
+        button_link: https://galaxyproject.github.io/training-material/learning-pathways/climate-learning.html
+        button_icon: tutorial
+        button_tip: Open Learning Pathway
+      - title_md: Tool developpement for a nice and shiny subdomain
+        description_md: >
+          This learning pathway allow you to dicsover Galaxy's communities and laern how to create your subdomain and enrich it by writing, testing and submiting your tools on galaxy. 
+        button_link: https://galaxyproject.github.io/training-material/learning-pathways/dev_tools_training.html
+        button_icon: tutorial
+        button_tip: Open Learning Pathway 
