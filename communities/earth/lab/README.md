@@ -1,1 +1,1 @@
-# Community subdomain/Lab
+# Earth subdomain/Lab
