@@ -158,3 +158,22 @@ intro="communities/$COMMUNITY/lab/intro.html"
 if [[ ! -e $intro ]]; then
    cp communities/all/labs/page_templates/intro.html $intro
 fi
+
+## Instance specific files
+## FR
+FR_instance="communities/$COMMUNITY/lab/usegalaxy.fr.yml"
+if [[ ! -e $intro ]]; then
+   cp communities/all/labs/page_templates/usegalaxy.fr.yml $FR_instance
+fi
+
+## EU
+EU_instance="communities/$COMMUNITY/lab/usegalaxy.eu.yml"
+if [[ ! -e $intro ]]; then
+   cp communities/all/labs/page_templates/usegalaxy.eu.yml $EU_instance
+fi
+
+## ORG
+ORG_instance="communities/$COMMUNITY/lab/usegalaxy.org.yml"
+if [[ ! -e $intro ]]; then
+   cp communities/all/labs/page_templates/usegalaxy.org.yml $ORG_instance
+fi
