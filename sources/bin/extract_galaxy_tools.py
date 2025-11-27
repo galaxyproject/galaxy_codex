@@ -871,6 +871,12 @@ def extract_top_tools_per_category(
     """
     tools = pd.read_csv(tool_fp, sep="\t")
 
+    # Some tools are not associated with EDAM operations and therefore not shown in the table even if they are used a lot.
+    # To avoid that, we create a new category "No associated EDAM operation"
+
+    # Step 0 : Add the string "No associated EDAM operation" in all the empty cells of the "EDAM operations" column
+    tools["EDAM operations"] = (tools["EDAM operations"].replace("", "No associated EDAM operation"))
+    
     # Step 1: Split the categories into separate rows and strip whitespace
     df = tools.assign(Category=tools["EDAM operations"].str.split(",")).explode("Category")
     df["Category"] = df["Category"].str.strip()  # Strip whitespace
