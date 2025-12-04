@@ -21,7 +21,7 @@ else
                 --yml "communities/all/resources/tutorials.yml" \
                 --filtered "communities/all/resources/tutorials.tsv"
 
-        ln -s "./../../communities/all/resources/tutorials.yml" "./website/_data/tutorials.yml"
+        ln -s "./../../communities/all/resources/tutorials.yml" "./_data/tutorials.yml"
   
         python sources/bin/create_interactive_table.py \
                 --input "communities/all/resources/tutorials.tsv" \
