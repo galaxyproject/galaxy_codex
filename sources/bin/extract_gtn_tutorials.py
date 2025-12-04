@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import argparse
+import json
 import time
 from datetime import date
 from typing import (
@@ -10,7 +11,6 @@ from typing import (
     Optional,
 )
 
-import json
 import pandas as pd
 import shared
 import yaml
