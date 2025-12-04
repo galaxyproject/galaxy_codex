@@ -18,7 +18,10 @@ else
         python sources/bin/extract_gtn_tutorials.py \
                 filter \
                 --all "communities/all/resources/tutorials.json" \
+                --yml "communities/all/resources/tutorials.yml" \
                 --filtered "communities/all/resources/tutorials.tsv"
+
+        ln -s "./../../communities/all/resources/tutorials.yml" "./website/_data/tutorials.yml"
   
         python sources/bin/create_interactive_table.py \
                 --input "communities/all/resources/tutorials.tsv" \
