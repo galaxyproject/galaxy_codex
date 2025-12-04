@@ -8,9 +8,13 @@ from typing import (
     Optional,
 )
 
+import json
+import os
 import pandas as pd
+import re
 import shared
 from ruamel.yaml import YAML as ruamelyaml
+import yaml
 
 
 class Workflow:
@@ -459,6 +463,15 @@ class Workflows:
             ruamelyaml().dump(lab_section, lab_f)
 
 
+    def export_workflows_to_yml(self, data_source: str, yml_output_path: str) -> None:
+
+        with open(data_source, encoding="utf-8") as file:
+            data = json.load(file)
+
+        with open(yml_output_path, "w") as file:
+            yaml.dump(data, file, default_flow_style=False)
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Extract Galaxy Workflows from WorkflowHub and public servers")
     subparser = parser.add_subparsers(dest="command")
@@ -466,6 +479,7 @@ if __name__ == "__main__":
     # Extract Workflows
     extract = subparser.add_parser("extract", help="Extract all workflows")
     extract.add_argument("--all", "-o", required=True, help="Filepath to JSON with all extracted workflows")
+    extract.add_argument("--yml", "-y", required=True, help="Filepath to YAML with all extracted workflows")
     extract.add_argument(
         "--tools",
         "-t",
@@ -536,6 +550,7 @@ if __name__ == "__main__":
         "-s",
         help="Path to a TSV file with workflow status",
     )
+    curatewf.add_argument("--yml", "-y", required=True, help="Filepath to yml with community extracted workflows")
 
     # Curate tools categories
     labpop = subparser.add_parser("popLabSection", help="Fill in Lab section workflows")
@@ -557,6 +572,7 @@ if __name__ == "__main__":
         wfs = Workflows(test=args.test)
         wfs.init_by_searching(args.tools)
         shared.export_to_json(wfs.export_workflows_to_dict(), args.all)
+        wfs.export_workflows_to_yml(args.all, args.yml)
 
     elif args.command == "filter":
         wfs = Workflows()
@@ -600,6 +616,7 @@ if __name__ == "__main__":
         wfs.curate_workflows(status)
         shared.export_to_json(wfs.export_workflows_to_dict(), args.curated)
         wfs.export_workflows_to_tsv(args.tsv_curated)
+        wfs.export_workflows_to_yml(args.curated, args.yml)
 
     elif args.command == "popLabSection":
         wfs = Workflows()
