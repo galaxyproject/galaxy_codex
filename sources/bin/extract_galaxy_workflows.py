@@ -10,7 +10,6 @@ from typing import (
 
 import json
 import pandas as pd
-import re
 import shared
 from ruamel.yaml import YAML as ruamelyaml
 import yaml
