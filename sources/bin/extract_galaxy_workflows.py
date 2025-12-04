@@ -460,7 +460,6 @@ class Workflows:
         with open(lab_fp, "w") as lab_f:
             ruamelyaml().dump(lab_section, lab_f)
 
-
     def export_workflows_to_yml(self, data_source: str, yml_output_path: str) -> None:
 
         with open(data_source, encoding="utf-8") as file:
