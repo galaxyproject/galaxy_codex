@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import argparse
+import json
 from typing import (
     Any,
     Dict,
@@ -8,11 +9,10 @@ from typing import (
     Optional,
 )
 
-import json
 import pandas as pd
 import shared
-from ruamel.yaml import YAML as ruamelyaml
 import yaml
+from ruamel.yaml import YAML as ruamelyaml
 
 
 class Workflow:
