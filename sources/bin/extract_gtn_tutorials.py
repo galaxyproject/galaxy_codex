@@ -11,9 +11,7 @@ from typing import (
 )
 
 import json
-import os
 import pandas as pd
-import re
 import shared
 import yaml
 import yt_dlp
