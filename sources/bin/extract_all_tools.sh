@@ -54,7 +54,7 @@ else
                 --all-workflows "communities/all/resources/workflows.json" \
                 --all-tutorials "communities/all/resources/tutorials.json" 
 
-        ln -s "./../../communities/all/resources/tools.yml" "./_data/tools.yml"
+        # ln -s "./../../communities/all/resources/tools.yml" "./_data/tools.yml"
 
 fi
 
