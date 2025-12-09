@@ -159,6 +159,7 @@ jobs:
           jq -s 'map(.[])' communities/all/resources/repositories*.list_tools.json > communities/all/resources/tools.json 
           rm communities/all/resources/repositories*.list_tools.json
           rm communities/all/resources/repositories*.list_tools.tsv
+          rm communities/all/resources/repositories*.list_tools.json
       - name: Generate tools wordcloud and interactive table
         run: |
           bash sources/bin/format_tools.sh
