@@ -20,6 +20,9 @@ tools:
 - name: ancombc
   owner: iuc
   tool_panel_section_id: ''
+- name: antismash
+  owner: bgruening
+  tool_panel_section_id: ''
 - name: bakta
   owner: iuc
   tool_panel_section_id: ''
@@ -41,16 +44,31 @@ tools:
 - name: bbtools_tadpole
   owner: iuc
   tool_panel_section_id: ''
+- name: bin_refiner
+  owner: iuc
+  tool_panel_section_id: ''
 - name: bmtagger
   owner: iuc
   tool_panel_section_id: ''
 - name: cd_hit
   owner: iuc
   tool_panel_section_id: ''
-- name: cd_hit_dup
-  owner: devteam
-  tool_panel_section_id: ''
 - name: checkm2
+  owner: iuc
+  tool_panel_section_id: ''
+- name: concoct
+  owner: iuc
+  tool_panel_section_id: ''
+- name: concoct_coverage_table
+  owner: iuc
+  tool_panel_section_id: ''
+- name: concoct_cut_up_fasta
+  owner: iuc
+  tool_panel_section_id: ''
+- name: concoct_extract_fasta_bins
+  owner: iuc
+  tool_panel_section_id: ''
+- name: concoct_merge_cut_up_clustering
   owner: iuc
   tool_panel_section_id: ''
 - name: cat_add_names
@@ -67,9 +85,6 @@ tools:
   tool_panel_section_id: ''
 - name: cat_summarise
   owner: iuc
-  tool_panel_section_id: ''
-- name: CryptoGenotyper
-  owner: nml
   tool_panel_section_id: ''
 - name: cutadapt
   owner: lparsons
@@ -116,15 +131,6 @@ tools:
 - name: ectyper
   owner: nml
   tool_panel_section_id: ''
-- name: eggnog_mapper
-  owner: galaxyp
-  tool_panel_section_id: ''
-- name: eggnog_mapper_annotate
-  owner: galaxyp
-  tool_panel_section_id: ''
-- name: eggnog_mapper_search
-  owner: galaxyp
-  tool_panel_section_id: ''
 - name: ete_treeviewer
   owner: iuc
   tool_panel_section_id: ''
@@ -143,90 +149,6 @@ tools:
 - name: filtlong
   owner: iuc
   tool_panel_section_id: ''
-- name: FROGS_affiliation_filters
-  owner: frogs
-  tool_panel_section_id: ''
-- name: FROGS_affiliation_postprocess
-  owner: frogs
-  tool_panel_section_id: ''
-- name: FROGS_affiliation_stats
-  owner: frogs
-  tool_panel_section_id: ''
-- name: FROGS_biom_to_stdBiom
-  owner: frogs
-  tool_panel_section_id: ''
-- name: FROGS_biom_to_tsv
-  owner: frogs
-  tool_panel_section_id: ''
-- name: FROGS_cluster_filters
-  owner: frogs
-  tool_panel_section_id: ''
-- name: FROGS_cluster_stats
-  owner: frogs
-  tool_panel_section_id: ''
-- name: FROGS_clustering
-  owner: frogs
-  tool_panel_section_id: ''
-- name: FROGS_demultiplex
-  owner: frogs
-  tool_panel_section_id: ''
-- name: FROGSSTAT_DESeq2_Preprocess
-  owner: frogs
-  tool_panel_section_id: ''
-- name: FROGSSTAT_DESeq2_Visualisation
-  owner: frogs
-  tool_panel_section_id: ''
-- name: FROGSFUNC_step2_functions
-  owner: frogs
-  tool_panel_section_id: ''
-- name: FROGSFUNC_step3_pathways
-  owner: frogs
-  tool_panel_section_id: ''
-- name: FROGSFUNC_step1_placeseqs
-  owner: frogs
-  tool_panel_section_id: ''
-- name: FROGS_itsx
-  owner: frogs
-  tool_panel_section_id: ''
-- name: FROGS_normalisation
-  owner: frogs
-  tool_panel_section_id: ''
-- name: FROGSSTAT_Phyloseq_Alpha_Diversity
-  owner: frogs
-  tool_panel_section_id: ''
-- name: FROGSSTAT_Phyloseq_Beta_Diversity
-  owner: frogs
-  tool_panel_section_id: ''
-- name: FROGSSTAT_Phyloseq_Sample_Clustering
-  owner: frogs
-  tool_panel_section_id: ''
-- name: FROGSSTAT_Phyloseq_Composition_Visualisation
-  owner: frogs
-  tool_panel_section_id: ''
-- name: FROGSSTAT_Phyloseq_Import_Data
-  owner: frogs
-  tool_panel_section_id: ''
-- name: FROGSSTAT_Phyloseq_Multivariate_Analysis_Of_Variance
-  owner: frogs
-  tool_panel_section_id: ''
-- name: FROGSSTAT_Phyloseq_Structure_Visualisation
-  owner: frogs
-  tool_panel_section_id: ''
-- name: FROGS_preprocess
-  owner: frogs
-  tool_panel_section_id: ''
-- name: FROGS_remove_chimera
-  owner: frogs
-  tool_panel_section_id: ''
-- name: FROGS_taxonomic_affiliation
-  owner: frogs
-  tool_panel_section_id: ''
-- name: FROGS_Tree
-  owner: frogs
-  tool_panel_section_id: ''
-- name: FROGS_tsv_to_biom
-  owner: frogs
-  tool_panel_section_id: ''
 - name: funannotate_annotate
   owner: iuc
   tool_panel_section_id: ''
@@ -241,9 +163,6 @@ tools:
   tool_panel_section_id: ''
 - name: funannotate_sort
   owner: iuc
-  tool_panel_section_id: ''
-- name: genomad_end_to_end
-  owner: ufz
   tool_panel_section_id: ''
 - name: graphlan
   owner: iuc
@@ -293,8 +212,8 @@ tools:
 - name: integron_finder
   owner: iuc
   tool_panel_section_id: ''
-- name: Kraken2Tax
-  owner: devteam
+- name: kraken2
+  owner: iuc
   tool_panel_section_id: ''
 - name: kraken_biom
   owner: iuc
@@ -320,14 +239,14 @@ tools:
 - name: krakentools_kreport2mpa
   owner: iuc
   tool_panel_section_id: ''
-- name: lca1
-  owner: devteam
-  tool_panel_section_id: ''
 - name: lighter
   owner: bgruening
   tool_panel_section_id: ''
 - name: lotus2
   owner: earlhaminst
+  tool_panel_section_id: ''
+- name: maaslin2
+  owner: iuc
   tool_panel_section_id: ''
 - name: maker
   owner: iuc
@@ -335,11 +254,17 @@ tools:
 - name: maker_map_ids
   owner: iuc
   tool_panel_section_id: ''
-- name: maxquant
-  owner: galaxyp
+- name: mash_dist
+  owner: iuc
   tool_panel_section_id: ''
-- name: maxquant_mqpar
-  owner: galaxyp
+- name: mash_paste
+  owner: iuc
+  tool_panel_section_id: ''
+- name: mash_screen
+  owner: iuc
+  tool_panel_section_id: ''
+- name: mash_sketch
+  owner: iuc
   tool_panel_section_id: ''
 - name: megan_blast2lca
   owner: iuc
@@ -380,28 +305,22 @@ tools:
 - name: metaphlan
   owner: iuc
   tool_panel_section_id: ''
-- name: metaquantome_db
-  owner: galaxyp
+- name: metawrapmg_binning
+  owner: galaxy-australia
   tool_panel_section_id: ''
-- name: metaquantome_expand
-  owner: galaxyp
-  tool_panel_section_id: ''
-- name: metaquantome_filter
-  owner: galaxyp
-  tool_panel_section_id: ''
-- name: metaquantome_sample
-  owner: galaxyp
-  tool_panel_section_id: ''
-- name: metaquantome_stat
-  owner: galaxyp
-  tool_panel_section_id: ''
-- name: metaquantome_viz
-  owner: galaxyp
+- name: metawrapmg_bin_refinement
+  owner: galaxy-australia
   tool_panel_section_id: ''
 - name: mitos
   owner: iuc
   tool_panel_section_id: ''
 - name: mitos2
+  owner: iuc
+  tool_panel_section_id: ''
+- name: mmseqs2_easy_linclust_clustering
+  owner: iuc
+  tool_panel_section_id: ''
+- name: mmseqs2_taxonomy_assignment
   owner: iuc
   tool_panel_section_id: ''
 - name: mothur_align_check
@@ -791,497 +710,17 @@ tools:
 - name: mothur_venn
   owner: iuc
   tool_panel_section_id: ''
+- name: mereg_mOTUs_tables
+  owner: bgruening
+  tool_panel_section_id: ''
+- name: motus_profiler
+  owner: bgruening
+  tool_panel_section_id: ''
 - name: multiqc
   owner: iuc
   tool_panel_section_id: ''
-- name: blastxml_to_tabular
-  owner: devteam
-  tool_panel_section_id: ''
-- name: get_species_taxids
-  owner: devteam
-  tool_panel_section_id: ''
-- name: ncbi_blastdbcmd_info
-  owner: devteam
-  tool_panel_section_id: ''
-- name: ncbi_blastdbcmd_wrapper
-  owner: devteam
-  tool_panel_section_id: ''
-- name: ncbi_blastn_wrapper
-  owner: devteam
-  tool_panel_section_id: ''
-- name: ncbi_blastp_wrapper
-  owner: devteam
-  tool_panel_section_id: ''
-- name: ncbi_blastx_wrapper
-  owner: devteam
-  tool_panel_section_id: ''
-- name: ncbi_convert2blastmask_wrapper
-  owner: devteam
-  tool_panel_section_id: ''
-- name: ncbi_deltablast_wrapper
-  owner: devteam
-  tool_panel_section_id: ''
-- name: ncbi_dustmasker_wrapper
-  owner: devteam
-  tool_panel_section_id: ''
-- name: ncbi_makeblastdb
-  owner: devteam
-  tool_panel_section_id: ''
-- name: ncbi_makeprofiledb
-  owner: devteam
-  tool_panel_section_id: ''
-- name: ncbi_psiblast_wrapper
-  owner: devteam
-  tool_panel_section_id: ''
-- name: ncbi_rpsblast_wrapper
-  owner: devteam
-  tool_panel_section_id: ''
-- name: ncbi_rpstblastn_wrapper
-  owner: devteam
-  tool_panel_section_id: ''
-- name: ncbi_segmasker_wrapper
-  owner: devteam
-  tool_panel_section_id: ''
-- name: ncbi_tblastn_wrapper
-  owner: devteam
-  tool_panel_section_id: ''
-- name: ncbi_tblastx_wrapper
-  owner: devteam
-  tool_panel_section_id: ''
 - name: ncbi_fcs_gx
   owner: iuc
-  tool_panel_section_id: ''
-- name: AccurateMassSearch
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: AdditiveSeries
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: BaselineFilter
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: CVInspector
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: CompNovo
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: CompNovoCID
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: ConsensusID
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: ConsensusMapNormalizer
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: ConvertTSVToTraML
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: ConvertTraMLToTSV
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: DTAExtractor
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: DeMeanderize
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: Decharger
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: DecoyDatabase
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: Digestor
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: DigestorMotif
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: EICExtractor
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: ERPairFinder
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: ExternalCalibration
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: FFEval
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: FalseDiscoveryRate
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: FeatureFinderCentroided
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: FeatureFinderIdentification
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: FeatureFinderIsotopeWavelet
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: FeatureFinderMRM
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: FeatureFinderMetabo
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: FeatureFinderMultiplex
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: FeatureFinderSuperHirn
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: FeatureLinkerLabeled
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: FeatureLinkerUnlabeled
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: FeatureLinkerUnlabeledQT
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: FidoAdapter
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: FileConverter
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: FileFilter
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: FileInfo
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: FileMerger
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: FuzzyDiff
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: HighResPrecursorMassCorrector
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: IDConflictResolver
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: IDDecoyProbability
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: IDExtractor
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: IDFileConverter
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: IDFilter
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: IDMapper
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: IDMassAccuracy
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: IDMerger
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: IDPosteriorErrorProbability
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: IDRTCalibration
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: IDRipper
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: IDScoreSwitcher
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: IDSplitter
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: ITRAQAnalyzer
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: InclusionExclusionListCreator
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: InspectAdapter
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: InternalCalibration
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: IsobaricAnalyzer
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: LabeledEval
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: LowMemPeakPickerHiRes
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: LowMemPeakPickerHiRes_RandomAccess
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: LuciphorAdapter
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: MRMMapper
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: MRMPairFinder
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: MRMTransitionGroupPicker
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: MSGFPlusAdapter
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: MSSimulator
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: MapAlignmentEvaluation
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: MapNormalizer
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: MapRTTransformer
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: MapStatistics
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: MascotAdapter
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: MascotAdapterOnline
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: MassCalculator
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: MassTraceExtractor
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: MetaProSIP
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: MetaboliteSpectralMatcher
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: MultiplexResolver
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: MzMLSplitter
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: MzTabExporter
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: NoiseFilterGaussian
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: NoiseFilterSGolay
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: OpenSwathAnalyzer
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: OpenSwathAssayGenerator
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: OpenSwathChromatogramExtractor
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: OpenSwathConfidenceScoring
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: OpenSwathDIAPreScoring
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: OpenSwathDecoyGenerator
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: OpenSwathFeatureXMLToTSV
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: OpenSwathFileSplitter
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: OpenSwathMzMLFileCacher
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: OpenSwathRTNormalizer
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: OpenSwathRewriteToFeatureXML
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: OpenSwathWorkflow
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: PTModel
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: PTPredict
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: PeakPickerHiRes
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: PeakPickerIterative
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: PeakPickerWavelet
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: PepNovoAdapter
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: PeptideIndexer
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: PhosphoScoring
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: PrecursorIonSelector
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: PrecursorMassCorrector
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: ProteinInference
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: ProteinQuantifier
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: ProteinResolver
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: QCCalculator
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: QCEmbedder
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: QCExporter
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: QCExtractor
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: QCImporter
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: QCMerger
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: QCShrinker
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: RNPxl
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: RNPxlXICFilter
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: RTEvaluation
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: RTModel
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: RTPredict
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: SemanticValidator
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: SequenceCoverageCalculator
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: SimpleSearchEngine
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: SpecLibCreator
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: SpectraFilterBernNorm
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: SpectraFilterMarkerMower
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: SpectraFilterNLargest
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: SpectraFilterNormalizer
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: SpectraFilterParentPeakMower
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: SpectraFilterScaler
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: SpectraFilterSqrtMower
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: SpectraFilterThresholdMower
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: SpectraFilterWindowMower
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: SpectraMerger
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: SvmTheoreticalSpectrumGeneratorTrainer
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: TICCalculator
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: TMTAnalyzer
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: TOFCalibration
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: TextExporter
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: TopPerc
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: TransformationEvaluation
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: XMLValidator
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: XTandemAdapter
-  owner: bgruening
-  tool_panel_section_id: ''
-- name: fasta_cli
-  owner: galaxyp
-  tool_panel_section_id: ''
-- name: ident_params
-  owner: galaxyp
-  tool_panel_section_id: ''
-- name: peptide_shaker
-  owner: galaxyp
-  tool_panel_section_id: ''
-- name: search_gui
-  owner: galaxyp
   tool_panel_section_id: ''
 - name: pharokka
   owner: iuc
@@ -1330,6 +769,18 @@ tools:
   tool_panel_section_id: ''
 - name: prokka
   owner: crs4
+  tool_panel_section_id: ''
+- name: proteinortho
+  owner: iuc
+  tool_panel_section_id: ''
+- name: proteinortho_clustering
+  owner: iuc
+  tool_panel_section_id: ''
+- name: proteinortho_grab_proteins
+  owner: iuc
+  tool_panel_section_id: ''
+- name: proteinortho_summary
+  owner: iuc
   tool_panel_section_id: ''
 - name: pycoqc
   owner: iuc
@@ -1397,11 +848,11 @@ tools:
 - name: staramr_search
   owner: iuc
   tool_panel_section_id: ''
-- name: t2t_report
-  owner: devteam
+- name: sylph_profile
+  owner: bgruening
   tool_panel_section_id: ''
-- name: t_coffee
-  owner: earlhaminst
+- name: sylph_query
+  owner: bgruening
   tool_panel_section_id: ''
 - name: taxonomy_krona_chart
   owner: crs4
@@ -1433,11 +884,14 @@ tools:
 - name: trycycler_subsample
   owner: iuc
   tool_panel_section_id: ''
-- name: unipept
-  owner: galaxyp
+- name: virannot_blast2tsv
+  owner: iuc
   tool_panel_section_id: ''
-- name: virsorter
-  owner: ufz
+- name: virannot_otu
+  owner: iuc
+  tool_panel_section_id: ''
+- name: virAnnot_rps2tsv
+  owner: iuc
   tool_panel_section_id: ''
 - name: vrhyme
   owner: bgruening
