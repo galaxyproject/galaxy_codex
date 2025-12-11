@@ -169,3 +169,12 @@ def get_edam_operation_from_tools(selected_tools: list, all_tools: dict) -> List
         else:
             print(f"{t} not found in all tools")
     return list(edam_operation)
+
+
+def export_to_yml(data_source: str, yml_output_path: str) -> None:
+
+    with open(data_source, encoding="utf-8") as file:
+        data = json.load(file)
+
+    with open(yml_output_path, "w") as file:
+        yaml.dump(data, file, default_flow_style=False)

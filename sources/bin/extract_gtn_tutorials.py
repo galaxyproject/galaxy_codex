@@ -13,7 +13,6 @@ from typing import (
 
 import pandas as pd
 import shared
-import yaml
 import yt_dlp
 from owlready2 import get_ontology
 from ruamel.yaml import YAML as ruamelyaml
@@ -299,15 +298,6 @@ def export_tutorials_to_tsv(tutorials: list, output_fp: str) -> None:
     df.to_csv(output_fp, sep="\t", index=False)
 
 
-def export_tutorials_to_yml(data_source: str, yml_output_path: str) -> None:
-
-    with open(data_source, encoding="utf-8") as file:
-        data = json.load(file)
-
-    with open(yml_output_path, "w") as file:
-        yaml.dump(data, file, default_flow_style=False)
-
-
 def extract_top_tutorials_per_category(
     tutorial_fp: str, count_column: str = "Visitors", category_nb: int = 10, top_tutorial_nb: int = 10
 ) -> pd.DataFrame:
@@ -476,7 +466,7 @@ if __name__ == "__main__":
         # filter training lists
         filtered_tutorials = filter_tutorials(all_tutorials, tags)
         export_tutorials_to_tsv(filtered_tutorials, args.filtered)
-        export_tutorials_to_yml(args.all, args.yml)
+        shared.export_to_yml(args.all, args.yml)
 
     elif args.command == "popLabSection":
         lab_section = shared.load_yaml(args.lab)

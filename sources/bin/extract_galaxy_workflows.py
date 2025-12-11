@@ -11,7 +11,6 @@ from typing import (
 
 import pandas as pd
 import shared
-import yaml
 from ruamel.yaml import YAML as ruamelyaml
 
 
@@ -460,14 +459,6 @@ class Workflows:
         with open(lab_fp, "w") as lab_f:
             ruamelyaml().dump(lab_section, lab_f)
 
-    def export_workflows_to_yml(self, data_source: str, yml_output_path: str) -> None:
-
-        with open(data_source, encoding="utf-8") as file:
-            data = json.load(file)
-
-        with open(yml_output_path, "w") as file:
-            yaml.dump(data, file, default_flow_style=False)
-
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Extract Galaxy Workflows from WorkflowHub and public servers")
@@ -613,7 +604,7 @@ if __name__ == "__main__":
         wfs.curate_workflows(status)
         shared.export_to_json(wfs.export_workflows_to_dict(), args.curated)
         wfs.export_workflows_to_tsv(args.tsv_curated)
-        wfs.export_workflows_to_yml(args.curated, args.yml)
+        shared.export_to_yml(args.curated, args.yml)
 
     elif args.command == "popLabSection":
         wfs = Workflows()
