@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 import argparse
-import json
 import time
 from datetime import date
 from typing import (

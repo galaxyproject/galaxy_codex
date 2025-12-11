@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 import argparse
-import json
 from typing import (
     Any,
     Dict,
