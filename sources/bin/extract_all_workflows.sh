@@ -4,10 +4,14 @@ if [ ! -z $1 ]
 then
         python sources/bin/extract_galaxy_workflows.py extract \
                 --all "communities/all/resources/test_workflows.json" \
+                --yml "communities/all/resources/test_workflows.yml" \
                 --tools "communities/all/resources/test_tools.json" \
                 --test
 else
         python sources/bin/extract_galaxy_workflows.py extract \
                 --all "communities/all/resources/workflows.json" \
+                --yml "communities/all/resources/workflows.yml" \
                 --tools "communities/all/resources/tools.json"
+
+        # ln -s "./../../communities/all/resources/workflows.yml" "./_data/workflows.yml"
 fi

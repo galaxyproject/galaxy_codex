@@ -1035,6 +1035,27 @@ def export_missing_tools(missing_tools: dict, tool_dp: str) -> None:
         export_missing_tools_to_yaml(Path(top_d) / Path(server_fn), tools["top"])
 
 
+def export_tools_to_yml(tools: List[Dict], yml_output_path: str) -> None:
+    """
+    Export to YAML for rendering on the website
+    """
+    for tool in tools:
+        availability = {}
+        for field in tool:
+            field_value = tool[field]
+            availability_match_string = "[Nn]umber of tools"
+            if re.search(availability_match_string, field):
+                instance_match_string = "[Uu]se[Gg]alaxy\.[a-z]{2}"
+                if re.search(instance_match_string, field):
+                    match = re.search(instance_match_string, field)
+                    if match:
+                        field_name = match.group(0)
+                        if field_value != 0:
+                            availability[field_name] = field_value
+        tool["availability"] = availability
+    shared.export_to_yml(tools, yml_output_path)
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description="Extract Galaxy tools from GitHub repositories together with biotools and conda metadata"
@@ -1045,6 +1066,7 @@ if __name__ == "__main__":
     extract.add_argument("--api", "-a", required=True, help="GitHub access token")
     extract.add_argument("--all", "-o", required=True, help="Filepath to JSON with all extracted tools")
     extract.add_argument("--all-tsv", "-j", required=True, help="Filepath to TSV with all extracted tools")
+    extract.add_argument("--all-yml", "-y", required=True, help="Filepath to yml with all extracted tools")
     extract.add_argument(
         "--all-workflows",
         "-aw",
@@ -1134,6 +1156,7 @@ if __name__ == "__main__":
         "-s",
         help="Path to a TSV file with tool status - at least 3 columns: IDs of tool suites, Boolean with True to keep and False to exclude, Boolean with True if deprecated and False if not",
     )
+    curatetools.add_argument("--yml", "-y", required=True, help="Filepath to yml with community extracted tools")
 
     # Curate tools categories
     labpop = subparser.add_parser("popLabSection", help="Fill in Lab section tools")
@@ -1180,6 +1203,7 @@ if __name__ == "__main__":
         tools = get_tools(repo_list, args.all_workflows, args.all_tutorials, edam_ontology)
         export_tools_to_json(tools, args.all)
         export_tools_to_tsv(tools, args.all_tsv, format_list_col=True)
+        export_tools_to_yml(tools, args.all_yml)
 
     elif args.command == "filter":
         with Path(args.all).open() as f:
@@ -1235,6 +1259,7 @@ if __name__ == "__main__":
                 format_list_col=True,
                 to_keep_columns=["Suite ID", "bio.tool name", "EDAM operations", "EDAM topics"],
             )
+            export_tools_to_yml(curated_tools, args.yml)
         else:
             # if there are no ts filtered tools
             print("No tools left after curation")

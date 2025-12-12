@@ -5,6 +5,7 @@ then
         python sources/bin/extract_gtn_tutorials.py \
                 filter \
                 --all "communities/all/resources/test_tutorials.json" \
+                --yml "communities/microgalaxy/resources/test_tutorials.yml" \
                 --filtered "communities/microgalaxy/resources/test_tutorials.tsv" \
                 --tags "communities/microgalaxy/metadata/tutorial_tags"
 
@@ -26,8 +27,12 @@ else
                                         python sources/bin/extract_gtn_tutorials.py \
                                                 filter \
                                                 --all "communities/all/resources/tutorials.json" \
+                                                --yml "communities/$community/resources/tutorials.yml" \
                                                 --filtered "communities/$community/resources/tutorials.tsv" \
                                                 --tags "communities/$community/metadata/tutorial_tags"
+
+                                        mkdir -p _data/communities/$community/
+                                        ln -sf ../../../communities/$community/resources/tutorials.yml _data/communities/$community/tutorials.yml
 
                                         python sources/bin/create_interactive_table.py \
                                                 --input "communities/$community/resources/tutorials.tsv" \
