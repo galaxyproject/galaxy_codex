@@ -465,7 +465,7 @@ if __name__ == "__main__":
         # filter training lists
         filtered_tutorials = filter_tutorials(all_tutorials, tags)
         export_tutorials_to_tsv(filtered_tutorials, args.filtered)
-        shared.export_to_yml(args.all, args.yml)
+        shared.export_to_yml(filtered_tutorials, args.yml)
 
     elif args.command == "popLabSection":
         lab_section = shared.load_yaml(args.lab)

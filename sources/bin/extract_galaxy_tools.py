@@ -1035,29 +1035,25 @@ def export_missing_tools(missing_tools: dict, tool_dp: str) -> None:
         export_missing_tools_to_yaml(Path(top_d) / Path(server_fn), tools["top"])
 
 
-def export_tools_to_yml(data_source: str, yml_output_path: str) -> None:
-
-    with open(data_source, encoding="utf-8") as file:
-        data = json.load(file)
-
-    for tool in range(len(data)):
+def export_tools_to_yml(tools: List[Dict], yml_output_path: str) -> None:
+    """
+    Export to YAML for rendering on the website
+    """
+    for tool in tools:
         availability = {}
-        for field in data[tool]:
-            field_value = data[tool][field]
+        for field in tool:
+            field_value = tool[field]
             availability_match_string = "[Nn]umber of tools"
             if re.search(availability_match_string, field):
                 instance_match_string = "[Uu]se[Gg]alaxy\.[a-z]{2}"
                 if re.search(instance_match_string, field):
-                    # field_name = re.search(instance_match_string, field).group(0)
                     match = re.search(instance_match_string, field)
                     if match:
                         field_name = match.group(0)
                         if field_value != 0:
                             availability[field_name] = field_value
-        data[tool]["availability"] = availability
-
-    with open(yml_output_path, "w") as file:
-        yaml.dump(data, file, default_flow_style=False)
+        tool["availability"] = availability
+    shared.export_to_yml(tools, yml_output_path)
 
 
 if __name__ == "__main__":
@@ -1207,7 +1203,7 @@ if __name__ == "__main__":
         tools = get_tools(repo_list, args.all_workflows, args.all_tutorials, edam_ontology)
         export_tools_to_json(tools, args.all)
         export_tools_to_tsv(tools, args.all_tsv, format_list_col=True)
-        export_tools_to_yml(data_source=args.all, yml_output_path=args.all_yml)
+        export_tools_to_yml(tools, args.all_yml)
 
     elif args.command == "filter":
         with Path(args.all).open() as f:
@@ -1263,7 +1259,7 @@ if __name__ == "__main__":
                 format_list_col=True,
                 to_keep_columns=["Suite ID", "bio.tool name", "EDAM operations", "EDAM topics"],
             )
-            export_tools_to_yml(args.filtered, args.yml)
+            export_tools_to_yml(curated_tools, args.yml)
         else:
             # if there are no ts filtered tools
             print("No tools left after curation")

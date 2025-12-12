@@ -87,6 +87,14 @@ def load_yaml(input_df: str) -> Dict:
     return content
 
 
+def export_to_yml(data: list, yml_output_path: str) -> None:
+    """
+    Export to YAML file
+    """
+    with Path(yml_output_path).open("w") as file:
+        yaml.dump(data, file, default_flow_style=False)
+
+
 def read_suite_per_tool_id(tool_fp: str) -> Dict:
     """
     Read the tool suite table and extract a dictionary per tool id
@@ -169,12 +177,3 @@ def get_edam_operation_from_tools(selected_tools: list, all_tools: dict) -> List
         else:
             print(f"{t} not found in all tools")
     return list(edam_operation)
-
-
-def export_to_yml(data_source: str, yml_output_path: str) -> None:
-
-    with open(data_source, encoding="utf-8") as file:
-        data = json.load(file)
-
-    with open(yml_output_path, "w") as file:
-        yaml.dump(data, file, default_flow_style=False)

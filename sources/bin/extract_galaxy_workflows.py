@@ -559,7 +559,7 @@ if __name__ == "__main__":
         wfs = Workflows(test=args.test)
         wfs.init_by_searching(args.tools)
         shared.export_to_json(wfs.export_workflows_to_dict(), args.all)
-        wfs.export_workflows_to_yml(args.all, args.yml)
+        shared.export_to_yml(wfs.export_workflows_to_dict(), args.yml)
 
     elif args.command == "filter":
         wfs = Workflows()
@@ -603,7 +603,7 @@ if __name__ == "__main__":
         wfs.curate_workflows(status)
         shared.export_to_json(wfs.export_workflows_to_dict(), args.curated)
         wfs.export_workflows_to_tsv(args.tsv_curated)
-        shared.export_to_yml(args.curated, args.yml)
+        shared.export_to_yml(wfs.export_workflows_to_dict(), args.yml)
 
     elif args.command == "popLabSection":
         wfs = Workflows()
