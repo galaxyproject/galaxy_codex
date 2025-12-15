@@ -30,7 +30,7 @@ jobs:
         run: | 
           python sources/bin/get_public_galaxy_servers.py -o sources/data/available_public_servers.csv
       - name: Archive available servers
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: available-servers
           path: sources/data/available_public_servers.csv
@@ -66,7 +66,7 @@ jobs:
         env: 
           GITHUB_API_KEY: ${{ secrets.GH_API_TOKEN }}
       - name: Archive tool sublists production artifacts
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: tools-${{ matrix.subset }}
           path: communities/all/resources/${{ matrix.subset }}_tools.*
@@ -89,7 +89,7 @@ jobs:
         env: 
           PLAUSIBLE_API_KEY: ${{ secrets.PLAUSIBLE_API_TOKEN }}
       - name: Archive tutorials artifacts
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: tutorials
           path: communities/all/resources/tutorials.*
@@ -112,7 +112,7 @@ jobs:
         env: 
           PLAUSIBLE_API_KEY: ${{ secrets.PLAUSIBLE_API_TOKEN }}
       - name: Archive tutorials artifacts
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: workflows
           path: communities/all/resources/workflows.json
