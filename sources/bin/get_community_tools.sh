@@ -17,7 +17,11 @@ if [[ ! -z $1  && $1 == "test" ]]; then
                 --status "communities/microgalaxy/metadata/tool_status.tsv" \
                 --curated "communities/microgalaxy/resources/curated_tools.tsv" \
                 --wo-biotools "communities/microgalaxy/resources/curated_tools_wo_biotools.tsv" \
-                --w-biotools "communities/microgalaxy/resources/curated_tools_w_biotools.tsv"
+                --w-biotools "communities/microgalaxy/resources/curated_tools_w_biotools.tsv"\
+                --yml "communities/microgalaxy/resources/curated_tools.yml"
+
+        mkdir -p _data/communities/microgalaxy/
+        ln -sf ../../../communities/microgalaxy/resources/curated_tools.yml _data/communities/microgalaxy/curated_tools.yml
 
         python sources/bin/create_wordcloud.py \
                 --input  "communities/microgalaxy/resources/curated_tools.tsv" \
@@ -49,7 +53,11 @@ else
                                                 --status "communities/$community/metadata/tool_status.tsv" \
                                                 --curated "communities/$community/resources/curated_tools.tsv" \
                                                 --wo-biotools "communities/$community/resources/curated_tools_wo_biotools.tsv" \
-                                                --w-biotools "communities/$community/resources/curated_tools_w_biotools.tsv"
+                                                --w-biotools "communities/$community/resources/curated_tools_w_biotools.tsv"\
+                                                --yml "communities/$community/resources/curated_tools.yml"
+
+                                        mkdir -p _data/communities/$community/
+                                        ln -sf ../../../communities/$community/resources/curated_tools.yml _data/communities/$community/curated_tools.yml
 
                                         if [[ -e "communities/$community/resources/curated_tools.tsv" ]]; then
                                                 python sources/bin/create_wordcloud.py \
