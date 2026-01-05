@@ -56,8 +56,10 @@ else
                                                 --w-biotools "communities/$community/resources/curated_tools_w_biotools.tsv"\
                                                 --yml "communities/$community/resources/curated_tools.yml"
 
-                                        mkdir -p _data/communities/$community/
-                                        ln -sf ../../../communities/$community/resources/curated_tools.yml _data/communities/$community/curated_tools.yml
+                                        if [[ -e "communities/$community/resources/curated_tools.yml" ]]; then
+                                                mkdir -p _data/communities/$community/
+                                                ln -sf ../../../communities/$community/resources/curated_tools.yml _data/communities/$community/curated_tools.yml
+                                        fi;
 
                                         if [[ -e "communities/$community/resources/curated_tools.tsv" ]]; then
                                                 python sources/bin/create_wordcloud.py \
