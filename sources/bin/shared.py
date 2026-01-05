@@ -130,7 +130,7 @@ def get_request_json(url: str, headers: dict, retries: int = 3, delay: float = 2
             r = requests.get(url, auth=None, headers=headers)
             r.raise_for_status()  # Raises an HTTPError for unsuccessful status codes
             return r.json()  # Return JSON response if successful
-        except ConnectionError as e:
+        except requests.exceptions.HTTPError as e:
             attempt += 1
             if attempt == retries:
                 raise ConnectionError(
