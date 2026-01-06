@@ -22,9 +22,10 @@ else
                 if [[ -d "$com_data_fp" && ! -L "$com_data_fp" ]]; then
                         community=`basename "$com_data_fp"`
 
-                        echo "$community";
+                        
 
-                        if [[ -f "communities/$community/metadata/workflow_tags" ]]; then
+                        if [[ "$community" != "all" &&  -f "communities/$community/metadata/workflow_tags" ]]; then
+                                echo "$community";
                                 python sources/bin/extract_galaxy_workflows.py \
                                         filter \
                                         --all "communities/all/resources/workflows.json" \
@@ -42,8 +43,10 @@ else
                                                 --tsv-curated "communities/$community/resources/curated_workflows.tsv" \
                                                 --yml "communities/$community/resources/curated_workflows.yml"
 
-                                        mkdir -p _data/communities/$community/
-                                        ln -sf ../../../communities/$community/resources/curated_workflows.yml _data/communities/$community/curated_workflows.yml
+                                        if [[ -f "communities/$community/metadata/curated_workflows.yml" ]]; then
+                                                mkdir -p _data/communities/$community/
+                                                ln -sf ../../../communities/$community/resources/curated_workflows.yml _data/communities/$community/curated_workflows.yml
+                                        fi;
                                 fi;
                         fi;
                 fi;
