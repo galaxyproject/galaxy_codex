@@ -2,41 +2,32 @@
   <h1>
     Welcome to <b>Galaxy for Earth System Sciences</b> -- a web platform to get, process, analyze and visualize environmental data
   </h1>
-
-<center>
-  <img src="./static/welcome_page_logo.png"
-       alt="Galaxy for earth system sciences"
-       style="max-width: 100%; height: auto;">
-</center>
-  <br><br>
-  <p>
-    <a
-      href="#"
-      data-bs-toggle="modal"
-      data-bs-target="#infoModal">
-      
-    </a>
-  </p>
-
-  {{ intro_extra_md }}
+  
+  <center><img src="./static/welcome_page_logo.png" alt="Galaxy for earth system sciences" style="max-width: 100%; height: auto;"></center>
+  <br>
+  <center><a href="#" data-bs-toggle="modal" data-bs-target="#infoModal">Check our Galaxy earth-system videos</a></center>
 
   <div class="modal fade" id="infoModal" tabindex="-1">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title"></h5>
+          <h5 class="modal-title">Galaxy Earth System presentation videos</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <p>
-            This site <em>{{ subdomain }}.{{ root_domain }}</em> is connected to the same server as <em>{{ root_domain }}</em>, but with an interface dedicated to helping our {{ analysis_name }} researchers. Your history, jobs and data quota are shared with the "Base" Galaxy {{ site_name }}  website.
+            <a href="https://www.youtube.com/embed/2w8okrORVtM"  class="show-iframe" data-target="displayhere">
+               <button type="button" class="btn btn-primary">Galaxy introduction EOSC symposium 2025</button>
+            </a>
           </p>
-          <p><a class="ga-btn" href="https://gxy.io/eosc25" target="displayhere">Voronoi</a></p>
-          <p><a class="ga-btn" href="https://gxy.io/plume2bloom" target="displayhere2">Hunga Tonga</a></p>
+          <p>
+            <a href="https://www.youtube.com/embed/jPh1L9N_wKA" class="show-iframe" data-target="displayhere">
+               <button type="button" class="btn btn-primary">From plume to bloom: Data Terra RI X EOSC Federation</button>
+            </a>
+          </p>
+          <br>
         </div>
-
-        <iframe id="displayhere" frameborder="0" style="display:none;" width="100%" height="700"></iframe>
-
+          <iframe id="displayhere" frameborder="0" style="display:none;" width="100%" height="700"></iframe>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         </div>
@@ -44,3 +35,37 @@
     </div>
   </div>
 </section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Retrieve all links that trigger the display of the iframe
+        const links = document.querySelectorAll('.show-iframe');
+        
+        links.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();// Prevent default behavior (navigate to another link)
+                
+                // Retrieve the target URL
+                const targetUrl = link.getAttribute('href');
+                
+                // Hide all iframes
+                const iframes = document.querySelectorAll('iframe');
+                iframes.forEach(iframe => iframe.style.display = 'none');
+                
+                // Display the iframe corresponding to the clicked link
+                const targetId = link.getAttribute('data-target');
+                const targetIframe = document.getElementById(targetId);
+                if (targetIframe) {
+                    // Update the URL of the iframe with the target link
+                    targetIframe.src = targetUrl;  // <-- Insert link into iframe
+                    targetIframe.style.display = 'block';
+                    
+                    targetIframe.scrollIntoView({
+		                        block: 'start',
+		                        behavior: 'smooth',
+		                        inline: 'nearest'});
+                }
+            });
+        });
+    });
+</script>
