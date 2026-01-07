@@ -22,6 +22,29 @@ class TestPaper(unittest.TestCase):
         assert paper.citations == []
         assert paper.groups == {}
 
+    def test_init_from_semanticscholar(self) -> None:
+        paper = Paper()
+        paper.init_from_semanticscholar(
+            {
+                "citingPaper": {
+                    "title": "Test Paper",
+                    "year": 2020,
+                    "journal": {
+                        "name": "Test Journal",
+                    },
+                    "abstract": "This is a test abstract.",
+                },
+            }
+        )
+        assert paper.id == ""
+        assert paper.title == "Test Paper"
+        assert paper.year == 2020
+        assert paper.journal == "Test Journal"
+        assert paper.abstract == "This is a test abstract."
+        assert paper.citation_number == 0
+        assert paper.citations == []
+        assert paper.groups == {}
+
     def test_init_from_json(self) -> None:
         paper = Paper()
         paper.init_from_json(

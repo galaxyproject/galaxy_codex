@@ -43,8 +43,6 @@ class Paper:
         self.year = int(pub["bib"]["pub_year"])
         self.extract_paper_id()
         self.extract_citation_number()
-        print(f"{self.title} ({self.year})")
-        print(f"Citations: {self.citation_number}")
         self.extract_citations()
 
     def init_from_semanticscholar(self, pub: Dict[str, Any]) -> None:
@@ -91,6 +89,14 @@ class Paper:
         """Return the list of citations for the paper."""
         return self.citations
 
+    def get_citation_number(self) -> int:
+        """Return the citation number for the paper."""
+        return self.citation_number
+
+    def reinitialize_citations(self) -> None:
+        """Reinitialize the citations to an empty list."""
+        self.citations = []
+
     def extract_paper_id(self) -> None:
         """
         Extract the paper ID from the Semantic Scholar API using the paper's title.
@@ -126,6 +132,8 @@ class Paper:
         if self.citation_number == 0:
             self.extract_citation_number()
 
+        print(f"{self.title} ({self.year})")
+        print(f"Citations: {self.citation_number}")
         for offset in range(0, self.citation_number, limit):
             self.extract_citation_subset(offset, limit)
             time.sleep(10)
@@ -202,38 +210,53 @@ class Papers:
         """Initialize a Papers instance with an empty list of papers."""
         self.papers: List[Paper] = []
 
-    def init_from_major_publications(self, run_test: bool = False) -> None:
+    def init_from_major_publications(
+        self, publication_fp: str, no_scholarly: bool = True, run_test: bool = False
+    ) -> None:
         """
-        Initialize papers from major Galaxy publications using the Scholarly API.
+        Initialize papers from major Galaxy publications using the Scholarly API (not using GithHub CI)
+        or from JSON
 
         Args:
             run_test (bool): If True, only the first publication is processed for testing.
         """
         print("Extracting citations of the major Galaxy papers...\n")
-        author = scholarly.search_author_id("3tSiRGoAAAAJ")
-        author = scholarly.fill(author, sections=["publications"])
-
         self.papers = []
-        publications = author["publications"]
-        if run_test:
-            publications = [publications[0]]
+        if not no_scholarly:
+            author = scholarly.search_author_id("3tSiRGoAAAAJ")
+            author = scholarly.fill(author, sections=["publications"])
 
-        for pub in publications:
-            # Keep only majors Galaxy papers
-            keep = any(
-                keyword in pub["bib"]["title"].lower()
-                for keyword in [
-                    "platform",
-                    "a comprehensive approach",
-                    "a web-based genome analysis tool for experimentalists",
-                ]
-            )
-            if not keep:
-                continue
+            publications = author["publications"]
+            if run_test:
+                publications = [publications[0]]
 
-            paper = Paper()
-            paper.init_from_scholarly(pub)
-            self.add_citations_from_paper(paper)
+            major_publications = Papers()
+            for pub in publications:
+                # Keep only majors Galaxy papers
+                keep = any(
+                    keyword in pub["bib"]["title"].lower()
+                    for keyword in [
+                        "platform",
+                        "a comprehensive approach",
+                        "genome analysis tool",
+                    ]
+                )
+                if not keep:
+                    continue
+
+                paper = Paper()
+                paper.init_from_scholarly(pub)
+                self.add_citations_from_paper(paper)
+                paper.reinitialize_citations()
+                major_publications.papers.append(paper)
+                shared.export_to_json(major_publications.export_to_dict(), publication_fp)
+        else:
+            major_publications = Papers()
+            major_publications.init_from_json(publication_fp)
+            for paper in major_publications.papers:
+                if len(paper.get_citations()) != paper.get_citation_number():
+                    paper.extract_citations()
+                self.add_citations_from_paper(paper)
 
         print(f"Initialized {len(self.papers)} citations for the major Galaxy papers.\n")
 
@@ -343,6 +366,7 @@ def main() -> None:
 
     # Extract Citation Subcommand
     extract = subparser.add_parser("extract", help="Extract all citations from major Galaxy papers")
+    extract.add_argument("--publications", "-p", required=True, help="Filepath to JSON with major publications")
     extract.add_argument("--all-json", "-o", required=True, help="Filepath to JSON with all extracted citations")
     extract.add_argument("--all-yaml", "-y", required=True, help="Filepath to YAML with all extracted citations")
     extract.add_argument("--all-tsv", "-t", required=True, help="Filepath to TSV with all extracted citations")
@@ -353,6 +377,14 @@ def main() -> None:
         default=False,
         required=False,
         help="Run a small test with limited data",
+    )
+    extract.add_argument(
+        "--no-scholarly",
+        "-s",
+        action="store_true",
+        default=False,
+        required=False,
+        help="Use publications in the JSON files instead of retrieving the publications using scholarly (does not using GitHub CI)",
     )
 
     # Filter Citation Subcommand
@@ -391,7 +423,7 @@ def main() -> None:
 
     if args.command == "extract":
         citations = Papers()
-        citations.init_from_major_publications(args.test)
+        citations.init_from_major_publications(args.publications, args.no_scholarly, args.test)
         citations.clean_papers()
         shared.export_to_json(citations.export_to_dict(), args.all_json)
         shared.export_to_yml(citations.export_to_dict(), args.all_yaml)
