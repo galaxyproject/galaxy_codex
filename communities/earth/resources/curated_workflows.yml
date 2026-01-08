@@ -25,8 +25,8 @@
   - ocean
   tools:
   - obisindicators
-  - tp_cut_tool
   - obis_data
+  - tp_cut_tool
   update_time: '2025-11-04'
   versions: 1
 - create_time: '2025-06-02'
@@ -35,9 +35,9 @@
   deprecated: false
   doi: 10.48546/workflowhub.workflow.1663.1
   edam_operation:
+  - Genome annotation
   - Sequence motif recognition
   - Protein feature detection
-  - Genome annotation
   edam_topic: []
   id: '1663'
   keep: true
@@ -57,10 +57,10 @@
   - marineomics
   - ocean
   tools:
+  - regex1
+  - sanntis_marine
   - interproscan
   - prodigal
-  - sanntis_marine
-  - regex1
   update_time: '2025-07-28'
   versions: 1
 - create_time: '2025-06-02'
@@ -88,11 +88,11 @@
   - ocean
   - pangeo
   tools:
+  - xarray_metadata_info
+  - interactive_tool_odv
   - xarray_coords_info
   - timeseries_extraction
   - argo_getdata
-  - interactive_tool_odv
-  - xarray_metadata_info
   update_time: '2025-07-28'
   versions: 1
 - create_time: '2025-06-02'
@@ -119,16 +119,16 @@
   - galaxy
   - ocean
   tools:
-  - divand_full_analysis
   - 'Interactively subset you data.
 
     interactive_tool_odv'
-  - 'Create a climatology interactively with notebooks
-
-    interactive_tool_divand'
   - 'Final step to visualize in different way a ocean variable like the phosphate.
 
     interactive_tool_odv'
+  - divand_full_analysis
+  - 'Create a climatology interactively with notebooks
+
+    interactive_tool_divand'
   update_time: '2025-07-28'
   versions: 1
 - create_time: '2025-06-02'
@@ -153,10 +153,10 @@
   - gtn
   - galaxy
   tools:
+  - xarray_metadata_info
+  - cdo_operations
   - xarray_coords_info
   - xarray_mapplot
-  - cdo_operations
-  - xarray_metadata_info
   update_time: '2025-06-02'
   versions: 1
 - create_time: '2025-06-02'
@@ -205,13 +205,13 @@
   - gtn
   - galaxy
   tools:
-  - cds_essential_variability
-  - datamash_ops
   - Grep1
+  - ggplot2_point
+  - datamash_ops
+  - psy_maps
   - tp_awk_tool
   - climate_stripes
-  - ggplot2_point
-  - psy_maps
+  - cds_essential_variability
   update_time: '2025-06-02'
   versions: 1
 - create_time: '2025-06-02'
@@ -238,20 +238,20 @@
   - copernicus
   - pangeo
   tools:
-  - regexColumn1
-  - xarray_coords_info
-  - xarray_netcdf2netcdf
-  - climate_stripes
   - graphicsmagick_image_montage
-  - xarray_select
-  - __EXTRACT_DATASET__
+  - xarray_metadata_info
   - ggplot2_point
-  - xarray_mapplot
+  - xarray_select
+  - __MERGE_COLLECTION__
+  - __EXTRACT_DATASET__
   - 'This step is used to extract time from all the coordinates.
 
     __EXTRACT_DATASET__'
-  - __MERGE_COLLECTION__
-  - xarray_metadata_info
+  - xarray_coords_info
+  - climate_stripes
+  - xarray_netcdf2netcdf
+  - regexColumn1
+  - xarray_mapplot
   update_time: '2025-06-09'
   versions: 1
 - create_time: '2025-06-02'
@@ -276,12 +276,12 @@
   - gtn
   - galaxy
   tools:
-  - ctsm_fates
-  - xarray_select
-  - __EXTRACT_DATASET__
+  - xarray_metadata_info
   - ggplot2_point
   - tp_find_and_replace
-  - xarray_metadata_info
+  - xarray_select
+  - __EXTRACT_DATASET__
+  - ctsm_fates
   update_time: '2025-06-02'
   versions: 1
 - create_time: '2025-06-02'
@@ -333,8 +333,8 @@
   - earth-system
   - ocean
   tools:
-  - Interactively subset you data.
   - Create a climatology (not interactively)
+  - Interactively subset you data.
   - Create a climatology interactively with notebooks
   - Final step to visualize in different way a ocean variable like the phosphate.
   update_time: '2024-10-18'
@@ -390,9 +390,9 @@
   - ocean
   tools:
   - Create TSV file for Sanntis
+  - Create the protein fasta file
   - Use of Sanntis
   - Remove useless * in the protein fasta file
-  - Create the protein fasta file
   update_time: '2024-08-21'
   versions: 1
 - create_time: '2024-02-15'
@@ -416,9 +416,9 @@
   - earth-system
   - ecology
   tools:
+  - csv_to_tabular
   - obisindicators
   - tp_cut_tool
-  - csv_to_tabular
   update_time: '2025-11-06'
   versions: 1
 - create_time: '2024-02-15'
@@ -490,13 +490,13 @@
   - eosc-nordic
   - observation
   tools:
-  - datamash_ops
   - "\n csv_to_tabular"
-  - tp_awk_tool
-  - collection_column_join
-  - climate_stripes
-  - "\n Filter1"
   - "\n barchart_gnuplot"
+  - collection_column_join
+  - datamash_ops
+  - "\n Filter1"
+  - tp_awk_tool
+  - climate_stripes
   update_time: '2023-01-16'
   versions: 1
 - create_time: '2020-07-23'
@@ -618,11 +618,11 @@
   - argo
   - earth-system
   tools:
-  - tool_odv_history
   - harmonize_insitu_to_netcdf
   - tool_odv
-  - tool_biogeochemical_calibration
   - interactive_tool_odv
+  - tool_odv_history
+  - tool_biogeochemical_calibration
   update_time: '2025-10-23'
   versions: 26
 - create_time: '2024-08-07'
@@ -646,8 +646,8 @@
   - ocean
   tools:
   - divand_full_analysis
-  - interactive_tool_divand
   - interactive_tool_odv
+  - interactive_tool_divand
   update_time: '2025-09-12'
   versions: 19
 - create_time: '2024-11-05'
@@ -673,16 +673,16 @@
   - name:ecology
   - name:occurencesdata
   tools:
-  - interactive_tool_jupyter_notebook
-  - regexColumn1
+  - unzip
   - tp_cut_tool
   - ecoregion_brt_analysis
-  - ecoregion_cluster_estimate
-  - filter_tabular
-  - unzip
   - ecoregion_GeoNearestNeighbor
+  - filter_tabular
+  - ecoregion_cluster_estimate
   - mergeCols1
   - ecoregion_taxa_seeker
+  - interactive_tool_jupyter_notebook
+  - regexColumn1
   update_time: '2025-07-16'
   versions: 1
 - create_time: '2024-11-18'
@@ -733,11 +733,11 @@
   - argo
   - earth-system
   tools:
-  - tool_odv_history
   - harmonize_insitu_to_netcdf
   - tool_odv
-  - tool_biogeochemical_calibration
   - interactive_tool_odv
+  - tool_odv_history
+  - tool_biogeochemical_calibration
   update_time: '2025-06-12'
   versions: 9
 - create_time: '2024-01-26'
@@ -762,8 +762,8 @@
   - earth-system
   tools:
   - obisindicators
-  - tp_cut_tool
   - obis_data
+  - tp_cut_tool
   update_time: '2024-10-18'
   versions: 8
 - create_time: '2024-03-29'
@@ -787,11 +787,11 @@
   - pangeo
   - earth-system
   tools:
+  - xarray_metadata_info
+  - interactive_tool_odv
   - xarray_coords_info
   - timeseries_extraction
   - argo_getdata
-  - interactive_tool_odv
-  - xarray_metadata_info
   update_time: '2024-08-30'
   versions: 15
 - create_time: '2024-08-09'
@@ -800,9 +800,9 @@
   deprecated: false
   doi: ''
   edam_operation:
+  - Genome annotation
   - Sequence motif recognition
   - Protein feature detection
-  - Genome annotation
   edam_topic: []
   id: b9c938d1af08124b
   keep: true
@@ -818,10 +818,10 @@
   - ocean
   - marineomics
   tools:
+  - regex1
+  - sanntis_marine
   - interproscan
   - prodigal
-  - sanntis_marine
-  - regex1
   update_time: '2024-08-09'
   versions: 5
 - create_time: '2023-03-01'
@@ -845,10 +845,10 @@
   - earth-system
   - satellite
   tools:
-  - srs_preprocess_s2
   - srs_spectral_indices
-  - srs_global_indices
+  - srs_preprocess_s2
   - srs_diversity_maps
+  - srs_global_indices
   update_time: '2024-05-27'
   versions: 5
 - create_time: '2024-03-14'
@@ -872,11 +872,11 @@
   - pangeo
   - earth-system
   tools:
+  - xarray_metadata_info
+  - interactive_tool_odv
   - xarray_coords_info
   - timeseries_extraction
   - argo_getdata
-  - interactive_tool_odv
-  - xarray_metadata_info
   update_time: '2024-03-27'
   versions: 8
 - create_time: '2024-01-31'
@@ -899,8 +899,8 @@
   - earth-system
   - ocean
   tools:
-  - interactive_tool_divand
   - interactive_tool_odv
+  - interactive_tool_divand
   update_time: '2024-03-25'
   versions: 2
 - create_time: '2022-06-07'
@@ -923,10 +923,10 @@
   - ecology
   - climate
   tools:
+  - xarray_metadata_info
+  - cdo_operations
   - xarray_coords_info
   - xarray_mapplot
-  - cdo_operations
-  - xarray_metadata_info
   update_time: '2022-06-07'
   versions: 3
 - create_time: '2022-04-15'
@@ -946,13 +946,13 @@
   source: https://usegalaxy.eu
   tags: []
   tools:
+  - graphicsmagick_image_montage
+  - xarray_metadata_info
+  - cdo_operations
+  - xarray_select
   - xarray_coords_info
   - xarray_netcdf2netcdf
-  - graphicsmagick_image_montage
-  - xarray_select
-  - cdo_operations
   - xarray_mapplot
-  - xarray_metadata_info
   update_time: '2022-04-20'
   versions: 4
 - create_time: '2021-12-28'
@@ -978,17 +978,17 @@
   - copernicus
   - gtn
   tools:
-  - regexColumn1
-  - xarray_coords_info
-  - xarray_netcdf2netcdf
-  - climate_stripes
   - graphicsmagick_image_montage
-  - xarray_select
-  - __EXTRACT_DATASET__
-  - ggplot2_point
-  - xarray_mapplot
-  - __MERGE_COLLECTION__
   - xarray_metadata_info
+  - ggplot2_point
+  - xarray_select
+  - __MERGE_COLLECTION__
+  - __EXTRACT_DATASET__
+  - xarray_coords_info
+  - climate_stripes
+  - xarray_netcdf2netcdf
+  - regexColumn1
+  - xarray_mapplot
   update_time: '2021-12-28'
   versions: 83
 - create_time: '2021-12-22'
@@ -1036,12 +1036,12 @@
   - climate
   - fates
   tools:
-  - ctsm_fates
-  - xarray_select
-  - __EXTRACT_DATASET__
+  - xarray_metadata_info
   - ggplot2_point
   - tp_find_and_replace
-  - xarray_metadata_info
+  - xarray_select
+  - __EXTRACT_DATASET__
+  - ctsm_fates
   update_time: '2021-06-15'
   versions: 5
 - create_time: '2021-06-11'
@@ -1104,12 +1104,12 @@
   source: https://usegalaxy.eu
   tags: []
   tools:
-  - cds_essential_variability
-  - datamash_ops
   - Grep1
+  - ggplot2_point
+  - datamash_ops
+  - psy_maps
   - tp_awk_tool
   - climate_stripes
-  - ggplot2_point
-  - psy_maps
+  - cds_essential_variability
   update_time: '2020-04-30'
   versions: 0
