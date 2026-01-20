@@ -38,10 +38,10 @@
   deprecated: false
   doi: 10.48546/workflowhub.workflow.1730.1
   edam_operation:
+  - Image analysis
   - Image annotation
   - Data handling
   - Visualisation
-  - Image analysis
   edam_topic:
   - Physics
   id: '1730'
@@ -60,22 +60,22 @@
   - astronomy
   - imageanaylsis
   tools:
-  - ip_2d_feature_extraction
   - repeat_channels
+  - astropy_fits2bitmap
   - ip_binary_to_labelimage
-  - colorize_labels
+  - __EXTRACT_DATASET__
   - ip_filter_standard
-  - ip_split_image
+  - ip_2d_feature_extraction
   - image_math
   - ip_histogram_equalization
+  - ip_count_objects
+  - colorize_labels
   - ip_threshold
   - desi_legacy_survey_astro_tool
-  - astropy_fits2bitmap
-  - ip_overlay_images
-  - __EXTRACT_DATASET__
-  - ip_count_objects
-  - ip_convertimage
   - voronoi_tessellation
+  - ip_overlay_images
+  - ip_convertimage
+  - ip_split_image
   update_time: '2025-07-11'
   versions: 1
 - create_time: '2025-06-02'
@@ -109,10 +109,10 @@
   deprecated: false
   doi: null
   edam_operation:
+  - Image analysis
   - Image annotation
   - Data handling
   - Visualisation
-  - Image analysis
   edam_topic: []
   id: '1532'
   keep: true
@@ -131,11 +131,11 @@
   tools:
   - ip_binary_to_labelimage
   - ip_filter_standard
-  - ip_histogram_equalization
-  - ip_threshold
-  - ip_imageinfo
-  - ip_overlay_images
   - ip_count_objects
+  - ip_imageinfo
+  - ip_threshold
+  - ip_overlay_images
+  - ip_histogram_equalization
   update_time: '2025-06-02'
   versions: 1
 - create_time: '2025-06-02'
@@ -143,10 +143,10 @@
   deprecated: false
   doi: null
   edam_operation:
+  - Image analysis
   - Image annotation
   - Data handling
   - Visualisation
-  - Image analysis
   edam_topic: []
   id: '1528'
   keep: true
@@ -166,12 +166,12 @@
   - smfish
   - bioimaging
   tools:
+  - ip_spot_detection_2d
+  - ip_points_to_label
   - idr_download_by_ids
   - unzip
-  - ip_histogram_equalization
-  - ip_spot_detection_2d
   - ip_overlay_images
-  - ip_points_to_label
+  - ip_histogram_equalization
   update_time: '2025-06-02'
   versions: 1
 - create_time: '2025-06-02'
@@ -197,12 +197,12 @@
   - imaging
   tools:
   - ip_binary_to_labelimage
+  - __EXTRACT_DATASET__
   - image_math
-  - ip_split_image
+  - bioimage_inference
   - ip_threshold
   - ip_overlay_images
-  - bioimage_inference
-  - __EXTRACT_DATASET__
+  - ip_split_image
   update_time: '2025-06-02'
   versions: 1
 - create_time: '2025-06-02'
@@ -210,10 +210,10 @@
   deprecated: false
   doi: null
   edam_operation:
+  - Image analysis
   - Image annotation
   - Data handling
   - Visualisation
-  - Image analysis
   edam_topic: []
   id: '1522'
   keep: true
@@ -232,17 +232,17 @@
   - voronoi
   - imageanaylsis
   tools:
-  - ip_2d_feature_extraction
   - repeat_channels
   - ip_binary_to_labelimage
-  - colorize_labels
   - ip_filter_standard
+  - ip_2d_feature_extraction
   - image_math
-  - ip_threshold
-  - ip_overlay_images
   - ip_count_objects
-  - ip_convertimage
+  - colorize_labels
+  - ip_threshold
   - voronoi_tessellation
+  - ip_overlay_images
+  - ip_convertimage
   update_time: '2025-06-02'
   versions: 1
 - create_time: '2025-06-02'
@@ -250,10 +250,10 @@
   deprecated: false
   doi: null
   edam_operation:
+  - Image analysis
   - Image annotation
   - Data handling
   - Visualisation
-  - Image analysis
   edam_topic: []
   id: '1517'
   keep: true
@@ -270,13 +270,13 @@
   - galaxy
   - imaging
   tools:
-  - ip_filter_standard
-  - ip_histogram_equalization
   - tp_split_on_column
+  - ip_filter_standard
+  - param_value_from_file
+  - ip_segmetrics
   - ip_threshold
   - collapse_dataset
-  - ip_segmetrics
-  - param_value_from_file
+  - ip_histogram_equalization
   update_time: '2025-06-02'
   versions: 1
 - create_time: '2025-06-02'
@@ -300,14 +300,14 @@
   - galaxy
   - imaging
   tools:
-  - basic_illumination
-  - ashlar
-  - mesmer
-  - scimap_phenotyping
-  - rename_tiff_channels
   - vitessce_spatial
+  - ashlar
   - unet_coreograph
   - scimap_mcmicro_to_anndata
+  - scimap_phenotyping
+  - mesmer
+  - rename_tiff_channels
+  - basic_illumination
   - quantification
   - ip_convertimage
   update_time: '2025-06-02'
@@ -342,10 +342,10 @@
   deprecated: false
   doi: null
   edam_operation:
+  - Image analysis
   - Image annotation
   - Data handling
   - Visualisation
-  - Image analysis
   edam_topic: []
   id: '1508'
   keep: true
@@ -363,10 +363,10 @@
   - imaging
   tools:
   - ip_binary_to_labelimage
-  - ip_filter_standard
-  - ip_2d_filter_segmentation_by_features
-  - ip_threshold
   - ip_2d_feature_extraction
+  - ip_filter_standard
+  - ip_threshold
+  - ip_2d_filter_segmentation_by_features
   update_time: '2025-06-02'
   versions: 1
 - create_time: '2025-06-02'
@@ -374,8 +374,8 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Image analysis
   - Parsing
+  - Image analysis
   - Quantification
   edam_topic: []
   id: '1505'
@@ -395,25 +395,25 @@
   - imaging
   tools:
   - cp_enhance_or_suppress_features
-  - cp_common
-  - cp_measure_texture
-  - cp_measure_image_intensity
-  - cp_cellprofiler
-  - cp_gray_to_color
-  - cp_measure_image_area_occupied
-  - cp_save_images
-  - cp_measure_object_size_shape
-  - cp_display_data_on_image
-  - cp_measure_image_quality
-  - idr_download_by_ids
   - cp_mask_image
-  - cp_measure_object_intensity
-  - cp_identify_primary_objects
+  - cp_display_data_on_image
   - cp_convert_objects_to_image
-  - cp_measure_granularity
+  - cp_measure_image_area_occupied
+  - cp_cellprofiler
+  - idr_download_by_ids
+  - cp_measure_texture
   - cp_relate_objects
+  - cp_identify_primary_objects
+  - cp_common
+  - cp_gray_to_color
   - cp_image_math
+  - cp_measure_image_intensity
+  - cp_measure_object_intensity
+  - cp_measure_object_size_shape
+  - cp_measure_granularity
   - cp_export_to_spreadsheet
+  - cp_save_images
+  - cp_measure_image_quality
   update_time: '2025-06-02'
   versions: 1
 - create_time: '2025-06-02'
@@ -421,8 +421,8 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Image analysis
   - Parsing
+  - Image analysis
   - Quantification
   edam_topic: []
   id: '1503'
@@ -441,17 +441,17 @@
   - galaxy
   - imaging
   tools:
-  - unzip
-  - cp_tile
-  - cp_measure_object_intensity
-  - cp_save_images
   - cp_identify_primary_objects
-  - cp_cellprofiler
-  - cp_measure_object_size_shape
   - cp_common
+  - cp_tile
   - cp_track_objects
+  - cp_measure_object_intensity
+  - cp_measure_object_size_shape
   - cp_color_to_gray
   - cp_export_to_spreadsheet
+  - cp_cellprofiler
+  - unzip
+  - cp_save_images
   - cp_overlay_outlines
   update_time: '2025-06-02'
   versions: 1
@@ -461,10 +461,10 @@
   deprecated: false
   doi: 10.48546/workflowhub.workflow.1259.1
   edam_operation:
+  - Image analysis
   - Image annotation
   - Data handling
   - Visualisation
-  - Image analysis
   edam_topic:
   - Bioimaging
   - Imaging
@@ -488,24 +488,24 @@
   - bioimaging
   - imaging
   tools:
-  - split_file_to_collection
-  - omero_roi_import
-  - tp_find_and_replace
-  - collection_element_identifiers
   - omero_filter
-  - ip_binary_to_labelimage
-  - omero_import
-  - ip_filter_standard
-  - imagej2_analyze_particles_binary
-  - ip_histogram_equalization
-  - ip_threshold
-  - omero_metadata_import
   - tp_replace_in_column
-  - tp_awk_tool
-  - Convert characters1
-  - param_value_from_file
-  - ip_convertimage
+  - ip_binary_to_labelimage
+  - ip_filter_standard
+  - split_file_to_collection
   - ip_2d_feature_extraction
+  - ip_histogram_equalization
+  - param_value_from_file
+  - collection_element_identifiers
+  - imagej2_analyze_particles_binary
+  - omero_metadata_import
+  - tp_find_and_replace
+  - ip_threshold
+  - Convert characters1
+  - omero_roi_import
+  - ip_convertimage
+  - tp_awk_tool
+  - omero_import
   update_time: '2025-03-03'
   versions: 1
 - create_time: '2025-01-28'
@@ -537,12 +537,12 @@
   - imaging
   tools:
   - split_file_to_collection
-  - omero_roi_import
+  - param_value_from_file
   - tp_replace_in_line
-  - omero_import
   - omero_metadata_import
   - Convert characters1
-  - param_value_from_file
+  - omero_roi_import
+  - omero_import
   update_time: '2025-03-03'
   versions: 1
 - create_time: '2020-11-03'
@@ -550,8 +550,8 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Image analysis
   - Parsing
+  - Image analysis
   - Quantification
   edam_topic:
   - Bioimaging
@@ -575,25 +575,25 @@
   - imaging
   tools:
   - cp_enhance_or_suppress_features
-  - cp_common
-  - cp_measure_texture
-  - cp_measure_image_intensity
-  - cp_cellprofiler
-  - cp_gray_to_color
-  - cp_measure_image_area_occupied
-  - cp_save_images
-  - cp_measure_object_size_shape
-  - cp_display_data_on_image
-  - cp_measure_image_quality
-  - idr_download_by_ids
   - cp_mask_image
-  - cp_measure_object_intensity
-  - cp_identify_primary_objects
+  - cp_display_data_on_image
   - cp_convert_objects_to_image
-  - cp_measure_granularity
+  - cp_measure_image_area_occupied
+  - cp_cellprofiler
+  - idr_download_by_ids
+  - cp_measure_texture
   - cp_relate_objects
+  - cp_identify_primary_objects
+  - cp_common
+  - cp_gray_to_color
   - cp_image_math
+  - cp_measure_image_intensity
+  - cp_measure_object_intensity
+  - cp_measure_object_size_shape
+  - cp_measure_granularity
   - cp_export_to_spreadsheet
+  - cp_save_images
+  - cp_measure_image_quality
   update_time: '2023-07-03'
   versions: 1
 - create_time: '2021-03-21'
@@ -601,8 +601,8 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Image analysis
   - Parsing
+  - Image analysis
   - Quantification
   edam_topic:
   - Bioimaging
@@ -624,17 +624,17 @@
   - image processing
   - imaging
   tools:
-  - unzip
-  - cp_tile
-  - cp_measure_object_intensity
-  - cp_save_images
   - cp_identify_primary_objects
-  - cp_cellprofiler
-  - cp_measure_object_size_shape
   - cp_common
+  - cp_tile
   - cp_track_objects
+  - cp_measure_object_intensity
+  - cp_measure_object_size_shape
   - cp_color_to_gray
   - cp_export_to_spreadsheet
+  - cp_cellprofiler
+  - unzip
+  - cp_save_images
   - cp_overlay_outlines
   update_time: '2023-07-03'
   versions: 1
@@ -646,10 +646,10 @@
   deprecated: false
   doi: ''
   edam_operation:
-  - Visualisation
-  - Image analysis
-  - Image annotation
   - Data handling
+  - Image annotation
+  - Image analysis
+  - Visualisation
   edam_topic: []
   id: 751e3e2c338949c0
   keep: true
@@ -664,11 +664,11 @@
   - yolo
   - bioimage
   tools:
-  - yolo_training
   - interactive_tool_anylabeling
-  - ip_histogram_equalization
-  - json2yolosegment
   - graphicsmagick_image_convert
+  - yolo_training
+  - json2yolosegment
+  - ip_histogram_equalization
   update_time: '2025-08-27'
   versions: 28
 - create_time: '2025-07-25'
@@ -692,11 +692,11 @@
   - segmentation
   - voronoi
   tools:
-  - ip_filter_standard
-  - ip_split_image
-  - ip_threshold
   - __EXTRACT_DATASET__
+  - ip_filter_standard
   - graphicsmagick_image_convert
+  - ip_threshold
+  - ip_split_image
   update_time: '2025-07-25'
   versions: 6
 - create_time: '2025-05-08'
@@ -706,10 +706,10 @@
   deprecated: false
   doi: ''
   edam_operation:
+  - Image analysis
   - Image annotation
   - Data handling
   - Visualisation
-  - Image analysis
   edam_topic: []
   id: bc78c184fabcff1d
   keep: true
@@ -726,22 +726,22 @@
   - voronoi
   - astronomy
   tools:
-  - ip_2d_feature_extraction
   - repeat_channels
+  - astropy_fits2bitmap
   - ip_binary_to_labelimage
-  - colorize_labels
+  - __EXTRACT_DATASET__
   - ip_filter_standard
-  - ip_split_image
+  - ip_2d_feature_extraction
   - image_math
   - ip_histogram_equalization
+  - ip_count_objects
+  - colorize_labels
   - ip_threshold
   - desi_legacy_survey_astro_tool
-  - astropy_fits2bitmap
-  - ip_overlay_images
-  - __EXTRACT_DATASET__
-  - ip_count_objects
-  - ip_convertimage
   - voronoi_tessellation
+  - ip_overlay_images
+  - ip_convertimage
+  - ip_split_image
   update_time: '2025-06-11'
   versions: 14
 - create_time: '2024-03-07'
@@ -750,10 +750,10 @@
   deprecated: false
   doi: ''
   edam_operation:
+  - Image analysis
   - Image annotation
   - Data handling
   - Visualisation
-  - Image analysis
   edam_topic: []
   id: 6fbd9b2274c62ebe
   keep: true
@@ -769,11 +769,11 @@
   tools:
   - ip_binary_to_labelimage
   - ip_filter_standard
-  - ip_histogram_equalization
+  - ip_count_objects
   - ip_threshold
   - ip_overlay_images
-  - ip_count_objects
   - ip_convertimage
+  - ip_histogram_equalization
   update_time: '2025-04-25'
   versions: 1
 - create_time: '2024-11-21'
@@ -782,10 +782,10 @@
   deprecated: false
   doi: ''
   edam_operation:
+  - Image analysis
   - Image annotation
   - Data handling
   - Visualisation
-  - Image analysis
   edam_topic: []
   id: dc8b78d093be59ae
   keep: true
@@ -801,11 +801,11 @@
   tools:
   - ip_binary_to_labelimage
   - ip_filter_standard
-  - ip_histogram_equalization
+  - ip_count_objects
   - ip_threshold
   - ip_overlay_images
-  - ip_count_objects
   - ip_convertimage
+  - ip_histogram_equalization
   update_time: '2025-04-25'
   versions: 1
 - create_time: '2025-04-22'
@@ -815,10 +815,10 @@
   deprecated: false
   doi: ''
   edam_operation:
+  - Image analysis
   - Image annotation
   - Data handling
   - Visualisation
-  - Image analysis
   edam_topic: []
   id: 23030421cd9fcfb2
   keep: true
@@ -834,17 +834,17 @@
   - imageanaylsis
   - voronoi
   tools:
-  - ip_2d_feature_extraction
   - repeat_channels
   - ip_binary_to_labelimage
-  - colorize_labels
   - ip_filter_standard
+  - ip_2d_feature_extraction
   - image_math
-  - ip_threshold
-  - ip_overlay_images
   - ip_count_objects
-  - ip_convertimage
+  - colorize_labels
+  - ip_threshold
   - voronoi_tessellation
+  - ip_overlay_images
+  - ip_convertimage
   update_time: '2025-04-25'
   versions: 14
 - create_time: '2024-04-22'
@@ -853,10 +853,10 @@
   deprecated: false
   doi: ''
   edam_operation:
+  - Image analysis
   - Image annotation
   - Data handling
   - Visualisation
-  - Image analysis
   edam_topic: []
   id: 1ffacb28226460ac
   keep: true
@@ -874,13 +874,13 @@
   tools:
   - ip_binary_to_labelimage
   - ip_filter_standard
-  - ip_2d_filter_segmentation_by_features
-  - ip_histogram_equalization
-  - ip_threshold
-  - ip_overlay_images
-  - ip_count_objects
-  - ip_convertimage
   - ip_2d_feature_extraction
+  - ip_count_objects
+  - ip_threshold
+  - ip_2d_filter_segmentation_by_features
+  - ip_overlay_images
+  - ip_convertimage
+  - ip_histogram_equalization
   update_time: '2025-03-07'
   versions: 19
 - create_time: '2024-09-11'
@@ -889,10 +889,10 @@
   deprecated: false
   doi: ''
   edam_operation:
+  - Image analysis
   - Image annotation
   - Data handling
   - Visualisation
-  - Image analysis
   edam_topic: []
   id: 7d7550ce7004d71e
   keep: true
@@ -906,13 +906,13 @@
   tags:
   - imageanaylsis
   tools:
-  - idr_download_by_ids
   - ip_binary_to_labelimage
+  - __EXTRACT_DATASET__
   - ip_filter_standard
-  - ip_histogram_equalization
+  - idr_download_by_ids
   - ip_threshold
   - ip_overlay_images
-  - __EXTRACT_DATASET__
+  - ip_histogram_equalization
   update_time: '2024-09-13'
   versions: 19
 - create_time: '2019-04-11'
@@ -934,16 +934,16 @@
   tags:
   - massspectrometryimaging
   tools:
-  - ip_viz_overlay_moving_and_fixed_image
-  - ip_scale_image
-  - addName
-  - Remove beginning1
-  - tp_cat
-  - ip_landmark_registration
-  - ip_coordinates_of_roi
-  - ip_projective_transformation_points
   - imagecoordinates_flipaxis
+  - ip_scale_image
+  - ip_landmark_registration
+  - addName
+  - ip_coordinates_of_roi
+  - tp_cat
   - graphicsmagick_image_convert
+  - Remove beginning1
+  - ip_projective_transformation_points
+  - ip_viz_overlay_moving_and_fixed_image
   update_time: '2020-06-22'
   versions: 11
 - create_time: '2019-01-30'
@@ -964,10 +964,10 @@
   tags:
   - massspectrometryimaging
   tools:
-  - Remove beginning1
-  - tp_split_on_column
   - tp_replace_in_line
+  - Remove beginning1
   - Cut1
+  - tp_split_on_column
   update_time: '2019-04-11'
   versions: 14
 - create_time: '2019-01-03'
@@ -988,13 +988,13 @@
   tags:
   - massspectrometryimaging
   tools:
-  - __RELABEL_FROM_FILE__
-  - tp_replace_in_line
-  - addName
-  - tp_split_on_column
-  - xpath
   - Cut1
+  - tp_split_on_column
+  - addName
+  - __RELABEL_FROM_FILE__
   - tp_cat
+  - tp_replace_in_line
+  - xpath
   update_time: '2019-04-11'
   versions: 14
 - create_time: '2024-10-31'
@@ -1003,10 +1003,10 @@
   deprecated: false
   doi: ''
   edam_operation:
+  - Image analysis
   - Image annotation
   - Data handling
   - Visualisation
-  - Image analysis
   edam_topic: []
   id: a8e39acc103c3d6b
   keep: true
@@ -1022,11 +1022,11 @@
   tools:
   - ip_binary_to_labelimage
   - ip_filter_standard
-  - ip_histogram_equalization
+  - ip_count_objects
   - ip_threshold
   - ip_overlay_images
-  - ip_count_objects
   - ip_convertimage
+  - ip_histogram_equalization
   update_time: '2025-04-25'
   versions: 1
 - create_time: '2024-11-21'
@@ -1035,10 +1035,10 @@
   deprecated: false
   doi: ''
   edam_operation:
+  - Image analysis
   - Image annotation
   - Data handling
   - Visualisation
-  - Image analysis
   edam_topic: []
   id: d47cddc372c88094
   keep: true
@@ -1054,11 +1054,11 @@
   tools:
   - ip_binary_to_labelimage
   - ip_filter_standard
-  - ip_histogram_equalization
+  - ip_count_objects
   - ip_threshold
   - ip_overlay_images
-  - ip_count_objects
   - ip_convertimage
+  - ip_histogram_equalization
   update_time: '2025-04-25'
   versions: 1
 - create_time: '2024-11-21'
@@ -1067,10 +1067,10 @@
   deprecated: false
   doi: ''
   edam_operation:
+  - Image analysis
   - Image annotation
   - Data handling
   - Visualisation
-  - Image analysis
   edam_topic: []
   id: 8e28c3b252062b3b
   keep: true
@@ -1086,10 +1086,10 @@
   tools:
   - ip_binary_to_labelimage
   - ip_filter_standard
-  - ip_histogram_equalization
+  - ip_count_objects
   - ip_threshold
   - ip_overlay_images
-  - ip_count_objects
   - ip_convertimage
+  - ip_histogram_equalization
   update_time: '2025-04-25'
   versions: 1
