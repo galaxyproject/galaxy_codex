@@ -219,14 +219,16 @@ When the tests succeed a maintainer will merge the dev branch into main. Feel fr
 
 The reason we are not running the tests directly on the pull request branch is, that this does not allow to access the GitHub secrets, that are required to run the tests.
 
-# Run the unit tests locally
+### Run the unit tests locally
 
 ```
 cd codex/sources
 PYTHONPATH=bin python -m unittest discover -s bin/tests
 ```
 
-### Tools
+### Run functional tests locally
+
+#### Tools
 
 To make a test run of the tool to check its functionalities follow [Usage](#Usage) to set-up the environnement and the API key, then run
 
@@ -250,7 +252,7 @@ To make a test run of the tool to check its functionalities follow [Usage](#Usag
     $ bash sources/bin/format_tools.sh
     ```
 
-### Tutorials
+#### Tutorials
 
 1. Tutorial extraction
 
@@ -264,7 +266,7 @@ To make a test run of the tool to check its functionalities follow [Usage](#Usag
     $ bash sources/bin/get_community_tutorials.sh test
     ```
 
-### Workflows
+#### Workflows
 
 1. Workflow extraction
 
@@ -277,6 +279,21 @@ To make a test run of the tool to check its functionalities follow [Usage](#Usag
     ```bash
     $ bash sources/bin/get_community_workflows.sh test
     ```
+
+#### Citations
+
+1. Citation extraction
+
+    ```bash
+    $ bash sources/bin/extract_all_citations.sh test 
+    ```
+
+2. Citations filtering and curation
+
+    ```bash
+    $ bash sources/bin/get_community_citations.sh test
+    ```
+
 
 # Galaxy Labs framework
 
