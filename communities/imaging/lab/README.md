@@ -1,1 +1,1 @@
-# Community subdomain/Lab
+# Imaging subdomain/Lab

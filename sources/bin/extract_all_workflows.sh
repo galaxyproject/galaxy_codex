@@ -12,6 +12,4 @@ else
                 --all "communities/all/resources/workflows.json" \
                 --yml "communities/all/resources/workflows.yml" \
                 --tools "communities/all/resources/tools.json"
-
-        # ln -s "./../../communities/all/resources/workflows.yml" "./_data/workflows.yml"
 fi
