@@ -44,6 +44,11 @@ for com_data_fp in communities/* ; do
                                                 --stat-col "Suite runs (last 5 years) on main servers" \
                                                 --wordcloud_mask "sources/data/usage_stats/wordcloud_mask.png" \
                                                 --output "communities/$community/resources/tools_wordcloud.png"
+
+                                        python sources/bin/create_interactive_table.py \
+                                                --input "communities/$community/resources/curated_tools.tsv" \
+                                                --template "sources/data/interactive_table_template.html" \
+                                                --output "communities/$community/resources/tools.html"
                                 fi;
                         fi;
                 fi;
