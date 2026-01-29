@@ -1,0 +1,965 @@
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/searchbuilder/1.6.0/js/dataTables.searchBuilder.min.js"></script>
+<script src="https://cdn.datatables.net/datetime/1.5.1/js/dataTables.dateTime.min.js"></script>
+
+<script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/searchbuilder/1.6.0/css/searchBuilder.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/datetime/1.5.1/css/dataTables.dateTime.min.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+<style type="text/css">
+  .tooltip {
+    font-family: Georgia;
+    font-size: 18px;
+  }
+  .tooltip .tooltip-inner {
+    background-color: #00FFFF;
+    color: #000000;
+    min-width: 400px;
+  }
+  </style>
+
+<script>
+    $(document).ready(function() {
+    $('#dataframe').DataTable( {
+        "sScrollX": "100%",
+        "dom": "Qlfrtip",
+
+        responsive: {
+            details: {
+                type: 'column'
+            }
+        },
+        "bAutoWidth": false,
+        columnDefs: [ {
+            className: 'control',
+            orderable: false,
+            targets:   [ 0 ],
+            width: 100,
+        },
+        { type: 'natural', targets: 1 } // allow normal sorting
+        ],
+
+    });
+});
+</script>
+
+<div class="display nowrap" style="width:80%" width="100%">
+
+<table class="dataframe display nowrap" id="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Expand</th>
+      <th>Name</th>
+      <th>Source</th>
+      <th>ID</th>
+      <th>Link</th>
+      <th>Creators</th>
+      <th>Tags</th>
+      <th>Creation time</th>
+      <th>Update time</th>
+      <th>Latest version</th>
+      <th>Versions</th>
+      <th>Number of steps</th>
+      <th>Tools</th>
+      <th>EDAM operations</th>
+      <th>EDAM topics</th>
+      <th>License</th>
+      <th>DOI</th>
+      <th>Projects</th>
+      <th>To keep</th>
+      <th>Deprecated</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td></td>
+      <td>Calculating and visualizing OBIS marine biodiversity indicators</td>
+      <td>WorkflowHub</td>
+      <td>758</td>
+      <td>https://workflowhub.eu/workflows/758?version=1</td>
+      <td>Marie Josse</td>
+      <td>earth-system, ecology</td>
+      <td>2024-02-15</td>
+      <td>2025-11-06</td>
+      <td>1</td>
+      <td>1</td>
+      <td>3.0</td>
+      <td>obisindicators, csv_to_tabular, tp_cut_tool</td>
+      <td></td>
+      <td></td>
+      <td>CC-BY-SA-4.0</td>
+      <td></td>
+      <td>EuroScienceGateway</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Sentinel 5P volcanic data visualization</td>
+      <td>WorkflowHub</td>
+      <td>756</td>
+      <td>https://workflowhub.eu/workflows/756?version=1</td>
+      <td>Marie Jossé</td>
+      <td>climate</td>
+      <td>2024-02-15</td>
+      <td>2025-11-04</td>
+      <td>1</td>
+      <td>1</td>
+      <td>2.0</td>
+      <td>interactive_tool_copernicus_notebook, interactive_tool_panoply</td>
+      <td></td>
+      <td></td>
+      <td>CC-BY-4.0</td>
+      <td></td>
+      <td>EuroScienceGateway</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Ocean's variables 2.0</td>
+      <td>WorkflowHub</td>
+      <td>1182</td>
+      <td>https://workflowhub.eu/workflows/1182?version=1</td>
+      <td>Marie Jossé</td>
+      <td>earth-system, ocean</td>
+      <td>2024-10-18</td>
+      <td>2024-10-18</td>
+      <td>1</td>
+      <td>1</td>
+      <td>5.0</td>
+      <td>Interactively subset you data., Final step to visualize in different way a ocean variable like the phosphate., Create a climatology interactively with notebooks, Create a climatology (not interactively)</td>
+      <td></td>
+      <td></td>
+      <td>CC-BY-4.0</td>
+      <td></td>
+      <td>FAIR-EASE, usegalaxy-eu</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Full Analyse Argo data</td>
+      <td>WorkflowHub</td>
+      <td>1113</td>
+      <td>https://workflowhub.eu/workflows/1113?version=1</td>
+      <td>Marie Jossé</td>
+      <td>earth-system, ocean, pangeo</td>
+      <td>2024-09-02</td>
+      <td>2024-09-02</td>
+      <td>1</td>
+      <td>1</td>
+      <td>10.0</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>CC-BY-4.0</td>
+      <td></td>
+      <td>FAIR-EASE, usegalaxy-eu</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Marine Omics identifying biosynthetic gene clusters</td>
+      <td>WorkflowHub</td>
+      <td>1105</td>
+      <td>https://workflowhub.eu/workflows/1105?version=1</td>
+      <td>Marie Jossé</td>
+      <td>earth-system, ecology, marine omics, ocean</td>
+      <td>2024-08-21</td>
+      <td>2024-08-21</td>
+      <td>1</td>
+      <td>1</td>
+      <td>5.0</td>
+      <td>Create TSV file for Sanntis, Create the protein fasta file, Use of Sanntis, Remove useless * in the protein fasta file</td>
+      <td></td>
+      <td>Marine biology</td>
+      <td>CC-BY-4.0</td>
+      <td></td>
+      <td>FAIR-EASE, usegalaxy-eu</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Pangeo 101 for everyone - introduction to Xarray</td>
+      <td>WorkflowHub</td>
+      <td>252</td>
+      <td>https://workflowhub.eu/workflows/252?version=1</td>
+      <td></td>
+      <td>climate, gtn, copernicus, pangeo</td>
+      <td>2021-12-29</td>
+      <td>2023-01-16</td>
+      <td>1</td>
+      <td>1</td>
+      <td>40.0</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+      <td>Galaxy Climate</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Compute daily and monthly mean from meteorological station measurements</td>
+      <td>WorkflowHub</td>
+      <td>123</td>
+      <td>https://workflowhub.eu/workflows/123?version=1</td>
+      <td></td>
+      <td>climate, eosc-nordic, observation</td>
+      <td>2021-05-23</td>
+      <td>2023-01-16</td>
+      <td>1</td>
+      <td>1</td>
+      <td>12.0</td>
+      <td>\n barchart_gnuplot, \n csv_to_tabular, climate_stripes, datamash_ops, tp_awk_tool, collection_column_join, \n Filter1</td>
+      <td></td>
+      <td></td>
+      <td>GPL-3.0</td>
+      <td></td>
+      <td>Galaxy Climate</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Copernicus Essential Climate Variable - select and plot</td>
+      <td>WorkflowHub</td>
+      <td>46</td>
+      <td>https://workflowhub.eu/workflows/46?version=1</td>
+      <td></td>
+      <td>climate, galaxy, copernicus</td>
+      <td>2020-07-23</td>
+      <td>2023-01-16</td>
+      <td>1</td>
+      <td>1</td>
+      <td>7.0</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Apache-2.0</td>
+      <td></td>
+      <td>Galaxy Climate</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Xarray_Map_Plotting_Workflow</td>
+      <td>WorkflowHub</td>
+      <td>1652</td>
+      <td>https://workflowhub.eu/workflows/1652?version=1</td>
+      <td></td>
+      <td>climate, ecology, gtn, galaxy</td>
+      <td>2025-06-02</td>
+      <td>2025-06-02</td>
+      <td>1</td>
+      <td>1</td>
+      <td>7.0</td>
+      <td>xarray_coords_info, xarray_metadata_info, xarray_mapplot, cdo_operations</td>
+      <td></td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+      <td>Galaxy Training Network</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Retrieve climate data from Copernicus</td>
+      <td>WorkflowHub</td>
+      <td>1625</td>
+      <td>https://workflowhub.eu/workflows/1625?version=1</td>
+      <td></td>
+      <td>contributing, gtn, galaxy</td>
+      <td>2025-06-02</td>
+      <td>2025-06-02</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1.0</td>
+      <td>c3s</td>
+      <td></td>
+      <td></td>
+      <td>CC-BY-4.0</td>
+      <td></td>
+      <td>Galaxy Training Network</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Climate 101</td>
+      <td>WorkflowHub</td>
+      <td>1441</td>
+      <td>https://workflowhub.eu/workflows/1441?version=1</td>
+      <td></td>
+      <td>climate, gtn, galaxy</td>
+      <td>2025-06-02</td>
+      <td>2025-06-02</td>
+      <td>1</td>
+      <td>1</td>
+      <td>13.0</td>
+      <td>cds_essential_variability, Grep1, ggplot2_point, climate_stripes, tp_awk_tool, datamash_ops, psy_maps</td>
+      <td>Visualisation</td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+      <td>Galaxy Training Network</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>GTN 'Pangeo 101 for everyone - Xarray'</td>
+      <td>WorkflowHub</td>
+      <td>1432</td>
+      <td>https://workflowhub.eu/workflows/1432?version=1</td>
+      <td></td>
+      <td>climate, gtn, galaxy, copernicus, pangeo</td>
+      <td>2025-06-02</td>
+      <td>2025-06-09</td>
+      <td>1</td>
+      <td>1</td>
+      <td>40.0</td>
+      <td>xarray_coords_info, xarray_mapplot, regexColumn1, ggplot2_point, graphicsmagick_image_montage, __EXTRACT_DATASET__, climate_stripes, __MERGE_COLLECTION__, xarray_netcdf2netcdf, xarray_metadata_info, This step is used to extract time from all the coordinates.\n__EXTRACT_DATASET__, xarray_select</td>
+      <td>Visualisation</td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+      <td>Galaxy Training Network</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>CLM-FATES_ ALP1 simulation (5 years)</td>
+      <td>WorkflowHub</td>
+      <td>1427</td>
+      <td>https://workflowhub.eu/workflows/1427?version=1</td>
+      <td></td>
+      <td>climate, gtn, galaxy</td>
+      <td>2025-06-02</td>
+      <td>2025-06-02</td>
+      <td>1</td>
+      <td>1</td>
+      <td>6.0</td>
+      <td>ctsm_fates, ggplot2_point, __EXTRACT_DATASET__, tp_find_and_replace, xarray_metadata_info, xarray_select</td>
+      <td>Visualisation</td>
+      <td></td>
+      <td>Apache-2.0</td>
+      <td></td>
+      <td>Galaxy Training Network</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Pangeo Jupyter Notebook</td>
+      <td>WorkflowHub</td>
+      <td>1423</td>
+      <td>https://workflowhub.eu/workflows/1423?version=1</td>
+      <td></td>
+      <td>big-data, climate, gtn, galaxy, geosciences, pangeo</td>
+      <td>2025-06-02</td>
+      <td>2025-06-02</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1.0</td>
+      <td>interactive_tool_pangeo_notebook</td>
+      <td></td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+      <td>Galaxy Training Network</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Climate - Climate 101</td>
+      <td>WorkflowHub</td>
+      <td>42</td>
+      <td>https://workflowhub.eu/workflows/42?version=1</td>
+      <td>Anne Fouilloux</td>
+      <td>climate, gtn</td>
+      <td>2020-06-29</td>
+      <td>2023-01-16</td>
+      <td>1</td>
+      <td>1</td>
+      <td>13.0</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+      <td>Galaxy Training Network</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Marine Omics visualisation</td>
+      <td>WorkflowHub</td>
+      <td>1698</td>
+      <td>https://workflowhub.eu/workflows/1698?version=1</td>
+      <td>Marie Jossé, Yvan Le Bras</td>
+      <td>earth-system, gtn, galaxy, marineomics, ocean</td>
+      <td>2025-06-02</td>
+      <td>2025-11-04</td>
+      <td>1</td>
+      <td>1</td>
+      <td>3.0</td>
+      <td>obis_data, obisindicators, tp_cut_tool</td>
+      <td></td>
+      <td></td>
+      <td>CC-BY-4.0</td>
+      <td>10.48546/workflowhub.workflow.1698.1</td>
+      <td>Galaxy Training Network, EuroScienceGateway</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Marine Omics identifying biosynthetic gene clusters</td>
+      <td>WorkflowHub</td>
+      <td>1663</td>
+      <td>https://workflowhub.eu/workflows/1663?version=1</td>
+      <td>Marie Jossé</td>
+      <td>earth-system, gtn, galaxy, marineomics, ocean</td>
+      <td>2025-06-02</td>
+      <td>2025-07-28</td>
+      <td>1</td>
+      <td>1</td>
+      <td>5.0</td>
+      <td>prodigal, regex1, interproscan, sanntis_marine</td>
+      <td>Genome annotation, Protein feature detection, Sequence motif recognition</td>
+      <td></td>
+      <td>CC-BY-4.0</td>
+      <td>10.48546/workflowhub.workflow.1663.1</td>
+      <td>Galaxy Training Network, EuroScienceGateway</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Analyse Argo data</td>
+      <td>WorkflowHub</td>
+      <td>1436</td>
+      <td>https://workflowhub.eu/workflows/1436?version=1</td>
+      <td>Marie Jossé</td>
+      <td>earth-system, gtn, galaxy, ocean, pangeo</td>
+      <td>2025-06-02</td>
+      <td>2025-07-28</td>
+      <td>1</td>
+      <td>1</td>
+      <td>5.0</td>
+      <td>xarray_coords_info, timeseries_extraction, argo_getdata, xarray_metadata_info, interactive_tool_odv</td>
+      <td></td>
+      <td></td>
+      <td>CC-BY-4.0</td>
+      <td>10.48546/workflowhub.workflow.1436.1</td>
+      <td>Galaxy Training Network, EuroScienceGateway</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Ocean's variables 2.0</td>
+      <td>WorkflowHub</td>
+      <td>1445</td>
+      <td>https://workflowhub.eu/workflows/1445?version=1</td>
+      <td>Marie Jossé</td>
+      <td>earth-system, gtn, galaxy, ocean</td>
+      <td>2025-06-02</td>
+      <td>2025-07-28</td>
+      <td>1</td>
+      <td>1</td>
+      <td>5.0</td>
+      <td>Interactively subset you data.\ninteractive_tool_odv, Create a climatology interactively with notebooks\ninteractive_tool_divand, divand_full_analysis, Final step to visualize in different way a ocean variable like the phosphate.\ninteractive_tool_odv</td>
+      <td></td>
+      <td></td>
+      <td>CC-BY-4.0</td>
+      <td>10.48546/workflowhub.workflow.1445.1</td>
+      <td>Galaxy Training Network, EuroScienceGateway</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>NDVI with OpenEO</td>
+      <td>https://usegalaxy.eu</td>
+      <td>83cf176da95eb014</td>
+      <td>https://usegalaxy.eu/published/workflow?id=83cf176da95eb014</td>
+      <td>Marie Jossé</td>
+      <td>earth-system, ndvi, satellitedata, landdegradation</td>
+      <td>2023-12-31</td>
+      <td>2025-11-18</td>
+      <td>4</td>
+      <td>4</td>
+      <td></td>
+      <td>interactive_tool_copernicus_notebook, interactive_tool_holoviz</td>
+      <td></td>
+      <td></td>
+      <td>CC-BY-4.0</td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Sentinel5 volcanic data</td>
+      <td>https://usegalaxy.eu</td>
+      <td>7aaa281c8e79d864</td>
+      <td>https://usegalaxy.eu/published/workflow?id=7aaa281c8e79d864</td>
+      <td>Marie Jossé</td>
+      <td>earth-system, volcano, atmosphere</td>
+      <td>2024-01-24</td>
+      <td>2025-11-18</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>interactive_tool_copernicus_notebook, interactive_tool_panoply</td>
+      <td></td>
+      <td></td>
+      <td>CC-BY-4.0</td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Argo-Glider Nitrate QCV</td>
+      <td>https://usegalaxy.eu</td>
+      <td>44827462c065bae3</td>
+      <td>https://usegalaxy.eu/published/workflow?id=44827462c065bae3</td>
+      <td>Virginie Racapé</td>
+      <td>ocean, bgc, argo, earth-system</td>
+      <td>2025-06-12</td>
+      <td>2025-10-23</td>
+      <td>26</td>
+      <td>26</td>
+      <td></td>
+      <td>tool_odv_history, tool_biogeochemical_calibration, harmonize_insitu_to_netcdf, tool_odv, interactive_tool_odv</td>
+      <td></td>
+      <td></td>
+      <td>CC-BY-4.0</td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Ocean's variables 2.0</td>
+      <td>https://usegalaxy.eu</td>
+      <td>26fe6b0fb6ca2892</td>
+      <td>https://usegalaxy.eu/published/workflow?id=26fe6b0fb6ca2892</td>
+      <td>Marie Jossé</td>
+      <td>earth-system, ocean</td>
+      <td>2024-08-07</td>
+      <td>2025-09-12</td>
+      <td>19</td>
+      <td>19</td>
+      <td></td>
+      <td>divand_full_analysis, interactive_tool_odv, interactive_tool_divand</td>
+      <td></td>
+      <td></td>
+      <td>CC-BY-4.0</td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Ecoregionalization workflow (Part 1)</td>
+      <td>https://usegalaxy.eu</td>
+      <td>c5de0b794849e1b1</td>
+      <td>https://usegalaxy.eu/published/workflow?id=c5de0b794849e1b1</td>
+      <td>Seguineau Pauline</td>
+      <td>ecology, earth-system, ecology, name:ecology, name:occurencesdata</td>
+      <td>2024-11-05</td>
+      <td>2025-07-16</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>unzip, mergeCols1, ecoregion_cluster_estimate, interactive_tool_jupyter_notebook, regexColumn1, tp_cut_tool, filter_tabular, ecoregion_GeoNearestNeighbor, ecoregion_taxa_seeker, ecoregion_brt_analysis</td>
+      <td></td>
+      <td></td>
+      <td>CC-BY-4.0</td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Ecoregionalization workflow (Part 2)</td>
+      <td>https://usegalaxy.eu</td>
+      <td>b727b64f37238fff</td>
+      <td>https://usegalaxy.eu/published/workflow?id=b727b64f37238fff</td>
+      <td>Seguineau Pauline</td>
+      <td>name:ecology, ecology, earth-system, name:occurencesdata, ecology</td>
+      <td>2024-11-18</td>
+      <td>2025-07-16</td>
+      <td>2</td>
+      <td>2</td>
+      <td></td>
+      <td>ecoregion_eco_map, ecoregion_clara_cluster</td>
+      <td></td>
+      <td></td>
+      <td>CC-BY-4.0</td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>BioGeoChemical QCV</td>
+      <td>https://usegalaxy.eu</td>
+      <td>d3d9d1f173fd7bfe</td>
+      <td>https://usegalaxy.eu/published/workflow?id=d3d9d1f173fd7bfe</td>
+      <td></td>
+      <td>ocean, bgc, argo, earth-system</td>
+      <td>2025-06-10</td>
+      <td>2025-06-12</td>
+      <td>9</td>
+      <td>9</td>
+      <td></td>
+      <td>tool_odv_history, tool_biogeochemical_calibration, harmonize_insitu_to_netcdf, tool_odv, interactive_tool_odv</td>
+      <td></td>
+      <td></td>
+      <td>CC-BY-4.0</td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Marine Omics visualisation</td>
+      <td>https://usegalaxy.eu</td>
+      <td>4f51080ffe7d57e0</td>
+      <td>https://usegalaxy.eu/published/workflow?id=4f51080ffe7d57e0</td>
+      <td>Marie Jossé</td>
+      <td>ocean, marineomics, earth-system</td>
+      <td>2024-01-26</td>
+      <td>2024-10-18</td>
+      <td>8</td>
+      <td>8</td>
+      <td></td>
+      <td>obis_data, obisindicators, tp_cut_tool</td>
+      <td></td>
+      <td></td>
+      <td>CC-BY-4.0</td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Full Analyse Argo data</td>
+      <td>https://usegalaxy.eu</td>
+      <td>a80f9b926ba43892</td>
+      <td>https://usegalaxy.eu/published/workflow?id=a80f9b926ba43892</td>
+      <td>Marie Jossé</td>
+      <td>ocean, pangeo, earth-system</td>
+      <td>2024-03-29</td>
+      <td>2024-08-30</td>
+      <td>15</td>
+      <td>15</td>
+      <td></td>
+      <td>xarray_coords_info, timeseries_extraction, argo_getdata, xarray_metadata_info, interactive_tool_odv</td>
+      <td></td>
+      <td></td>
+      <td>CC-BY-4.0</td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Marine Omics identifying biosynthetic gene clusters</td>
+      <td>https://usegalaxy.eu</td>
+      <td>b9c938d1af08124b</td>
+      <td>https://usegalaxy.eu/published/workflow?id=b9c938d1af08124b</td>
+      <td>Marie Jossé</td>
+      <td>earth-system, ocean, marineomics</td>
+      <td>2024-08-09</td>
+      <td>2024-08-09</td>
+      <td>5</td>
+      <td>5</td>
+      <td></td>
+      <td>prodigal, regex1, interproscan, sanntis_marine</td>
+      <td>Genome annotation, Protein feature detection, Sequence motif recognition</td>
+      <td></td>
+      <td>CC-BY-4.0</td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Satellite data for biodiversity</td>
+      <td>https://usegalaxy.eu</td>
+      <td>1d2cd0af01a30a46</td>
+      <td>https://usegalaxy.eu/published/workflow?id=1d2cd0af01a30a46</td>
+      <td>Marie Josse</td>
+      <td>ecology, earth-system, satellite</td>
+      <td>2023-03-01</td>
+      <td>2024-05-27</td>
+      <td>5</td>
+      <td>5</td>
+      <td></td>
+      <td>srs_diversity_maps, srs_preprocess_s2, srs_global_indices, srs_spectral_indices</td>
+      <td></td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Analyse Argo data</td>
+      <td>https://usegalaxy.eu</td>
+      <td>fc33ea1679e5f1b7</td>
+      <td>https://usegalaxy.eu/published/workflow?id=fc33ea1679e5f1b7</td>
+      <td>Marie Jossé</td>
+      <td>ocean, pangeo, earth-system</td>
+      <td>2024-03-14</td>
+      <td>2024-03-27</td>
+      <td>8</td>
+      <td>8</td>
+      <td></td>
+      <td>xarray_coords_info, timeseries_extraction, argo_getdata, xarray_metadata_info, interactive_tool_odv</td>
+      <td></td>
+      <td></td>
+      <td>CC-BY-4.0</td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Ocean's variables</td>
+      <td>https://usegalaxy.eu</td>
+      <td>8c868b087ef78bf9</td>
+      <td>https://usegalaxy.eu/published/workflow?id=8c868b087ef78bf9</td>
+      <td>Marie Jossé</td>
+      <td>earth-system, ocean</td>
+      <td>2024-01-31</td>
+      <td>2024-03-25</td>
+      <td>2</td>
+      <td>2</td>
+      <td></td>
+      <td>interactive_tool_odv, interactive_tool_divand</td>
+      <td></td>
+      <td></td>
+      <td>CC-BY-4.0</td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Xarray_Map_Plotting_Workflow</td>
+      <td>https://usegalaxy.eu</td>
+      <td>d94460f342b70eb3</td>
+      <td>https://usegalaxy.eu/published/workflow?id=d94460f342b70eb3</td>
+      <td>Soumya Jha</td>
+      <td>ecology, climate</td>
+      <td>2022-06-07</td>
+      <td>2022-06-07</td>
+      <td>3</td>
+      <td>3</td>
+      <td></td>
+      <td>xarray_coords_info, xarray_metadata_info, xarray_mapplot, cdo_operations</td>
+      <td></td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Plotting of Geographical Map using climate Data</td>
+      <td>https://usegalaxy.eu</td>
+      <td>b4bfcbf8acee9cc3</td>
+      <td>https://usegalaxy.eu/published/workflow?id=b4bfcbf8acee9cc3</td>
+      <td></td>
+      <td></td>
+      <td>2022-04-15</td>
+      <td>2022-04-20</td>
+      <td>4</td>
+      <td>4</td>
+      <td></td>
+      <td>xarray_mapplot, cdo_operations, xarray_coords_info, graphicsmagick_image_montage, xarray_netcdf2netcdf, xarray_metadata_info, xarray_select</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>GTN 'Pangeo 101 for everyone - Xarray'</td>
+      <td>https://usegalaxy.eu</td>
+      <td>0c6dd9e75d9a2130</td>
+      <td>https://usegalaxy.eu/published/workflow?id=0c6dd9e75d9a2130</td>
+      <td>Anne Fouilloux</td>
+      <td>pangeo, climate, copernicus, gtn</td>
+      <td>2021-12-28</td>
+      <td>2021-12-28</td>
+      <td>83</td>
+      <td>83</td>
+      <td></td>
+      <td>xarray_coords_info, xarray_mapplot, regexColumn1, ggplot2_point, graphicsmagick_image_montage, __EXTRACT_DATASET__, climate_stripes, __MERGE_COLLECTION__, xarray_netcdf2netcdf, xarray_metadata_info, xarray_select</td>
+      <td>Visualisation</td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Pangeo Jupyter Notebook</td>
+      <td>https://usegalaxy.eu</td>
+      <td>b2a26b300b596ff3</td>
+      <td>https://usegalaxy.eu/published/workflow?id=b2a26b300b596ff3</td>
+      <td>Anne Fouilloux</td>
+      <td>pangeo, climate, big-data, geosciences</td>
+      <td>2021-12-22</td>
+      <td>2021-12-23</td>
+      <td>10</td>
+      <td>10</td>
+      <td></td>
+      <td>interactive_tool_pangeo_notebook</td>
+      <td></td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>CLM-FATES_ ALP1 simulation (5 years)</td>
+      <td>https://usegalaxy.eu</td>
+      <td>7b50e72deb46c6e8</td>
+      <td>https://usegalaxy.eu/published/workflow?id=7b50e72deb46c6e8</td>
+      <td></td>
+      <td>climate, fates</td>
+      <td>2020-10-27</td>
+      <td>2021-06-15</td>
+      <td>5</td>
+      <td>5</td>
+      <td></td>
+      <td>ctsm_fates, ggplot2_point, __EXTRACT_DATASET__, tp_find_and_replace, xarray_metadata_info, xarray_select</td>
+      <td>Visualisation</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Workflow for Climate tutorial</td>
+      <td>https://usegalaxy.eu</td>
+      <td>b610849d70c1e225</td>
+      <td>https://usegalaxy.eu/published/workflow?id=b610849d70c1e225</td>
+      <td></td>
+      <td>climate</td>
+      <td>2021-06-11</td>
+      <td>2021-06-11</td>
+      <td>2</td>
+      <td>2</td>
+      <td></td>
+      <td>c3s</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Retrieve climate data from Copernicus</td>
+      <td>https://usegalaxy.eu</td>
+      <td>ac5b66c42681e7a8</td>
+      <td>https://usegalaxy.eu/published/workflow?id=ac5b66c42681e7a8</td>
+      <td></td>
+      <td>climate</td>
+      <td>2021-06-11</td>
+      <td>2021-06-11</td>
+      <td>2</td>
+      <td>2</td>
+      <td></td>
+      <td>c3s</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Workflow constructed from history 'climate 101'</td>
+      <td>https://usegalaxy.eu</td>
+      <td>392a5d91ac221104</td>
+      <td>https://usegalaxy.eu/published/workflow?id=392a5d91ac221104</td>
+      <td></td>
+      <td></td>
+      <td>2020-04-30</td>
+      <td>2020-04-30</td>
+      <td>0</td>
+      <td>0</td>
+      <td></td>
+      <td>cds_essential_variability, Grep1, ggplot2_point, climate_stripes, tp_awk_tool, datamash_ops, psy_maps</td>
+      <td>Visualisation</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+  </tbody>
+</table>
+
+</div>

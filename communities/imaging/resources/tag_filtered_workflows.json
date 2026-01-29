@@ -73,22 +73,22 @@
             "imageanaylsis"
         ],
         "tools": [
-            "repeat_channels",
-            "astropy_fits2bitmap",
-            "ip_binary_to_labelimage",
-            "__EXTRACT_DATASET__",
-            "ip_filter_standard",
-            "ip_2d_feature_extraction",
-            "image_math",
-            "ip_histogram_equalization",
-            "ip_count_objects",
-            "colorize_labels",
-            "ip_threshold",
-            "desi_legacy_survey_astro_tool",
-            "voronoi_tessellation",
             "ip_overlay_images",
+            "repeat_channels",
+            "ip_split_image",
+            "ip_binary_to_labelimage",
+            "image_math",
+            "ip_2d_feature_extraction",
+            "ip_threshold",
+            "__EXTRACT_DATASET__",
+            "desi_legacy_survey_astro_tool",
             "ip_convertimage",
-            "ip_split_image"
+            "ip_histogram_equalization",
+            "astropy_fits2bitmap",
+            "colorize_labels",
+            "ip_filter_standard",
+            "ip_count_objects",
+            "voronoi_tessellation"
         ],
         "update_time": "2025-07-11",
         "versions": 1
@@ -153,13 +153,13 @@
             "imaging"
         ],
         "tools": [
+            "ip_overlay_images",
             "ip_binary_to_labelimage",
-            "ip_filter_standard",
-            "ip_count_objects",
             "ip_imageinfo",
             "ip_threshold",
-            "ip_overlay_images",
-            "ip_histogram_equalization"
+            "ip_histogram_equalization",
+            "ip_filter_standard",
+            "ip_count_objects"
         ],
         "update_time": "2025-06-02",
         "versions": 1
@@ -196,12 +196,12 @@
             "bioimaging"
         ],
         "tools": [
-            "ip_spot_detection_2d",
-            "ip_points_to_label",
-            "idr_download_by_ids",
-            "unzip",
             "ip_overlay_images",
-            "ip_histogram_equalization"
+            "ip_points_to_label",
+            "unzip",
+            "ip_histogram_equalization",
+            "ip_spot_detection_2d",
+            "idr_download_by_ids"
         ],
         "update_time": "2025-06-02",
         "versions": 1
@@ -232,13 +232,13 @@
             "imaging"
         ],
         "tools": [
-            "ip_binary_to_labelimage",
-            "__EXTRACT_DATASET__",
-            "image_math",
-            "bioimage_inference",
-            "ip_threshold",
             "ip_overlay_images",
-            "ip_split_image"
+            "ip_split_image",
+            "ip_binary_to_labelimage",
+            "bioimage_inference",
+            "image_math",
+            "ip_threshold",
+            "__EXTRACT_DATASET__"
         ],
         "update_time": "2025-06-02",
         "versions": 1
@@ -274,17 +274,17 @@
             "imageanaylsis"
         ],
         "tools": [
+            "ip_overlay_images",
             "repeat_channels",
             "ip_binary_to_labelimage",
-            "ip_filter_standard",
             "ip_2d_feature_extraction",
             "image_math",
-            "ip_count_objects",
-            "colorize_labels",
             "ip_threshold",
-            "voronoi_tessellation",
-            "ip_overlay_images",
-            "ip_convertimage"
+            "ip_convertimage",
+            "colorize_labels",
+            "ip_filter_standard",
+            "ip_count_objects",
+            "voronoi_tessellation"
         ],
         "update_time": "2025-06-02",
         "versions": 1
@@ -319,12 +319,12 @@
         ],
         "tools": [
             "tp_split_on_column",
-            "ip_filter_standard",
-            "param_value_from_file",
-            "ip_segmetrics",
             "ip_threshold",
+            "ip_histogram_equalization",
+            "param_value_from_file",
             "collapse_dataset",
-            "ip_histogram_equalization"
+            "ip_filter_standard",
+            "ip_segmetrics"
         ],
         "update_time": "2025-06-02",
         "versions": 1
@@ -353,16 +353,16 @@
             "imaging"
         ],
         "tools": [
-            "vitessce_spatial",
-            "ashlar",
             "unet_coreograph",
-            "scimap_mcmicro_to_anndata",
-            "scimap_phenotyping",
             "mesmer",
-            "rename_tiff_channels",
-            "basic_illumination",
+            "scimap_mcmicro_to_anndata",
             "quantification",
-            "ip_convertimage"
+            "vitessce_spatial",
+            "basic_illumination",
+            "ip_convertimage",
+            "ashlar",
+            "rename_tiff_channels",
+            "scimap_phenotyping"
         ],
         "update_time": "2025-06-02",
         "versions": 1
@@ -428,9 +428,9 @@
         "tools": [
             "ip_binary_to_labelimage",
             "ip_2d_feature_extraction",
-            "ip_filter_standard",
             "ip_threshold",
-            "ip_2d_filter_segmentation_by_features"
+            "ip_2d_filter_segmentation_by_features",
+            "ip_filter_standard"
         ],
         "update_time": "2025-06-02",
         "versions": 1
@@ -441,9 +441,9 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Parsing",
             "Image analysis",
-            "Quantification"
+            "Quantification",
+            "Parsing"
         ],
         "edam_topic": [],
         "id": "1505",
@@ -464,26 +464,26 @@
             "imaging"
         ],
         "tools": [
-            "cp_enhance_or_suppress_features",
-            "cp_mask_image",
-            "cp_display_data_on_image",
             "cp_convert_objects_to_image",
-            "cp_measure_image_area_occupied",
-            "cp_cellprofiler",
-            "idr_download_by_ids",
-            "cp_measure_texture",
-            "cp_relate_objects",
-            "cp_identify_primary_objects",
+            "cp_display_data_on_image",
             "cp_common",
-            "cp_gray_to_color",
+            "idr_download_by_ids",
+            "cp_enhance_or_suppress_features",
             "cp_image_math",
-            "cp_measure_image_intensity",
+            "cp_identify_primary_objects",
+            "cp_mask_image",
+            "cp_relate_objects",
             "cp_measure_object_intensity",
-            "cp_measure_object_size_shape",
-            "cp_measure_granularity",
-            "cp_export_to_spreadsheet",
             "cp_save_images",
-            "cp_measure_image_quality"
+            "cp_gray_to_color",
+            "cp_export_to_spreadsheet",
+            "cp_cellprofiler",
+            "cp_measure_object_size_shape",
+            "cp_measure_texture",
+            "cp_measure_granularity",
+            "cp_measure_image_quality",
+            "cp_measure_image_intensity",
+            "cp_measure_image_area_occupied"
         ],
         "update_time": "2025-06-02",
         "versions": 1
@@ -494,9 +494,9 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Parsing",
             "Image analysis",
-            "Quantification"
+            "Quantification",
+            "Parsing"
         ],
         "edam_topic": [],
         "id": "1503",
@@ -518,17 +518,17 @@
         ],
         "tools": [
             "cp_identify_primary_objects",
+            "cp_measure_object_intensity",
+            "unzip",
+            "cp_save_images",
+            "cp_overlay_outlines",
+            "cp_cellprofiler",
+            "cp_color_to_gray",
+            "cp_export_to_spreadsheet",
             "cp_common",
             "cp_tile",
             "cp_track_objects",
-            "cp_measure_object_intensity",
-            "cp_measure_object_size_shape",
-            "cp_color_to_gray",
-            "cp_export_to_spreadsheet",
-            "cp_cellprofiler",
-            "unzip",
-            "cp_save_images",
-            "cp_overlay_outlines"
+            "cp_measure_object_size_shape"
         ],
         "update_time": "2025-06-02",
         "versions": 1
@@ -571,24 +571,24 @@
             "imaging"
         ],
         "tools": [
-            "omero_filter",
-            "tp_replace_in_column",
+            "tp_find_and_replace",
             "ip_binary_to_labelimage",
-            "ip_filter_standard",
-            "split_file_to_collection",
             "ip_2d_feature_extraction",
+            "ip_threshold",
+            "imagej2_analyze_particles_binary",
+            "ip_convertimage",
+            "Convert characters1",
+            "split_file_to_collection",
             "ip_histogram_equalization",
             "param_value_from_file",
-            "collection_element_identifiers",
-            "imagej2_analyze_particles_binary",
-            "omero_metadata_import",
-            "tp_find_and_replace",
-            "ip_threshold",
-            "Convert characters1",
-            "omero_roi_import",
-            "ip_convertimage",
+            "omero_import",
+            "tp_replace_in_column",
+            "ip_filter_standard",
             "tp_awk_tool",
-            "omero_import"
+            "omero_filter",
+            "omero_metadata_import",
+            "omero_roi_import",
+            "collection_element_identifiers"
         ],
         "update_time": "2025-03-03",
         "versions": 1
@@ -626,13 +626,13 @@
             "imaging"
         ],
         "tools": [
+            "Convert characters1",
             "split_file_to_collection",
             "param_value_from_file",
+            "omero_import",
             "tp_replace_in_line",
             "omero_metadata_import",
-            "Convert characters1",
-            "omero_roi_import",
-            "omero_import"
+            "omero_roi_import"
         ],
         "update_time": "2025-03-03",
         "versions": 1
@@ -643,9 +643,9 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Parsing",
             "Image analysis",
-            "Quantification"
+            "Quantification",
+            "Parsing"
         ],
         "edam_topic": [
             "Bioimaging",
@@ -671,26 +671,26 @@
             "imaging"
         ],
         "tools": [
-            "cp_enhance_or_suppress_features",
-            "cp_mask_image",
-            "cp_display_data_on_image",
             "cp_convert_objects_to_image",
-            "cp_measure_image_area_occupied",
-            "cp_cellprofiler",
-            "idr_download_by_ids",
-            "cp_measure_texture",
-            "cp_relate_objects",
-            "cp_identify_primary_objects",
+            "cp_display_data_on_image",
             "cp_common",
-            "cp_gray_to_color",
+            "idr_download_by_ids",
+            "cp_enhance_or_suppress_features",
             "cp_image_math",
-            "cp_measure_image_intensity",
+            "cp_identify_primary_objects",
+            "cp_mask_image",
+            "cp_relate_objects",
             "cp_measure_object_intensity",
-            "cp_measure_object_size_shape",
-            "cp_measure_granularity",
-            "cp_export_to_spreadsheet",
             "cp_save_images",
-            "cp_measure_image_quality"
+            "cp_gray_to_color",
+            "cp_export_to_spreadsheet",
+            "cp_cellprofiler",
+            "cp_measure_object_size_shape",
+            "cp_measure_texture",
+            "cp_measure_granularity",
+            "cp_measure_image_quality",
+            "cp_measure_image_intensity",
+            "cp_measure_image_area_occupied"
         ],
         "update_time": "2023-07-03",
         "versions": 1
@@ -701,9 +701,9 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Parsing",
             "Image analysis",
-            "Quantification"
+            "Quantification",
+            "Parsing"
         ],
         "edam_topic": [
             "Bioimaging",
@@ -729,17 +729,17 @@
         ],
         "tools": [
             "cp_identify_primary_objects",
+            "cp_measure_object_intensity",
+            "unzip",
+            "cp_save_images",
+            "cp_overlay_outlines",
+            "cp_cellprofiler",
+            "cp_color_to_gray",
+            "cp_export_to_spreadsheet",
             "cp_common",
             "cp_tile",
             "cp_track_objects",
-            "cp_measure_object_intensity",
-            "cp_measure_object_size_shape",
-            "cp_color_to_gray",
-            "cp_export_to_spreadsheet",
-            "cp_cellprofiler",
-            "unzip",
-            "cp_save_images",
-            "cp_overlay_outlines"
+            "cp_measure_object_size_shape"
         ],
         "update_time": "2023-07-03",
         "versions": 1
@@ -755,9 +755,9 @@
         "doi": "",
         "edam_operation": [
             "Data handling",
-            "Image annotation",
+            "Visualisation",
             "Image analysis",
-            "Visualisation"
+            "Image annotation"
         ],
         "edam_topic": [],
         "id": "751e3e2c338949c0",
@@ -775,10 +775,10 @@
         ],
         "tools": [
             "interactive_tool_anylabeling",
-            "graphicsmagick_image_convert",
-            "yolo_training",
             "json2yolosegment",
-            "ip_histogram_equalization"
+            "ip_histogram_equalization",
+            "graphicsmagick_image_convert",
+            "yolo_training"
         ],
         "update_time": "2025-08-27",
         "versions": 28
@@ -807,11 +807,11 @@
             "voronoi"
         ],
         "tools": [
-            "__EXTRACT_DATASET__",
-            "ip_filter_standard",
-            "graphicsmagick_image_convert",
+            "ip_split_image",
             "ip_threshold",
-            "ip_split_image"
+            "__EXTRACT_DATASET__",
+            "graphicsmagick_image_convert",
+            "ip_filter_standard"
         ],
         "update_time": "2025-07-25",
         "versions": 6
@@ -847,22 +847,22 @@
             "astronomy"
         ],
         "tools": [
-            "repeat_channels",
-            "astropy_fits2bitmap",
-            "ip_binary_to_labelimage",
-            "__EXTRACT_DATASET__",
-            "ip_filter_standard",
-            "ip_2d_feature_extraction",
-            "image_math",
-            "ip_histogram_equalization",
-            "ip_count_objects",
-            "colorize_labels",
-            "ip_threshold",
-            "desi_legacy_survey_astro_tool",
-            "voronoi_tessellation",
             "ip_overlay_images",
+            "repeat_channels",
+            "ip_split_image",
+            "ip_binary_to_labelimage",
+            "image_math",
+            "ip_2d_feature_extraction",
+            "ip_threshold",
+            "__EXTRACT_DATASET__",
+            "desi_legacy_survey_astro_tool",
             "ip_convertimage",
-            "ip_split_image"
+            "ip_histogram_equalization",
+            "astropy_fits2bitmap",
+            "colorize_labels",
+            "ip_filter_standard",
+            "ip_count_objects",
+            "voronoi_tessellation"
         ],
         "update_time": "2025-06-11",
         "versions": 14
@@ -892,13 +892,13 @@
         "source": "https://usegalaxy.eu",
         "tags": [],
         "tools": [
-            "ip_binary_to_labelimage",
-            "ip_filter_standard",
-            "ip_count_objects",
-            "ip_threshold",
             "ip_overlay_images",
+            "ip_binary_to_labelimage",
+            "ip_threshold",
             "ip_convertimage",
-            "ip_histogram_equalization"
+            "ip_histogram_equalization",
+            "ip_filter_standard",
+            "ip_count_objects"
         ],
         "update_time": "2025-04-25",
         "versions": 1
@@ -928,13 +928,13 @@
         "source": "https://usegalaxy.eu",
         "tags": [],
         "tools": [
-            "ip_binary_to_labelimage",
-            "ip_filter_standard",
-            "ip_count_objects",
-            "ip_threshold",
             "ip_overlay_images",
+            "ip_binary_to_labelimage",
+            "ip_threshold",
             "ip_convertimage",
-            "ip_histogram_equalization"
+            "ip_histogram_equalization",
+            "ip_filter_standard",
+            "ip_count_objects"
         ],
         "update_time": "2025-04-25",
         "versions": 1
@@ -969,17 +969,17 @@
             "voronoi"
         ],
         "tools": [
+            "ip_overlay_images",
             "repeat_channels",
             "ip_binary_to_labelimage",
-            "ip_filter_standard",
             "ip_2d_feature_extraction",
             "image_math",
-            "ip_count_objects",
-            "colorize_labels",
             "ip_threshold",
-            "voronoi_tessellation",
-            "ip_overlay_images",
-            "ip_convertimage"
+            "ip_convertimage",
+            "colorize_labels",
+            "ip_filter_standard",
+            "ip_count_objects",
+            "voronoi_tessellation"
         ],
         "update_time": "2025-04-25",
         "versions": 14
@@ -1013,15 +1013,15 @@
             "nfdi4bioimage"
         ],
         "tools": [
+            "ip_overlay_images",
             "ip_binary_to_labelimage",
-            "ip_filter_standard",
             "ip_2d_feature_extraction",
-            "ip_count_objects",
             "ip_threshold",
             "ip_2d_filter_segmentation_by_features",
-            "ip_overlay_images",
             "ip_convertimage",
-            "ip_histogram_equalization"
+            "ip_histogram_equalization",
+            "ip_filter_standard",
+            "ip_count_objects"
         ],
         "update_time": "2025-03-07",
         "versions": 19
@@ -1053,13 +1053,13 @@
             "imageanaylsis"
         ],
         "tools": [
-            "ip_binary_to_labelimage",
-            "__EXTRACT_DATASET__",
-            "ip_filter_standard",
-            "idr_download_by_ids",
-            "ip_threshold",
             "ip_overlay_images",
-            "ip_histogram_equalization"
+            "ip_binary_to_labelimage",
+            "ip_threshold",
+            "__EXTRACT_DATASET__",
+            "ip_histogram_equalization",
+            "idr_download_by_ids",
+            "ip_filter_standard"
         ],
         "update_time": "2024-09-13",
         "versions": 19
@@ -1086,16 +1086,16 @@
             "massspectrometryimaging"
         ],
         "tools": [
-            "imagecoordinates_flipaxis",
-            "ip_scale_image",
-            "ip_landmark_registration",
             "addName",
+            "ip_viz_overlay_moving_and_fixed_image",
             "ip_coordinates_of_roi",
-            "tp_cat",
-            "graphicsmagick_image_convert",
-            "Remove beginning1",
+            "imagecoordinates_flipaxis",
             "ip_projective_transformation_points",
-            "ip_viz_overlay_moving_and_fixed_image"
+            "Remove beginning1",
+            "ip_landmark_registration",
+            "graphicsmagick_image_convert",
+            "tp_cat",
+            "ip_scale_image"
         ],
         "update_time": "2020-06-22",
         "versions": 11
@@ -1120,10 +1120,10 @@
             "massspectrometryimaging"
         ],
         "tools": [
-            "tp_replace_in_line",
-            "Remove beginning1",
+            "tp_split_on_column",
             "Cut1",
-            "tp_split_on_column"
+            "tp_replace_in_line",
+            "Remove beginning1"
         ],
         "update_time": "2019-04-11",
         "versions": 14
@@ -1148,12 +1148,12 @@
             "massspectrometryimaging"
         ],
         "tools": [
+            "addName",
             "Cut1",
             "tp_split_on_column",
-            "addName",
-            "__RELABEL_FROM_FILE__",
-            "tp_cat",
             "tp_replace_in_line",
+            "tp_cat",
+            "__RELABEL_FROM_FILE__",
             "xpath"
         ],
         "update_time": "2019-04-11",
@@ -1184,13 +1184,13 @@
         "source": "https://usegalaxy.org",
         "tags": [],
         "tools": [
-            "ip_binary_to_labelimage",
-            "ip_filter_standard",
-            "ip_count_objects",
-            "ip_threshold",
             "ip_overlay_images",
+            "ip_binary_to_labelimage",
+            "ip_threshold",
             "ip_convertimage",
-            "ip_histogram_equalization"
+            "ip_histogram_equalization",
+            "ip_filter_standard",
+            "ip_count_objects"
         ],
         "update_time": "2025-04-25",
         "versions": 1
@@ -1220,13 +1220,13 @@
         "source": "https://usegalaxy.org",
         "tags": [],
         "tools": [
-            "ip_binary_to_labelimage",
-            "ip_filter_standard",
-            "ip_count_objects",
-            "ip_threshold",
             "ip_overlay_images",
+            "ip_binary_to_labelimage",
+            "ip_threshold",
             "ip_convertimage",
-            "ip_histogram_equalization"
+            "ip_histogram_equalization",
+            "ip_filter_standard",
+            "ip_count_objects"
         ],
         "update_time": "2025-04-25",
         "versions": 1
@@ -1256,13 +1256,13 @@
         "source": "https://usegalaxy.org.au",
         "tags": [],
         "tools": [
-            "ip_binary_to_labelimage",
-            "ip_filter_standard",
-            "ip_count_objects",
-            "ip_threshold",
             "ip_overlay_images",
+            "ip_binary_to_labelimage",
+            "ip_threshold",
             "ip_convertimage",
-            "ip_histogram_equalization"
+            "ip_histogram_equalization",
+            "ip_filter_standard",
+            "ip_count_objects"
         ],
         "update_time": "2025-04-25",
         "versions": 1

@@ -32,6 +32,13 @@ for com_data_fp in communities/* ; do
                                         mkdir -p _data/communities/$community/
                                         ln -sf ../../../communities/$community/resources/curated_workflows.yml _data/communities/$community/curated_workflows.yml
                                 fi;
+
+                                if [[ -e "communities/$community/resources/curated_workflows.tsv" ]]; then                        
+                                        python sources/bin/create_interactive_table.py \
+                                                --input "communities/$community/resources/curated_workflows.tsv" \
+                                                --template "sources/data/interactive_table_template.html" \
+                                                --output "communities/$community/resources/workflows.html"
+                                fi;
                         fi;
                 fi;
         fi;
