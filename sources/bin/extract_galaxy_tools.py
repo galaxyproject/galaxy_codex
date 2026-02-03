@@ -205,6 +205,26 @@ def get_shed_attribute(attrib: str, shed_content: Dict[str, Any], empty_value: A
     else:
         return empty_value
 
+def get_tool_outputs(el: et.Element) -> Optional[str]:
+    """
+    Simple logic to find tool outputs. Only uses the output defined in format of the outputs xml.
+    Not implemented: Outputs that use format from input. Could be done but requires macro extension.
+    Returns list of formats.
+    
+    :param el: Element object
+    """
+
+    outputs = el.find("outputs")
+
+    formats = []
+
+    if outputs is not None:
+        outputs_items = outputs.findall("data")  
+        for output in outputs_items:
+            format = output.attrib.get("format")
+            if format:
+                formats.append(format)
+    return formats
 
 def get_xref(el: et.Element, attrib_type: str) -> Optional[str]:
     """
@@ -295,6 +315,7 @@ def get_tool_metadata(tool: ContentFile, repo: Repository) -> Optional[Dict[str,
     metadata: dict = {
         "Suite ID": None,
         "Tool IDs": [],
+        "Tool output formats": [],
         "Description": None,
         "Suite first commit date": None,
         "Homepage": None,
@@ -408,9 +429,17 @@ def get_tool_metadata(tool: ContentFile, repo: Repository) -> Optional[Dict[str,
                     reqs = get_conda_package(root)
                     if reqs is not None:
                         metadata["Suite conda package"] = reqs
+
                 # tool ids
                 if "id" in root.attrib:
                     metadata["Tool IDs"].append(root.attrib["id"])
+                
+                # tool outputs
+                formats = get_tool_outputs(root)
+                for f in formats:
+                    if f not in metadata["Tool output formats"]:
+                        metadata["Tool output formats"].append(f)
+
 
     metadata = get_suite_ID_fallback(metadata, tool)
 
