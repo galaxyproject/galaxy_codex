@@ -37,11 +37,18 @@ Any Galaxy community can be added to this project and benefit from the dedicated
 
 ## Using conda
 
-[Install conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html)
+- [Install conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html)
+- Create a conda environment with requirements
+ 
+   ```sh
+   $ conda create --name codex --file requirements.txt
+   ```
 
-```
-conda create --name codex --file requirements.txt
-```
+- Activate the conda environment
+
+   ```sh
+   $ conda activate codex
+   ```
 
 # Extract Galaxy Tool Suites
 
