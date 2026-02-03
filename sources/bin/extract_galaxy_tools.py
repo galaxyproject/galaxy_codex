@@ -612,7 +612,7 @@ def export_tools_to_tsv(
 
             # the Galaxy tools need to be formatted for the add_instances_to_table to work
             df["Tool IDs"] = shared.format_list_column(df["Tool IDs"])
-
+            df["Tool output formats"] = shared.format_list_column(df["Tool output formats"])
         if to_keep_columns is not None:
             df = df[to_keep_columns]
     else:  # Create a DataFrame with the specified headers and save it
