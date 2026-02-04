@@ -206,9 +206,10 @@ def get_shed_attribute(attrib: str, shed_content: Dict[str, Any], empty_value: A
         return empty_value
 
 
-def get_tool_outputs(el: et.Element) -> Optional[str]:
+def get_tool_outputs(el: et.Element) -> list[str]:
     """
-    Simple logic to find tool outputs. Only uses the output defined in format of the outputs xml.
+    Find tool outputs by format from the outputs XML.
+    Only uses the output defined in format of the outputs xml.
     Not implemented: Outputs that use format from input. Could be done but requires macro extension.
     Returns list of formats.
 
@@ -217,14 +218,15 @@ def get_tool_outputs(el: et.Element) -> Optional[str]:
 
     outputs = el.find("outputs")
 
-    formats = []
+    formats: list[str] = []
 
+    outputs = el.find("outputs")
     if outputs is not None:
-        outputs_items = outputs.findall("data")
-        for output in outputs_items:
-            format = output.attrib.get("format")
-            if format:
-                formats.append(format)
+        for output in outputs.findall("data"):
+            fmt = output.attrib.get("format")
+            if fmt:
+                formats.append(fmt)
+
     return formats
 
 
