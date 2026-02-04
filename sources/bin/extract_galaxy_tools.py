@@ -1020,7 +1020,7 @@ def extract_missing_tools_per_servers(tool_fp: str) -> dict:
     tools = pd.read_csv(tool_fp, sep="\t").fillna("")
 
     # Add a new column with all zeros, this will create a Local_Galaxy.yml that has all tools of the Lab
-    tools["Number of tools on Local_Galaxy"] = 0    
+    tools["Number of tools on Local_Galaxy"] = 0
 
     servers = [col.replace("Number of tools on ", "") for col in tools.filter(regex="Number of tools on").columns]
     missing_tools: dict[str, dict] = {}
