@@ -2,6 +2,7 @@ import json
 import os
 import tempfile
 import unittest
+import xml.etree.ElementTree as et
 from typing import (
     Any,
     Dict,
@@ -25,13 +26,12 @@ from extract_galaxy_tools import (
     get_last_url_position,
     get_suite_ID_fallback,
     get_tool_github_repositories,
-    get_tool_stats_from_stats_file,
     get_tool_outputs,
+    get_tool_stats_from_stats_file,
     STATS_SUM,
 )
 from github import Github
 from requests import HTTPError
-import xml.etree.ElementTree as et
 
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
 TEST_DIR = os.path.join(SCRIPT_DIR, "test-data")
