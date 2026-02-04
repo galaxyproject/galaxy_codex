@@ -41,6 +41,7 @@ TEST_TOOL_PATH = os.path.join(TEST_DIR, "test_tools.json")
 TEST_WORKFLOW_PATH = os.path.join(TEST_DIR, "test_workflows.json")
 TEST_WRAPPER_XML = os.path.join(TEST_DIR, "fastp.xml")
 
+
 class TestGetToolOutputs(unittest.TestCase):
 
     def setUp(self) -> None:
@@ -50,7 +51,8 @@ class TestGetToolOutputs(unittest.TestCase):
 
     def test_get_tool_outputs(self) -> None:
         formats = get_tool_outputs(self.tool_xml)
-        self.assertEqual(sorted(formats), ['html', 'json'])
+        self.assertEqual(sorted(formats), ["html", "json"])
+
 
 class TestGetToolStatsFromStatsFile(unittest.TestCase):
 
