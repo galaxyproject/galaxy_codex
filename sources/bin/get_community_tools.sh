@@ -35,6 +35,13 @@ for com_data_fp in communities/* ; do
                                 if [[ -e "communities/$community/resources/curated_tools.yml" ]]; then
                                         mkdir -p _data/communities/$community/
                                         ln -sf ../../../communities/$community/resources/curated_tools.yml _data/communities/$community/curated_tools.yml
+                                        #For pages - Can't copy from template, need to copy from existing md file
+                                        cp pages/biodiversity_tools.md pages/${community}_tools.md
+                                        sed -i -e "s/biodiversity/${community}/g" pages/${community}_tools.md
+                                        #For _includes - To keep same process as above, copying from existing file
+                                        mkdir -p _includes/communities/$community/
+                                        cp _includes/communities/biodiversity/tools.html _includes/communities/$community/tools.html
+                                        sed -i -e "s/biodiversity/${community}/g" _includes/communities/$community/tools.html
                                 fi;
 
                                 if [[ -e "communities/$community/resources/curated_tools.tsv" ]]; then
