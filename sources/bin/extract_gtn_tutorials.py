@@ -376,7 +376,7 @@ def fill_lab_tutorial_section(
             {
                 "id": group_id.replace(" ", "_").lower(),
                 "title": group_id,
-                "heading_md": f"Top 10 most visited tutorials for the Topic : {group_id}",
+                "heading_md": f"Top 10 most visited tutorials for the Topic : {group_id}. <br/> Visitors : Number of unique visitors automatically calculated using Plausible.",
                 "content": tutorial_entries,
             }
         )

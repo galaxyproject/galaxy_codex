@@ -922,7 +922,7 @@ def fill_lab_tool_section(
     """
     tabs = []
     for element in lab_section["tabs"]:
-        if element["id"] == "more_tools":
+        if element["id"] == "request_tools":
             tabs.append(element)
 
     for grp_id, group in top_items_per_category.groupby("Category"):
