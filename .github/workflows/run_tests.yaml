@@ -134,11 +134,6 @@ jobs:
     # 3. Install required Python packages.
     # 4. Extract citations using a provided script.
     # 5. Filter community citations using a provided script.
-  test-workflows:
-    runs-on: ubuntu-latest
-    # This job runs tests for workflows.
-    # It performs the same checks as the other jobs, ensuring
-    # quality for workflow scripts.
     if: github.event.pull_request.head.repo.full_name == github.repository || github.ref == 'refs/heads/dev'
     strategy:
       matrix:
@@ -151,9 +146,9 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Install requirements
         run: python -m pip install -r requirements.txt
-      - name: Tutorial extraction
+      - name: Citation extraction
         run: | 
           bash sources/bin/extract_all_citations.sh test
-      - name: Tutorial filtering
+      - name: Citation filtering
         run: | 
           bash sources/bin/get_community_citations.sh test
