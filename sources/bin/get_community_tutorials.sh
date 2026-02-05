@@ -23,11 +23,11 @@ for com_data_fp in communities/* ; do
                                 ln -sf ../../../communities/$community/resources/tutorials.yml _data/communities/$community/tutorials.yml
                                 #For pages - Can't copy from template, need to copy from existing md file
                                 cp pages/microgalaxy_tutorials.md pages/${community}_tutorials.md
-                                sed -i -e "s/microgalaxy/${community}/g" pages/${community}_tools.md
+                                sed -i -e "s/microgalaxy/${community}/g" pages/${community}_tutorials.md
                                 #For _includes - To keep same process as above, copying from existing file
                                 mkdir -p _includes/communities/$community/
-                                cp _includes/communities/microgalaxy/tools.html _includes/communities/$community/tools.html
-                                sed -i -e "s/microgalaxy/${community}/g" _includes/communities/$community/tools.html
+                                cp _includes/communities/microgalaxy/tutorials.html _includes/communities/$community/tutorials.html
+                                sed -i -e "s/microgalaxy/${community}/g" _includes/communities/$community/tutorials.html
                         fi;
 
                         if [[ -e "communities/$community/resources/tutorials.tsv" ]]; then                        
