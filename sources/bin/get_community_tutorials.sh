@@ -18,9 +18,16 @@ for com_data_fp in communities/* ; do
                                 --filtered "communities/$community/resources/tutorials.tsv" \
                                 --tags "communities/$community/metadata/tutorial_tags"
 
-                        if [[ -f "communities/$community/metadata/tutorials.yml" ]]; then
+                        if [[ -f "communities/$community/resources/tutorials.yml" ]]; then
                                 mkdir -p _data/communities/$community/
                                 ln -sf ../../../communities/$community/resources/tutorials.yml _data/communities/$community/tutorials.yml
+                        fi;
+
+                        if [[ -e "communities/$community/resources/tutorials.tsv" ]]; then                        
+                                python sources/bin/create_interactive_table.py \
+                                        --input "communities/$community/resources/tutorials.tsv" \
+                                        --template "sources/data/interactive_table_template.html" \
+                                        --output "communities/$community/resources/tutorials.html"
                         fi;
                 fi;
         fi;
