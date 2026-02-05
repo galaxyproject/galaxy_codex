@@ -206,6 +206,30 @@ def get_shed_attribute(attrib: str, shed_content: Dict[str, Any], empty_value: A
         return empty_value
 
 
+def get_tool_outputs(el: et.Element) -> list[str]:
+    """
+    Find tool outputs by format from the outputs XML.
+    Only uses the output defined in format of the outputs xml.
+    Not implemented: Outputs that use format from input. Could be done but requires macro extension.
+    Returns list of formats.
+
+    :param el: Element object
+    """
+
+    outputs = el.find("outputs")
+
+    formats: list[str] = []
+
+    outputs = el.find("outputs")
+    if outputs is not None:
+        for output in outputs.findall("data"):
+            fmt = output.attrib.get("format")
+            if fmt:
+                formats.append(fmt)
+
+    return formats
+
+
 def get_xref(el: et.Element, attrib_type: str) -> Optional[str]:
     """
     Get xref information
@@ -295,6 +319,7 @@ def get_tool_metadata(tool: ContentFile, repo: Repository) -> Optional[Dict[str,
     metadata: dict = {
         "Suite ID": None,
         "Tool IDs": [],
+        "Tool output formats": [],
         "Description": None,
         "Suite first commit date": None,
         "Homepage": None,
@@ -408,9 +433,16 @@ def get_tool_metadata(tool: ContentFile, repo: Repository) -> Optional[Dict[str,
                     reqs = get_conda_package(root)
                     if reqs is not None:
                         metadata["Suite conda package"] = reqs
+
                 # tool ids
                 if "id" in root.attrib:
                     metadata["Tool IDs"].append(root.attrib["id"])
+
+                # tool outputs
+                formats = get_tool_outputs(root)
+                for f in formats:
+                    if f not in metadata["Tool output formats"]:
+                        metadata["Tool output formats"].append(f)
 
     metadata = get_suite_ID_fallback(metadata, tool)
 
@@ -583,7 +615,7 @@ def export_tools_to_tsv(
 
             # the Galaxy tools need to be formatted for the add_instances_to_table to work
             df["Tool IDs"] = shared.format_list_column(df["Tool IDs"])
-
+            df["Tool output formats"] = shared.format_list_column(df["Tool output formats"])
         if to_keep_columns is not None:
             df = df[to_keep_columns]
     else:  # Create a DataFrame with the specified headers and save it
@@ -986,6 +1018,9 @@ def extract_missing_tools_per_servers(tool_fp: str) -> dict:
     """
     top_tools_per_category = extract_top_tools_per_category(tool_fp)
     tools = pd.read_csv(tool_fp, sep="\t").fillna("")
+
+    # Add a new column with all zeros, this will create a Local_Galaxy.yml that has all tools of the Lab
+    tools["Number of tools on Local_Galaxy"] = 0
 
     servers = [col.replace("Number of tools on ", "") for col in tools.filter(regex="Number of tools on").columns]
     missing_tools: dict[str, dict] = {}

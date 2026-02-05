@@ -2,6 +2,7 @@ import json
 import os
 import tempfile
 import unittest
+import xml.etree.ElementTree as et
 from typing import (
     Any,
     Dict,
@@ -25,6 +26,7 @@ from extract_galaxy_tools import (
     get_last_url_position,
     get_suite_ID_fallback,
     get_tool_github_repositories,
+    get_tool_outputs,
     get_tool_stats_from_stats_file,
     STATS_SUM,
 )
@@ -32,10 +34,24 @@ from github import Github
 from requests import HTTPError
 
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
-GALAX_TOOLS_API_PATH = os.path.join(SCRIPT_DIR, "test-data", "galaxy_api_tool_mock.json")
+TEST_DIR = os.path.join(SCRIPT_DIR, "test-data")
 
-TEST_TOOL_PATH = os.path.join(SCRIPT_DIR, "test-data", "test_tools.json")
-TEST_WORKFLOW_PATH = os.path.join(SCRIPT_DIR, "test-data", "test_workflows.json")
+GALAX_TOOLS_API_PATH = os.path.join(TEST_DIR, "galaxy_api_tool_mock.json")
+TEST_TOOL_PATH = os.path.join(TEST_DIR, "test_tools.json")
+TEST_WORKFLOW_PATH = os.path.join(TEST_DIR, "test_workflows.json")
+TEST_WRAPPER_XML = os.path.join(TEST_DIR, "fastp.xml")
+
+
+class TestGetToolOutputs(unittest.TestCase):
+
+    def setUp(self) -> None:
+        with open(TEST_WRAPPER_XML) as file:
+            file_content = file.read()
+            self.tool_xml = et.fromstring(file_content)
+
+    def test_get_tool_outputs(self) -> None:
+        formats = get_tool_outputs(self.tool_xml)
+        self.assertEqual(sorted(formats), ["html", "json"])
 
 
 class TestGetToolStatsFromStatsFile(unittest.TestCase):
