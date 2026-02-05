@@ -7,7 +7,7 @@ for com_data_fp in communities/* ; do
                         continue
                 fi;
 
-                if [[ "$community" != "all" && -f "communities/$community/metadata/tutorial_tags" ]]; then
+                if [[ "$community" != "all" && -f "communities/$community/metadata/citation_keywords" ]]; then
                         echo "$community";
                         mkdir -p "communities/$community/resources"
                         
