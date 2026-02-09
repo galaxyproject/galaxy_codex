@@ -9,6 +9,8 @@ Any Galaxy community can be added to this project and benefit from the dedicated
 
 # Prepare environment
 
+## Using virtualenv
+
 - Install virtualenv (if not already there)
 
     ```
@@ -32,6 +34,21 @@ Any Galaxy community can be added to this project and benefit from the dedicated
     ```
     $ python3 -m pip install -r requirements.txt
     ```
+
+## Using conda
+
+- [Install conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html)
+- Create a conda environment with requirements
+ 
+   ```sh
+   $ conda create --name codex --file requirements.txt
+   ```
+
+- Activate the conda environment
+
+   ```sh
+   $ conda activate codex
+   ```
 
 # Extract Galaxy Tool Suites
 
