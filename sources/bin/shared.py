@@ -111,14 +111,14 @@ def read_suite_per_tool_id(tool_fp: str) -> Dict:
     return tools
 
 
-def get_request_json(url: str, headers: dict, retries: int = 3, delay: float = 2.0) -> dict:
+def get_request_json(url: str, headers: dict, retries: int = 7, delay: float = 2.0) -> dict:
     """
     Perform a GET request to retrieve JSON output from a specified URL, with retry on ConnectionError.
 
     :param url: URL to send the GET request to.
     :param headers: Headers to include in the GET request.
-    :param retries: Number of retry attempts in case of a ConnectionError (default is 3).
-    :param delay: Delay in seconds between retries (default is 2.0 seconds).
+    :param retries: Number of retry attempts in case of a ConnectionError (default is 7).
+    :param delay: Delay in seconds between retries (default is 2.0 seconds), now multiplied by the number of attempt to increase delay as number of attempt increases.
     :return: JSON response as a dictionary, or None if all retries fail.
     :raises ConnectionError: If all retry attempts fail due to a connection error.
     :raises SystemExit: For any other request-related errors.
@@ -137,7 +137,7 @@ def get_request_json(url: str, headers: dict, retries: int = 3, delay: float = 2
                     "Connection aborted after multiple retries: Remote end closed connection without response"
                 ) from e
             print(f"Connection error on attempt {attempt}/{retries}. Retrying in {delay} seconds...")
-            time.sleep(delay)  # Wait before retrying
+            time.sleep(delay ** attempt)  # Wait before retrying, wait time increases as number of attempt increases
         except requests.exceptions.RequestException as e:
             # Handles all other exceptions from the requests library
             raise SystemExit(f"Request failed: {e}")
