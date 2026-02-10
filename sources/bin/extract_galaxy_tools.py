@@ -939,10 +939,11 @@ def extract_top_tools_per_category(
 
     # Step 7: Extract top X items per category based on total count
     top_tools_per_category = (
-        df_unique.groupby("Category", group_keys=False)  # Group by category
-        .apply(lambda group: group.nlargest(top_tool_nb, count_column))  # Get top items per category
-        .reset_index(drop=True)  # Reset index for clean output
+        df_unique.sort_values(by=["Category", count_column], ascending=[True, False])
+        .groupby("Category", as_index=False)
+        .head(top_tool_nb)
     )
+
     return top_tools_per_category
 
 
@@ -965,21 +966,20 @@ def fill_lab_tool_section(
             # Prepare the description with an HTML unordered list and links for each Galaxy tool ID
             description = f"{row['Description']}\n (Tool usage: {row[count_column]})"
             tool_ids = row["Tool IDs"]
-            owner = row["Suite owner"]
             wrapper_id = row["Suite ID"]
 
             # Split the tool IDs by comma if it's a valid string, otherwise handle as an empty list
             tool_ids_list = tool_ids.split(",") if isinstance(tool_ids, str) else []
 
             # Create the base URL template for each tool link
-            url_template = "/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2F{owner}%2F{wrapper_id}%2F{tool_id}"
+            url_template = "/?tool_id={tool_id}"
 
             # Build HTML list items with links
             description += "\n<ul>\n"
             for tool_id in tool_ids_list:
                 tool_id = tool_id.strip()  # Trim whitespace
                 # Format the URL with owner, wrapper ID, and tool ID
-                url = "{{ galaxy_base_url }}" + url_template.format(owner=owner, wrapper_id=wrapper_id, tool_id=tool_id)
+                url = "{{ galaxy_base_url }}" + url_template.format(tool_id=tool_id)
                 description += f'  <li><a href="{url}">{tool_id}</a></li>\n'
             description += "</ul>"
 
