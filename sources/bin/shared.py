@@ -136,7 +136,7 @@ def get_request_json(url: str, headers: dict, retries: int = 7, delay: float = 2
                 raise ConnectionError(
                     "Connection aborted after multiple retries: Remote end closed connection without response"
                 ) from e
-            print(f"Connection error on attempt {attempt}/{retries}. Retrying in {delay} seconds...")
+            print(f"Connection error on attempt {attempt}/{retries}. Retrying in {delay ** attempt} seconds...")
             time.sleep(delay ** attempt)  # Wait before retrying, wait time increases as number of attempt increases
         except requests.exceptions.RequestException as e:
             # Handles all other exceptions from the requests library
