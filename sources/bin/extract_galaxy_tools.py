@@ -967,7 +967,6 @@ def fill_lab_tool_section(
             # Prepare the description with an HTML unordered list and links for each Galaxy tool ID
             description = f"{row['Description']}\n (Tool usage: {row[count_column]})"
             tool_ids = row["Tool IDs"]
-            owner = row["Suite owner"]
             wrapper_id = row["Suite ID"]
 
             # Split the tool IDs by comma if it's a valid string, otherwise handle as an empty list
