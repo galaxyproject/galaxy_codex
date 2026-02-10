@@ -335,8 +335,7 @@ def extract_top_tutorials_per_category(
 
     # Step 7: Extract top X items per category based on total count
     top_tutorials_per_category = (
-        df_unique
-        .sort_values(by=["Category", count_column], ascending=[True, False])
+        df_unique.sort_values(by=["Category", count_column], ascending=[True, False])
         .groupby("Category", as_index=False)
         .head(top_tutorial_nb)
     )
