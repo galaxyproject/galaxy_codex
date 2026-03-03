@@ -31,6 +31,13 @@ for com_data_fp in communities/* ; do
                                 if [[ -f "communities/$community/metadata/curated_workflows.yml" ]]; then
                                         mkdir -p _data/communities/$community/
                                         ln -sf ../../../communities/$community/resources/curated_workflows.yml _data/communities/$community/curated_workflows.yml
+                                        #For pages - Can't copy from template, need to copy from existing md file
+                                        cp pages/microgalaxy_workflows.md pages/${community}_workflows.md
+                                        sed -i -e "s/microgalaxy/${community}/g" pages/${community}_workflows.md
+                                        #For _includes - To keep same process as above, copying from existing file
+                                        mkdir -p _includes/communities/$community/
+                                        cp _includes/communities/microgalaxy/workflows.html _includes/communities/$community/workflows.html
+                                        sed -i -e "s/microgalaxy/${community}/g" _includes/communities/$community/workflows.html
                                 fi;
 
                                 if [[ -e "communities/$community/resources/curated_workflows.tsv" ]]; then                        
