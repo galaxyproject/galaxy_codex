@@ -112,7 +112,7 @@ jobs:
         env: 
           PLAUSIBLE_API_KEY: ${{ secrets.PLAUSIBLE_API_TOKEN }}
       - name: Archive tutorials artifacts
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@v6
         with:
           name: workflows
           path: communities/all/resources/workflows.json
@@ -133,7 +133,7 @@ jobs:
 #        run: | 
 #          bash sources/bin/extract_all_citations.sh
 #      - name: Archive citations artifacts
-#        uses: actions/upload-artifact@v7
+#        uses: actions/upload-artifact@v6
 #        with:
 #          name: workflows
 #          path: communities/all/resources/citations.json
