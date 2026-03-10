@@ -1,47 +1,52 @@
 [
     {
-        "create_time": "2024-09-18",
+        "create_time": "2026-02-11",
         "creators": [
             "Diego De Panis"
         ],
         "deprecated": false,
         "doi": null,
         "edam_operation": [
+            "Data handling",
+            "Phasing",
             "k-mer counting",
-            "Genotyping",
-            "Sequence trimming"
+            "Scaffolding",
+            "Genome assembly",
+            "Sequence assembly validation",
+            "De-novo assembly",
+            "Sequence assembly visualisation"
         ],
         "edam_topic": [
             "Whole genome sequencing"
         ],
-        "id": "603",
+        "id": "605",
         "keep": true,
         "latest_version": 2,
         "license": "MIT",
-        "link": "https://workflowhub.eu/workflows/603?version=2",
-        "name": "ERGA Profiling Long Reads v2601 (WF1)",
-        "number_of_steps": 17,
+        "link": "https://workflowhub.eu/workflows/605?version=2",
+        "name": "ERGA Long reads+HiC Assembly+QC Hifiasm v2602 (WF2)",
+        "number_of_steps": 25,
         "projects": [
             "ERGA Assembly"
         ],
         "source": "WorkflowHub",
         "tags": [
+            "assembly+qc",
             "erga",
-            "profiling"
+            "hi-c",
+            "hifi"
         ],
         "tools": [
-            "Cut1",
-            "Add_a_column1",
-            "param_value_from_file",
-            "meryl",
-            "tp_grep_tool",
-            "tp_cut_tool",
-            "genomescope",
-            "smudgeplot",
-            "Convert characters1",
-            "tp_find_and_replace"
+            "pick_value",
+            "bandage_image",
+            "gfa_to_fa",
+            "gfastats",
+            "busco",
+            "hifiasm",
+            "merqury",
+            "param_value_from_file"
         ],
-        "update_time": "2026-01-20",
+        "update_time": "2026-02-11",
         "versions": 2
     },
     {
@@ -52,16 +57,61 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "DNA transcription",
-            "Validation",
+            "k-mer counting",
+            "Sequence trimming",
+            "Genotyping"
+        ],
+        "edam_topic": [
+            "Whole genome sequencing"
+        ],
+        "id": "603",
+        "keep": true,
+        "latest_version": 2,
+        "license": "MIT",
+        "link": "https://workflowhub.eu/workflows/603?version=2",
+        "name": "ERGA Profiling Long Reads v2602 (WF1)",
+        "number_of_steps": 17,
+        "projects": [
+            "ERGA Assembly"
+        ],
+        "source": "WorkflowHub",
+        "tags": [
+            "erga",
+            "profiling"
+        ],
+        "tools": [
+            "tp_grep_tool",
+            "smudgeplot",
+            "genomescope",
+            "Cut1",
+            "meryl",
+            "Add_a_column1",
+            "Convert characters1",
+            "tp_cut_tool",
+            "tp_find_and_replace",
+            "param_value_from_file"
+        ],
+        "update_time": "2026-02-11",
+        "versions": 2
+    },
+    {
+        "create_time": "2024-09-18",
+        "creators": [
+            "Diego De Panis"
+        ],
+        "deprecated": false,
+        "doi": null,
+        "edam_operation": [
             "Sequencing quality control",
             "Primer removal",
-            "Sequence composition calculation",
-            "Sequence conversion",
+            "DNA transcription",
+            "Validation",
             "DNA translation",
             "Statistical calculation",
+            "Sequence conversion",
             "Sequence trimming",
-            "Read pre-processing"
+            "Read pre-processing",
+            "Sequence composition calculation"
         ],
         "edam_topic": [
             "Whole genome sequencing"
@@ -83,10 +133,10 @@
             "hifi"
         ],
         "tools": [
-            "collapse_dataset",
             "multiqc",
-            "seqkit_stats",
             "fastqc",
+            "seqkit_stats",
+            "collapse_dataset",
             "cutadapt"
         ],
         "update_time": "2026-01-20",
@@ -100,15 +150,15 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
+            "Sequencing quality control",
             "DNA transcription",
             "Validation",
-            "Sequencing quality control",
-            "Sequence composition calculation",
-            "Sequence conversion",
             "DNA translation",
-            "Sequence contamination filtering",
             "Statistical calculation",
-            "Sequence trimming"
+            "Sequence contamination filtering",
+            "Sequence conversion",
+            "Sequence trimming",
+            "Sequence composition calculation"
         ],
         "edam_topic": [
             "Whole genome sequencing"
@@ -130,12 +180,12 @@
             "illumina"
         ],
         "tools": [
-            "collapse_dataset",
             "multiqc",
-            "__FLATTEN__",
+            "fastqc",
             "seqkit_stats",
             "fastp",
-            "fastqc"
+            "collapse_dataset",
+            "__FLATTEN__"
         ],
         "update_time": "2026-01-20",
         "versions": 2
@@ -164,12 +214,12 @@
             "name:neoantigen"
         ],
         "tools": [
-            "converting pipes to columns\nConvert characters1",
-            "regexColumn1",
             "converting colons to columns\nConvert characters1",
-            "pep_pointer",
+            "tab2fasta",
             "query_tabular",
-            "tab2fasta"
+            "regexColumn1",
+            "converting pipes to columns\nConvert characters1",
+            "pep_pointer"
         ],
         "update_time": "2025-07-07",
         "versions": 1
@@ -198,12 +248,12 @@
             "galaxy"
         ],
         "tools": [
-            "ecology_homogeneity_normality",
-            "tool_anonymization",
             "ecology_link_between_var",
-            "ecology_beta_diversity",
             "ecology_presence_abs_abund",
-            "ecology_stat_presence_abs"
+            "ecology_homogeneity_normality",
+            "ecology_stat_presence_abs",
+            "ecology_beta_diversity",
+            "tool_anonymization"
         ],
         "update_time": "2025-06-02",
         "versions": 1
@@ -214,11 +264,11 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Genome assembly",
-            "Sequence assembly visualisation",
             "Read mapping",
+            "Genome assembly",
             "Sequence assembly validation",
-            "Visualisation"
+            "Visualisation",
+            "Sequence assembly visualisation"
         ],
         "edam_topic": [],
         "id": "1634",
@@ -237,13 +287,13 @@
             "galaxy"
         ],
         "tools": [
-            "megahit",
-            "bandage_info",
-            "quast",
-            "collection_column_join",
-            "bandage_image",
             "megahit_contig2fastg",
+            "bandage_image",
+            "quast",
             "metaspades",
+            "megahit",
+            "collection_column_join",
+            "bandage_info",
             "bowtie2"
         ],
         "update_time": "2025-06-02",
@@ -292,12 +342,12 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "DNA transcription",
-            "DNA translation",
+            "Scatter plot plotting",
             "Sequence conversion",
             "Box-Whisker plot plotting",
+            "DNA transcription",
             "Sequence trimming",
-            "Scatter plot plotting"
+            "DNA translation"
         ],
         "edam_topic": [
             "Whole genome sequencing"
@@ -319,9 +369,9 @@
             "ont"
         ],
         "tools": [
-            "seqkit_stats",
             "collapse_dataset",
-            "nanoplot"
+            "nanoplot",
+            "seqkit_stats"
         ],
         "update_time": "2025-06-01",
         "versions": 1
@@ -334,15 +384,15 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Pairwise sequence alignment",
-            "k-mer counting",
-            "Phasing",
-            "De-novo assembly",
-            "Sequence assembly validation",
-            "Genome assembly",
             "Data handling",
+            "Phasing",
+            "Scaffolding",
+            "k-mer counting",
+            "Genome assembly",
+            "Sequence assembly validation",
+            "Pairwise sequence alignment",
             "Read binning",
-            "Scaffolding"
+            "De-novo assembly"
         ],
         "edam_topic": [
             "Whole genome sequencing"
@@ -365,14 +415,14 @@
             "qc"
         ],
         "tools": [
-            "param_value_from_file",
-            "merqury",
-            "busco",
-            "gfastats",
-            "gfa_to_fa",
-            "minimap2",
             "purge_dups",
-            "cat1"
+            "minimap2",
+            "gfa_to_fa",
+            "cat1",
+            "gfastats",
+            "busco",
+            "merqury",
+            "param_value_from_file"
         ],
         "update_time": "2025-06-01",
         "versions": 2
@@ -385,14 +435,14 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "k-mer counting",
-            "Phasing",
-            "De-novo assembly",
-            "Sequence assembly validation",
             "Data handling",
+            "Phasing",
+            "k-mer counting",
+            "Scaffolding",
             "Genome assembly",
-            "Sequence alignment",
-            "Scaffolding"
+            "Sequence assembly validation",
+            "De-novo assembly",
+            "Sequence alignment"
         ],
         "edam_topic": [
             "Whole genome sequencing"
@@ -415,25 +465,25 @@
             "qc"
         ],
         "tools": [
-            "__EXTRACT_DATASET__",
-            "yahs",
-            "sambamba_merge",
-            "pairtools_split",
-            "gfastats",
-            "pairtools_dedup",
-            "Cut1",
             "pick_value",
-            "pretext_snapshot",
-            "busco",
-            "param_value_from_file",
-            "CONVERTER_fasta_to_fai",
-            "bwa_mem2",
-            "merqury",
+            "Cut1",
             "pairtools_sort",
-            "pretext_map",
+            "CONVERTER_fasta_to_fai",
+            "pairtools_parse",
             "sambamba_flagstat",
+            "sambamba_merge",
+            "param_value_from_file",
+            "pairtools_dedup",
+            "gfastats",
+            "busco",
+            "pairtools_split",
+            "bwa_mem2",
+            "yahs",
+            "__EXTRACT_DATASET__",
+            "pretext_map",
             "gfa_to_fa",
-            "pairtools_parse"
+            "pretext_snapshot",
+            "merqury"
         ],
         "update_time": "2025-06-01",
         "versions": 2
@@ -446,14 +496,14 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Genome assembly",
             "Data handling",
-            "Sequence assembly visualisation",
+            "Phasing",
             "k-mer counting",
             "Scaffolding",
-            "Phasing",
+            "Genome assembly",
+            "Sequence assembly validation",
             "De-novo assembly",
-            "Sequence assembly validation"
+            "Sequence assembly visualisation"
         ],
         "edam_topic": [
             "Whole genome sequencing"
@@ -477,13 +527,13 @@
             "qc"
         ],
         "tools": [
-            "hifiasm",
-            "param_value_from_file",
-            "merqury",
-            "busco",
             "bandage_image",
+            "gfa_to_fa",
             "gfastats",
-            "gfa_to_fa"
+            "busco",
+            "hifiasm",
+            "merqury",
+            "param_value_from_file"
         ],
         "update_time": "2025-09-09",
         "versions": 2
@@ -496,10 +546,10 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Genome annotation",
             "Data handling",
-            "Differential protein expression profiling",
-            "Sequence assembly validation"
+            "Genome annotation",
+            "Sequence assembly validation",
+            "Differential protein expression profiling"
         ],
         "edam_topic": [
             "Genomics"
@@ -523,13 +573,13 @@
             "qc"
         ],
         "tools": [
-            "collapse_dataset",
             "pick_value",
-            "busco",
+            "agat",
             "tp_text_file_with_recurring_lines",
-            "lftp",
+            "collapse_dataset",
             "omark",
-            "agat"
+            "lftp",
+            "busco"
         ],
         "update_time": "2025-02-24",
         "versions": 2
@@ -542,28 +592,28 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
+            "Data handling",
             "Mapping",
             "Data parsing",
-            "Phasing",
-            "De-novo assembly",
-            "Genome assembly",
             "Data deposition",
-            "Sequence alignment analysis",
-            "Scaffolding",
             "Data retrieval",
-            "Sequence database search",
-            "Genotyping",
-            "Pairwise sequence alignment",
-            "Sequencing quality control",
-            "k-mer counting",
-            "Primer removal",
-            "Sequence assembly validation",
-            "Data handling",
             "Sequence contamination filtering",
+            "Pairwise sequence alignment",
+            "Sequence database search",
+            "Sequence alignment analysis",
             "Sequence trimming",
-            "Sequence alignment",
+            "Sequencing quality control",
+            "Phasing",
+            "Primer removal",
+            "Genotyping",
             "Read pre-processing",
-            "Visualisation"
+            "k-mer counting",
+            "Scaffolding",
+            "Genome assembly",
+            "Sequence assembly validation",
+            "De-novo assembly",
+            "Visualisation",
+            "Sequence alignment"
         ],
         "edam_topic": [
             "Genomics"
@@ -585,41 +635,41 @@
             "qc"
         ],
         "tools": [
-            "rseqc_bam_stat",
-            "bg_diamond",
-            "__EXTRACT_DATASET__",
+            "pick_value",
+            "cooler_cload_tabix",
+            "Cut1",
+            "pairtools_sort",
             "sam_merge2",
-            "meryl",
-            "sambamba_merge",
-            "pairtools_split",
-            "lftp",
-            "gfastats",
+            "collapse_dataset",
             "minimap2",
+            "CONVERTER_fasta_to_fai",
+            "__FLATTEN__",
+            "pairtools_parse",
+            "sambamba_flagstat",
+            "hicexplorer_hicmergematrixbins",
+            "sambamba_merge",
+            "smudgeplot",
+            "hicexplorer_hicplotmatrix",
             "datasets_download_genome",
             "pairtools_dedup",
-            "Cut1",
-            "blobtoolkit",
-            "bedtools_makewindowsbed",
-            "pick_value",
-            "__FLATTEN__",
-            "busco",
             "tp_text_file_with_recurring_lines",
-            "fastp",
-            "genomescope",
-            "cooler_cload_tabix",
-            "CONVERTER_fasta_to_fai",
-            "bwa_mem2",
-            "smudgeplot",
-            "hicexplorer_hicmergematrixbins",
-            "cutadapt",
             "fasterq_dump",
-            "collapse_dataset",
-            "hicexplorer_hicplotmatrix",
+            "bedtools_makewindowsbed",
+            "gfastats",
+            "rseqc_bam_stat",
+            "busco",
+            "bg_diamond",
+            "genomescope",
+            "meryl",
+            "fastp",
+            "pairtools_split",
+            "bwa_mem2",
+            "blobtoolkit",
             "merqury",
-            "pairtools_sort",
+            "lftp",
+            "cutadapt",
             "cooler_csort_tabix",
-            "sambamba_flagstat",
-            "pairtools_parse"
+            "__EXTRACT_DATASET__"
         ],
         "update_time": "2024-12-05",
         "versions": 2
@@ -632,14 +682,14 @@
         "deprecated": false,
         "doi": "10.48546/workflowhub.workflow.1114.1",
         "edam_operation": [
-            "Genome assembly",
-            "Mapping assembly",
-            "Statistical calculation",
-            "Sequence assembly visualisation",
             "Sequencing quality control",
-            "Sequence composition calculation",
+            "Mapping assembly",
             "Cross-assembly",
-            "De-novo assembly"
+            "Statistical calculation",
+            "Genome assembly",
+            "De-novo assembly",
+            "Sequence assembly visualisation",
+            "Sequence composition calculation"
         ],
         "edam_topic": [],
         "id": "1114",
@@ -660,15 +710,15 @@
             "nanopore"
         ],
         "tools": [
+            "fastqc",
+            "fasta-stats",
+            "bandage_image",
             "collapse_dataset",
             "nanofilt",
-            "bandage_info",
             "split_file_to_collection",
-            "fastqc",
-            "bandage_image",
-            "porechop",
-            "fasta-stats",
-            "flye"
+            "flye",
+            "bandage_info",
+            "porechop"
         ],
         "update_time": "2024-09-03",
         "versions": 1
@@ -701,9 +751,9 @@
         "tools": [
             "list_organism",
             "create_account",
-            "create_or_update",
             "jbrowse",
-            "iframe"
+            "iframe",
+            "create_or_update"
         ],
         "update_time": "2025-11-04",
         "versions": 1
@@ -716,14 +766,14 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Genome assembly",
             "Data handling",
-            "Sequence alignment",
+            "Phasing",
             "k-mer counting",
             "Scaffolding",
-            "Phasing",
+            "Genome assembly",
+            "Sequence assembly validation",
             "De-novo assembly",
-            "Sequence assembly validation"
+            "Sequence alignment"
         ],
         "edam_topic": [
             "Whole genome sequencing"
@@ -745,16 +795,16 @@
             "name:assembly+qc"
         ],
         "tools": [
-            "bellerophon",
-            "param_value_from_file",
+            "pretext_map",
+            "gfa_to_fa",
+            "bwa_mem2",
             "yahs",
             "pretext_snapshot",
-            "merqury",
-            "busco",
-            "pretext_map",
             "gfastats",
-            "bwa_mem2",
-            "gfa_to_fa"
+            "bellerophon",
+            "busco",
+            "merqury",
+            "param_value_from_file"
         ],
         "update_time": "2024-01-09",
         "versions": 1
@@ -767,15 +817,15 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Pairwise sequence alignment",
-            "k-mer counting",
-            "Phasing",
-            "De-novo assembly",
-            "Sequence assembly validation",
-            "Genome assembly",
             "Data handling",
+            "Phasing",
+            "Scaffolding",
+            "k-mer counting",
+            "Genome assembly",
+            "Sequence assembly validation",
+            "Pairwise sequence alignment",
             "Read binning",
-            "Scaffolding"
+            "De-novo assembly"
         ],
         "edam_topic": [
             "Whole genome sequencing"
@@ -797,13 +847,13 @@
             "name:assembly+qc"
         ],
         "tools": [
-            "param_value_from_file",
-            "merqury",
-            "busco",
-            "gfastats",
-            "gfa_to_fa",
+            "purge_dups",
             "minimap2",
-            "purge_dups"
+            "gfa_to_fa",
+            "gfastats",
+            "busco",
+            "merqury",
+            "param_value_from_file"
         ],
         "update_time": "2024-01-09",
         "versions": 1
@@ -838,12 +888,12 @@
             "ecology"
         ],
         "tools": [
-            "ecology_homogeneity_normality",
-            "tool_anonymization",
             "ecology_link_between_var",
-            "ecology_beta_diversity",
             "ecology_presence_abs_abund",
-            "ecology_stat_presence_abs"
+            "ecology_homogeneity_normality",
+            "ecology_stat_presence_abs",
+            "ecology_beta_diversity",
+            "tool_anonymization"
         ],
         "update_time": "2024-12-09",
         "versions": 1
@@ -856,14 +906,14 @@
         "deprecated": false,
         "doi": "10.48546/workflowhub.workflow.608.1",
         "edam_operation": [
-            "Genome assembly",
             "Data handling",
-            "Sequence alignment",
+            "Phasing",
             "k-mer counting",
             "Scaffolding",
-            "Phasing",
+            "Genome assembly",
+            "Sequence assembly validation",
             "De-novo assembly",
-            "Sequence assembly validation"
+            "Sequence alignment"
         ],
         "edam_topic": [
             "Whole genome sequencing"
@@ -885,65 +935,16 @@
             "hi-c"
         ],
         "tools": [
-            "bellerophon",
-            "param_value_from_file",
+            "pretext_map",
+            "gfa_to_fa",
+            "bwa_mem2",
             "yahs",
             "pretext_snapshot",
-            "merqury",
-            "busco",
-            "pretext_map",
             "gfastats",
-            "bwa_mem2",
-            "gfa_to_fa"
-        ],
-        "update_time": "2024-03-13",
-        "versions": 1
-    },
-    {
-        "create_time": "2023-10-09",
-        "creators": [
-            "Diego De Panis"
-        ],
-        "deprecated": false,
-        "doi": "10.48546/workflowhub.workflow.605.1",
-        "edam_operation": [
-            "Genome assembly",
-            "Data handling",
-            "Sequence assembly visualisation",
-            "k-mer counting",
-            "Scaffolding",
-            "Phasing",
-            "De-novo assembly",
-            "Sequence assembly validation"
-        ],
-        "edam_topic": [
-            "Whole genome sequencing"
-        ],
-        "id": "605",
-        "keep": true,
-        "latest_version": 1,
-        "license": "MIT",
-        "link": "https://workflowhub.eu/workflows/605?version=1",
-        "name": "ERGA HiFi+HiC Assembly+QC Hifiasm v2309 (WF2)",
-        "number_of_steps": 21,
-        "projects": [
-            "ERGA Assembly"
-        ],
-        "source": "WorkflowHub",
-        "tags": [
-            "assembly+qc",
-            "erga",
-            "hi-c",
-            "hifi"
-        ],
-        "tools": [
-            "hifiasm",
-            "param_value_from_file",
-            "merqury",
+            "bellerophon",
             "busco",
-            "bandage_image",
-            "gfastats",
-            "gfa_to_fa"
+            "merqury",
+            "param_value_from_file"
         ],
         "update_time": "2024-03-13",
         "versions": 1
@@ -975,10 +976,10 @@
             "ont"
         ],
         "tools": [
-            "kraken2",
+            "tp_replace_in_line",
             "taxonomy_krona_chart",
-            "datamash_reverse",
-            "tp_replace_in_line"
+            "kraken2",
+            "datamash_reverse"
         ],
         "update_time": "2023-02-13",
         "versions": 1
@@ -1048,12 +1049,12 @@
             "training"
         ],
         "tools": [
-            "Remove beginning1",
-            "collapse_dataset",
             "tp_text_file_with_recurring_lines",
-            "interactive_tool_jupyter_notebook",
+            "collapse_dataset",
+            "Remove beginning1",
+            "cat1",
             "lftp",
-            "cat1"
+            "interactive_tool_jupyter_notebook"
         ],
         "update_time": "2025-11-06",
         "versions": 12
@@ -1085,10 +1086,10 @@
             "training"
         ],
         "tools": [
-            "lftp",
-            "tp_text_file_with_recurring_lines",
             "interactive_tool_jupyter_notebook",
-            "collapse_dataset"
+            "tp_text_file_with_recurring_lines",
+            "collapse_dataset",
+            "lftp"
         ],
         "update_time": "2025-11-06",
         "versions": 15
@@ -1119,10 +1120,10 @@
             "training"
         ],
         "tools": [
-            "lftp",
-            "tp_text_file_with_recurring_lines",
             "interactive_tool_jupyter_notebook",
-            "collapse_dataset"
+            "tp_text_file_with_recurring_lines",
+            "collapse_dataset",
+            "lftp"
         ],
         "update_time": "2025-11-06",
         "versions": 9
@@ -1133,10 +1134,10 @@
         "deprecated": false,
         "doi": "",
         "edam_operation": [
-            "Sequence analysis",
-            "Statistical calculation",
             "Sequencing quality control",
-            "Sequence composition calculation"
+            "Sequence composition calculation",
+            "Sequence analysis",
+            "Statistical calculation"
         ],
         "edam_topic": [],
         "id": "afad9a17a80bb26d",
@@ -1154,23 +1155,23 @@
             "edna"
         ],
         "tools": [
+            "seq_filter_by_id",
+            "fastqc",
+            "unzip",
+            "obi_annotate",
             "Cut1",
             "obi_grep",
-            "obi_illumina_pairend",
             "obi_ngsfilter",
-            "ncbi_blastn_wrapper",
             "obi_uniq",
-            "fastq_groomer",
-            "Filter1",
             "obi_clean",
-            "unzip",
-            "fastqc",
-            "seq_filter_by_id",
+            "Filter1",
+            "obi_illumina_pairend",
+            "obi_tab",
             "wc_gnu",
             "obi_stat",
-            "obi_tab",
-            "obi_annotate",
-            "join1"
+            "ncbi_blastn_wrapper",
+            "join1",
+            "fastq_groomer"
         ],
         "update_time": "2025-09-12",
         "versions": 1
@@ -1200,8 +1201,8 @@
         ],
         "tools": [
             "srs_spectral_indices",
-            "srs_preprocess_s2",
             "srs_global_indices",
+            "srs_preprocess_s2",
             "srs_diversity_maps"
         ],
         "update_time": "2024-05-27",
@@ -1225,8 +1226,8 @@
         "source": "https://usegalaxy.eu",
         "tags": [],
         "tools": [
-            "Filter1",
             "csv_to_tabular",
+            "Filter1",
             "obisindicators",
             "tp_cut_tool"
         ],
@@ -1252,8 +1253,8 @@
         "tags": [],
         "tools": [
             "srs_spectral_indices",
-            "srs_preprocess_s2",
             "srs_global_indices",
+            "srs_preprocess_s2",
             "srs_diversity_maps"
         ],
         "update_time": "2023-11-09",
@@ -1279,20 +1280,20 @@
             "ecology"
         ],
         "tools": [
-            "pampa_communitymetrics",
-            "Count1",
-            "Filter1",
-            "pampa_presabs",
+            "tp_sort_header_tool",
             "pampa_glmcomm",
-            "regexColumn1",
-            "tp_cut_tool",
             "pampa_glmsp",
             "pampa_plotglm",
-            "regex1",
             "mergeCols1",
-            "tp_sort_header_tool",
             "datamash_transpose",
-            "tp_cat"
+            "tp_cat",
+            "Filter1",
+            "regexColumn1",
+            "pampa_presabs",
+            "pampa_communitymetrics",
+            "tp_cut_tool",
+            "Count1",
+            "regex1"
         ],
         "update_time": "2021-02-24",
         "versions": 0
@@ -1319,13 +1320,13 @@
             "metadegalaxy"
         ],
         "tools": [
-            "symmetricPlot",
             "phyloseq_abundance",
             "phyloseq_richness",
-            "phyloseq_net",
-            "biom_add_metadata",
             "biom_convert",
+            "biom_add_metadata",
+            "phyloseq_net",
             "phyloseq_taxonomy",
+            "symmetricPlot",
             "phyloseq_DESeq2"
         ],
         "update_time": "2021-04-01",
@@ -1337,16 +1338,16 @@
         "deprecated": false,
         "doi": "",
         "edam_operation": [
-            "Formatting",
             "Sequencing quality control",
-            "DNA mapping",
-            "Sequence composition calculation",
-            "Genome indexing",
             "Read mapping",
-            "Generation",
+            "DNA mapping",
+            "Formatting",
             "Statistical calculation",
+            "Genome indexing",
+            "Generation",
+            "Chimera detection",
             "Sequence alignment",
-            "Chimera detection"
+            "Sequence composition calculation"
         ],
         "edam_topic": [],
         "id": "869440d35a618836",
@@ -1362,28 +1363,28 @@
             "metadegalaxy"
         ],
         "tools": [
-            "fastqc",
-            "phyloseq_richness",
-            "biom_add_metadata",
-            "cat1",
-            "Cut1",
             "vsearch_chimera_detection",
-            "bwa_mem",
-            "trimmomatic",
-            "cat_multi_datasets",
-            "phyloseq_taxonomy",
-            "phyloseq_DESeq2",
-            "vsearch_search",
-            "picard_FilterSamReads",
-            "phyloseq_abundance",
+            "Cut1",
+            "phyloseq_richness",
             "vsearch_clustering",
+            "vsearch_dereplication",
+            "phyloseq_net",
             "samtools_fastx",
+            "phyloseq_abundance",
+            "trimmomatic",
+            "phyloseq_taxonomy",
+            "fastqc",
+            "vsearch_search",
+            "biom_add_metadata",
+            "picard_FilterSamReads",
+            "symmetricPlot",
+            "addValue",
+            "cat_multi_datasets",
+            "cat1",
             "biom_convert",
             "uclust2otutable",
-            "symmetricPlot",
-            "vsearch_dereplication",
-            "addValue",
-            "phyloseq_net"
+            "phyloseq_DESeq2",
+            "bwa_mem"
         ],
         "update_time": "2021-04-01",
         "versions": 18
@@ -1394,17 +1395,17 @@
         "deprecated": false,
         "doi": "",
         "edam_operation": [
-            "Formatting",
             "Sequencing quality control",
-            "DNA mapping",
-            "Sequence composition calculation",
-            "Sequence merging",
-            "Genome indexing",
             "Read mapping",
-            "Generation",
+            "DNA mapping",
+            "Sequence merging",
+            "Formatting",
             "Statistical calculation",
+            "Genome indexing",
+            "Generation",
+            "Chimera detection",
             "Sequence alignment",
-            "Chimera detection"
+            "Sequence composition calculation"
         ],
         "edam_topic": [],
         "id": "14e80b7f9f68ec2a",
@@ -1420,29 +1421,29 @@
             "metadegalaxy"
         ],
         "tools": [
-            "fastqc",
-            "phyloseq_richness",
-            "biom_add_metadata",
-            "cat1",
-            "Cut1",
             "vsearch_chimera_detection",
-            "bwa_mem",
+            "Cut1",
+            "phyloseq_richness",
+            "vsearch_clustering",
+            "vsearch_dereplication",
+            "phyloseq_net",
+            "samtools_fastx",
+            "picard_MergeSamFiles",
+            "iuc_pear",
+            "phyloseq_abundance",
             "trimmomatic",
             "phyloseq_taxonomy",
-            "phyloseq_DESeq2",
+            "fastqc",
             "vsearch_search",
+            "biom_add_metadata",
             "picard_FilterSamReads",
-            "phyloseq_abundance",
-            "vsearch_clustering",
-            "samtools_fastx",
+            "symmetricPlot",
+            "addValue",
+            "cat1",
             "biom_convert",
             "uclust2otutable",
-            "symmetricPlot",
-            "iuc_pear",
-            "vsearch_dereplication",
-            "addValue",
-            "picard_MergeSamFiles",
-            "phyloseq_net"
+            "phyloseq_DESeq2",
+            "bwa_mem"
         ],
         "update_time": "2021-04-01",
         "versions": 16

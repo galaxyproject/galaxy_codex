@@ -66,7 +66,7 @@ if [[ ! -e $tutorials_section ]]; then
     cp communities/all/labs/sections_templates/4_tutorials.yml $tutorials_section
 fi
 
-### Creat/Update the tutorial file
+### Create/Update the tutorial file
 python sources/bin/extract_gtn_tutorials.py \
     popLabSection \
     --tsv communities/$COMMUNITY/resources/tutorials.tsv \

@@ -8,7 +8,7 @@ Galaxy Communities Dock (Galaxy CoDex) stores resources for Galaxy users, commun
 
 Currently, we have two main resources:
 
-1. **Galaxy Community Catalog**: for tools, training (tutorials) & workflows. 
+1. **Galaxy Community Catalog**: for tools, training (tutorials) & workflows, but also citations.
 
     Several catalogs are available: the complete catalog and the community-specific catalogs. Each catalog is semi-automatically updated every week.
 
