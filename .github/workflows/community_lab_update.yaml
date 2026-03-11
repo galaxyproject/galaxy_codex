@@ -1,0 +1,101 @@
+name: Weekly community filtering
+
+on:
+  workflow_dispatch:
+  schedule:
+    #Every Wednesday at 8:00 am
+    - cron: "0 8 * * 3" 
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "tools"
+  cancel-in-progress: false
+
+jobs:
+  merge-fetch-filter:
+    runs-on: ubuntu-latest
+    name: Filter the resources for communities, and populate labs
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+      - name: Install requirement
+        run: |
+          python -m pip install -r requirements.txt
+          sudo apt-get install jq
+      - name: Download stepwise tool lists
+        uses: actions/download-artifact@v8
+        with:
+          pattern: tools-*
+          merge-multiple: true
+          path: communities/all/resources/
+      - name: Download tutorials
+        uses: actions/download-artifact@v8
+        with:
+          pattern: tutorials
+          merge-multiple: true
+          path: communities/all/resources/
+      - name: Download workflows
+        uses: actions/download-artifact@v8
+        with:
+          pattern: workflows
+          merge-multiple: true
+          path: communities/all/resources/
+      - name: Display structure of downloaded files
+        run: ls -R communities/all/resources/
+      - name: Filter workflows for communities
+        run: | 
+          bash sources/bin/get_community_workflows.sh
+      - name: Filter tutorials for communities
+        run: | 
+          bash sources/bin/get_community_tutorials.sh
+      - name: Filter citations for communities
+        run: | 
+          bash sources/bin/get_community_citations.sh no-scholarly
+      #- name: Update tool to keep and exclude for communities
+      #  run: | 
+      #    bash sources/bin/update_tools_to_keep_exclude.sh
+      - name: Filter tools for communities
+        run: | 
+          bash sources/bin/get_community_tools.sh
+      - name: Populate Microbiology (microGalaxy) Lab
+        run: | 
+          bash sources/bin/populate_labs.sh
+        env: 
+          COMMUNITY: microgalaxy
+      - name: Populate biodiversity lab
+        run: |
+          bash sources/bin/populate_labs.sh
+        env: 
+          COMMUNITY: biodiversity
+      - name: Populate earth-system Lab
+        run: |
+          bash sources/bin/populate_labs.sh
+        env: 
+          COMMUNITY: earth
+      - name: Populate Imaging lab
+        run: |
+          bash sources/bin/populate_labs.sh
+        env: 
+          COMMUNITY: imaging
+#To initiate a lab, we recommend adding it below. It will automatically create the folders and structures required.
+#      - name: Populate <community-name> Lab
+#        run: |
+#          bash sources/bin/populate_labs.sh
+#        env: 
+#          COMMUNITY: <community-name>
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v8
+        with:
+          commit-message: Update community resources
+          title: Automatic community resources update
+          body: Automatic community resource update done via GitHub Action once a week
+          base: main
+          branch: community-resource-update
+          delete-branch: true
+          add-paths: |
+            communities/

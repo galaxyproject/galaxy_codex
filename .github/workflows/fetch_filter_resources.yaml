@@ -1,4 +1,4 @@
-name: Weekly resource fetching and community filtering
+name: Weekly resource fetching
 
 on:
   workflow_dispatch:
@@ -144,7 +144,7 @@ jobs:
       - fetch-tutorials
       - fetch-workflows
 #      - fetch-citations
-    name: Merge tools, filter the resources for communities, and populate labs
+    name: Merge tools and create PR
     steps:
       - name: Checkout main
         uses: actions/checkout@v6
@@ -185,47 +185,6 @@ jobs:
       - name: Generate tools wordcloud and interactive table
         run: |
           bash sources/bin/format_tools.sh
-      - name: Filter workflows for communities
-        run: | 
-          bash sources/bin/get_community_workflows.sh
-      - name: Filter tutorials for communities
-        run: | 
-          bash sources/bin/get_community_tutorials.sh
-      - name: Filter citations for communities
-        run: | 
-          bash sources/bin/get_community_citations.sh no-scholarly
-      #- name: Update tool to keep and exclude for communities
-      #  run: | 
-      #    bash sources/bin/update_tools_to_keep_exclude.sh
-      - name: Filter tools for communities
-        run: | 
-          bash sources/bin/get_community_tools.sh
-      - name: Populate Microbiology (microGalaxy) Lab
-        run: | 
-          bash sources/bin/populate_labs.sh
-        env: 
-          COMMUNITY: microgalaxy
-      - name: Populate biodiversity lab
-        run: |
-          bash sources/bin/populate_labs.sh
-        env: 
-          COMMUNITY: biodiversity
-      - name: Populate earth-system Lab
-        run: |
-          bash sources/bin/populate_labs.sh
-        env: 
-          COMMUNITY: earth
-      - name: Populate Imaging lab
-        run: |
-          bash sources/bin/populate_labs.sh
-        env: 
-          COMMUNITY: imaging
-#To initiate a lab, we recommend adding it below. It will automatically create the folders and structures required.
-#      - name: Populate <community-name> Lab
-#        run: |
-#          bash sources/bin/populate_labs.sh
-#        env: 
-#          COMMUNITY: <community-name>
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v8
         with:
