@@ -70,29 +70,29 @@ jobs:
         with:
           name: tools-${{ matrix.subset }}
           path: communities/all/resources/${{ matrix.subset }}_tools.*
-  fetch-tutorials:
-    runs-on: ubuntu-latest
-    name: Fetch tutorials
-    steps:
-      - name: Checkout main
-        uses: actions/checkout@v6
-      - uses: actions/setup-python@v6
-        with:
-          python-version: '3.11'
-      - name: Install requirement
-        run: |
-          python -m pip install -r requirements.txt
-          sudo apt-get install jq
-      - name: Fetch all tutorials
-        run: | 
-          bash sources/bin/extract_all_tutorials.sh
-        env: 
-          PLAUSIBLE_API_KEY: ${{ secrets.PLAUSIBLE_API_TOKEN }}
-      - name: Archive tutorials artifacts
-        uses: actions/upload-artifact@v7
-        with:
-          name: tutorials
-          path: communities/all/resources/tutorials.*
+#  fetch-tutorials:
+#    runs-on: ubuntu-latest
+#    name: Fetch tutorials
+#    steps:
+#      - name: Checkout main
+#        uses: actions/checkout@v6
+#      - uses: actions/setup-python@v6
+#        with:
+#          python-version: '3.11'
+#      - name: Install requirement
+#        run: |
+#          python -m pip install -r requirements.txt
+#          sudo apt-get install jq
+#      - name: Fetch all tutorials
+#        run: | 
+#          bash sources/bin/extract_all_tutorials.sh
+#        env: 
+#          PLAUSIBLE_API_KEY: ${{ secrets.PLAUSIBLE_API_TOKEN }}
+#      - name: Archive tutorials artifacts
+#        uses: actions/upload-artifact@v7
+#        with:
+#          name: tutorials
+#          path: communities/all/resources/tutorials.*
 #  fetch-workflows:
 #    runs-on: ubuntu-latest
 #    name: Fetch workflows
@@ -141,7 +141,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: 
       - fetch-tools-stepwise
-      - fetch-tutorials
+#      - fetch-tutorials
 #      - fetch-workflows
 #      - fetch-citations
     name: Merge tools and create PR
@@ -161,12 +161,12 @@ jobs:
           pattern: tools-*
           merge-multiple: true
           path: communities/all/resources/
-      - name: Download tutorials
-        uses: actions/download-artifact@v8
-        with:
-          pattern: tutorials
-          merge-multiple: true
-          path: communities/all/resources/
+#      - name: Download tutorials
+#        uses: actions/download-artifact@v8
+#        with:
+#          pattern: tutorials
+#          merge-multiple: true
+#          path: communities/all/resources/
 #      - name: Download workflows
 #        uses: actions/download-artifact@v8
 #        with:
