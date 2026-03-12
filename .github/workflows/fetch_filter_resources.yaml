@@ -93,29 +93,29 @@ jobs:
         with:
           name: tutorials
           path: communities/all/resources/tutorials.*
-  fetch-workflows:
-    runs-on: ubuntu-latest
-    name: Fetch workflows
-    steps:
-      - name: Checkout main
-        uses: actions/checkout@v6
-      - uses: actions/setup-python@v6
-        with:
-          python-version: '3.11'
-      - name: Install requirement
-        run: |
-          python -m pip install -r requirements.txt
-          sudo apt-get install jq
-      - name: Fetch all workflows
-        run: | 
-          bash sources/bin/extract_all_workflows.sh 
-        env: 
-          PLAUSIBLE_API_KEY: ${{ secrets.PLAUSIBLE_API_TOKEN }}
-      - name: Archive tutorials artifacts
-        uses: actions/upload-artifact@v7
-        with:
-          name: workflows
-          path: communities/all/resources/workflows.json
+#  fetch-workflows:
+#    runs-on: ubuntu-latest
+#    name: Fetch workflows
+#    steps:
+#      - name: Checkout main
+#        uses: actions/checkout@v6
+#      - uses: actions/setup-python@v6
+#        with:
+#          python-version: '3.11'
+#      - name: Install requirement
+#        run: |
+#          python -m pip install -r requirements.txt
+#          sudo apt-get install jq
+#      - name: Fetch all workflows
+#        run: | 
+#          bash sources/bin/extract_all_workflows.sh 
+#        env: 
+#          PLAUSIBLE_API_KEY: ${{ secrets.PLAUSIBLE_API_TOKEN }}
+#      - name: Archive workflows artifacts
+#        uses: actions/upload-artifact@v7
+#        with:
+#          name: workflows
+#          path: communities/all/resources/workflows.json
 #  fetch-citations:
 #    runs-on: ubuntu-latest
 #    name: Fetch citations
@@ -142,7 +142,7 @@ jobs:
     needs: 
       - fetch-tools-stepwise
       - fetch-tutorials
-      - fetch-workflows
+#      - fetch-workflows
 #      - fetch-citations
     name: Merge tools and create PR
     steps:
@@ -167,12 +167,12 @@ jobs:
           pattern: tutorials
           merge-multiple: true
           path: communities/all/resources/
-      - name: Download workflows
-        uses: actions/download-artifact@v8
-        with:
-          pattern: workflows
-          merge-multiple: true
-          path: communities/all/resources/
+#      - name: Download workflows
+#        uses: actions/download-artifact@v8
+#        with:
+#          pattern: workflows
+#          merge-multiple: true
+#          path: communities/all/resources/
       - name: Display structure of downloaded files
         run: ls -R communities/all/resources/
       - name: Merge all tools
