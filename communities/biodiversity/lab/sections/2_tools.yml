@@ -25,6 +25,13 @@ tabs:
         <li><a href="{{ galaxy_base_url }}/?tool_id=velvetg">velvetg</a></li>
         <li><a href="{{ galaxy_base_url }}/?tool_id=velveth">velveth</a></li>
       </ul>
+  - title_md: flye
+    description_md: |-
+      Assembly of long and error-prone reads.
+       (Tool usage: 102693)
+      <ul>
+        <li><a href="{{ galaxy_base_url }}/?tool_id=flye">flye</a></li>
+      </ul>
   - title_md: raven
     description_md: |-
       Raven is a de novo genome assembler for long uncorrected reads.
@@ -38,6 +45,13 @@ tabs:
        (Tool usage: 26161)
       <ul>
         <li><a href="{{ galaxy_base_url }}/?tool_id=miniasm">miniasm</a></li>
+      </ul>
+  - title_md: canu
+    description_md: |-
+      Canu is a hierarchical assembly pipeline designed for high-noise single-molecule sequencing (such as the PacBio RS II/Sequel or Oxford Nanopore MinION).
+       (Tool usage: 22299)
+      <ul>
+        <li><a href="{{ galaxy_base_url }}/?tool_id=canu">canu</a></li>
       </ul>
   - title_md: abyss
     description_md: |-
@@ -69,26 +83,12 @@ tabs:
       <ul>
         <li><a href="{{ galaxy_base_url }}/?tool_id=rna_quast">rna_quast</a></li>
       </ul>
-  - title_md: salsa
+  - title_md: wtdbg
     description_md: |-
-      A tool to scaffold long read assemblies with Hi-C
-       (Tool usage: 1979)
+      WTDBG is a fuzzy Bruijn graph (FBG) approach to long noisy reads assembly.
+       (Tool usage: 2049)
       <ul>
-        <li><a href="{{ galaxy_base_url }}/?tool_id=salsa">salsa</a></li>
-      </ul>
-  - title_md: necat
-    description_md: |-
-      Error correction and de-novo assembly for ONT Nanopore reads
-       (Tool usage: 1106)
-      <ul>
-        <li><a href="{{ galaxy_base_url }}/?tool_id=necat">necat</a></li>
-      </ul>
-  - title_md: quickmerge
-    description_md: |-
-      Merge long-read and hybrid assemblies to increase contiguity
-       (Tool usage: 0)
-      <ul>
-        <li><a href="{{ galaxy_base_url }}/?tool_id=quickmerge">quickmerge</a></li>
+        <li><a href="{{ galaxy_base_url }}/?tool_id=wtdbg">wtdbg</a></li>
       </ul>
 - id: genome_annotation
   title: Genome annotation
@@ -134,6 +134,14 @@ tabs:
        (Tool usage: 1956)
       <ul>
         <li><a href="{{ galaxy_base_url }}/?tool_id=helixer">helixer</a></li>
+      </ul>
+  - title_md: vcontact2
+    description_md: |-
+      Tool to provide taxonomic context of metagenomic sequencing data
+       (Tool usage: 0)
+      <ul>
+        <li><a href="{{ galaxy_base_url }}/?tool_id=vcontact2">vcontact2</a></li>
+        <li><a href="{{ galaxy_base_url }}/?tool_id=vcontact2_gene2genome">vcontact2_gene2genome</a></li>
       </ul>
 - id: genome_assembly
   title: Genome assembly
@@ -194,6 +202,13 @@ tabs:
       <ul>
         <li><a href="{{ galaxy_base_url }}/?tool_id=ragtag">ragtag</a></li>
       </ul>
+  - title_md: blobtoolkit
+    description_md: |-
+      Identification and isolation non-target data in draft and publicly available genome assemblies.
+       (Tool usage: 4345)
+      <ul>
+        <li><a href="{{ galaxy_base_url }}/?tool_id=blobtoolkit">blobtoolkit</a></li>
+      </ul>
   - title_md: links
     description_md: |-
       Scaffold genome assemblies with long reads.
@@ -208,12 +223,12 @@ tabs:
       <ul>
         <li><a href="{{ galaxy_base_url }}/?tool_id=hapog">hapog</a></li>
       </ul>
-  - title_md: hypo
+  - title_md: tgsgapcloser
     description_md: |-
-      Super Fast & Accurate Polisher for Long Read Genome Assemblies
-       (Tool usage: 575)
+      TGS-GapCloser uses error-prone long reads or preassembled contigs to fill N-gap in the genome assembly.
+       (Tool usage: 587)
       <ul>
-        <li><a href="{{ galaxy_base_url }}/?tool_id=hypo">hypo</a></li>
+        <li><a href="{{ galaxy_base_url }}/?tool_id=tgsgapcloser">tgsgapcloser</a></li>
       </ul>
 - id: no_associated_edam_operation
   title: No associated EDAM operation
@@ -238,6 +253,13 @@ tabs:
         <li><a href="{{ galaxy_base_url }}/?tool_id=vigiechiro_idcorrect_2ndlayer">vigiechiro_idcorrect_2ndlayer</a></li>
         <li><a href="{{ galaxy_base_url }}/?tool_id=vigiechiro_idvalid">vigiechiro_idvalid</a></li>
       </ul>
+  - title_md: cd_hit_dup
+    description_md: |-
+      simple tool for removing duplicates from sequencing reads
+       (Tool usage: 9437)
+      <ul>
+        <li><a href="{{ galaxy_base_url }}/?tool_id=cd_hit_dup">cd_hit_dup</a></li>
+      </ul>
   - title_md: sample_seqs
     description_md: |-
       Sub-sample sequences files (e.g. to reduce coverage)
@@ -251,6 +273,13 @@ tabs:
        (Tool usage: 8849)
       <ul>
         <li><a href="{{ galaxy_base_url }}/?tool_id=hifiasm">hifiasm</a></li>
+      </ul>
+  - title_md: t2t_report
+    description_md: |-
+      Summarize taxonomy
+       (Tool usage: 8265)
+      <ul>
+        <li><a href="{{ galaxy_base_url }}/?tool_id=t2t_report">t2t_report</a></li>
       </ul>
   - title_md: lca_wrapper
     description_md: |-
@@ -274,30 +303,47 @@ tabs:
       <ul>
         <li><a href="{{ galaxy_base_url }}/?tool_id=yahs">yahs</a></li>
       </ul>
-  - title_md: pampa
+  - title_md: mitohifi
     description_md: |-
-      Tools to compute and analyse biodiversity metrics
-       (Tool usage: 3187)
+      Assembly mitogenomes from Pacbio HiFi read.
+       (Tool usage: 3813)
       <ul>
-        <li><a href="{{ galaxy_base_url }}/?tool_id=pampa_communitymetrics">pampa_communitymetrics</a></li>
-        <li><a href="{{ galaxy_base_url }}/?tool_id=pampa_presabs">pampa_presabs</a></li>
-        <li><a href="{{ galaxy_base_url }}/?tool_id=pampa_glmcomm">pampa_glmcomm</a></li>
-        <li><a href="{{ galaxy_base_url }}/?tool_id=pampa_glmsp">pampa_glmsp</a></li>
-        <li><a href="{{ galaxy_base_url }}/?tool_id=pampa_plotglm">pampa_plotglm</a></li>
+        <li><a href="{{ galaxy_base_url }}/?tool_id=mitohifi">mitohifi</a></li>
       </ul>
-  - title_md: shasta
+- id: sequence_assembly_validation
+  title: Sequence assembly validation
+  heading_md: 'Top 10 most used tools* for the EDAM operation: Sequence assembly validation
+    <br> *based on usage statistics from Galaxy’s main servers over the last five
+    years'
+  content:
+  - title_md: quast
     description_md: |-
-      Fast de novo assembly of long read sequencing data
-       (Tool usage: 2082)
+      Quast (Quality ASsessment Tool) evaluates genome assemblies.
+       (Tool usage: 279539)
       <ul>
-        <li><a href="{{ galaxy_base_url }}/?tool_id=shasta">shasta</a></li>
+        <li><a href="{{ galaxy_base_url }}/?tool_id=quast">quast</a></li>
       </ul>
-  - title_md: mitobim
+  - title_md: busco
     description_md: |-
-      assemble mitochondrial genomes
-       (Tool usage: 1996)
+      BUSCO assess genome and annotation completeness
+       (Tool usage: 256712)
       <ul>
-        <li><a href="{{ galaxy_base_url }}/?tool_id=mitobim">mitobim</a></li>
+        <li><a href="{{ galaxy_base_url }}/?tool_id=busco">busco</a></li>
+      </ul>
+  - title_md: fairy
+    description_md: |-
+      Fast approximate contig coverage for metagenomic binning
+       (Tool usage: 148)
+      <ul>
+        <li><a href="{{ galaxy_base_url }}/?tool_id=fairy_cov">fairy_cov</a></li>
+        <li><a href="{{ galaxy_base_url }}/?tool_id=fairy_sketch">fairy_sketch</a></li>
+      </ul>
+  - title_md: eukcc
+    description_md: |-
+      Galaxy wrapper for EukCC
+       (Tool usage: 0)
+      <ul>
+        <li><a href="{{ galaxy_base_url }}/?tool_id=eukcc_single">eukcc_single</a></li>
       </ul>
 - id: sequence_trimming
   title: Sequence trimming
@@ -310,6 +356,14 @@ tabs:
        (Tool usage: 29142)
       <ul>
         <li><a href="{{ galaxy_base_url }}/?tool_id=prinseq">prinseq</a></li>
+      </ul>
+  - title_md: graphmap
+    description_md: |-
+      Mapper for long, error-prone reads.
+       (Tool usage: 7922)
+      <ul>
+        <li><a href="{{ galaxy_base_url }}/?tool_id=graphmap_align">graphmap_align</a></li>
+        <li><a href="{{ galaxy_base_url }}/?tool_id=graphmap_overlap">graphmap_overlap</a></li>
       </ul>
   - title_md: smudgeplot
     description_md: |-
