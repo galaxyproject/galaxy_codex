@@ -15,12 +15,28 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  set-matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      communities: ${{ steps.prepare.outputs.communities }}
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v6
+      - name: Prepare communities JSON
+        id: prepare
+        run: |
+          # produce a JSON array string, e.g. from a file or script
+          echo '["microgalaxy","biodiversity"]' > communities.json
+          communities=$(cat communities.json)
+          echo "communities=$communities" >> $GITHUB_OUTPUT
+
   community-filter:
+    needs: set-matrix
     runs-on: ubuntu-latest
     name: Filter resources and create labs
     strategy:
       matrix:
-        community: ${{ fromJSON(steps.set-matrix.outputs.communities) }}
+        community: ${{ fromJson(needs.set-matrix.outputs.communities) }}
     steps:
       - name: Checkout main
         uses: actions/checkout@v6
@@ -31,12 +47,6 @@ jobs:
         run: |
           python -m pip install -r requirements.txt
           sudo apt-get install jq
-      - name: Get list of communities
-        id: set-matrix
-        run: |
-          # Get all community directories, excluding symlinks
-          communities=$(find communities -maxdepth 1 -type d -not -path 'communities/all' -printf '%f\n' | jq -R -s -c 'split("\n")[:-1]')
-          echo "communities=$communities" >> $GITHUB_OUTPUT
       - name: Filter tools for communities
         run: | 
           bash sources/bin/get_community_tools.sh
