@@ -1,0 +1,80 @@
+name: Community weekly resource filtering
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 'main/**'
+    paths:
+      - 'communities/all/resources/tools.tsv'
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "tools"
+  cancel-in-progress: false
+
+jobs:
+  community-filter:
+    runs-on: ubuntu-latest
+    name: Filter resources and create labs
+    strategy:
+      matrix:
+        community: ${{ fromJSON(steps.set-matrix.outputs.communities) }}
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+      - name: Install requirement
+        run: |
+          python -m pip install -r requirements.txt
+          sudo apt-get install jq
+      - name: Get list of communities
+        id: set-matrix
+        run: |
+          # Get all community directories, excluding symlinks
+          communities=$(find communities -maxdepth 1 -type d -not -path 'communities/all' -printf '%f\n' | jq -R -s -c 'split("\n")[:-1]')
+          echo "communities=$communities" >> $GITHUB_OUTPUT
+      - name: Filter tools for communities
+        run: | 
+          bash sources/bin/get_community_tools.sh
+        env: 
+          COMMUNITY: ${{ matrix.community }}
+      - name: Filter workflows for communities
+        run: | 
+          bash sources/bin/get_community_workflows.sh
+        env: 
+          COMMUNITY: ${{ matrix.community }}
+      - name: Filter tutorials for communities
+        run: | 
+          bash sources/bin/get_community_tutorials.sh
+        env: 
+          COMMUNITY: ${{ matrix.community }}
+      - name: Filter citations for communities
+        run: | 
+          bash sources/bin/get_community_citations.sh no-scholarly
+        env: 
+          COMMUNITY: ${{ matrix.community }}
+      #- name: Update tool to keep and exclude for communities
+      #  run: | 
+      #    bash sources/bin/update_tools_to_keep_exclude.sh
+      #  env: 
+      #    COMMUNITY: ${{ matrix.community }}
+      - name: Populate lab for communities
+        run: |
+          bash sources/bin/populate_labs.sh
+        env: 
+          COMMUNITY: ${{ matrix.community }}
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v8
+        with:
+          commit-message: ${{ matrix.community }} community resources update
+          title: ${{ matrix.community }} community automatic resources update
+          body: ${{ matrix.community }} community automatic resource update done via GitHub Action once a week
+          base: main
+          branch: ${{ matrix.community }}-resource-update
+          delete-branch: true
+          add-paths: |
+            communities/
