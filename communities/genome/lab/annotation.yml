@@ -20,22 +20,6 @@ tabs:
             datatypes:
               - fasta
         button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fmaker%2Fmaker"
-      - title_md: <code>Funannotate predict</code> - predicted gene annotations
-        description_md: >
-          <p>
-            <code>Funannotate predict</code> performs a comprehensive whole genome gene prediction. Uses AUGUSTUS, GeneMark, Snap, GlimmerHMM, BUSCO, EVidence Modeler, tbl2asn, tRNAScan-SE, Exonerate, minimap2. This approach differs from Maker as it does not need to train <em>ab initio</em> predictors.
-          </p>
-        inputs:
-          - datatypes:
-              - fasta
-            label: Genome assembly (soft-masked)
-          - datatypes:
-              - bam
-            label: Mapped RNA evidence (optional)
-          - datatypes:
-              - fasta
-            label: Protein evidence (optional)
-        button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Ffunannotate_predict%2Ffunannotate_predict"
       - title_md: <code>RepeatMasker</code> - screen DNA sequences for interspersed repeats and low complexity regions
         description_md: >
           <p>
@@ -68,17 +52,6 @@ tabs:
               - fasta
             label: Genome assembly
         button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fbgruening%2Finterproscan%2Finterproscan"
-      - title_md: <code>Funannotate compare</code> - compare several annotations
-        description_md: >
-          <p>
-            <code>Funannotate compare</code> compares several annotations and outputs a GFF3 file with the best gene models. It can be used to compare the results of different gene predictors, or to compare the results of a gene predictor with a reference annotation.
-          </p>
-        inputs:
-          - datatypes:
-              - fasta
-            label: Genome assemblies to compare
-        button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Ffunannotate_compare%2Ffunannotate_compare"
-
       - title_md: <code>Helixer</code> - structural genome annotation
         description_md: >
           <p>
@@ -159,41 +132,22 @@ tabs:
             - title_md: Annotation with Maker
               description_md: >
                 Annotates a genome using multiple rounds of Maker, including gene prediction using SNAP and Augustus.
+                Based on the <a href="https://training.galaxyproject.org/training-material/topics/genome-annotation/tutorials/annotation-with-maker/tutorial.html" target="_blank">GTN Maker tutorial</a>, with an updated version of BUSCO.
                 <br><br>
                 Tools: <code>maker</code> <code>snap</code> <code>augustus</code> <code>busco</code> <code>jbrowse</code>
               inputs:
                 - label: Genome assembly
                   datatypes:
                     - fasta
-                - label: RNAseq Illumina reads
+                - label: EST and/or cDNA sequences
                   datatypes:
-                    - fastq
-                - label: Proteins
+                    - fasta
+                - label: Protein sequences
                   datatypes:
                     - fasta
               buttons:
                 - icon: run
-                  link: "{{ galaxy_base_url }}/u/anna/w/genome-annotation-with-maker"
-                  tip: Run this workflow in Galaxy {{ site_name }}
-            - title_md: Annotation with Funannotate
-              description_md: >
-                Annotates a genome using Funannotate, includes RNAseq data with RNAstar, and protein predictions from EggNOG. <br> <br> Tools: <code>RNAstar</code> <code>funannotate</code> <code>eggnog</code> <code>busco</code> <code>jbrowse</code> <code>aegean parseval</code>
-              inputs:
-                - label: Genome assembly (soft-masked)
-                  datatypes:
-                    - fasta
-                - label: RNAseq Illumina reads
-                  datatypes:
-                    - fastq
-                - label: Alternative annotation
-                  datatypes:
-                    - gff3
-                - label: Alternative annotation
-                  datatypes:
-                    - gbk
-              buttons:
-                - icon: run
-                  link: "{{ galaxy_base_url }}/u/anna/w/annotation-funannotate"
+                  link: "{{ galaxy_base_url }}/u/gtntesting/w/genome-annotation-with-maker"
                   tip: Run this workflow in Galaxy {{ site_name }}
 
         - id: tsi_transcripts
@@ -383,13 +337,6 @@ tabs:
           </p>
           <p>
             Genome annotation of eukaryotes is a little more complicated than for prokaryotes: eukaryotic genomes are usually larger than prokaryotes, with more genes. The sequences determining the beginning and the end of a gene are generally less conserved than the prokaryotic ones. Many genes also contain introns, and the limits of these introns (acceptor and donor sites) are not highly conserved. This <a href="https://training.galaxyproject.org/training-material/topics/genome-annotation/tutorials/annotation-with-maker/tutorial.html" target="_blank"> Galaxy tutorial </a> uses MAKER to annotate the genome of a small eukaryote: Schizosaccharomyces pombe (a yeast).
-          </p>
-          <hr>
-          <p class="lead">
-            Genome annotation with Funannotate
-          </p>
-          <p>
-            This <a href="https://training.galaxyproject.org/training-material/topics/genome-annotation/tutorials/funannotate/tutorial.html" target="_blank"> Galaxy tutorial </a> provides a complete walkthrough of the process of annotation with Funannotate, including the preparation of RNAseq data, structural annotation, functional annotation, visualisation, and comparing annotations.
           </p>
       - title_md: Galaxy {{ site_name }} support
         description_md: >
