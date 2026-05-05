@@ -206,6 +206,30 @@ def get_shed_attribute(attrib: str, shed_content: Dict[str, Any], empty_value: A
         return empty_value
 
 
+def get_tool_outputs(el: et.Element) -> list[str]:
+    """
+    Find tool outputs by format from the outputs XML.
+    Only uses the output defined in format of the outputs xml.
+    Not implemented: Outputs that use format from input. Could be done but requires macro extension.
+    Returns list of formats.
+
+    :param el: Element object
+    """
+
+    outputs = el.find("outputs")
+
+    formats: list[str] = []
+
+    outputs = el.find("outputs")
+    if outputs is not None:
+        for output in outputs.findall("data"):
+            fmt = output.attrib.get("format")
+            if fmt:
+                formats.append(fmt)
+
+    return formats
+
+
 def get_xref(el: et.Element, attrib_type: str) -> Optional[str]:
     """
     Get xref information
@@ -295,6 +319,7 @@ def get_tool_metadata(tool: ContentFile, repo: Repository) -> Optional[Dict[str,
     metadata: dict = {
         "Suite ID": None,
         "Tool IDs": [],
+        "Tool output formats": [],
         "Description": None,
         "Suite first commit date": None,
         "Homepage": None,
@@ -408,9 +433,16 @@ def get_tool_metadata(tool: ContentFile, repo: Repository) -> Optional[Dict[str,
                     reqs = get_conda_package(root)
                     if reqs is not None:
                         metadata["Suite conda package"] = reqs
+
                 # tool ids
                 if "id" in root.attrib:
                     metadata["Tool IDs"].append(root.attrib["id"])
+
+                # tool outputs
+                formats = get_tool_outputs(root)
+                for f in formats:
+                    if f not in metadata["Tool output formats"]:
+                        metadata["Tool output formats"].append(f)
 
     metadata = get_suite_ID_fallback(metadata, tool)
 
@@ -583,7 +615,7 @@ def export_tools_to_tsv(
 
             # the Galaxy tools need to be formatted for the add_instances_to_table to work
             df["Tool IDs"] = shared.format_list_column(df["Tool IDs"])
-
+            df["Tool output formats"] = shared.format_list_column(df["Tool output formats"])
         if to_keep_columns is not None:
             df = df[to_keep_columns]
     else:  # Create a DataFrame with the specified headers and save it
@@ -871,6 +903,12 @@ def extract_top_tools_per_category(
     """
     tools = pd.read_csv(tool_fp, sep="\t")
 
+    # Some tools are not associated with EDAM operations and therefore not shown in the table even if they are used a lot.
+    # To avoid that, we create a new category "No associated EDAM operation"
+
+    # Step 0 : Add the string "No associated EDAM operation" in all the empty cells of the "EDAM operations" column
+    tools["EDAM operations"] = tools["EDAM operations"].fillna("No associated EDAM operation").astype(str)
+
     # Step 1: Split the categories into separate rows and strip whitespace
     df = tools.assign(Category=tools["EDAM operations"].str.split(",")).explode("Category")
     df["Category"] = df["Category"].str.strip()  # Strip whitespace
@@ -901,10 +939,11 @@ def extract_top_tools_per_category(
 
     # Step 7: Extract top X items per category based on total count
     top_tools_per_category = (
-        df_unique.groupby("Category", group_keys=False)  # Group by category
-        .apply(lambda group: group.nlargest(top_tool_nb, count_column))  # Get top items per category
-        .reset_index(drop=True)  # Reset index for clean output
+        df_unique.sort_values(by=["Category", count_column], ascending=[True, False])
+        .groupby("Category", as_index=False)
+        .head(top_tool_nb)
     )
+
     return top_tools_per_category
 
 
@@ -927,21 +966,20 @@ def fill_lab_tool_section(
             # Prepare the description with an HTML unordered list and links for each Galaxy tool ID
             description = f"{row['Description']}\n (Tool usage: {row[count_column]})"
             tool_ids = row["Tool IDs"]
-            owner = row["Suite owner"]
             wrapper_id = row["Suite ID"]
 
             # Split the tool IDs by comma if it's a valid string, otherwise handle as an empty list
             tool_ids_list = tool_ids.split(",") if isinstance(tool_ids, str) else []
 
             # Create the base URL template for each tool link
-            url_template = "/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2F{owner}%2F{wrapper_id}%2F{tool_id}"
+            url_template = "/?tool_id={tool_id}"
 
             # Build HTML list items with links
             description += "\n<ul>\n"
             for tool_id in tool_ids_list:
                 tool_id = tool_id.strip()  # Trim whitespace
                 # Format the URL with owner, wrapper ID, and tool ID
-                url = "{{ galaxy_base_url }}" + url_template.format(owner=owner, wrapper_id=wrapper_id, tool_id=tool_id)
+                url = "{{ galaxy_base_url }}" + url_template.format(tool_id=tool_id)
                 description += f'  <li><a href="{url}">{tool_id}</a></li>\n'
             description += "</ul>"
 
@@ -980,6 +1018,9 @@ def extract_missing_tools_per_servers(tool_fp: str) -> dict:
     """
     top_tools_per_category = extract_top_tools_per_category(tool_fp)
     tools = pd.read_csv(tool_fp, sep="\t").fillna("")
+
+    # Add a new column with all zeros, this will create a Local_Galaxy.yml that has all tools of the Lab
+    tools["Number of tools on Local_Galaxy"] = 0
 
     servers = [col.replace("Number of tools on ", "") for col in tools.filter(regex="Number of tools on").columns]
     missing_tools: dict[str, dict] = {}
@@ -1029,6 +1070,27 @@ def export_missing_tools(missing_tools: dict, tool_dp: str) -> None:
         export_missing_tools_to_yaml(Path(top_d) / Path(server_fn), tools["top"])
 
 
+def export_tools_to_yml(tools: List[Dict], yml_output_path: str) -> None:
+    """
+    Export to YAML for rendering on the website
+    """
+    for tool in tools:
+        availability = {}
+        for field in tool:
+            field_value = tool[field]
+            availability_match_string = "[Nn]umber of tools"
+            if re.search(availability_match_string, field):
+                instance_match_string = "[Uu]se[Gg]alaxy\.[a-z]{2}"
+                if re.search(instance_match_string, field):
+                    match = re.search(instance_match_string, field)
+                    if match:
+                        field_name = match.group(0)
+                        if field_value != 0:
+                            availability[field_name] = field_value
+        tool["availability"] = availability
+    shared.export_to_yml(tools, yml_output_path)
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description="Extract Galaxy tools from GitHub repositories together with biotools and conda metadata"
@@ -1039,6 +1101,7 @@ if __name__ == "__main__":
     extract.add_argument("--api", "-a", required=True, help="GitHub access token")
     extract.add_argument("--all", "-o", required=True, help="Filepath to JSON with all extracted tools")
     extract.add_argument("--all-tsv", "-j", required=True, help="Filepath to TSV with all extracted tools")
+    extract.add_argument("--all-yml", "-y", required=True, help="Filepath to yml with all extracted tools")
     extract.add_argument(
         "--all-workflows",
         "-aw",
@@ -1128,6 +1191,7 @@ if __name__ == "__main__":
         "-s",
         help="Path to a TSV file with tool status - at least 3 columns: IDs of tool suites, Boolean with True to keep and False to exclude, Boolean with True if deprecated and False if not",
     )
+    curatetools.add_argument("--yml", "-y", required=True, help="Filepath to yml with community extracted tools")
 
     # Curate tools categories
     labpop = subparser.add_parser("popLabSection", help="Fill in Lab section tools")
@@ -1174,6 +1238,7 @@ if __name__ == "__main__":
         tools = get_tools(repo_list, args.all_workflows, args.all_tutorials, edam_ontology)
         export_tools_to_json(tools, args.all)
         export_tools_to_tsv(tools, args.all_tsv, format_list_col=True)
+        export_tools_to_yml(tools, args.all_yml)
 
     elif args.command == "filter":
         with Path(args.all).open() as f:
@@ -1229,6 +1294,7 @@ if __name__ == "__main__":
                 format_list_col=True,
                 to_keep_columns=["Suite ID", "bio.tool name", "EDAM operations", "EDAM topics"],
             )
+            export_tools_to_yml(curated_tools, args.yml)
         else:
             # if there are no ts filtered tools
             print("No tools left after curation")
