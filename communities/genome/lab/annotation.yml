@@ -175,27 +175,6 @@ tabs:
                 - icon: run
                   link: "{{ galaxy_base_url }}/u/anna/w/genome-annotation-with-maker"
                   tip: Run this workflow in Galaxy {{ site_name }}
-            - title_md: Annotation with Funannotate
-              description_md: >
-                Annotates a genome using Funannotate, includes RNAseq data with RNAstar, and protein predictions from EggNOG. <br> <br> Tools: <code>RNAstar</code> <code>funannotate</code> <code>eggnog</code> <code>busco</code> <code>jbrowse</code> <code>aegean parseval</code>
-              inputs:
-                - label: Genome assembly (soft-masked)
-                  datatypes:
-                    - fasta
-                - label: RNAseq Illumina reads
-                  datatypes:
-                    - fastq
-                - label: Alternative annotation
-                  datatypes:
-                    - gff3
-                - label: Alternative annotation
-                  datatypes:
-                    - gbk
-              buttons:
-                - icon: run
-                  link: "{{ galaxy_base_url }}/u/anna/w/annotation-funannotate"
-                  tip: Run this workflow in Galaxy {{ site_name }}
-
         - id: tsi_transcripts
           title: Transcript alignment
           content:
@@ -204,7 +183,8 @@ tabs:
                 This <a href="https://australianbiocommons.github.io/how-to-guides/genome_annotation/Transcriptome" target="_blank"> How-to-Guide </a> will describe the steps required to align transcript data to your genome on the Galaxy {{ site_name }} platform, using multiple workflows. The outputs from these workflows can then be used as inputs into the next annotation workflow using FgenesH++.
             - title_md: Repeat masking
               description_md: >
-                Mask repeats in the genome.
+                Mask repeats in the genome. Runs RepeatModeler with default settings, then RepeatMasker using the output as a custom repeat database. Outputs soft-masked and hard-masked genomes plus a table of repeats found.
+                <p><strong>Recommended: Version 3 (recently tested).</strong></p>
               inputs:
                 - datatypes:
                     - fasta
@@ -253,16 +233,20 @@ tabs:
             - title_md: Combine transcripts
               description_md: >
                 Merge transcriptomes from different tissues, and filter out non-coding sequences.
+                <p><strong>Recommended: v1.2 (recently tested).</strong></p>
               inputs:
                 - datatypes:
-                    - fasta
-                  label: Masked genome
-                - datatypes:
                     - gtf
-                  label: Multiple transcriptomes in a collection
+                  label: Collection of transcriptome.gtf files (one per tissue)
                 - datatypes:
-                    - fasta.gz
-                  label: Coding and non-coding sequences from NCBI
+                    - fasta
+                  label: <code>genome.fasta</code>
+                - datatypes:
+                    - fasta
+                  label: <code>coding_seqs.fasta</code> (from NCBI)
+                - datatypes:
+                    - fasta
+                  label: <code>non_coding_seqs.fasta</code> (from NCBI)
               buttons:
                 - icon: run
                   link: "{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=878"
@@ -286,22 +270,6 @@ tabs:
                   link: https://workflowhub.eu/workflows/879
                   tip: View in WorkflowHub
 
-
-            - title_md: Convert formats
-              description_md: >
-                Convert formats for FgenesH++
-              inputs:
-                - datatypes:
-                    - fasta
-                  label: Transdecoder nucleotides/peptides
-              buttons:
-                - icon: run
-                  link: "{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=880"
-                  tip: Run this workflow in Galaxy {{ site_name }}
-                - icon: view
-                  link: https://workflowhub.eu/workflows/880
-                  tip: View in WorkflowHub
-
         - id: tsi_annotation
           title: Annotation with FgenesH++
           content:
@@ -310,7 +278,8 @@ tabs:
                 This <a href="https://australianbiocommons.github.io/how-to-guides/genome_annotation/Fgenesh" target="_blank"> How-to-Guide </a> will describe the steps required to annotate your genome on the Galaxy {{ site_name }} platform, using multiple workflows.
             - title_md: Annotation with FgenesH++
               description_md: >
-                Annotate the genome using outputs from the TSI transcriptome workflows.
+                Annotate the genome using outputs from the TSI transcriptome workflows. At runtime you also select a closely-related species, mammal / non-mammal, lineage, and NR database, and must tick the Fgenesh licence agreement parameter.
+                <p><strong>Recommended: Version 4 (recently tested).</strong></p>
                 <p class="alert alert-warning">
                   Note: you must
                   <a href="https://site.usegalaxy.org.au/request/access/fgenesh" target="_blank">
@@ -321,15 +290,13 @@ tabs:
               inputs:
                 - datatypes:
                     - fasta
-                  label: Assembled genome
+                  label: <code>assembled_genome.fasta</code>
                 - datatypes:
                     - fasta
-                  label: Masked genome
+                  label: <code>hard_masked_genome.fasta</code>
                 - datatypes:
                     - fasta
-                  label: >
-                    Outputs from TSI convert formats workflow
-                    (<code>file.cdna</code> <code>file.pro</code> <code>file.dat</code>)
+                  label: <code>mRNA_sequences.fasta</code> (from TSI extract transcripts workflow)
               buttons:
                 - icon: run
                   link: "{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=881"
