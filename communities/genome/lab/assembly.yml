@@ -105,6 +105,7 @@ tabs:
             - title_md: BAM to FASTQ + QC v1.0
               description_md: >
                 Convert a BAM file to FASTQ format to perform QC analysis (required if your data is in BAM format).
+                <p><strong>Recommended: Version 2 (recently tested).</strong></p>
               inputs:
                 - datatypes:
                     - bam
@@ -119,6 +120,7 @@ tabs:
             - title_md: PacBio HiFi genome assembly using hifiasm v2.1
               description_md: >
                 Assemble a genome using PacBio HiFi reads.
+                <p><strong>Recommended: v2.1.0 (recently tested).</strong></p>
               inputs:
                 - datatypes:
                     - fastqsanger
@@ -133,6 +135,7 @@ tabs:
             - title_md: Purge duplicates from hifiasm assembly v1.0
               description_md: >
                 Optional workflow to purge duplicates from the contig assembly.
+                <p><strong>Recommended: v1.0.0 (recently tested).</strong></p>
               inputs:
                 - datatypes:
                     - fastqsanger
@@ -165,10 +168,14 @@ tabs:
             - title_md: Genome assessment post-assembly
               description_md: >
                 Evaluate the quality of your genome assembly with a comprehensive report including <code>FASTA stats</code>, <code>BUSCO</code>, <code>QUAST</code>, <code>Meryl</code> and <code>Merqury</code>.
+                <p><strong>Recommended: v2.0.8 (recently tested).</strong></p>
               inputs:
                 - datatypes:
                     - fasta
                   label: Primary assembly contigs
+                - datatypes:
+                    - fastqsanger.gz
+                  label: Reads that were used for the assembly
               buttons:
                 - icon: run
                   link: "{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=403"
@@ -217,6 +224,7 @@ tabs:
             - title_md: Assembly polishing
               description_md: >
                 Polishes (corrects) an assembly, using long reads (<code>Racon</code> and <code>Medaka</code>) and short reads (<code>Racon</code>).
+                <p><strong>Recommended: Version 2 (recently tested).</strong></p>
               inputs:
                 - datatypes:
                     - fasta
@@ -260,6 +268,7 @@ tabs:
             - title_md: Kmer profiling
               description_md: >
                 This workflow produces a Meryl database and Genomescope outputs that will be used to determine parameters for following workflows, and assess the quality of genome assemblies. Specifically, it provides information about the genomic complexity, such as the genome size and levels of heterozygosity and repeat content, as well about the data quality.
+                <p><strong>Recommended: v0.1.7 (recently tested).</strong></p>
               inputs:
                 - datatypes:
                     - fastq
@@ -279,6 +288,7 @@ tabs:
                 <p>
                   <small> Note: if you have multiple input files for each HiC set, they need to be concatenated. The forward set needs to be concatenated in the same order as reverse set. </small>
                 </p>
+                <p><strong>Recommended: v0.1.10 (recently tested).</strong></p>
               inputs:
                 - datatypes:
                     - fasta
@@ -306,6 +316,7 @@ tabs:
             - title_md: Hifi assembly without HiC data
               description_md: >
                 This workflow uses <code>hifiasm</code> to generate primary and alternate pseudohaplotype assemblies. This workflow includes three tools for evaluating assembly quality: <code>gfastats</code>, <code>BUSCO</code> and <code>Merqury</code>.
+                <p><strong>Recommended: v0.3.5 (recently tested).</strong></p>
               inputs:
                 - datatypes:
                     - fasta
@@ -327,6 +338,7 @@ tabs:
             - title_md: HiC scaffolding
               description_md: >
                 This workflow scaffolds the assembly contigs using information from HiC data.
+                <p><strong>Recommended: v1.8 (recently tested).</strong></p>
               inputs:
                 - datatypes:
                     - gfa
