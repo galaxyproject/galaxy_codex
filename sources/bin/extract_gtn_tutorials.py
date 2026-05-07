@@ -4,14 +4,17 @@ import argparse
 import time
 from datetime import date
 from typing import (
+    Any,
     Dict,
     List,
+    Optional,
 )
 
 import pandas as pd
 import shared
 import yt_dlp
 from owlready2 import get_ontology
+from ruamel.yaml import YAML as ruamelyaml
 
 PLAUSIBLE_REQUEST_NB = 0
 
@@ -199,10 +202,19 @@ def get_tutorials(
     return tutos
 
 
-def filter_tutorials(tutorials: dict, tags: List) -> List:
+def filter_tutorials(tutorials: Any, tags: Optional[List[Any]]) -> List[Any]:
+    # def filter_tutorials(tutorials: dict, tags: List) -> List:
     """
     Filter training based on a list of tags
+    If tags is None or an empty list, returns all tutorials.
     """
+    # Normalize input: always work with a list
+    if isinstance(tutorials, dict):
+        tutorials = list(tutorials.values())
+    if not tags:
+        # No tags specified, return all tutorials
+        return tutorials
+
     filtered_tutorials = []
     for tuto in tutorials:
         to_keep = False
@@ -285,6 +297,99 @@ def export_tutorials_to_tsv(tutorials: list, output_fp: str) -> None:
     df.to_csv(output_fp, sep="\t", index=False)
 
 
+def extract_top_tutorials_per_category(
+    tutorial_fp: str, count_column: str = "Visitors", category_nb: int = 10, top_tutorial_nb: int = 10
+) -> pd.DataFrame:
+    """
+    Extract top tutorials per categories
+    """
+    tutorials = pd.read_csv(tutorial_fp, sep="\t")
+
+    # Step 1: Split the categories into separate rows and strip whitespace
+    df = tutorials.assign(Category=tutorials["Topic"].str.split(",")).explode("Category")
+    df["Category"] = df["Category"].str.strip()  # Strip whitespace
+
+    # Step 2: Group by category to calculate total count and item count
+    grouped = (
+        df.groupby("Category")
+        .agg(
+            total_count=(count_column, "sum"),
+            item_count=("Link", "size"),  # Count distinct items if necessary, use 'nunique'
+        )
+        .reset_index()
+    )
+
+    # Step 3: Filter categories with at least 5 items
+    filtered = grouped[grouped["item_count"] >= 5]
+
+    # Step 4: Sort by total count in descending order
+    top_categories = filtered.sort_values(by="total_count", ascending=False).head(category_nb)["Category"]
+
+    # Step 5: Assign each tutorial to the first category it appears in
+    # Sort by 'Galaxy wrapper id' to ensure we assign based on first appearance
+    df_unique = df[df["Category"].isin(top_categories)]  # Filter rows for top 5 categories
+    df_unique = df_unique.sort_values(by=["Link", "Category"])  # Sort by tutorial ID to keep first category only
+
+    # Step 6: Remove duplicates, keeping the first appearance of each tutorial
+    df_unique = df_unique.drop_duplicates(subset=["Link"], keep="first")
+
+    # Step 7: Extract top X items per category based on total count
+    top_tutorials_per_category = (
+        df_unique.sort_values(by=["Category", count_column], ascending=[True, False])
+        .groupby("Category", as_index=False)
+        .head(top_tutorial_nb)
+    )
+
+    return top_tutorials_per_category
+
+
+def fill_lab_tutorial_section(
+    lab_section: dict, top_items_per_category: pd.DataFrame, count_column: str = "Visitors"
+) -> dict:
+    """
+    Fill Lab tutorial section
+    """
+    tabs = []
+
+    for grp_id, group in top_items_per_category.groupby("Category"):
+        group_id = str(grp_id)
+        tutorial_entries = []
+        for _index, row in group.iterrows():
+
+            # Prepare the description with an HTML unordered list and links for each tutorial link (only unique id)
+            title = f"{row['Title']}\n (Visitors: {row[count_column]})"
+            description = f"Tutorial stored in {row['Topic']} topic on the Galaxy Training Network and covering topics related to {row['EDAM topic']}"
+            link = row["Link"]
+
+            # Create the tutorial entry
+            tutorial_entry = {
+                "title_md": title,
+                "description_md": description,
+                "button_link": link,
+                "button_tip": "View tutorial",
+                "button_icon": "tutorial",
+            }
+
+            tutorial_entries.append(tutorial_entry)
+
+        # Create table entry for each Topic
+        tabs.append(
+            {
+                "id": group_id.replace(" ", "_").lower(),
+                "title": group_id,
+                "heading_md": f"Top 10 most visited tutorials for the Topic : {group_id}",
+                "content": tutorial_entries,
+            }
+        )
+
+    new_lab_section = {
+        "id": lab_section["id"],
+        "title": lab_section["title"],
+        "tabs": tabs,
+    }
+    return new_lab_section
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description="Extract Galaxy Training Materials from GTN API together with statistics"
@@ -317,6 +422,12 @@ if __name__ == "__main__":
         help="Filepath to JSON with all extracted tutorials, generated by extracttutorials command",
     )
     filtertuto.add_argument(
+        "--yml",
+        "-y",
+        required=True,
+        help="Filepath to yml file with all extracted tutorials, generated by extracttutorials command",
+    )
+    filtertuto.add_argument(
         "--filtered",
         "-f",
         required=True,
@@ -328,6 +439,20 @@ if __name__ == "__main__":
         help="Path to a file with tags to keep in the extraction (one per line)",
     )
 
+    # Add tutorials to the lab section
+    labpop = subparser.add_parser("popLabSection", help="Fill in Lab section tutorials")
+    labpop.add_argument(
+        "--tsv",
+        "-t",
+        required=True,
+        help="Filepath to TSV with curated tutorials",
+    )
+    labpop.add_argument(
+        "--lab",
+        required=True,
+        help="Filepath to YAML files for Lab section",
+    )
+
     args = parser.parse_args()
 
     if args.command == "extract":
@@ -337,7 +462,16 @@ if __name__ == "__main__":
     elif args.command == "filter":
         all_tutorials = shared.load_json(args.all)
         # get categories and training to exclude
-        tags = shared.read_file(args.tags)
+        tags = shared.read_file(args.tags) if args.tags else None
         # filter training lists
         filtered_tutorials = filter_tutorials(all_tutorials, tags)
         export_tutorials_to_tsv(filtered_tutorials, args.filtered)
+        shared.export_to_yml(filtered_tutorials, args.yml)
+
+    elif args.command == "popLabSection":
+        lab_section = shared.load_yaml(args.lab)
+        top_tutorials_per_category = extract_top_tutorials_per_category(args.tsv)
+        lab_section = fill_lab_tutorial_section(lab_section, top_tutorials_per_category)
+
+        with open(args.lab, "w") as lab_f:
+            ruamelyaml().dump(lab_section, lab_f)

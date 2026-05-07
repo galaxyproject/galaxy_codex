@@ -87,6 +87,14 @@ def load_yaml(input_df: str) -> Dict:
     return content
 
 
+def export_to_yml(data: list, yml_output_path: str) -> None:
+    """
+    Export to YAML file
+    """
+    with Path(yml_output_path).open("w") as file:
+        yaml.dump(data, file, default_flow_style=False)
+
+
 def read_suite_per_tool_id(tool_fp: str) -> Dict:
     """
     Read the tool suite table and extract a dictionary per tool id
@@ -122,7 +130,7 @@ def get_request_json(url: str, headers: dict, retries: int = 3, delay: float = 2
             r = requests.get(url, auth=None, headers=headers)
             r.raise_for_status()  # Raises an HTTPError for unsuccessful status codes
             return r.json()  # Return JSON response if successful
-        except ConnectionError as e:
+        except requests.exceptions.HTTPError as e:
             attempt += 1
             if attempt == retries:
                 raise ConnectionError(
