@@ -9,26 +9,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout base branch
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
         with:
           repository: ${{ github.repository }}
           ref: main
           path: base
 
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v6
         with:
-          python-version: '3.x'
+          python-version: '3.13'
 
       - name: Checkout base branch
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
         with:
           repository: ${{ github.event.pull_request.base.repo.full_name }}
           ref: ${{ github.event.pull_request.base.ref }}
           path: base
 
       - name: Checkout head branch
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
         with:
           repository: ${{ github.event.pull_request.head.repo.full_name }}
           ref: ${{ github.event.pull_request.head.ref }}
@@ -40,7 +40,7 @@ jobs:
           cd head
           git remote add upstream https://github.com/${{ github.repository }}
           git fetch upstream main
-          git diff --name-only upstream/main..HEAD | grep '/lab/' > ../paths.txt || true
+          git diff --name-only upstream/main...HEAD | grep '/lab/' > ../paths.txt || true
           cd ..
           echo ""
           echo "Changed files:"
@@ -73,7 +73,7 @@ jobs:
           echo "export BASE_REPO=${BASE_REPO}" >> output/env.sh
 
       - name: Upload test result comments artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: labs_test_comments
           path: output

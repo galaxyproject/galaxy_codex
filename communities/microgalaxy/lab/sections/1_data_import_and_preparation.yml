@@ -13,7 +13,7 @@ tabs:
         button_tip: Upload Data
       - title_md: Download data from NCBI GenBank/RefSeq
         description_md: >
-          Download sequences from GenBank/RefSeq by accession through the NCBI ENTREZ API
+          Download sequences from GenBank/RefSeq by accession number through the NCBI ENTREZ API
         button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fncbi_acc_download%2Fncbi_acc_download"
         button_tip: Download Data from NCBI
       - title_md: Download raw reads from NCBI SRA
@@ -23,12 +23,12 @@ tabs:
         button_tip: Download raw reads from NCBI SRA
       - title_md: Download run data from EBI SRA
         description_md: >
-          ENA data can be searched and retrieved interactively and programmatically and visualized using this ENA Browser tool
+          The European Nucleotide Archive (ENA) provides a comprehensive record of the world's nucleotide sequencing information, covering raw sequencing data, sequence assembly information and functional annotation. ENA data can be searched and retrieved interactively and programmatically and visualized using this ENA Browser tool.
         button_link: "https://www.ebi.ac.uk/ena/browser/search?GALAXY_URL=https:%2F%2Fmicrogalaxy.usegalaxy.eu%2Ftool_runner%3Ftool_id%3Debi_sra_main"
         button_tip: Download run data from EBI SRA
       - title_md: Download run data from EBI Metagenomics (MGnify)
         description_md: >
-          This tool downloads data related to a run in EBI Metagenomics database
+          This tool imports raw or processed metagenomic data (reads or analysis outputs) from the European Bioinformatics Institute (EBI) Metagenomics / MGnify database into Galaxy for downstream analysis — without manually downloading and uploading files.
         button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Febi_metagenomics_run_downloader%2Febi_metagenomics_run_downloader"
         button_tip: Download run data from MGnify
       - title_md: Download run data from UCSC
@@ -42,6 +42,13 @@ tabs:
     heading_md: >
       Flagship tools for microbial research 
     content:
+      - title_md: <code>FastP</code> - sequence quality reports, trimming & filtering
+        description_md: >
+            Commonly used tool for trimming and quality filter. Also provides quality metrics.
+        inputs:
+          - datatypes:
+              - fastq
+        button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Ffastp%2Ffastp"
       - title_md: <code>Bakta</code> - Rapid and standardized annotation of bacterial genomes, MAGs and plasmids
         description_md: >
             A tool for the rapid & standardized annotation of bacterial genomes and plasmids from both isolates and Metagenomic Assembled Genomes (MAGs).
@@ -60,7 +67,7 @@ tabs:
         button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/abricate/abricate"
       - title_md: <code>SPAdes</code> - an assembly toolkit containing various assembly pipelines including (meta)SPAdes
         description_md: >
-            SPAdes implements the following 4 stages: assembly graph construction, k-bimer adjustment, construction of paired assembly graph and contig construction.
+            SPAdes is a genome assembly toolkit containing various assembly pipelines including (meta)SPAdes. SPAdes implements the following 4 stages: assembly graph construction, k-bimer adjustment, construction of paired assembly graph, and contig construction. These stages you can perform using the following SPAdes tools:
             <ul>
               <li><a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/spades_biosyntheticspades/spades_biosyntheticspades">spades_biosyntheticspades</a></li>
               <li><a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/spades_coronaspades/spades_coronaspades">spades_coronaspades</a></li>
@@ -80,13 +87,6 @@ tabs:
               - fastq
               - fastqsanger
         button_link: "{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/unicycler/unicycler"
-      - title_md: <code>FastP</code> - sequence quality reports, trimming & filtering
-        description_md: >
-            Commonly used tool for trimming and quality filter. Also provides quality metrics.
-        inputs:
-          - datatypes:
-              - fastq
-        button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Ffastp%2Ffastp"
       - title_md: <code>Kraken2</code> - Kraken2 assign taxonomic labels to sequencing reads
         description_md: >
             Kraken2 assign taxonomic labels to sequencing reads. 
@@ -95,8 +95,9 @@ tabs:
               - fastq
               - fasta
         button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fkraken2%2Fkraken2"
-      - title_md: <code>dada2</code> - Fast and accurate sample inference from amplicon data with single-nucleotide resolution
+      - title_md: <code>DADA2</code> - Fast and accurate sample inference from amplicon data with single-nucleotide resolution
         description_md: >
+          DADA2 is a software package that models and corrects Illumina-sequenced amplicon errors. This allows the resolution of biological sequences to the level of single-nucleotide differences over the sequenced gene region. The following are tools of the DADA2 suite available in Galaxy, more information about the tools and how to use them can be found in the <a href="https://benjjneb.github.io/dada2/tutorial.html">DADA2 tutorial</a>.  
           <ul>
             <li><a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/dada2_assigntaxonomyaddspecies/dada2_assignTaxonomyAddspecies">dada2_assignTaxonomyAddspecies</a></li>
             <li><a href="{{ galaxy_base_url }}/root?tool_id=toolshed.g2.bx.psu.edu/repos/iuc/dada2_dada/dada2_dada">dada2_dada</a></li>
@@ -124,7 +125,7 @@ tabs:
               - Kraken report
               - MetaPhlAn report
         button_link: "{{ galaxy_base_url }}/root?tool_id=interactive_tool_pavian"
-      - title_md: <code>Phinch</code> - A framework for visualizing bio data
+      - title_md: <code>Phinch</code> - A framework for visualizing Biom data
         description_md: >
             Interactive tool for visualising Biom data.
         inputs:
@@ -138,13 +139,13 @@ tabs:
           - datatypes:
               - phyloseq R object
         button_link: "{{ galaxy_base_url }}/root?tool_id=interactive_tool_phyloseq"
-      - title_md: <code>RStudio</code> - An integrated development environment (IDE) for R and Python
+      - title_md: <code>RStudio</code> - An integrated development environment (IDE) for R
         description_md: >
             This familiar R analysis software suite will let you explore your datasets in depth. Comes with ggplot2, RODBC, maps, shinyapps, knitr, LaTeX, bioconductor, cummeRbund, and many more pre-installed packages.
         button_link: "{{ galaxy_base_url }}/root?tool_id=interactive_tool_rstudio"
       - title_md: <code>Interactive JupyterLab Notebook</code> - A web-based interactive computing platform
         description_md: >
-            The Jupyter Notebook is an open-source web application that allows you to create and share documents that contain live code, equations, visualizations and narrative text. Uses include: data cleaning and transformation, numerical simulation, statistical modeling, data visualization, machine learning, and much more.
+            The Jupyter Notebook is an open-source web application that allows you to create and share documents that contain live code, equations, visualizations and narrative text using R, Python, Julia, and many other languages.
         inputs:
           - datatypes:
               - Jupyter Notebook

@@ -9,6 +9,8 @@ Any Galaxy community can be added to this project and benefit from the dedicated
 
 # Prepare environment
 
+## Using virtualenv
+
 - Install virtualenv (if not already there)
 
     ```
@@ -32,6 +34,21 @@ Any Galaxy community can be added to this project and benefit from the dedicated
     ```
     $ python3 -m pip install -r requirements.txt
     ```
+
+## Using conda
+
+- [Install conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html)
+- Create a conda environment with requirements
+ 
+   ```sh
+   $ conda create --name codex --file requirements.txt
+   ```
+
+- Activate the conda environment
+
+   ```sh
+   $ conda activate codex
+   ```
 
 # Extract Galaxy Tool Suites
 
@@ -207,7 +224,10 @@ $ python sources/bin/create_interactive_table.py \
 To contribute to the CoDex Source code:
 1. fork the repository,
 2. create a branch and add your changes
-3. make a pull request to the **dev branch** of the CoDex repository. 
+3. add a unit test for your changes (see [unittests](sources/bin/tests) for examples).  **Warning:** new functions now require a unit test to be merged!
+4. make a pull request to the **dev branch** of the CoDex repository. 
+
+The `unittest` framework will run on your PR. Please fix the tests if required.
 
 Upon review the maintainer will merge your pull request. 
 Automatic tests will run on the dev branch. 
@@ -216,14 +236,16 @@ When the tests succeed a maintainer will merge the dev branch into main. Feel fr
 
 The reason we are not running the tests directly on the pull request branch is, that this does not allow to access the GitHub secrets, that are required to run the tests.
 
-# Run the unit tests locally
+### Run the unit tests locally
 
 ```
 cd codex/sources
 PYTHONPATH=bin python -m unittest discover -s bin/tests
 ```
 
-### Tools
+### Run functional tests locally
+
+#### Tools
 
 To make a test run of the tool to check its functionalities follow [Usage](#Usage) to set-up the environnement and the API key, then run
 
@@ -247,7 +269,7 @@ To make a test run of the tool to check its functionalities follow [Usage](#Usag
     $ bash sources/bin/format_tools.sh
     ```
 
-### Tutorials
+#### Tutorials
 
 1. Tutorial extraction
 
@@ -261,7 +283,7 @@ To make a test run of the tool to check its functionalities follow [Usage](#Usag
     $ bash sources/bin/get_community_tutorials.sh test
     ```
 
-### Workflows
+#### Workflows
 
 1. Workflow extraction
 
@@ -274,6 +296,21 @@ To make a test run of the tool to check its functionalities follow [Usage](#Usag
     ```bash
     $ bash sources/bin/get_community_workflows.sh test
     ```
+
+#### Citations
+
+1. Citation extraction
+
+    ```bash
+    $ bash sources/bin/extract_all_citations.sh test 
+    ```
+
+2. Citations filtering and curation
+
+    ```bash
+    $ bash sources/bin/get_community_citations.sh test
+    ```
+
 
 # Galaxy Labs framework
 
@@ -289,6 +326,16 @@ tools.
 
 To see an example, check out Galaxy Australia's Genome Lab at
 https://genome.usegalaxy.org.au.
+
+
+## How can I create a Lab?
+
+You can copy the Lab folder of an existing community in their folder and adapt it for your community or use the following script:
+
+```bash
+$ export COMMUNITY="<your community>"
+$ bash sources/bin/create_lab.sh
+```
 
 
 ## What does the framework do?
@@ -374,7 +421,7 @@ tabs:
 
 The above content will create the following section:
 
-![example section from YAML content](../docs/images/labs/example-section.png)
+![example section from YAML content](../website/images/labs/example-section.png)
 
 In addition to learning the Labs Engine YAML schema, an understanding of the
 following is required:

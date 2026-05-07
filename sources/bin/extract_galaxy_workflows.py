@@ -73,7 +73,12 @@ class Workflow:
             self.update_time = shared.format_date(wf["data"]["attributes"]["updated_at"])
             self.latest_version = wf["data"]["attributes"]["latest_version"]
             self.versions = len(wf["data"]["attributes"]["versions"])
-            self.number_of_steps = len(wf["data"]["attributes"]["internals"]["steps"])
+            internals = wf["data"]["attributes"].get("internals", {})
+            steps = internals.get("steps")
+            if steps is not None:
+                self.number_of_steps = len(steps)
+            else:
+                self.number_of_steps = 0
             self.license = wf["data"]["attributes"]["license"]
             self.doi = wf["data"]["attributes"]["doi"]
             self.edam_topic = [t["label"] for t in wf["data"]["attributes"]["topic_annotations"]]
@@ -118,9 +123,12 @@ class Workflow:
         """
         tools = set()
         if "WorkflowHub" in self.source:
-            for tool in wf["data"]["attributes"]["internals"]["steps"]:
-                if tool["description"] is not None:
-                    tools.add(shared.shorten_tool_id(tool["description"]))
+            internals = wf["data"]["attributes"].get("internals", {})
+            steps = internals.get("steps")
+            if steps is not None:
+                for tool in steps:
+                    if tool.get("description") is not None:
+                        tools.add(shared.shorten_tool_id(tool["description"]))
         else:
             for step in wf["steps"].values():
                 if "tool_id" in step and step["tool_id"] is not None:
@@ -214,10 +222,14 @@ class Workflows:
     def init_by_searching(self, tool_fp: str) -> None:
         self.tools = shared.read_suite_per_tool_id(tool_fp)
         self.add_workflows_from_workflowhub()
-        self.add_workflows_from_workflowhub("dev.")
+        # self.add_workflows_from_workflowhub("dev.")
         self.add_workflows_from_public_servers()
 
     def init_by_importing(self, wfs: dict) -> None:
+        """
+        Loads the workflows from a dict following the structure in communities/all/resources/test_workflows.json
+        (the json created by init_by_searching)
+        """
         for iwf in wfs:
             wf = Workflow()
             wf.init_by_importing(iwf)
@@ -267,6 +279,9 @@ class Workflows:
         for wf in server_wfs:
             if wf["published"] and wf["importable"] and not wf["deleted"] and not wf["hidden"]:
                 count += 1
+                # The following workflow (id=f65a2f2a19bea880) caused the request to crash, it was reported to the Galaxy team, in the meantime, we are skipping it
+                if wf["id"] == "f65a2f2a19bea880":
+                    continue
                 server_wf = shared.get_request_json(
                     f"{server}/api/workflows/{wf['id']}",
                     header,
@@ -382,6 +397,8 @@ class Workflows:
             if wf.source == "WorkflowHub":
                 if "Intergalactic Workflow Commission (IWC)" in wf.projects:
                     self.grouped_workflows["iwc"].append(wf)
+                elif "Galaxy Training Network" in wf.projects:
+                    self.grouped_workflows["gtn"].append(wf)
                 else:
                     self.grouped_workflows["other_workflowhub"].append(wf)
             elif wf.source == "dev.WorkflowHub":
@@ -449,6 +466,7 @@ if __name__ == "__main__":
     # Extract Workflows
     extract = subparser.add_parser("extract", help="Extract all workflows")
     extract.add_argument("--all", "-o", required=True, help="Filepath to JSON with all extracted workflows")
+    extract.add_argument("--yml", "-y", required=True, help="Filepath to YAML with all extracted workflows")
     extract.add_argument(
         "--tools",
         "-t",
@@ -519,6 +537,7 @@ if __name__ == "__main__":
         "-s",
         help="Path to a TSV file with workflow status",
     )
+    curatewf.add_argument("--yml", "-y", required=True, help="Filepath to yml with community extracted workflows")
 
     # Curate tools categories
     labpop = subparser.add_parser("popLabSection", help="Fill in Lab section workflows")
@@ -540,6 +559,7 @@ if __name__ == "__main__":
         wfs = Workflows(test=args.test)
         wfs.init_by_searching(args.tools)
         shared.export_to_json(wfs.export_workflows_to_dict(), args.all)
+        shared.export_to_yml(wfs.export_workflows_to_dict(), args.yml)
 
     elif args.command == "filter":
         wfs = Workflows()
@@ -583,6 +603,7 @@ if __name__ == "__main__":
         wfs.curate_workflows(status)
         shared.export_to_json(wfs.export_workflows_to_dict(), args.curated)
         wfs.export_workflows_to_tsv(args.tsv_curated)
+        shared.export_to_yml(wfs.export_workflows_to_dict(), args.yml)
 
     elif args.command == "popLabSection":
         wfs = Workflows()
