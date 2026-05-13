@@ -11,12 +11,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0  # ensure full history for merge-base diff
 
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v6
         with:
           python-version: '3.13'
 
@@ -88,7 +88,7 @@ jobs:
           echo "export BASE_REPO=${BASE_REPO}" >> output/env.sh
 
       - name: Upload test result comments artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: labs_test_comments
           path: output
