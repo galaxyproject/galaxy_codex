@@ -7,14 +7,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - uses: ruby/setup-ruby@v1.288.0
+      - uses: ruby/setup-ruby@v1.308.0
         with:
           ruby-version: '3.3'
           bundler-cache: true
           cache-version: 0
       - name: Setup Pages
         id: pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
       - name: Install dependencies
         run: |
           bundle install

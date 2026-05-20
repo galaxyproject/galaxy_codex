@@ -25,25 +25,43 @@ tabs:
           - label_md: More info
             link: https://australianbiocommons.github.io/how-to-guides/genome_assembly/hifi_assembly#in-depth-workflow-guide
             tip: Learn how to import data from BPA portal
+        exclude_from:
+        - usegalaxy.eu
+        - usegalaxy.org
+        - usegalaxy.fr
 
       - title_md: Can I upload sensitive data?
         description_md: >
           <p>
-            No, do not upload personal or sensitive, such as human health or clinical data. Please see our <a href="https://site.usegalaxy.org.au/about#data-privacy">Data Privacy</a> page for definitions of sensitive and health-related information.
+            No, do not upload personal or sensitive, such as human health or clinical data.
+
+            {% if data_policy_url %}
+            Please see our <a href="{{ data_policy_url }}">Data Privacy</a> page for definitions of sensitive and health-related information.
+            {% endif %}
           </p>
+
+          {% if terms_url %}
           <p>
-            Please also make sure you have read our <a href="https://site.usegalaxy.org.au/about#terms-of-service">Terms of Service</a>, which covers hosting and analysis of research data.
+            Please also make sure you have read our <a href="{{ terms_url }}">Terms of Service</a>, which covers hosting and analysis of research data.
           </p>
+          {% endif %}
       - title_md: Is my data private?
         description_md: >
-          Please read our <a href="https://site.usegalaxy.org.au/about#data-privacy">Privacy Policy</a> for information on your personal data and any data that you upload.
+          {% if data_policy_url %}
+          Please read our <a href="{{ data_policy_url }}">Privacy Policy</a>
+          {% else %}
+          Please ask for our privacy policy
+          {% endif %}
+          for information on your personal data and any data that you upload.
       - title_md: How can I increase my storage quota?
         description_md: >
           Please submit a quota request if your Galaxy {{ site_name }} account reaches its data storage limit. Requests are usually provisioned quickly if you provide a reasonable use case for your request.
         buttons:
           - label_md: Request
-            link: https://site.usegalaxy.org.au/request/quota
+            link: "{{ quota_request_url }}"
             tip: Request a storage quota increase
+        exclude_from:
+        - usegalaxy.org
 
       - title_md: "Tutorial: Quality Control"
         description_md: >
