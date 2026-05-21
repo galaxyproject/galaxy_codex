@@ -13,86 +13,6 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  fetch-servers:
-    runs-on: ubuntu-latest
-    name: Fetch servers
-    steps:
-      - name: Checkout main
-        uses: actions/checkout@v6
-      - uses: actions/setup-python@v6
-        with:
-          python-version: '3.11'
-      - name: Install requirement
-        run: |
-          python -m pip install -r requirements.txt
-          sudo apt-get install jq
-      - name: Fetch list of all available servers
-        run: | 
-          python sources/bin/get_public_galaxy_servers.py -o sources/data/available_public_servers.csv
-      - name: Archive available servers
-        uses: actions/upload-artifact@v7
-        with:
-          name: available-servers
-          path: sources/data/available_public_servers.csv
-  fetch-tools-stepwise:
-    runs-on: ubuntu-latest
-    name: Fetch tool stepwise
-    environment: fetch-tools
-    needs: fetch-servers
-    strategy:
-      #max-parallel: 1 #need to run one after another, since otherwise there is a chance, that mulitple jobs want to push to the results branch at the same time (which fails due to merge)
-      matrix:
-        subset:
-         - repositories01.list
-         - repositories02.list
-         - repositories03.list
-         - repositories04.list
-    steps:
-      - name: Checkout main
-        uses: actions/checkout@v6
-      - uses: actions/setup-python@v6
-        with:
-          python-version: '3.11'
-      - name: Install requirement
-        run: python -m pip install -r requirements.txt
-      - name: Download available servers
-        uses: actions/download-artifact@v8
-        with:
-          name: available-servers
-          path: sources/data/
-      - name: Fetch all tool stepwise
-        run: | 
-          bash sources/bin/extract_all_tools.sh "${{ matrix.subset }}"
-        env: 
-          GITHUB_API_KEY: ${{ secrets.GH_API_TOKEN }}
-      - name: Archive tool sublists production artifacts
-        uses: actions/upload-artifact@v7
-        with:
-          name: tools-${{ matrix.subset }}
-          path: communities/all/resources/${{ matrix.subset }}_tools.*
-  fetch-tutorials:
-    runs-on: ubuntu-latest
-    name: Fetch tutorials
-    steps:
-      - name: Checkout main
-        uses: actions/checkout@v6
-      - uses: actions/setup-python@v6
-        with:
-          python-version: '3.11'
-      - name: Install requirement
-        run: |
-          python -m pip install -r requirements.txt
-          sudo apt-get install jq
-      - name: Fetch all tutorials
-        run: | 
-          bash sources/bin/extract_all_tutorials.sh
-        env: 
-          PLAUSIBLE_API_KEY: ${{ secrets.PLAUSIBLE_API_TOKEN }}
-      - name: Archive tutorials artifacts
-        uses: actions/upload-artifact@v7
-        with:
-          name: tutorials
-          path: communities/all/resources/tutorials.*
   fetch-workflows:
     runs-on: ubuntu-latest
     name: Fetch workflows
@@ -140,8 +60,6 @@ jobs:
   merge-fetch:
     runs-on: ubuntu-latest
     needs: 
-      - fetch-tools-stepwise
-      - fetch-tutorials
       - fetch-workflows
 #      - fetch-citations
     name: Merge tools and push changes
