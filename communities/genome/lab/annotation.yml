@@ -23,7 +23,7 @@ tabs:
       - title_md: <code>RepeatMasker</code> - screen DNA sequences for interspersed repeats and low complexity regions
         description_md: >
           <p>
-            RepeatMasker is a program that screens DNA for repeated elements such as tandem repeats, transposons, SINEs and LINEs. Galaxy AU has installed the full and curated DFam screening databases, or a custom database can be provided in <code>fasta</code> format. Additional reference data can be downloaded from <a href="https://www.girinst.org/repbase/" target="_blank"> RepBase</a>.
+            RepeatMasker is a program that screens DNA for repeated elements such as tandem repeats, transposons, SINEs and LINEs. Galaxy {{ site_name }} should have the full and curated DFam screening databases, or a custom database can be provided in <code>fasta</code> format. Additional reference data can be downloaded from <a href="https://www.girinst.org/repbase/" target="_blank"> RepBase</a>.
           </p>
         inputs:
           - datatypes:
@@ -118,6 +118,10 @@ tabs:
               - fasta
             label: Repeat-masked (hard) genome assembly
         button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=fgenesh_annotate&version=latest"
+        exclude_from:
+          - usegalaxy.org
+          - usegalaxy.eu
+          - usegalaxy.fr
 
   - id: workflows
     title: Workflows
@@ -155,7 +159,12 @@ tabs:
           content:
             - title_md: About these workflows
               description_md: >
-                This <a href="https://australianbiocommons.github.io/how-to-guides/genome_annotation/Transcriptome" target="_blank"> How-to-Guide </a> will describe the steps required to align transcript data to your genome on the Galaxy {{ site_name }} platform, using multiple workflows. The outputs from these workflows can then be used as inputs into the next annotation workflow using FgenesH++.
+                <p>
+                  This <a href="https://australianbiocommons.github.io/how-to-guides/genome_annotation/Transcriptome" target="_blank"> How-to-Guide </a> will describe the steps required to align transcript data to your genome on Galaxy, using multiple workflows.
+                  {% if site_name == 'Australia' %}
+                  The outputs from these workflows can then be used as inputs into the next annotation workflow using FgenesH++.
+                  {% endif %}
+                </p>
             - title_md: Repeat masking
               description_md: >
                 Mask repeats in the genome. Runs RepeatModeler with default settings, then RepeatMasker using the output as a custom repeat database. Outputs soft-masked and hard-masked genomes plus a table of repeats found.
@@ -279,6 +288,10 @@ tabs:
                 - icon: view
                   link: https://workflowhub.eu/workflows/881
                   tip: View in WorkflowHub
+          exclude_from:
+            - usegalaxy.org
+            - usegalaxy.eu
+            - usegalaxy.fr
 
   - id: help
     title: Help
@@ -291,7 +304,7 @@ tabs:
           <p>
             The flowchart below shows how you might use your input data (in green) with different Galaxy tools (in blue) to annotate a genome assembly. For example, one pathway would be taking an assembled genome, plus information about repeats, and data from RNA-seq, to run in the Maker pipeline. The annotatations can then be viewed in JBrowse.
           </p>
-          <img class="img-fluid" src="./static/annotation-overview.png" alt="Genome annotation flowchart">
+          <img class="img-fluid" src="https://raw.githubusercontent.com/galaxyproject/galaxy_codex/refs/heads/main/communities/genome/lab/static/annotation-overview.png" alt="Genome annotation flowchart">
           <p class="text-center">
             A graphical representation of genome annotation
           </p>
@@ -302,6 +315,10 @@ tabs:
           - label_md: Apply
             link: https://site.usegalaxy.org.au/request/access/fgenesh
             tip: Apply for access to Fgenesh++
+        exclude_from:
+          - usegalaxy.org
+          - usegalaxy.eu
+          - usegalaxy.fr
       - title_md: Can I use Apollo to share and edit the annotated genome?
         description_md: >
           <p>
@@ -317,6 +334,10 @@ tabs:
           - label_md: More info
             link: https://apollo-portal.genome.edu.au/
             tip: More information about Apollo Portal
+        exclude_from:
+          - usegalaxy.org
+          - usegalaxy.eu
+          - usegalaxy.fr
 
       - title_md: Tutorials
         description_md: >
