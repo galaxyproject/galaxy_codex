@@ -148,6 +148,9 @@ jobs:
     steps:
       - name: Checkout main
         uses: actions/checkout@v6
+        with:
+          ref: main
+          fetch-depth: 0
       - uses: actions/setup-python@v6
         with:
           python-version: '3.11'
@@ -197,10 +200,11 @@ jobs:
         run: |
           bash sources/bin/format_tools.sh
       - name: Commit and push changes
-        uses: stefanzweifel/git-auto-commit-action@v7
-        with:
-          commit_message: "Update resources"
-          branch: main
-          commit_user_name: GitHub Actions
-          commit_user_email: actions@github.com
-          commit_author: GitHub Actions <actions@github.com>
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add -A
+          if ! git diff --staged --quiet; then
+            git commit -m "Update resources"
+            git push origin main
+          fi
