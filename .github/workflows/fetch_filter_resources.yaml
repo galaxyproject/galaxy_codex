@@ -137,7 +137,9 @@ jobs:
 #          path: communities/all/resources/citations.json
   merge-fetch:
     runs-on: ubuntu-latest
+    if: ${{ !cancelled() && needs.fetch-tools-stepwise.result == 'success' }}
     needs: 
+      - fetch-servers
       - fetch-tools-stepwise
       - fetch-tutorials
       - fetch-workflows
@@ -160,19 +162,30 @@ jobs:
           merge-multiple: true
           path: communities/all/resources/
       - name: Download tutorials
+        if: needs.fetch-tutorials.result == 'success'
         uses: actions/download-artifact@v8
         with:
           pattern: tutorials
           merge-multiple: true
           path: communities/all/resources/
       - name: Download workflows
+        if: needs.fetch-workflows.result == 'success'
         uses: actions/download-artifact@v8
         with:
           pattern: workflows
           merge-multiple: true
           path: communities/all/resources/
+      - name: Download available servers
+        uses: actions/download-artifact@v8
+        with:
+          pattern: available-servers
+          merge-multiple: true
+          path: sources/data/
       - name: Display structure of downloaded files
-        run: ls -R communities/all/resources/
+        run: |
+          ls -R communities/all/resources/
+          echo "---"
+          ls -R sources/data/
       - name: Merge all tools
         run: | #merge files with only one header -> https://stackoverflow.com/questions/16890582/unixmerge-multiple-csv-files-with-same-header-by-keeping-the-header-of-the-firs; map(.[]) -> https://stackoverflow.com/questions/42011086/merge-arrays-of-json (get flat array, one tool per entry)
           awk 'FNR==1 && NR!=1{next;}{print}' communities/all/resources/repositories*.list_tools.tsv > communities/all/resources/tools.tsv
