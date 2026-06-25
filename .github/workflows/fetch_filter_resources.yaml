@@ -63,8 +63,6 @@ jobs:
       - name: Fetch all tool stepwise
         run: | 
           bash sources/bin/extract_all_tools.sh "${{ matrix.subset }}"
-        env: 
-          GITHUB_API_KEY: ${{ secrets.GH_API_TOKEN }}
       - name: Archive tool sublists production artifacts
         uses: actions/upload-artifact@v7
         with:
