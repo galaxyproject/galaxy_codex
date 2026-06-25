@@ -222,7 +222,7 @@ class Workflows:
     def init_by_searching(self, tool_fp: str) -> None:
         self.tools = shared.read_suite_per_tool_id(tool_fp)
         self.add_workflows_from_workflowhub()
-        self.add_workflows_from_workflowhub("dev.")
+        # self.add_workflows_from_workflowhub("dev.")
         self.add_workflows_from_public_servers()
 
     def init_by_importing(self, wfs: dict) -> None:
@@ -397,6 +397,8 @@ class Workflows:
             if wf.source == "WorkflowHub":
                 if "Intergalactic Workflow Commission (IWC)" in wf.projects:
                     self.grouped_workflows["iwc"].append(wf)
+                elif "Galaxy Training Network" in wf.projects:
+                    self.grouped_workflows["gtn"].append(wf)
                 else:
                     self.grouped_workflows["other_workflowhub"].append(wf)
             elif wf.source == "dev.WorkflowHub":
@@ -464,6 +466,7 @@ if __name__ == "__main__":
     # Extract Workflows
     extract = subparser.add_parser("extract", help="Extract all workflows")
     extract.add_argument("--all", "-o", required=True, help="Filepath to JSON with all extracted workflows")
+    extract.add_argument("--yml", "-y", required=True, help="Filepath to YAML with all extracted workflows")
     extract.add_argument(
         "--tools",
         "-t",
@@ -534,6 +537,7 @@ if __name__ == "__main__":
         "-s",
         help="Path to a TSV file with workflow status",
     )
+    curatewf.add_argument("--yml", "-y", required=True, help="Filepath to yml with community extracted workflows")
 
     # Curate tools categories
     labpop = subparser.add_parser("popLabSection", help="Fill in Lab section workflows")
@@ -555,6 +559,7 @@ if __name__ == "__main__":
         wfs = Workflows(test=args.test)
         wfs.init_by_searching(args.tools)
         shared.export_to_json(wfs.export_workflows_to_dict(), args.all)
+        shared.export_to_yml(wfs.export_workflows_to_dict(), args.yml)
 
     elif args.command == "filter":
         wfs = Workflows()
@@ -598,6 +603,7 @@ if __name__ == "__main__":
         wfs.curate_workflows(status)
         shared.export_to_json(wfs.export_workflows_to_dict(), args.curated)
         wfs.export_workflows_to_tsv(args.tsv_curated)
+        shared.export_to_yml(wfs.export_workflows_to_dict(), args.yml)
 
     elif args.command == "popLabSection":
         wfs = Workflows()
