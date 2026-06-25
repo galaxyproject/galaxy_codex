@@ -284,8 +284,8 @@ def get_tool_metadata_from_local(tool_path: Path, repo_path: Path) -> Optional[D
     shed_path = tool_path / ".shed.yml"
     if not shed_path.exists():
         return None
-    with shed_path.open() as f:
-        shed_content = yaml.load(f, Loader=yaml.FullLoader)
+    with shed_path.open() as fh:
+        shed_content = yaml.load(fh, Loader=yaml.FullLoader)
     metadata["Description"] = get_shed_attribute("description", shed_content, None)
     if metadata["Description"] is None:
         metadata["Description"] = get_shed_attribute("long_description", shed_content, None)
@@ -307,10 +307,10 @@ def get_tool_metadata_from_local(tool_path: Path, repo_path: Path) -> Optional[D
     metadata["Suite first commit date"] = get_first_commit_for_local_folder(repo_path, tool_rel_path)
 
     # find and parse macro file directly for version/requirements/xrefs
-    for f in tool_path.iterdir():
-        if "macro" in f.name and f.name.endswith("xml"):
+    for entry in tool_path.iterdir():
+        if "macro" in entry.name and entry.name.endswith("xml"):
             try:
-                root = et.fromstring(f.read_text())
+                root = et.fromstring(entry.read_text())
                 for child in root:
                     if "name" in child.attrib:
                         if child.attrib["name"] in ("@TOOL_VERSION@", "@VERSION@"):
@@ -327,12 +327,12 @@ def get_tool_metadata_from_local(tool_path: Path, repo_path: Path) -> Optional[D
                 print(traceback.format_exc())
 
     # parse each tool XML with macro expansion
-    for f in sorted(tool_path.iterdir()):
-        if f.name.endswith("xml") and "macro" not in f.name:
+    for entry in sorted(tool_path.iterdir()):
+        if entry.name.endswith("xml") and "macro" not in entry.name:
             try:
-                tree = _load_tool_xml_with_macros(f)
+                tree = _load_tool_xml_with_macros(entry)
                 if tree is None:
-                    tree = _load_tool_xml_fallback(f)
+                    tree = _load_tool_xml_fallback(entry)
                 if tree is None:
                     continue
                 root = tree.getroot()
@@ -413,7 +413,7 @@ def get_tool_metadata_from_local(tool_path: Path, repo_path: Path) -> Optional[D
     return metadata
 
 
-def _load_tool_xml_with_macros(xml_path: Path):
+def _load_tool_xml_with_macros(xml_path: Path) -> Optional[Any]:
     """Try to load and expand macros using Galaxy's xml_macros (galaxy-util)."""
     try:
         from galaxy.util.xml_macros import load as _xml_macros_load
@@ -422,7 +422,7 @@ def _load_tool_xml_with_macros(xml_path: Path):
         return None
 
 
-def _load_tool_xml_fallback(xml_path: Path):
+def _load_tool_xml_fallback(xml_path: Path) -> Optional[Any]:
     """Fallback: parse XML directly without macro expansion."""
     try:
         import xml.etree.ElementTree as _et
