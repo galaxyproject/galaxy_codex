@@ -355,6 +355,22 @@ def get_tool_metadata_from_local(tool_path: Path, repo_path: Path, repo_url: str
             except Exception:
                 print(traceback.format_exc())
 
+    # resolve macro token values that reference other tokens (multi-pass for chains)
+    for _ in range(5):
+        changed = False
+        for key, val in list(macro_tokens.items()):
+            resolved = re.sub(r"@(\w+)@", lambda m: macro_tokens.get(m.group(0), m.group(0)), val)
+            if resolved != val:
+                macro_tokens[key] = resolved
+                changed = True
+        if not changed:
+            break
+
+    if metadata["Suite version"] is not None and re.search(r"@\w+@", metadata["Suite version"]):
+        metadata["Suite version"] = re.sub(
+            r"@(\w+)@", lambda m: macro_tokens.get(m.group(0), m.group(0)), metadata["Suite version"]
+        )
+
     def _resolve_macros(text: str) -> str:
         return re.sub(r"@(\w+)@", lambda m: macro_tokens.get(m.group(0), m.group(0)), text)
 
