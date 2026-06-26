@@ -525,6 +525,7 @@ class TestGetToolMetadataFromLocalReal(unittest.TestCase):
         self.assertEqual(metadata["Tool IDs"], ["fastp"])
         self.assertIn("Sequence Analysis", metadata["ToolShed categories"])
         self.assertEqual(metadata["Homepage"], "https://github.com/OpenGene/fastp")
+        self.assertEqual(sorted(metadata["Tool input formats"]), ["fastq", "fastq.gz"])
 
     @patch("extract_galaxy_tools.get_first_commit_for_local_folder")
     @patch("extract_galaxy_tools.requests.get")
@@ -542,6 +543,7 @@ class TestGetToolMetadataFromLocalReal(unittest.TestCase):
         self.assertEqual(metadata["Suite conda package"], "scikit-image")
         self.assertEqual(metadata["Tool IDs"], ["ip_threshold"])
         self.assertIn("Imaging", metadata["ToolShed categories"])
+        self.assertEqual(sorted(metadata["Tool input formats"]), ["png", "tiff"])
 
     @patch("extract_galaxy_tools.get_first_commit_for_local_folder")
     @patch("extract_galaxy_tools.requests.get")
@@ -755,6 +757,7 @@ class TestExportToolsToTsv(unittest.TestCase):
                 "Related Tutorials": [],
                 "Tool IDs": [],
                 "Tool output formats": [],
+                "Tool input formats": [],
             }
         ]
         tmp = tempfile.NamedTemporaryFile(delete=False, suffix=".tsv")
