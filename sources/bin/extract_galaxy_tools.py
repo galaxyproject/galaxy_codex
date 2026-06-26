@@ -6,7 +6,10 @@ import subprocess
 import sys
 import traceback
 import xml.etree.ElementTree as et
-from concurrent.futures import ThreadPoolExecutor, as_completed
+from concurrent.futures import (
+    as_completed,
+    ThreadPoolExecutor,
+)
 from functools import lru_cache
 from pathlib import Path
 from typing import (
