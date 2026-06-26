@@ -7,6 +7,7 @@ import sys
 import time
 import traceback
 import xml.etree.ElementTree as et
+from datetime import datetime
 from functools import lru_cache
 from pathlib import Path
 from typing import (
@@ -138,6 +139,189 @@ def get_galaxy_usage_from_api(api_url: str, datasource_uid: str) -> Dict[str, in
     except Exception:
         print(
             f"Failed to fetch Galaxy usage stats for datasource {datasource_uid} from API",
+            file=sys.stderr,
+        )
+        return {}
+
+
+def get_user_usage_from_api(api_url: str, datasource_uid: str) -> Dict[str, int]:
+    """
+    Query unique user counts per tool from the stats Grafana API.
+
+    Queries user-tool-usage (all-time unique users per tool),
+    maps full tool_name paths to short IDs.
+    Returns empty dict on any failure.
+    """
+    query = '''SELECT last("count") AS "users" FROM "user-tool-usage" WHERE time > now() - 1d GROUP BY "tool_name"'''
+    payload = {
+        "queries": [
+            {
+                "refId": "A",
+                "datasource": {"type": "influxdb", "uid": datasource_uid},
+                "query": query,
+                "rawQuery": True,
+                "resultFormat": "table",
+            }
+        ],
+        "from": "now-1d",
+        "to": "now",
+    }
+    try:
+        resp = requests.post(api_url, json=payload, timeout=30)
+        resp.raise_for_status()
+        data = resp.json()
+        frames = data["results"]["A"].get("frames", [])
+        if not frames:
+            return {}
+        vals = frames[0]["data"]["values"]
+        totals: Dict[str, int] = {}
+        for i in range(len(vals[0])):
+            full_name = str(vals[1][i])
+            short_id = full_name.rstrip("/").split("/")[-1]
+            totals[short_id] = totals.get(short_id, 0) + int(vals[2][i])
+        return totals
+    except Exception:
+        print(
+            f"Failed to fetch user usage stats for datasource {datasource_uid} from API",
+            file=sys.stderr,
+        )
+        return {}
+
+
+def get_galaxy_usage_last_12mo_from_api(api_url: str, datasource_uid: str) -> Dict[str, int]:
+    """
+    Query tool usage in the last 12 months from the stats Grafana API.
+
+    Uses galaxy_tool_usage_over_time measurement with SUM aggregation,
+    maps full tool_id paths to short IDs.
+    Returns empty dict on any failure.
+    """
+    query = '''SELECT SUM("usage_count") AS "count" FROM "galaxy_tool_usage_over_time" WHERE time > now() - 365d GROUP BY "tool_id"'''
+    payload = {
+        "queries": [
+            {
+                "refId": "A",
+                "datasource": {"type": "influxdb", "uid": datasource_uid},
+                "query": query,
+                "rawQuery": True,
+                "resultFormat": "table",
+            }
+        ],
+        "from": "now-365d",
+        "to": "now",
+    }
+    try:
+        resp = requests.post(api_url, json=payload, timeout=60)
+        resp.raise_for_status()
+        data = resp.json()
+        frames = data["results"]["A"].get("frames", [])
+        if not frames:
+            return {}
+        vals = frames[0]["data"]["values"]
+        totals: Dict[str, int] = {}
+        for i in range(len(vals[0])):
+            full_id = str(vals[1][i])
+            short_id = full_id.rstrip("/").split("/")[-1]
+            totals[short_id] = totals.get(short_id, 0) + int(vals[2][i])
+        return totals
+    except Exception:
+        print(
+            f"Failed to fetch last 12 months usage stats for datasource {datasource_uid} from API",
+            file=sys.stderr,
+        )
+        return {}
+
+
+def _get_latest_month_str() -> str:
+    """Return the latest complete month as YYYY-MM-01."""
+    return datetime.now().replace(day=1).strftime("%Y-%m-%d")
+
+
+def get_galaxy_usage_last_month_from_api(api_url: str, datasource_uid: str) -> Dict[str, int]:
+    """
+    Query tool usage for the latest complete month from the stats Grafana API.
+
+    Uses galaxy_tool_usage_over_time measurement filtered by month tag,
+    maps full tool_id paths to short IDs.
+    Returns empty dict on any failure.
+    """
+    month = _get_latest_month_str()
+    query = f'''SELECT last("usage_count") AS "count" FROM "galaxy_tool_usage_over_time" WHERE "month" = '{month}' GROUP BY "tool_id"'''
+    payload = {
+        "queries": [
+            {
+                "refId": "A",
+                "datasource": {"type": "influxdb", "uid": datasource_uid},
+                "query": query,
+                "rawQuery": True,
+                "resultFormat": "table",
+            }
+        ],
+        "from": "now-60d",
+        "to": "now",
+    }
+    try:
+        resp = requests.post(api_url, json=payload, timeout=60)
+        resp.raise_for_status()
+        data = resp.json()
+        frames = data["results"]["A"].get("frames", [])
+        if not frames:
+            return {}
+        vals = frames[0]["data"]["values"]
+        totals: Dict[str, int] = {}
+        for i in range(len(vals[0])):
+            full_id = str(vals[1][i])
+            short_id = full_id.rstrip("/").split("/")[-1]
+            totals[short_id] = totals.get(short_id, 0) + int(vals[2][i])
+        return totals
+    except Exception:
+        print(
+            f"Failed to fetch last month usage stats for datasource {datasource_uid} from API",
+            file=sys.stderr,
+        )
+        return {}
+
+
+def get_user_usage_last_month_from_api(api_url: str, datasource_uid: str) -> Dict[str, int]:
+    """
+    Query unique user counts for the latest complete month from the stats Grafana API.
+
+    Uses user-tool-usage-over-time measurement filtered by month tag,
+    maps full tool_name paths to short IDs.
+    Returns empty dict on any failure.
+    """
+    month = _get_latest_month_str()
+    query = f'''SELECT last("count") AS "users" FROM "user-tool-usage-over-time" WHERE "month" = '{month}' GROUP BY "tool_name"'''
+    payload = {
+        "queries": [
+            {
+                "refId": "A",
+                "datasource": {"type": "influxdb", "uid": datasource_uid},
+                "query": query,
+                "rawQuery": True,
+                "resultFormat": "table",
+            }
+        ],
+        "from": "now-60d",
+        "to": "now",
+    }
+    try:
+        resp = requests.post(api_url, json=payload, timeout=60)
+        resp.raise_for_status()
+        data = resp.json()
+        frames = data["results"]["A"].get("frames", [])
+        if not frames:
+            return {}
+        vals = frames[0]["data"]["values"]
+        totals: Dict[str, int] = {}
+        for i in range(len(vals[0])):
+            full_name = str(vals[1][i])
+            short_id = full_name.rstrip("/").split("/")[-1]
+            totals[short_id] = totals.get(short_id, 0) + int(vals[2][i])
+        return totals
+    except Exception:
+        print(
+            f"Failed to fetch last month user stats for datasource {datasource_uid} from API",
             file=sys.stderr,
         )
         return {}
@@ -835,8 +1019,24 @@ def get_tools(
 
     # fetch tool usage from stats API for each configured server
     galaxy_usage_from_api: Dict[str, Dict[str, int]] = {}
+    user_usage_from_api: Dict[str, Dict[str, int]] = {}
+    galaxy_usage_last_12mo_from_api: Dict[str, Dict[str, int]] = {}
+    galaxy_usage_last_month_from_api: Dict[str, Dict[str, int]] = {}
+    user_usage_last_month_from_api: Dict[str, Dict[str, int]] = {}
     for server_name, source in GALAXY_STATS_SOURCES.items():
         galaxy_usage_from_api[server_name] = get_galaxy_usage_from_api(
+            source["url"], source["ds_uid"]
+        )
+        user_usage_from_api[server_name] = get_user_usage_from_api(
+            source["url"], source["ds_uid"]
+        )
+        galaxy_usage_last_12mo_from_api[server_name] = get_galaxy_usage_last_12mo_from_api(
+            source["url"], source["ds_uid"]
+        )
+        galaxy_usage_last_month_from_api[server_name] = get_galaxy_usage_last_month_from_api(
+            source["url"], source["ds_uid"]
+        )
+        user_usage_last_month_from_api[server_name] = get_user_usage_last_month_from_api(
             source["url"], source["ds_uid"]
         )
 
@@ -888,6 +1088,22 @@ def get_tools(
             server_usage = galaxy_usage_from_api.get(server_name, {})
             tool[f"Suite runs (usegalaxy.{server_name}) via API"] = sum(
                 server_usage.get(tid, 0) for tid in tool["Tool IDs"]
+            )
+            server_user_usage = user_usage_from_api.get(server_name, {})
+            tool[f"Suite users (usegalaxy.{server_name}) via API"] = sum(
+                server_user_usage.get(tid, 0) for tid in tool["Tool IDs"]
+            )
+            server_last_12mo = galaxy_usage_last_12mo_from_api.get(server_name, {})
+            tool[f"Suite runs (last 12 months) (usegalaxy.{server_name}) via API"] = sum(
+                server_last_12mo.get(tid, 0) for tid in tool["Tool IDs"]
+            )
+            server_last_month_jobs = galaxy_usage_last_month_from_api.get(server_name, {})
+            tool[f"Suite runs (last month) (usegalaxy.{server_name}) via API"] = sum(
+                server_last_month_jobs.get(tid, 0) for tid in tool["Tool IDs"]
+            )
+            server_last_month_users = user_usage_last_month_from_api.get(server_name, {})
+            tool[f"Suite users (last month) (usegalaxy.{server_name}) via API"] = sum(
+                server_last_month_users.get(tid, 0) for tid in tool["Tool IDs"]
             )
 
         # sum up tool stats
