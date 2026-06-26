@@ -147,17 +147,10 @@ jobs:
     name: Merge tools
     steps:
       - name: Checkout main
-<<<<<<< HEAD
-        uses: actions/checkout@v6
-        with:
-          ref: main
-          fetch-depth: 0
-=======
         uses: actions/checkout@v7
         with:
           # We pass the "PAT" secret to the checkout action; if no PAT secret is available to the workflow runner (eg. Dependabot) we fall back to the default "GITHUB_TOKEN".
           token: ${{ secrets.PAT || secrets.GH_ACTIONS_PAT }}
->>>>>>> galaxyproject/main
       - uses: actions/setup-python@v6
         with:
           python-version: '3.11'
