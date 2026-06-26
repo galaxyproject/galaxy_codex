@@ -200,11 +200,13 @@ jobs:
         run: |
           bash sources/bin/format_tools.sh
       - name: Commit and push changes
-        run: |
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
-          git add -A
-          if ! git diff --staged --quiet; then
-            git commit -m "Update resources"
-            git push origin main
-          fi
+        uses: stefanzweifel/git-auto-commit-action@v7
+        with:
+          commit_message: "Update resources"
+          branch: main
+          commit_user_name: GitHub Actions
+          commit_user_email: actions@github.com
+          commit_author: GitHub Actions <actions@github.com>
+          repository_initial_branch: main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_ACTIONS_PAT }}
