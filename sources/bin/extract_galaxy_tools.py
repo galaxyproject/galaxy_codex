@@ -280,6 +280,7 @@ def get_tool_metadata_from_local(tool_path: Path, repo_path: Path, repo_url: str
         "Suite ID": None,
         "Tool IDs": [],
         "Tool output formats": [],
+        "Tool input formats": [],
         "Description": None,
         "Suite first commit date": None,
         "Homepage": None,
@@ -420,6 +421,12 @@ def get_tool_metadata_from_local(tool_path: Path, repo_path: Path, repo_url: str
                 if fmt not in metadata["Tool output formats"]:
                     metadata["Tool output formats"].append(fmt)
 
+            # tool inputs
+            input_formats = get_tool_inputs(root)
+            for fmt in input_formats:
+                if fmt not in metadata["Tool input formats"]:
+                    metadata["Tool input formats"].append(fmt)
+
     # strip +galaxy suffix from version
     if metadata["Suite version"] is not None:
         metadata["Suite version"] = re.sub(r"\+galaxy\d+$", "", metadata["Suite version"])
@@ -541,6 +548,33 @@ def parse_tools_from_local(repo_path: Path, workers: int = 1, repo_url: str = ""
         print("No tool folder found", file=sys.stderr)
 
     return tools
+
+
+def get_tool_inputs(el: et.Element) -> list[str]:
+    """
+    Find tool input data formats from the inputs XML.
+    Extracts format attributes from all <param type="data"> and
+    <param type="data_collection"> elements.
+
+    :param el: Element object
+    """
+    formats: list[str] = []
+
+    def _walk(node: et.Element) -> None:
+        if node.tag == "param":
+            param_type = node.attrib.get("type")
+            if param_type in ("data", "data_collection"):
+                fmt = node.attrib.get("format")
+                if fmt:
+                    for f in fmt.split(","):
+                        f = f.strip()
+                        if f and f not in formats:
+                            formats.append(f)
+        for child in node:
+            _walk(child)
+
+    _walk(el)
+    return formats
 
 
 def get_tool_outputs(el: et.Element) -> list[str]:
@@ -717,6 +751,7 @@ def export_tools_to_tsv(
             # the Galaxy tools need to be formatted for the add_instances_to_table to work
             df["Tool IDs"] = shared.format_list_column(df["Tool IDs"])
             df["Tool output formats"] = shared.format_list_column(df["Tool output formats"])
+            df["Tool input formats"] = shared.format_list_column(df["Tool input formats"])
         if to_keep_columns is not None:
             df = df[to_keep_columns]
     else:  # Create a DataFrame with the specified headers and save it

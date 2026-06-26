@@ -22,6 +22,7 @@ from extract_galaxy_tools import (
     aggregate_tool_stats,
     get_all_installed_tool_ids_on_server,
     get_last_url_position,
+    get_tool_inputs,
     get_tool_outputs,
     get_tool_stats_from_stats_file,
     STATS_SUM,
@@ -47,6 +48,127 @@ class TestGetToolOutputs(unittest.TestCase):
     def test_get_tool_outputs(self) -> None:
         formats = get_tool_outputs(self.tool_xml)
         self.assertEqual(sorted(formats), ["html", "json"])
+
+    def test_get_tool_inputs(self) -> None:
+        formats = get_tool_inputs(self.tool_xml)
+        # Only inline <param type="data"|"data_collection"> formats;
+        # macro-expanded params (e.g. via <expand macro="in" />) are
+        # resolved only by _load_tool_xml_with_macros, not by et.fromstring.
+        expected = sorted(["fastq", "fastq.gz"])
+        self.assertEqual(sorted(formats), expected)
+
+
+class TestGetToolInputs(unittest.TestCase):
+    """Unit tests for get_tool_inputs with various XML structures."""
+
+    def test_single_data_param(self) -> None:
+        xml = '<tool><inputs><param name="in1" type="data" format="fasta"/></inputs></tool>'
+        el = et.fromstring(xml)
+        self.assertEqual(get_tool_inputs(el), ["fasta"])
+
+    def test_multiple_formats_comma_separated(self) -> None:
+        xml = '<tool><inputs><param name="in1" type="data" format="fasta,fastq,fastq.gz"/></inputs></tool>'
+        el = et.fromstring(xml)
+        self.assertEqual(sorted(get_tool_inputs(el)), sorted(["fasta", "fastq", "fastq.gz"]))
+
+    def test_multiple_data_params(self) -> None:
+        xml = """
+        <tool>
+          <inputs>
+            <param name="reads" type="data" format="fastq"/>
+            <param name="ref" type="data" format="fasta"/>
+            <param name="annotation" type="data" format="gff3"/>
+          </inputs>
+        </tool>
+        """
+        el = et.fromstring(xml)
+        self.assertEqual(sorted(get_tool_inputs(el)), sorted(["fastq", "fasta", "gff3"]))
+
+    def test_data_collection_param(self) -> None:
+        xml = '<tool><inputs><param name="coll" type="data_collection" format="fastq,fastq.gz"/></inputs></tool>'
+        el = et.fromstring(xml)
+        self.assertEqual(sorted(get_tool_inputs(el)), sorted(["fastq", "fastq.gz"]))
+
+    def test_params_inside_conditional(self) -> None:
+        xml = """
+        <tool>
+          <inputs>
+            <conditional name="mode">
+              <param name="mode_sel" type="select"/>
+              <when value="single">
+                <param name="in1" type="data" format="fastq"/>
+              </when>
+              <when value="paired">
+                <param name="in1" type="data" format="fastq"/>
+                <param name="in2" type="data" format="fastq"/>
+              </when>
+            </conditional>
+          </inputs>
+        </tool>
+        """
+        el = et.fromstring(xml)
+        self.assertEqual(sorted(get_tool_inputs(el)), ["fastq"])
+
+    def test_params_inside_section(self) -> None:
+        xml = """
+        <tool>
+          <inputs>
+            <section name="advanced" title="Advanced">
+              <param name="bam" type="data" format="bam"/>
+              <param name="vcf" type="data" format="vcf"/>
+            </section>
+          </inputs>
+        </tool>
+        """
+        el = et.fromstring(xml)
+        self.assertEqual(sorted(get_tool_inputs(el)), sorted(["bam", "vcf"]))
+
+    def test_params_inside_repeat(self) -> None:
+        xml = """
+        <tool>
+          <inputs>
+            <repeat name="samples" title="Sample">
+              <param name="bam" type="data" format="bam"/>
+            </repeat>
+          </inputs>
+        </tool>
+        """
+        el = et.fromstring(xml)
+        self.assertEqual(get_tool_inputs(el), ["bam"])
+
+    def test_no_data_params(self) -> None:
+        xml = """
+        <tool>
+          <inputs>
+            <param name="threshold" type="integer" value="5"/>
+            <param name="mode" type="select"/>
+          </inputs>
+        </tool>
+        """
+        el = et.fromstring(xml)
+        self.assertEqual(get_tool_inputs(el), [])
+
+    def test_no_inputs_section(self) -> None:
+        xml = '<tool><outputs><data name="out" format="txt"/></outputs></tool>'
+        el = et.fromstring(xml)
+        self.assertEqual(get_tool_inputs(el), [])
+
+    def test_duplicate_formats_deduped(self) -> None:
+        xml = """
+        <tool>
+          <inputs>
+            <param name="reads" type="data" format="fastq"/>
+            <param name="more_reads" type="data" format="fastq"/>
+          </inputs>
+        </tool>
+        """
+        el = et.fromstring(xml)
+        self.assertEqual(get_tool_inputs(el), ["fastq"])
+
+    def test_data_param_without_format(self) -> None:
+        xml = '<tool><inputs><param name="any" type="data"/></inputs></tool>'
+        el = et.fromstring(xml)
+        self.assertEqual(get_tool_inputs(el), [])
 
 
 class TestGetToolStatsFromStatsFile(unittest.TestCase):
