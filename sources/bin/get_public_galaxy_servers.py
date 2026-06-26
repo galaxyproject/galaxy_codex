@@ -6,7 +6,6 @@ import time
 import pandas as pd
 import requests
 
-
 SKIP_PATTERNS = [
     "hub.docker.com",
     "github.com",
@@ -45,7 +44,7 @@ def check_server(title: str, url: str, session: requests.Session, timeout: int) 
         r.raise_for_status()
         r.json()
         return (title, galaxy_url, True)
-    except Exception as ex:
+    except Exception:
         return (title, galaxy_url, False)
 
 
@@ -79,10 +78,7 @@ def get_public_galaxy_servers(output: str, workers: int = 20, timeout: int = 15)
     start = time.time()
     with requests.Session() as session:
         with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as executor:
-            futures = [
-                executor.submit(check_server, title, url, session, timeout)
-                for title, url in candidates
-            ]
+            futures = [executor.submit(check_server, title, url, session, timeout) for title, url in candidates]
             for i, future in enumerate(concurrent.futures.as_completed(futures), 1):
                 title, url, ok = future.result()
                 status = "OK" if ok else "FAIL"
@@ -102,15 +98,21 @@ def get_public_galaxy_servers(output: str, workers: int = 20, timeout: int = 15)
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Create list of public available galaxy servers")
     parser.add_argument(
-        "--output", "-o", required=True,
+        "--output",
+        "-o",
+        required=True,
         help="Path to output TSV file with the servers",
     )
     parser.add_argument(
-        "--workers", type=int, default=20,
+        "--workers",
+        type=int,
+        default=20,
         help="Number of parallel workers (default: 20)",
     )
     parser.add_argument(
-        "--timeout", type=int, default=15,
+        "--timeout",
+        type=int,
+        default=15,
         help="Request timeout in seconds (default: 15)",
     )
     args = parser.parse_args()
