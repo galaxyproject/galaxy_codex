@@ -417,6 +417,7 @@ def _load_tool_xml_with_macros(xml_path: Path) -> Optional[Any]:
     """Try to load and expand macros using Galaxy's xml_macros (galaxy-util)."""
     try:
         from galaxy.util.xml_macros import load as _xml_macros_load
+
         return _xml_macros_load(str(xml_path))
     except Exception:
         return None
@@ -426,6 +427,7 @@ def _load_tool_xml_fallback(xml_path: Path) -> Optional[Any]:
     """Fallback: parse XML directly without macro expansion."""
     try:
         import xml.etree.ElementTree as _et
+
         tree = _et.parse(str(xml_path))
         return tree
     except Exception:
@@ -490,7 +492,6 @@ def parse_tools_from_local(repo_path: Path, workers: int = 1) -> List[Dict[str, 
         print("No tool folder found", file=sys.stderr)
 
     return tools
-
 
 
 def get_tool_outputs(el: et.Element) -> list[str]:
@@ -586,9 +587,6 @@ def check_categories(ts_categories: str, ts_cat: List[str]) -> bool:
         return False
     ts_cats = ts_categories
     return bool(set(ts_cat) & set(ts_cats))
-
-
-
 
 
 @lru_cache  # need to run this for each suite, so just cache it
@@ -1270,9 +1268,7 @@ if __name__ == "__main__":
             tool.setdefault("Related Workflows", [])
             tool.setdefault("Related Tutorials", [])
         for tool in tools:
-            tool["EDAM reduced operations"] = reduce_ontology_terms(
-                tool["EDAM operations"], ontology=edam_ontology
-            )
+            tool["EDAM reduced operations"] = reduce_ontology_terms(tool["EDAM operations"], ontology=edam_ontology)
             tool["EDAM reduced topics"] = reduce_ontology_terms(tool["EDAM topics"], ontology=edam_ontology)
             if args.test:
                 tool["Number of tools on UseGalaxy.eu"] = check_tools_on_servers(

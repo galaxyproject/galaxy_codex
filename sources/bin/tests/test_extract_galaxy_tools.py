@@ -11,7 +11,6 @@ from typing import (
 )
 from unittest.mock import (
     MagicMock,
-    Mock,
     patch,
 )
 
@@ -174,9 +173,6 @@ class TestAddWorkflowIdsToTools(unittest.TestCase):
         for res in result:
             if res["Suite ID"] in expected_mapping:
                 self.assertEqual(sorted(expected_mapping[res["Suite ID"]]), sorted(res["Related Workflows"]))
-
-
-
 
 
 class TestGetLastUrlPosition(unittest.TestCase):
