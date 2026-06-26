@@ -48,13 +48,16 @@ def check_server(title: str, url: str, session: requests.Session, timeout: int) 
         return (title, galaxy_url, False)
 
 
-def get_public_galaxy_servers(output: str, workers: int = 20, timeout: int = 15) -> None:
+def get_public_galaxy_servers(
+    output: str, workers: int = 20, timeout: int = 15, custom_servers: str | None = None
+) -> None:
     """
     Get public galaxy servers that can be queried for tools using their API.
 
     :param output: path to output the server list TSV
     :param workers: number of parallel workers
     :param timeout: request timeout in seconds
+    :param custom_servers: optional path to a TSV with additional servers (name, url columns)
     """
     feed = requests.get("https://galaxyproject.org/use/feed.json", timeout=30).json()
 
@@ -71,6 +74,11 @@ def get_public_galaxy_servers(output: str, workers: int = 20, timeout: int = 15)
             continue
 
         candidates.append((title, url))
+
+    if custom_servers:
+        custom = pd.read_csv(custom_servers, sep="\t", header=0)
+        for _, row in custom.iterrows():
+            candidates.append((row["name"], row["url"]))
 
     print(f"Checking {len(candidates)} candidate servers with {workers} workers...", file=sys.stderr)
 
@@ -115,5 +123,14 @@ if __name__ == "__main__":
         default=15,
         help="Request timeout in seconds (default: 15)",
     )
+    parser.add_argument(
+        "--custom-servers",
+        "-c",
+        type=str,
+        default=None,
+        help="Path to a TSV file with additional servers (columns: name, url)",
+    )
     args = parser.parse_args()
-    get_public_galaxy_servers(args.output, workers=args.workers, timeout=args.timeout)
+    get_public_galaxy_servers(
+        args.output, workers=args.workers, timeout=args.timeout, custom_servers=args.custom_servers
+    )
