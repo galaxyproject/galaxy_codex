@@ -1,8 +1,15 @@
 import unittest
-from unittest.mock import MagicMock, patch
+from unittest.mock import (
+    MagicMock,
+    patch,
+)
 
 import pandas as pd
-from get_public_galaxy_servers import check_server, get_public_galaxy_servers, is_likely_galaxy_url
+from get_public_galaxy_servers import (
+    check_server,
+    get_public_galaxy_servers,
+    is_likely_galaxy_url,
+)
 
 
 class TestIsLikelyGalaxyUrl(unittest.TestCase):
@@ -48,9 +55,7 @@ class TestCheckServer(unittest.TestCase):
         self.assertEqual(title, "Test Instance")
         self.assertEqual(url, "https://test.galaxy.org")
         self.assertTrue(ok)
-        mock_session.get.assert_called_with(
-            "https://test.galaxy.org/api/tools", params={"in_panel": False}, timeout=15
-        )
+        mock_session.get.assert_called_with("https://test.galaxy.org/api/tools", params={"in_panel": False}, timeout=15)
 
     @patch("get_public_galaxy_servers.requests.Session")
     def test_failing_server(self, mock_session_cls: MagicMock) -> None:
@@ -94,9 +99,7 @@ class TestGetPublicGalaxyServers(unittest.TestCase):
         feed = [{"url": "https://usegalaxy.org", "title": "UseGalaxy.org"}]
         mock_requests_get.return_value.json.return_value = feed
 
-        custom_df = pd.DataFrame(
-            {"name": ["My Server"], "url": ["https://my.galaxy.instance"]}
-        )
+        custom_df = pd.DataFrame({"name": ["My Server"], "url": ["https://my.galaxy.instance"]})
         mock_read_csv.return_value = custom_df
 
         mock_future = MagicMock()
@@ -106,4 +109,3 @@ class TestGetPublicGalaxyServers(unittest.TestCase):
         get_public_galaxy_servers("/dev/null", workers=1, timeout=5, custom_servers="servers.tsv")
 
         mock_read_csv.assert_called_with("servers.tsv", sep="\t", header=0)
-
