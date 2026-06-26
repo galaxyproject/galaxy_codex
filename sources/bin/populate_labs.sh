@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# This script is meant to create or update communities labs and is launched weekly (Every Sunday at 8:00 am)
+# This script is meant to create or update communities labs and is launched weekly
 # To add you community, modify `.github/workflows/fetch_filter_resources.yaml` (instructions available in the yaml document)
 
 # This script will create the structure and files needed for the generation of a community lab
