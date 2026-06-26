@@ -12,7 +12,9 @@ then
                         --all-workflows "communities/all/resources/test_workflows.json" \
                         --all-yml 'communities/all/resources/test_tools.yml' \
                         --all-tutorials "communities/all/resources/test_tutorials.json" \
-                        --test "${@:2}"
+                        --test \
+                        --clone-depth 0 \
+                        "${@:2}"
         else
                 tsv_output="communities/all/resources/${1}_tools.tsv"
                 json_output="communities/all/resources/${1}_tools.json"
@@ -26,7 +28,8 @@ then
                         --all-yml $yml_output \
                         --all-workflows "communities/all/resources/workflows.json" \
                         --all-tutorials "communities/all/resources/tutorials.json" \
-                        --planemo-repository-list $1
+                        --planemo-repository-list $1 \
+                        --clone-depth 0
                 else
                 python sources/bin/extract_galaxy_tools.py \
                         extract \
@@ -36,7 +39,8 @@ then
                         --all-workflows "communities/all/resources/workflows.json" \
                         --all-tutorials "communities/all/resources/tutorials.json" \
                         --planemo-repository-list $1 \
-                        --avoid-extra-repositories
+                        --avoid-extra-repositories \
+                        --clone-depth 0
                 fi
         fi
 else
@@ -47,6 +51,7 @@ else
                 --all 'communities/all/resources/tools.json' \
                 --all-yml 'communities/all/resources/tools.yml' \
                 --all-workflows "communities/all/resources/workflows.json" \
-                --all-tutorials "communities/all/resources/tutorials.json" 
+                --all-tutorials "communities/all/resources/tutorials.json" \
+                --clone-depth 0
 fi
 
