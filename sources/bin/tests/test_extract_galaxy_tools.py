@@ -3,6 +3,7 @@ import os
 import tempfile
 import unittest
 import xml.etree.ElementTree as et
+from pathlib import Path
 from typing import (
     Any,
     Dict,
@@ -17,10 +18,13 @@ from unittest.mock import (
 import pandas as pd
 import shared
 from extract_galaxy_tools import (
+    _normalize_repo_url,
+    _repo_name_from_url,
     add_tutorial_ids_to_tools,
     add_workflow_ids_to_tools,
     aggregate_tool_stats,
     get_all_installed_tool_ids_on_server,
+    get_first_commit_for_local_folder,
     get_last_url_position,
     get_tool_outputs,
     get_tool_stats_from_stats_file,
@@ -247,3 +251,101 @@ class TestGetAllInstalledToolIdsOnServer(unittest.TestCase):
 
         result = get_all_installed_tool_ids_on_server("https://usegalaxy.org")
         self.assertEqual(result, [])
+
+
+class TestNormalizeRepoUrl(unittest.TestCase):
+    def test_strips_trailing_slash(self) -> None:
+        self.assertEqual(
+            _normalize_repo_url("https://github.com/iuc/tools/"),
+            "https://github.com/iuc/tools",
+        )
+
+    def test_strips_dot_git(self) -> None:
+        self.assertEqual(
+            _normalize_repo_url("https://github.com/iuc/tools.git"),
+            "https://github.com/iuc/tools",
+        )
+
+    def test_strips_both(self) -> None:
+        self.assertEqual(
+            _normalize_repo_url("https://github.com/iuc/tools.git/"),
+            "https://github.com/iuc/tools",
+        )
+
+    def test_strips_whitespace(self) -> None:
+        self.assertEqual(
+            _normalize_repo_url("  https://github.com/iuc/tools  "),
+            "https://github.com/iuc/tools",
+        )
+
+
+class TestRepoNameFromUrl(unittest.TestCase):
+    def test_standard_github(self) -> None:
+        self.assertEqual(
+            _repo_name_from_url("https://github.com/galaxyproject/tools-iuc"),
+            "galaxyproject-tools-iuc",
+        )
+
+    def test_with_dot_git(self) -> None:
+        self.assertEqual(
+            _repo_name_from_url("https://github.com/iuc/fastp.git"),
+            "iuc-fastp",
+        )
+
+    def test_trailing_slash(self) -> None:
+        self.assertEqual(
+            _repo_name_from_url("https://github.com/bgruening/galaxytools/"),
+            "bgruening-galaxytools",
+        )
+
+
+class TestGetFirstCommitForLocalFolder(unittest.TestCase):
+    def setUp(self) -> None:
+        self.repo_path = Path("/fake/repo")
+
+    @patch("extract_galaxy_tools.subprocess.run")
+    def test_returns_first_commit_date(self, mock_run: MagicMock) -> None:
+        mock_result = MagicMock()
+        mock_result.stdout = "2024-03-12\n2024-06-01\n"
+        mock_run.return_value = mock_result
+
+        date = get_first_commit_for_local_folder(self.repo_path, "tools/fastp")
+
+        self.assertEqual(date, "2024-03-12")
+
+    @patch("extract_galaxy_tools.subprocess.run")
+    def test_empty_output_returns_empty(self, mock_run: MagicMock) -> None:
+        mock_result = MagicMock()
+        mock_result.stdout = ""
+        mock_run.return_value = mock_result
+
+        date = get_first_commit_for_local_folder(self.repo_path, "tools/fastp")
+
+        self.assertEqual(date, "")
+
+    @patch("extract_galaxy_tools.subprocess.run")
+    @patch("extract_galaxy_tools.Path.exists")
+    def test_deepens_shallow_clone_when_empty(self, mock_exists: MagicMock, mock_run: MagicMock) -> None:
+        mock_exists.return_value = True  # shallow file exists
+
+        mock_run.side_effect = [
+            MagicMock(stdout=""),
+            MagicMock(stdout="", returncode=0),
+            MagicMock(stdout="2020-01-15\n"),
+        ]
+
+        date = get_first_commit_for_local_folder(self.repo_path, "tools/fastp")
+
+        self.assertEqual(date, "2020-01-15")
+        self.assertEqual(mock_run.call_count, 3)
+
+    @patch("extract_galaxy_tools.subprocess.run")
+    @patch("extract_galaxy_tools.Path.exists")
+    def test_does_not_deepen_when_date_found_first(self, mock_exists: MagicMock, mock_run: MagicMock) -> None:
+        mock_run.return_value = MagicMock(stdout="2024-03-12\n")
+
+        date = get_first_commit_for_local_folder(self.repo_path, "tools/fastp")
+
+        self.assertEqual(date, "2024-03-12")
+        self.assertEqual(mock_run.call_count, 1)
+        mock_exists.assert_not_called()
