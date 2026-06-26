@@ -22,7 +22,7 @@ jobs:
       communities: ${{ steps.prepare.outputs.communities }}
     steps:
       - name: Checkout main
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Prepare communities JSON
         id: prepare
         run: |
@@ -40,7 +40,7 @@ jobs:
         community: ${{ fromJson(needs.set-matrix.outputs.communities) }}
     steps:
       - name: Checkout main
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - uses: actions/setup-python@v6
         with:
           python-version: '3.11'
