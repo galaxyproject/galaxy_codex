@@ -234,23 +234,41 @@ def clone_repositories(repo_list: List[str], clone_dir: Path, depth: Optional[in
 def get_first_commit_for_local_folder(repo_path: Path, tool_rel_path: str) -> str:
     """
     Get the date of the first commit in the tool folder using git log.
+    If the clone is shallow, try to fetch more history for the path.
     """
-    try:
-        result = subprocess.run(
-            ["git", "log", "--reverse", "--format=%ad", "--date=short", tool_rel_path],
-            cwd=repo_path,
-            capture_output=True,
-            text=True,
-        )
-        lines = result.stdout.strip().split("\n")
-        if lines and lines[0]:
-            return lines[0]
-    except Exception:
-        pass
-    return ""
+
+    def _git_log() -> str:
+        try:
+            result = subprocess.run(
+                ["git", "log", "--reverse", "--format=%ad", "--date=short", tool_rel_path],
+                cwd=repo_path,
+                capture_output=True,
+                text=True,
+            )
+            lines = result.stdout.strip().split("\n")
+            if lines and lines[0]:
+                return lines[0]
+        except Exception:
+            pass
+        return ""
+
+    date = _git_log()
+    if not date and (repo_path / ".git" / "shallow").exists():
+        try:
+            subprocess.run(
+                ["git", "fetch", "--deepen", "1000", "origin"],
+                cwd=repo_path,
+                capture_output=True,
+                text=True,
+                timeout=120,
+            )
+            date = _git_log()
+        except Exception:
+            pass
+    return date
 
 
-def get_tool_metadata_from_local(tool_path: Path, repo_path: Path) -> Optional[Dict[str, Any]]:
+def get_tool_metadata_from_local(tool_path: Path, repo_path: Path, repo_url: str = "") -> Optional[Dict[str, Any]]:
     """
     Get tool metadata from a locally cloned tool directory.
     Uses Galaxy's xml_macros to expand macros before parsing.
@@ -303,22 +321,30 @@ def get_tool_metadata_from_local(tool_path: Path, repo_path: Path) -> Optional[D
     if metadata["ToolShed categories"] is None:
         metadata["ToolShed categories"] = []
 
-    metadata["Suite parsed folder"] = str(tool_path)
+    # build repo URL for parsed folder
+    tool_rel_path = str(tool_path.relative_to(repo_path))
+    if repo_url:
+        metadata["Suite parsed folder"] = repo_url.rstrip("/") + "/tree/master/" + tool_rel_path
+    else:
+        metadata["Suite parsed folder"] = str(tool_path)
 
     # first commit date
-    tool_rel_path = str(tool_path.relative_to(repo_path))
     metadata["Suite first commit date"] = get_first_commit_for_local_folder(repo_path, tool_rel_path)
 
-    # find and parse macro file directly for version/requirements/xrefs
+    # parse macro files for token values, requirements, xrefs
+    macro_tokens: Dict[str, str] = {}
     for entry in tool_path.iterdir():
         if "macro" in entry.name and entry.name.endswith("xml"):
             try:
                 root = et.fromstring(entry.read_text())
                 for child in root:
                     if "name" in child.attrib:
-                        if child.attrib["name"] in ("@TOOL_VERSION@", "@VERSION@"):
+                        token_name = child.attrib["name"]
+                        if child.text:
+                            macro_tokens[token_name] = child.text
+                        if token_name in ("@TOOL_VERSION@", "@VERSION@"):
                             metadata["Suite version"] = child.text
-                        elif child.attrib["name"] == "requirements":
+                        elif token_name == "requirements":
                             metadata["Suite conda package"] = get_conda_package(child)
                         biotools = get_xref(child, attrib_type="bio.tools")
                         if biotools is not None:
@@ -328,6 +354,9 @@ def get_tool_metadata_from_local(tool_path: Path, repo_path: Path) -> Optional[D
                             metadata["biii ID"] = biii
             except Exception:
                 print(traceback.format_exc())
+
+    def _resolve_macros(text: str) -> str:
+        return re.sub(r"@(\w+)@", lambda m: macro_tokens.get(m.group(0), m.group(0)), text)
 
     # parse each tool XML with macro expansion
     for entry in sorted(tool_path.iterdir()):
@@ -345,7 +374,8 @@ def get_tool_metadata_from_local(tool_path: Path, repo_path: Path) -> Optional[D
 
             # version
             if metadata["Suite version"] is None and "version" in root.attrib:
-                metadata["Suite version"] = root.attrib["version"]
+                raw_version = root.attrib["version"]
+                metadata["Suite version"] = _resolve_macros(raw_version)
 
             # bio.tools
             biotools = get_xref(root, attrib_type="bio.tools")
@@ -437,7 +467,7 @@ def _load_tool_xml_fallback(xml_path: Path) -> Optional[Any]:
         return None
 
 
-def parse_tools_from_local(repo_path: Path, workers: int = 1) -> List[Dict[str, Any]]:
+def parse_tools_from_local(repo_path: Path, workers: int = 1, repo_url: str = "") -> List[Dict[str, Any]]:
     """
     Parse tools from a locally cloned repository.
     """
@@ -465,7 +495,7 @@ def parse_tools_from_local(repo_path: Path, workers: int = 1) -> List[Dict[str, 
             print(f"    Parsing {total} tools...", flush=True)
 
             def _process_one(p: Path) -> Optional[Dict[str, Any]]:
-                return get_tool_metadata_from_local(p, repo_path)
+                return get_tool_metadata_from_local(p, repo_path, repo_url=repo_url)
 
             if workers > 1:
                 with ThreadPoolExecutor(max_workers=workers) as executor:
@@ -1262,7 +1292,7 @@ if __name__ == "__main__":
         tools: List[Dict] = []
         for url, repo_path in cloned:
             print(f"Parsing tools from: {url} ({repo_path})")
-            tools.extend(parse_tools_from_local(repo_path, workers=args.workers))
+            tools.extend(parse_tools_from_local(repo_path, workers=args.workers, repo_url=url))
         if args.all_workflows:
             tools = add_workflow_ids_to_tools(tools, args.all_workflows)
         if args.all_tutorials:
