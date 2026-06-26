@@ -1,0 +1,63 @@
+<tool id="ip_threshold" name="Threshold image" version="0.0.6-2" profile="20.05">
+    <description>with scikit-image</description>
+    <edam_operations>
+        <edam_operation>operation_3443</edam_operation>
+    </edam_operations>
+    <xrefs>
+        <xref type="bio.tools">scikit-image</xref>
+        <xref type="biii">scikit-image</xref>
+    </xrefs>
+    <requirements> 
+        <requirement type="package" version="0.18.1">scikit-image</requirement>
+        <requirement type="package" version="2020.10.1">tifffile</requirement>
+    </requirements>
+    <command detect_errors="aggressive">
+    <![CDATA[
+    python '$__tool_directory__/auto_threshold.py'
+    '$input'
+    ./out.tif
+    '$th_method'
+    '$block_size'
+    '$dark_bg'
+    ]]>
+    </command>
+    <inputs>
+        <param name="input" type="data" format="tiff,png" label="Input image" />
+        <param name="th_method" type="select" label="Thresholding method">
+          <option value="otsu" selected="True">Otsu</option>
+          <option value="li">Li's Minimum Cross Entropy</option>
+          <option value="isodata">Isodata</option>
+          <option value="yen">Yen</option>
+          <option value="loc_gaussian">Adaptive (Gaussian)</option>
+          <option value="loc_median">Adaptive (Median)</option>
+          <option value="loc_mean">Adaptive (Mean)</option>
+        </param>
+        <param name="block_size" type="integer" value="5" label="Odd size of pixel neighborhood for determining the threshold (only valid for adaptive thresholding methods)" />
+        <param name="dark_bg" type="boolean" checked="true" truevalue="True" falsevalue="False" label="Dark Background" />
+    </inputs>
+    <outputs>
+       <data format="tiff" name="output" from_work_dir="out.tif" />
+    </outputs>
+    <tests>
+        <test>
+            <param name="input" value="sample.tif"/>
+            <output name="output" value="out.tif" ftype="tiff" compare="sim_size"/>
+            <param name="th_method" value="loc_gaussian"/>
+            <param name="block_size" value="3"/>
+            <param name="dark_bg" value="True"/>
+        </test>
+        <test>
+            <param name="input" value="sample.tif"/>
+            <output name="output" value="out2.tif" ftype="tiff" compare="sim_size"/>
+            <param name="th_method" value="otsu"/>
+            <param name="block_size" value="5"/>
+            <param name="dark_bg" value="True"/>
+        </test>
+    </tests>
+    <help>
+        Applies a standard thresholding algorithm to an image.
+    </help>
+    <citations>
+        <citation type="doi">10.1016/j.jbiotec.2017.07.019</citation>
+    </citations>
+</tool>
