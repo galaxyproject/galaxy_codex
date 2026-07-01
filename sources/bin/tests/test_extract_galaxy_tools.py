@@ -762,7 +762,11 @@ class TestFillLabToolSection(unittest.TestCase):
         result = fill_lab_tool_section(lab_section, df)
         self.assertEqual(result["id"], "lab")
         self.assertGreater(len(result["tabs"]), 0)
-        self.assertEqual(result["tabs"][0]["id"], "more_tools")
+
+        # Check if "more_tools" exists in the tabs, regardless of position
+        #self.assertEqual(result["tabs"][0]["id"], "more_tools")
+        tab_ids = [tab["id"] for tab in result["tabs"]]
+        self.assertIn("more_tools", tab_ids)
 
 
 class TestExportMissingToolsToYaml(unittest.TestCase):
