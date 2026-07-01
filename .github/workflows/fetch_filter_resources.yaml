@@ -1,4 +1,4 @@
-name: Weekly resource fetching and community filtering
+name: Weekly resource fetching
 
 on:
   workflow_dispatch:
@@ -18,7 +18,7 @@ jobs:
     name: Fetch servers
     steps:
       - name: Checkout main
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - uses: actions/setup-python@v6
         with:
           python-version: '3.11'
@@ -49,7 +49,7 @@ jobs:
          - repositories04.list
     steps:
       - name: Checkout main
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - uses: actions/setup-python@v6
         with:
           python-version: '3.11'
@@ -63,8 +63,6 @@ jobs:
       - name: Fetch all tool stepwise
         run: | 
           bash sources/bin/extract_all_tools.sh "${{ matrix.subset }}"
-        env: 
-          GITHUB_API_KEY: ${{ secrets.GH_API_TOKEN }}
       - name: Archive tool sublists production artifacts
         uses: actions/upload-artifact@v7
         with:
@@ -75,7 +73,7 @@ jobs:
     name: Fetch tutorials
     steps:
       - name: Checkout main
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - uses: actions/setup-python@v6
         with:
           python-version: '3.11'
@@ -98,7 +96,7 @@ jobs:
     name: Fetch workflows
     steps:
       - name: Checkout main
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - uses: actions/setup-python@v6
         with:
           python-version: '3.11'
@@ -121,7 +119,7 @@ jobs:
 #    name: Fetch citations
 #    steps:
 #      - name: Checkout main
-#        uses: actions/checkout@v6
+#        uses: actions/checkout@v7
 #      - uses: actions/setup-python@v6
 #        with:
 #          python-version: '3.11'
@@ -137,17 +135,22 @@ jobs:
 #        with:
 #          name: workflows
 #          path: communities/all/resources/citations.json
-  merge-fetch-filter:
+  merge-fetch:
     runs-on: ubuntu-latest
+    if: ${{ !cancelled() && needs.fetch-tools-stepwise.result == 'success' }}
     needs: 
+      - fetch-servers
       - fetch-tools-stepwise
       - fetch-tutorials
       - fetch-workflows
 #      - fetch-citations
-    name: Merge tools, filter the resources for communities, and populate labs
+    name: Merge tools
     steps:
       - name: Checkout main
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
+        with:
+          # We pass the "PAT" secret to the checkout action; if no PAT secret is available to the workflow runner (eg. Dependabot) we fall back to the default "GITHUB_TOKEN".
+          token: ${{ secrets.PAT || secrets.GH_ACTIONS_PAT }}
       - uses: actions/setup-python@v6
         with:
           python-version: '3.11'
@@ -162,19 +165,30 @@ jobs:
           merge-multiple: true
           path: communities/all/resources/
       - name: Download tutorials
+        if: needs.fetch-tutorials.result == 'success'
         uses: actions/download-artifact@v8
         with:
           pattern: tutorials
           merge-multiple: true
           path: communities/all/resources/
       - name: Download workflows
+        if: needs.fetch-workflows.result == 'success'
         uses: actions/download-artifact@v8
         with:
           pattern: workflows
           merge-multiple: true
           path: communities/all/resources/
+      - name: Download available servers
+        uses: actions/download-artifact@v8
+        with:
+          pattern: available-servers
+          merge-multiple: true
+          path: sources/data/
       - name: Display structure of downloaded files
-        run: ls -R communities/all/resources/
+        run: |
+          ls -R communities/all/resources/
+          echo "---"
+          ls -R sources/data/
       - name: Merge all tools
         run: | #merge files with only one header -> https://stackoverflow.com/questions/16890582/unixmerge-multiple-csv-files-with-same-header-by-keeping-the-header-of-the-firs; map(.[]) -> https://stackoverflow.com/questions/42011086/merge-arrays-of-json (get flat array, one tool per entry)
           awk 'FNR==1 && NR!=1{next;}{print}' communities/all/resources/repositories*.list_tools.tsv > communities/all/resources/tools.tsv
@@ -185,55 +199,14 @@ jobs:
       - name: Generate tools wordcloud and interactive table
         run: |
           bash sources/bin/format_tools.sh
-      - name: Filter workflows for communities
-        run: | 
-          bash sources/bin/get_community_workflows.sh
-      - name: Filter tutorials for communities
-        run: | 
-          bash sources/bin/get_community_tutorials.sh
-      - name: Filter citations for communities
-        run: | 
-          bash sources/bin/get_community_citations.sh no-scholarly
-      #- name: Update tool to keep and exclude for communities
-      #  run: | 
-      #    bash sources/bin/update_tools_to_keep_exclude.sh
-      - name: Filter tools for communities
-        run: | 
-          bash sources/bin/get_community_tools.sh
-      - name: Populate Microbiology (microGalaxy) Lab
-        run: | 
-          bash sources/bin/populate_labs.sh
-        env: 
-          COMMUNITY: microgalaxy
-      - name: Populate biodiversity lab
-        run: |
-          bash sources/bin/populate_labs.sh
-        env: 
-          COMMUNITY: biodiversity
-      - name: Populate earth-system Lab
-        run: |
-          bash sources/bin/populate_labs.sh
-        env: 
-          COMMUNITY: earth
-      - name: Populate Imaging lab
-        run: |
-          bash sources/bin/populate_labs.sh
-        env: 
-          COMMUNITY: imaging
-#To initiate a lab, we recommend adding it below. It will automatically create the folders and structures required.
-#      - name: Populate <community-name> Lab
-#        run: |
-#          bash sources/bin/populate_labs.sh
-#        env: 
-#          COMMUNITY: <community-name>
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v8
+      - name: Commit and push changes
+        uses: stefanzweifel/git-auto-commit-action@v7
         with:
-          commit-message: Update resources
-          title: Automatic resources update
-          body: Automatic resource update done via GitHub Action once a week
-          base: main
-          branch: resource-update
-          delete-branch: true
-          add-paths: |
-            communities/
+          commit_message: "Update resources"
+          branch: main
+          commit_user_name: GitHub Actions
+          commit_user_email: actions@github.com
+          commit_author: GitHub Actions <actions@github.com>
+          repository_initial_branch: main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_ACTIONS_PAT }}

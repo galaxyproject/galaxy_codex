@@ -1,0 +1,46 @@
+name: "[Archive] Monthly Release"
+
+on:
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    - cron:  '0 4 1 * *'
+  workflow_dispatch:
+
+jobs:
+  setup:
+    if: github.repository_owner == 'galaxyproject'
+    runs-on: ubuntu-latest
+    environment: create-release
+
+    # This is only needed for the final step of gh release creation.
+    # That should be separated into a separate dependent job at some point.
+    permissions:
+      contents: write
+  
+    steps:
+      - name: Release Name
+        id: release_name
+        run: |
+          echo "release_title=$(LC_ALL=C date '+%Y %B %d')" >> $GITHUB_ENV
+          echo "release_tag=$(LC_ALL=C date -I)" >> $GITHUB_ENV
+
+      - uses: actions/checkout@v7
+        with:
+          # Based on logic in deploy.yml
+          fetch-depth: 1200
+          fetch-tags: true
+          persist-credentials: false
+
+      - name: List Tags
+        run: |
+          git tag -l
+
+      - name: Create Release
+        id: create_release
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          RELEASE_TAG: ${{ env.release_tag }}
+          RELEASE_TITLE: ${{ env.release_title }}
+        run: |
+          # Create the release
+          gh release create "$RELEASE_TAG" --title "Release $RELEASE_TITLE" --notes-file /tmp/last-month-on.md  --target main --latest
