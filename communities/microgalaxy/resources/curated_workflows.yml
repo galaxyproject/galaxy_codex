@@ -1,3 +1,87 @@
+- create_time: '2026-06-18'
+  creators:
+  - Tristan Reynolds
+  - Ammar Aziz
+  deprecated: false
+  doi: 10.48546/workflowhub.workflow.2196.1
+  edam_operation:
+  - Sequencing quality control
+  - Phylogenetic analysis
+  edam_topic:
+  - Bioinformatics
+  - Biomedical science
+  - Genomics
+  - Virology
+  id: '2196'
+  keep: true
+  latest_version: 1
+  license: MIT
+  link: https://workflowhub.eu/workflows/2196?version=1
+  name: MPXV (Mpox) Phylogenetic Analysis with Squirrel
+  number_of_steps: 3
+  projects:
+  - Melbourne Bioinformatics
+  - Galaxy Australia
+  source: WorkflowHub
+  tags:
+  - amplicon
+  - mpox
+  - ont
+  - virus
+  - mpxv
+  - phylogeny
+  tools:
+  - squirrel_phylo
+  - regex1
+  - squirrel_qc
+  update_time: '2026-06-25'
+  versions: 1
+- create_time: '2026-06-18'
+  creators:
+  - Tristan Reynolds
+  - Ammar Aziz
+  deprecated: false
+  doi: 10.48546/workflowhub.workflow.2195.1
+  edam_operation:
+  - Sequencing quality control
+  - Sequence alignment
+  - Validation
+  - Mapping
+  edam_topic:
+  - Bioinformatics
+  - Biomedical science
+  - Genomics
+  - Virology
+  id: '2195'
+  keep: true
+  latest_version: 1
+  license: MIT
+  link: https://workflowhub.eu/workflows/2195?version=1
+  name: Viral Amplicon Analysis Pipeline for ONT Data
+  number_of_steps: 12
+  projects:
+  - Melbourne Bioinformatics
+  - Galaxy Australia
+  source: WorkflowHub
+  tags:
+  - amplicon
+  - mpox
+  - ont
+  - virus
+  - mpxv
+  - phylogeny
+  tools:
+  - artic_minion
+  - multiqc
+  - mosdepth
+  - XY_Plot_1
+  - regex1
+  - __BUILD_LIST__
+  - tp_cat
+  - fastplong
+  - bedtools_makewindowsbed
+  update_time: '2026-06-25'
+  versions: 1
 - create_time: '2026-03-02'
   creators:
   - Tristan Reynolds
@@ -5,10 +89,10 @@
   deprecated: false
   doi: 10.48546/workflowhub.workflow.2098.1
   edam_operation:
-  - Visualisation
+  - Taxonomic classification
   - Formatting
   - Demultiplexing
-  - Taxonomic classification
+  - Visualisation
   edam_topic:
   - Taxonomy
   id: '2098'
@@ -27,20 +111,20 @@
   - microbiome
   - taxonomic-classification
   tools:
-  - qiime2__feature_classifier__classify_sklearn
-  - qiime2__feature_table__summarize
-  - qiime2_core__tools__import
-  - qiime2__taxa__barplot
-  - qiime2__feature_classifier__fit_classifier_naive_bayes
   - qiime2__feature_table__tabulate_seqs
-  - qiime2__feature_classifier__extract_reads
+  - biom_convert
   - csv_to_tabular
   - tp_easyjoin_tool
-  - Remove beginning1
-  - biom_convert
-  - qiime_extract_viz
-  - qiime2_core__tools__export
+  - qiime2_core__tools__import
+  - qiime2__feature_classifier__classify_sklearn
+  - qiime2__feature_table__summarize
   - tabular_to_csv
+  - qiime2__taxa__barplot
+  - qiime_extract_viz
+  - qiime2__feature_classifier__fit_classifier_naive_bayes
+  - qiime2_core__tools__export
+  - qiime2__feature_classifier__extract_reads
+  - Remove beginning1
   update_time: '2026-05-13'
   versions: 1
 - create_time: '2026-02-26'
@@ -51,11 +135,11 @@
   doi: null
   edam_operation:
   - Data parsing
-  - Gene functional annotation
-  - Validation
   - Taxonomic classification
+  - Gene functional annotation
   - Sequencing quality control
   - Antimicrobial resistance prediction
+  - Validation
   edam_topic: []
   id: '2068'
   keep: true
@@ -69,29 +153,29 @@
   source: WorkflowHub
   tags: []
   tools:
-  - table_pandas_rename_column
-  - multiqc
+  - tooldistillator_summarize
+  - __RELABEL_FROM_FILE__
   - groot
   - collection_element_identifiers
-  - tooldistillator_summarize
-  - tooldistillator
-  - 'Remove a collection level so that outputs can be taken into account by tooldistillator
-
-    __FLATTEN__'
-  - __FILTER_FAILED_DATASETS__
-  - tp_text_file_with_recurring_lines
-  - __UNZIP_COLLECTION__
   - sylph_profile
+  - deeparg_short_reads
+  - fastq_paired_end_interlacer
   - argnorm
-  - __RELABEL_FROM_FILE__
+  - table_pandas_rename_column
+  - multiqc
   - 'Removal of the first line because it is not necessary for tooldistillator
 
     Remove beginning1'
+  - tp_text_file_with_recurring_lines
+  - tooldistillator
+  - __UNZIP_COLLECTION__
   - 'Removal of the first argNorm line that causes a multiQC error
 
     Remove beginning1'
-  - fastq_paired_end_interlacer
-  - deeparg_short_reads
+  - __FILTER_FAILED_DATASETS__
+  - 'Remove a collection level so that outputs can be taken into account by tooldistillator
+
+    __FLATTEN__'
   update_time: '2026-05-14'
   versions: 2
 - create_time: '2026-03-13'
@@ -102,8 +186,8 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Multilocus sequence typing
   - Data parsing
+  - Multilocus sequence typing
   edam_topic: []
   id: '2055'
   keep: true
@@ -117,9 +201,9 @@
   source: WorkflowHub
   tags: []
   tools:
-  - coreprofiler_allele_calling
-  - tooldistillator_summarize
   - tooldistillator
+  - tooldistillator_summarize
+  - coreprofiler_allele_calling
   update_time: '2026-05-14'
   versions: 2
 - create_time: '2026-01-12'
@@ -127,19 +211,19 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Phylogenetic tree visualisation
-  - Sequence alignment
-  - Validation
+  - Taxonomic classification
   - Antimicrobial resistance prediction
-  - Phylogenetic tree generation
   - Variant calling
+  - Sequence alignment
+  - Phylogenetic tree visualisation
+  - Sequencing quality control
+  - Sequence contamination filtering
+  - Sequence alignment analysis
+  - Phylogenetic tree generation
+  - Validation
+  - Global alignment
   - Sequence analysis
   - Local alignment
-  - Sequence contamination filtering
-  - Global alignment
-  - Sequence alignment analysis
-  - Taxonomic classification
-  - Sequencing quality control
   edam_topic: []
   id: '1647'
   keep: true
@@ -157,20 +241,20 @@
   - pathogen
   - tuberculosis
   tools:
-  - bcftools_consensus
-  - tp_awk_tool
-  - tb_profiler_profile
-  - kraken2
-  - __FLATTEN__
-  - multiqc
-  - mosdepth
-  - snippy
-  - qualimap_bamqc
-  - tb_variant_filter
-  - tbvcfreport
   - fastp
-  - tp_sed_tool
+  - tp_awk_tool
+  - qualimap_bamqc
   - 'EMBOSS: seqret84'
+  - kraken2
+  - mosdepth
+  - __FLATTEN__
+  - tp_sed_tool
+  - snippy
+  - multiqc
+  - bcftools_consensus
+  - tb_variant_filter
+  - tb_profiler_profile
+  - tbvcfreport
   update_time: '2026-01-12'
   versions: 2
 - create_time: '2025-12-22'
@@ -178,14 +262,14 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Visualisation
   - Statistical calculation
-  - Read mapping
-  - Cross-assembly
-  - Sequence contamination filtering
-  - Expression analysis
   - Taxonomic classification
+  - Expression analysis
   - Sequencing quality control
+  - Sequence contamination filtering
+  - Read mapping
+  - Visualisation
+  - Cross-assembly
   edam_topic: []
   id: '2043'
   keep: true
@@ -203,11 +287,11 @@
   - galaxy
   - sequence-analysis
   tools:
-  - falco
-  - kraken2
-  - est_abundance
   - fastp
   - recentrifuge
+  - est_abundance
+  - kraken2
+  - falco
   update_time: '2025-12-22'
   versions: 1
 - create_time: '2025-12-22'
@@ -215,11 +299,11 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Visualisation
   - Statistical calculation
   - Taxonomic classification
-  - Genome annotation
   - Aggregation
+  - Genome annotation
+  - Visualisation
   edam_topic: []
   id: '1470'
   keep: true
@@ -236,15 +320,15 @@
   - galaxy
   - microbiome
   tools:
-  - interactive_tool_phinch
   - metaphlan
-  - kraken2
   - taxonomy_krona_chart
   - krakentools_kreport2krona
-  - __UNZIP_COLLECTION__
   - est_abundance
-  - interactive_tool_pavian
   - kraken_biom
+  - kraken2
+  - interactive_tool_phinch
+  - __UNZIP_COLLECTION__
+  - interactive_tool_pavian
   update_time: '2025-12-22'
   versions: 2
 - create_time: '2025-12-22'
@@ -252,10 +336,10 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Cross-assembly
   - Statistical calculation
   - Taxonomic classification
   - Expression analysis
+  - Cross-assembly
   edam_topic: []
   id: '1674'
   keep: true
@@ -272,9 +356,9 @@
   - gtn
   - galaxy
   tools:
-  - kraken2
   - est_abundance
   - recentrifuge
+  - kraken2
   update_time: '2025-12-22'
   versions: 2
 - create_time: '2025-12-08'
@@ -284,8 +368,8 @@
   edam_operation:
   - Sequence assembly
   - Read mapping
-  - Genome annotation
   - Sequence clustering
+  - Genome annotation
   - Read binning
   edam_topic: []
   id: '2028'
@@ -306,19 +390,19 @@
   - microbiome
   tools:
   - bowtie2
-  - metabat2
-  - __BUILD_LIST__
   - concoct_coverage_table
-  - metabat2_jgi_summarize_bam_contig_depths
-  - concoct_extract_fasta_bins
-  - semibin
-  - concoct
-  - samtools_sort
-  - maxbin2
-  - binette
-  - Fasta_to_Contig2Bin
   - concoct_merge_cut_up_clustering
+  - concoct_extract_fasta_bins
   - concoct_cut_up_fasta
+  - samtools_sort
+  - Fasta_to_Contig2Bin
+  - concoct
+  - __BUILD_LIST__
+  - binette
+  - semibin
+  - maxbin2
+  - metabat2
+  - metabat2_jgi_summarize_bam_contig_depths
   update_time: '2025-12-08'
   versions: 1
 - create_time: '2025-12-04'
@@ -329,16 +413,16 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Visualisation
-  - Sequence composition calculation
-  - Sequence assembly validation
   - Statistical calculation
-  - Validation
-  - Cross-assembly
-  - Data parsing
-  - Expression analysis
   - Taxonomic classification
+  - Expression analysis
+  - Sequence assembly validation
+  - Data parsing
   - Sequencing quality control
+  - Validation
+  - Sequence composition calculation
+  - Visualisation
+  - Cross-assembly
   edam_topic: []
   id: '1882'
   keep: true
@@ -352,15 +436,15 @@
   source: WorkflowHub
   tags: []
   tools:
-  - pick_value
-  - kraken2
   - tooldistillator_summarize
-  - tooldistillator
-  - est_abundance
-  - quast
-  - collapse_dataset
-  - checkm2
   - recentrifuge
+  - checkm2
+  - est_abundance
+  - kraken2
+  - pick_value
+  - collapse_dataset
+  - tooldistillator
+  - quast
   update_time: '2026-05-13'
   versions: 3
 - create_time: '2026-03-10'
@@ -369,19 +453,19 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Methylation analysis
+  - Read mapping
+  - Generation
+  - Variant classification
+  - Variant calling
+  - Tree-based sequence alignment
   - Sequence alignment
   - Genome indexing
-  - SNP detection
-  - Validation
-  - Read mapping
-  - Variant calling
-  - Primer removal
-  - Sequence contamination filtering
-  - Generation
-  - Tree-based sequence alignment
-  - Variant classification
   - Sequencing quality control
+  - Sequence contamination filtering
+  - Validation
+  - Methylation analysis
+  - Primer removal
+  - SNP detection
   edam_topic: []
   id: '155'
   keep: true
@@ -396,21 +480,21 @@
   tags:
   - virology
   tools:
-  - ivar_consensus
+  - fastp
+  - ivar_variants
+  - nextclade
+  - ivar_trim
   - samtools_view
+  - ivar_consensus
+  - qualimap_bamqc
   - multiqc
   - __FLATTEN__
-  - nextclade
+  - tp_sed_tool
+  - snpeff_sars_cov_2
   - samtools_stats
+  - tp_cat
   - pangolin
   - bwa_mem
-  - qualimap_bamqc
-  - ivar_trim
-  - fastp
-  - snpeff_sars_cov_2
-  - tp_cat
-  - tp_sed_tool
-  - ivar_variants
   update_time: '2026-05-13'
   versions: 7
 - create_time: '2021-12-21'
@@ -420,14 +504,14 @@
   doi: null
   edam_operation:
   - Formatting
+  - Generation
   - Sequence alignment
   - Genome indexing
-  - SNP detection
+  - Sequencing quality control
+  - Sequence contamination filtering
   - Validation
   - Read mapping
-  - Sequence contamination filtering
-  - Generation
-  - Sequencing quality control
+  - SNP detection
   edam_topic: []
   id: '113'
   keep: true
@@ -445,17 +529,17 @@
   - covid19.galaxyproject.org
   - emergen_validated
   tools:
-  - samtools_view
-  - multiqc
-  - samtools_stats
-  - bwa_mem
-  - lofreq_viterbi
-  - lofreq_indelqual
+  - lofreq_filter
   - fastp
   - picard_MarkDuplicates
+  - lofreq_viterbi
+  - samtools_view
   - lofreq_call
-  - lofreq_filter
+  - multiqc
   - snpeff_sars_cov_2
+  - samtools_stats
+  - lofreq_indelqual
+  - bwa_mem
   update_time: '2026-05-14'
   versions: 4
 - create_time: '2025-12-05'
@@ -465,14 +549,14 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Sequence alignment
-  - Genome indexing
-  - Validation
-  - Read mapping
-  - Primer removal
+  - Sequencing quality control
   - Sequence contamination filtering
   - Generation
-  - Sequencing quality control
+  - Validation
+  - Read mapping
+  - Sequence alignment
+  - Primer removal
+  - Genome indexing
   edam_topic: []
   id: '1876'
   keep: true
@@ -487,28 +571,28 @@
   tags:
   - virology
   tools:
-  - samtools_view
-  - __FILTER_FAILED_DATASETS__
-  - qualimap_bamqc
-  - tp_sed_tool
-  - snpEff
-  - __FLATTEN__
-  - samtools_stats
-  - bwa_mem
-  - lofreq_viterbi
-  - calculate_numeric_param
-  - collapse_dataset
   - ivar_variants
-  - ivar_consensus
-  - tp_find_and_replace
-  - map_param_value
-  - ivar_trim
-  - fastp
-  - tp_cat
+  - __FLATTEN__
   - snpSift_extractFields
-  - pick_value
-  - multiqc
+  - map_param_value
+  - collapse_dataset
+  - tp_cat
+  - fastp
+  - samtools_view
+  - snpEff
+  - tp_find_and_replace
+  - calculate_numeric_param
+  - samtools_stats
+  - lofreq_viterbi
   - snpEff_build_gb
+  - ivar_consensus
+  - pick_value
+  - ivar_trim
+  - qualimap_bamqc
+  - multiqc
+  - tp_sed_tool
+  - __FILTER_FAILED_DATASETS__
+  - bwa_mem
   update_time: '2026-05-13'
   versions: 2
 - create_time: '2026-02-12'
@@ -520,22 +604,22 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Multiple sequence alignment
-  - Sequence alignment
-  - Genome indexing
-  - Sequence file editing
-  - Phylogenetic analysis
-  - Read mapping
-  - Sequence analysis
-  - Primer removal
-  - Base position variability plotting
-  - Sequence contamination filtering
   - Data retrieval
-  - Sequence alignment analysis
-  - Data handling
   - Generation
-  - Sequencing quality control
+  - Multiple sequence alignment
+  - Data handling
   - De-novo assembly
+  - Sequence file editing
+  - Sequence alignment
+  - Base position variability plotting
+  - Genome indexing
+  - Sequencing quality control
+  - Sequence contamination filtering
+  - Sequence alignment analysis
+  - Sequence analysis
+  - Read mapping
+  - Primer removal
+  - Phylogenetic analysis
   edam_topic: []
   id: '1260'
   keep: true
@@ -550,48 +634,48 @@
   tags:
   - virology
   tools:
-  - wc_gnu
-  - samtools_view
-  - __FILTER_FAILED_DATASETS__
-  - tp_text_file_with_recurring_lines
-  - qualimap_bamqc
+  - collection_element_identifiers
+  - Paste1
+  - __FLATTEN__
+  - snipit
   - 'bwa mem will fail if no reference for any segment got suggested by vapor, i.e.
     the reference genome is empty. In that case, we need to skip further analysis
     of the sample.
 
     __FILTER_FAILED_DATASETS__'
-  - __HARMONIZELISTS__
-  - Show beginning1
-  - Filter1
-  - __FLATTEN__
-  - collection_element_identifiers
-  - bwa_mem
-  - __RELABEL_FROM_FILE__
-  - __APPLY_RULES__
-  - __MERGE_COLLECTION__
   - collapse_dataset
-  - Paste1
   - bamtools_split_ref
-  - snipit
-  - Grep1
-  - ivar_consensus
-  - param_value_from_file
-  - tp_find_and_replace
-  - __UNZIP_COLLECTION__
-  - tp_easyjoin_tool
-  - fastp
   - tp_cat
-  - Cut1
+  - Show beginning1
+  - param_value_from_file
+  - fastp
+  - samtools_view
+  - tp_find_and_replace
   - rbc_mafft
+  - tp_text_file_with_recurring_lines
+  - __APPLY_RULES__
   - __FILTER_FROM_FILE__
-  - vapor
+  - ivar_consensus
+  - __HARMONIZELISTS__
+  - __DUPLICATE_FILE_TO_COLLECTION__
   - 'This seemingly no-op transformation will remove samples with no remaining segment
     results (cases where vapor failed for  every segment).
 
     __APPLY_RULES__'
-  - seqtk_subseq
+  - Grep1
   - iqtree
-  - __DUPLICATE_FILE_TO_COLLECTION__
+  - vapor
+  - __RELABEL_FROM_FILE__
+  - wc_gnu
+  - seqtk_subseq
+  - tp_easyjoin_tool
+  - qualimap_bamqc
+  - __MERGE_COLLECTION__
+  - __UNZIP_COLLECTION__
+  - __FILTER_FAILED_DATASETS__
+  - Filter1
+  - Cut1
+  - bwa_mem
   update_time: '2026-05-13'
   versions: 3
 - create_time: '2025-10-11'
@@ -601,18 +685,18 @@
   deprecated: false
   doi: null
   edam_operation:
+  - Generation
   - Sequence alignment
   - Genome indexing
+  - Sequencing quality control
+  - Sequence contamination filtering
+  - Sequence alignment analysis
   - Validation
-  - Read mapping
+  - Global alignment
   - Sequence analysis
+  - Read mapping
   - Primer removal
   - Local alignment
-  - Sequence contamination filtering
-  - Global alignment
-  - Sequence alignment analysis
-  - Generation
-  - Sequencing quality control
   edam_topic: []
   id: '439'
   keep: true
@@ -628,31 +712,31 @@
   - virology
   - pox
   tools:
-  - compose_text_param
-  - samtools_view
-  - __FILTER_FAILED_DATASETS__
-  - qualimap_bamqc
-  - tp_sed_tool
-  - fasta_compute_length
-  - samtools_merge
-  - __FLATTEN__
   - collection_element_identifiers
+  - __FLATTEN__
+  - 'EMBOSS: maskseq51'
+  - tp_cat
+  - datamash_ops
+  - param_value_from_file
+  - fastp
+  - samtools_view
+  - samtools_merge
   - samtools_stats
-  - bwa_mem
   - __APPLY_RULES__
   - __ZIP_COLLECTION__
-  - Grep1
   - ivar_consensus
-  - param_value_from_file
-  - split_file_to_collection
-  - ivar_trim
-  - fastp
-  - tp_cat
-  - Cut1
   - __SORTLIST__
-  - 'EMBOSS: maskseq51'
+  - Grep1
+  - fasta_compute_length
+  - ivar_trim
+  - qualimap_bamqc
   - multiqc
-  - datamash_ops
+  - split_file_to_collection
+  - compose_text_param
+  - tp_sed_tool
+  - __FILTER_FAILED_DATASETS__
+  - Cut1
+  - bwa_mem
   update_time: '2026-05-13'
   versions: 4
 - create_time: '2025-08-11'
@@ -661,8 +745,8 @@
   doi: null
   edam_operation:
   - k-mer counting
-  - Visualisation
   - Formatting
+  - Visualisation
   - Mapping
   edam_topic: []
   id: '1856'
@@ -684,10 +768,10 @@
   - name:microgalaxy
   tools:
   - ''
-  - tp_awk_tool
-  - __FILTER_FROM_FILE__
   - bedtools_maskfastabed
   - mapseq
+  - tp_awk_tool
+  - __FILTER_FROM_FILE__
   - collection_element_identifiers
   - taxonomy_krona_chart
   - biom_convert
@@ -699,8 +783,8 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Visualisation
   - Analysis
+  - Visualisation
   edam_topic: []
   id: '1855'
   keep: true
@@ -717,10 +801,10 @@
   - galaxy
   - microbiome
   tools:
-  - collection_column_join
-  - ampvis2_load
   - tp_awk_tool
+  - collection_column_join
   - collapse_dataset
+  - ampvis2_load
   - query_tabular
   update_time: '2025-08-11'
   versions: 1
@@ -729,14 +813,14 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Sequence trimming
-  - Sequence composition calculation
-  - Nucleic acid design
   - Statistical calculation
-  - Validation
-  - Read pre-processing
-  - Sequence contamination filtering
   - Sequencing quality control
+  - Sequence contamination filtering
+  - Sequence trimming
+  - Validation
+  - Nucleic acid design
+  - Read pre-processing
+  - Sequence composition calculation
   edam_topic: []
   id: '1854'
   keep: true
@@ -756,17 +840,17 @@
   - mgnify_amplicon
   - name:microgalaxy
   tools:
+  - fastp
   - cshl_fasta_formatter
   - tp_find_and_replace
-  - fastq_to_fasta_python
   - multiqc
+  - trimmomatic
   - fastqc
   - __UNZIP_COLLECTION__
-  - prinseq
   - mgnify_seqprep
-  - fastp
-  - trimmomatic
   - fastq_filter
+  - prinseq
+  - fastq_to_fasta_python
   update_time: '2025-08-11'
   versions: 1
 - create_time: '2025-08-11'
@@ -794,11 +878,11 @@
   - name:microgalaxy
   tools:
   - ''
-  - fastq_dl
-  - CONVERTER_uncompressed_to_gz
   - tp_awk_tool
+  - CONVERTER_uncompressed_to_gz
   - CONVERTER_gz_to_uncompressed
   - __MERGE_COLLECTION__
+  - fastq_dl
   update_time: '2025-08-11'
   versions: 1
 - create_time: '2025-08-11'
@@ -825,9 +909,9 @@
   - mgnify_amplicon
   - name:microgalaxy
   tools:
-  - Grouping1
-  - collection_column_join
   - tp_awk_tool
+  - collection_column_join
+  - Grouping1
   - filter_tabular
   - query_tabular
   update_time: '2025-08-11'
@@ -837,13 +921,13 @@
   deprecated: false
   doi: null
   edam_operation:
+  - Sequencing quality control
+  - Statistical calculation
+  - Sequence contamination filtering
   - Sequence trimming
+  - Validation
   - Read pre-processing
   - Sequence composition calculation
-  - Sequence contamination filtering
-  - Statistical calculation
-  - Validation
-  - Sequencing quality control
   edam_topic: []
   id: '1850'
   keep: true
@@ -865,12 +949,12 @@
   tools:
   - cshl_fasta_formatter
   - tp_find_and_replace
-  - fastq_to_fasta_python
   - multiqc
-  - fastqc
-  - prinseq
   - trimmomatic
+  - fastqc
   - fastq_filter
+  - prinseq
+  - fastq_to_fasta_python
   update_time: '2025-08-11'
   versions: 1
 - create_time: '2025-08-04'
@@ -878,13 +962,13 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Visualisation
-  - Alignment
-  - Formatting
-  - Mapping
   - k-mer counting
+  - Formatting
   - Comparison
+  - Mapping
+  - Alignment
   - Nucleic acid feature detection
+  - Visualisation
   edam_topic: []
   id: '1842'
   keep: true
@@ -905,19 +989,19 @@
   - name:microgalaxy
   tools:
   - ''
-  - bedtools_getfastabed
-  - tp_awk_tool
   - cshl_fasta_formatter
-  - __FILTER_FROM_FILE__
-  - infernal_cmsearch
+  - tp_awk_tool
   - mapseq
   - collection_element_identifiers
+  - __FILTER_FROM_FILE__
   - taxonomy_krona_chart
-  - cmsearch_deoverlap
   - biom_convert
+  - cmsearch_deoverlap
+  - infernal_cmsearch
+  - bedtools_getfastabed
   - gops_concat_1
-  - __FILTER_EMPTY_DATASETS__
   - query_tabular
+  - __FILTER_EMPTY_DATASETS__
   update_time: '2025-08-11'
   versions: 1
 - create_time: '2025-07-14'
@@ -925,8 +1009,8 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Species frequency estimation
   - Taxonomic classification
+  - Species frequency estimation
   - Phylogenetic analysis
   edam_topic: []
   id: '1447'
@@ -945,15 +1029,15 @@
   - galaxy
   - metagenomics
   tools:
-  - Grep1
   - humann_rename_table
+  - humann_regroup_table
   - tp_find_and_replace
   - combine_metaphlan2_humann2
-  - Cut1
-  - humann_renorm_table
-  - humann_regroup_table
   - humann_unpack_pathways
   - humann_split_stratified_table
+  - humann_renorm_table
+  - Grep1
+  - Cut1
   update_time: '2025-07-14'
   versions: 2
 - create_time: '2025-07-07'
@@ -961,11 +1045,11 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Visualisation
   - DNA barcoding
-  - Deposition
   - Analysis
   - Variant calling
+  - Deposition
+  - Visualisation
   edam_topic: []
   id: '1395'
   keep: true
@@ -982,24 +1066,24 @@
   - galaxy
   - microbiome
   tools:
-  - dada2_filterAndTrim
-  - dada2_learnErrors
-  - dada2_assignTaxonomyAddspecies
-  - tp_replace_in_column
-  - collection_element_identifiers
-  - phyloseq_from_dada2
-  - dada2_makeSequenceTable
-  - dada2_seqCounts
-  - tp_replace_in_line
-  - __UNZIP_COLLECTION__
   - dada2_dada
-  - dada2_mergePairs
-  - dada2_removeBimeraDenovo
-  - cat1
   - Add_a_column1
-  - tp_head_tool
+  - dada2_makeSequenceTable
   - dada2_plotQualityProfile
+  - collection_element_identifiers
   - __SORTLIST__
+  - dada2_learnErrors
+  - tp_replace_in_line
+  - dada2_seqCounts
+  - dada2_assignTaxonomyAddspecies
+  - cat1
+  - dada2_filterAndTrim
+  - __UNZIP_COLLECTION__
+  - tp_replace_in_column
+  - phyloseq_from_dada2
+  - tp_head_tool
+  - dada2_removeBimeraDenovo
+  - dada2_mergePairs
   update_time: '2025-07-07'
   versions: 2
 - create_time: '2025-06-23'
@@ -1007,25 +1091,25 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Sequence comparison
-  - Phylogenetic tree visualisation
-  - Visualisation
-  - Sequence composition calculation
   - Statistical calculation
   - Phylogenetic inference
-  - Validation
-  - Primer removal
-  - Sequence alignment analysis
-  - Sequencing quality control
-  - Phylogenetic analysis
-  - Sequence trimming
-  - Phylogenetic tree editing
-  - Read pre-processing
-  - Species frequency estimation
-  - Taxonomic classification
-  - Sequence similarity search
   - Conversion
+  - Sequencing quality control
+  - Sequence alignment analysis
+  - Sequence comparison
+  - Sequence composition calculation
+  - Phylogenetic analysis
+  - Taxonomic classification
   - Aggregation
+  - Species frequency estimation
+  - Phylogenetic tree visualisation
+  - Sequence similarity search
+  - Phylogenetic tree editing
+  - Sequence trimming
+  - Validation
+  - Read pre-processing
+  - Primer removal
+  - Visualisation
   edam_topic: []
   id: '1466'
   keep: true
@@ -1042,28 +1126,28 @@
   - galaxy
   - microbiome
   tools:
-  - Grouping1
-  - metaphlan
-  - fastqc
-  - tp_sort_header_tool
-  - humann
-  - humann_unpack_pathways
-  - graphlan
-  - Grep1
-  - humann_rename_table
-  - tp_find_and_replace
-  - combine_metaphlan_humann
-  - Cut1
+  - graphlan_annotate
   - bg_sortmerna
-  - fastq_paired_end_interlacer
-  - humann_split_stratified_table
-  - multiqc
   - cutadapt
   - taxonomy_krona_chart
-  - graphlan_annotate
-  - humann_renorm_table
-  - humann_regroup_table
+  - tp_find_and_replace
   - export2graphlan
+  - humann_split_stratified_table
+  - metaphlan
+  - humann_regroup_table
+  - fastq_paired_end_interlacer
+  - Grouping1
+  - humann_renorm_table
+  - Grep1
+  - graphlan
+  - humann
+  - tp_sort_header_tool
+  - humann_rename_table
+  - multiqc
+  - fastqc
+  - humann_unpack_pathways
+  - combine_metaphlan_humann
+  - Cut1
   update_time: '2025-06-23'
   versions: 2
 - create_time: '2025-06-23'
@@ -1071,12 +1155,12 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Phylogenetic tree visualisation
-  - Visualisation
-  - Phylogenetic inference
-  - Phylogenetic tree editing
   - Taxonomic classification
+  - Phylogenetic inference
   - Conversion
+  - Phylogenetic tree visualisation
+  - Phylogenetic tree editing
+  - Visualisation
   edam_topic: []
   id: '1451'
   keep: true
@@ -1094,12 +1178,12 @@
   - galaxy
   - microbiome
   tools:
-  - graphlan
   - metaphlan
-  - taxonomy_krona_chart
   - graphlan_annotate
-  - Cut1
+  - taxonomy_krona_chart
   - export2graphlan
+  - Cut1
+  - graphlan
   update_time: '2025-06-23'
   versions: 2
 - create_time: '2025-06-23'
@@ -1107,16 +1191,16 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Sequence trimming
-  - Sequence composition calculation
   - Statistical calculation
-  - Validation
-  - Primer removal
-  - Read pre-processing
   - Sequence similarity search
+  - Primer removal
+  - Sequencing quality control
+  - Sequence trimming
   - Sequence alignment analysis
   - Sequence comparison
-  - Sequencing quality control
+  - Validation
+  - Read pre-processing
+  - Sequence composition calculation
   edam_topic: []
   id: '1444'
   keep: true
@@ -1134,11 +1218,11 @@
   - galaxy
   - microbiome
   tools:
+  - fastq_paired_end_interlacer
   - multiqc
   - fastqc
-  - cutadapt
   - bg_sortmerna
-  - fastq_paired_end_interlacer
+  - cutadapt
   update_time: '2025-06-23'
   versions: 2
 - create_time: '2025-06-23'
@@ -1146,8 +1230,8 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Species frequency estimation
   - Taxonomic classification
+  - Species frequency estimation
   - Phylogenetic analysis
   edam_topic: []
   id: '1456'
@@ -1166,15 +1250,15 @@
   - galaxy
   - microbiome
   tools:
-  - Grep1
   - humann_rename_table
-  - humann
-  - tp_find_and_replace
-  - humann_renorm_table
-  - tp_sort_header_tool
   - humann_regroup_table
+  - tp_find_and_replace
   - humann_unpack_pathways
   - humann_split_stratified_table
+  - humann_renorm_table
+  - Grep1
+  - humann
+  - tp_sort_header_tool
   update_time: '2025-06-23'
   versions: 2
 - create_time: '2025-06-16'
@@ -1183,11 +1267,11 @@
   doi: null
   edam_operation:
   - Visualisation
-  - Local alignment
-  - Sequence assembly validation
   - Read mapping
-  - Genome assembly
+  - Sequence assembly validation
   - Sequence assembly visualisation
+  - Local alignment
+  - Genome assembly
   edam_topic: []
   id: '1390'
   keep: true
@@ -1204,15 +1288,15 @@
   - galaxy
   - microbiome
   tools:
-  - collection_column_join
   - bowtie2
   - megahit_contig2fastg
-  - bandage_info
-  - bandage_image
+  - collection_column_join
   - metaspades
-  - quast
-  - coverm_contig
+  - bandage_image
+  - bandage_info
   - megahit
+  - coverm_contig
+  - quast
   update_time: '2025-06-16'
   versions: 2
 - create_time: '2025-06-02'
@@ -1220,8 +1304,8 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Sequence contamination filtering
   - Sequencing quality control
+  - Sequence contamination filtering
   edam_topic: []
   id: '1723'
   keep: true
@@ -1238,10 +1322,10 @@
   - gtn
   - galaxy
   tools:
+  - fastp
+  - cshl_fastq_to_fasta
   - ncbi_blastn_wrapper
   - Count1
-  - cshl_fastq_to_fasta
-  - fastp
   update_time: '2025-06-02'
   versions: 1
 - create_time: '2025-06-02'
@@ -1249,14 +1333,14 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Visualisation
   - Statistical calculation
-  - Read mapping
-  - Cross-assembly
-  - Sequence contamination filtering
-  - Expression analysis
   - Taxonomic classification
+  - Expression analysis
   - Sequencing quality control
+  - Sequence contamination filtering
+  - Read mapping
+  - Visualisation
+  - Cross-assembly
   edam_topic: []
   id: '1644'
   keep: true
@@ -1274,11 +1358,11 @@
   - galaxy
   - sequence-analysis
   tools:
-  - falco
-  - kraken2
-  - est_abundance
   - fastp
   - recentrifuge
+  - est_abundance
+  - kraken2
+  - falco
   update_time: '2025-06-02'
   versions: 1
 - create_time: '2025-06-02'
@@ -1286,11 +1370,11 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Local alignment
-  - Sequence alignment
-  - Global alignment
   - Sequence alignment analysis
+  - Global alignment
   - Sequence analysis
+  - Sequence alignment
+  - Local alignment
   edam_topic: []
   id: '1632'
   keep: true
@@ -1307,14 +1391,14 @@
   - galaxy
   - variant-analysis
   tools:
-  - Grep1
-  - param_value_from_file
+  - Add_a_column1
   - compose_text_param
   - 'EMBOSS: maskseq51'
+  - Grep1
   - datamash_ops
-  - Cut1
   - fasta_compute_length
-  - Add_a_column1
+  - Cut1
+  - param_value_from_file
   update_time: '2025-06-02'
   versions: 1
 - create_time: '2025-06-02'
@@ -1322,16 +1406,16 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Aggregation
-  - Mapping assembly
-  - Antimicrobial resistance prediction
-  - Sequence analysis
-  - Box-Whisker plot plotting
   - Pairwise sequence alignment
-  - Genome assembly
-  - Sequence assembly visualisation
-  - Scatter plot plotting
+  - Aggregation
+  - Antimicrobial resistance prediction
+  - Box-Whisker plot plotting
   - De-novo assembly
+  - Scatter plot plotting
+  - Sequence assembly visualisation
+  - Sequence analysis
+  - Mapping assembly
+  - Genome assembly
   edam_topic: []
   id: '1477'
   keep: true
@@ -1349,14 +1433,14 @@
   - microbiome
   tools:
   - unicycler
-  - racon
-  - staramr_search
-  - miniasm
-  - nanoplot
   - bandage_image
+  - miniasm
+  - staramr_search
   - PlasFlow
-  - gfa_to_fa
+  - nanoplot
   - minimap2
+  - racon
+  - gfa_to_fa
   update_time: '2025-06-02'
   versions: 1
 - create_time: '2025-06-02'
@@ -1364,13 +1448,13 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Visualisation
-  - Sequence clustering
-  - DNA barcoding
   - Taxonomic classification
+  - DNA barcoding
   - Sequence read processing
   - Sequencing quality control
+  - Sequence clustering
   - Phylogenetic analysis
+  - Visualisation
   edam_topic: []
   id: '1476'
   keep: true
@@ -1387,21 +1471,21 @@
   - galaxy
   - microbiome
   tools:
-  - mothur_pre_cluster
-  - mothur_make_group
+  - mothur_unique_seqs
+  - mothur_cluster_split
   - mothur_summary_seqs
   - mothur_count_seqs
-  - mothur_unique_seqs
-  - mothur_merge_files
-  - mothur_align_seqs
-  - mothur_filter_seqs
-  - mothur_cluster_split
-  - mothur_screen_seqs
-  - mothur_classify_seqs
   - mothur_make_shared
-  - krona-text
-  - mothur_classify_otu
   - mothur_make_biom
+  - mothur_merge_files
+  - mothur_screen_seqs
+  - mothur_filter_seqs
+  - mothur_make_group
+  - mothur_classify_seqs
+  - mothur_classify_otu
+  - mothur_align_seqs
+  - mothur_pre_cluster
+  - krona-text
   update_time: '2025-06-02'
   versions: 1
 - create_time: '2025-06-02'
@@ -1409,13 +1493,13 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Visualisation
-  - Sequence composition calculation
+  - Sequencing quality control
   - Sequence contamination filtering
+  - Taxonomic classification
   - Statistical calculation
   - Validation
-  - Taxonomic classification
-  - Sequencing quality control
+  - Sequence composition calculation
+  - Visualisation
   edam_topic: []
   id: '1473'
   keep: true
@@ -1432,15 +1516,15 @@
   - galaxy
   - microbiome
   tools:
+  - fastp
+  - datamash_reverse
+  - taxonomy_krona_chart
   - multiqc
   - kraken2
-  - fastqc
-  - taxonomy_krona_chart
-  - porechop
   - tp_replace_in_line
-  - fastp
+  - fastqc
+  - porechop
   - Remove beginning1
-  - datamash_reverse
   update_time: '2025-06-02'
   versions: 1
 - create_time: '2025-06-02'
@@ -1465,12 +1549,12 @@
   - galaxy
   - microbiome
   tools:
-  - humann2
-  - taxonomy_krona_chart
   - metaphlan2krona
-  - humann2_renorm_table
-  - humann2_regroup_table
   - metaphlan2
+  - humann2_renorm_table
+  - taxonomy_krona_chart
+  - humann2
+  - humann2_regroup_table
   update_time: '2025-06-02'
   versions: 1
 - create_time: '2025-06-02'
@@ -1478,8 +1562,8 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Visualisation
   - Pairwise sequence alignment
+  - Visualisation
   edam_topic: []
   id: '1469'
   keep: true
@@ -1498,24 +1582,24 @@
   - metaplasmidome
   - name:microgalaxy
   tools:
-  - Grouping1
+  - Add_a_column1
   - CONVERTER_fasta_to_tabular
   - tp_sorted_uniq
-  - sort1
-  - Filter1
-  - MQoutputfilter
-  - tp_replace_in_column
   - histogram_rpy
-  - tp_tail_tool
   - join1
-  - count_gff_features
-  - tab2fasta
-  - Cut1
+  - Grouping1
   - cat1
-  - add_column_headers
-  - Add_a_column1
+  - tp_tail_tool
+  - count_gff_features
   - ggplot2_histogram
   - minimap2
+  - add_column_headers
+  - tp_replace_in_column
+  - Filter1
+  - tab2fasta
+  - Cut1
+  - MQoutputfilter
+  - sort1
   update_time: '2025-06-02'
   versions: 1
 - create_time: '2025-06-02'
@@ -1523,16 +1607,16 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Visualisation
-  - Phylogenetic tree reconstruction
-  - Sequence clustering
-  - Phylogenetic tree generation
-  - DNA barcoding
-  - Phylogenetic tree analysis
   - Taxonomic classification
+  - DNA barcoding
   - Sequence read processing
   - Sequencing quality control
+  - Phylogenetic tree generation
+  - Phylogenetic tree reconstruction
+  - Sequence clustering
+  - Phylogenetic tree analysis
   - Phylogenetic analysis
+  - Visualisation
   edam_topic: []
   id: '1465'
   keep: true
@@ -1549,39 +1633,39 @@
   - galaxy
   - microbiome
   tools:
-  - mothur_pre_cluster
-  - mothur_make_contigs
   - mothur_count_seqs
+  - mothur_chimera_vsearch
+  - mothur_get_groups
+  - mothur_screen_seqs
+  - mothur_rarefaction_single
+  - mothur_align_seqs
+  - newick_display
+  - mothur_make_shared
+  - taxonomy_krona_chart
   - mothur_cluster
+  - mothur_remove_seqs
+  - mothur_summary_single
+  - mothur_sub_sample
+  - mothur_remove_groups
+  - mothur_classify_seqs
+  - mothur_seq_error
+  - mothur_count_groups
+  - mothur_cluster_split
+  - mothur_tree_shared
+  - mothur_summary_seqs
+  - mothur_make_contigs
+  - mothur_dist_shared
+  - mothur_dist_seqs
+  - XY_Plot_1
+  - mothur_filter_seqs
+  - mothur_remove_lineage
+  - mothur_classify_otu
+  - mothur_pre_cluster
   - mothur_unique_seqs
   - mothur_venn
-  - mothur_classify_seqs
-  - mothur_make_shared
-  - mothur_make_biom
-  - mothur_summary_seqs
-  - mothur_cluster_split
-  - mothur_chimera_vsearch
-  - mothur_screen_seqs
-  - mothur_remove_lineage
-  - mothur_summary_single
-  - mothur_remove_seqs
-  - XY_Plot_1
-  - mothur_remove_groups
-  - mothur_taxonomy_to_krona
-  - mothur_count_groups
-  - mothur_align_seqs
-  - mothur_filter_seqs
-  - mothur_dist_shared
-  - mothur_tree_shared
-  - mothur_dist_seqs
-  - mothur_classify_otu
   - mothur_heatmap_sim
-  - mothur_rarefaction_single
-  - mothur_sub_sample
-  - newick_display
-  - taxonomy_krona_chart
-  - mothur_seq_error
-  - mothur_get_groups
+  - mothur_make_biom
+  - mothur_taxonomy_to_krona
   update_time: '2025-06-02'
   versions: 1
 - create_time: '2025-06-02'
@@ -1589,8 +1673,8 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Sequence feature detection
   - DNA barcoding
+  - Sequence feature detection
   edam_topic: []
   id: '1460'
   keep: true
@@ -1619,13 +1703,13 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Visualisation
-  - Sequence composition calculation
-  - Sequence contamination filtering
-  - Statistical calculation
-  - Taxonomic classification
-  - Aggregation
   - Sequencing quality control
+  - Sequence contamination filtering
+  - Taxonomic classification
+  - Statistical calculation
+  - Aggregation
+  - Sequence composition calculation
+  - Visualisation
   edam_topic: []
   id: '1439'
   keep: true
@@ -1642,13 +1726,13 @@
   - galaxy
   - microbiome
   tools:
-  - kraken2
-  - Filter1
-  - fastqc
+  - fastp
   - taxonomy_krona_chart
   - krakentools_kreport2krona
+  - kraken2
+  - fastqc
+  - Filter1
   - porechop
-  - fastp
   update_time: '2025-06-02'
   versions: 1
 - create_time: '2025-06-02'
@@ -1656,8 +1740,8 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Visualisation
   - Aggregation
+  - Visualisation
   edam_topic: []
   id: '1431'
   keep: true
@@ -1683,13 +1767,13 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Visualisation
-  - Sequence clustering
-  - DNA barcoding
   - Taxonomic classification
+  - DNA barcoding
   - Sequence read processing
   - Sequencing quality control
+  - Sequence clustering
   - Phylogenetic analysis
+  - Visualisation
   edam_topic: []
   id: '1428'
   keep: true
@@ -1707,9 +1791,9 @@
   - galaxy
   - microbiome
   tools:
+  - mothur_remove_lineage
   - mothur_summary_seqs
   - mothur_classify_seqs
-  - mothur_remove_lineage
   update_time: '2025-06-02'
   versions: 1
 - create_time: '2025-06-02'
@@ -1717,13 +1801,13 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Visualisation
-  - Sequence clustering
-  - DNA barcoding
   - Taxonomic classification
+  - DNA barcoding
   - Sequence read processing
   - Sequencing quality control
+  - Sequence clustering
   - Phylogenetic analysis
+  - Visualisation
   edam_topic: []
   id: '1422'
   keep: true
@@ -1741,10 +1825,10 @@
   - galaxy
   - microbiome
   tools:
+  - mothur_unique_seqs
   - mothur_summary_seqs
   - mothur_count_seqs
   - mothur_screen_seqs
-  - mothur_unique_seqs
   update_time: '2025-06-02'
   versions: 1
 - create_time: '2025-06-02'
@@ -1752,16 +1836,16 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Visualisation
-  - Phylogenetic tree reconstruction
-  - Sequence clustering
-  - Phylogenetic tree generation
-  - DNA barcoding
-  - Phylogenetic tree analysis
   - Taxonomic classification
+  - DNA barcoding
   - Sequence read processing
   - Sequencing quality control
+  - Phylogenetic tree generation
+  - Phylogenetic tree reconstruction
+  - Sequence clustering
+  - Phylogenetic tree analysis
   - Phylogenetic analysis
+  - Visualisation
   edam_topic: []
   id: '1418'
   keep: true
@@ -1778,12 +1862,12 @@
   - galaxy
   - microbiome
   tools:
-  - mothur_heatmap_sim
-  - newick_display
-  - mothur_dist_shared
-  - mothur_venn
-  - collapse_dataset
   - mothur_tree_shared
+  - mothur_venn
+  - mothur_heatmap_sim
+  - mothur_dist_shared
+  - collapse_dataset
+  - newick_display
   update_time: '2025-06-02'
   versions: 1
 - create_time: '2025-06-02'
@@ -1791,13 +1875,13 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Visualisation
-  - Sequence clustering
-  - DNA barcoding
   - Taxonomic classification
+  - DNA barcoding
   - Sequence read processing
   - Sequencing quality control
+  - Sequence clustering
   - Phylogenetic analysis
+  - Visualisation
   edam_topic: []
   id: '1412'
   keep: true
@@ -1825,13 +1909,13 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Visualisation
-  - Sequence clustering
-  - DNA barcoding
   - Taxonomic classification
+  - DNA barcoding
   - Sequence read processing
   - Sequencing quality control
+  - Sequence clustering
   - Phylogenetic analysis
+  - Visualisation
   edam_topic: []
   id: '1408'
   keep: true
@@ -1849,10 +1933,10 @@
   - galaxy
   - microbiome
   tools:
-  - mothur_rarefaction_single
+  - mothur_cluster
   - mothur_dist_seqs
   - mothur_make_shared
-  - mothur_cluster
+  - mothur_rarefaction_single
   update_time: '2025-06-02'
   versions: 1
 - create_time: '2025-06-02'
@@ -1860,13 +1944,13 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Visualisation
-  - Sequence clustering
-  - DNA barcoding
   - Taxonomic classification
+  - DNA barcoding
   - Sequence read processing
   - Sequencing quality control
+  - Sequence clustering
   - Phylogenetic analysis
+  - Visualisation
   edam_topic: []
   id: '1404'
   keep: true
@@ -1884,12 +1968,12 @@
   - galaxy
   - microbiome
   tools:
-  - mothur_remove_groups
-  - mothur_sub_sample
-  - mothur_count_groups
   - mothur_cluster_split
   - mothur_make_shared
+  - mothur_sub_sample
+  - mothur_remove_groups
   - mothur_classify_otu
+  - mothur_count_groups
   update_time: '2025-06-02'
   versions: 1
 - create_time: '2025-06-02'
@@ -1897,13 +1981,13 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Visualisation
-  - Sequence clustering
-  - DNA barcoding
   - Taxonomic classification
+  - DNA barcoding
   - Sequence read processing
   - Sequencing quality control
+  - Sequence clustering
   - Phylogenetic analysis
+  - Visualisation
   edam_topic: []
   id: '1400'
   keep: true
@@ -1921,13 +2005,13 @@
   - galaxy
   - microbiome
   tools:
-  - mothur_pre_cluster
-  - mothur_summary_seqs
   - mothur_unique_seqs
-  - mothur_filter_seqs
+  - mothur_summary_seqs
   - mothur_chimera_vsearch
-  - mothur_screen_seqs
   - mothur_remove_seqs
+  - mothur_screen_seqs
+  - mothur_filter_seqs
+  - mothur_pre_cluster
   update_time: '2025-06-02'
   versions: 1
 - create_time: '2025-03-26'
@@ -1953,24 +2037,24 @@
   source: WorkflowHub
   tags: []
   tools:
-  - bcftools_consensus
-  - Paste1
-  - samtools_coverage
-  - regexColumn1
-  - bcftools_norm
-  - CONVERTER_gz_to_uncompressed
-  - snpSift_filter
   - tp_cut_tool
+  - clair3
+  - table_compute
+  - samtools_depth
+  - bcftools_consensus
+  - CONVERTER_gz_to_uncompressed
+  - Paste1
+  - bcftools_norm
   - Cut1
   - snpSift_extractFields
-  - clair3
+  - samtools_coverage
+  - snpSift_filter
   - collapse_dataset
-  - Remove beginning1
-  - table_compute
-  - tp_head_tool
-  - Count1
-  - samtools_depth
   - minimap2
+  - Count1
+  - tp_head_tool
+  - Remove beginning1
+  - regexColumn1
   update_time: '2026-05-14'
   versions: 5
 - create_time: '2025-03-26'
@@ -1994,11 +2078,11 @@
   tags: []
   tools:
   - ''
-  - fastq_dl
-  - CONVERTER_uncompressed_to_gz
   - tp_awk_tool
+  - CONVERTER_uncompressed_to_gz
   - CONVERTER_gz_to_uncompressed
   - __MERGE_COLLECTION__
+  - fastq_dl
   update_time: '2026-05-14'
   versions: 2
 - create_time: '2025-03-26'
@@ -2009,8 +2093,8 @@
   doi: null
   edam_operation:
   - k-mer counting
-  - Visualisation
   - Formatting
+  - Visualisation
   - Mapping
   edam_topic: []
   id: '1273'
@@ -2026,10 +2110,10 @@
   tags: []
   tools:
   - ''
-  - tp_awk_tool
-  - __FILTER_FROM_FILE__
   - bedtools_maskfastabed
   - mapseq
+  - tp_awk_tool
+  - __FILTER_FROM_FILE__
   - collection_element_identifiers
   - taxonomy_krona_chart
   - biom_convert
@@ -2043,14 +2127,14 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Sequence trimming
-  - Sequence composition calculation
-  - Nucleic acid design
   - Statistical calculation
-  - Validation
-  - Read pre-processing
-  - Sequence contamination filtering
   - Sequencing quality control
+  - Sequence contamination filtering
+  - Sequence trimming
+  - Validation
+  - Nucleic acid design
+  - Read pre-processing
+  - Sequence composition calculation
   edam_topic: []
   id: '1272'
   keep: true
@@ -2064,17 +2148,17 @@
   source: WorkflowHub
   tags: []
   tools:
+  - fastp
   - cshl_fasta_formatter
   - tp_find_and_replace
-  - fastq_to_fasta_python
   - multiqc
+  - trimmomatic
   - fastqc
   - __UNZIP_COLLECTION__
-  - prinseq
   - mgnify_seqprep
-  - fastp
-  - trimmomatic
   - fastq_filter
+  - prinseq
+  - fastq_to_fasta_python
   update_time: '2026-05-14'
   versions: 2
 - create_time: '2025-03-26'
@@ -2084,13 +2168,13 @@
   deprecated: false
   doi: null
   edam_operation:
+  - Sequencing quality control
+  - Statistical calculation
+  - Sequence contamination filtering
   - Sequence trimming
+  - Validation
   - Read pre-processing
   - Sequence composition calculation
-  - Sequence contamination filtering
-  - Statistical calculation
-  - Validation
-  - Sequencing quality control
   edam_topic: []
   id: '1271'
   keep: true
@@ -2106,12 +2190,12 @@
   tools:
   - cshl_fasta_formatter
   - tp_find_and_replace
-  - fastq_to_fasta_python
   - multiqc
-  - fastqc
-  - prinseq
   - trimmomatic
+  - fastqc
   - fastq_filter
+  - prinseq
+  - fastq_to_fasta_python
   update_time: '2026-05-14'
   versions: 3
 - create_time: '2025-03-26'
@@ -2121,13 +2205,13 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Visualisation
-  - Alignment
-  - Formatting
-  - Mapping
   - k-mer counting
+  - Formatting
   - Comparison
+  - Mapping
+  - Alignment
   - Nucleic acid feature detection
+  - Visualisation
   edam_topic: []
   id: '1270'
   keep: true
@@ -2142,19 +2226,19 @@
   tags: []
   tools:
   - ''
-  - bedtools_getfastabed
-  - tp_awk_tool
   - cshl_fasta_formatter
-  - __FILTER_FROM_FILE__
-  - infernal_cmsearch
+  - tp_awk_tool
   - mapseq
   - collection_element_identifiers
+  - __FILTER_FROM_FILE__
   - taxonomy_krona_chart
-  - cmsearch_deoverlap
   - biom_convert
+  - cmsearch_deoverlap
+  - infernal_cmsearch
+  - bedtools_getfastabed
   - gops_concat_1
-  - __FILTER_EMPTY_DATASETS__
   - query_tabular
+  - __FILTER_EMPTY_DATASETS__
   update_time: '2026-05-14'
   versions: 2
 - create_time: '2025-03-26'
@@ -2176,9 +2260,9 @@
   source: WorkflowHub
   tags: []
   tools:
-  - Grouping1
-  - collection_column_join
   - tp_awk_tool
+  - collection_column_join
+  - Grouping1
   - filter_tabular
   - query_tabular
   update_time: '2026-05-14'
@@ -2189,16 +2273,16 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Visualisation
-  - Filtering
-  - Formatting
   - Statistical calculation
   - Imputation
-  - Standardisation and normalisation
+  - Formatting
   - Heat map generation
+  - Filtering
+  - Standardisation and normalisation
   - Protein quantification
-  - Principal component plotting
   - Clustering
+  - Principal component plotting
+  - Visualisation
   edam_topic: []
   id: '1225'
   keep: true
@@ -2212,23 +2296,23 @@
   source: WorkflowHub
   tags: []
   tools:
-  - Grouping1
-  - Grep1
-  - fasta2tab
-  - fasta_merge_files_and_filter_unique_sequences
-  - Filter1
-  - ident_params
-  - Remove beginning1
-  - msconvert
-  - Cut1
   - query_tabular
-  - dbbuilder
-  - fasta_cli
-  - filter_tabular
+  - peptide_shaker
+  - Remove beginning1
   - tp_cat
   - search_gui
-  - peptide_shaker
+  - Grouping1
+  - fasta_cli
+  - ident_params
   - maxquant
+  - msconvert
+  - dbbuilder
+  - Grep1
+  - filter_tabular
+  - Filter1
+  - fasta_merge_files_and_filter_unique_sequences
+  - Cut1
+  - fasta2tab
   update_time: '2026-05-13'
   versions: 1
 - create_time: '2024-12-10'
@@ -2238,10 +2322,10 @@
   deprecated: false
   doi: 10.48546/workflowhub.workflow.1199.2
   edam_operation:
-  - Visualisation
   - Statistical calculation
   - Taxonomic classification
   - Aggregation
+  - Visualisation
   edam_topic:
   - Metagenomics
   - Taxonomy
@@ -2261,34 +2345,34 @@
   - name:collection
   - shotgun
   tools:
+  - __RELABEL_FROM_FILE__
   - collection_column_join
-  - krakentools_beta_diversity
+  - cat_multiple
   - 'Prepare alpha diversity summary file
+
+    Paste1'
+  - collection_element_identifiers
+  - krakentools_combine_kreports
+  - krakentools_kreport2krona
+  - krakentools_beta_diversity
+  - est_abundance
+  - taxonomy_krona_chart
+  - kraken2
+  - 'Prepare alpha diversity summary file (paste sample identifiers and Simpson results)
 
     Paste1'
   - 'Prepare alpha diversity summary file (paste Simpson and Fisher results)
 
     Paste1'
-  - kraken2
-  - 'Prepare alpha diversity summary file (paste sample identifiers and Simpson results)
-
-    Paste1'
-  - taxonomy_krona_chart
-  - collection_element_identifiers
-  - krakentools_kreport2krona
-  - 'Fisher results contains a header line we want to exclude "Fisher''s alpha...loading"
-
-    Show tail1'
-  - est_abundance
-  - __RELABEL_FROM_FILE__
   - add_line_to_file
-  - regex1
   - krakentools_alpha_diversity
-  - cat_multiple
+  - regex1
   - 'Extract column name and fraction_total_reads from Bracken report
 
     Cut1'
-  - krakentools_combine_kreports
+  - 'Fisher results contains a header line we want to exclude "Fisher''s alpha...loading"
+
+    Show tail1'
   update_time: '2024-12-10'
   versions: 2
 - create_time: '2024-11-26'
@@ -2297,8 +2381,8 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Visualisation
   - Prediction and recognition
+  - Visualisation
   edam_topic: []
   id: '1219'
   keep: true
@@ -2312,8 +2396,8 @@
   source: WorkflowHub
   tags: []
   tools:
-  - Grep1
   - msstatstmt
+  - Grep1
   - unipept
   update_time: '2026-05-13'
   versions: 1
@@ -2336,17 +2420,17 @@
   source: WorkflowHub
   tags: []
   tools:
-  - Grouping1
-  - fasta_merge_files_and_filter_unique_sequences
   - Filter1
   - uniprotxml_downloader
+  - Grouping1
   - Cut1
-  - pepquery2
-  - tp_cat
-  - dbbuilder
-  - Remove beginning1
   - collapse_dataset
+  - dbbuilder
   - query_tabular
+  - tp_cat
+  - fasta_merge_files_and_filter_unique_sequences
+  - Remove beginning1
+  - pepquery2
   update_time: '2026-05-13'
   versions: 1
 - create_time: '2024-11-23'
@@ -2355,11 +2439,11 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Expression analysis
-  - Protein identification
-  - Tag-based peptide identification
   - de Novo sequencing
   - Target-Decoy
+  - Expression analysis
+  - Tag-based peptide identification
+  - Protein identification
   edam_topic: []
   id: '1216'
   keep: true
@@ -2385,10 +2469,10 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Parsing
-  - Data handling
-  - Genome assembly
   - Antimicrobial resistance prediction
+  - Data handling
+  - Parsing
+  - Genome assembly
   edam_topic: []
   id: '1189'
   keep: true
@@ -2407,24 +2491,24 @@
   - benchamrking
   tools:
   - ''
-  - hamronize_summarize
-  - tp_text_file_with_recurring_lines
-  - cat1
-  - hamronize_tool
-  - abricate
-  - addValue
-  - __APPLY_RULES__
-  - __MERGE_COLLECTION__
-  - collapse_dataset
-  - shovill
-  - Grep1
-  - cast
-  - tp_find_and_replace
-  - Cut1
-  - tp_split_on_column
-  - datamash_ops
-  - staramr_search
   - cat_multi_datasets
+  - shovill
+  - tp_split_on_column
+  - staramr_search
+  - collapse_dataset
+  - datamash_ops
+  - abricate
+  - hamronize_tool
+  - tp_find_and_replace
+  - cat1
+  - tp_text_file_with_recurring_lines
+  - cast
+  - __APPLY_RULES__
+  - addValue
+  - Grep1
+  - hamronize_summarize
+  - __MERGE_COLLECTION__
+  - Cut1
   update_time: '2026-05-13'
   versions: 2
 - create_time: '2024-10-07'
@@ -2433,14 +2517,14 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Visualisation
   - Statistical calculation
   - Imputation
-  - Standardisation and normalisation
   - Heat map generation
+  - Standardisation and normalisation
   - Protein quantification
-  - Principal component plotting
   - Clustering
+  - Principal component plotting
+  - Visualisation
   edam_topic: []
   id: '1177'
   keep: true
@@ -2454,25 +2538,25 @@
   source: WorkflowHub
   tags: []
   tools:
-  - maxquant
-  - 'Quantified-Proteins
+  - 'extracting microbial Proteins
 
-    Grouping1'
+    Grep1'
   - 'extract proteins
-
-    Cut1'
-  - 'extract peptides
 
     Cut1'
   - 'Quantified-Peptides
 
     Grouping1'
-  - 'extracting microbial Proteins
-
-    Grep1'
   - 'extracting microbial Peptides
 
     Grep1'
+  - 'Quantified-Proteins
+
+    Grouping1'
+  - maxquant
+  - 'extract peptides
+
+    Cut1'
   update_time: '2026-05-14'
   versions: 1
 - create_time: '2025-12-04'
@@ -2484,8 +2568,8 @@
   doi: null
   edam_operation:
   - Data parsing
-  - Genome assembly
   - Sequence assembly visualisation
+  - Genome assembly
   edam_topic: []
   id: '1043'
   keep: true
@@ -2506,11 +2590,11 @@
   - paired-end
   - quality
   tools:
-  - bandage_info
-  - bandage_image
-  - tooldistillator
   - tooldistillator_summarize
   - shovill
+  - bandage_image
+  - bandage_info
+  - tooldistillator
   update_time: '2026-05-13'
   versions: 12
 - create_time: '2025-06-19'
@@ -2521,13 +2605,13 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Cross-assembly
-  - Data parsing
+  - Sequencing quality control
   - Sequence contamination filtering
+  - Data parsing
+  - Taxonomic classification
   - Expression analysis
   - Statistical calculation
-  - Taxonomic classification
-  - Sequencing quality control
+  - Cross-assembly
   edam_topic: []
   id: '1052'
   keep: true
@@ -2549,14 +2633,14 @@
   - taxonomy-assignment
   - trimming
   tools:
-  - kraken2
-  - tooldistillator_summarize
-  - tooldistillator
-  - __UNZIP_COLLECTION__
-  - est_abundance
   - fastp
+  - tooldistillator_summarize
   - recentrifuge
   - __ZIP_COLLECTION__
+  - est_abundance
+  - kraken2
+  - __UNZIP_COLLECTION__
+  - tooldistillator
   update_time: '2026-05-14'
   versions: 11
 - create_time: '2022-11-24'
@@ -2564,22 +2648,22 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Visualisation
-  - Multilocus sequence typing
-  - Sequence alignment
-  - Genome indexing
-  - Read mapping
+  - Genome alignment
+  - Read binning
   - Sequence contamination filtering
   - Clustering
-  - Genome alignment
-  - Parsing
+  - Antimicrobial resistance prediction
   - Data handling
-  - Genome assembly
+  - Sequence alignment
+  - Parsing
+  - Genome indexing
   - RNA-Seq analysis
   - Sequence trimming
-  - Antimicrobial resistance prediction
-  - Read binning
   - Sequence analysis
+  - Read mapping
+  - Multilocus sequence typing
+  - Visualisation
+  - Genome assembly
   edam_topic: []
   id: '407'
   keep: true
@@ -2595,17 +2679,17 @@
   - bioinformatics
   - antimicrobial resistance
   tools:
-  - kma_map
-  - hamronize_summarize
   - seqsero2
-  - bbtools_bbduk
-  - __UNZIP_COLLECTION__
-  - srst2
   - shovill
-  - mob_recon
-  - hamronize_tool
-  - sistr_cmd
   - bbtools_tadpole
+  - hamronize_tool
+  - bbtools_bbduk
+  - sistr_cmd
+  - mob_recon
+  - kma_map
+  - __UNZIP_COLLECTION__
+  - hamronize_summarize
+  - srst2
   update_time: '2026-05-13'
   versions: 1
 - create_time: '2023-11-07'
@@ -2634,10 +2718,10 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Parsing
-  - Data handling
-  - Genome assembly
   - Antimicrobial resistance prediction
+  - Data handling
+  - Parsing
+  - Genome assembly
   edam_topic: []
   id: '470'
   keep: true
@@ -2656,13 +2740,13 @@
   - bioinformatics
   - antimicrobial resistance
   tools:
-  - hamronize_summarize
-  - tp_find_and_replace
   - abricate
-  - staramr_search
-  - collapse_dataset
   - shovill
   - hamronize_tool
+  - tp_find_and_replace
+  - staramr_search
+  - collapse_dataset
+  - hamronize_summarize
   update_time: '2026-05-13'
   versions: 1
 - create_time: '2023-10-31'
@@ -2706,9 +2790,9 @@
   source: WorkflowHub
   tags: []
   tools:
-  - Phylogenetic tree for diversity analysis
-  - Taxonomic analysis
   - Rarefaction
+  - Taxonomic analysis
+  - Phylogenetic tree for diversity analysis
   update_time: '2026-05-14'
   versions: 2
 - create_time: '2024-06-26'
@@ -2719,15 +2803,15 @@
   deprecated: false
   doi: 10.48546/workflowhub.workflow.1062.1
   edam_operation:
-  - Antimicrobial resistance prediction
   - Base-calling
+  - Antimicrobial resistance prediction
+  - De-novo assembly
   - Variant calling
+  - Sequence assembly visualisation
+  - Sequence assembly
   - Cross-assembly
   - Mapping assembly
-  - Sequence assembly
   - Genome assembly
-  - Sequence assembly visualisation
-  - De-novo assembly
   edam_topic: []
   id: '1062'
   keep: true
@@ -2741,18 +2825,18 @@
   source: WorkflowHub
   tags: []
   tools:
-  - medaka_consensus_pipeline
-  - param_value_from_file
-  - compose_text_param
-  - __BUILD_LIST__
-  - tp_find_and_replace
   - abricate
   - collection_element_identifiers
   - bandage_image
-  - split_file_to_collection
   - flye
-  - fasta2tab
+  - tp_find_and_replace
+  - split_file_to_collection
+  - compose_text_param
+  - __BUILD_LIST__
   - tab2fasta
+  - medaka_consensus_pipeline
+  - param_value_from_file
+  - fasta2tab
   update_time: '2026-05-13'
   versions: 1
 - create_time: '2024-06-26'
@@ -2763,14 +2847,12 @@
   deprecated: false
   doi: 10.48546/workflowhub.workflow.1060.1
   edam_operation:
-  - Phylogenetic tree generation (from molecular sequences)
+  - Phylogenetic tree generation
   - Visualisation
-  - Phylogenetic tree generation (maximum likelihood and Bayesian methods)
   - Multiple sequence alignment
-  - Mapping
   - Phylogenetic tree reconstruction
   - Phylogenetic tree analysis
-  - Phylogenetic tree generation
+  - Mapping
   edam_topic: []
   id: '1060'
   keep: true
@@ -2784,28 +2866,28 @@
   source: WorkflowHub
   tags: []
   tools:
-  - Grouping1
+  - tp_split_on_column
+  - ggplot2_heatmap
+  - bedtools_getfastabed
+  - collapse_dataset
+  - regex1
+  - tp_replace_in_column
+  - fasta_merge_files_and_filter_unique_sequences
+  - newick_display
   - regexColumn1
-  - clustalw
-  - __FILTER_FAILED_DATASETS__
+  - tp_multijoin_tool
+  - Count1
+  - __FILTER_EMPTY_DATASETS__
   - fasta2tab
   - tp_sorted_uniq
-  - fasta_merge_files_and_filter_unique_sequences
-  - collapse_dataset
-  - __FILTER_EMPTY_DATASETS__
-  - bedtools_getfastabed
-  - tp_multijoin_tool
-  - ggplot2_heatmap
-  - Cut1
-  - Remove beginning1
+  - Grouping1
   - fasttree
-  - tp_split_on_column
-  - collection_column_join
-  - tp_replace_in_column
-  - newick_display
-  - regex1
-  - Count1
   - tab2fasta
+  - Remove beginning1
+  - collection_column_join
+  - clustalw
+  - __FILTER_FAILED_DATASETS__
+  - Cut1
   update_time: '2026-05-13'
   versions: 1
 - create_time: '2024-06-26'
@@ -2816,9 +2898,9 @@
   deprecated: false
   doi: 10.48546/workflowhub.workflow.1059.1
   edam_operation:
-  - Visualisation
   - Taxonomic classification
   - Aggregation
+  - Visualisation
   edam_topic: []
   id: '1059'
   keep: true
@@ -2832,9 +2914,9 @@
   source: WorkflowHub
   tags: []
   tools:
+  - krakentools_kreport2krona
   - kraken2
   - taxonomy_krona_chart
-  - krakentools_kreport2krona
   update_time: '2026-05-13'
   versions: 1
 - create_time: '2025-12-06'
@@ -2846,14 +2928,14 @@
   doi: null
   edam_operation:
   - Scaffolding
-  - Multilocus sequence typing
+  - Genome annotation
+  - Nucleic acid feature detection
+  - Data parsing
+  - Protein feature detection
   - Structural variation detection
   - Sequence motif recognition
-  - Genome annotation
-  - Data parsing
+  - Multilocus sequence typing
   - Genome assembly
-  - Protein feature detection
-  - Nucleic acid feature detection
   edam_topic: []
   id: '1050'
   keep: true
@@ -2873,12 +2955,12 @@
   - fasta
   - genome-annotation
   tools:
+  - tooldistillator_summarize
+  - integron_finder
+  - plasmidfinder
   - isescan
   - bakta
-  - integron_finder
-  - tooldistillator_summarize
   - tooldistillator
-  - plasmidfinder
   update_time: '2026-05-13'
   versions: 13
 - create_time: '2025-12-04'
@@ -2913,10 +2995,10 @@
   - bacterial-genomics
   - fasta
   tools:
+  - tooldistillator_summarize
   - abricate
   - amrfinderplus
   - staramr_search
-  - tooldistillator_summarize
   - tooldistillator
   update_time: '2026-05-13'
   versions: 9
@@ -2926,19 +3008,19 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Phylogenetic tree visualisation
-  - Sequence alignment
-  - Validation
+  - Taxonomic classification
   - Antimicrobial resistance prediction
-  - Phylogenetic tree generation
   - Variant calling
+  - Sequence alignment
+  - Phylogenetic tree visualisation
+  - Sequencing quality control
+  - Sequence contamination filtering
+  - Sequence alignment analysis
+  - Phylogenetic tree generation
+  - Validation
+  - Global alignment
   - Sequence analysis
   - Local alignment
-  - Sequence contamination filtering
-  - Global alignment
-  - Sequence alignment analysis
-  - Taxonomic classification
-  - Sequencing quality control
   edam_topic:
   - Genetic variation
   - Infectious disease
@@ -2959,20 +3041,20 @@
   - pathogen
   - tuberculosis
   tools:
-  - bcftools_consensus
-  - tp_awk_tool
-  - tb_profiler_profile
-  - kraken2
-  - __FLATTEN__
-  - multiqc
-  - mosdepth
-  - snippy
-  - qualimap_bamqc
-  - tb_variant_filter
-  - tbvcfreport
   - fastp
-  - tp_sed_tool
+  - tp_awk_tool
+  - qualimap_bamqc
   - 'EMBOSS: seqret84'
+  - kraken2
+  - mosdepth
+  - __FLATTEN__
+  - tp_sed_tool
+  - snippy
+  - multiqc
+  - bcftools_consensus
+  - tb_variant_filter
+  - tb_profiler_profile
+  - tbvcfreport
   update_time: '2026-05-13'
   versions: 1
 - create_time: '2025-03-26'
@@ -2997,17 +3079,17 @@
   tags:
   - name:amplicon
   tools:
-  - dada2_filterAndTrim
+  - dada2_dada
+  - dada2_makeSequenceTable
+  - __APPLY_RULES__
+  - dada2_plotQualityProfile
   - dada2_learnErrors
   - dada2_assignTaxonomyAddspecies
-  - dada2_makeSequenceTable
   - dada2_seqCounts
+  - dada2_filterAndTrim
   - __UNZIP_COLLECTION__
   - dada2_removeBimeraDenovo
-  - __APPLY_RULES__
   - dada2_mergePairs
-  - dada2_plotQualityProfile
-  - dada2_dada
   update_time: '2026-05-14'
   versions: 3
 - create_time: '2024-02-14'
@@ -3031,11 +3113,11 @@
   tags:
   - genome-annotation
   tools:
-  - jbrowse
-  - iframe
   - create_or_update
-  - list_organism
+  - iframe
+  - jbrowse
   - create_account
+  - list_organism
   update_time: '2025-11-04'
   versions: 1
 - create_time: '2023-10-26'
@@ -3047,8 +3129,8 @@
   deprecated: false
   doi: 10.48546/workflowhub.workflow.624.1
   edam_operation:
-  - Visualisation
   - Taxonomic classification
+  - Visualisation
   edam_topic:
   - Metagenomic sequencing
   - Metagenomics
@@ -3068,14 +3150,14 @@
   - shotgun
   tools:
   - ''
-  - humann2
-  - taxonomy_krona_chart
   - metaphlan2krona
+  - metaphlan2
+  - taxonomy_krona_chart
   - humann2_renorm_table
+  - merge_metaphlan_tables
+  - humann2
   - humann2_regroup_table
   - Cut1
-  - merge_metaphlan_tables
-  - metaphlan2
   update_time: '2026-05-13'
   versions: 1
 - create_time: '2023-11-09'
@@ -3087,16 +3169,16 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Visualisation
-  - Phylogenetic tree reconstruction
-  - Sequence clustering
-  - Phylogenetic tree generation
-  - DNA barcoding
-  - Phylogenetic tree analysis
   - Taxonomic classification
+  - DNA barcoding
   - Sequence read processing
   - Sequencing quality control
+  - Phylogenetic tree generation
+  - Phylogenetic tree reconstruction
+  - Sequence clustering
+  - Phylogenetic tree analysis
   - Phylogenetic analysis
+  - Visualisation
   edam_topic: []
   id: '653'
   keep: true
@@ -3111,10 +3193,10 @@
   tags:
   - metagenomics
   tools:
-  - mothur_dist_shared
   - mothur_tree_shared
   - mothur_heatmap_sim
   - newick_display
+  - mothur_dist_shared
   update_time: '2026-05-13'
   versions: 1
 - create_time: '2023-11-09'
@@ -3126,13 +3208,13 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Visualisation
-  - Sequence clustering
-  - DNA barcoding
   - Taxonomic classification
+  - DNA barcoding
   - Sequence read processing
   - Sequencing quality control
+  - Sequence clustering
   - Phylogenetic analysis
+  - Visualisation
   edam_topic: []
   id: '652'
   keep: true
@@ -3161,13 +3243,13 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Visualisation
-  - Sequence clustering
-  - DNA barcoding
   - Taxonomic classification
+  - DNA barcoding
   - Sequence read processing
   - Sequencing quality control
+  - Sequence clustering
   - Phylogenetic analysis
+  - Visualisation
   edam_topic: []
   id: '651'
   keep: true
@@ -3182,11 +3264,11 @@
   tags:
   - metagenomics
   tools:
-  - mothur_sub_sample
-  - mothur_count_groups
   - mothur_cluster_split
   - mothur_make_shared
+  - mothur_sub_sample
   - mothur_classify_otu
+  - mothur_count_groups
   update_time: '2026-05-13'
   versions: 1
 - create_time: '2023-11-09'
@@ -3198,13 +3280,13 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Visualisation
-  - Sequence clustering
-  - DNA barcoding
   - Taxonomic classification
+  - DNA barcoding
   - Sequence read processing
   - Sequencing quality control
+  - Sequence clustering
   - Phylogenetic analysis
+  - Visualisation
   edam_topic: []
   id: '650'
   keep: true
@@ -3220,8 +3302,8 @@
   tags:
   - metagenomics
   tools:
-  - mothur_classify_seqs
   - mothur_remove_lineage
+  - mothur_classify_seqs
   update_time: '2026-05-13'
   versions: 1
 - create_time: '2023-11-09'
@@ -3233,13 +3315,13 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Visualisation
-  - Sequence clustering
-  - DNA barcoding
   - Taxonomic classification
+  - DNA barcoding
   - Sequence read processing
   - Sequencing quality control
+  - Sequence clustering
   - Phylogenetic analysis
+  - Visualisation
   edam_topic: []
   id: '648'
   keep: true
@@ -3254,10 +3336,10 @@
   tags:
   - metagenomics
   tools:
+  - mothur_unique_seqs
   - mothur_summary_seqs
   - mothur_count_seqs
   - mothur_screen_seqs
-  - mothur_unique_seqs
   update_time: '2026-05-13'
   versions: 1
 - create_time: '2023-11-09'
@@ -3269,13 +3351,13 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Visualisation
-  - Sequence clustering
-  - DNA barcoding
   - Taxonomic classification
+  - DNA barcoding
   - Sequence read processing
   - Sequencing quality control
+  - Sequence clustering
   - Phylogenetic analysis
+  - Visualisation
   edam_topic: []
   id: '649'
   keep: true
@@ -3291,13 +3373,13 @@
   tags:
   - metagenomics
   tools:
-  - mothur_pre_cluster
-  - mothur_summary_seqs
   - mothur_unique_seqs
-  - mothur_filter_seqs
+  - mothur_summary_seqs
   - mothur_chimera_vsearch
-  - mothur_screen_seqs
   - mothur_remove_seqs
+  - mothur_screen_seqs
+  - mothur_filter_seqs
+  - mothur_pre_cluster
   update_time: '2026-05-13'
   versions: 1
 - create_time: '2021-02-04'
@@ -3305,9 +3387,9 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Genome assembly
-  - Sequence contamination filtering
   - Sequencing quality control
+  - Sequence contamination filtering
+  - Genome assembly
   edam_topic: []
   id: '103'
   keep: true
@@ -3333,13 +3415,13 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Read pre-processing
-  - Sequence contamination filtering
-  - Formatting
-  - Pairwise sequence alignment
-  - Genome assembly
   - Sequencing quality control
+  - Formatting
+  - Sequence contamination filtering
+  - Pairwise sequence alignment
   - Variant calling
+  - Read pre-processing
+  - Genome assembly
   edam_topic: []
   id: '102'
   keep: true
@@ -3358,13 +3440,13 @@
   - mapping
   - reads_selection
   tools:
-  - fasta_merge_files_and_filter_unique_sequences
   - ncbi_blastn_wrapper
-  - samtools_stats
-  - picard_SamToFastq
   - shovill
+  - picard_SamToFastq
   - ngsutils_bam_filter
   - minimap2
+  - samtools_stats
+  - fasta_merge_files_and_filter_unique_sequences
   update_time: '2026-05-13'
   versions: 1
 - create_time: '2022-11-24'
@@ -3374,16 +3456,16 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Aggregation
-  - Mapping assembly
-  - Antimicrobial resistance prediction
-  - Sequence analysis
-  - Box-Whisker plot plotting
   - Pairwise sequence alignment
-  - Genome assembly
-  - Sequence assembly visualisation
-  - Scatter plot plotting
+  - Aggregation
+  - Antimicrobial resistance prediction
+  - Box-Whisker plot plotting
   - De-novo assembly
+  - Scatter plot plotting
+  - Sequence assembly visualisation
+  - Sequence analysis
+  - Mapping assembly
+  - Genome assembly
   edam_topic:
   - Microbiology
   id: '406'
@@ -3400,14 +3482,14 @@
   - metagenomics
   tools:
   - unicycler
-  - racon
-  - staramr_search
-  - miniasm
-  - nanoplot
   - bandage_image
+  - miniasm
+  - staramr_search
   - PlasFlow
-  - gfa_to_fa
+  - nanoplot
   - minimap2
+  - racon
+  - gfa_to_fa
   update_time: '2026-05-13'
   versions: 1
 - create_time: '2021-06-17'
@@ -3415,8 +3497,8 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Visualisation
   - Taxonomic classification
+  - Visualisation
   edam_topic: []
   id: '124'
   keep: true
@@ -3432,8 +3514,8 @@
   - virology
   - kraken
   tools:
-  - kraken2
   - Kraken2Tax
+  - kraken2
   - taxonomy_krona_chart
   update_time: '2026-05-13'
   versions: 1
@@ -3442,8 +3524,8 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Visualisation
   - Taxonomic classification
+  - Visualisation
   edam_topic: []
   id: '101'
   keep: true
@@ -3459,8 +3541,8 @@
   - virology
   - kraken
   tools:
-  - kraken2
   - Kraken2Tax
+  - kraken2
   - taxonomy_krona_chart
   update_time: '2026-05-13'
   versions: 1
@@ -3470,11 +3552,11 @@
   deprecated: false
   doi: ''
   edam_operation:
+  - Statistical calculation
+  - Sequencing quality control
+  - Validation
   - Sequence composition calculation
   - Sequence assembly validation
-  - Statistical calculation
-  - Validation
-  - Sequencing quality control
   edam_topic: []
   id: f0776f7a890b523a
   keep: true
@@ -3489,22 +3571,111 @@
   - microbiome
   - name:microgalaxy
   tools:
+  - __RELABEL_FROM_FILE__
+  - checkm2
+  - collection_element_identifiers
   - multiqc
   - __FLATTEN__
-  - collection_element_identifiers
-  - __RELABEL_FROM_FILE__
   - __MERGE_COLLECTION__
   - regex1
-  - checkm2
   update_time: '2025-12-08'
+  versions: 1
+- create_time: '2025-12-01'
+  creators: []
+  deprecated: false
+  doi: ''
+  edam_operation:
+  - Sequencing quality control
+  - Sequence contamination filtering
+  - Taxonomic classification
+  - Statistical calculation
+  - Validation
+  - Sequence composition calculation
+  - Visualisation
+  edam_topic: []
+  id: 2a093e63ebf6876b
+  keep: true
+  latest_version: 3
+  license: null
+  link: https://usegalaxy.eu/published/workflow?id=2a093e63ebf6876b
+  name: 'Training: 16S rRNA Analysis with Nanopore Sequencing Reads'
+  number_of_steps: null
+  projects: []
+  source: https://usegalaxy.eu
+  tags:
+  - metagenomics
+  - name:microgalaxy
+  tools:
+  - fastp
+  - datamash_reverse
+  - taxonomy_krona_chart
+  - multiqc
+  - kraken2
+  - tp_replace_in_line
+  - fastqc
+  - porechop
+  - Remove beginning1
+  update_time: '2026-06-12'
+  versions: 3
+- create_time: '2026-02-10'
+  creators:
+  - Subina Mehta
+  deprecated: false
+  doi: ''
+  edam_operation:
+  - Statistical calculation
+  - Taxonomic classification
+  - Genome annotation
+  - Sequencing quality control
+  - Sequence trimming
+  - Sequence assembly
+  - Fold recognition
+  - Information extraction
+  - Homology-based gene prediction
+  - Gene prediction
+  - Read pre-processing
+  - Coding region prediction
+  - Primer removal
+  - Query and retrieval
+  - Sequence composition calculation
+  edam_topic: []
+  id: 7be08f99f83c927e
+  keep: true
+  latest_version: 1
+  license: CC-BY-4.0
+  link: https://usegalaxy.eu/published/workflow?id=7be08f99f83c927e
+  name: Sadowsky_MetaG-DBgen_02102026
+  number_of_steps: null
+  projects: []
+  source: https://usegalaxy.eu
+  tags:
+  - name:microgalaxy
+  tools:
+  - validate_fasta_database
+  - Remove beginning1
+  - regexColumn1
+  - cat_bins
+  - trim_galore
+  - fastqc
+  - eggnog_mapper
+  - collapse_dataset
+  - regex1
+  - query_tabular
+  - tp_cat
+  - tab2fasta
+  - fasta_merge_files_and_filter_unique_sequences
+  - maxbin2
+  - fasta2tab
+  - fraggenescan
+  update_time: '2026-06-09'
   versions: 1
 - create_time: '2026-04-27'
   creators: []
   deprecated: false
   doi: ''
   edam_operation:
-  - Visualisation
   - Prediction and recognition
+  - Visualisation
   edam_topic: []
   id: 6ca1b4fe047a03d2
   keep: true
@@ -3519,81 +3690,44 @@
   - proteomics
   - name:microgalaxy
   tools:
-  - search_gui
   - peptide_shaker
+  - unipept
+  - search_gui
   - sqlite_to_tabular
   - query_tabular
-  - unipept
   update_time: '2026-04-27'
   versions: 1
-- create_time: '2025-12-01'
-  creators: []
-  deprecated: false
-  doi: ''
-  edam_operation:
-  - Visualisation
-  - Sequence composition calculation
-  - Sequence contamination filtering
-  - Statistical calculation
-  - Validation
-  - Taxonomic classification
-  - Sequencing quality control
-  edam_topic: []
-  id: 2a093e63ebf6876b
-  keep: true
-  latest_version: 2
-  license: null
-  link: https://usegalaxy.eu/published/workflow?id=2a093e63ebf6876b
-  name: 'Training: 16S rRNA Analysis with Nanopore Sequencing Reads'
-  number_of_steps: null
-  projects: []
-  source: https://usegalaxy.eu
-  tags:
-  - metagenomics
-  - name:microgalaxy
-  tools:
-  - multiqc
-  - kraken2
-  - fastqc
-  - taxonomy_krona_chart
-  - porechop
-  - tp_replace_in_line
-  - fastp
-  - Remove beginning1
-  - datamash_reverse
-  update_time: '2026-03-16'
-  versions: 2
 - create_time: '2025-10-01'
   creators: []
   deprecated: false
   doi: ''
   edam_operation:
-  - Visualisation
-  - Sequence composition calculation
-  - Formatting
   - Statistical calculation
-  - Validation
-  - Sequence database search
+  - Formatting
+  - Visualisation
   - Format validation
-  - Primer removal
-  - Coding region prediction
-  - Local alignment
-  - Sequence assembly
-  - Database search
-  - Sequence profile generation
-  - Sequencing quality control
-  - Protein feature detection
-  - Sequence trimming
-  - Multiple sequence alignment
-  - Sequence assembly validation
-  - Sequence motif recognition
-  - Sequence generation
-  - Read pre-processing
-  - Data retrieval
-  - Gene prediction
-  - Taxonomic classification
   - Conversion
   - Probabilistic sequence generation
+  - Sequencing quality control
+  - Sequence assembly
+  - Protein feature detection
+  - Gene prediction
+  - Sequence motif recognition
+  - Coding region prediction
+  - Sequence composition calculation
+  - Sequence generation
+  - Database search
+  - Sequence database search
+  - Data retrieval
+  - Taxonomic classification
+  - Multiple sequence alignment
+  - Sequence assembly validation
+  - Sequence trimming
+  - Sequence profile generation
+  - Validation
+  - Read pre-processing
+  - Primer removal
+  - Local alignment
   edam_topic: []
   id: 8c91345ed468e22d
   keep: true
@@ -3607,22 +3741,22 @@
   tags:
   - name:microgalaxy
   tools:
+  - coverm_genome
   - fasplit
   - tp_awk_tool
   - tp_grep_tool
+  - sort1
+  - cat_bins
+  - trim_galore
   - fastqc
   - checkm_lineage_wf
-  - hmmer_hmmscan
-  - coverm_genome
-  - quast
   - coverm_contig
-  - fraggenescan
-  - maxbin2
-  - cat_bins
-  - tp_cat
-  - trim_galore
+  - hmmer_hmmscan
   - interproscan
-  - sort1
+  - tp_cat
+  - maxbin2
+  - quast
+  - fraggenescan
   update_time: '2026-02-04'
   versions: 0
 - create_time: '2025-11-28'
@@ -3633,13 +3767,13 @@
   deprecated: false
   doi: ''
   edam_operation:
-  - Visualisation
-  - Formatting
   - Statistical calculation
   - Taxonomic classification
-  - Conversion
-  - Aggregation
   - Standardisation and normalisation
+  - Formatting
+  - Aggregation
+  - Conversion
+  - Visualisation
   edam_topic: []
   id: 7491883694fff308
   keep: true
@@ -3657,18 +3791,18 @@
   - name:microgalaxy
   tools:
   - metaphlan
-  - kraken2
-  - collection_element_identifiers
-  - taxonomy_krona_chart
   - metaphlan2krona
-  - krakentools_kreport2krona
-  - taxpasta
-  - est_abundance
+  - collection_element_identifiers
   - sylph_profile
+  - taxonomy_krona_chart
+  - krakentools_kreport2krona
+  - est_abundance
+  - kraken2
+  - cat1
   - add_line_to_file
+  - taxpasta
   - datamash_transpose
   - Remove beginning1
-  - cat1
   update_time: '2025-12-17'
   versions: 3
 - create_time: '2025-12-01'
@@ -3677,11 +3811,11 @@
   deprecated: false
   doi: ''
   edam_operation:
+  - Statistical calculation
+  - Sequencing quality control
+  - Validation
   - Sequence composition calculation
   - Sequence assembly validation
-  - Statistical calculation
-  - Validation
-  - Sequencing quality control
   edam_topic: []
   id: 7371b6918e895e0c
   keep: true
@@ -3696,13 +3830,13 @@
   - microbiome
   - name:microgalaxy
   tools:
+  - __RELABEL_FROM_FILE__
+  - checkm2
+  - collection_element_identifiers
   - multiqc
   - __FLATTEN__
-  - collection_element_identifiers
-  - __RELABEL_FROM_FILE__
   - __MERGE_COLLECTION__
   - regex1
-  - checkm2
   update_time: '2025-12-08'
   versions: 16
 - create_time: '2023-06-30'
@@ -3712,19 +3846,19 @@
   deprecated: false
   doi: ''
   edam_operation:
-  - Visualisation
-  - Sequence feature detection
-  - Sequence composition calculation
-  - Filtering
-  - Formatting
   - Statistical calculation
-  - Deposition
-  - Validation
-  - Analysis
-  - Standardisation and normalisation
-  - Classification
+  - Formatting
   - DNA barcoding
+  - Filtering
+  - Sequence feature detection
   - Sequencing quality control
+  - Standardisation and normalisation
+  - Analysis
+  - Validation
+  - Deposition
+  - Sequence composition calculation
+  - Visualisation
+  - Classification
   edam_topic: []
   id: 466bdd8ba7b67264
   keep: true
@@ -3741,34 +3875,34 @@
   - name:metagenomics
   - name:pallori
   tools:
-  - compose_text_param
-  - ampvis2_heatmap
-  - fastqc
-  - bg_column_arrange_by_header
-  - ampvis2_subset_samples
-  - datamash_transpose
-  - unzip
-  - biom_convert
-  - maaslin2
-  - volcanoplot
   - __FLATTEN__
-  - calculate_numeric_param
-  - mmuphin
-  - phyloseq_tax_glom
-  - ampvis2_load
-  - param_value_from_file
-  - tp_awk_tool
-  - tp_cut_tool
-  - tp_easyjoin_tool
-  - Remove beginning1
-  - multiqc
-  - ampvis2_ordinate
-  - phyloseq_from_biom
-  - phyloseq_add_rank_names
-  - ampvis2_export_otu
+  - ampvis2_heatmap
+  - datamash_transpose
   - regex1
+  - ampvis2_load
+  - mmuphin
+  - maaslin2
+  - ampvis2_ordinate
+  - unzip
+  - param_value_from_file
+  - phyloseq_from_biom
+  - tp_awk_tool
+  - phyloseq_add_rank_names
+  - calculate_numeric_param
+  - ampvis2_export_otu
+  - bg_column_arrange_by_header
+  - volcanoplot
+  - tp_cut_tool
+  - biom_convert
+  - Remove beginning1
+  - tp_easyjoin_tool
+  - multiqc
   - lotus2
+  - compose_text_param
+  - fastqc
+  - ampvis2_subset_samples
   - decontam
+  - phyloseq_tax_glom
   update_time: '2025-11-18'
   versions: 193
 - create_time: '2024-12-20'
@@ -3778,15 +3912,15 @@
   deprecated: false
   doi: ''
   edam_operation:
-  - Visualisation
-  - Formatting
   - Statistical calculation
-  - Standardisation and normalisation
-  - Species frequency estimation
   - Taxonomic classification
-  - Conversion
+  - Formatting
   - Aggregation
+  - Species frequency estimation
+  - Conversion
+  - Standardisation and normalisation
   - Phylogenetic analysis
+  - Visualisation
   edam_topic: []
   id: cb2df493f5e334f7
   keep: true
@@ -3803,35 +3937,35 @@
   - diversity
   - name:microgalaxy
   tools:
-  - metaphlan
-  - tp_text_file_with_recurring_lines
-  - est_abundance
-  - datamash_transpose
-  - cat1
-  - tp_sed_tool
-  - sort1
-  - humann
-  - kraken2
   - collection_element_identifiers
   - krakentools_kreport2krona
-  - csv_to_tabular
-  - collapse_dataset
-  - humann_unpack_pathways
-  - humann_rename_table
-  - tp_awk_tool
   - tp_replace_in_line
-  - __UNZIP_COLLECTION__
-  - add_line_to_file
-  - tp_easyjoin_tool
-  - Remove beginning1
+  - collapse_dataset
+  - datamash_transpose
   - krakentools_alpha_diversity
-  - fastq_paired_end_interlacer
-  - collection_column_join
+  - tp_awk_tool
+  - csv_to_tabular
   - taxonomy_krona_chart
+  - est_abundance
+  - kraken2
+  - cat1
+  - tp_text_file_with_recurring_lines
   - taxpasta
-  - sylph_profile
-  - humann_renorm_table
+  - metaphlan
   - humann_regroup_table
+  - sylph_profile
+  - fastq_paired_end_interlacer
+  - humann_renorm_table
+  - Remove beginning1
+  - humann
+  - sort1
+  - humann_rename_table
+  - collection_column_join
+  - tp_easyjoin_tool
+  - tp_sed_tool
+  - humann_unpack_pathways
+  - add_line_to_file
+  - __UNZIP_COLLECTION__
   update_time: '2025-11-13'
   versions: 18
 - create_time: '2023-07-02'
@@ -3841,13 +3975,13 @@
   deprecated: false
   doi: ''
   edam_operation:
+  - Sequencing quality control
+  - Statistical calculation
+  - Validation
   - Read summarisation
+  - Sequence alignment
   - Sequence composition calculation
   - RNA-Seq quantification
-  - Statistical calculation
-  - Sequence alignment
-  - Validation
-  - Sequencing quality control
   edam_topic: []
   id: ca9d3233b0912765
   keep: true
@@ -3866,14 +4000,14 @@
   - name:barcode
   - name:transcriptomics
   tools:
+  - umi_tools_dedup
   - collection_column_join
+  - umi_tools_extract
   - multiqc
   - fastqc
-  - __FILTER_FAILED_DATASETS__
   - featurecounts
-  - umi_tools_dedup
+  - __FILTER_FAILED_DATASETS__
   - rna_star
-  - umi_tools_extract
   update_time: '2025-06-26'
   versions: 48
 - create_time: '2024-09-30'
@@ -3884,34 +4018,34 @@
   deprecated: false
   doi: ''
   edam_operation:
-  - Visualisation
-  - Sequence composition calculation
-  - Formatting
   - Statistical calculation
+  - Formatting
   - Gene functional annotation
-  - Validation
-  - Sequence database search
+  - Visualisation
   - Format validation
-  - Primer removal
-  - Coding region prediction
-  - Local alignment
-  - Sequence assembly
-  - Database search
-  - Sequence profile generation
-  - Sequencing quality control
-  - Protein feature detection
-  - Sequence trimming
-  - Multiple sequence alignment
-  - Sequence assembly validation
-  - Sequence motif recognition
-  - Sequence generation
-  - Sequence analysis
-  - Read pre-processing
-  - Data retrieval
-  - Gene prediction
-  - Taxonomic classification
   - Conversion
   - Probabilistic sequence generation
+  - Sequencing quality control
+  - Sequence assembly
+  - Protein feature detection
+  - Gene prediction
+  - Sequence motif recognition
+  - Coding region prediction
+  - Sequence composition calculation
+  - Sequence generation
+  - Database search
+  - Sequence database search
+  - Data retrieval
+  - Taxonomic classification
+  - Multiple sequence alignment
+  - Sequence assembly validation
+  - Sequence trimming
+  - Sequence profile generation
+  - Validation
+  - Sequence analysis
+  - Read pre-processing
+  - Primer removal
+  - Local alignment
   edam_topic: []
   id: 667bac8d7453e5f1
   keep: true
@@ -3927,23 +4061,23 @@
   - name:microbiome
   - name:mags
   tools:
+  - coverm_genome
   - fasplit
   - tp_awk_tool
   - tp_grep_tool
+  - sort1
+  - cat_bins
+  - trim_galore
   - fastqc
   - checkm_lineage_wf
-  - hmmer_hmmscan
-  - coverm_genome
-  - quast
-  - coverm_contig
-  - fraggenescan
-  - maxbin2
-  - tp_cat
-  - cat_bins
-  - kofamscan
-  - trim_galore
   - interproscan
-  - sort1
+  - coverm_contig
+  - hmmer_hmmscan
+  - kofamscan
+  - tp_cat
+  - maxbin2
+  - quast
+  - fraggenescan
   update_time: '2024-12-21'
   versions: 14
 - create_time: '2024-12-20'
@@ -3965,23 +4099,23 @@
   deprecated: false
   doi: ''
   edam_operation:
-  - Sequence comparison
-  - Phylogenetic tree visualisation
-  - Visualisation
-  - Sequence composition calculation
-  - Formatting
   - Statistical calculation
   - Phylogenetic inference
-  - Validation
-  - Primer removal
-  - Sequence alignment analysis
+  - Taxonomic classification
+  - Formatting
+  - Conversion
+  - Phylogenetic tree visualisation
+  - Sequence similarity search
+  - Sequence composition calculation
+  - Phylogenetic tree editing
   - Sequencing quality control
   - Sequence trimming
-  - Phylogenetic tree editing
+  - Sequence alignment analysis
+  - Sequence comparison
+  - Validation
   - Read pre-processing
-  - Taxonomic classification
-  - Sequence similarity search
-  - Conversion
+  - Primer removal
+  - Visualisation
   edam_topic: []
   id: 096b75501c8e0888
   keep: true
@@ -3999,27 +4133,27 @@
   - microbiome
   - name:microgalaxy
   tools:
-  - Grouping1
-  - group_humann2_uniref_abundances_to_go
-  - fastqc
-  - humann2_renorm_table
-  - humann2_unpack_pathways
-  - tp_sort_header_tool
-  - humann2_genefamilies_genus_level
-  - humann2
-  - metaphlan2krona
-  - Grep1
-  - format_metaphlan2_output
-  - graphlan
-  - bg_sortmerna
-  - fastq_paired_end_interlacer
-  - multiqc
-  - combine_metaphlan2_humann2
-  - cutadapt
-  - taxonomy_krona_chart
   - graphlan_annotate
+  - humann2_renorm_table
+  - combine_metaphlan2_humann2
+  - bg_sortmerna
+  - cutadapt
+  - humann2_genefamilies_genus_level
+  - taxonomy_krona_chart
   - export2graphlan
   - metaphlan2
+  - fastq_paired_end_interlacer
+  - group_humann2_uniref_abundances_to_go
+  - Grouping1
+  - Grep1
+  - humann2
+  - graphlan
+  - tp_sort_header_tool
+  - metaphlan2krona
+  - humann2_unpack_pathways
+  - format_metaphlan2_output
+  - multiqc
+  - fastqc
   update_time: '2024-12-20'
   versions: 3
 - create_time: '2024-11-21'
@@ -4039,16 +4173,16 @@
   deprecated: false
   doi: ''
   edam_operation:
-  - Sequence trimming
-  - Sequence composition calculation
   - Statistical calculation
-  - Gene expression profiling
-  - Primer removal
-  - Read pre-processing
   - Sequence similarity search
+  - Sequencing quality control
+  - Gene expression profiling
+  - Sequence trimming
   - Sequence alignment analysis
   - Sequence comparison
-  - Sequencing quality control
+  - Read pre-processing
+  - Primer removal
+  - Sequence composition calculation
   edam_topic: []
   id: fd90652d475ed739
   keep: true
@@ -4064,12 +4198,12 @@
   - metatranscriptomics
   - microbiome
   tools:
-  - collection_column_join
   - kallisto_quant
-  - fastqc
-  - __UNZIP_COLLECTION__
+  - collection_column_join
   - trim_galore
+  - fastqc
   - bg_sortmerna
+  - __UNZIP_COLLECTION__
   update_time: '2024-12-20'
   versions: 6
 - create_time: '2024-12-03'
@@ -4079,8 +4213,8 @@
   doi: ''
   edam_operation:
   - Sequence alignment analysis
-  - Multiple sequence alignment
   - Phylogenetic tree generation
+  - Multiple sequence alignment
   edam_topic: []
   id: a2c46deea34d9d80
   keep: true
@@ -4095,20 +4229,20 @@
   - genome-annotation
   - name:microgalaxy
   tools:
-  - tp_split_on_column
-  - regexColumn1
-  - rbc_mafft
-  - bg_diamond_view
-  - Filter1
-  - bg_diamond
-  - join1
-  - tab2fasta
-  - collapse_dataset
-  - Cut1
-  - cat1
-  - rapidnj
   - Add_a_column1
+  - tab2fasta
+  - tp_split_on_column
   - gops_intersect_1
+  - rbc_mafft
+  - join1
+  - bg_diamond
+  - cat1
+  - collapse_dataset
+  - rapidnj
+  - Filter1
+  - bg_diamond_view
+  - Cut1
+  - regexColumn1
   update_time: '2024-12-05'
   versions: 2
 - create_time: '2024-11-21'
@@ -4121,8 +4255,8 @@
   deprecated: false
   doi: ''
   edam_operation:
-  - Visualisation
   - Prediction and recognition
+  - Visualisation
   edam_topic: []
   id: cefc49c13ff73231
   keep: true
@@ -4139,11 +4273,11 @@
   - name:massspectrometry
   - name:microgalaxy
   tools:
-  - search_gui
   - peptide_shaker
+  - unipept
+  - search_gui
   - sqlite_to_tabular
   - query_tabular
-  - unipept
   update_time: '2024-11-21'
   versions: 40
 - create_time: '2024-11-21'
@@ -4172,10 +4306,10 @@
   - limma-tmm
   - limma-rle
   tools:
+  - __EXTRACT_DATASET__
+  - map_param_value
   - Grep1
   - __BUILD_LIST__
-  - map_param_value
-  - __EXTRACT_DATASET__
   - __FILTER_EMPTY_DATASETS__
   update_time: '2024-11-21'
   versions: 5
@@ -4189,11 +4323,11 @@
   deprecated: false
   doi: ''
   edam_operation:
-  - Visualisation
-  - Label-free quantification
+  - Formatting
   - Prediction and recognition
   - Filtering
-  - Formatting
+  - Visualisation
+  - Label-free quantification
   edam_topic: []
   id: cd675ab32d3e7833
   keep: true
@@ -4208,18 +4342,18 @@
   - proteomics
   - name:microgalaxy
   tools:
-  - tp_replace_in_column
+  - peptide_shaker
+  - search_gui
+  - unipept
   - flashlfq
-  - Filter1
-  - msconvert
   - tp_replace_in_line
   - Cut1
   - regex1
-  - Remove beginning1
-  - search_gui
-  - peptide_shaker
+  - msconvert
+  - tp_replace_in_column
   - query_tabular
-  - unipept
+  - Filter1
+  - Remove beginning1
   update_time: '2024-11-21'
   versions: 1
 - create_time: '2024-11-21'
@@ -4233,16 +4367,16 @@
   deprecated: false
   doi: ''
   edam_operation:
-  - Visualisation
-  - Statistical inference
   - Quantification
-  - Heat map generation
-  - Query and retrieval
-  - Indexing
   - Differential protein expression analysis
+  - Query and retrieval
   - Principal component visualisation
+  - Indexing
+  - Heat map generation
   - Filtering
   - Functional clustering
+  - Statistical inference
+  - Visualisation
   edam_topic: []
   id: e5a89ef7b5f1c1d9
   keep: true
@@ -4257,12 +4391,12 @@
   - proteomics
   - name:microgalaxy
   tools:
-  - metaquantome_db
-  - metaquantome_sample
   - metaquantome_stat
-  - metaquantome_filter
-  - metaquantome_viz
   - metaquantome_expand
+  - metaquantome_viz
+  - metaquantome_db
+  - metaquantome_filter
+  - metaquantome_sample
   update_time: '2024-11-21'
   versions: 3
 - create_time: '2024-11-21'
@@ -4274,10 +4408,10 @@
   deprecated: false
   doi: ''
   edam_operation:
-  - Cross-assembly
   - Taxonomic classification
-  - Read mapping
   - Expression analysis
+  - Read mapping
+  - Cross-assembly
   edam_topic: []
   id: c09159d7aad0f264
   keep: true
@@ -4294,10 +4428,10 @@
   - name:microgalaxy
   tools:
   - bowtie2
-  - kraken2
-  - fastq_to_tabular
-  - filter_tabular
   - recentrifuge
+  - fastq_to_tabular
+  - kraken2
+  - filter_tabular
   - seq_filter_by_id
   update_time: '2024-11-21'
   versions: 2
@@ -4310,11 +4444,11 @@
   deprecated: false
   doi: ''
   edam_operation:
-  - Read summarisation
-  - RNA-Seq quantification
-  - Validation
-  - Read mapping
   - Sequencing quality control
+  - Validation
+  - Read summarisation
+  - Read mapping
+  - RNA-Seq quantification
   edam_topic: []
   id: 63478edcea3f449a
   keep: true
@@ -4330,8 +4464,8 @@
   - metatranscriptomics
   - name:microgalaxy
   tools:
-  - featurecounts
   - bowtie2
+  - featurecounts
   - multiqc
   update_time: '2024-11-21'
   versions: 4
@@ -4344,10 +4478,10 @@
   deprecated: false
   doi: ''
   edam_operation:
-  - Sequence composition calculation
+  - Sequencing quality control
   - Statistical calculation
   - Validation
-  - Sequencing quality control
+  - Sequence composition calculation
   edam_topic: []
   id: 1ef76b7b86e15792
   keep: true
@@ -4363,9 +4497,9 @@
   - metatranscriptomics
   - name:microgalaxy
   tools:
-  - trimmomatic
   - fastqc
   - multiqc
+  - trimmomatic
   update_time: '2024-11-21'
   versions: 6
 - create_time: '2023-10-10'
@@ -4412,26 +4546,26 @@
   - assembly
   - name:microgalaxy
   tools:
-  - mergeCols1
-  - bedtools_complementbed
-  - tp_sort_header_tool
-  - tp_sed_tool
-  - cat1
   - bedtools_sortbed
-  - fasta_compute_length
-  - Filter1
-  - addValue
-  - join1
   - collapse_dataset
   - bedtools_intersectbed
-  - random_lines1
-  - Grep1
   - tp_cat
-  - Cut1
-  - fasta_filter_by_length
-  - tp_grep_tool
   - datamash_ops
+  - bedtools_complementbed
+  - cat1
+  - join1
+  - mergeCols1
   - lastz_wrapper_2
+  - tp_grep_tool
+  - addValue
+  - fasta_filter_by_length
+  - Grep1
+  - fasta_compute_length
+  - tp_sort_header_tool
+  - random_lines1
+  - tp_sed_tool
+  - Filter1
+  - Cut1
   update_time: '2023-12-14'
   versions: 0
 - create_time: '2023-12-14'
@@ -4441,8 +4575,8 @@
   doi: ''
   edam_operation:
   - Sequence alignment analysis
-  - Multiple sequence alignment
   - Phylogenetic tree generation
+  - Multiple sequence alignment
   edam_topic: []
   id: 86900be4282d4b1d
   keep: true
@@ -4458,20 +4592,20 @@
   - genome-annotation
   - name:microgalaxy
   tools:
-  - tp_split_on_column
-  - regexColumn1
-  - rbc_mafft
-  - bg_diamond_view
-  - Filter1
-  - bg_diamond
-  - join1
-  - tab2fasta
-  - collapse_dataset
-  - Cut1
-  - cat1
-  - rapidnj
   - Add_a_column1
+  - tab2fasta
+  - tp_split_on_column
   - gops_intersect_1
+  - rbc_mafft
+  - join1
+  - bg_diamond
+  - cat1
+  - collapse_dataset
+  - rapidnj
+  - Filter1
+  - bg_diamond_view
+  - Cut1
+  - regexColumn1
   update_time: '2023-12-14'
   versions: 0
 - create_time: '2023-12-14'
@@ -4494,11 +4628,11 @@
   - genome-annotation
   - name:microgalaxy
   tools:
-  - jbrowse
-  - iframe
   - create_or_update
-  - list_organism
+  - iframe
+  - jbrowse
   - create_account
+  - list_organism
   update_time: '2023-12-14'
   versions: 0
 - create_time: '2023-12-14'
@@ -4506,24 +4640,24 @@
   deprecated: false
   doi: ''
   edam_operation:
-  - Genome assembly
-  - Sequence visualisation
-  - Gene prediction
-  - Genome annotation
-  - Sequence analysis
-  - Variant calling
   - Base-calling
-  - Antimicrobial resistance prediction
+  - Pairwise sequence alignment
+  - Sequence visualisation
+  - De-novo assembly
+  - Variant calling
+  - Scatter plot plotting
+  - Genome annotation
+  - Sequence assembly
+  - Gene prediction
+  - Genome visualisation
+  - Mapping assembly
   - Coding region prediction
   - Cross-assembly
-  - Mapping assembly
-  - Sequence assembly
+  - Antimicrobial resistance prediction
   - Box-Whisker plot plotting
-  - Genome visualisation
-  - Pairwise sequence alignment
   - Sequence assembly visualisation
-  - Scatter plot plotting
-  - De-novo assembly
+  - Sequence analysis
+  - Genome assembly
   edam_topic: []
   id: 152223c8aed27357
   keep: true
@@ -4538,42 +4672,42 @@
   - wmdi
   - name:microgalaxy
   tools:
-  - jbrowse
-  - bg_column_arrange_by_header
-  - gff2bed1
-  - tp_text_file_with_recurring_lines
-  - circos_gc_skew
-  - trimmomatic
-  - fasta2tab
-  - fasta_compute_length
-  - Add_a_column1
-  - circos_interval_to_tile
-  - tp_sort_header_tool
-  - minimap2
-  - Filter1
-  - bandage_image
-  - nanoplot
-  - join1
-  - PlasFlow
-  - circos
-  - tp_head_tool
-  - deeptools_bam_coverage
-  - Grep1
-  - tp_cut_tool
-  - tp_easyjoin_tool
-  - tp_cat
-  - regex_replace
-  - Cut1
-  - tp_split_on_column
-  - medaka_consensus_pipeline
   - circos_wiggle_to_scatter
-  - ncbi_blastn_wrapper
-  - staramr_search
-  - prokka
-  - regex1
+  - tp_split_on_column
+  - bandage_image
   - flye
+  - deeptools_bam_coverage
+  - staramr_search
+  - PlasFlow
+  - regex1
+  - jbrowse
+  - tp_cat
+  - tp_head_tool
+  - ncbi_blastn_wrapper
+  - medaka_consensus_pipeline
+  - gff2bed1
+  - circos
   - tbl2gff3
+  - join1
+  - trimmomatic
+  - tp_text_file_with_recurring_lines
+  - prokka
+  - nanoplot
+  - bg_column_arrange_by_header
+  - fasta2tab
+  - Add_a_column1
+  - tp_cut_tool
+  - minimap2
+  - Grep1
   - tab2fasta
+  - fasta_compute_length
+  - tp_sort_header_tool
+  - circos_interval_to_tile
+  - tp_easyjoin_tool
+  - regex_replace
+  - circos_gc_skew
+  - Filter1
+  - Cut1
   update_time: '2023-12-14'
   versions: 0
 - create_time: '2023-12-14'
@@ -4595,11 +4729,11 @@
   - evolution
   - name:microgalaxy
   tools:
-  - bcftools_consensus
-  - snp_sites
-  - tb_variant_filter
-  - tp_cat
   - snp_dists
+  - bcftools_consensus
+  - tb_variant_filter
+  - snp_sites
+  - tp_cat
   update_time: '2023-12-14'
   versions: 0
 - create_time: '2023-12-14'
@@ -4608,8 +4742,8 @@
   doi: ''
   edam_operation:
   - Phylogenetic tree visualisation
-  - Variant calling
   - Phylogenetic tree generation
+  - Variant calling
   edam_topic: []
   id: 3a8fde248a4d0383
   keep: true
@@ -4624,10 +4758,10 @@
   - evolution
   - name:microgalaxy
   tools:
-  - trimmomatic
-  - tb_variant_filter
-  - __MERGE_COLLECTION__
   - snippy
+  - __MERGE_COLLECTION__
+  - tb_variant_filter
+  - trimmomatic
   update_time: '2023-12-14'
   versions: 0
 - create_time: '2023-12-14'
@@ -4650,14 +4784,14 @@
   - evolution
   - name:microgalaxy
   tools:
+  - addName
   - samtools_view
-  - tb_profiler_profile
   - tp_grep_tool
+  - tp_sed_tool
   - tp_replace_in_line
   - __MERGE_COLLECTION__
   - tp_cat
-  - addName
-  - tp_sed_tool
+  - tb_profiler_profile
   update_time: '2023-12-14'
   versions: 0
 - create_time: '2023-12-13'
@@ -4683,12 +4817,12 @@
   - hpylori
   tools:
   - bowtie2
-  - bcftools_norm
   - tp_awk_tool
-  - snpSift_filter
-  - vcf2tsv
-  - freebayes
   - bcftools_view
+  - bcftools_norm
+  - vcf2tsv
+  - snpSift_filter
+  - freebayes
   update_time: '2023-12-13'
   versions: 2
 - create_time: '2023-10-27'
@@ -4714,14 +4848,14 @@
   - hpylori
   tools:
   - bowtie2
-  - samtools_coverage
+  - collection_element_identifiers
+  - samtools_depth
   - bcftools_norm
   - vcf2tsv
-  - collection_element_identifiers
-  - freebayes
-  - tp_cat
   - collapse_dataset
-  - samtools_depth
+  - samtools_coverage
+  - tp_cat
+  - freebayes
   update_time: '2023-12-13'
   versions: 13
 - create_time: '2025-12-08'
@@ -4730,11 +4864,11 @@
   deprecated: false
   doi: ''
   edam_operation:
+  - Statistical calculation
+  - Sequencing quality control
+  - Validation
   - Sequence composition calculation
   - Sequence assembly validation
-  - Statistical calculation
-  - Validation
-  - Sequencing quality control
   edam_topic: []
   id: a8aee61c2cbaf6ea
   keep: true
@@ -4749,13 +4883,13 @@
   - microbiome
   - name:microgalaxy
   tools:
+  - __RELABEL_FROM_FILE__
+  - checkm2
+  - collection_element_identifiers
   - multiqc
   - __FLATTEN__
-  - collection_element_identifiers
-  - __RELABEL_FROM_FILE__
   - __MERGE_COLLECTION__
   - regex1
-  - checkm2
   update_time: '2025-12-08'
   versions: 1
 - create_time: '2025-02-06'
@@ -4782,11 +4916,11 @@
   - amplicon
   - name:microgalaxy
   tools:
-  - fastq_dl
-  - CONVERTER_uncompressed_to_gz
   - tp_awk_tool
+  - CONVERTER_uncompressed_to_gz
   - CONVERTER_gz_to_uncompressed
   - __MERGE_COLLECTION__
+  - fastq_dl
   update_time: '2025-04-25'
   versions: 1
 - create_time: '2025-02-06'
@@ -4798,8 +4932,8 @@
   doi: ''
   edam_operation:
   - k-mer counting
-  - Visualisation
   - Formatting
+  - Visualisation
   - Mapping
   edam_topic: []
   id: 45f959d5bf505b15
@@ -4817,10 +4951,10 @@
   - metagenomics
   - name:microgalaxy
   tools:
-  - tp_awk_tool
-  - __FILTER_FROM_FILE__
   - bedtools_maskfastabed
   - mapseq
+  - tp_awk_tool
+  - __FILTER_FROM_FILE__
   - collection_element_identifiers
   - taxonomy_krona_chart
   - biom_convert
@@ -4835,14 +4969,14 @@
   deprecated: false
   doi: ''
   edam_operation:
-  - Sequence trimming
-  - Sequence composition calculation
-  - Nucleic acid design
   - Statistical calculation
-  - Validation
-  - Read pre-processing
-  - Sequence contamination filtering
   - Sequencing quality control
+  - Sequence contamination filtering
+  - Sequence trimming
+  - Validation
+  - Nucleic acid design
+  - Read pre-processing
+  - Sequence composition calculation
   edam_topic: []
   id: a71fcbc60caae8b6
   keep: true
@@ -4859,17 +4993,17 @@
   - metagenomics
   - name:microgalaxy
   tools:
+  - fastp
   - cshl_fasta_formatter
   - tp_find_and_replace
-  - fastq_to_fasta_python
   - multiqc
+  - trimmomatic
   - fastqc
   - __UNZIP_COLLECTION__
-  - prinseq
   - mgnify_seqprep
-  - fastp
-  - trimmomatic
   - fastq_filter
+  - prinseq
+  - fastq_to_fasta_python
   update_time: '2025-04-25'
   versions: 1
 - create_time: '2025-02-06'
@@ -4880,13 +5014,13 @@
   deprecated: false
   doi: ''
   edam_operation:
+  - Sequencing quality control
+  - Statistical calculation
+  - Sequence contamination filtering
   - Sequence trimming
+  - Validation
   - Read pre-processing
   - Sequence composition calculation
-  - Sequence contamination filtering
-  - Statistical calculation
-  - Validation
-  - Sequencing quality control
   edam_topic: []
   id: 5f878c4cc3bff68c
   keep: true
@@ -4905,12 +5039,12 @@
   tools:
   - cshl_fasta_formatter
   - tp_find_and_replace
-  - fastq_to_fasta_python
   - multiqc
-  - fastqc
-  - prinseq
   - trimmomatic
+  - fastqc
   - fastq_filter
+  - prinseq
+  - fastq_to_fasta_python
   update_time: '2025-04-25'
   versions: 1
 - create_time: '2025-03-06'
@@ -4939,24 +5073,24 @@
   - name:pathogfair
   - name:iwc
   tools:
-  - bcftools_consensus
-  - Paste1
-  - samtools_coverage
-  - regexColumn1
-  - bcftools_norm
-  - CONVERTER_gz_to_uncompressed
-  - snpSift_filter
   - tp_cut_tool
+  - clair3
+  - table_compute
+  - samtools_depth
+  - bcftools_consensus
+  - CONVERTER_gz_to_uncompressed
+  - Paste1
+  - bcftools_norm
   - Cut1
   - snpSift_extractFields
-  - clair3
+  - samtools_coverage
+  - snpSift_filter
   - collapse_dataset
-  - Remove beginning1
-  - table_compute
-  - tp_head_tool
-  - Count1
-  - samtools_depth
   - minimap2
+  - Count1
+  - tp_head_tool
+  - Remove beginning1
+  - regexColumn1
   update_time: '2025-04-25'
   versions: 1
 - create_time: '2025-03-06'
@@ -4967,13 +5101,13 @@
   deprecated: false
   doi: ''
   edam_operation:
+  - Sequencing quality control
+  - Statistical calculation
+  - Sequence contamination filtering
   - Sequence trimming
+  - Validation
   - Read pre-processing
   - Sequence composition calculation
-  - Sequence contamination filtering
-  - Statistical calculation
-  - Validation
-  - Sequencing quality control
   edam_topic: []
   id: afb67b4b9952f57d
   keep: true
@@ -4992,12 +5126,12 @@
   tools:
   - cshl_fasta_formatter
   - tp_find_and_replace
-  - fastq_to_fasta_python
   - multiqc
-  - fastqc
-  - prinseq
   - trimmomatic
+  - fastqc
   - fastq_filter
+  - prinseq
+  - fastq_to_fasta_python
   update_time: '2025-04-25'
   versions: 1
 - create_time: '2025-03-13'
@@ -5026,24 +5160,24 @@
   - name:pathogfair
   - name:iwc
   tools:
-  - bcftools_consensus
-  - Paste1
-  - samtools_coverage
-  - regexColumn1
-  - bcftools_norm
-  - CONVERTER_gz_to_uncompressed
-  - snpSift_filter
   - tp_cut_tool
+  - clair3
+  - table_compute
+  - samtools_depth
+  - bcftools_consensus
+  - CONVERTER_gz_to_uncompressed
+  - Paste1
+  - bcftools_norm
   - Cut1
   - snpSift_extractFields
-  - clair3
+  - samtools_coverage
+  - snpSift_filter
   - collapse_dataset
-  - Remove beginning1
-  - table_compute
-  - tp_head_tool
-  - Count1
-  - samtools_depth
   - minimap2
+  - Count1
+  - tp_head_tool
+  - Remove beginning1
+  - regexColumn1
   update_time: '2025-04-25'
   versions: 1
 - create_time: '2025-03-13'
@@ -5070,11 +5204,11 @@
   - amplicon
   - name:microgalaxy
   tools:
-  - fastq_dl
-  - CONVERTER_uncompressed_to_gz
   - tp_awk_tool
+  - CONVERTER_uncompressed_to_gz
   - CONVERTER_gz_to_uncompressed
   - __MERGE_COLLECTION__
+  - fastq_dl
   update_time: '2025-04-25'
   versions: 1
 - create_time: '2025-03-13'
@@ -5086,8 +5220,8 @@
   doi: ''
   edam_operation:
   - k-mer counting
-  - Visualisation
   - Formatting
+  - Visualisation
   - Mapping
   edam_topic: []
   id: 8151be18aab3a3c6
@@ -5105,10 +5239,10 @@
   - metagenomics
   - name:microgalaxy
   tools:
-  - tp_awk_tool
-  - __FILTER_FROM_FILE__
   - bedtools_maskfastabed
   - mapseq
+  - tp_awk_tool
+  - __FILTER_FROM_FILE__
   - collection_element_identifiers
   - taxonomy_krona_chart
   - biom_convert
@@ -5123,14 +5257,14 @@
   deprecated: false
   doi: ''
   edam_operation:
-  - Sequence trimming
-  - Sequence composition calculation
-  - Nucleic acid design
   - Statistical calculation
-  - Validation
-  - Read pre-processing
-  - Sequence contamination filtering
   - Sequencing quality control
+  - Sequence contamination filtering
+  - Sequence trimming
+  - Validation
+  - Nucleic acid design
+  - Read pre-processing
+  - Sequence composition calculation
   edam_topic: []
   id: 20b7ae4b517a80fd
   keep: true
@@ -5147,17 +5281,17 @@
   - metagenomics
   - name:microgalaxy
   tools:
+  - fastp
   - cshl_fasta_formatter
   - tp_find_and_replace
-  - fastq_to_fasta_python
   - multiqc
+  - trimmomatic
   - fastqc
   - __UNZIP_COLLECTION__
-  - prinseq
   - mgnify_seqprep
-  - fastp
-  - trimmomatic
   - fastq_filter
+  - prinseq
+  - fastq_to_fasta_python
   update_time: '2025-04-25'
   versions: 1
 - create_time: '2025-03-13'
@@ -5168,13 +5302,13 @@
   deprecated: false
   doi: ''
   edam_operation:
+  - Sequencing quality control
+  - Statistical calculation
+  - Sequence contamination filtering
   - Sequence trimming
+  - Validation
   - Read pre-processing
   - Sequence composition calculation
-  - Sequence contamination filtering
-  - Statistical calculation
-  - Validation
-  - Sequencing quality control
   edam_topic: []
   id: 46f184a0e95f3c1c
   keep: true
@@ -5193,12 +5327,12 @@
   tools:
   - cshl_fasta_formatter
   - tp_find_and_replace
-  - fastq_to_fasta_python
   - multiqc
-  - fastqc
-  - prinseq
   - trimmomatic
+  - fastqc
   - fastq_filter
+  - prinseq
+  - fastq_to_fasta_python
   update_time: '2025-04-25'
   versions: 1
 - create_time: '2025-03-20'
@@ -5209,19 +5343,19 @@
   deprecated: false
   doi: ''
   edam_operation:
-  - Visualisation
-  - Sequence composition calculation
   - Statistical calculation
-  - Validation
-  - Sequence contamination filtering
-  - Box-Whisker plot plotting
-  - Sequence alignment analysis
   - Taxonomic classification
-  - Data handling
   - Pairwise sequence alignment
+  - Box-Whisker plot plotting
   - Aggregation
+  - Data handling
   - Scatter plot plotting
   - Sequencing quality control
+  - Sequence contamination filtering
+  - Sequence alignment analysis
+  - Validation
+  - Sequence composition calculation
+  - Visualisation
   edam_topic: []
   id: a8b9252fad5fe06a
   keep: true
@@ -5239,23 +5373,23 @@
   - name:nanopore
   - name:iwc
   tools:
+  - Add_a_column1
+  - fastp
   - collection_column_join
-  - Grep1
-  - samtools_fastx
-  - regexColumn1
   - multiqc
   - kraken2
+  - samtools_fastx
   - fastqc
-  - bamtools_split_mapped
-  - nanoplot
-  - porechop
-  - __FILTER_FAILED_DATASETS__
-  - krakentools_extract_kraken_reads
-  - fastp
   - collapse_dataset
-  - Cut1
-  - Add_a_column1
+  - nanoplot
   - minimap2
+  - Grep1
+  - __FILTER_FAILED_DATASETS__
+  - bamtools_split_mapped
+  - porechop
+  - Cut1
+  - regexColumn1
+  - krakentools_extract_kraken_reads
   update_time: '2025-04-25'
   versions: 1
 - create_time: '2025-12-08'
@@ -5264,11 +5398,11 @@
   deprecated: false
   doi: ''
   edam_operation:
+  - Statistical calculation
+  - Sequencing quality control
+  - Validation
   - Sequence composition calculation
   - Sequence assembly validation
-  - Statistical calculation
-  - Validation
-  - Sequencing quality control
   edam_topic: []
   id: f05ed1e5c5dfffa9
   keep: true
@@ -5283,13 +5417,13 @@
   - microbiome
   - name:microgalaxy
   tools:
+  - __RELABEL_FROM_FILE__
+  - checkm2
+  - collection_element_identifiers
   - multiqc
   - __FLATTEN__
-  - collection_element_identifiers
-  - __RELABEL_FROM_FILE__
   - __MERGE_COLLECTION__
   - regex1
-  - checkm2
   update_time: '2025-12-08'
   versions: 1
 - create_time: '2025-03-06'
@@ -5318,24 +5452,24 @@
   - name:pathogfair
   - name:iwc
   tools:
-  - bcftools_consensus
-  - Paste1
-  - samtools_coverage
-  - regexColumn1
-  - bcftools_norm
-  - CONVERTER_gz_to_uncompressed
-  - snpSift_filter
   - tp_cut_tool
+  - clair3
+  - table_compute
+  - samtools_depth
+  - bcftools_consensus
+  - CONVERTER_gz_to_uncompressed
+  - Paste1
+  - bcftools_norm
   - Cut1
   - snpSift_extractFields
-  - clair3
+  - samtools_coverage
+  - snpSift_filter
   - collapse_dataset
-  - Remove beginning1
-  - table_compute
-  - tp_head_tool
-  - Count1
-  - samtools_depth
   - minimap2
+  - Count1
+  - tp_head_tool
+  - Remove beginning1
+  - regexColumn1
   update_time: '2025-04-25'
   versions: 1
 - create_time: '2025-03-13'
@@ -5364,23 +5498,23 @@
   - name:pathogfair
   - name:iwc
   tools:
-  - bcftools_consensus
-  - Paste1
-  - samtools_coverage
-  - regexColumn1
-  - bcftools_norm
-  - CONVERTER_gz_to_uncompressed
-  - snpSift_filter
   - tp_cut_tool
+  - clair3
+  - table_compute
+  - samtools_depth
+  - bcftools_consensus
+  - CONVERTER_gz_to_uncompressed
+  - Paste1
+  - bcftools_norm
   - Cut1
   - snpSift_extractFields
-  - clair3
+  - samtools_coverage
+  - snpSift_filter
   - collapse_dataset
-  - Remove beginning1
-  - table_compute
-  - tp_head_tool
-  - Count1
-  - samtools_depth
   - minimap2
+  - Count1
+  - tp_head_tool
+  - Remove beginning1
+  - regexColumn1
   update_time: '2025-04-25'
   versions: 1
