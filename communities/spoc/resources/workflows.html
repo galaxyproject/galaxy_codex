@@ -1,0 +1,1185 @@
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/searchbuilder/1.6.0/js/dataTables.searchBuilder.min.js"></script>
+<script src="https://cdn.datatables.net/datetime/1.5.1/js/dataTables.dateTime.min.js"></script>
+
+<script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/searchbuilder/1.6.0/css/searchBuilder.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/datetime/1.5.1/css/dataTables.dateTime.min.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+<style type="text/css">
+  .tooltip {
+    font-family: Georgia;
+    font-size: 18px;
+  }
+  .tooltip .tooltip-inner {
+    background-color: #00FFFF;
+    color: #000000;
+    min-width: 400px;
+  }
+  </style>
+
+<script>
+    $(document).ready(function() {
+    $('#dataframe').DataTable( {
+        "sScrollX": "100%",
+        "dom": "Qlfrtip",
+
+        responsive: {
+            details: {
+                type: 'column'
+            }
+        },
+        "bAutoWidth": false,
+        columnDefs: [ {
+            className: 'control',
+            orderable: false,
+            targets:   [ 0 ],
+            width: 100,
+        },
+        { type: 'natural', targets: 1 } // allow normal sorting
+        ],
+
+    });
+});
+</script>
+
+<div class="display nowrap" style="width:80%" width="100%">
+
+<table class="dataframe display nowrap" id="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Expand</th>
+      <th>Name</th>
+      <th>Source</th>
+      <th>ID</th>
+      <th>Link</th>
+      <th>Creators</th>
+      <th>Tags</th>
+      <th>Creation time</th>
+      <th>Update time</th>
+      <th>Latest version</th>
+      <th>Versions</th>
+      <th>Number of steps</th>
+      <th>Tools</th>
+      <th>EDAM operations</th>
+      <th>EDAM topics</th>
+      <th>License</th>
+      <th>DOI</th>
+      <th>Projects</th>
+      <th>To keep</th>
+      <th>Deprecated</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td></td>
+      <td>fastq-to-matrix-10x/scrna-seq-fastq-to-matrix-10x-cellplex</td>
+      <td>WorkflowHub</td>
+      <td>694</td>
+      <td>https://workflowhub.eu/workflows/694?version=11</td>
+      <td>Lucille Delisle, Mehmet Tekman, Hans-Rudolf Hotz, Daniel Blankenberg, Wendi Bacon</td>
+      <td>single-cell</td>
+      <td>2026-06-25</td>
+      <td>2026-06-25</td>
+      <td>11</td>
+      <td>11</td>
+      <td>6.0</td>
+      <td>, tp_awk_tool, cite_seq_count, pick_value</td>
+      <td>RNA-Seq quantification</td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+      <td>Intergalactic Workflow Commission (IWC)</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>scRNA Plant Analysis</td>
+      <td>WorkflowHub</td>
+      <td>1574</td>
+      <td>https://workflowhub.eu/workflows/1574?version=1</td>
+      <td></td>
+      <td>gtn, galaxy, transcriptomics, single-cell</td>
+      <td>2025-06-02</td>
+      <td>2025-06-02</td>
+      <td>1</td>
+      <td>1</td>
+      <td>26.0</td>
+      <td>scanpy_plot, scanpy_normalize, scanpy_inspect, scanpy_cluster_reduce_dimension, anndata_import, scanpy_remove_confounders, anndata_manipulate, scanpy_filter</td>
+      <td>Expression profile clustering, Differential gene expression analysis, Principal component visualisation</td>
+      <td></td>
+      <td>CC-BY-4.0</td>
+      <td></td>
+      <td>Galaxy Training Network</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Seurat Filter, Plot and Exlore tutorial</td>
+      <td>WorkflowHub</td>
+      <td>1570</td>
+      <td>https://workflowhub.eu/workflows/1570?version=1</td>
+      <td></td>
+      <td>gtn, galaxy, single-cell</td>
+      <td>2025-06-02</td>
+      <td>2025-06-02</td>
+      <td>1</td>
+      <td>1</td>
+      <td>12.0</td>
+      <td>seurat_scale_data, seurat_find_neighbours, seurat_find_clusters, seurat_plot, retrieve_scxa, seurat_find_variable_genes, seurat_run_umap, seurat_normalise_data, seurat_read10x, seurat_filter_cells, seurat_run_pca</td>
+      <td></td>
+      <td></td>
+      <td>CC-BY-4.0</td>
+      <td></td>
+      <td>Galaxy Training Network</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>MuSiC: Deconvolution</td>
+      <td>WorkflowHub</td>
+      <td>1557</td>
+      <td>https://workflowhub.eu/workflows/1557?version=1</td>
+      <td></td>
+      <td>gtn, galaxy, transcriptomics, single-cell</td>
+      <td>2025-06-02</td>
+      <td>2025-06-02</td>
+      <td>1</td>
+      <td>1</td>
+      <td>6.0</td>
+      <td>music_construct_eset, music_inspect_eset, music_deconvolution</td>
+      <td></td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+      <td>Galaxy Training Network</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Pseudobulk with decoupler and edgeR tutorial workflow</td>
+      <td>WorkflowHub</td>
+      <td>1556</td>
+      <td>https://workflowhub.eu/workflows/1556?version=1</td>
+      <td></td>
+      <td>gtn, galaxy, pseudobulk, single-cell</td>
+      <td>2025-06-02</td>
+      <td>2025-06-02</td>
+      <td>1</td>
+      <td>1</td>
+      <td>12.0</td>
+      <td>tp_awk_tool, __EXTRACT_DATASET__, column_remove_by_header, tp_replace_in_line, scanpy_filter, volcanoplot, tp_replace_in_column, anndata_inspect, edger, decoupler_pseudobulk</td>
+      <td>Expression profile clustering, Principal component visualisation, Differential gene expression analysis</td>
+      <td></td>
+      <td>CC-BY-4.0</td>
+      <td></td>
+      <td>Galaxy Training Network</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Music: Pre-grouping cell types</td>
+      <td>WorkflowHub</td>
+      <td>1553</td>
+      <td>https://workflowhub.eu/workflows/1553?version=1</td>
+      <td></td>
+      <td>gtn, galaxy, transcriptomics, single-cell</td>
+      <td>2025-06-02</td>
+      <td>2025-06-02</td>
+      <td>1</td>
+      <td>1</td>
+      <td>4.0</td>
+      <td>music_construct_eset, music_deconvolution</td>
+      <td></td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+      <td>Galaxy Training Network</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Cell Cycle Regression Workflow</td>
+      <td>WorkflowHub</td>
+      <td>1550</td>
+      <td>https://workflowhub.eu/workflows/1550?version=1</td>
+      <td></td>
+      <td>10x, gtn, galaxy, transcriptomics, single-cell</td>
+      <td>2025-06-02</td>
+      <td>2025-06-02</td>
+      <td>1</td>
+      <td>1</td>
+      <td>19.0</td>
+      <td>table_compute, scanpy_plot, scanpy_inspect, tp_easyjoin_tool, scanpy_cluster_reduce_dimension, addValue, cat1, anndata_manipulate, anndata_inspect, sort1, scanpy_regress_variable</td>
+      <td>Expression profile clustering, Differential gene expression analysis, Principal component visualisation</td>
+      <td></td>
+      <td>CC-BY-4.0</td>
+      <td></td>
+      <td>Galaxy Training Network</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Workflow - Standard processing of 10X single cell ATAC-seq data with SnapATAC2</td>
+      <td>WorkflowHub</td>
+      <td>1551</td>
+      <td>https://workflowhub.eu/workflows/1551?version=1</td>
+      <td></td>
+      <td>gtn, galaxy, epigenetics, scatac-seq</td>
+      <td>2025-06-02</td>
+      <td>2025-06-02</td>
+      <td>1</td>
+      <td>1</td>
+      <td>30.0</td>
+      <td>scanpy_plot, scanpy_normalize, snapatac2_clustering, scanpy_inspect, anndata_manipulate, snapatac2_preprocessing, scanpy_filter, snapatac2_plotting, anndata_inspect, replace_column_with_key_value_file, Cut1, anndata_ops</td>
+      <td>Gene expression profiling, Expression profile clustering, Differential gene expression analysis, Essential dynamics, Dimensionality reduction, Principal component visualisation</td>
+      <td></td>
+      <td>CC-BY-4.0</td>
+      <td></td>
+      <td>Galaxy Training Network</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>GTN - Preprocessing of 10X scRNA-seq data</td>
+      <td>WorkflowHub</td>
+      <td>1546</td>
+      <td>https://workflowhub.eu/workflows/1546?version=1</td>
+      <td></td>
+      <td>gtn, galaxy, transcriptomics, single-cell</td>
+      <td>2025-06-02</td>
+      <td>2025-06-02</td>
+      <td>1</td>
+      <td>1</td>
+      <td>4.0</td>
+      <td>dropletutils, rna_starsolo</td>
+      <td>Loading, Sequence alignment, Community profiling</td>
+      <td></td>
+      <td>CC-BY-4.0</td>
+      <td></td>
+      <td>Galaxy Training Network</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>RaceID Workflow</td>
+      <td>WorkflowHub</td>
+      <td>1547</td>
+      <td>https://workflowhub.eu/workflows/1547?version=1</td>
+      <td></td>
+      <td>gtn, galaxy, transcriptomics, single-cell</td>
+      <td>2025-06-02</td>
+      <td>2025-06-02</td>
+      <td>1</td>
+      <td>1</td>
+      <td>8.0</td>
+      <td>raceid_filtnormconf, raceid_trajectory, raceid_inspecttrajectory, raceid_inspectclusters, raceid_clustering</td>
+      <td>Expression profile clustering, Expression analysis, Molecular dynamics</td>
+      <td></td>
+      <td>CC-BY-4.0</td>
+      <td></td>
+      <td>Galaxy Training Network</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>LOCKED | Combining single cell datasets after pre-processing</td>
+      <td>WorkflowHub</td>
+      <td>1543</td>
+      <td>https://workflowhub.eu/workflows/1543?version=1</td>
+      <td></td>
+      <td>gtn, galaxy, name:single-cell, name:training</td>
+      <td>2025-06-02</td>
+      <td>2025-06-02</td>
+      <td>1</td>
+      <td>1</td>
+      <td>12.0</td>
+      <td>Paste1, anndata_manipulate, tp_replace_in_column, anndata_inspect, Cut1</td>
+      <td></td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+      <td>Galaxy Training Network</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>LOCKED | Generating a single cell matrix using Alevin</td>
+      <td>WorkflowHub</td>
+      <td>1537</td>
+      <td>https://workflowhub.eu/workflows/1537?version=1</td>
+      <td></td>
+      <td>gtn, galaxy, name:single-cell, name:training</td>
+      <td>2025-06-02</td>
+      <td>2025-06-02</td>
+      <td>1</td>
+      <td>1</td>
+      <td>12.0</td>
+      <td>alevin, join1, _salmon_kallisto_mtx_to_10x, dropletutils_read_10x, anndata_manipulate, anndata_inspect, sceasy_convert, Cut1, _dropletBarcodePlot, _ensembl_gtf2gene_list, dropletutils_empty_drops</td>
+      <td>Sequence composition calculation, RNA-Seq quantification, Gene expression analysis</td>
+      <td></td>
+      <td>CC-BY-4.0</td>
+      <td></td>
+      <td>Galaxy Training Network</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Generating a single cell matrix using Alevin</td>
+      <td>WorkflowHub</td>
+      <td>1533</td>
+      <td>https://workflowhub.eu/workflows/1533?version=1</td>
+      <td></td>
+      <td>gtn, galaxy</td>
+      <td>2025-06-02</td>
+      <td>2025-06-02</td>
+      <td>1</td>
+      <td>1</td>
+      <td>12.0</td>
+      <td>alevin, join1, _salmon_kallisto_mtx_to_10x, dropletutils_read_10x, sceasy_convert, Cut1, _dropletBarcodePlot, _ensembl_gtf2gene_list, dropletutils_empty_drops</td>
+      <td>Sequence composition calculation, RNA-Seq quantification, Gene expression analysis</td>
+      <td></td>
+      <td>CC-BY-4.0</td>
+      <td></td>
+      <td>Galaxy Training Network</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Single-cell QC with scater</td>
+      <td>WorkflowHub</td>
+      <td>1511</td>
+      <td>https://workflowhub.eu/workflows/1511?version=1</td>
+      <td></td>
+      <td>gtn, galaxy, transcriptomics, single-cell</td>
+      <td>2025-06-02</td>
+      <td>2025-06-02</td>
+      <td>1</td>
+      <td>1</td>
+      <td>5.0</td>
+      <td>scater_filter, scater_plot_dist_scatter, scater_plot_pca, scater_create_qcmetric_ready_sce</td>
+      <td>Sequencing quality control, Sequence visualisation, Read pre-processing</td>
+      <td></td>
+      <td>CC-BY-4.0</td>
+      <td></td>
+      <td>Galaxy Training Network</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Filter plot and explore single-cell RNA-seq data with Scanpy (imported from uploaded file)</td>
+      <td>WorkflowHub</td>
+      <td>1501</td>
+      <td>https://workflowhub.eu/workflows/1501?version=1</td>
+      <td></td>
+      <td>gtn, galaxy, name:single-cell, name:training</td>
+      <td>2025-06-02</td>
+      <td>2025-06-02</td>
+      <td>1</td>
+      <td>1</td>
+      <td>37.0</td>
+      <td>scanpy_plot, scanpy_normalize, scanpy_inspect, scanpy_cluster_reduce_dimension, anndata_manipulate, scanpy_filter, anndata_inspect</td>
+      <td>Expression profile clustering, Differential gene expression analysis, Principal component visualisation</td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+      <td>Galaxy Training Network</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>scRNA Plant Analysis</td>
+      <td>WorkflowHub</td>
+      <td>1485</td>
+      <td>https://workflowhub.eu/workflows/1485?version=1</td>
+      <td></td>
+      <td>gtn, galaxy, transcriptomics, single-cell</td>
+      <td>2025-06-02</td>
+      <td>2025-06-02</td>
+      <td>1</td>
+      <td>1</td>
+      <td>26.0</td>
+      <td>scanpy_plot, scanpy_normalize, scanpy_inspect, scanpy_cluster_reduce_dimension, anndata_import, scanpy_remove_confounders, anndata_manipulate, scanpy_filter</td>
+      <td>Expression profile clustering, Differential gene expression analysis, Principal component visualisation</td>
+      <td></td>
+      <td>CC-BY-4.0</td>
+      <td></td>
+      <td>Galaxy Training Network</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Galaxy EISTA spatialdata + updated squidpy</td>
+      <td>WorkflowHub</td>
+      <td>2174</td>
+      <td>https://workflowhub.eu/workflows/2174?version=4</td>
+      <td>Amirhossein Naghsh Nilchi, Pavankumar Videm</td>
+      <td>bioinformatics, galaxy, single cell clustering, transcriptomics, single-cell, spatial transcriptomics</td>
+      <td>2026-06-29</td>
+      <td>2026-06-29</td>
+      <td>4</td>
+      <td>4</td>
+      <td>77.0</td>
+      <td>liana_methods, scanpy_normalize, tp_replace_in_line, map_param_value, datamash_transpose, param_value_from_file, tp_awk_tool, scanpy_plot, tp_find_and_replace, set the value to a text input\nparam_value_from_file, Add_a_column1, tp_cut_tool, squidpy_graph, spatialdata_operation, scanpy_inspect, scanpy_cluster_reduce_dimension, addValue, scanpy_remove_confounders, pick_value, celltypist, select the resolution\nCut1, tp_sort_header_tool, collection_column_join, table_compute, split_file_to_collection, compose_text_param, anndata_manipulate, scanpy_filter, anndata_inspect</td>
+      <td>Expression profile clustering, Differential gene expression profiling, Differential gene expression analysis, Principal component visualisation</td>
+      <td>Single-cell sequencing</td>
+      <td>MIT</td>
+      <td>10.48546/workflowhub.workflow.2174.4</td>
+      <td>usegalaxy-eu</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Multisample Batch Correction with SnapATAC2 and Harmony</td>
+      <td>WorkflowHub</td>
+      <td>1078</td>
+      <td>https://workflowhub.eu/workflows/1078?version=1</td>
+      <td></td>
+      <td>scatac-seq, single-cell</td>
+      <td>2024-07-17</td>
+      <td>2026-05-13</td>
+      <td>1</td>
+      <td>1</td>
+      <td>29.0</td>
+      <td>collection_element_identifiers, __EXTRACT_DATASET__, __FILTER_FROM_FILE__, snapatac2_clustering, anndata_manipulate, snapatac2_preprocessing, snapatac2_plotting, Show beginning1</td>
+      <td>Gene expression profiling, Essential dynamics, Dimensionality reduction</td>
+      <td></td>
+      <td>CC-BY-4.0</td>
+      <td></td>
+      <td>usegalaxy-eu</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Workflow - Standard processing of 10X single cell ATAC-seq data with SnapATAC2</td>
+      <td>WorkflowHub</td>
+      <td>1077</td>
+      <td>https://workflowhub.eu/workflows/1077?version=1</td>
+      <td>Timon Schlegel</td>
+      <td>epigenetics, scatac-seq</td>
+      <td>2024-07-17</td>
+      <td>2026-05-13</td>
+      <td>1</td>
+      <td>1</td>
+      <td>29.0</td>
+      <td>scanpy_plot, scanpy_normalize, snapatac2_clustering, scanpy_inspect, anndata_manipulate, snapatac2_preprocessing, scanpy_filter, snapatac2_plotting, anndata_inspect, replace_column_with_key_value_file, Cut1, anndata_ops</td>
+      <td>Gene expression profiling, Expression profile clustering, Differential gene expression analysis, Essential dynamics, Dimensionality reduction, Principal component visualisation</td>
+      <td></td>
+      <td>CC-BY-4.0</td>
+      <td></td>
+      <td>usegalaxy-eu</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Differential gene expression for single-cell data using pseudo-bulk counts with edgeR (release v0.1)</td>
+      <td>https://usegalaxy.eu</td>
+      <td>04df470a38b10e94</td>
+      <td>https://usegalaxy.eu/published/workflow?id=04df470a38b10e94</td>
+      <td>Diana Chiang Jurado, Pavankumar Videm, Pablo Moreno</td>
+      <td></td>
+      <td>2024-11-21</td>
+      <td>2025-04-25</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>tp_awk_tool, collection_element_identifiers, column_remove_by_header, split_file_to_collection, tp_replace_in_line, volcanoplot, tp_replace_in_column, edger, param_value_from_file, decoupler_pseudobulk</td>
+      <td>Differential gene expression analysis</td>
+      <td></td>
+      <td>CC-BY-4.0</td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Differential gene expression for single-cell data using pseudo-bulk counts with edgeR (release v0.1.1)</td>
+      <td>https://usegalaxy.eu</td>
+      <td>c7b9fb6872444809</td>
+      <td>https://usegalaxy.eu/published/workflow?id=c7b9fb6872444809</td>
+      <td>Diana Chiang Jurado, Pavankumar Videm, Pablo Moreno</td>
+      <td></td>
+      <td>2024-11-28</td>
+      <td>2025-04-25</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>tp_awk_tool, collection_element_identifiers, column_remove_by_header, split_file_to_collection, tp_replace_in_line, volcanoplot, tp_replace_in_column, edger, param_value_from_file, decoupler_pseudobulk</td>
+      <td>Differential gene expression analysis</td>
+      <td></td>
+      <td>CC-BY-4.0</td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Preprocessing and Clustering of single-cell RNA-seq data with Scanpy (release v0.1)</td>
+      <td>https://usegalaxy.eu</td>
+      <td>e472096116cbe392</td>
+      <td>https://usegalaxy.eu/published/workflow?id=e472096116cbe392</td>
+      <td>Pavankumar Videm, Hans-Rudolf Hotz, Mehmet Tekman, Bérénice Batut</td>
+      <td>name:scrna-seq, name:single-cell</td>
+      <td>2025-01-30</td>
+      <td>2025-04-25</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>tp_awk_tool, scanpy_plot, scanpy_normalize, scanpy_inspect, scanpy_cluster_reduce_dimension, anndata_import, scanpy_remove_confounders, anndata_manipulate, pick_value, map_param_value, scanpy_filter, anndata_inspect, datamash_ops, param_value_from_file</td>
+      <td>Expression profile clustering, Differential gene expression analysis, Principal component visualisation</td>
+      <td></td>
+      <td>CC-BY-4.0</td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Filter plot and explore single-cell RNA-seq data with Scanpy</td>
+      <td>https://usegalaxy.eu</td>
+      <td>4756053b2596b6cf</td>
+      <td>https://usegalaxy.eu/published/workflow?id=4756053b2596b6cf</td>
+      <td>Wendi Bacon</td>
+      <td>name:training, name:single-cell</td>
+      <td>2025-03-23</td>
+      <td>2025-03-26</td>
+      <td>12</td>
+      <td>12</td>
+      <td></td>
+      <td>scanpy_plot, scanpy_normalize, scanpy_inspect, scanpy_cluster_reduce_dimension, anndata_manipulate, scanpy_filter, anndata_inspect</td>
+      <td>Expression profile clustering, Differential gene expression analysis, Principal component visualisation</td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Combining single cell datasets after pre-processing</td>
+      <td>https://usegalaxy.eu</td>
+      <td>d1a1e6070c0a36ca</td>
+      <td>https://usegalaxy.eu/published/workflow?id=d1a1e6070c0a36ca</td>
+      <td>Wendi Bacon</td>
+      <td>name:training, name:single-cell</td>
+      <td>2025-03-23</td>
+      <td>2025-03-26</td>
+      <td>4</td>
+      <td>4</td>
+      <td></td>
+      <td>Paste1, anndata_manipulate, tp_replace_in_column, anndata_inspect, Cut1</td>
+      <td></td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Generating a single cell matrix using Alevin</td>
+      <td>https://usegalaxy.eu</td>
+      <td>9a9bbd8046da7b19</td>
+      <td>https://usegalaxy.eu/published/workflow?id=9a9bbd8046da7b19</td>
+      <td>Julia Jakiela, Wendi Bacon</td>
+      <td>name:training, name:single-cell</td>
+      <td>2025-03-20</td>
+      <td>2025-03-26</td>
+      <td>18</td>
+      <td>18</td>
+      <td></td>
+      <td>alevin, join1, _salmon_kallisto_mtx_to_10x, dropletutils_read_10x, anndata_manipulate, anndata_inspect, sceasy_convert, Cut1, _dropletBarcodePlot, _ensembl_gtf2gene_list, dropletutils_empty_drops</td>
+      <td>Sequence composition calculation, RNA-Seq quantification, Gene expression analysis</td>
+      <td></td>
+      <td>CC-BY-4.0</td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Standard processing of single cell ATAC-seq data with SnapATAC2</td>
+      <td>https://usegalaxy.eu</td>
+      <td>e4e969e9943cdaa5</td>
+      <td>https://usegalaxy.eu/published/workflow?id=e4e969e9943cdaa5</td>
+      <td>Timon Schlegel</td>
+      <td>scatac-seq, epigenetics, name:single-cell</td>
+      <td>2024-08-02</td>
+      <td>2024-08-08</td>
+      <td>10</td>
+      <td>10</td>
+      <td></td>
+      <td>scanpy_plot, scanpy_normalize, snapatac2_clustering, scanpy_inspect, anndata_manipulate, snapatac2_preprocessing, scanpy_filter, snapatac2_plotting, anndata_inspect, replace_column_with_key_value_file, Cut1, anndata_ops</td>
+      <td>Gene expression profiling, Expression profile clustering, Differential gene expression analysis, Essential dynamics, Dimensionality reduction, Principal component visualisation</td>
+      <td></td>
+      <td>CC-BY-4.0</td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Generating a single cell matrix using Alevin</td>
+      <td>https://usegalaxy.eu</td>
+      <td>e06934a35fc18f2c</td>
+      <td>https://usegalaxy.eu/published/workflow?id=e06934a35fc18f2c</td>
+      <td>Julia Jakiela, Wendi Bacon</td>
+      <td></td>
+      <td>2024-03-03</td>
+      <td>2024-03-03</td>
+      <td>9</td>
+      <td>9</td>
+      <td></td>
+      <td>alevin, join1, _salmon_kallisto_mtx_to_10x, dropletutils_read_10x, sceasy_convert, Cut1, _dropletBarcodePlot, _ensembl_gtf2gene_list, dropletutils_empty_drops</td>
+      <td>Sequence composition calculation, RNA-Seq quantification, Gene expression analysis</td>
+      <td></td>
+      <td>CC-BY-4.0</td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Generating a single cell matrix using Alevin 1.9</td>
+      <td>https://usegalaxy.eu</td>
+      <td>c6adc3b665828a6f</td>
+      <td>https://usegalaxy.eu/published/workflow?id=c6adc3b665828a6f</td>
+      <td>Wendi Bacon, Julia Jakiela</td>
+      <td>name:transcriptomics, name:singlecell, name:training</td>
+      <td>2023-04-21</td>
+      <td>2024-03-03</td>
+      <td>29</td>
+      <td>29</td>
+      <td></td>
+      <td>alevin, join1, _salmon_kallisto_mtx_to_10x, dropletutils_read_10x, sceasy_convert, Cut1, _dropletBarcodePlot, _ensembl_gtf2gene_list, dropletutils_empty_drops</td>
+      <td>Sequence composition calculation, RNA-Seq quantification, Gene expression analysis</td>
+      <td></td>
+      <td>CC-BY-4.0</td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Cell Cycle Regression Workflow</td>
+      <td>https://usegalaxy.eu</td>
+      <td>171d6fca2c3339e2</td>
+      <td>https://usegalaxy.eu/published/workflow?id=171d6fca2c3339e2</td>
+      <td></td>
+      <td>single-cell, 10x, transcriptomics, name:single-cell</td>
+      <td>2022-11-07</td>
+      <td>2022-11-10</td>
+      <td>6</td>
+      <td>6</td>
+      <td></td>
+      <td>table_compute, scanpy_plot, scanpy_inspect, tp_easyjoin_tool, scanpy_cluster_reduce_dimension, addValue, cat1, anndata_manipulate, anndata_inspect, sort1, scanpy_regress_variable</td>
+      <td>Expression profile clustering, Differential gene expression analysis, Principal component visualisation</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>scRNA Plant Analysis</td>
+      <td>https://usegalaxy.eu</td>
+      <td>d70dc4cfeedb690b</td>
+      <td>https://usegalaxy.eu/published/workflow?id=d70dc4cfeedb690b</td>
+      <td></td>
+      <td>transcriptomics, single-cell</td>
+      <td>2021-03-23</td>
+      <td>2021-04-24</td>
+      <td>33</td>
+      <td>33</td>
+      <td></td>
+      <td>scanpy_plot, scanpy_normalize, scanpy_inspect, scanpy_cluster_reduce_dimension, anndata_import, scanpy_remove_confounders, anndata_manipulate, scanpy_filter</td>
+      <td>Expression profile clustering, Differential gene expression analysis, Principal component visualisation</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>10X StarSolo Workflow</td>
+      <td>https://usegalaxy.eu</td>
+      <td>d79309343e2a5d62</td>
+      <td>https://usegalaxy.eu/published/workflow?id=d79309343e2a5d62</td>
+      <td></td>
+      <td>transcriptomics, single-cell</td>
+      <td>2020-05-24</td>
+      <td>2020-08-22</td>
+      <td>3</td>
+      <td>3</td>
+      <td></td>
+      <td>dropletutils, rna_starsolo, cat1</td>
+      <td>Loading, Sequence alignment, Community profiling</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>STARsolo and Scanpy Workflow constructed from history 'single-cell share'''</td>
+      <td>https://usegalaxy.eu</td>
+      <td>b5627201bb4f6943</td>
+      <td>https://usegalaxy.eu/published/workflow?id=b5627201bb4f6943</td>
+      <td></td>
+      <td>ralf</td>
+      <td>2020-06-29</td>
+      <td>2020-06-29</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>anndata_import, dropletutils, rna_starsolo, scanpy_filter</td>
+      <td>Expression profile clustering, Differential gene expression analysis, Loading, Sequence alignment, Community profiling, Principal component visualisation</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Single-Cell Quality Control with Scater</td>
+      <td>https://usegalaxy.eu</td>
+      <td>f055b8fa294d4be8</td>
+      <td>https://usegalaxy.eu/published/workflow?id=f055b8fa294d4be8</td>
+      <td></td>
+      <td>transcriptomics, single-cell</td>
+      <td>2020-05-24</td>
+      <td>2020-05-24</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>scater_filter, scater_plot_dist_scatter, scater_plot_pca, scater_create_qcmetric_ready_sce</td>
+      <td>Sequencing quality control, Sequence visualisation, Read pre-processing</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>RaceID Training Material</td>
+      <td>https://usegalaxy.eu</td>
+      <td>2f8d9fb85242eca7</td>
+      <td>https://usegalaxy.eu/published/workflow?id=2f8d9fb85242eca7</td>
+      <td></td>
+      <td>training, raceid, single-cell</td>
+      <td>2019-03-16</td>
+      <td>2019-04-17</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>raceid_filtnormconf, raceid_trajectory, raceid_inspecttrajectory, raceid_inspectclusters, raceid_clustering</td>
+      <td>Expression profile clustering, Expression analysis, Molecular dynamics</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Differential gene expression for single-cell data using pseudo-bulk counts with edgeR (release v0.1.1)</td>
+      <td>https://usegalaxy.org</td>
+      <td>13a3954b8894e1b1</td>
+      <td>https://usegalaxy.org/published/workflow?id=13a3954b8894e1b1</td>
+      <td>Diana Chiang Jurado, Pavankumar Videm, Pablo Moreno</td>
+      <td></td>
+      <td>2024-11-28</td>
+      <td>2025-04-25</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>tp_awk_tool, collection_element_identifiers, column_remove_by_header, split_file_to_collection, tp_replace_in_line, volcanoplot, tp_replace_in_column, edger, param_value_from_file, decoupler_pseudobulk</td>
+      <td>Differential gene expression analysis</td>
+      <td></td>
+      <td>CC-BY-4.0</td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Preprocessing and Clustering of single-cell RNA-seq data with Scanpy (release v0.1)</td>
+      <td>https://usegalaxy.org</td>
+      <td>f35ccb693cd874c1</td>
+      <td>https://usegalaxy.org/published/workflow?id=f35ccb693cd874c1</td>
+      <td>Pavankumar Videm, Hans-Rudolf Hotz, Mehmet Tekman, Bérénice Batut</td>
+      <td>name:scrna-seq, name:single-cell</td>
+      <td>2025-01-30</td>
+      <td>2025-04-25</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>tp_awk_tool, scanpy_plot, scanpy_normalize, scanpy_inspect, scanpy_cluster_reduce_dimension, anndata_import, scanpy_remove_confounders, anndata_manipulate, pick_value, map_param_value, scanpy_filter, anndata_inspect, datamash_ops, param_value_from_file</td>
+      <td>Expression profile clustering, Differential gene expression analysis, Principal component visualisation</td>
+      <td></td>
+      <td>CC-BY-4.0</td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Preprocessing of 10X scRNA-seq data</td>
+      <td>https://usegalaxy.org</td>
+      <td>cdb6c9c7037a95b2</td>
+      <td>https://usegalaxy.org/published/workflow?id=cdb6c9c7037a95b2</td>
+      <td>Wendi Bacon, Pavankumar Videm, Mehmet Tekman, Hans-Rudolf Hotz, Daniel Blankenberg</td>
+      <td>single-cell, transcriptomics</td>
+      <td>2024-10-02</td>
+      <td>2024-10-04</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>dropletutils, rna_starsolo</td>
+      <td>Loading, Sequence alignment, Community profiling</td>
+      <td></td>
+      <td>CC-BY-4.0</td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Copy of Generating a single cell matrix using Alevin 1.9 shared by user ksuderman</td>
+      <td>https://usegalaxy.org</td>
+      <td>a2a924b871b1c96d</td>
+      <td>https://usegalaxy.org/published/workflow?id=a2a924b871b1c96d</td>
+      <td>Wendi Bacon, Julia Jakiela</td>
+      <td>name:transcriptomics, name:singlecell, name:training</td>
+      <td>2023-07-19</td>
+      <td>2023-08-24</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>alevin, join1, _salmon_kallisto_mtx_to_10x, dropletutils_read_10x, sceasy_convert, Cut1, _dropletBarcodePlot, _ensembl_gtf2gene_list, dropletutils_empty_drops</td>
+      <td>Sequence composition calculation, RNA-Seq quantification, Gene expression analysis</td>
+      <td></td>
+      <td>CC-BY-4.0</td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Generating a single cell matrix using Alevin 1.9</td>
+      <td>https://usegalaxy.org</td>
+      <td>1fe6b25825d9b736</td>
+      <td>https://usegalaxy.org/published/workflow?id=1fe6b25825d9b736</td>
+      <td>Wendi Bacon, Julia Jakiela</td>
+      <td>name:transcriptomics, name:singlecell, name:training</td>
+      <td>2023-07-18</td>
+      <td>2023-07-18</td>
+      <td>0</td>
+      <td>0</td>
+      <td></td>
+      <td>alevin, join1, _salmon_kallisto_mtx_to_10x, dropletutils_read_10x, sceasy_convert, Cut1, _dropletBarcodePlot, _ensembl_gtf2gene_list, dropletutils_empty_drops</td>
+      <td>Sequence composition calculation, RNA-Seq quantification, Gene expression analysis</td>
+      <td></td>
+      <td>CC-BY-4.0</td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Differential gene expression for single-cell data using pseudo-bulk counts with edgeR (release v0.1.1)</td>
+      <td>https://usegalaxy.org.au</td>
+      <td>5fe66b29dcfb22ab</td>
+      <td>https://usegalaxy.org.au/published/workflow?id=5fe66b29dcfb22ab</td>
+      <td>Diana Chiang Jurado, Pavankumar Videm, Pablo Moreno</td>
+      <td></td>
+      <td>2025-05-01</td>
+      <td>2025-05-06</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>tp_awk_tool, collection_element_identifiers, column_remove_by_header, split_file_to_collection, tp_replace_in_line, volcanoplot, tp_replace_in_column, edger, param_value_from_file, decoupler_pseudobulk</td>
+      <td>Differential gene expression analysis</td>
+      <td></td>
+      <td>CC-BY-4.0</td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Preprocessing and Clustering of single-cell RNA-seq data with Scanpy (release v0.1)</td>
+      <td>https://usegalaxy.org.au</td>
+      <td>102eb726f63f3190</td>
+      <td>https://usegalaxy.org.au/published/workflow?id=102eb726f63f3190</td>
+      <td>Pavankumar Videm, Hans-Rudolf Hotz, Mehmet Tekman, Bérénice Batut</td>
+      <td>name:scrna-seq, name:single-cell</td>
+      <td>2025-01-30</td>
+      <td>2025-04-25</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>tp_awk_tool, scanpy_plot, scanpy_normalize, scanpy_inspect, scanpy_cluster_reduce_dimension, anndata_import, scanpy_remove_confounders, anndata_manipulate, pick_value, map_param_value, scanpy_filter, anndata_inspect, datamash_ops, param_value_from_file</td>
+      <td>Expression profile clustering, Differential gene expression analysis, Principal component visualisation</td>
+      <td></td>
+      <td>CC-BY-4.0</td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>scRNAseq with AnnData</td>
+      <td>https://usegalaxy.org.au</td>
+      <td>c6bc6ee668ab51ab</td>
+      <td>https://usegalaxy.org.au/published/workflow?id=c6bc6ee668ab51ab</td>
+      <td></td>
+      <td>scrnaseq, single-cell, transcriptomics</td>
+      <td>2021-09-21</td>
+      <td>2022-03-23</td>
+      <td>22</td>
+      <td>22</td>
+      <td></td>
+      <td>tp_cat</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>scRNAseq with AnnData - Step 2: Filtering of low-quality cells and genes, normalisation, filtering of highly variable genes, scaling.</td>
+      <td>https://usegalaxy.org.au</td>
+      <td>57321b64220d5835</td>
+      <td>https://usegalaxy.org.au/published/workflow?id=57321b64220d5835</td>
+      <td></td>
+      <td>scrnaseq, single-cell, transcriptomics</td>
+      <td>2021-09-14</td>
+      <td>2021-10-06</td>
+      <td>20</td>
+      <td>20</td>
+      <td></td>
+      <td>scanpy_plot, scanpy_normalize, scanpy_inspect, scanpy_remove_confounders, anndata_manipulate, scanpy_filter, anndata_inspect</td>
+      <td>Expression profile clustering, Differential gene expression analysis, Principal component visualisation</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>scRNAseq with AnnData - Step 1: Mitochondria annotation, QC metrics plotting.</td>
+      <td>https://usegalaxy.org.au</td>
+      <td>8055596d732590d6</td>
+      <td>https://usegalaxy.org.au/published/workflow?id=8055596d732590d6</td>
+      <td></td>
+      <td>scrnaseq, single-cell, transcriptomics</td>
+      <td>2021-09-14</td>
+      <td>2021-10-06</td>
+      <td>29</td>
+      <td>29</td>
+      <td></td>
+      <td>tp_awk_tool, scanpy_plot, scanpy_inspect, cat1, tp_tail_tool, anndata_manipulate, tp_replace_in_column, anndata_inspect, Filter1, Cut1</td>
+      <td>Expression profile clustering, Differential gene expression analysis, Principal component visualisation</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>scRNAseq with AnnData - Step 4: PCA, cell clustering with UMAP, detect marker genes</td>
+      <td>https://usegalaxy.org.au</td>
+      <td>8bc01c1fdd62ad12</td>
+      <td>https://usegalaxy.org.au/published/workflow?id=8bc01c1fdd62ad12</td>
+      <td></td>
+      <td>scrnaseq, single-cell, transcriptomics</td>
+      <td>2021-09-14</td>
+      <td>2021-10-05</td>
+      <td>24</td>
+      <td>24</td>
+      <td></td>
+      <td>scanpy_plot, scanpy_inspect, scanpy_cluster_reduce_dimension</td>
+      <td>Expression profile clustering, Differential gene expression analysis, Principal component visualisation</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>scRNAseq with AnnData - Step 3: PCA inspection via Elbow plot</td>
+      <td>https://usegalaxy.org.au</td>
+      <td>106080375ad4eaaa</td>
+      <td>https://usegalaxy.org.au/published/workflow?id=106080375ad4eaaa</td>
+      <td></td>
+      <td>scrnaseq, single-cell, transcriptomics</td>
+      <td>2021-09-14</td>
+      <td>2021-09-21</td>
+      <td>9</td>
+      <td>9</td>
+      <td></td>
+      <td>scanpy_plot, scanpy_cluster_reduce_dimension</td>
+      <td>Expression profile clustering, Differential gene expression analysis, Principal component visualisation</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>scRNAseq preparation with multiple 10X counts datasets - Step 3: Concatenate datasets</td>
+      <td>https://usegalaxy.org.au</td>
+      <td>94241afd07e8a8b7</td>
+      <td>https://usegalaxy.org.au/published/workflow?id=94241afd07e8a8b7</td>
+      <td></td>
+      <td>scrnaseq, single-cell, transcriptomics</td>
+      <td>2021-09-08</td>
+      <td>2021-09-21</td>
+      <td>13</td>
+      <td>13</td>
+      <td></td>
+      <td>anndata_manipulate, __FILTER_FROM_FILE__, __EXTRACT_DATASET__</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>scRNAseq preparation with multiple 10X counts datasets - Step 2: Empty droplets filtering, import as AnnData.</td>
+      <td>https://usegalaxy.org.au</td>
+      <td>471615c412b305f2</td>
+      <td>https://usegalaxy.org.au/published/workflow?id=471615c412b305f2</td>
+      <td></td>
+      <td>scrnaseq, 10x, single-cell, transcriptomics</td>
+      <td>2021-09-08</td>
+      <td>2021-09-21</td>
+      <td>5</td>
+      <td>5</td>
+      <td></td>
+      <td>dropletutils, anndata_import</td>
+      <td>Loading, Community profiling</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>scRNAseq preparation with multiple 10X counts datasets - Step 1: Empty droplets QC Plot</td>
+      <td>https://usegalaxy.org.au</td>
+      <td>10296e860e9ef4bb</td>
+      <td>https://usegalaxy.org.au/published/workflow?id=10296e860e9ef4bb</td>
+      <td></td>
+      <td>scrnaseq, 10x, single-cell, transcriptomics</td>
+      <td>2021-09-08</td>
+      <td>2021-09-21</td>
+      <td>5</td>
+      <td>5</td>
+      <td></td>
+      <td>dropletutils</td>
+      <td>Loading, Community profiling</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Pre-processing of 10X Single-Cell RNA Datasets</td>
+      <td>https://usegalaxy.org.au</td>
+      <td>f627023a3401bf9b</td>
+      <td>https://usegalaxy.org.au/published/workflow?id=f627023a3401bf9b</td>
+      <td></td>
+      <td>transcriptomics, single-cell, galaxy-training-network</td>
+      <td>2021-03-19</td>
+      <td>2021-03-19</td>
+      <td>0</td>
+      <td>0</td>
+      <td></td>
+      <td>dropletutils, rna_starsolo, multiqc</td>
+      <td>Sequencing quality control, Validation, Loading, Sequence alignment, Community profiling</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+  </tbody>
+</table>
+
+</div>
