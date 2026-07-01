@@ -18,7 +18,7 @@ jobs:
     name: Fetch servers
     steps:
       - name: Checkout main
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - uses: actions/setup-python@v6
         with:
           python-version: '3.11'
@@ -49,7 +49,7 @@ jobs:
          - repositories04.list
     steps:
       - name: Checkout main
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - uses: actions/setup-python@v6
         with:
           python-version: '3.11'
@@ -63,8 +63,6 @@ jobs:
       - name: Fetch all tool stepwise
         run: | 
           bash sources/bin/extract_all_tools.sh "${{ matrix.subset }}"
-        env: 
-          GITHUB_API_KEY: ${{ secrets.GH_API_TOKEN }}
       - name: Archive tool sublists production artifacts
         uses: actions/upload-artifact@v7
         with:
@@ -75,7 +73,7 @@ jobs:
     name: Fetch tutorials
     steps:
       - name: Checkout main
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - uses: actions/setup-python@v6
         with:
           python-version: '3.11'
@@ -98,7 +96,7 @@ jobs:
     name: Fetch workflows
     steps:
       - name: Checkout main
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - uses: actions/setup-python@v6
         with:
           python-version: '3.11'
@@ -121,7 +119,7 @@ jobs:
 #    name: Fetch citations
 #    steps:
 #      - name: Checkout main
-#        uses: actions/checkout@v6
+#        uses: actions/checkout@v7
 #      - uses: actions/setup-python@v6
 #        with:
 #          python-version: '3.11'
@@ -139,6 +137,7 @@ jobs:
 #          path: communities/all/resources/citations.json
   merge-fetch:
     runs-on: ubuntu-latest
+    if: ${{ !cancelled() && needs.fetch-tools-stepwise.result == 'success' }}
     needs: 
       - fetch-servers
       - fetch-tools-stepwise
@@ -148,7 +147,10 @@ jobs:
     name: Merge tools
     steps:
       - name: Checkout main
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
+        with:
+          # We pass the "PAT" secret to the checkout action; if no PAT secret is available to the workflow runner (eg. Dependabot) we fall back to the default "GITHUB_TOKEN".
+          token: ${{ secrets.PAT || secrets.GH_ACTIONS_PAT }}
       - uses: actions/setup-python@v6
         with:
           python-version: '3.11'
@@ -163,12 +165,14 @@ jobs:
           merge-multiple: true
           path: communities/all/resources/
       - name: Download tutorials
+        if: needs.fetch-tutorials.result == 'success'
         uses: actions/download-artifact@v8
         with:
           pattern: tutorials
           merge-multiple: true
           path: communities/all/resources/
       - name: Download workflows
+        if: needs.fetch-workflows.result == 'success'
         uses: actions/download-artifact@v8
         with:
           pattern: workflows
@@ -203,3 +207,6 @@ jobs:
           commit_user_name: GitHub Actions
           commit_user_email: actions@github.com
           commit_author: GitHub Actions <actions@github.com>
+          repository_initial_branch: main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_ACTIONS_PAT }}

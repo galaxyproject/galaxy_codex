@@ -84,20 +84,36 @@ A GitHub action performs every week the following steps:
 
 ## Extract all tools outside a GitHub Action
 
-1. Get an API key ([personal token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)) for GitHub
-2. Export the GitHub API key as an environment variable:
+Tool repositories are cloned locally from the [planemo-monitor](https://github.com/galaxyproject/planemo-monitor) list and extracted without needing a GitHub API token. Repositories are cached in `~/.galaxy_tool_repos` and updated incrementally on subsequent runs.
 
-    ```
-    $ export GITHUB_API_KEY=<your GitHub API key>
-    ```
+Run the script to extract all tools:
 
-3. Run the script to extract all tools
+```
+$ bash sources/bin/extract_all_tools.sh
+```
 
-    ```
-    $ bash sources/bin/extract_all_tools.sh
-    ```
+Additional options can be passed directly to the Python script:
 
-The script will generate a TSV file with each tool found in the list of GitHub repositories and metadata for these tools:
+```
+$ python sources/bin/extract_galaxy_tools.py extract \
+    --all output.json \
+    --all-tsv output.tsv \
+    --all-yml output.yml \
+    --all-workflows communities/all/resources/workflows.json \
+    --all-tutorials communities/all/resources/tutorials.json \
+    --repo-dir ~/.galaxy_tool_repos \
+    --workers 4
+```
+
+Options:
+- `--repo-dir` — Directory to clone repositories into (default: `~/.galaxy_tool_repos`)
+- `--repo-url` — Process only specific repo URL(s) (can be specified multiple times, overrides planemo-monitor list)
+- `--workers N` — Number of parallel workers for tool parsing (default: 1, sequential)
+- `--clone-depth N` — Git clone depth (default: 1 for shallow/CI-friendly; pass `0` for full git history including accurate first-commit dates)
+- `--planemo-repository-list` — Process only a specific planemo-monitor list file (e.g., `repositories01.list`)
+- `--test` — Run on a small test repository instead of the full list
+
+The script will generate a TSV file with each tool found in the list of tool repositories and metadata for these tools:
 
 1. Galaxy wrapper id
 2. Description
