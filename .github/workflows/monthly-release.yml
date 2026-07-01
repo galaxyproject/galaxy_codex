@@ -10,12 +10,13 @@ jobs:
   setup:
     if: github.repository_owner == 'galaxyproject'
     runs-on: ubuntu-latest
+    environment: create-release
 
     # This is only needed for the final step of gh release creation.
     # That should be separated into a separate dependent job at some point.
     permissions:
       contents: write
-
+  
     steps:
       - name: Release Name
         id: release_name
@@ -37,7 +38,7 @@ jobs:
       - name: Create Release
         id: create_release
         env:
-          GH_TOKEN: ${{ secrets.GH_API_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
           RELEASE_TAG: ${{ env.release_tag }}
           RELEASE_TITLE: ${{ env.release_title }}
         run: |
