@@ -18,6 +18,7 @@ SKIP_PATTERNS = [
 
 GALAXY_SUBDOMAINS = [
     ".usegalaxy.eu",
+    ".usegalaxy.org",
     ".usegalaxy.fr",
     ".usegalaxy.org.au",
 ]
