@@ -144,7 +144,7 @@ jobs:
       - fetch-tutorials
       - fetch-workflows
 #      - fetch-citations
-    name: Merge tools
+    name: Merge tools and commit changes
     steps:
       - name: Checkout main
         uses: actions/checkout@v7
@@ -165,14 +165,12 @@ jobs:
           merge-multiple: true
           path: communities/all/resources/
       - name: Download tutorials
-        if: needs.fetch-tutorials.result == 'success'
         uses: actions/download-artifact@v8
         with:
           pattern: tutorials
           merge-multiple: true
           path: communities/all/resources/
       - name: Download workflows
-        if: needs.fetch-workflows.result == 'success'
         uses: actions/download-artifact@v8
         with:
           pattern: workflows
