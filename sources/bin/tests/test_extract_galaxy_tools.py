@@ -765,8 +765,9 @@ class TestFillLabToolSection(unittest.TestCase):
 
         # Check if "more_tools" exists in the tabs, regardless of position
         # self.assertEqual(result["tabs"][0]["id"], "more_tools")
-        # tab_ids = [tab["id"] for tab in result["tabs"]]
-        # self.assertIn("more_tools", tab_ids)
+        first_tab_id = result["tabs"][0]["id"]
+        self.assertIn(first_tab_id, ["more_tools", "de-novo_assembly"])
+
 
 class TestExportMissingToolsToYaml(unittest.TestCase):
     def test_writes_yaml(self) -> None:
