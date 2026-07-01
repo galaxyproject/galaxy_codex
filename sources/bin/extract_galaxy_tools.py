@@ -34,6 +34,12 @@ from ruamel.yaml.scalarstring import LiteralScalarString
 
 # Config variables
 BIOTOOLS_API_URL = "https://bio.tools"
+GALAXY_STATS_SOURCES = {
+    "eu": {
+        "url": "https://stats.galaxyproject.eu/api/ds/query",
+        "ds_uid": "P9B81C0353945995B",
+    },
+}
 
 USEGALAXY_SERVER_URLS = {
     "UseGalaxy.org (Main)": "https://usegalaxy.org",
@@ -91,6 +97,50 @@ def get_last_url_position(toot_id: str) -> str:
     if "/" in toot_id:
         toot_id = toot_id.split("/")[-1]
     return toot_id
+
+
+def get_galaxy_usage_from_api(api_url: str, datasource_uid: str) -> Dict[str, int]:
+    """
+    Query tool usage for a Galaxy server from the stats Grafana API.
+
+    Runs a single query that returns LAST("count") per tool_id per version,
+    then sums across versions to produce a dict of {tool_id: total_jobs}.
+    Returns an empty dict on any failure.
+    """
+    query = '''SELECT LAST("count") AS "count" FROM "tool-usage" WHERE time > now() - 1d GROUP BY "tool_id", "version"'''
+    payload = {
+        "queries": [
+            {
+                "refId": "A",
+                "datasource": {"type": "influxdb", "uid": datasource_uid},
+                "query": query,
+                "rawQuery": True,
+                "resultFormat": "table",
+            }
+        ],
+        "from": "now-1d",
+        "to": "now",
+    }
+    try:
+        resp = requests.post(api_url, json=payload, timeout=30)
+        resp.raise_for_status()
+        data = resp.json()
+        frames = data["results"]["A"].get("frames", [])
+        if not frames:
+            return {}
+        vals = frames[0]["data"]["values"]
+        tool_ids: List[str] = vals[1]
+        counts: List[float] = vals[3]
+        totals: Dict[str, int] = {}
+        for tid, c in zip(tool_ids, counts):
+            totals[tid] = totals.get(tid, 0) + int(c)
+        return totals
+    except Exception:
+        print(
+            f"Failed to fetch Galaxy usage stats for datasource {datasource_uid} from API",
+            file=sys.stderr,
+        )
+        return {}
 
 
 def get_tool_stats_from_stats_file(
@@ -758,7 +808,11 @@ def aggregate_tool_stats(
 
 
 def get_tools(
-    repo_list: list, all_workflows: str = "", all_tutorials: str = "", edam_ontology: Optional[Dict] = None
+    repo_list: list,
+    all_workflows: str = "",
+    all_tutorials: str = "",
+    edam_ontology: Optional[Dict] = None,
+    test: bool = False,
 ) -> List[Dict]:
     """
     Parse tools in GitHub repositories to extract metadata,
@@ -779,6 +833,13 @@ def get_tools(
             )
             print(traceback.format_exc())
 
+    # fetch tool usage from stats API for each configured server
+    galaxy_usage_from_api: Dict[str, Dict[str, int]] = {}
+    for server_name, source in GALAXY_STATS_SOURCES.items():
+        galaxy_usage_from_api[server_name] = get_galaxy_usage_from_api(
+            source["url"], source["ds_uid"]
+        )
+
     # add additional information to tools
     for tool in tools:
         # add EDAM terms without superclass
@@ -786,20 +847,27 @@ def get_tools(
         tool["EDAM reduced topics"] = reduce_ontology_terms(tool["EDAM topics"], ontology=edam_ontology)
 
         # add availability for UseGalaxy servers
-        for name, url in USEGALAXY_SERVER_URLS.items():
-            tool[f"Number of tools on {name}"] = check_tools_on_servers(tool["Tool IDs"], url)
-
-        # add all other available servers
-        public_servers_df = pd.read_csv(public_servers, sep="\t")
-        for _index, row in public_servers_df.iterrows():
-            name = row["name"]
-
-            if name.lower() not in [
-                n.lower() for n in USEGALAXY_SERVER_URLS.keys()
-            ]:  # do not query UseGalaxy servers again
-
-                url = row["url"]
+        if test:
+            # only query UseGalaxy.eu in test mode
+            tool["Number of tools on UseGalaxy.eu"] = check_tools_on_servers(
+                tool["Tool IDs"], USEGALAXY_SERVER_URLS["UseGalaxy.eu"]
+            )
+        else:
+            for name, url in USEGALAXY_SERVER_URLS.items():
                 tool[f"Number of tools on {name}"] = check_tools_on_servers(tool["Tool IDs"], url)
+
+        # add all other available servers (skip in test mode)
+        if not test:
+            public_servers_df = pd.read_csv(public_servers, sep="\t")
+            for _index, row in public_servers_df.iterrows():
+                name = row["name"]
+
+                if name.lower() not in [
+                    n.lower() for n in USEGALAXY_SERVER_URLS.keys()
+                ]:  # do not query UseGalaxy servers again
+
+                    url = row["url"]
+                    tool[f"Number of tools on {name}"] = check_tools_on_servers(tool["Tool IDs"], url)
 
         # add tool stats
         for name, path in GALAXY_TOOL_STATS.items():
@@ -814,6 +882,13 @@ def get_tools(
                 mode = "sum"
 
             tool[name] = get_tool_stats_from_stats_file(tool_stats_df, tool["Tool IDs"], mode=mode)
+
+        # add tool usage from API for each configured server
+        for server_name in GALAXY_STATS_SOURCES:
+            server_usage = galaxy_usage_from_api.get(server_name, {})
+            tool[f"Suite runs (usegalaxy.{server_name}) via API"] = sum(
+                server_usage.get(tid, 0) for tid in tool["Tool IDs"]
+            )
 
         # sum up tool stats
         tool = aggregate_tool_stats(tool, STATS_SUM)
@@ -1235,7 +1310,7 @@ if __name__ == "__main__":
         )
         # parse tools in GitHub repositories to extract metadata, filter by TS categories and export to output file
         edam_ontology = get_ontology("https://edamontology.org/EDAM_1.25.owl").load()
-        tools = get_tools(repo_list, args.all_workflows, args.all_tutorials, edam_ontology)
+        tools = get_tools(repo_list, args.all_workflows, args.all_tutorials, edam_ontology, test=args.test)
         export_tools_to_json(tools, args.all)
         export_tools_to_tsv(tools, args.all_tsv, format_list_col=True)
         export_tools_to_yml(tools, args.all_yml)
