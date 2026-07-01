@@ -1,8 +1,10 @@
 import json
 import os
+import shutil
 import tempfile
 import unittest
 import xml.etree.ElementTree as et
+from pathlib import Path
 from typing import (
     Any,
     Dict,
@@ -11,26 +13,46 @@ from typing import (
 )
 from unittest.mock import (
     MagicMock,
-    Mock,
     patch,
 )
 
 import pandas as pd
 import shared
+import yaml
 from extract_galaxy_tools import (
+    _load_tool_xml_fallback,
+    _normalize_repo_url,
+    _repo_name_from_url,
+    add_status,
     add_tutorial_ids_to_tools,
     add_workflow_ids_to_tools,
     aggregate_tool_stats,
+    check_categories,
+    check_tools_on_servers,
+    clone_repositories,
+    curate_tools,
+    export_missing_tools,
+    export_missing_tools_to_yaml,
+    export_tools_to_json,
+    export_tools_to_tsv,
+    export_tools_to_yml,
+    extract_missing_tools_per_servers,
+    extract_top_tools_per_category,
+    fill_lab_tool_section,
+    filter_tools,
     get_all_installed_tool_ids_on_server,
-    get_github_repo,
+    get_conda_package,
+    get_first_commit_for_local_folder,
     get_last_url_position,
-    get_suite_ID_fallback,
-    get_tool_github_repositories,
+    get_shed_attribute,
+    get_tool_inputs,
+    get_tool_metadata_from_local,
     get_tool_outputs,
     get_tool_stats_from_stats_file,
+    get_xref,
+    parse_tools_from_local,
     STATS_SUM,
 )
-from github import Github
 from requests import HTTPError
 
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
@@ -52,6 +74,127 @@ class TestGetToolOutputs(unittest.TestCase):
     def test_get_tool_outputs(self) -> None:
         formats = get_tool_outputs(self.tool_xml)
         self.assertEqual(sorted(formats), ["html", "json"])
+
+    def test_get_tool_inputs(self) -> None:
+        formats = get_tool_inputs(self.tool_xml)
+        # Only inline <param type="data"|"data_collection"> formats;
+        # macro-expanded params (e.g. via <expand macro="in" />) are
+        # resolved only by _load_tool_xml_with_macros, not by et.fromstring.
+        expected = sorted(["fastq", "fastq.gz"])
+        self.assertEqual(sorted(formats), expected)
+
+
+class TestGetToolInputs(unittest.TestCase):
+    """Unit tests for get_tool_inputs with various XML structures."""
+
+    def test_single_data_param(self) -> None:
+        xml = '<tool><inputs><param name="in1" type="data" format="fasta"/></inputs></tool>'
+        el = et.fromstring(xml)
+        self.assertEqual(get_tool_inputs(el), ["fasta"])
+
+    def test_multiple_formats_comma_separated(self) -> None:
+        xml = '<tool><inputs><param name="in1" type="data" format="fasta,fastq,fastq.gz"/></inputs></tool>'
+        el = et.fromstring(xml)
+        self.assertEqual(sorted(get_tool_inputs(el)), sorted(["fasta", "fastq", "fastq.gz"]))
+
+    def test_multiple_data_params(self) -> None:
+        xml = """
+        <tool>
+          <inputs>
+            <param name="reads" type="data" format="fastq"/>
+            <param name="ref" type="data" format="fasta"/>
+            <param name="annotation" type="data" format="gff3"/>
+          </inputs>
+        </tool>
+        """
+        el = et.fromstring(xml)
+        self.assertEqual(sorted(get_tool_inputs(el)), sorted(["fastq", "fasta", "gff3"]))
+
+    def test_data_collection_param(self) -> None:
+        xml = '<tool><inputs><param name="coll" type="data_collection" format="fastq,fastq.gz"/></inputs></tool>'
+        el = et.fromstring(xml)
+        self.assertEqual(sorted(get_tool_inputs(el)), sorted(["fastq", "fastq.gz"]))
+
+    def test_params_inside_conditional(self) -> None:
+        xml = """
+        <tool>
+          <inputs>
+            <conditional name="mode">
+              <param name="mode_sel" type="select"/>
+              <when value="single">
+                <param name="in1" type="data" format="fastq"/>
+              </when>
+              <when value="paired">
+                <param name="in1" type="data" format="fastq"/>
+                <param name="in2" type="data" format="fastq"/>
+              </when>
+            </conditional>
+          </inputs>
+        </tool>
+        """
+        el = et.fromstring(xml)
+        self.assertEqual(sorted(get_tool_inputs(el)), ["fastq"])
+
+    def test_params_inside_section(self) -> None:
+        xml = """
+        <tool>
+          <inputs>
+            <section name="advanced" title="Advanced">
+              <param name="bam" type="data" format="bam"/>
+              <param name="vcf" type="data" format="vcf"/>
+            </section>
+          </inputs>
+        </tool>
+        """
+        el = et.fromstring(xml)
+        self.assertEqual(sorted(get_tool_inputs(el)), sorted(["bam", "vcf"]))
+
+    def test_params_inside_repeat(self) -> None:
+        xml = """
+        <tool>
+          <inputs>
+            <repeat name="samples" title="Sample">
+              <param name="bam" type="data" format="bam"/>
+            </repeat>
+          </inputs>
+        </tool>
+        """
+        el = et.fromstring(xml)
+        self.assertEqual(get_tool_inputs(el), ["bam"])
+
+    def test_no_data_params(self) -> None:
+        xml = """
+        <tool>
+          <inputs>
+            <param name="threshold" type="integer" value="5"/>
+            <param name="mode" type="select"/>
+          </inputs>
+        </tool>
+        """
+        el = et.fromstring(xml)
+        self.assertEqual(get_tool_inputs(el), [])
+
+    def test_no_inputs_section(self) -> None:
+        xml = '<tool><outputs><data name="out" format="txt"/></outputs></tool>'
+        el = et.fromstring(xml)
+        self.assertEqual(get_tool_inputs(el), [])
+
+    def test_duplicate_formats_deduped(self) -> None:
+        xml = """
+        <tool>
+          <inputs>
+            <param name="reads" type="data" format="fastq"/>
+            <param name="more_reads" type="data" format="fastq"/>
+          </inputs>
+        </tool>
+        """
+        el = et.fromstring(xml)
+        self.assertEqual(get_tool_inputs(el), ["fastq"])
+
+    def test_data_param_without_format(self) -> None:
+        xml = '<tool><inputs><param name="any" type="data"/></inputs></tool>'
+        el = et.fromstring(xml)
+        self.assertEqual(get_tool_inputs(el), [])
 
 
 class TestGetToolStatsFromStatsFile(unittest.TestCase):
@@ -180,182 +323,6 @@ class TestAddWorkflowIdsToTools(unittest.TestCase):
                 self.assertEqual(sorted(expected_mapping[res["Suite ID"]]), sorted(res["Related Workflows"]))
 
 
-class TestGetSuiteIDFallback(unittest.TestCase):
-
-    def test_suite_id_already_set(self) -> None:
-        metadata: Dict[str, Any] = {"Suite ID": "existing_suite", "bio.tool ID": "SomeTool"}
-        tool = Mock()
-        tool.path = "some/path/to/tool_folder"
-        result = get_suite_ID_fallback(metadata, tool)
-        self.assertEqual(result["Suite ID"], "existing_suite")
-
-    def test_suite_id_none_bio_tool_id_present(self) -> None:
-        metadata: Dict[str, Any] = {"Suite ID": None, "bio.tool ID": "MyToolSuite"}
-        tool = Mock()
-        tool.path = "some/path/to/tool_folder"
-        result = get_suite_ID_fallback(metadata, tool)
-        self.assertEqual(result["Suite ID"], "mytoolsuite")
-
-    def test_suite_id_and_bio_tool_id_none(self) -> None:
-        metadata: Dict[str, Any] = {"Suite ID": None, "bio.tool ID": None}
-        tool = Mock()
-        tool.path = "toolshed/repos/dev/suite_xyz"
-        result = get_suite_ID_fallback(metadata, tool)
-        self.assertEqual(result["Suite ID"], "suite_xyz")
-
-
-class TestGetToolGithubRepositories(unittest.TestCase):
-    """
-    Unit tests for the get_tool_github_repositories function.
-    """
-
-    def setUp(self) -> None:
-        """
-        Shared mock setup for GitHub repo hierarchy and content.
-        """
-        # Mocked file content returned by get_string_content
-        self.mock_repositories_content: str = (
-            "https://github.com/genouest/galaxy-tools\n"
-            "https://github.com/galaxyproject/galaxy\n"
-            "https://github.com/TGAC/earlham-galaxytools\n"
-        )
-
-        # Mock GitHub repo object
-        self.mock_content: Any = MagicMock()
-        self.mock_repo: Any = MagicMock()
-        self.mock_repo.get_contents.return_value = self.mock_content
-
-        # Mock GitHub user
-        self.mock_user: Any = MagicMock()
-        self.mock_user.get_repo.return_value = self.mock_repo
-
-        # Mock GitHub instance
-        self.mock_g: Any = MagicMock()
-        self.mock_g.get_user.return_value = self.mock_user
-
-    @patch("extract_galaxy_tools.get_string_content")
-    def test_get_tool_github_repositories(self, mock_get_string_content: MagicMock) -> None:
-        """
-        Test that get_tool_github_repositories returns a list of repository URLs
-        when run_test=False and add_extra_repositories=False.
-        """
-        mock_get_string_content.return_value = self.mock_repositories_content
-
-        result: list[str] = get_tool_github_repositories(
-            g=self.mock_g,
-            repository_list="repositories01.list",
-            run_test=False,
-            add_extra_repositories=False,
-        )
-
-        self.assertEqual(
-            result,
-            [
-                "https://github.com/genouest/galaxy-tools",
-                "https://github.com/galaxyproject/galaxy",
-                "https://github.com/TGAC/earlham-galaxytools",
-            ],
-        )
-
-        self.mock_repo.get_contents.assert_called_once_with("repositories01.list")
-        mock_get_string_content.assert_called_once_with(self.mock_content)
-
-    @patch("extract_galaxy_tools.configs", {"extra-repositories": ["https://github.com/extra/repo"]})
-    @patch("extract_galaxy_tools.get_string_content")
-    def test_get_tool_github_repositories_with_extra(self, mock_get_string_content: MagicMock) -> None:
-        """
-        Test that get_tool_github_repositories appends extra repositories from config
-        when add_extra_repositories=True.
-        """
-        mock_get_string_content.return_value = self.mock_repositories_content
-
-        result: list[str] = get_tool_github_repositories(
-            g=self.mock_g,
-            repository_list="repositories01.list",
-            run_test=False,
-            add_extra_repositories=True,
-        )
-
-        self.assertEqual(
-            result,
-            [
-                "https://github.com/genouest/galaxy-tools",
-                "https://github.com/galaxyproject/galaxy",
-                "https://github.com/TGAC/earlham-galaxytools",
-                "https://github.com/extra/repo",
-            ],
-        )
-
-
-class TestGetGithubRepo(unittest.TestCase):
-    """
-    Unit tests for the get_github_repo function.
-    """
-
-    def test_valid_repo_url(self) -> None:
-        """
-        Test that a valid GitHub URL returns the correct mocked repository object.
-        """
-        mock_repo = MagicMock()
-        mock_user = MagicMock()
-        mock_user.get_repo.return_value = mock_repo
-
-        mock_g = MagicMock(spec=Github)
-        mock_g.get_user.return_value = mock_user
-
-        url = "https://github.com/galaxyproject/galaxy"
-        result = get_github_repo(url, mock_g)
-
-        self.assertEqual(result, mock_repo)
-        mock_g.get_user.assert_called_once_with("galaxyproject")
-        mock_user.get_repo.assert_called_once_with("galaxy")
-
-    def test_url_with_trailing_slash(self) -> None:
-        """
-        Test that URLs ending with a slash are handled correctly.
-        """
-        mock_repo = MagicMock()
-        mock_user = MagicMock()
-        mock_user.get_repo.return_value = mock_repo
-
-        mock_g = MagicMock()
-        mock_g.get_user.return_value = mock_user
-
-        url = "https://github.com/usegalaxy-eu/tools-iuc/"
-        result = get_github_repo(url, mock_g)
-
-        self.assertEqual(result, mock_repo)
-        mock_g.get_user.assert_called_once_with("usegalaxy-eu")
-        mock_user.get_repo.assert_called_once_with("tools-iuc")
-
-    def test_url_with_dot_git_suffix(self) -> None:
-        """
-        Test that URLs ending with .git are cleaned and handled.
-        """
-        mock_repo = MagicMock()
-        mock_user = MagicMock()
-        mock_user.get_repo.return_value = mock_repo
-
-        mock_g = MagicMock()
-        mock_g.get_user.return_value = mock_user
-
-        url = "https://github.com/usegalaxy-eu/tools-iuc.git"
-        result = get_github_repo(url, mock_g)
-
-        self.assertEqual(result, mock_repo)
-        mock_g.get_user.assert_called_once_with("usegalaxy-eu")
-        mock_user.get_repo.assert_called_once_with("tools-iuc")
-
-    def test_invalid_url(self) -> None:
-        """
-        Test that a ValueError is raised when the URL does not start with the expected prefix.
-        """
-        mock_g = MagicMock()
-
-        with self.assertRaises(ValueError):
-            get_github_repo("http://example.com/repo", mock_g)
-
-
 class TestGetLastUrlPosition(unittest.TestCase):
     """
     Unit tests for the get_last_url_position function.
@@ -406,7 +373,7 @@ class TestGetAllInstalledToolIdsOnServer(unittest.TestCase):
         self.assertEqual(ids1, expected)
         self.assertEqual(ids2, expected)
 
-        mock_get.assert_called_with("https://usegalaxy.org/api/tools", params={"in_panel": False})
+        mock_get.assert_called_with("https://usegalaxy.org/api/tools", params={"in_panel": False}, timeout=30)
 
     @patch("extract_galaxy_tools.requests.get")
     def test_raise_for_status_failure(self, mock_get: MagicMock) -> None:
@@ -428,3 +395,577 @@ class TestGetAllInstalledToolIdsOnServer(unittest.TestCase):
 
         result = get_all_installed_tool_ids_on_server("https://usegalaxy.org")
         self.assertEqual(result, [])
+
+
+class TestNormalizeRepoUrl(unittest.TestCase):
+    def test_strips_trailing_slash(self) -> None:
+        self.assertEqual(
+            _normalize_repo_url("https://github.com/iuc/tools/"),
+            "https://github.com/iuc/tools",
+        )
+
+    def test_strips_dot_git(self) -> None:
+        self.assertEqual(
+            _normalize_repo_url("https://github.com/iuc/tools.git"),
+            "https://github.com/iuc/tools",
+        )
+
+    def test_strips_both(self) -> None:
+        self.assertEqual(
+            _normalize_repo_url("https://github.com/iuc/tools.git/"),
+            "https://github.com/iuc/tools",
+        )
+
+    def test_strips_whitespace(self) -> None:
+        self.assertEqual(
+            _normalize_repo_url("  https://github.com/iuc/tools  "),
+            "https://github.com/iuc/tools",
+        )
+
+
+class TestRepoNameFromUrl(unittest.TestCase):
+    def test_standard_github(self) -> None:
+        self.assertEqual(
+            _repo_name_from_url("https://github.com/galaxyproject/tools-iuc"),
+            "galaxyproject-tools-iuc",
+        )
+
+    def test_with_dot_git(self) -> None:
+        self.assertEqual(
+            _repo_name_from_url("https://github.com/iuc/fastp.git"),
+            "iuc-fastp",
+        )
+
+    def test_trailing_slash(self) -> None:
+        self.assertEqual(
+            _repo_name_from_url("https://github.com/bgruening/galaxytools/"),
+            "bgruening-galaxytools",
+        )
+
+
+class TestGetFirstCommitForLocalFolder(unittest.TestCase):
+    def setUp(self) -> None:
+        self.repo_path = Path("/fake/repo")
+
+    @patch("extract_galaxy_tools.subprocess.run")
+    def test_returns_first_commit_date(self, mock_run: MagicMock) -> None:
+        mock_result = MagicMock()
+        mock_result.stdout = "2024-03-12\n2024-06-01\n"
+        mock_run.return_value = mock_result
+
+        date = get_first_commit_for_local_folder(self.repo_path, "tools/fastp")
+
+        self.assertEqual(date, "2024-03-12")
+
+    @patch("extract_galaxy_tools.subprocess.run")
+    def test_empty_output_returns_empty(self, mock_run: MagicMock) -> None:
+        mock_result = MagicMock()
+        mock_result.stdout = ""
+        mock_run.return_value = mock_result
+
+        date = get_first_commit_for_local_folder(self.repo_path, "tools/fastp")
+
+        self.assertEqual(date, "")
+
+    @patch("extract_galaxy_tools.subprocess.run")
+    @patch("extract_galaxy_tools.Path.exists")
+    def test_deepens_shallow_clone_when_empty(self, mock_exists: MagicMock, mock_run: MagicMock) -> None:
+        mock_exists.return_value = True  # shallow file exists
+
+        mock_run.side_effect = [
+            MagicMock(stdout=""),
+            MagicMock(stdout="", returncode=0),
+            MagicMock(stdout="2020-01-15\n"),
+        ]
+
+        date = get_first_commit_for_local_folder(self.repo_path, "tools/fastp")
+
+        self.assertEqual(date, "2020-01-15")
+        self.assertEqual(mock_run.call_count, 3)
+
+    @patch("extract_galaxy_tools.subprocess.run")
+    @patch("extract_galaxy_tools.Path.exists")
+    def test_does_not_deepen_when_date_found_first(self, mock_exists: MagicMock, mock_run: MagicMock) -> None:
+        mock_run.return_value = MagicMock(stdout="2024-03-12\n")
+
+        date = get_first_commit_for_local_folder(self.repo_path, "tools/fastp")
+
+        self.assertEqual(date, "2024-03-12")
+        self.assertEqual(mock_run.call_count, 1)
+        mock_exists.assert_not_called()
+
+
+class TestGetToolMetadataFromLocalReal(unittest.TestCase):
+    """Tests using real Galaxy tool wrappers from the CI test repository."""
+
+    test_data: Path
+    fastp_tool: Path
+    threshold_tool: Path
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        cls.test_data = Path(__file__).parent / "test-data"
+        cls.fastp_tool = cls.test_data / "fastp_test"
+        cls.threshold_tool = cls.test_data / "2d_auto_threshold_test"
+
+    @patch("extract_galaxy_tools.get_first_commit_for_local_folder")
+    @patch("extract_galaxy_tools.requests.get")
+    def test_fastp_metadata(self, mock_requests_get: MagicMock, mock_first_commit: MagicMock) -> None:
+        mock_first_commit.return_value = "2024-01-01"
+        mock_requests_get.return_value.status_code = 404
+
+        metadata = get_tool_metadata_from_local(self.fastp_tool, self.fastp_tool.parent, repo_url="")
+
+        assert metadata is not None
+        self.assertEqual(metadata["Suite ID"], "fastp")
+        self.assertEqual(metadata["Suite version"], "0.23.2")
+        self.assertEqual(metadata["Suite owner"], "iuc")
+        self.assertEqual(metadata["bio.tool ID"], "fastp")
+        self.assertEqual(metadata["Suite conda package"], "fastp")
+        self.assertEqual(metadata["Tool IDs"], ["fastp"])
+        self.assertIn("Sequence Analysis", metadata["ToolShed categories"])
+        self.assertEqual(metadata["Homepage"], "https://github.com/OpenGene/fastp")
+        self.assertEqual(sorted(metadata["Tool input formats"]), ["fastq", "fastq.gz"])
+
+    @patch("extract_galaxy_tools.get_first_commit_for_local_folder")
+    @patch("extract_galaxy_tools.requests.get")
+    def test_2d_auto_threshold_metadata(self, mock_requests_get: MagicMock, mock_first_commit: MagicMock) -> None:
+        mock_first_commit.return_value = "2024-01-01"
+        mock_requests_get.return_value.status_code = 404
+
+        metadata = get_tool_metadata_from_local(self.threshold_tool, self.threshold_tool.parent, repo_url="")
+
+        assert metadata is not None
+        self.assertEqual(metadata["Suite ID"], "2d_auto_threshold")
+        self.assertEqual(metadata["Suite version"], "0.0.6-2")
+        self.assertEqual(metadata["Suite owner"], "imgteam")
+        self.assertEqual(metadata["bio.tool ID"], "scikit-image")
+        self.assertEqual(metadata["Suite conda package"], "scikit-image")
+        self.assertEqual(metadata["Tool IDs"], ["ip_threshold"])
+        self.assertIn("Imaging", metadata["ToolShed categories"])
+        self.assertEqual(sorted(metadata["Tool input formats"]), ["png", "tiff"])
+
+    @patch("extract_galaxy_tools.get_first_commit_for_local_folder")
+    @patch("extract_galaxy_tools.requests.get")
+    def test_parsed_folder_with_repo_url(self, mock_requests_get: MagicMock, mock_first_commit: MagicMock) -> None:
+        mock_first_commit.return_value = "2024-01-01"
+        mock_requests_get.return_value.status_code = 404
+
+        metadata = get_tool_metadata_from_local(
+            self.fastp_tool,
+            self.fastp_tool.parent,
+            repo_url="https://github.com/owner/repo",
+        )
+
+        assert metadata is not None
+        expected = "https://github.com/owner/repo/tree/master/fastp_test"
+        self.assertEqual(metadata["Suite parsed folder"], expected)
+
+    @patch("extract_galaxy_tools.get_first_commit_for_local_folder")
+    @patch("extract_galaxy_tools.requests.get")
+    def test_parsed_folder_without_repo_url(self, mock_requests_get: MagicMock, mock_first_commit: MagicMock) -> None:
+        mock_first_commit.return_value = "2024-01-01"
+        mock_requests_get.return_value.status_code = 404
+
+        metadata = get_tool_metadata_from_local(self.fastp_tool, self.fastp_tool.parent, repo_url="")
+
+        assert metadata is not None
+        self.assertEqual(metadata["Suite parsed folder"], str(self.fastp_tool))
+
+    @patch("extract_galaxy_tools.requests.get")
+    def test_first_commit_date_is_fetched(self, mock_requests_get: MagicMock) -> None:
+        """Verify the function calls get_first_commit_for_local_folder."""
+        mock_requests_get.return_value.status_code = 404
+
+        metadata = get_tool_metadata_from_local(self.fastp_tool, self.fastp_tool.parent, repo_url="")
+
+        assert metadata is not None
+        self.assertIn("Suite first commit date", metadata)
+
+
+class TestGetShedAttribute(unittest.TestCase):
+    def test_returns_value_when_key_exists(self) -> None:
+        content = {"name": "fastp", "owner": "iuc"}
+        self.assertEqual(get_shed_attribute("name", content, None), "fastp")
+        self.assertEqual(get_shed_attribute("owner", content, None), "iuc")
+
+    def test_returns_empty_when_key_missing(self) -> None:
+        content = {"name": "fastp"}
+        self.assertIsNone(get_shed_attribute("owner", content, None))
+        self.assertEqual(get_shed_attribute("owner", content, []), [])
+
+
+class TestGetXref(unittest.TestCase):
+    def setUp(self) -> None:
+        xml = """<tool>
+            <xrefs>
+                <xref type="bio.tools">fastp</xref>
+                <xref type="biii">some-biii-id</xref>
+            </xrefs>
+        </tool>"""
+        self.el = et.fromstring(xml)
+
+    def test_finds_biotools(self) -> None:
+        self.assertEqual(get_xref(self.el, "bio.tools"), "fastp")
+
+    def test_finds_biii(self) -> None:
+        self.assertEqual(get_xref(self.el, "biii"), "some-biii-id")
+
+    def test_returns_none_when_type_missing(self) -> None:
+        self.assertIsNone(get_xref(self.el, "nonexistent"))
+
+    def test_returns_none_when_no_xrefs(self) -> None:
+        el = et.fromstring("<tool><inputs/></tool>")
+        self.assertIsNone(get_xref(el, "bio.tools"))
+
+
+class TestGetCondaPackage(unittest.TestCase):
+    def test_returns_first_requirement(self) -> None:
+        xml = """<tool>
+            <requirements>
+                <requirement type="package" version="1.0">fastp</requirement>
+                <requirement type="package" version="2.0">zip</requirement>
+            </requirements>
+        </tool>"""
+        el = et.fromstring(xml)
+        self.assertEqual(get_conda_package(el), "fastp")
+
+    def test_returns_none_when_no_requirements(self) -> None:
+        el = et.fromstring("<tool></tool>")
+        self.assertIsNone(get_conda_package(el))
+
+
+class TestCheckCategories(unittest.TestCase):
+    def test_returns_true_when_intersection(self) -> None:
+        self.assertTrue(check_categories(["Imaging", "Sequence Analysis"], ["Imaging"]))  # type: ignore[arg-type]
+
+    def test_returns_false_when_no_intersection(self) -> None:
+        self.assertFalse(check_categories(["Imaging"], ["Sequence Analysis"]))  # type: ignore[arg-type]
+
+    def test_returns_true_when_filter_empty(self) -> None:
+        self.assertTrue(check_categories(["Imaging"], []))  # type: ignore[arg-type]
+
+    def test_returns_false_when_tool_categories_empty(self) -> None:
+        self.assertFalse(check_categories([], ["Imaging"]))  # type: ignore[arg-type]
+
+    def test_returns_false_when_tool_categories_none(self) -> None:
+        self.assertFalse(check_categories(None, ["Imaging"]))  # type: ignore[arg-type]
+
+
+class TestAddStatus(unittest.TestCase):
+    def setUp(self) -> None:
+        self.tool = {"Suite ID": "fastp", "Suite owner": "iuc"}
+
+    def test_sets_keep_and_deprecated_when_found(self) -> None:
+        status_df = pd.DataFrame(
+            {"Suite ID": ["fastp"], "Suite owner": ["iuc"], "To keep": [True], "Deprecated": [False]}
+        )
+        add_status(self.tool, status_df)
+        self.assertTrue(self.tool["To keep"])
+        self.assertFalse(self.tool["Deprecated"])
+
+    def test_sets_none_when_not_found(self) -> None:
+        status_df = pd.DataFrame(columns=["Suite ID", "Suite owner", "To keep", "Deprecated"])
+        add_status(self.tool, status_df)
+        self.assertIsNone(self.tool["To keep"])
+        self.assertIsNone(self.tool["Deprecated"])
+
+    def test_handles_missing_owner_column(self) -> None:
+        status_df = pd.DataFrame({"Suite ID": ["fastp"], "To keep": [True], "Deprecated": [False]})
+        add_status(self.tool, status_df)
+        self.assertTrue(self.tool["To keep"])
+
+
+class TestFilterTools(unittest.TestCase):
+    def test_filters_by_category_and_adds_status(self) -> None:
+        tools = [
+            {"ToolShed categories": ["Imaging"], "Suite ID": "t1", "Suite owner": "o1"},
+            {"ToolShed categories": ["Sequence Analysis"], "Suite ID": "t2", "Suite owner": "o2"},
+        ]
+        status_df = pd.DataFrame({"Suite ID": ["t1"], "Suite owner": ["o1"], "To keep": [True], "Deprecated": [False]})
+        result = filter_tools(tools, ["Imaging"], status_df)
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0]["Suite ID"], "t1")
+        self.assertTrue(result[0]["To keep"])
+
+
+class TestCurateTools(unittest.TestCase):
+    def setUp(self) -> None:
+        status_df = pd.DataFrame(
+            {
+                "Suite ID": ["t1", "t2"],
+                "Suite owner": ["o1", "o2"],
+                "To keep": [True, True],
+                "Deprecated": [False, False],
+            }
+        )
+        self.tools: List[Dict[str, Any]] = [
+            {"Suite ID": "t1", "Suite owner": "o1", "bio.tool ID": "fastp"},
+            {"Suite ID": "t2", "Suite owner": "o2", "bio.tool ID": None},
+            {"Suite ID": "t3", "Suite owner": "o3", "bio.tool ID": "other"},
+        ]
+        self.curated, self.without, self.with_ = curate_tools(self.tools, status_df)
+
+    def test_returns_only_keep_tools(self) -> None:
+        self.assertEqual(len(self.curated), 2)
+
+    def test_splits_by_biotools(self) -> None:
+        self.assertEqual(len(self.without), 1)
+        self.assertEqual(len(self.with_), 1)
+
+    def test_adds_status_to_all(self) -> None:
+        for t in self.curated:
+            self.assertIn("To keep", t)
+
+
+class TestExportToolsToJson(unittest.TestCase):
+    def test_writes_json_file(self) -> None:
+        tools = [{"Suite ID": "fastp", "Suite version": "1.0"}]
+        tmp = tempfile.NamedTemporaryFile(delete=False, suffix=".json")
+        tmp.close()
+        try:
+            export_tools_to_json(tools, tmp.name)
+            with open(tmp.name) as f:
+                data = json.load(f)
+            self.assertEqual(data, tools)
+        finally:
+            os.remove(tmp.name)
+
+
+class TestExportToolsToTsv(unittest.TestCase):
+    def test_writes_tsv_file(self) -> None:
+        tools = [{"Suite ID": "fastp", "Suite version": "1.0"}]
+        tmp = tempfile.NamedTemporaryFile(delete=False, suffix=".tsv")
+        tmp.close()
+        try:
+            export_tools_to_tsv(tools, tmp.name)
+            df = pd.read_csv(tmp.name, sep="\t")
+            self.assertEqual(df.iloc[0]["Suite ID"], "fastp")
+        finally:
+            os.remove(tmp.name)
+
+    def test_formats_list_columns(self) -> None:
+        tools = [
+            {
+                "Suite ID": "fastp",
+                "ToolShed categories": ["Imaging", "Sequence Analysis"],
+                "EDAM operations": [],
+                "EDAM topics": [],
+                "EDAM reduced operations": [],
+                "EDAM reduced topics": [],
+                "Related Workflows": [],
+                "Related Tutorials": [],
+                "Tool IDs": [],
+                "Tool output formats": [],
+                "Tool input formats": [],
+            }
+        ]
+        tmp = tempfile.NamedTemporaryFile(delete=False, suffix=".tsv")
+        tmp.close()
+        try:
+            export_tools_to_tsv(tools, tmp.name, format_list_col=True)
+            df = pd.read_csv(tmp.name, sep="\t")
+            self.assertIn("Imaging, Sequence Analysis", df.iloc[0]["ToolShed categories"])
+        finally:
+            os.remove(tmp.name)
+
+
+class TestExportToolsToYml(unittest.TestCase):
+    @patch("extract_galaxy_tools.shared.export_to_yml")
+    def test_calls_shared_export(self, mock_export: MagicMock) -> None:
+        tools = [{"Suite ID": "fastp"}]
+        tmp = tempfile.NamedTemporaryFile(delete=False, suffix=".yml")
+        tmp.close()
+        try:
+            export_tools_to_yml(tools, tmp.name)
+            mock_export.assert_called_once()
+        finally:
+            os.remove(tmp.name)
+
+
+class TestCheckToolsOnServers(unittest.TestCase):
+    @patch("extract_galaxy_tools.get_all_installed_tool_ids_on_server")
+    def test_counts_matching_tools(self, mock_get_ids: MagicMock) -> None:
+        mock_get_ids.return_value = [
+            "toolshed.g2.bx.psu.edu/repos/iuc/fastp/fastp/1.0",
+            "toolshed.g2.bx.psu.edu/repos/iuc/snpsift/snpSift_filter/2.0",
+        ]
+        count = check_tools_on_servers(["fastp", "nonexistent"], "https://usegalaxy.org")
+        self.assertEqual(count, 1)
+
+    @patch("extract_galaxy_tools.get_all_installed_tool_ids_on_server")
+    def test_works_with_short_ids(self, mock_get_ids: MagicMock) -> None:
+        mock_get_ids.return_value = ["fastp", "snpSift_filter"]
+        count = check_tools_on_servers(["fastp"], "https://usegalaxy.org")
+        self.assertEqual(count, 1)
+
+
+class TestCloneRepositories(unittest.TestCase):
+    @patch("extract_galaxy_tools.subprocess.run")
+    def test_clones_new_repositories(self, mock_run: MagicMock) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            clone_dir = Path(tmp) / "clones"
+            result = clone_repositories(
+                ["https://github.com/iuc/fastp"],
+                clone_dir,
+                depth=1,
+            )
+            self.assertEqual(len(result), 1)
+            self.assertEqual(result[0][0], "https://github.com/iuc/fastp")
+            self.assertTrue(result[0][1].name, "iuc-fastp")
+            mock_run.assert_called()
+
+    @patch("extract_galaxy_tools.subprocess.run")
+    def test_skips_duplicates(self, mock_run: MagicMock) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            clone_dir = Path(tmp) / "clones"
+            result = clone_repositories(
+                ["https://github.com/iuc/fastp", "https://github.com/iuc/fastp"],
+                clone_dir,
+                depth=1,
+            )
+            self.assertEqual(len(result), 1)
+
+
+class TestParseToolsFromLocal(unittest.TestCase):
+    def setUp(self) -> None:
+        self.tmp = tempfile.TemporaryDirectory()
+        self.repo_path = Path(self.tmp.name) / "repo"
+        tools_dir = self.repo_path / "tools"
+        tools_dir.mkdir(parents=True)
+        # copy the fastp_test wrapper as a tool subdir
+        src = Path(__file__).parent / "test-data" / "fastp_test"
+        dest = tools_dir / "fastp"
+        shutil.copytree(src, dest)
+
+    def tearDown(self) -> None:
+        self.tmp.cleanup()
+
+    @patch("extract_galaxy_tools.get_first_commit_for_local_folder")
+    @patch("extract_galaxy_tools.requests.get")
+    def test_parses_tools_from_local_repo(self, mock_requests_get: MagicMock, mock_first_commit: MagicMock) -> None:
+        mock_first_commit.return_value = "2024-01-01"
+        mock_requests_get.return_value.status_code = 404
+        tools = parse_tools_from_local(self.repo_path, workers=1)
+        self.assertEqual(len(tools), 1)
+        self.assertEqual(tools[0]["Suite ID"], "fastp")
+
+
+class TestExtractTopToolsPerCategory(unittest.TestCase):
+    def test_returns_top_tools(self) -> None:
+        data = {
+            "Suite ID": [f"tool{i}" for i in range(12)],
+            "EDAM operations": (["Quality control"] * 6) + (["Alignment"] * 6),
+            "Suite runs on main servers": list(range(100, 112)),
+        }
+        df = pd.DataFrame(data)
+        tmp = tempfile.NamedTemporaryFile(delete=False, suffix=".tsv")
+        tmp.close()
+        try:
+            df.to_csv(tmp.name, sep="\t", index=False)
+            result = extract_top_tools_per_category(
+                tmp.name, count_column="Suite runs on main servers", category_nb=10, top_tool_nb=5
+            )
+            self.assertIsInstance(result, pd.DataFrame)
+            self.assertGreater(len(result), 0)
+            self.assertIn("Category", result.columns)
+        finally:
+            os.remove(tmp.name)
+
+
+class TestFillLabToolSection(unittest.TestCase):
+    def test_fills_section(self) -> None:
+        lab_section = {"id": "lab", "title": "Lab", "tabs": [{"id": "more_tools"}]}
+        data = {
+            "Suite ID": ["fastp"],
+            "Category": ["Quality control"],
+            "Description": ["Fast preprocessor"],
+            "Tool IDs": ["fastp"],
+            "Suite runs on main servers": [100],
+        }
+        df = pd.DataFrame(data)
+        result = fill_lab_tool_section(lab_section, df)
+        self.assertEqual(result["id"], "lab")
+        self.assertGreater(len(result["tabs"]), 0)
+        self.assertEqual(result["tabs"][0]["id"], "more_tools")
+
+
+class TestExportMissingToolsToYaml(unittest.TestCase):
+    def test_writes_yaml(self) -> None:
+        tmp = tempfile.NamedTemporaryFile(delete=False, suffix=".yaml")
+        tmp.close()
+        try:
+            export_missing_tools_to_yaml(
+                Path(tmp.name), [{"name": "fastp", "owner": "iuc", "tool_panel_section_id": ""}]
+            )
+            with open(tmp.name) as f:
+                content = yaml.safe_load(f)
+            self.assertIn("tools", content)
+            self.assertEqual(len(content["tools"]), 1)
+        finally:
+            os.remove(tmp.name)
+
+
+class TestExportMissingTools(unittest.TestCase):
+    def test_creates_all_and_top_dirs(self) -> None:
+        missing = {"Server1": {"all": [{"name": "fastp", "owner": "iuc", "tool_panel_section_id": ""}], "top": []}}
+        with tempfile.TemporaryDirectory() as tmp:
+            export_missing_tools(missing, tmp)
+            all_dir = Path(tmp) / "all"
+            top_dir = Path(tmp) / "top"
+            self.assertTrue(all_dir.is_dir())
+            self.assertTrue(top_dir.is_dir())
+
+    def test_sanitizes_server_names(self) -> None:
+        missing = {
+            "UseGalaxy.org (Main)": {"all": [], "top": [{"name": "fastp", "owner": "iuc", "tool_panel_section_id": ""}]}
+        }
+        with tempfile.TemporaryDirectory() as tmp:
+            export_missing_tools(missing, tmp)
+            top_dir = Path(tmp) / "top"
+            found = list(top_dir.iterdir())
+            self.assertEqual(len(found), 1)
+            # parens and spaces replaced
+            self.assertNotIn("(", found[0].name)
+
+
+class TestLoadToolXmlFallback(unittest.TestCase):
+    def test_parses_valid_xml(self) -> None:
+        xml_path = Path(__file__).parent / "test-data" / "fastp_test" / "fastp.xml"
+        tree = _load_tool_xml_fallback(xml_path)
+        assert tree is not None
+        root = tree.getroot()
+        self.assertEqual(root.attrib["id"], "fastp")
+
+    def test_returns_none_on_invalid_xml(self) -> None:
+        tmp = tempfile.NamedTemporaryFile(delete=False, suffix=".xml", mode="w")
+        tmp.write("not valid xml")
+        tmp.close()
+        try:
+            result = _load_tool_xml_fallback(Path(tmp.name))
+            self.assertIsNone(result)
+        finally:
+            os.remove(tmp.name)
+
+
+class TestExtractMissingToolsPerServers(unittest.TestCase):
+    def test_returns_missing_tools_dict(self) -> None:
+        data = {
+            "Suite ID": [f"tool{i}" for i in range(12)],
+            "EDAM operations": (["Quality control"] * 6) + (["Alignment"] * 6),
+            "Suite runs on main servers": list(range(100, 112)),
+            "Tool IDs": [f"tool{i}" for i in range(12)],
+            "Suite owner": ["iuc"] * 12,
+            "Number of tools on UseGalaxy.eu": [1] * 12,
+        }
+        df = pd.DataFrame(data)
+        tmp = tempfile.NamedTemporaryFile(delete=False, suffix=".tsv")
+        tmp.close()
+        try:
+            df.to_csv(tmp.name, sep="\t", index=False)
+            result = extract_missing_tools_per_servers(tmp.name)
+            self.assertIsInstance(result, dict)
+            self.assertIn("Local_Galaxy", result)
+            self.assertIn("all", result["Local_Galaxy"])
+        finally:
+            os.remove(tmp.name)
