@@ -28,7 +28,7 @@ jobs:
           sudo apt-get install jq
       - name: Fetch list of all available servers
         run: | 
-          python sources/bin/get_public_galaxy_servers.py -o sources/data/available_public_servers.csv
+          python sources/bin/get_public_galaxy_servers.py -o sources/data/available_public_servers.csv -c sources/data/custom_servers.csv
       - name: Archive available servers
         uses: actions/upload-artifact@v7
         with:
