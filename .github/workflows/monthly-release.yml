@@ -35,6 +35,58 @@ jobs:
         run: |
           git tag -l
 
+      - name: Generate Release Notes
+        run: |
+          # Find the previous tag to compute the date range
+          PREV_TAG=$(git tag -l --sort=-version:refname | head -1)
+          if [ -z "$PREV_TAG" ]; then
+            # No previous tag: look back 30 days
+            SINCE=$(date -d '30 days ago' --iso-8601=seconds)
+          else
+            SINCE=$(git log -1 --format=%aI "$PREV_TAG")
+          fi
+
+          {
+            echo "## Galaxy Codex Monthly Release"
+            echo ""
+            echo "### Changes since ${PREV_TAG:-30 days ago}"
+            echo ""
+
+            # Commits summary
+            COMMITS=$(git log --since="$SINCE" --oneline --no-merges | wc -l)
+            echo "- **${COMMITS} commits** merged"
+            echo ""
+
+            # Merged PRs via merge commits
+            echo "### Pull Requests Merged"
+            echo ""
+            git log --since="$SINCE" --merges --oneline | while IFS= read -r line; do
+              PR_NUM=$(echo "$line" | grep -oP '#\d+' | head -1)
+              MSG=$(echo "$line" | sed 's/^.*Merge pull request //')
+              echo "- ${MSG}"
+            done
+            echo ""
+
+            # Per-community resource changes
+            echo "### Community Updates"
+            echo ""
+            for community_dir in communities/*/; do
+              community=$(basename "$community_dir")
+              [ "$community" = "all" ] && continue
+              CHANGED=$(git log --since="$SINCE" --name-only --pretty=format: -- "$community_dir" | grep -c . || true)
+              if [ "$CHANGED" -gt 0 ]; then
+                echo "- **${community}**: ${CHANGED} files updated"
+              fi
+            done
+            echo ""
+
+            echo "---"
+            echo "*Browse the full catalog: https://galaxyproject.github.io/galaxy_codex/*"
+          } > /tmp/last-month-on.md
+
+          echo "Generated release notes:"
+          cat /tmp/last-month-on.md
+
       - name: Create Release
         id: create_release
         env:
@@ -43,4 +95,4 @@ jobs:
           RELEASE_TITLE: ${{ env.release_title }}
         run: |
           # Create the release
-          gh release create "$RELEASE_TAG" --title "Release $RELEASE_TITLE" --notes-file /tmp/last-month-on.md  --target main --latest
+          gh release create "$RELEASE_TAG" --title "Release $RELEASE_TITLE" --notes-file /tmp/last-month-on.md --target main --latest
