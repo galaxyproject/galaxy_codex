@@ -35,6 +35,69 @@ jobs:
         run: |
           git tag -l
 
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+
+      - name: Generate Release Notes
+        run: |
+          # Find the previous tag to compute the date range
+          PREV_TAG=$(git tag -l --sort=-version:refname | head -1)
+          if [ -z "$PREV_TAG" ]; then
+            # No previous tag: look back 30 days
+            SINCE=$(date -d '30 days ago' --iso-8601=seconds)
+          else
+            SINCE=$(git log -1 --format=%aI "$PREV_TAG")
+          fi
+
+          {
+            # Release header with archive link
+            echo "## Galaxy Codex Monthly Release"
+            echo ""
+            echo "Monthly release of Galaxy Codex is now [available on GitHub](https://github.com/galaxyproject/galaxy_codex/releases/tag/${RELEASE_TAG})."
+            echo ""
+
+            # Resource stats from script
+            python3 sources/bin/collect_release_stats.py --ref "$PREV_TAG" | tail -n +3
+            echo ""
+
+            # Git activity summary
+            echo "### Activity Summary"
+            echo ""
+            COMMITS=$(git log --since="$SINCE" --oneline --no-merges | wc -l)
+            echo "- **${COMMITS} commits** merged"
+            echo ""
+
+            # Merged PRs: only "Merge pull request #" commits
+            echo "### Pull Requests Merged"
+            echo ""
+            git log --since="$SINCE" --merges --oneline --grep="Merge pull request" | while IFS= read -r line; do
+              MSG=$(echo "$line" | sed 's/^.*Merge pull request //')
+              echo "- ${MSG}"
+            done
+            echo ""
+
+            # Per-community file changes
+            echo "### Community File Changes"
+            echo ""
+            for community_dir in communities/*/; do
+              community=$(basename "$community_dir")
+              [ "$community" = "all" ] && continue
+              [ "$community" = "README.md" ] && continue
+              CHANGED=$(git log --since="$SINCE" --name-only --pretty=format: -- "$community_dir" | grep -c . || true)
+              if [ "$CHANGED" -gt 0 ]; then
+                echo "- **${community}**: ${CHANGED} files updated"
+              fi
+            done
+            echo ""
+
+            echo "---"
+            echo "*Browse the full catalog: https://galaxyproject.github.io/galaxy_codex/*"
+          } > /tmp/last-month-on.md
+
+          echo "Generated release notes:"
+          cat /tmp/last-month-on.md
+
       - name: Create Release
         id: create_release
         env:
@@ -43,4 +106,4 @@ jobs:
           RELEASE_TITLE: ${{ env.release_title }}
         run: |
           # Create the release
-          gh release create "$RELEASE_TAG" --title "Release $RELEASE_TITLE" --notes-file /tmp/last-month-on.md  --target main --latest
+          gh release create "$RELEASE_TAG" --title "Release $RELEASE_TITLE" --notes-file /tmp/last-month-on.md --target main --latest
