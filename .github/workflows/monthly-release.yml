@@ -35,6 +35,10 @@ jobs:
         run: |
           git tag -l
 
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+
       - name: Generate Release Notes
         run: |
           # Find the previous tag to compute the date range
@@ -49,10 +53,14 @@ jobs:
           {
             echo "## Galaxy Codex Monthly Release"
             echo ""
-            echo "### Changes since ${PREV_TAG:-30 days ago}"
+
+            # Resource stats from script
+            python3 sources/bin/collect_release_stats.py --ref "$PREV_TAG"
             echo ""
 
-            # Commits summary
+            # Git activity summary
+            echo "### Activity Summary"
+            echo ""
             COMMITS=$(git log --since="$SINCE" --oneline --no-merges | wc -l)
             echo "- **${COMMITS} commits** merged"
             echo ""
@@ -61,18 +69,18 @@ jobs:
             echo "### Pull Requests Merged"
             echo ""
             git log --since="$SINCE" --merges --oneline | while IFS= read -r line; do
-              PR_NUM=$(echo "$line" | grep -oP '#\d+' | head -1)
               MSG=$(echo "$line" | sed 's/^.*Merge pull request //')
               echo "- ${MSG}"
             done
             echo ""
 
-            # Per-community resource changes
-            echo "### Community Updates"
+            # Per-community file changes
+            echo "### Community File Changes"
             echo ""
             for community_dir in communities/*/; do
               community=$(basename "$community_dir")
               [ "$community" = "all" ] && continue
+              [ "$community" = "README.md" ] && continue
               CHANGED=$(git log --since="$SINCE" --name-only --pretty=format: -- "$community_dir" | grep -c . || true)
               if [ "$CHANGED" -gt 0 ]; then
                 echo "- **${community}**: ${CHANGED} files updated"
