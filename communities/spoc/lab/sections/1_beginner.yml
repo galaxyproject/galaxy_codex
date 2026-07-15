@@ -6,31 +6,28 @@ tabs:
     heading_md: >
       Connected tutorials to train you to perform single-cell analysis fast!
     content:
-      - title_md: For first time Galaxy users
+      - title_md: For first-time Galaxy users
         description_md: >
           The Galaxy Training Network has a learning pathway to introduce both using Galaxy and performing single-cell RNA-seq analysis.
-          Check out the {gtn modal}[Single-Cell RNA-seq analysis pathway](https://training.galaxyproject.org/training-material/learning-pathways/intro_single_cell.html).
-        button_link: https://training.galaxyproject.org/training-material/learning-pathways/intro_single_cell.html
+          Check out the {gtn modal}[Introductory Single-Cell RNA-seq analysis pathway](https://training.galaxyproject.org/training-material/learning-pathways/intro_single_cell.html).
+        button_link: https://gxy.io/GTN:P00007
         button_icon: tutorial
         button_tip: Go to learning pathway
-      - title_md: For experienced Galaxy users
-        description_md: >
-          Instead of a learning pathway to learn to use Galaxy, you can skip straight to materials on performing single-cell RNA-seq analysis.
-
-            - {gtn modal}[Introductory slides](https://training.galaxyproject.org/training-material/topics/single-cell/tutorials/scrna-intro/slides.html)
-
-            - {gtn modal}[Preprocessing tutorial](https://training.galaxyproject.org/training-material/topics/single-cell/tutorials/scrna-preprocessing-tenx/tutorial.html)
-
-            - {gtn modal}[ScanPy tutorial](https://training.galaxyproject.org/training-material/topics/single-cell/tutorials/scrna-scanpy-pbmc3k/tutorial.html)
       - title_md: From tutorial data to real, messy, analytical decision-making
         description_md: >
           This GTN learning pathway walks you through the process of making analytical decisions in performing single-cell RNA-seq analysis and interpreting the data.
-        button_link: https://training.galaxyproject.org/training-material/learning-pathways/beyond_single_cell.html
+        button_link: https://gxy.io/GTN:P00020
+        button_tip: View tutorial
+        button_icon: tutorial
+      - title_md: Want to try scRNA-seq analysis in a coding environment like RStudio and Jupyter Notebooks? Follow this learning path!
+        description_md: >
+          This learning pathway challenges you to replicate a published analysis as if this were your own dataset. You will perform this analysis in coding environments hosted on Galaxy, instead of Galaxy’s button-based tool interface.
+        button_link: https://gxy.io/GTN:P00024
         button_tip: View tutorial
         button_icon: tutorial
       - title_md: Further training
         description_md: >
-          You can find all Galaxy single-cell & spatial omics training in our training page.
+          You can find all Galaxy single-cell & spatial omics training on our training page.
         button_md: Training Page
         button_link: https://training.galaxyproject.org/training-material/topics/single-cell/
         button_tip: View training menu
@@ -51,31 +48,33 @@ tabs:
       - title_md: Importing from public atlases - Tutorial
         description_md: >
           You can learn more by following our dedicated to tutorial for importing files from public atlases.
-        button_link: https://training.galaxyproject.org/training-material/topics/single-cell/tutorials/EBI-retrieval/tutorial.html
+        button_link: https://gxy.io/GTN:T00374
         button_icon: tutorial
         button_tip: View tutorial
       - title_md: Importing from NCBI/GEO
         description_md: >
           Where there isn't a specific tool for retrieving data, you can nevertheless import and reformat data from the commonly used NCBI/GEO repository with the following tutorial.
-        button_link: https://training.galaxyproject.org/training-material/topics/single-cell/tutorials/scrna-ncbi-anndata/tutorial.html
+        button_link: https://gxy.io/GTN:T00380
         button_icon: tutorial
         button_tip: View tutorial
-      - title_md: Importing 10X Files
+      - title_md: Importing 10x and other data to ScanPy compatible format (Anndata)
         description_md: >
-          You can find many tools for importing 10X formatted data into target datatypes.
-          <code>Scanpy Read10x</code>
-        button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Febi-gxa%2fscanpy_read_10x%2fscanpy_read_10x"
+          You can create an Anndata from various input formats
+          <code>Import Anndata</code>
+        button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fanndata_import%2Fanndata_import"
         button_icon: run
         button_tip: Run tool
-      - title_md: <code>Seurat Read10x</code>
+      - title_md: Importing 10x and other data into Seurat object
         description_md: >
-          Import 10X formatted data into a Seurat object. Seurat is an R package designed for QC, analysis, and exploration of single cell RNA-seq data.
-        button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Febi-gxa%2fseurat_read10x%2fseurat_read10x"
+          You can create a Seurat from various input formats
+          <code>Seurat Create</code>
+        button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fseurat_create%2Fseurat_create"
         button_icon: run
-        button_tip: Run tool
-      - title_md: <code>DropletUtils Read10x</code>
+        button_tip: Run 
+      - title_md: Importing 10x and other data into Seurat object
         description_md: >
-          DropletUtils provides a number of utility functions for handling single-cell (RNA-seq) data from droplet technologies such as 10X Genomics. This includes data loading, identification of cells from empty droplets, removal of barcode-swapped pseudo-cells, and downsampling of the count matrix.
+          You can create a SingleCellExperiment from 10x data and metadata
+          <code>DropletUtils Read10x</code>
         button_link: "{{ galaxy_base_url }}/tool_runner?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Febi-gxa%2fdropletutils_read_10x%2fdropletutils_read_10x"
         button_icon: run
         button_tip: Run tool
