@@ -51,10 +51,7 @@ jobs:
           fi
 
           {
-            echo "## Galaxy Codex Monthly Release"
-            echo ""
-
-            # Resource stats from script
+            # Resource stats from script (includes header)
             python3 sources/bin/collect_release_stats.py --ref "$PREV_TAG"
             echo ""
 
@@ -65,10 +62,10 @@ jobs:
             echo "- **${COMMITS} commits** merged"
             echo ""
 
-            # Merged PRs via merge commits
+            # Merged PRs: only "Merge pull request #" commits
             echo "### Pull Requests Merged"
             echo ""
-            git log --since="$SINCE" --merges --oneline | while IFS= read -r line; do
+            git log --since="$SINCE" --merges --oneline --grep="Merge pull request" | while IFS= read -r line; do
               MSG=$(echo "$line" | sed 's/^.*Merge pull request //')
               echo "- ${MSG}"
             done
