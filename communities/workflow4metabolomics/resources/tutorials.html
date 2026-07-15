@@ -1,0 +1,879 @@
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/searchbuilder/1.6.0/js/dataTables.searchBuilder.min.js"></script>
+<script src="https://cdn.datatables.net/datetime/1.5.1/js/dataTables.dateTime.min.js"></script>
+
+<script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/searchbuilder/1.6.0/css/searchBuilder.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/datetime/1.5.1/css/dataTables.dateTime.min.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+<style type="text/css">
+  .tooltip {
+    font-family: Georgia;
+    font-size: 18px;
+  }
+  .tooltip .tooltip-inner {
+    background-color: #00FFFF;
+    color: #000000;
+    min-width: 400px;
+  }
+  </style>
+
+<script>
+    $(document).ready(function() {
+    $('#dataframe').DataTable( {
+        "sScrollX": "100%",
+        "dom": "Qlfrtip",
+
+        responsive: {
+            details: {
+                type: 'column'
+            }
+        },
+        "bAutoWidth": false,
+        columnDefs: [ {
+            className: 'control',
+            orderable: false,
+            targets:   [ 0 ],
+            width: 100,
+        },
+        { type: 'natural', targets: 1 } // allow normal sorting
+        ],
+
+    });
+});
+</script>
+
+<div class="display nowrap" style="width:80%" width="100%">
+
+<table class="dataframe display nowrap" id="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Expand</th>
+      <th>Topic</th>
+      <th>Title</th>
+      <th>Link</th>
+      <th>EDAM topic</th>
+      <th>EDAM operation</th>
+      <th>Creation</th>
+      <th>Last modification</th>
+      <th>Version</th>
+      <th>Tutorial</th>
+      <th>Slides</th>
+      <th>Video</th>
+      <th>Workflows</th>
+      <th>Tools</th>
+      <th>Servers with precise tool versions</th>
+      <th>Servers with tool but different versions</th>
+      <th>Feedback number</th>
+      <th>Feedback mean note</th>
+      <th>Visitors</th>
+      <th>Page views</th>
+      <th>Visit duration</th>
+      <th>Video views</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td></td>
+      <td>Computational chemistry</td>
+      <td>Data management in Medicinal Chemistry</td>
+      <td>https://training.galaxyproject.org//topics/computational-chemistry/tutorials/med-chem-data/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2024-01-08</td>
+      <td>2024-09-13</td>
+      <td>4</td>
+      <td>True</td>
+      <td>False</td>
+      <td>True</td>
+      <td>True</td>
+      <td>openbabel_svg_depiction, ctb_im_rxn_maker, md_converter, ctb_silicos_qed, chembl, openbabel_compound_convert, get_pdb</td>
+      <td>UseGalaxy.org.au, UseGalaxy.cz, UseGalaxy.eu, UseGalaxy.org (Main)</td>
+      <td>UseGalaxy.be, UseGalaxy.no</td>
+      <td>0</td>
+      <td></td>
+      <td>635</td>
+      <td>744</td>
+      <td>9.700000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Contributing to the Galaxy Training Material</td>
+      <td>FAIR Galaxy Training Material</td>
+      <td>https://training.galaxyproject.org//topics/contributing/tutorials/fair-gtn/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2026-07-04</td>
+      <td>2026-07-04</td>
+      <td>0</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>0</td>
+      <td></td>
+      <td>0</td>
+      <td>0</td>
+      <td>0.000000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Using Galaxy and Managing your Data</td>
+      <td>Automating Galaxy workflows using the command line</td>
+      <td>https://training.galaxyproject.org//topics/galaxy-interface/tutorials/workflow-automation/tutorial.html</td>
+      <td></td>
+      <td>Sequence contamination filtering, Validation, Sequencing quality control, Visualisation, Read mapping, Variant classification, Tree-based sequence alignment</td>
+      <td>2021-06-08</td>
+      <td>2025-12-18</td>
+      <td>11</td>
+      <td>True</td>
+      <td>False</td>
+      <td>True</td>
+      <td>True</td>
+      <td>pangolin, compose_text_param, falco, bcftools_consensus, fastp, collapse_dataset, multiqc, snpSift_filter</td>
+      <td>UseGalaxy.org.au, UseGalaxy.be, UseGalaxy.eu, UseGalaxy.org (Main)</td>
+      <td>GalaxyTrakr, UseGalaxy.cz, UseGalaxy.fr</td>
+      <td>0</td>
+      <td></td>
+      <td>3239</td>
+      <td>4031</td>
+      <td>8.666667</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>FAIR Data, Workflows, and Research</td>
+      <td>Data management in Medicinal Chemistry</td>
+      <td>https://training.galaxyproject.org//topics/fair/tutorials/med-chem-data/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2026-07-04</td>
+      <td>2026-07-04</td>
+      <td>0</td>
+      <td>True</td>
+      <td>False</td>
+      <td>True</td>
+      <td>True</td>
+      <td>openbabel_svg_depiction, ctb_im_rxn_maker, md_converter, ctb_silicos_qed, chembl, openbabel_compound_convert, get_pdb</td>
+      <td>UseGalaxy.org.au, UseGalaxy.cz, UseGalaxy.eu, UseGalaxy.org (Main)</td>
+      <td>UseGalaxy.be, UseGalaxy.no</td>
+      <td>0</td>
+      <td></td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.000000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>FAIR Data, Workflows, and Research</td>
+      <td>Integrating InvenioRDM-compatible Repositories with Galaxy</td>
+      <td>https://training.galaxyproject.org//topics/fair/tutorials/inveniordm-integration/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2025-11-06</td>
+      <td>2025-11-06</td>
+      <td>1</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td></td>
+      <td></td>
+      <td>UseGalaxy.eu, UseGalaxy.org, UseGalaxy.org.au, UseGalaxy.fr, UseGalaxy.ca</td>
+      <td>0</td>
+      <td></td>
+      <td>93</td>
+      <td>100</td>
+      <td>6.783333</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>FAIR Data, Workflows, and Research</td>
+      <td>Uploading Data to Zenodo from Galaxy</td>
+      <td>https://training.galaxyproject.org//topics/fair/tutorials/zenodo-in-galaxy/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2025-11-06</td>
+      <td>2025-11-06</td>
+      <td>1</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td></td>
+      <td></td>
+      <td>UseGalaxy.eu, UseGalaxy.org, UseGalaxy.org.au, UseGalaxy.fr, UseGalaxy.ca</td>
+      <td>0</td>
+      <td></td>
+      <td>122</td>
+      <td>125</td>
+      <td>16.166667</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>FAIR Data, Workflows, and Research</td>
+      <td>Making clinical datasets FAIR</td>
+      <td>https://training.galaxyproject.org//topics/fair/tutorials/fair-clinical/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2023-10-24</td>
+      <td>2024-09-13</td>
+      <td>5</td>
+      <td>True</td>
+      <td>False</td>
+      <td>True</td>
+      <td>False</td>
+      <td></td>
+      <td></td>
+      <td>UseGalaxy.eu, UseGalaxy.org, UseGalaxy.org.au, UseGalaxy.fr, UseGalaxy.ca</td>
+      <td>0</td>
+      <td></td>
+      <td>437</td>
+      <td>549</td>
+      <td>8.833333</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>FAIR Data, Workflows, and Research</td>
+      <td>FAIR and its Origins</td>
+      <td>https://training.galaxyproject.org//topics/fair/tutorials/fair-origin/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2024-03-26</td>
+      <td>2024-03-27</td>
+      <td>2</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td></td>
+      <td></td>
+      <td>UseGalaxy.eu, UseGalaxy.org, UseGalaxy.org.au, UseGalaxy.fr, UseGalaxy.ca</td>
+      <td>0</td>
+      <td></td>
+      <td>225</td>
+      <td>251</td>
+      <td>7.450000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>FAIR Data, Workflows, and Research</td>
+      <td>Introduction to Data Management Plan (DMP) for Peatland Research and PeatDataHub</td>
+      <td>https://training.galaxyproject.org//topics/fair/tutorials/data-management-peatlands/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2024-09-13</td>
+      <td>2024-09-13</td>
+      <td>1</td>
+      <td>True</td>
+      <td>False</td>
+      <td>True</td>
+      <td>False</td>
+      <td></td>
+      <td></td>
+      <td>UseGalaxy.eu, UseGalaxy.org, UseGalaxy.org.au, UseGalaxy.fr, UseGalaxy.ca</td>
+      <td>0</td>
+      <td></td>
+      <td>152</td>
+      <td>186</td>
+      <td>6.150000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>FAIR Data, Workflows, and Research</td>
+      <td>FAIR in a nutshell</td>
+      <td>https://training.galaxyproject.org//topics/fair/tutorials/fair-intro/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2023-05-30</td>
+      <td>2024-04-30</td>
+      <td>6</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td></td>
+      <td></td>
+      <td>UseGalaxy.eu, UseGalaxy.org, UseGalaxy.org.au, UseGalaxy.fr, UseGalaxy.ca</td>
+      <td>0</td>
+      <td></td>
+      <td>1087</td>
+      <td>1361</td>
+      <td>8.083333</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>FAIR Data, Workflows, and Research</td>
+      <td>DataPLANT ARCs</td>
+      <td>https://training.galaxyproject.org//topics/fair/tutorials/dataplant-arcs/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2024-10-22</td>
+      <td>2025-09-17</td>
+      <td>4</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td></td>
+      <td></td>
+      <td>UseGalaxy.eu, UseGalaxy.org, UseGalaxy.org.au, UseGalaxy.fr, UseGalaxy.ca</td>
+      <td>0</td>
+      <td></td>
+      <td>1767844</td>
+      <td>3247661</td>
+      <td>6.983333</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>FAIR Data, Workflows, and Research</td>
+      <td>Exporting Workflow Run RO-Crates from Galaxy</td>
+      <td>https://training.galaxyproject.org//topics/fair/tutorials/ro-crate-in-galaxy/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2023-05-11</td>
+      <td>2024-08-26</td>
+      <td>8</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td></td>
+      <td></td>
+      <td>UseGalaxy.eu, UseGalaxy.org, UseGalaxy.org.au, UseGalaxy.fr, UseGalaxy.ca</td>
+      <td>0</td>
+      <td></td>
+      <td>364</td>
+      <td>433</td>
+      <td>12.483333</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>FAIR Data, Workflows, and Research</td>
+      <td>FAIR data management solutions</td>
+      <td>https://training.galaxyproject.org//topics/fair/tutorials/data-management/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2023-05-30</td>
+      <td>2025-01-16</td>
+      <td>5</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td></td>
+      <td></td>
+      <td>UseGalaxy.eu, UseGalaxy.org, UseGalaxy.org.au, UseGalaxy.fr, UseGalaxy.ca</td>
+      <td>0</td>
+      <td></td>
+      <td>479</td>
+      <td>572</td>
+      <td>9.400000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>FAIR Data, Workflows, and Research</td>
+      <td>Metadata</td>
+      <td>https://training.galaxyproject.org//topics/fair/tutorials/fair-metadata/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2024-03-26</td>
+      <td>2024-03-27</td>
+      <td>2</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td></td>
+      <td></td>
+      <td>UseGalaxy.eu, UseGalaxy.org, UseGalaxy.org.au, UseGalaxy.fr, UseGalaxy.ca</td>
+      <td>0</td>
+      <td></td>
+      <td>317</td>
+      <td>364</td>
+      <td>6.500000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>FAIR Data, Workflows, and Research</td>
+      <td>Data Registration</td>
+      <td>https://training.galaxyproject.org//topics/fair/tutorials/fair-data-registration/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2024-03-26</td>
+      <td>2024-09-27</td>
+      <td>3</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td></td>
+      <td></td>
+      <td>UseGalaxy.eu, UseGalaxy.org, UseGalaxy.org.au, UseGalaxy.fr, UseGalaxy.ca</td>
+      <td>0</td>
+      <td></td>
+      <td>139</td>
+      <td>146</td>
+      <td>8.683333</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>FAIR Data, Workflows, and Research</td>
+      <td>FAIR Galaxy Training Material</td>
+      <td>https://training.galaxyproject.org//topics/fair/tutorials/fair-gtn/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2023-05-30</td>
+      <td>2024-03-27</td>
+      <td>5</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td></td>
+      <td></td>
+      <td>UseGalaxy.eu, UseGalaxy.org, UseGalaxy.org.au, UseGalaxy.fr, UseGalaxy.ca</td>
+      <td>0</td>
+      <td></td>
+      <td>225</td>
+      <td>262</td>
+      <td>10.733333</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>FAIR Data, Workflows, and Research</td>
+      <td>Access</td>
+      <td>https://training.galaxyproject.org//topics/fair/tutorials/fair-access/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2024-03-26</td>
+      <td>2024-03-27</td>
+      <td>2</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td></td>
+      <td></td>
+      <td>UseGalaxy.eu, UseGalaxy.org, UseGalaxy.org.au, UseGalaxy.fr, UseGalaxy.ca</td>
+      <td>0</td>
+      <td></td>
+      <td>160</td>
+      <td>172</td>
+      <td>8.933333</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>FAIR Data, Workflows, and Research</td>
+      <td>Persistent Identifiers</td>
+      <td>https://training.galaxyproject.org//topics/fair/tutorials/fair-persistent-identifiers/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2024-03-26</td>
+      <td>2024-03-27</td>
+      <td>2</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td></td>
+      <td></td>
+      <td>UseGalaxy.eu, UseGalaxy.org, UseGalaxy.org.au, UseGalaxy.fr, UseGalaxy.ca</td>
+      <td>0</td>
+      <td></td>
+      <td>365</td>
+      <td>437</td>
+      <td>5.016667</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>FAIR Data, Workflows, and Research</td>
+      <td>FAIRification of an RNAseq dataset</td>
+      <td>https://training.galaxyproject.org//topics/fair/tutorials/fair-rna/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2024-03-27</td>
+      <td>2026-05-28</td>
+      <td>2</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td></td>
+      <td></td>
+      <td>UseGalaxy.eu, UseGalaxy.org, UseGalaxy.org.au, UseGalaxy.fr, UseGalaxy.ca</td>
+      <td>0</td>
+      <td></td>
+      <td>385</td>
+      <td>467</td>
+      <td>8.350000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Using Galaxy and Managing your Data</td>
+      <td>Workflow Reports</td>
+      <td>https://training.galaxyproject.org//topics/galaxy-interface/tutorials/workflow-reports/tutorial.html</td>
+      <td></td>
+      <td>Visualisation</td>
+      <td>2022-06-02</td>
+      <td>2024-06-14</td>
+      <td>9</td>
+      <td>True</td>
+      <td>False</td>
+      <td>True</td>
+      <td>True</td>
+      <td>ggplot2_point, Remove beginning1, datamash_ops, csv_to_tabular, Cut1, tp_sorted_uniq, upload1, Grouping1</td>
+      <td>UseGalaxy.be, UseGalaxy.eu, UseGalaxy.fr, UseGalaxy.no, UseGalaxy.org (Main)</td>
+      <td>Galaxy@AuBi, MISSISSIPPI, UseGalaxy.cz</td>
+      <td>0</td>
+      <td></td>
+      <td>1015</td>
+      <td>1364</td>
+      <td>9.250000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Using Galaxy and Managing your Data</td>
+      <td>Creating, Editing and Importing Galaxy Workflows</td>
+      <td>https://training.galaxyproject.org//topics/galaxy-interface/tutorials/workflow-editor/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2020-07-17</td>
+      <td>2023-11-09</td>
+      <td>12</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>Paste1, tp_tac, Show beginning1</td>
+      <td>Galaxy@AuBi, GalaxyTrakr, UseGalaxy.org.au, UseGalaxy.be, UseGalaxy.cz, UseGalaxy.eu, UseGalaxy.fr, UseGalaxy.no, UseGalaxy.org (Main)</td>
+      <td>HyPhy HIV NGS Tools, MISSISSIPPI</td>
+      <td>0</td>
+      <td></td>
+      <td>6529</td>
+      <td>8080</td>
+      <td>7.316667</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Using Galaxy and Managing your Data</td>
+      <td>Using Workflow Parameters</td>
+      <td>https://training.galaxyproject.org//topics/galaxy-interface/tutorials/workflow-parameters/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2019-06-27</td>
+      <td>2024-06-14</td>
+      <td>15</td>
+      <td>True</td>
+      <td>False</td>
+      <td>True</td>
+      <td>True</td>
+      <td>tp_head_tool</td>
+      <td>Galaxy@AuBi, GalaxyTrakr, UseGalaxy.org.au, UseGalaxy.be, UseGalaxy.cz, UseGalaxy.eu, UseGalaxy.fr, UseGalaxy.no, UseGalaxy.org (Main)</td>
+      <td>HyPhy HIV NGS Tools, MISSISSIPPI</td>
+      <td>0</td>
+      <td></td>
+      <td>2147</td>
+      <td>2719</td>
+      <td>8.766667</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Using Galaxy and Managing your Data</td>
+      <td>Using dataset collections</td>
+      <td>https://training.galaxyproject.org//topics/galaxy-interface/tutorials/collections/tutorial.html</td>
+      <td></td>
+      <td>Genome indexing, Read mapping, Sequence alignment, Generation</td>
+      <td>2016-09-30</td>
+      <td>2024-12-05</td>
+      <td>20</td>
+      <td>True</td>
+      <td>False</td>
+      <td>True</td>
+      <td>False</td>
+      <td>bwa_mem, snpSift_extractFields, collapse_dataset, lofreq_call</td>
+      <td>UseGalaxy.org.au, UseGalaxy.eu, UseGalaxy.org (Main)</td>
+      <td>GalaxyTrakr, MISSISSIPPI, UseGalaxy.be, UseGalaxy.cz, UseGalaxy.fr, UseGalaxy.no</td>
+      <td>0</td>
+      <td></td>
+      <td>17327</td>
+      <td>23490</td>
+      <td>8.650000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Using Galaxy and Managing your Data</td>
+      <td>Creating high resolution images of Galaxy Workflows</td>
+      <td>https://training.galaxyproject.org//topics/galaxy-interface/tutorials/workflow-posters/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2024-02-05</td>
+      <td>2025-04-08</td>
+      <td>3</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>graphicsmagick_image_convert</td>
+      <td>UseGalaxy.eu</td>
+      <td>UseGalaxy.be, UseGalaxy.cz, UseGalaxy.no</td>
+      <td>0</td>
+      <td></td>
+      <td>382</td>
+      <td>461</td>
+      <td>15.400000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Using Galaxy and Managing your Data</td>
+      <td>Rule Based Uploader: Advanced</td>
+      <td>https://training.galaxyproject.org//topics/galaxy-interface/tutorials/upload-rules-advanced/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2018-05-25</td>
+      <td>2024-06-14</td>
+      <td>11</td>
+      <td>True</td>
+      <td>False</td>
+      <td>True</td>
+      <td>False</td>
+      <td></td>
+      <td></td>
+      <td>UseGalaxy.eu, UseGalaxy.org, UseGalaxy.org.au, UseGalaxy.fr, UseGalaxy.ca</td>
+      <td>0</td>
+      <td></td>
+      <td>924</td>
+      <td>1227</td>
+      <td>15.516667</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Using Galaxy and Managing your Data</td>
+      <td>Rule Based Uploader</td>
+      <td>https://training.galaxyproject.org//topics/galaxy-interface/tutorials/upload-rules/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2020-07-04</td>
+      <td>2024-06-14</td>
+      <td>11</td>
+      <td>True</td>
+      <td>False</td>
+      <td>True</td>
+      <td>False</td>
+      <td></td>
+      <td></td>
+      <td>UseGalaxy.eu, UseGalaxy.org, UseGalaxy.org.au, UseGalaxy.fr, UseGalaxy.ca</td>
+      <td>0</td>
+      <td></td>
+      <td>5945</td>
+      <td>7615</td>
+      <td>10.250000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Using Galaxy and Managing your Data</td>
+      <td>Extracting Workflows from Histories</td>
+      <td>https://training.galaxyproject.org//topics/galaxy-interface/tutorials/history-to-workflow/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2017-10-18</td>
+      <td>2024-12-02</td>
+      <td>8</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td></td>
+      <td></td>
+      <td>UseGalaxy.eu, UseGalaxy.org, UseGalaxy.org.au, UseGalaxy.fr, UseGalaxy.ca</td>
+      <td>0</td>
+      <td></td>
+      <td>3246</td>
+      <td>4172</td>
+      <td>10.416667</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Using Galaxy and Managing your Data</td>
+      <td>Annotate, prepare tests and publish Galaxy workflows in workflow registries</td>
+      <td>https://training.galaxyproject.org//topics/galaxy-interface/tutorials/workflow-fairification/tutorial.html</td>
+      <td></td>
+      <td>Validation, Sequencing quality control, Read mapping, Visualisation</td>
+      <td>2025-05-26</td>
+      <td>2025-05-26</td>
+      <td>1</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>multiqc, falco</td>
+      <td>UseGalaxy.org.au, UseGalaxy.be, UseGalaxy.cz, UseGalaxy.eu, UseGalaxy.fr, UseGalaxy.org (Main)</td>
+      <td>GalaxyTrakr</td>
+      <td>0</td>
+      <td></td>
+      <td>460</td>
+      <td>539</td>
+      <td>8.450000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Introduction to Galaxy Analyses</td>
+      <td>Best Practices for Citing Galaxy</td>
+      <td>https://training.galaxyproject.org//topics/introduction/tutorials/galaxy-cite/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2025-11-06</td>
+      <td>2026-02-24</td>
+      <td>2</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td></td>
+      <td></td>
+      <td>UseGalaxy.eu, UseGalaxy.org, UseGalaxy.org.au, UseGalaxy.fr, UseGalaxy.ca</td>
+      <td>0</td>
+      <td></td>
+      <td>333</td>
+      <td>359</td>
+      <td>6.800000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Proteomics</td>
+      <td>Multiomics data analysis using MultiGSEA</td>
+      <td>https://training.galaxyproject.org//topics/proteomics/tutorials/multiGSEA-tutorial/tutorial.html</td>
+      <td></td>
+      <td>Pathway analysis, Gene-set enrichment analysis, Aggregation</td>
+      <td>2025-03-10</td>
+      <td>2025-03-11</td>
+      <td>2</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>multigsea, Filter1, tp_grep_tool</td>
+      <td>UseGalaxy.be, UseGalaxy.eu</td>
+      <td>UseGalaxy.org.au, UseGalaxy.cz</td>
+      <td>0</td>
+      <td></td>
+      <td>574</td>
+      <td>638</td>
+      <td>5.333333</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Transcriptomics</td>
+      <td>RNA-Seq data analysis, clustering and visualisation tutorial</td>
+      <td>https://training.galaxyproject.org//topics/transcriptomics/tutorials/rna-seq-analysis-clustering-viz/tutorial.html</td>
+      <td></td>
+      <td>Differential gene expression analysis, Gene functional annotation, RNA-Seq analysis</td>
+      <td>2025-05-28</td>
+      <td>2026-06-08</td>
+      <td>9</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>Show beginning1, deg_annotate, length_and_gc_content, Filter1, ggplot2_heatmap2, table_compute, Multivariate, Cut1, tp_easyjoin_tool, deseq2, Add_a_column1, goseq, Grouping1, volcanoplot, tp_sort_header_tool, cat1</td>
+      <td>UseGalaxy.be, UseGalaxy.eu, UseGalaxy.fr</td>
+      <td>UseGalaxy.cz, UseGalaxy.no, UseGalaxy.org (Main)</td>
+      <td>0</td>
+      <td></td>
+      <td>2991</td>
+      <td>3524</td>
+      <td>3.333333</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Transcriptomics</td>
+      <td>1: RNA-Seq reads to counts</td>
+      <td>https://training.galaxyproject.org//topics/transcriptomics/tutorials/rna-seq-reads-to-counts/tutorial.html</td>
+      <td></td>
+      <td>Primer removal, Read pre-processing, Data handling, Sequencing quality control, Sequence composition calculation, Statistical calculation, Formatting, Validation, Read summarisation, RNA-Seq quantification, Sequence alignment, Sequence trimming</td>
+      <td>2018-09-23</td>
+      <td>2024-08-09</td>
+      <td>33</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>collection_column_join, hisat2, samtools_idxstats, cutadapt, rseqc_read_distribution, rseqc_geneBody_coverage, rseqc_infer_experiment, picard_MarkDuplicates, fastqc, featurecounts, multiqc</td>
+      <td>UseGalaxy.eu</td>
+      <td>MISSISSIPPI, UseGalaxy.org.au, UseGalaxy.be, UseGalaxy.cz, UseGalaxy.fr, UseGalaxy.no, UseGalaxy.org (Main)</td>
+      <td>0</td>
+      <td></td>
+      <td>84068</td>
+      <td>150203</td>
+      <td>5.283333</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Transcriptomics</td>
+      <td>Reference-based RNA-Seq data analysis</td>
+      <td>https://training.galaxyproject.org//topics/transcriptomics/tutorials/ref-based/tutorial.html</td>
+      <td></td>
+      <td>Primer removal, Gene functional annotation, Read pre-processing, Exonic splicing enhancer prediction, Data handling, Read mapping, Visualisation, Validation, RNA-Seq analysis, Read summarisation, Pathway or network visualisation, Pathway or network analysis, Enrichment analysis, Sequence trimming, Genome visualisation, Differential gene expression analysis, Sequencing quality control, Formatting, Pathway visualisation, RNA-Seq quantification, Sequence alignment, Structure visualisation</td>
+      <td>2016-10-05</td>
+      <td>2026-04-13</td>
+      <td>110</td>
+      <td>True</td>
+      <td>False</td>
+      <td>True</td>
+      <td>True</td>
+      <td>__FILTER_FROM_FILE__, ggplot2_heatmap2, rseqc_read_distribution, rseqc_infer_experiment, deseq2, samtools_view, deg_annotate, featurecounts, multiqc, tp_sort_header_tool, pathview, __MERGE_COLLECTION__, tp_replace_in_line, Filter1, falco, tp_cat, Add_a_column1, goseq, __TAG_FROM_FILE__, cutadapt, __EXTRACT_DATASET__, __FLATTEN__, table_compute, rseqc_geneBody_coverage, ChangeCase, join1, rna_star, gtftobed12, dexseq, tp_grep_tool, Remove beginning1, collection_element_identifiers, samtools_idxstats, pygenomeTracks, length_and_gc_content, Cut1, picard_MarkDuplicates, jbrowse2, Grouping1, dexseq_count, cat1</td>
+      <td>UseGalaxy.be, UseGalaxy.eu, UseGalaxy.fr, UseGalaxy.org (Main)</td>
+      <td>UseGalaxy.org.au, UseGalaxy.cz</td>
+      <td>0</td>
+      <td></td>
+      <td>211735</td>
+      <td>384230</td>
+      <td>4.400000</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+
+</div>

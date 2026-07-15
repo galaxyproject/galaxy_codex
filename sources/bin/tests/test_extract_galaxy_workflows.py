@@ -1,5 +1,6 @@
 import json
 import os
+import sys
 import unittest
 from typing import Dict
 from unittest.mock import (
@@ -7,8 +8,10 @@ from unittest.mock import (
     patch,
 )
 
-from bin import shared
-from bin.extract_galaxy_workflows import Workflows
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
+
+import shared
+from extract_galaxy_workflows import Workflows
 
 
 class TestAddWorkflowsFromWorkflowHub(unittest.TestCase):

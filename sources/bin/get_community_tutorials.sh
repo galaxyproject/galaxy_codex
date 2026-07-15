@@ -1,34 +1,34 @@
 #!/usr/bin/env bash
 
-for com_data_fp in communities/* ; do
-        if [[ -d "$com_data_fp" && ! -L "$com_data_fp" ]]; then
-                community=`basename "$com_data_fp"`
-                if [[ ! -z $1  && $1 == "test"  && "$community" != "microgalaxy" ]]; then
+#for com_data_fp in communities/* ; do
+#        if [[ -d "$com_data_fp" && ! -L "$com_data_fp" ]]; then
+#                community=`basename "$com_data_fp"`
+                if [[ ! -z $1  && $1 == "test"  && "$COMMUNITY" != "microgalaxy" ]]; then
                         continue
                 fi;
 
-                if [[ "$community" != "all" && -f "communities/$community/metadata/tutorial_tags" ]]; then
-                        echo "$community";
-                        mkdir -p "communities/$community/resources"
+                if [[ "$COMMUNITY" != "all" && -f "communities/$COMMUNITY/metadata/tutorial_tags" ]]; then
+                        echo "$COMMUNITY";
+                        mkdir -p "communities/$COMMUNITY/resources"
                         
                         python sources/bin/extract_gtn_tutorials.py \
                                 filter \
                                 --all "communities/all/resources/tutorials.json" \
-                                --yml "communities/$community/resources/tutorials.yml" \
-                                --filtered "communities/$community/resources/tutorials.tsv" \
-                                --tags "communities/$community/metadata/tutorial_tags"
+                                --yml "communities/$COMMUNITY/resources/tutorials.yml" \
+                                --filtered "communities/$COMMUNITY/resources/tutorials.tsv" \
+                                --tags "communities/$COMMUNITY/metadata/tutorial_tags"
 
-                        if [[ -f "communities/$community/resources/tutorials.yml" ]]; then
-                                mkdir -p _data/communities/$community/
-                                ln -sf ../../../communities/$community/resources/tutorials.yml _data/communities/$community/tutorials.yml
+                        if [[ -f "communities/$COMMUNITY/resources/tutorials.yml" ]]; then
+                                mkdir -p _data/communities/$COMMUNITY/
+                                ln -sf ../../../communities/$COMMUNITY/resources/tutorials.yml _data/communities/$COMMUNITY/tutorials.yml
                         fi;
 
-                        if [[ -e "communities/$community/resources/tutorials.tsv" ]]; then                        
+                        if [[ -e "communities/$COMMUNITY/resources/tutorials.tsv" ]]; then                        
                                 python sources/bin/create_interactive_table.py \
-                                        --input "communities/$community/resources/tutorials.tsv" \
+                                        --input "communities/$COMMUNITY/resources/tutorials.tsv" \
                                         --template "sources/data/interactive_table_template.html" \
-                                        --output "communities/$community/resources/tutorials.html"
+                                        --output "communities/$COMMUNITY/resources/tutorials.html"
                         fi;
-                fi;
-        fi;
-done
+                fi
+#        fi;
+#done

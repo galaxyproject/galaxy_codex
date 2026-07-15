@@ -32,8 +32,6 @@ jobs:
   test-tools:
     runs-on: ubuntu-latest
     # This job runs tests for tools.
-    # It checks for internal pull requests targeting the main branch,
-    # as well as pushes to the dev branch.
     # The workflow performs the following steps:
     # 1. Checkout the repository code.
     # 2. Set up Python environment using the specified version.
@@ -41,14 +39,12 @@ jobs:
     # 4. Extract tools using a provided script.
     # 5. Filter community tools using a provided script.
     # 6. Format tools into an interactive table and generate a word cloud.
-    if: github.event.pull_request.head.repo.full_name == github.repository || github.ref == 'refs/heads/dev'
     strategy:
       matrix:
         python-version: ['3.11']
-    environment: fetch-tools
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
@@ -56,9 +52,7 @@ jobs:
         run: python -m pip install -r requirements.txt
       - name: Tool extraction
         run: | 
-          bash sources/bin/extract_all_tools.sh test 
-        env: 
-          GITHUB_API_KEY: ${{ secrets.GH_API_TOKEN }}
+          bash sources/bin/extract_all_tools.sh test
       - name: Tool filter
         run: | 
           bash sources/bin/get_community_tools.sh test
@@ -83,7 +77,7 @@ jobs:
         python-version: ['3.11']
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
@@ -101,15 +95,12 @@ jobs:
   test-workflows:
     runs-on: ubuntu-latest
     # This job runs tests for workflows.
-    # It performs the same checks as the other jobs, ensuring
-    # quality for workflow scripts.
-    if: github.event.pull_request.head.repo.full_name == github.repository || github.ref == 'refs/heads/dev'
     strategy:
       matrix:
         python-version: ['3.11']
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
@@ -140,7 +131,7 @@ jobs:
 #        python-version: ['3.11']
 #    steps:
 #      - name: Checkout
-#        uses: actions/checkout@v6
+#        uses: actions/checkout@v7
 #      - uses: actions/setup-python@v6
 #        with:
 #          python-version: ${{ matrix.python-version }}

@@ -1,0 +1,899 @@
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/searchbuilder/1.6.0/js/dataTables.searchBuilder.min.js"></script>
+<script src="https://cdn.datatables.net/datetime/1.5.1/js/dataTables.dateTime.min.js"></script>
+
+<script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/searchbuilder/1.6.0/css/searchBuilder.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/datetime/1.5.1/css/dataTables.dateTime.min.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+<style type="text/css">
+  .tooltip {
+    font-family: Georgia;
+    font-size: 18px;
+  }
+  .tooltip .tooltip-inner {
+    background-color: #00FFFF;
+    color: #000000;
+    min-width: 400px;
+  }
+  </style>
+
+<script>
+    $(document).ready(function() {
+    $('#dataframe').DataTable( {
+        "sScrollX": "100%",
+        "dom": "Qlfrtip",
+
+        responsive: {
+            details: {
+                type: 'column'
+            }
+        },
+        "bAutoWidth": false,
+        columnDefs: [ {
+            className: 'control',
+            orderable: false,
+            targets:   [ 0 ],
+            width: 100,
+        },
+        { type: 'natural', targets: 1 } // allow normal sorting
+        ],
+
+    });
+});
+</script>
+
+<div class="display nowrap" style="width:80%" width="100%">
+
+<table class="dataframe display nowrap" id="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Expand</th>
+      <th>Name</th>
+      <th>Source</th>
+      <th>ID</th>
+      <th>Link</th>
+      <th>Creators</th>
+      <th>Tags</th>
+      <th>Creation time</th>
+      <th>Update time</th>
+      <th>Latest version</th>
+      <th>Versions</th>
+      <th>Number of steps</th>
+      <th>Tools</th>
+      <th>EDAM operations</th>
+      <th>EDAM topics</th>
+      <th>License</th>
+      <th>DOI</th>
+      <th>Projects</th>
+      <th>To keep</th>
+      <th>Deprecated</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td></td>
+      <td>lcms-preprocessing/main</td>
+      <td>WorkflowHub</td>
+      <td>677</td>
+      <td>https://workflowhub.eu/workflows/677?version=2</td>
+      <td>workflow4metabolomics</td>
+      <td>metabolomics</td>
+      <td>2025-05-29</td>
+      <td>2026-05-14</td>
+      <td>2</td>
+      <td>2</td>
+      <td>12.0</td>
+      <td>abims_xcms_retcor, xcms_plot_chromatogram, abims_xcms_group, abims_xcms_xcmsSet, checkFormat, abims_CAMERA_annotateDiffreport, abims_xcms_fillPeaks, intens_check, msnbase_readmsdata, xcms_merge</td>
+      <td>Peak detection, Validation, Mass spectrum visualisation, Chromatogram visualisation, Chromatographic alignment, Label-free quantification, Data filtering</td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+      <td>Intergalactic Workflow Commission (IWC)</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>gcms-metams/main</td>
+      <td>WorkflowHub</td>
+      <td>680</td>
+      <td>https://workflowhub.eu/workflows/680?version=2</td>
+      <td>workflow4metabolomics</td>
+      <td>metabolomics</td>
+      <td>2025-05-20</td>
+      <td>2026-05-14</td>
+      <td>2</td>
+      <td>2</td>
+      <td>7.0</td>
+      <td>xcms_merge, Multivariate, xcms_plot_chromatogram, abims_xcms_xcmsSet, checkFormat, msnbase_readmsdata, metams_runGC</td>
+      <td>Peak detection, Validation, Mass spectrum visualisation, Chromatogram visualisation, Chromatographic alignment, Label-free quantification, Data filtering</td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+      <td>Intergalactic Workflow Commission (IWC)</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>End-to-end EI+ mass spectra prediction workflow using QCxMS</td>
+      <td>WorkflowHub</td>
+      <td>1597</td>
+      <td>https://workflowhub.eu/workflows/1597?version=1</td>
+      <td></td>
+      <td>exposomics, gc-ms, gtn, galaxy, metabolomics, qcxms</td>
+      <td>2025-06-02</td>
+      <td>2025-06-02</td>
+      <td>1</td>
+      <td>1</td>
+      <td>14.0</td>
+      <td>qcxms_neutral_run, qcxms_production_run, openbabel_compound_convert, Remove failed runs\n__FILTER_FAILED_DATASETS__, qcxms_getres, xtb_molecular_optimization, split_file_to_collection, ctb_im_conformers, param_value_from_file, tp_cut_tool, tp_cat</td>
+      <td></td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+      <td>Galaxy Training Network</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>MSI Workflow: spatial distribution</td>
+      <td>WorkflowHub</td>
+      <td>1593</td>
+      <td>https://workflowhub.eu/workflows/1593?version=1</td>
+      <td></td>
+      <td>gtn, galaxy, metabolomics</td>
+      <td>2025-06-02</td>
+      <td>2025-06-02</td>
+      <td>1</td>
+      <td>1</td>
+      <td>8.0</td>
+      <td>cardinal_mz_images, cardinal_filtering, cardinal_quality_report, cardinal_data_exporter, Filter1, cardinal_spectra_plots</td>
+      <td></td>
+      <td></td>
+      <td>CC-BY-4.0</td>
+      <td></td>
+      <td>Galaxy Training Network</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Molecular formula assignment and recalibration with MFAssignR package.</td>
+      <td>WorkflowHub</td>
+      <td>1591</td>
+      <td>https://workflowhub.eu/workflows/1591?version=1</td>
+      <td></td>
+      <td>formulaassignment, gtn, galaxy, metabolomics, noiseestimation, recalibration</td>
+      <td>2025-06-02</td>
+      <td>2025-06-02</td>
+      <td>1</td>
+      <td>1</td>
+      <td>9.0</td>
+      <td>mfassignr_recal, mfassignr_kmdnoise, mfassignr_findRecalSeries, mfassignr_mfassign, mfassignr_mfassignCHO, mfassignr_snplot, mfassignr_isofiltr, mfassignr_histnoise, mfassignr_recallist</td>
+      <td>Deisotoping, Annotation, Mass spectra calibration, Visualisation</td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+      <td>Galaxy Training Network</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>MSI Finding Diff Analytes</td>
+      <td>WorkflowHub</td>
+      <td>1587</td>
+      <td>https://workflowhub.eu/workflows/1587?version=1</td>
+      <td></td>
+      <td>gtn, galaxy, metabolomics</td>
+      <td>2025-06-02</td>
+      <td>2025-06-02</td>
+      <td>1</td>
+      <td>1</td>
+      <td>14.0</td>
+      <td>cardinal_combine, cardinal_mz_images, cardinal_quality_report, maldi_quant_peak_detection, Summary_Statistics1, maldi_quant_preprocessing, Filter1, join_files_on_column_fuzzy, Grep1, cardinal_preprocessing, cardinal_segmentations, cardinal_classification</td>
+      <td></td>
+      <td></td>
+      <td>CC-BY-4.0</td>
+      <td></td>
+      <td>Galaxy Training Network</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Workflow Constructed From History 'imported: testpourGCC'</td>
+      <td>WorkflowHub</td>
+      <td>1584</td>
+      <td>https://workflowhub.eu/workflows/1584?version=1</td>
+      <td></td>
+      <td>gtn, galaxy, metabolomics</td>
+      <td>2025-06-02</td>
+      <td>2025-06-02</td>
+      <td>1</td>
+      <td>1</td>
+      <td>17.0</td>
+      <td>Univariate, abims_xcms_retcor, xcms_plot_chromatogram, Batch_correction, quality_metrics, abims_CAMERA_annotateDiffreport, wsdl_hmdb, abims_xcms_xcmsSet, abims_xcms_group, abims_xcms_fillPeaks, msnbase_readmsdata, xcms_merge, generic_filter</td>
+      <td>Peak detection, Validation, Mass spectrum visualisation, Chromatogram visualisation, Chromatographic alignment, Label-free quantification, Data filtering</td>
+      <td></td>
+      <td>CC-BY-4.0</td>
+      <td></td>
+      <td>Galaxy Training Network</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>GC MS using XCMS</td>
+      <td>WorkflowHub</td>
+      <td>1582</td>
+      <td>https://workflowhub.eu/workflows/1582?version=1</td>
+      <td></td>
+      <td>expospomics, gc-ms, gtn, galaxy, metabolomics</td>
+      <td>2025-06-02</td>
+      <td>2025-06-02</td>
+      <td>1</td>
+      <td>1</td>
+      <td>12.0</td>
+      <td>matchms_similarity, abims_xcms_retcor, ramclustr, abims_xcms_group, abims_xcms_xcmsSet, abims_xcms_fillPeaks, matchms_formatter, riassigner, msnbase_readmsdata, msconvert, xcms_merge</td>
+      <td>Peak detection, Mass spectrum visualisation, Format validation, Filtering, Imputation, Formatting, Validation, Correlation, Chromatogram visualisation, Chromatographic alignment, Label-free quantification, Clustering, Data filtering, Standardisation and normalisation, Spectral library search</td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+      <td>Galaxy Training Network</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>End-to-end EI+ mass spectra prediction workflow using QCxMS</td>
+      <td>WorkflowHub</td>
+      <td>897</td>
+      <td>https://workflowhub.eu/workflows/897?version=3</td>
+      <td>Zargham Ahmad, Helge Hecht, Wudmir Rojas</td>
+      <td>exposomics, gc-ms, metabolomics, qcxms</td>
+      <td>2025-04-28</td>
+      <td>2026-05-13</td>
+      <td>3</td>
+      <td>3</td>
+      <td>8.0</td>
+      <td>qcxms_neutral_run, qcxms_production_run, openbabel_compound_convert, Remove failed runs\n__FILTER_FAILED_DATASETS__, qcxms_getres, xtb_molecular_optimization, ctb_im_conformers</td>
+      <td></td>
+      <td>Computational chemistry</td>
+      <td>MIT</td>
+      <td>10.48546/workflowhub.workflow.897.3</td>
+      <td>RECETOX SpecDatRI, ELIXIR Metabolomics</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Theoretical fragment substructure generation and in silico mass spectral library high-resolution upcycling workflow</td>
+      <td>WorkflowHub</td>
+      <td>888</td>
+      <td>https://workflowhub.eu/workflows/888?version=2</td>
+      <td>Zargham Ahmad, Helge Hecht, Elliott J. Price</td>
+      <td>bioinformatics, cheminformatics, metabolomics</td>
+      <td>2024-06-06</td>
+      <td>2026-06-25</td>
+      <td>2</td>
+      <td>2</td>
+      <td>22.0</td>
+      <td>matchms_convert, matchms_filtering, rem_complex, use_theoretical_mz_annotations, tabular_to_csv, matchms_subsetting, recetox_msfinder, csv_to_tabular, msmetaenhancer, matchms_add_key, tp_find_and_replace, column_remove_by_header, matchms_metadata_export, matchms_remove_key</td>
+      <td>Annotation, Format validation, Filtering, Standardisation and normalisation, Spectral library search</td>
+      <td>Compound libraries and screening, Computational chemistry, Data mining, Small molecules</td>
+      <td>CC-BY-4.0</td>
+      <td>10.48546/workflowhub.workflow.888.2</td>
+      <td>RECETOX SpecDatRI, ELIXIR Metabolomics</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>GC-MS data processing (with XCMS, RAMClustR, RIAssigner, and matchms) - full workflow</td>
+      <td>https://usegalaxy.cz</td>
+      <td>bc8f2b3ecdad343e</td>
+      <td>https://usegalaxy.cz/published/workflow?id=bc8f2b3ecdad343e</td>
+      <td></td>
+      <td>metabolomics, gc-ms, e5020</td>
+      <td>2026-04-20</td>
+      <td>2026-04-20</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>matchms_similarity, abims_xcms_retcor, ramclustr, abims_xcms_group, abims_xcms_xcmsSet, abims_xcms_fillPeaks, matchms_formatter, riassigner, msnbase_readmsdata, msconvert, xcms_merge</td>
+      <td>Peak detection, Mass spectrum visualisation, Format validation, Filtering, Imputation, Formatting, Validation, Correlation, Chromatogram visualisation, Chromatographic alignment, Label-free quantification, Clustering, Data filtering, Standardisation and normalisation, Spectral library search</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Metabolomics: LC-MS data preprocessing with XCMS</td>
+      <td>https://usegalaxy.cz</td>
+      <td>1082e5b455f8f814</td>
+      <td>https://usegalaxy.cz/published/workflow?id=1082e5b455f8f814</td>
+      <td></td>
+      <td>metabolomics, lc-ms, galaxy_training</td>
+      <td>2026-03-27</td>
+      <td>2026-03-27</td>
+      <td>4</td>
+      <td>4</td>
+      <td></td>
+      <td>abims_xcms_retcor, xcms_plot_chromatogram, abims_xcms_group, abims_xcms_xcmsSet, abims_CAMERA_annotateDiffreport, abims_xcms_fillPeaks, abims_xcms_summary, msnbase_readmsdata, xcms_merge</td>
+      <td>Peak detection, Validation, Mass spectrum visualisation, Chromatogram visualisation, Chromatographic alignment, Label-free quantification, Data filtering</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Metabolomics: LC-MS data preprocessing with XCMS</td>
+      <td>https://usegalaxy.eu</td>
+      <td>6704b925935564aa</td>
+      <td>https://usegalaxy.eu/published/workflow?id=6704b925935564aa</td>
+      <td></td>
+      <td>metabolomics</td>
+      <td>2026-03-26</td>
+      <td>2026-03-26</td>
+      <td>2</td>
+      <td>2</td>
+      <td></td>
+      <td>abims_xcms_retcor, xcms_plot_chromatogram, abims_xcms_group, abims_xcms_xcmsSet, abims_CAMERA_annotateDiffreport, abims_xcms_fillPeaks, abims_xcms_summary, msnbase_readmsdata, xcms_merge</td>
+      <td>Peak detection, Validation, Mass spectrum visualisation, Chromatogram visualisation, Chromatographic alignment, Label-free quantification, Data filtering</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>GC-EI-HRMS Data Processing Workflow</td>
+      <td>https://usegalaxy.eu</td>
+      <td>3086366b744e8da9</td>
+      <td>https://usegalaxy.eu/published/workflow?id=3086366b744e8da9</td>
+      <td>RECETOX</td>
+      <td>exposomics, gc-ms, metabolomics, lc-esi-ms2viadia</td>
+      <td>2024-09-08</td>
+      <td>2026-03-04</td>
+      <td>29</td>
+      <td>29</td>
+      <td></td>
+      <td>recetox_aplcms_recover_weaker_signals, rename_annotated_feature, ramclustr, recetox_aplcms_generate_feature_table, __SAMPLE_SHEET_TO_TABULAR__, thermo_raw_file_converter, matchms_formatter, recetox_aplcms_compute_template, recetox_aplcms_align_features, riassigner, matchms_metadata_match, matchms_spectral_similarity, waveica, recetox_aplcms_correct_time, recetox_aplcms_compute_clusters, recetox_aplcms_remove_noise</td>
+      <td>Peak detection, Imputation, Conversion, Correlation, Alignment, Chromatographic alignment, Feature extraction, Clustering, Quantification, Format validation, Filtering, Standardisation and normalisation, Spectral library search</td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Mass spectrometry: GCMS with metaMS (release v0.2)</td>
+      <td>https://usegalaxy.eu</td>
+      <td>5ede4dcba9bf9c66</td>
+      <td>https://usegalaxy.eu/published/workflow?id=5ede4dcba9bf9c66</td>
+      <td>workflow4metabolomics</td>
+      <td>metabolomics, ms, workflow4metabolomics, gc-ms, gtn, metams</td>
+      <td>2025-10-16</td>
+      <td>2025-10-17</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>xcms_merge, Multivariate, xcms_plot_chromatogram, abims_xcms_xcmsSet, checkFormat, msnbase_readmsdata, metams_runGC</td>
+      <td>Peak detection, Validation, Mass spectrum visualisation, Chromatogram visualisation, Chromatographic alignment, Label-free quantification, Data filtering</td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Mass spectrometry: LC-MS preprocessing with XCMS (release v1.1)</td>
+      <td>https://usegalaxy.eu</td>
+      <td>a3bbc1284efcd20c</td>
+      <td>https://usegalaxy.eu/published/workflow?id=a3bbc1284efcd20c</td>
+      <td>workflow4metabolomics</td>
+      <td>metabolomics, ms, lc-ms, workflow4metabolomics, xcms, gtn</td>
+      <td>2025-10-16</td>
+      <td>2025-10-16</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>abims_xcms_retcor, xcms_plot_chromatogram, abims_xcms_group, abims_xcms_xcmsSet, checkFormat, abims_CAMERA_annotateDiffreport, abims_xcms_fillPeaks, intens_check, msnbase_readmsdata, xcms_merge</td>
+      <td>Peak detection, Validation, Mass spectrum visualisation, Chromatogram visualisation, Chromatographic alignment, Label-free quantification, Data filtering</td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Annotating GC-MS data with matchms</td>
+      <td>https://usegalaxy.eu</td>
+      <td>3358c516f5412e92</td>
+      <td>https://usegalaxy.eu/published/workflow?id=3358c516f5412e92</td>
+      <td>RECEOTX, Helge Hecht</td>
+      <td>metabolomics, gc-ms, exposomics</td>
+      <td>2024-08-07</td>
+      <td>2025-05-15</td>
+      <td>29</td>
+      <td>29</td>
+      <td></td>
+      <td>compose_text_param, matchms_networking, matchms_formatter, Filter1, matchms_metadata_match, tp_cat, matchms_spectral_similarity</td>
+      <td>Format validation, Filtering, Spectral library search</td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Mass spectrometry: GCMS with metaMS (release v0.1)</td>
+      <td>https://usegalaxy.eu</td>
+      <td>2179ba1c33f77f7e</td>
+      <td>https://usegalaxy.eu/published/workflow?id=2179ba1c33f77f7e</td>
+      <td>workflow4metabolomics</td>
+      <td>metabolomics, ms, workflow4metabolomics, gc-ms, gtn, metams</td>
+      <td>2024-10-17</td>
+      <td>2025-04-25</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>xcms_merge, Multivariate, xcms_plot_chromatogram, abims_xcms_xcmsSet, checkFormat, msnbase_readmsdata, metams_runGC</td>
+      <td>Peak detection, Validation, Mass spectrum visualisation, Chromatogram visualisation, Chromatographic alignment, Label-free quantification, Data filtering</td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>End-to-end EI+ mass spectra prediction workflow using QCxMS</td>
+      <td>https://usegalaxy.eu</td>
+      <td>4e9a2e12467bc02e</td>
+      <td>https://usegalaxy.eu/published/workflow?id=4e9a2e12467bc02e</td>
+      <td>RECETOX SpecDat</td>
+      <td>exposomics, qcxms, gc-ms, metabolomics</td>
+      <td>2024-08-05</td>
+      <td>2024-08-12</td>
+      <td>2</td>
+      <td>2</td>
+      <td></td>
+      <td>qcxms_neutral_run, qcxms_production_run, openbabel_compound_convert, __FILTER_FAILED_DATASETS__, xtb_molecular_optimization, split_file_to_collection, ctb_im_conformers, qcxms_getres, param_value_from_file, tp_cut_tool, tp_cat</td>
+      <td></td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>End-to-end spectra predictions: multi atoms dataset</td>
+      <td>https://usegalaxy.eu</td>
+      <td>5465916d9b51f411</td>
+      <td>https://usegalaxy.eu/published/workflow?id=5465916d9b51f411</td>
+      <td>RECETOX SpecDat</td>
+      <td>exposomics, qcxms, gc-ms, metabolomics</td>
+      <td>2024-05-17</td>
+      <td>2024-06-06</td>
+      <td>64</td>
+      <td>64</td>
+      <td></td>
+      <td>qcxms_neutral_run, qcxms_production_run, openbabel_compound_convert, __FILTER_FAILED_DATASETS__, xtb_molecular_optimization, qcxms_getres, ctb_im_conformers</td>
+      <td></td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Workflow XCMS_CAMERA_msPurity</td>
+      <td>https://usegalaxy.fr</td>
+      <td>bcd348178335a19b</td>
+      <td>https://usegalaxy.fr/published/workflow?id=bcd348178335a19b</td>
+      <td>yguitton</td>
+      <td>lc-msms, metabolomics, esi, positive, w4m, dda</td>
+      <td>2022-03-14</td>
+      <td>2026-06-25</td>
+      <td>6</td>
+      <td>6</td>
+      <td></td>
+      <td>mspurity_filterfragspectra, mspurity_puritya, mspurity_averagefragspectra, abims_xcms_group, abims_xcms_xcmsSet, abims_CAMERA_annotateDiffreport, mspurity_spectralmatching, abims_xcms_fillPeaks, mspurity_createdatabase, mspurity_createmsp, mspurity_frag4feature, msnbase_readmsdata, xcms_merge, metfrag</td>
+      <td>Peak detection, Validation, Mass spectrum visualisation, Chromatogram visualisation, Chromatographic alignment, Label-free quantification, Data filtering</td>
+      <td></td>
+      <td>CC-BY-4.0</td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Workflow first steps in&nbsp;&nbsp;'GCMS'</td>
+      <td>https://usegalaxy.fr</td>
+      <td>32f903738292a67f</td>
+      <td>https://usegalaxy.fr/published/workflow?id=32f903738292a67f</td>
+      <td>yguitton</td>
+      <td>metabolomics, gcms, demo, w4m</td>
+      <td>2021-10-07</td>
+      <td>2025-05-27</td>
+      <td>13</td>
+      <td>13</td>
+      <td></td>
+      <td>xcms_export_samplemetadata, Multivariate, xcms_plot_chromatogram, metams_runGC, abims_xcms_xcmsSet, msnbase_readmsdata, xcms_merge</td>
+      <td>Peak detection, Validation, Mass spectrum visualisation, Chromatogram visualisation, Chromatographic alignment, Label-free quantification, Data filtering</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Workflow GC-MS_ESR_10_Exp_1</td>
+      <td>https://usegalaxy.fr</td>
+      <td>192ff9aa79217899</td>
+      <td>https://usegalaxy.fr/published/workflow?id=192ff9aa79217899</td>
+      <td></td>
+      <td>gc-ms, metabolomics, 2024</td>
+      <td>2024-06-05</td>
+      <td>2024-08-03</td>
+      <td>0</td>
+      <td>0</td>
+      <td></td>
+      <td>xcms_merge, abims_xcms_group, abims_xcms_xcmsSet, msnbase_readmsdata, metams_runGC</td>
+      <td>Peak detection, Validation, Mass spectrum visualisation, Chromatogram visualisation, Chromatographic alignment, Label-free quantification, Data filtering</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>GC_MS_workflow_using_xcms (imported from URL)</td>
+      <td>https://usegalaxy.fr</td>
+      <td>1407c1703f360f07</td>
+      <td>https://usegalaxy.fr/published/workflow?id=1407c1703f360f07</td>
+      <td>RECETOX</td>
+      <td>gc-ms, metabolomics, expospomics</td>
+      <td>2023-03-22</td>
+      <td>2023-03-24</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>cat1, abims_xcms_retcor, ramclustr, metams_runGC, abims_xcms_group, abims_xcms_xcmsSet, abims_xcms_fillPeaks, matchms, matchms_formatter, riassigner, msnbase_readmsdata, msconvert, xcms_merge</td>
+      <td>Peak detection, Mass spectrum visualisation, Format validation, Filtering, Imputation, Formatting, Validation, Correlation, Chromatogram visualisation, Chromatographic alignment, Label-free quantification, Clustering, Data filtering, Standardisation and normalisation, Spectral library search</td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>short_msPurity_coffee</td>
+      <td>https://usegalaxy.fr</td>
+      <td>cca13353d553319e</td>
+      <td>https://usegalaxy.fr/published/workflow?id=cca13353d553319e</td>
+      <td>yguitton</td>
+      <td>lc-msms, metabolomics, esi, positive, w4m, dda, 2023</td>
+      <td>2023-03-23</td>
+      <td>2023-03-23</td>
+      <td>2</td>
+      <td>2</td>
+      <td></td>
+      <td>mspurity_filterfragspectra, mspurity_averagefragspectra, mspurity_puritya, abims_xcms_group, mspurity_spectralmatching, mspurity_createdatabase, mspurity_frag4feature</td>
+      <td>Peak detection, Chromatographic alignment, Label-free quantification, Validation, Data filtering, Mass spectrum visualisation, Chromatogram visualisation</td>
+      <td></td>
+      <td>CC-BY-4.0</td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Mass spectrometry: LC-MS analysis (3.4)</td>
+      <td>https://usegalaxy.fr</td>
+      <td>06fa7dd6eea42350</td>
+      <td>https://usegalaxy.fr/published/workflow?id=06fa7dd6eea42350</td>
+      <td></td>
+      <td>metabolomics, gtn, lcms</td>
+      <td>2020-01-09</td>
+      <td>2021-04-23</td>
+      <td>4</td>
+      <td>4</td>
+      <td></td>
+      <td>Univariate, abims_xcms_retcor, xcms_plot_chromatogram, Batch_correction, quality_metrics, abims_xcms_group, abims_xcms_xcmsSet, abims_CAMERA_annotateDiffreport, wsdl_hmdb, abims_xcms_fillPeaks, abims_xcms_summary, msnbase_readmsdata, xcms_merge, generic_filter</td>
+      <td>Peak detection, Validation, Mass spectrum visualisation, Chromatogram visualisation, Chromatographic alignment, Label-free quantification, Data filtering</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Workflow_QExactive_DDA_processing_POS</td>
+      <td>https://usegalaxy.fr</td>
+      <td>6babfa7409467035</td>
+      <td>https://usegalaxy.fr/published/workflow?id=6babfa7409467035</td>
+      <td></td>
+      <td>metabolomics, msms, annotation, esi</td>
+      <td>2020-12-08</td>
+      <td>2021-04-06</td>
+      <td>4</td>
+      <td>4</td>
+      <td></td>
+      <td>mspurity_filterfragspectra, mspurity_averagefragspectra, mspurity_puritya, mspurity_spectralmatching, mspurity_createdatabase, mspurity_createmsp, mspurity_frag4feature</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Electrospray Ionization and heterogeneous matrix effects in Liquid Chromatography-Mass Spectrometry-based meta-metabolomics: a biomarker or a suppressed ion? - W4M Workflow and Parameters</td>
+      <td>https://usegalaxy.fr</td>
+      <td>2ee479308227a926</td>
+      <td>https://usegalaxy.fr/published/workflow?id=2ee479308227a926</td>
+      <td></td>
+      <td>biomarkers, electrosprayionization, ionsuppression, matrixeffect, meta-metabolomics, liquidchromatography-massspectrometry</td>
+      <td>2020-09-16</td>
+      <td>2020-09-24</td>
+      <td>3</td>
+      <td>3</td>
+      <td></td>
+      <td>abims_xcms_retcor, Batch_correction, quality_metrics, abims_xcms_group, abims_xcms_xcmsSet, abims_CAMERA_annotateDiffreport, abims_xcms_fillPeaks, msnbase_readmsdata, xcms_merge, generic_filter</td>
+      <td>Peak detection, Validation, Mass spectrum visualisation, Chromatogram visualisation, Chromatographic alignment, Label-free quantification, Data filtering</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Mass spectrometry: LC-MS preprocessing with XCMS (release v1.1)</td>
+      <td>https://usegalaxy.org</td>
+      <td>650f3eb7647b4508</td>
+      <td>https://usegalaxy.org/published/workflow?id=650f3eb7647b4508</td>
+      <td>workflow4metabolomics</td>
+      <td>metabolomics, ms, lc-ms, workflow4metabolomics, xcms, gtn</td>
+      <td>2025-05-29</td>
+      <td>2025-05-29</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>abims_xcms_retcor, xcms_plot_chromatogram, abims_xcms_group, abims_xcms_xcmsSet, checkFormat, abims_CAMERA_annotateDiffreport, abims_xcms_fillPeaks, intens_check, msnbase_readmsdata, xcms_merge</td>
+      <td>Peak detection, Validation, Mass spectrum visualisation, Chromatogram visualisation, Chromatographic alignment, Label-free quantification, Data filtering</td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Mass spectrometry: GCMS with metaMS (release v0.2)</td>
+      <td>https://usegalaxy.org</td>
+      <td>b38215b4ba7a9793</td>
+      <td>https://usegalaxy.org/published/workflow?id=b38215b4ba7a9793</td>
+      <td>workflow4metabolomics</td>
+      <td>metabolomics, ms, workflow4metabolomics, gc-ms, gtn, metams</td>
+      <td>2025-05-22</td>
+      <td>2025-05-26</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>xcms_merge, Multivariate, xcms_plot_chromatogram, abims_xcms_xcmsSet, checkFormat, msnbase_readmsdata, metams_runGC</td>
+      <td>Peak detection, Validation, Mass spectrum visualisation, Chromatogram visualisation, Chromatographic alignment, Label-free quantification, Data filtering</td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Mass spectrometry: LC-MS preprocessing with XCMS (release v1.0)</td>
+      <td>https://usegalaxy.org</td>
+      <td>aeeaf3e06a13bc22</td>
+      <td>https://usegalaxy.org/published/workflow?id=aeeaf3e06a13bc22</td>
+      <td>workflow4metabolomics</td>
+      <td>metabolomics, ms, lc-ms, workflow4metabolomics, xcms, gtn</td>
+      <td>2024-09-19</td>
+      <td>2025-04-25</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>abims_xcms_retcor, xcms_plot_chromatogram, abims_xcms_group, abims_xcms_xcmsSet, abims_CAMERA_annotateDiffreport, abims_xcms_fillPeaks, intens_check, msnbase_readmsdata, xcms_merge</td>
+      <td>Peak detection, Validation, Mass spectrum visualisation, Chromatogram visualisation, Chromatographic alignment, Label-free quantification, Data filtering</td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Mass spectrometry: GCMS with metaMS (release v0.1)</td>
+      <td>https://usegalaxy.org</td>
+      <td>3edd2957ecd26d6c</td>
+      <td>https://usegalaxy.org/published/workflow?id=3edd2957ecd26d6c</td>
+      <td>workflow4metabolomics</td>
+      <td>metabolomics, ms, workflow4metabolomics, gc-ms, gtn, metams</td>
+      <td>2024-10-31</td>
+      <td>2025-04-25</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>xcms_merge, Multivariate, xcms_plot_chromatogram, abims_xcms_xcmsSet, checkFormat, msnbase_readmsdata, metams_runGC</td>
+      <td>Peak detection, Validation, Mass spectrum visualisation, Chromatogram visualisation, Chromatographic alignment, Label-free quantification, Data filtering</td>
+      <td></td>
+      <td>MIT</td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>MSI Finding Diff Analytes</td>
+      <td>https://usegalaxy.org.au</td>
+      <td>3678781bf7619a89</td>
+      <td>https://usegalaxy.org.au/published/workflow?id=3678781bf7619a89</td>
+      <td></td>
+      <td>metabolomics, galaxy-training-network</td>
+      <td>2021-03-19</td>
+      <td>2021-03-19</td>
+      <td>0</td>
+      <td>0</td>
+      <td></td>
+      <td>cardinal_combine, cardinal_mz_images, cardinal_quality_report, maldi_quant_peak_detection, Summary_Statistics1, maldi_quant_preprocessing, Filter1, join_files_on_column_fuzzy, Grep1, cardinal_preprocessing, cardinal_segmentations, cardinal_classification</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Workflow Constructed From History 'imported: testpourGCC'</td>
+      <td>https://usegalaxy.org.au</td>
+      <td>fa0243ff9b5ca997</td>
+      <td>https://usegalaxy.org.au/published/workflow?id=fa0243ff9b5ca997</td>
+      <td></td>
+      <td>metabolomics, galaxy-training-network</td>
+      <td>2021-03-19</td>
+      <td>2021-03-19</td>
+      <td>0</td>
+      <td>0</td>
+      <td></td>
+      <td>Univariate, abims_xcms_retcor, xcms_plot_chromatogram, Batch_correction, quality_metrics, abims_xcms_group, abims_xcms_xcmsSet, abims_CAMERA_annotateDiffreport, wsdl_hmdb, abims_xcms_fillPeaks, msnbase_readmsdata, xcms_merge, generic_filter</td>
+      <td>Peak detection, Validation, Mass spectrum visualisation, Chromatogram visualisation, Chromatographic alignment, Label-free quantification, Data filtering</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>MSI Workflow: spatial distribution</td>
+      <td>https://usegalaxy.org.au</td>
+      <td>80cf8be8c8bf384a</td>
+      <td>https://usegalaxy.org.au/published/workflow?id=80cf8be8c8bf384a</td>
+      <td></td>
+      <td>metabolomics, galaxy-training-network</td>
+      <td>2021-03-19</td>
+      <td>2021-03-19</td>
+      <td>0</td>
+      <td>0</td>
+      <td></td>
+      <td>cardinal_mz_images, cardinal_filtering, cardinal_quality_report, cardinal_data_exporter, Filter1, cardinal_spectra_plots</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>LCMS Pre-Processing</td>
+      <td>https://usegalaxy.org.au</td>
+      <td>f9e5caaf08a450ec</td>
+      <td>https://usegalaxy.org.au/published/workflow?id=f9e5caaf08a450ec</td>
+      <td></td>
+      <td>metabolomics, lcms</td>
+      <td>2019-10-30</td>
+      <td>2019-10-30</td>
+      <td>3</td>
+      <td>3</td>
+      <td></td>
+      <td>abims_xcms_retcor, xcms_plot_chromatogram, abims_xcms_group, abims_xcms_xcmsSet, abims_CAMERA_annotateDiffreport, abims_xcms_fillPeaks, msnbase_readmsdata, xcms_merge</td>
+      <td>Peak detection, Validation, Mass spectrum visualisation, Chromatogram visualisation, Chromatographic alignment, Label-free quantification, Data filtering</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>LCMS-Data_Processing</td>
+      <td>https://usegalaxy.org.au</td>
+      <td>43109e341a5bd307</td>
+      <td>https://usegalaxy.org.au/published/workflow?id=43109e341a5bd307</td>
+      <td></td>
+      <td>metabolomics, lcms</td>
+      <td>2019-10-30</td>
+      <td>2019-10-30</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td>Univariate, Batch_correction, quality_metrics, wsdl_hmdb, generic_filter</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+  </tbody>
+</table>
+
+</div>

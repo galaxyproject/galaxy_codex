@@ -1,12 +1,15 @@
 #!/usr/bin/env python
 import argparse
-import base64
 import json
 import re
+import subprocess
 import sys
-import time
 import traceback
 import xml.etree.ElementTree as et
+from concurrent.futures import (
+    as_completed,
+    ThreadPoolExecutor,
+)
 from functools import lru_cache
 from pathlib import Path
 from typing import (
@@ -16,6 +19,7 @@ from typing import (
     Literal,
     Optional,
     Pattern,
+    Tuple,
     Union,
 )
 
@@ -25,9 +29,6 @@ import requests
 import shared
 import yaml
 from extract_galaxy_workflows import Workflows
-from github import Github
-from github.ContentFile import ContentFile
-from github.Repository import Repository
 from owlready2 import get_ontology
 from ruamel.yaml import YAML as ruamelyaml
 from ruamel.yaml.scalarstring import LiteralScalarString
@@ -120,90 +121,426 @@ def get_tool_stats_from_stats_file(
     return max(relevant_counts) if mode == "max" else sum(relevant_counts)
 
 
-def get_string_content(cf: ContentFile) -> str:
-    """
-    Get string of the content from a ContentFile
-
-    :param cf: GitHub ContentFile object
-    """
-
-    return base64.b64decode(cf.content).decode("utf-8")
-
-
-def get_tool_github_repositories(
-    g: Github,
-    repository_list: Optional[str],
-    run_test: bool,
+def get_tool_repositories(
+    clone_dir: Path,
+    repository_list: Optional[str] = None,
+    run_test: bool = False,
     test_repository: str = "https://github.com/paulzierep/Galaxy-Tool-Metadata-Extractor-Test-Wrapper",
     add_extra_repositories: bool = True,
 ) -> List[str]:
     """
-    Get list of tool GitHub repositories to parse
+    Get list of tool GitHub repositories to parse by cloning planemo-monitor locally.
 
-    :param g: GitHub instance
-    :param repository_list: The selection to use from the repository (needed to split the process for CI jobs)
-    :param run_test: for testing only parse the repository
-    :test_repository: the link to the test repository to use for the test
+    :param clone_dir: directory to clone into
+    :param repository_list: optional specific .list file to use (for CI splits)
+    :param run_test: if True, return only the test repository
+    :param test_repository: URL of the test repository
+    :param add_extra_repositories: if True, add extra repos from config
     """
-
     if run_test:
         return [test_repository]
 
-    repo = g.get_user("galaxyproject").get_repo("planemo-monitor")
+    planemo_monitor_url = "https://github.com/galaxyproject/planemo-monitor"
+    dest = clone_dir / "planemo-monitor"
+    if dest.exists():
+        print(f"Updating planemo-monitor in {dest} ...")
+        subprocess.run(["git", "-C", str(dest), "pull", "--ff-only"], check=False)
+    else:
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        print(f"Cloning planemo-monitor into {dest} ...")
+        subprocess.run(["git", "clone", "--depth", "1", planemo_monitor_url, str(dest)], check=True)
+
     repo_list: List[str] = []
     for i in range(1, 5):
-        repo_selection = f"repositories0{i}.list"
-        if repository_list:  # only get these repositories
-            if repository_list == repo_selection:
-                repo_f = repo.get_contents(repo_selection)
-                repo_l = get_string_content(repo_f).rstrip()
-                repo_list.extend(repo_l.split("\n"))
-        else:
-            repo_f = repo.get_contents(repo_selection)
-            repo_l = get_string_content(repo_f).rstrip()
-            repo_list.extend(repo_l.split("\n"))
+        list_file = f"repositories0{i}.list"
+        list_path = dest / list_file
+        if not list_path.exists():
+            continue
+        if repository_list and repository_list != list_file:
+            continue
+        lines = list_path.read_text().splitlines()
+        for line in lines:
+            line = line.strip()
+            if line and not line.startswith("#"):
+                repo_list.append(line)
 
-    if (
-        add_extra_repositories and "extra-repositories" in configs
-    ):  # add non planemo monitor repositories defined in conf
-        repo_list = repo_list + configs["extra-repositories"]
+    if add_extra_repositories and "extra-repositories" in configs:
+        repo_list += configs["extra-repositories"]
 
     print("Parsing repositories from:")
-    for repo in repo_list:
-        print("\t", repo)
+    for r in repo_list:
+        print("\t", r)
 
     return repo_list
 
 
-def get_github_repo(url: str, g: Github) -> Repository:
-    """
-    Get a GitHub Repository object from an URL
-
-    :param url: URL to a GitHub repository
-    :param g: GitHub instance
-    """
-    if not url.startswith("https://github.com/"):
-        raise ValueError
-    if url.endswith("/"):
-        url = url[:-1]
+def _repo_name_from_url(url: str) -> str:
+    url = url.rstrip("/")
     if url.endswith(".git"):
         url = url[:-4]
-    u_split = url.split("/")
-    return g.get_user(u_split[-2]).get_repo(u_split[-1])
+    parts = url.split("/")
+    if len(parts) >= 3:
+        org = parts[-2]
+        repo = parts[-1]
+        return f"{org}-{repo}"
+    return parts[-1]
 
 
-def get_shed_attribute(attrib: str, shed_content: Dict[str, Any], empty_value: Any) -> Any:
+def _normalize_repo_url(url: str) -> str:
+    """Normalize a repo URL for deduplication."""
+    url = url.strip().rstrip("/")
+    if url.endswith(".git"):
+        url = url[:-4]
+    return url
+
+
+def clone_repositories(repo_list: List[str], clone_dir: Path, depth: Optional[int] = 1) -> List[Tuple[str, Path]]:
     """
-    Get a shed attribute
+    Clone or update GitHub repositories into a local directory.
 
-    :param attrib: attribute to extract
-    :param shed_content: content of the .shed.yml
-    :param empty_value: value to return if attribute not found
+    Duplicate URLs are skipped. Uses shallow clones by default for CI efficiency.
+
+    :param repo_list: list of repository URLs
+    :param clone_dir: directory to clone into
+    :param depth: git clone depth (None for full history, default 1 for shallow)
+    :returns: list of (original_url, local_path) tuples
     """
-    if attrib in shed_content:
-        return shed_content[attrib]
+    clone_dir.mkdir(parents=True, exist_ok=True)
+    results: List[Tuple[str, Path]] = []
+    seen: set = set()
+    total = len(repo_list)
+    for i, url in enumerate(repo_list, 1):
+        normalized = _normalize_repo_url(url)
+        if normalized in seen:
+            print(f"  [{i}/{total}] {url} (duplicate, skipped)", flush=True)
+            continue
+        seen.add(normalized)
+
+        print(f"  [{i}/{total}] {url}", flush=True)
+        name = _repo_name_from_url(url)
+        dest = clone_dir / name
+        if dest.exists():
+            subprocess.run(["git", "-C", str(dest), "pull", "--ff-only"])
+        else:
+            clone_cmd = ["git", "clone"]
+            if depth is not None:
+                clone_cmd.extend(["--depth", str(depth)])
+            clone_cmd.extend([url, str(dest)])
+            subprocess.run(clone_cmd)
+        results.append((url, dest))
+    return results
+
+
+def get_first_commit_for_local_folder(repo_path: Path, tool_rel_path: str) -> str:
+    """
+    Get the date of the first commit in the tool folder using git log.
+    If the clone is shallow, try to fetch more history for the path.
+    """
+
+    def _git_log() -> str:
+        try:
+            result = subprocess.run(
+                ["git", "log", "--reverse", "--format=%ad", "--date=short", tool_rel_path],
+                cwd=repo_path,
+                capture_output=True,
+                text=True,
+            )
+            lines = result.stdout.strip().split("\n")
+            if lines and lines[0]:
+                return lines[0]
+        except Exception:
+            pass
+        return ""
+
+    date = _git_log()
+    if not date and (repo_path / ".git" / "shallow").exists():
+        try:
+            subprocess.run(
+                ["git", "fetch", "--deepen", "1000", "origin"],
+                cwd=repo_path,
+                capture_output=True,
+                text=True,
+                timeout=120,
+            )
+            date = _git_log()
+        except Exception:
+            pass
+    return date
+
+
+def get_tool_metadata_from_local(tool_path: Path, repo_path: Path, repo_url: str = "") -> Optional[Dict[str, Any]]:
+    """
+    Get tool metadata from a locally cloned tool directory.
+    Uses Galaxy's xml_macros to expand macros before parsing.
+    """
+    if not tool_path.is_dir():
+        return None
+
+    metadata: Dict[str, Any] = {
+        "Suite ID": None,
+        "Tool IDs": [],
+        "Tool output formats": [],
+        "Description": None,
+        "Suite first commit date": None,
+        "Homepage": None,
+        "Suite version": None,
+        "Suite conda package": None,
+        "Latest suite conda package version": None,
+        "Suite version status": "To update",
+        "ToolShed categories": [],
+        "EDAM operations": [],
+        "EDAM reduced operations": [],
+        "EDAM topics": [],
+        "EDAM reduced topics": [],
+        "Suite owner": None,
+        "Suite source": None,
+        "Suite parsed folder": None,
+        "bio.tool ID": None,
+        "bio.tool name": None,
+        "bio.tool description": None,
+        "biii ID": None,
+    }
+
+    # extract .shed.yml
+    shed_path = tool_path / ".shed.yml"
+    if not shed_path.exists():
+        return None
+    with shed_path.open() as fh:
+        shed_content = yaml.load(fh, Loader=yaml.FullLoader)
+    metadata["Description"] = get_shed_attribute("description", shed_content, None)
+    if metadata["Description"] is None:
+        metadata["Description"] = get_shed_attribute("long_description", shed_content, None)
+    if metadata["Description"] is not None:
+        metadata["Description"] = metadata["Description"].replace("\n", "")
+    metadata["Suite ID"] = get_shed_attribute("name", shed_content, None)
+    metadata["Suite owner"] = get_shed_attribute("owner", shed_content, None)
+    metadata["Suite source"] = get_shed_attribute("remote_repository_url", shed_content, None)
+    if "homepage_url" in shed_content:
+        metadata["Homepage"] = shed_content["homepage_url"]
+    metadata["ToolShed categories"] = get_shed_attribute("categories", shed_content, [])
+    if metadata["ToolShed categories"] is None:
+        metadata["ToolShed categories"] = []
+
+    # build repo URL for parsed folder
+    tool_rel_path = str(tool_path.relative_to(repo_path))
+    if repo_url:
+        metadata["Suite parsed folder"] = repo_url.rstrip("/") + "/tree/master/" + tool_rel_path
     else:
-        return empty_value
+        metadata["Suite parsed folder"] = str(tool_path)
+
+    # first commit date
+    metadata["Suite first commit date"] = get_first_commit_for_local_folder(repo_path, tool_rel_path)
+
+    # parse macro files for token values, requirements, xrefs
+    macro_tokens: Dict[str, str] = {}
+    for entry in tool_path.iterdir():
+        if "macro" in entry.name and entry.name.endswith("xml"):
+            try:
+                root = et.fromstring(entry.read_text())
+                for child in root:
+                    if "name" in child.attrib:
+                        token_name = child.attrib["name"]
+                        if child.text:
+                            macro_tokens[token_name] = child.text
+                        if token_name in ("@TOOL_VERSION@", "@VERSION@"):
+                            metadata["Suite version"] = child.text
+                        elif token_name == "requirements":
+                            metadata["Suite conda package"] = get_conda_package(child)
+                        biotools = get_xref(child, attrib_type="bio.tools")
+                        if biotools is not None:
+                            metadata["bio.tool ID"] = biotools
+                        biii = get_xref(child, attrib_type="biii")
+                        if biii is not None:
+                            metadata["biii ID"] = biii
+            except Exception:
+                print(traceback.format_exc())
+
+    # resolve macro token values that reference other tokens (multi-pass for chains)
+    for _ in range(5):
+        changed = False
+        for key, val in list(macro_tokens.items()):
+            resolved = re.sub(r"@(\w+)@", lambda m: macro_tokens.get(m.group(0), m.group(0)), val)
+            if resolved != val:
+                macro_tokens[key] = resolved
+                changed = True
+        if not changed:
+            break
+
+    if metadata["Suite version"] is not None and re.search(r"@\w+@", metadata["Suite version"]):
+        metadata["Suite version"] = re.sub(
+            r"@(\w+)@", lambda m: macro_tokens.get(m.group(0), m.group(0)), metadata["Suite version"]
+        )
+
+    def _resolve_macros(text: str) -> str:
+        return re.sub(r"@(\w+)@", lambda m: macro_tokens.get(m.group(0), m.group(0)), text)
+
+    # parse each tool XML with macro expansion
+    for entry in sorted(tool_path.iterdir()):
+        if entry.name.endswith("xml") and "macro" not in entry.name:
+            try:
+                tree = _load_tool_xml_with_macros(entry)
+                if tree is None:
+                    tree = _load_tool_xml_fallback(entry)
+                if tree is None:
+                    continue
+                root = tree.getroot()
+            except Exception:
+                print(traceback.format_exc())
+                continue
+
+            # version
+            if metadata["Suite version"] is None and "version" in root.attrib:
+                raw_version = root.attrib["version"]
+                metadata["Suite version"] = _resolve_macros(raw_version)
+
+            # bio.tools
+            biotools = get_xref(root, attrib_type="bio.tools")
+            if biotools is not None:
+                metadata["bio.tool ID"] = biotools
+
+            # biii
+            if metadata["biii ID"] is None:
+                biii = get_xref(root, attrib_type="biii")
+                if biii is not None:
+                    metadata["biii ID"] = biii
+
+            # conda package
+            if metadata["Suite conda package"] is None:
+                reqs = get_conda_package(root)
+                if reqs is not None:
+                    metadata["Suite conda package"] = reqs
+
+            # tool ids
+            if "id" in root.attrib:
+                metadata["Tool IDs"].append(root.attrib["id"])
+
+            # tool outputs
+            formats = get_tool_outputs(root)
+            for fmt in formats:
+                if fmt not in metadata["Tool output formats"]:
+                    metadata["Tool output formats"].append(fmt)
+
+    # strip +galaxy suffix from version
+    if metadata["Suite version"] is not None:
+        metadata["Suite version"] = re.sub(r"\+galaxy\d+$", "", metadata["Suite version"])
+
+    # set suite ID fallback
+    if metadata["Suite ID"] is None:
+        if metadata["bio.tool ID"] is not None:
+            metadata["Suite ID"] = metadata["bio.tool ID"].lower()
+        else:
+            metadata["Suite ID"] = tool_path.name
+
+    # get latest conda version
+    if metadata["Suite conda package"] is not None:
+        r = requests.get(f'https://api.anaconda.org/package/bioconda/{metadata["Suite conda package"]}', timeout=10)
+        if r.status_code == requests.codes.ok:
+            conda_info = r.json()
+            if "latest_version" in conda_info:
+                metadata["Latest suite conda package version"] = conda_info["latest_version"]
+                if metadata["Latest suite conda package version"] == metadata["Suite version"]:
+                    metadata["Suite version status"] = "Up-to-date"
+
+    # get bio.tool information
+    if metadata["bio.tool ID"] is not None:
+        r = requests.get(f'{BIOTOOLS_API_URL}/api/tool/{metadata["bio.tool ID"]}/?format=json', timeout=10)
+        if r.status_code == requests.codes.ok:
+            biotool_info = r.json()
+            if "function" in biotool_info:
+                for func in biotool_info["function"]:
+                    if "operation" in func:
+                        for op in func["operation"]:
+                            metadata["EDAM operations"].append(op["term"])
+            if "topic" in biotool_info:
+                for t in biotool_info["topic"]:
+                    metadata["EDAM topics"].append(t["term"])
+            if "name" in biotool_info:
+                metadata["bio.tool name"] = biotool_info["name"]
+            if "description" in biotool_info:
+                metadata["bio.tool description"] = biotool_info["description"].replace("\n", "")
+
+    return metadata
+
+
+def _load_tool_xml_with_macros(xml_path: Path) -> Optional[Any]:
+    """Try to load and expand macros using Galaxy's xml_macros (galaxy-util)."""
+    try:
+        from galaxy.util.xml_macros import load as _xml_macros_load
+
+        return _xml_macros_load(str(xml_path))
+    except Exception:
+        return None
+
+
+def _load_tool_xml_fallback(xml_path: Path) -> Optional[Any]:
+    """Fallback: parse XML directly without macro expansion."""
+    try:
+        import xml.etree.ElementTree as _et
+
+        tree = _et.parse(str(xml_path))
+        return tree
+    except Exception:
+        return None
+
+
+def parse_tools_from_local(repo_path: Path, workers: int = 1, repo_url: str = "") -> List[Dict[str, Any]]:
+    """
+    Parse tools from a locally cloned repository.
+    """
+    tools: List[Dict[str, Any]] = []
+
+    # look for tool folders in tools/, wrappers/, tool_collections/
+    search_dirs = ["tools", "wrappers", "tool_collections"]
+    found = False
+    for sd in search_dirs:
+        candidate = repo_path / sd
+        if candidate.is_dir():
+            found = True
+            items = [p for p in sorted(candidate.iterdir()) if p.is_dir()]
+            # collect all tool paths (handle nested .shed.yml)
+            tool_paths: List[Path] = []
+            for item in items:
+                if (item / ".shed.yml").exists():
+                    tool_paths.append(item)
+                else:
+                    for sub in sorted(item.iterdir()):
+                        if sub.is_dir():
+                            tool_paths.append(sub)
+
+            total = len(tool_paths)
+            print(f"    Parsing {total} tools...", flush=True)
+
+            def _process_one(p: Path) -> Optional[Dict[str, Any]]:
+                return get_tool_metadata_from_local(p, repo_path, repo_url=repo_url)
+
+            if workers > 1:
+                with ThreadPoolExecutor(max_workers=workers) as executor:
+                    fut_to_path = {executor.submit(_process_one, p): p for p in tool_paths}
+                    for idx, future in enumerate(as_completed(fut_to_path), 1):
+                        path = fut_to_path[future]
+                        print(f"    [{idx}/{total}] {path.name}", flush=True)
+                        try:
+                            metadata = future.result()
+                            if metadata is not None:
+                                tools.append(metadata)
+                        except Exception:
+                            print(f"      Error parsing {path.name}", file=sys.stderr)
+                            print(traceback.format_exc())
+            else:
+                for idx, p in enumerate(tool_paths, 1):
+                    print(f"    [{idx}/{total}] {p.name}", flush=True)
+                    try:
+                        metadata = _process_one(p)
+                        if metadata is not None:
+                            tools.append(metadata)
+                    except Exception:
+                        print(f"      Error parsing {p.name}", file=sys.stderr)
+                        print(traceback.format_exc())
+
+    if not found:
+        print("No tool folder found", file=sys.stderr)
+
+    return tools
 
 
 def get_tool_outputs(el: et.Element) -> list[str]:
@@ -228,6 +565,20 @@ def get_tool_outputs(el: et.Element) -> list[str]:
                 formats.append(fmt)
 
     return formats
+
+
+def get_shed_attribute(attrib: str, shed_content: Dict[str, Any], empty_value: Any) -> Any:
+    """
+    Get a shed attribute
+
+    :param attrib: attribute to extract
+    :param shed_content: content of the .shed.yml
+    :param empty_value: value to return if attribute not found
+    """
+    if attrib in shed_content:
+        return shed_content[attrib]
+    else:
+        return empty_value
 
 
 def get_xref(el: et.Element, attrib_type: str) -> Optional[str]:
@@ -287,256 +638,6 @@ def check_categories(ts_categories: str, ts_cat: List[str]) -> bool:
     return bool(set(ts_cat) & set(ts_cats))
 
 
-def get_suite_ID_fallback(metadata: Dict, tool: ContentFile) -> Dict:
-    """
-    Set suite ID fallbacks
-
-    :param metadata: the metadata dict
-    """
-
-    # when `name` not in .shed.yml file
-    if metadata["Suite ID"] is None:
-        if metadata["bio.tool ID"] is not None:
-            metadata["Suite ID"] = metadata["bio.tool ID"].lower()
-        else:
-            metadata["Suite ID"] = tool.path.split("/")[-1]
-
-    return metadata
-
-
-def get_tool_metadata(tool: ContentFile, repo: Repository) -> Optional[Dict[str, Any]]:
-    """
-    Get tool metadata from the .shed.yaml, requirements in the macros or xml
-    file,  bio.tools information if available in the macros or xml, EDAM
-    annotations using bio.tools API, recent conda version using conda API
-
-    :param tool: GitHub ContentFile object
-    :param repo: GitHub Repository object
-    """
-    if tool.type != "dir":
-        return None
-
-    metadata: dict = {
-        "Suite ID": None,
-        "Tool IDs": [],
-        "Tool output formats": [],
-        "Description": None,
-        "Suite first commit date": None,
-        "Homepage": None,
-        "Suite version": None,
-        "Suite conda package": None,
-        "Latest suite conda package version": None,
-        "Suite version status": "To update",
-        "ToolShed categories": [],
-        "EDAM operations": [],
-        "EDAM reduced operations": [],
-        "EDAM topics": [],
-        "EDAM reduced topics": [],
-        "Suite owner": None,
-        "Suite source": None,  # this is what it written in the .shed.yml
-        "Suite parsed folder": None,  # this is the actual parsed file
-        "bio.tool ID": None,
-        "bio.tool name": None,
-        "bio.tool description": None,
-        "biii ID": None,
-    }
-    # extract .shed.yml information and check macros.xml
-    try:
-        shed = repo.get_contents(f"{tool.path}/.shed.yml")
-    except Exception:
-        return None
-    # parse the .shed.yml
-    else:
-        file_content = get_string_content(shed)
-        yaml_content = yaml.load(file_content, Loader=yaml.FullLoader)
-        metadata["Description"] = get_shed_attribute("description", yaml_content, None)
-        if metadata["Description"] is None:
-            metadata["Description"] = get_shed_attribute("long_description", yaml_content, None)
-        if metadata["Description"] is not None:
-            metadata["Description"] = metadata["Description"].replace("\n", "")
-        metadata["Suite ID"] = get_shed_attribute("name", yaml_content, None)
-        metadata["Suite owner"] = get_shed_attribute("owner", yaml_content, None)
-        metadata["Suite source"] = get_shed_attribute("remote_repository_url", yaml_content, None)
-        if "homepage_url" in yaml_content:
-            metadata["Homepage"] = yaml_content["homepage_url"]
-        metadata["ToolShed categories"] = get_shed_attribute("categories", yaml_content, [])
-        if metadata["ToolShed categories"] is None:
-            metadata["ToolShed categories"] = []
-
-    # get all files in the folder
-    file_list = repo.get_contents(tool.path)
-    assert isinstance(file_list, list)
-
-    # store the github location where the folder was parsed
-    metadata["Suite parsed folder"] = tool.html_url
-
-    # get the first commit date
-    metadata["Suite first commit date"] = shared.get_first_commit_for_folder(tool, repo)
-
-    # find and parse macro file
-    for file in file_list:
-        if "macro" in file.name and file.name.endswith("xml"):
-            file_content = get_string_content(file)
-            root = et.fromstring(file_content)
-            for child in root:
-                if "name" in child.attrib:
-                    if child.attrib["name"] == "@TOOL_VERSION@" or child.attrib["name"] == "@VERSION@":
-                        metadata["Suite version"] = child.text
-                    elif child.attrib["name"] == "requirements":
-                        metadata["Suite conda package"] = get_conda_package(child)
-                    # bio.tools
-                    biotools = get_xref(child, attrib_type="bio.tools")
-                    if biotools is not None:
-                        metadata["bio.tool ID"] = biotools
-                    # biii
-                    biii = get_xref(child, attrib_type="biii")
-                    if biii is not None:
-                        metadata["biii ID"] = biii
-
-    # parse XML file and get meta data from there
-    for file in file_list:
-        if file.name.endswith("xml") and "macro" not in file.name:
-            try:
-                file_content = get_string_content(file)
-                root = et.fromstring(file_content)
-            except Exception:
-                print(traceback.format_exc())
-            else:
-                # version
-                if metadata["Suite version"] is None:
-                    if "version" in root.attrib:
-                        version = root.attrib["version"]
-                        if "VERSION@" not in version:
-                            metadata["Suite version"] = version
-                        else:
-                            macros = root.find("macros")
-                            if macros is not None:
-                                for child in macros:
-                                    if "name" in child.attrib and (
-                                        child.attrib["name"] == "@TOOL_VERSION@" or child.attrib["name"] == "@VERSION@"
-                                    ):
-                                        metadata["Suite version"] = child.text
-
-                # bio.tools
-                biotools = get_xref(root, attrib_type="bio.tools")
-                if biotools is not None:
-                    metadata["bio.tool ID"] = biotools
-
-                # biii
-                if metadata["biii ID"] is None:
-                    biii = get_xref(root, attrib_type="biii")
-                    if biii is not None:
-                        metadata["biii ID"] = biii
-
-                # conda package
-                if metadata["Suite conda package"] is None:
-                    reqs = get_conda_package(root)
-                    if reqs is not None:
-                        metadata["Suite conda package"] = reqs
-
-                # tool ids
-                if "id" in root.attrib:
-                    metadata["Tool IDs"].append(root.attrib["id"])
-
-                # tool outputs
-                formats = get_tool_outputs(root)
-                for f in formats:
-                    if f not in metadata["Tool output formats"]:
-                        metadata["Tool output formats"].append(f)
-
-    metadata = get_suite_ID_fallback(metadata, tool)
-
-    # get latest conda version and compare to the wrapper version
-    if metadata["Suite conda package"] is not None:
-        r = requests.get(f'https://api.anaconda.org/package/bioconda/{metadata["Suite conda package"]}')
-        if r.status_code == requests.codes.ok:
-            conda_info = r.json()
-            if "latest_version" in conda_info:
-                metadata["Latest suite conda package version"] = conda_info["latest_version"]
-                if metadata["Latest suite conda package version"] == metadata["Suite version"]:
-                    metadata["Suite version status"] = "Up-to-date"
-
-    # get bio.tool information
-    if metadata["bio.tool ID"] is not None:
-        r = requests.get(f'{BIOTOOLS_API_URL}/api/tool/{metadata["bio.tool ID"]}/?format=json')
-        if r.status_code == requests.codes.ok:
-            biotool_info = r.json()
-            if "function" in biotool_info:
-                for func in biotool_info["function"]:
-                    if "operation" in func:
-                        for op in func["operation"]:
-                            metadata["EDAM operations"].append(op["term"])
-            if "topic" in biotool_info:
-                for t in biotool_info["topic"]:
-                    metadata["EDAM topics"].append(t["term"])
-            if "name" in biotool_info:
-                metadata["bio.tool name"] = biotool_info["name"]
-            if "description" in biotool_info:
-                metadata["bio.tool description"] = biotool_info["description"].replace("\n", "")
-    return metadata
-
-
-def parse_tools(repo: Repository) -> List[Dict[str, Any]]:
-    """
-    Parse tools in a GitHub repository, extract them and their metadata
-
-    :param repo: GitHub Repository object
-    """
-    # get tool folders
-    tool_folders: List[List[ContentFile]] = []
-    try:
-        repo_tools = repo.get_contents("tools")
-    except Exception:
-        try:
-            repo_tools = repo.get_contents("wrappers")
-        except Exception:
-            print("No tool folder found", sys.stderr)
-            return []
-    assert isinstance(repo_tools, list)
-
-    tool_folders.append(repo_tools)
-    try:
-        repo_tools = repo.get_contents("tool_collections")
-    except Exception:
-        pass
-    else:
-        assert isinstance(repo_tools, list)
-        tool_folders.append(repo_tools)
-
-    # tool_folders will contain a list of all folders in the
-    # repository named wrappers/tools/tool_collections
-
-    # parse folders
-    tools = []
-    for folder in tool_folders:
-        for tool in folder:
-            # to avoid API request limit issue, wait for one hour
-            if g.get_rate_limit().resources.core.remaining < 200:
-                print("WAITING for 1 hour to retrieve GitHub API request access !!!")
-                print()
-                time.sleep(60 * 60)
-
-            # parse tool
-            # if the folder (tool) has a .shed.yml file run get get_tool_metadata on that folder,
-            # otherwise go one level down and check if there is a .shed.yml in a subfolder
-            try:
-                repo.get_contents(f"{tool.path}/.shed.yml")
-            except Exception:
-                if tool.type != "dir":
-                    continue
-                file_list = repo.get_contents(tool.path)
-                assert isinstance(file_list, list)
-                for content in file_list:
-                    metadata = get_tool_metadata(content, repo)
-                    if metadata is not None:
-                        tools.append(metadata)
-            else:
-                metadata = get_tool_metadata(tool, repo)
-                if metadata is not None:
-                    tools.append(metadata)
-    return tools
-
-
 @lru_cache  # need to run this for each suite, so just cache it
 def get_all_installed_tool_ids_on_server(galaxy_url: str) -> List[str]:
     """
@@ -548,7 +649,7 @@ def get_all_installed_tool_ids_on_server(galaxy_url: str) -> List[str]:
     base_url = f"{galaxy_url}/api"
 
     try:
-        r = requests.get(f"{base_url}/tools", params={"in_panel": False})
+        r = requests.get(f"{base_url}/tools", params={"in_panel": False}, timeout=30)
         r.raise_for_status()
         tool_dict_list = r.json()
         tools = [tool_dict["id"] for tool_dict in tool_dict_list]
@@ -755,73 +856,6 @@ def aggregate_tool_stats(
         tool[f"{stat_name} on main servers"] = sum(matching_values)
 
     return tool
-
-
-def get_tools(
-    repo_list: list, all_workflows: str = "", all_tutorials: str = "", edam_ontology: Optional[Dict] = None
-) -> List[Dict]:
-    """
-    Parse tools in GitHub repositories to extract metadata,
-    filter by TS categories, additional information
-    """
-    tools: List[Dict] = []
-    for r in repo_list:
-        print("Parsing tools from:", (r))
-        if "github" not in r:
-            continue
-        try:
-            repo = get_github_repo(r, g)
-            tools.extend(parse_tools(repo))
-        except Exception as e:
-            print(
-                f"Error while extracting tools from repo {r}: {e}",
-                file=sys.stderr,
-            )
-            print(traceback.format_exc())
-
-    # add additional information to tools
-    for tool in tools:
-        # add EDAM terms without superclass
-        tool["EDAM reduced operations"] = reduce_ontology_terms(tool["EDAM operations"], ontology=edam_ontology)
-        tool["EDAM reduced topics"] = reduce_ontology_terms(tool["EDAM topics"], ontology=edam_ontology)
-
-        # add availability for UseGalaxy servers
-        for name, url in USEGALAXY_SERVER_URLS.items():
-            tool[f"Number of tools on {name}"] = check_tools_on_servers(tool["Tool IDs"], url)
-
-        # add all other available servers
-        public_servers_df = pd.read_csv(public_servers, sep="\t")
-        for _index, row in public_servers_df.iterrows():
-            name = row["name"]
-
-            if name.lower() not in [
-                n.lower() for n in USEGALAXY_SERVER_URLS.keys()
-            ]:  # do not query UseGalaxy servers again
-
-                url = row["url"]
-                tool[f"Number of tools on {name}"] = check_tools_on_servers(tool["Tool IDs"], url)
-
-        # add tool stats
-        for name, path in GALAXY_TOOL_STATS.items():
-            tool_stats_df = pd.read_csv(path)
-
-            # we take the max for suite users being conservative, since one user can use multiple tools
-            # in the suite
-            mode: Literal["sum", "max"]
-            if "Suite users" in name:
-                mode = "max"
-            else:
-                mode = "sum"
-
-            tool[name] = get_tool_stats_from_stats_file(tool_stats_df, tool["Tool IDs"], mode=mode)
-
-        # sum up tool stats
-        tool = aggregate_tool_stats(tool, STATS_SUM)
-
-    tools = add_workflow_ids_to_tools(tools, all_workflows)
-    tools = add_tutorial_ids_to_tools(tools, all_tutorials)
-
-    return tools
 
 
 def add_workflow_ids_to_tools(tools: List[Dict[str, Any]], all_workflows: str) -> List[Dict[str, Any]]:
@@ -1098,7 +1132,6 @@ if __name__ == "__main__":
     subparser = parser.add_subparsers(dest="command")
     # Extract tools
     extract = subparser.add_parser("extract", help="Extract tools")
-    extract.add_argument("--api", "-a", required=True, help="GitHub access token")
     extract.add_argument("--all", "-o", required=True, help="Filepath to JSON with all extracted tools")
     extract.add_argument("--all-tsv", "-j", required=True, help="Filepath to TSV with all extracted tools")
     extract.add_argument("--all-yml", "-y", required=True, help="Filepath to yml with all extracted tools")
@@ -1135,6 +1168,30 @@ if __name__ == "__main__":
         default=False,
         required=False,
         help="Run a small test case using only the repository: https://github.com/TGAC/earlham-galaxytools",
+    )
+    extract.add_argument(
+        "--repo-dir",
+        default="~/.galaxy_tool_repos",
+        help="Directory to clone repositories into (default: ~/.galaxy_tool_repos)",
+    )
+    extract.add_argument(
+        "--repo-url",
+        action="append",
+        dest="repo_urls",
+        default=None,
+        help="Specific repo URL(s) to process (can be specified multiple times). Overrides planemo-monitor list.",
+    )
+    extract.add_argument(
+        "--workers",
+        type=int,
+        default=1,
+        help="Number of parallel workers for tool parsing (default: 1, sequential)",
+    )
+    extract.add_argument(
+        "--clone-depth",
+        type=int,
+        default=None,
+        help="Git clone depth for tool repositories (default: shallow=1; 0 for full history)",
     )
 
     # Filter tools based on ToolShed categories
@@ -1224,18 +1281,67 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     if args.command == "extract":
-        # connect to GitHub
-        g = Github(args.api)
-        # get list of GitHub repositories to parse
-        repo_list = get_tool_github_repositories(
-            g=g,
-            repository_list=args.planemo_repository_list,
-            run_test=args.test,
-            add_extra_repositories=not args.avoid_extra_repositories,
-        )
-        # parse tools in GitHub repositories to extract metadata, filter by TS categories and export to output file
+        repo_dir = Path(args.repo_dir).expanduser()
+        if args.repo_urls:
+            repo_list = args.repo_urls
+            print("Using specified repositories:")
+            for r in repo_list:
+                print("\t", r)
+        elif args.test:
+            repo_list = get_tool_repositories(
+                clone_dir=repo_dir,
+                run_test=True,
+                add_extra_repositories=False,
+            )
+        else:
+            repo_list = get_tool_repositories(
+                clone_dir=repo_dir,
+                repository_list=args.planemo_repository_list,
+                add_extra_repositories=not args.avoid_extra_repositories,
+            )
+
         edam_ontology = get_ontology("https://edamontology.org/EDAM_1.25.owl").load()
-        tools = get_tools(repo_list, args.all_workflows, args.all_tutorials, edam_ontology)
+
+        print(f"Cloning repositories into {repo_dir} ...")
+        clone_depth = None if args.clone_depth == 0 else (args.clone_depth or 1)
+        cloned = clone_repositories(repo_list, repo_dir, depth=clone_depth)
+        tools: List[Dict] = []
+        for url, repo_path in cloned:
+            print(f"Parsing tools from: {url} ({repo_path})")
+            tools.extend(parse_tools_from_local(repo_path, workers=args.workers, repo_url=url))
+        if args.all_workflows:
+            tools = add_workflow_ids_to_tools(tools, args.all_workflows)
+        if args.all_tutorials:
+            tools = add_tutorial_ids_to_tools(tools, args.all_tutorials)
+        for tool in tools:
+            tool.setdefault("Related Workflows", [])
+            tool.setdefault("Related Tutorials", [])
+        for tool in tools:
+            tool["EDAM reduced operations"] = reduce_ontology_terms(tool["EDAM operations"], ontology=edam_ontology)
+            tool["EDAM reduced topics"] = reduce_ontology_terms(tool["EDAM topics"], ontology=edam_ontology)
+            if args.test:
+                tool["Number of tools on UseGalaxy.eu"] = check_tools_on_servers(
+                    tool["Tool IDs"], USEGALAXY_SERVER_URLS["UseGalaxy.eu"]
+                )
+            else:
+                for name, url in USEGALAXY_SERVER_URLS.items():
+                    tool[f"Number of tools on {name}"] = check_tools_on_servers(tool["Tool IDs"], url)
+                public_servers_df = pd.read_csv(public_servers, sep="\t")
+                for _index, row in public_servers_df.iterrows():
+                    name = row["name"]
+                    if name.lower() not in [n.lower() for n in USEGALAXY_SERVER_URLS.keys()]:
+                        url = row["url"]
+                        tool[f"Number of tools on {name}"] = check_tools_on_servers(tool["Tool IDs"], url)
+            for name, path in GALAXY_TOOL_STATS.items():
+                tool_stats_df = pd.read_csv(path)
+                mode: Literal["sum", "max"]
+                if "Suite users" in name:
+                    mode = "max"
+                else:
+                    mode = "sum"
+                tool[name] = get_tool_stats_from_stats_file(tool_stats_df, tool["Tool IDs"], mode=mode)
+            tool = aggregate_tool_stats(tool, STATS_SUM)
+
         export_tools_to_json(tools, args.all)
         export_tools_to_tsv(tools, args.all_tsv, format_list_col=True)
         export_tools_to_yml(tools, args.all_yml)
