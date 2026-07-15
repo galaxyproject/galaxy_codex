@@ -14,11 +14,13 @@ If --output is not given, stdout is used.
 
 import argparse
 import json
-import os
 import subprocess
 import sys
 from pathlib import Path
-
+from typing import (
+    Optional,
+    Union,
+)
 
 COMMUNITIES_DIR = Path("communities")
 RESOURCE_FILES = {
@@ -30,15 +32,17 @@ COMMUNITY_TOOL_FILE = "tools_filtered_by_ts_categories.json"
 COMMUNITY_WF_FILES = ["curated_workflows.json", "tag_filtered_workflows.json"]
 
 
-def run_git(*args):
+def run_git(*args: str) -> str:
     result = subprocess.run(
         ["git"] + list(args),
-        capture_output=True, text=True, check=True,
+        capture_output=True,
+        text=True,
+        check=True,
     )
     return result.stdout.strip()
 
 
-def count_json_items(filepath):
+def count_json_items(filepath: Union[str, Path]) -> int:
     """Return the number of items in a JSON array file, or 0 if missing."""
     try:
         with open(filepath) as f:
@@ -48,7 +52,7 @@ def count_json_items(filepath):
         return 0
 
 
-def count_file_lines(filepath):
+def count_file_lines(filepath: str) -> int:
     """Count lines in a file via git show (for a given ref)."""
     try:
         output = run_git("show", f"{get_ref()}:{filepath}")
@@ -57,7 +61,7 @@ def count_file_lines(filepath):
         return 0
 
 
-def get_ref():
+def get_ref() -> Optional[str]:
     """Get the most recent tag if no explicit ref is given."""
     try:
         return run_git("tag", "-l", "--sort=-version:refname").splitlines()[0]
@@ -65,7 +69,7 @@ def get_ref():
         return None
 
 
-def count_items_at_ref(ref, filepath):
+def count_items_at_ref(ref: str, filepath: str) -> int:
     """Count items in a JSON file at a specific git ref."""
     try:
         content = run_git("show", f"{ref}:{filepath}")
@@ -75,7 +79,7 @@ def count_items_at_ref(ref, filepath):
         return 0
 
 
-def collect_global_stats(ref=None):
+def collect_global_stats(ref: Optional[str] = None) -> dict[str, dict[str, int]]:
     """Collect global resource counts and deltas."""
     stats = {}
     for resource, filename in RESOURCE_FILES.items():
@@ -90,7 +94,9 @@ def collect_global_stats(ref=None):
     return stats
 
 
-def collect_community_stats(ref=None):
+def collect_community_stats(
+    ref: Optional[str] = None,
+) -> dict[str, dict[str, dict[str, int]]]:
     """Collect per-community resource counts."""
     stats = {}
     for community_dir in sorted(COMMUNITIES_DIR.iterdir()):
@@ -131,7 +137,7 @@ def collect_community_stats(ref=None):
     return stats
 
 
-def format_delta(delta):
+def format_delta(delta: int) -> str:
     if delta > 0:
         return f"+{delta}"
     elif delta < 0:
@@ -139,7 +145,11 @@ def format_delta(delta):
     return "0"
 
 
-def render_markdown(global_stats, community_stats, ref=None):
+def render_markdown(
+    global_stats: dict[str, dict[str, int]],
+    community_stats: dict[str, dict[str, dict[str, int]]],
+    ref: Optional[str] = None,
+) -> str:
     lines = []
     lines.append("## Galaxy Codex Monthly Release\n")
 
@@ -175,7 +185,7 @@ def render_markdown(global_stats, community_stats, ref=None):
     return "\n".join(lines)
 
 
-def main():
+def main() -> None:
     parser = argparse.ArgumentParser(description="Collect Galaxy Codex release stats")
     parser.add_argument("--ref", help="Git ref to compare against (default: most recent tag)")
     parser.add_argument("--output", help="Output file (default: stdout)")
