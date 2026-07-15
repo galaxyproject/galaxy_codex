@@ -172,9 +172,6 @@ def render_markdown(global_stats, community_stats, ref=None):
     if ref:
         lines.append(f"*Compared against ref: `{ref}`*\n")
 
-    lines.append("---")
-    lines.append("*Browse the full catalog: https://galaxyproject.github.io/galaxy_codex/*\n")
-
     return "\n".join(lines)
 
 
