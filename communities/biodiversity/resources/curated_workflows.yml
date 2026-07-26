@@ -4,23 +4,23 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Mapping
-  - Data deposition
-  - Genome assembly
-  - Scaffolding
+  - Visualisation
   - Sequence alignment analysis
+  - Sequence trimming
+  - Data deposition
+  - Mapping
+  - Phasing
+  - Genotyping
   - k-mer counting
-  - Sequence assembly validation
+  - Data handling
+  - Scaffolding
+  - Sequence database search
+  - Data parsing
+  - De-novo assembly
   - Pairwise sequence alignment
   - Data retrieval
-  - Sequence database search
-  - Visualisation
-  - De-novo assembly
-  - Phasing
-  - Data parsing
-  - Genotyping
-  - Data handling
-  - Sequence trimming
+  - Sequence assembly validation
+  - Genome assembly
   edam_topic:
   - Genomics
   id: '1104'
@@ -40,34 +40,34 @@
   - qc
   tools:
   - tp_text_file_with_recurring_lines
-  - minimap2
-  - smudgeplot
-  - __EXTRACT_DATASET__
-  - __ZIP_COLLECTION__
-  - blobtoolkit
-  - fasterq_dump
-  - hicexplorer_hicmergematrixbins
-  - bg_diamond
-  - meryl
-  - merqury
+  - Cut1
+  - gfastats
+  - genomescope
   - __FLATTEN__
+  - pick_value
+  - cooler_csort_tabix
+  - smudgeplot
+  - datasets_download_genome
   - busco
+  - bedtools_makewindowsbed
+  - bg_diamond
+  - __UNZIP_COLLECTION__
   - collapse_dataset
+  - CONVERTER_fasta_to_fai
+  - chromap
+  - minimap2
   - cooler_cload_tabix
   - hicexplorer_hicplotmatrix
-  - cooler_csort_tabix
   - sambamba_merge
-  - sambamba_flagstat
-  - pick_value
-  - CONVERTER_fasta_to_fai
-  - bedtools_makewindowsbed
-  - __UNZIP_COLLECTION__
-  - Cut1
-  - genomescope
-  - gfastats
-  - datasets_download_genome
-  - chromap
+  - meryl
   - lftp
+  - merqury
+  - hicexplorer_hicmergematrixbins
+  - __EXTRACT_DATASET__
+  - __ZIP_COLLECTION__
+  - sambamba_flagstat
+  - blobtoolkit
+  - fasterq_dump
   update_time: '2026-06-15'
   versions: 2
 - create_time: '2026-02-11'
@@ -76,14 +76,14 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Data handling
+  - Phasing
   - Sequence assembly visualisation
+  - Scaffolding
+  - Sequence assembly validation
   - Genome assembly
   - De-novo assembly
-  - Phasing
-  - Scaffolding
   - k-mer counting
-  - Sequence assembly validation
+  - Data handling
   edam_topic:
   - Whole genome sequencing
   id: '605'
@@ -102,14 +102,14 @@
   - hi-c
   - hifi
   tools:
-  - bandage_image
+  - param_value_from_file
+  - busco
+  - gfastats
+  - hifiasm
   - pick_value
   - merqury
+  - bandage_image
   - gfa_to_fa
-  - gfastats
-  - busco
-  - hifiasm
-  - param_value_from_file
   update_time: '2026-05-13'
   versions: 2
 - create_time: '2024-09-18'
@@ -118,9 +118,9 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Genotyping
   - k-mer counting
   - Sequence trimming
+  - Genotyping
   edam_topic:
   - Whole genome sequencing
   id: '603'
@@ -137,16 +137,16 @@
   - erga
   - profiling
   tools:
-  - tp_cut_tool
-  - Convert characters1
   - smudgeplot
-  - Add_a_column1
+  - param_value_from_file
+  - tp_cut_tool
+  - Cut1
+  - Convert characters1
   - meryl
+  - genomescope
   - tp_find_and_replace
   - tp_grep_tool
-  - Cut1
-  - genomescope
-  - param_value_from_file
+  - Add_a_column1
   update_time: '2026-05-13'
   versions: 2
 - create_time: '2024-09-18'
@@ -155,16 +155,16 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Sequence conversion
-  - Read pre-processing
-  - DNA transcription
-  - Sequence trimming
-  - Sequencing quality control
-  - DNA translation
   - Primer removal
+  - Sequence trimming
+  - Read pre-processing
+  - DNA translation
   - Sequence composition calculation
+  - DNA transcription
+  - Sequence conversion
   - Validation
   - Statistical calculation
+  - Sequencing quality control
   edam_topic:
   - Whole genome sequencing
   id: '602'
@@ -182,11 +182,11 @@
   - erga
   - hifi
   tools:
-  - multiqc
-  - cutadapt
+  - collapse_dataset
   - seqkit_stats
   - fastqc
-  - collapse_dataset
+  - multiqc
+  - cutadapt
   update_time: '2026-05-13'
   versions: 2
 - create_time: '2024-09-18'
@@ -195,15 +195,15 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Sequence conversion
-  - Sequence contamination filtering
-  - DNA transcription
   - Sequence trimming
-  - Sequencing quality control
+  - Sequence contamination filtering
   - DNA translation
   - Sequence composition calculation
+  - DNA transcription
+  - Sequence conversion
   - Validation
   - Statistical calculation
+  - Sequencing quality control
   edam_topic:
   - Whole genome sequencing
   id: '601'
@@ -221,12 +221,12 @@
   - erga
   - illumina
   tools:
-  - multiqc
-  - seqkit_stats
   - fastp
   - __FLATTEN__
-  - fastqc
   - collapse_dataset
+  - seqkit_stats
+  - fastqc
+  - multiqc
   update_time: '2026-05-13'
   versions: 2
 - create_time: '2025-07-07'
@@ -250,16 +250,16 @@
   - galaxy
   - name:neoantigen
   tools:
-  - pep_pointer
-  - 'converting colons to columns
-
-    Convert characters1'
   - tab2fasta
+  - pep_pointer
   - 'converting pipes to columns
 
     Convert characters1'
-  - query_tabular
   - regexColumn1
+  - query_tabular
+  - 'converting colons to columns
+
+    Convert characters1'
   update_time: '2025-07-07'
   versions: 1
 - create_time: '2025-06-02'
@@ -283,12 +283,12 @@
   - gtn
   - galaxy
   tools:
+  - ecology_homogeneity_normality
   - ecology_beta_diversity
   - tool_anonymization
   - ecology_presence_abs_abund
-  - ecology_homogeneity_normality
-  - ecology_stat_presence_abs
   - ecology_link_between_var
+  - ecology_stat_presence_abs
   update_time: '2025-06-02'
   versions: 1
 - create_time: '2025-06-02'
@@ -297,10 +297,10 @@
   doi: null
   edam_operation:
   - Visualisation
+  - Sequence assembly validation
   - Genome assembly
   - Sequence assembly visualisation
   - Read mapping
-  - Sequence assembly validation
   edam_topic: []
   id: '1634'
   keep: true
@@ -316,13 +316,13 @@
   - gtn
   - galaxy
   tools:
-  - quast
-  - megahit
   - bowtie2
-  - bandage_image
   - metaspades
   - megahit_contig2fastg
+  - megahit
+  - quast
   - collection_column_join
+  - bandage_image
   - bandage_info
   update_time: '2025-06-02'
   versions: 1
@@ -331,10 +331,10 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Coding region prediction
   - Genome annotation
   - Genome visualisation
   - Gene prediction
+  - Coding region prediction
   edam_topic: []
   id: '1497'
   keep: true
@@ -361,12 +361,12 @@
   deprecated: false
   doi: null
   edam_operation:
-  - DNA translation
-  - Sequence conversion
-  - Scatter plot plotting
-  - Box-Whisker plot plotting
-  - DNA transcription
   - Sequence trimming
+  - Sequence conversion
+  - Box-Whisker plot plotting
+  - DNA translation
+  - Scatter plot plotting
+  - DNA transcription
   edam_topic:
   - Whole genome sequencing
   id: '697'
@@ -384,9 +384,9 @@
   - erga
   - ont
   tools:
+  - nanoplot
   - collapse_dataset
   - seqkit_stats
-  - nanoplot
   update_time: '2026-05-13'
   versions: 1
 - create_time: '2025-06-01'
@@ -395,15 +395,15 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Data handling
-  - Genome assembly
-  - k-mer counting
-  - Read binning
-  - Sequence assembly validation
-  - Pairwise sequence alignment
-  - De-novo assembly
   - Scaffolding
+  - De-novo assembly
   - Phasing
+  - Pairwise sequence alignment
+  - Sequence assembly validation
+  - Genome assembly
+  - Read binning
+  - k-mer counting
+  - Data handling
   edam_topic:
   - Whole genome sequencing
   id: '1163'
@@ -422,14 +422,14 @@
   - hifi
   - qc
   tools:
-  - minimap2
-  - purge_dups
-  - merqury
-  - gfa_to_fa
-  - cat1
-  - gfastats
-  - busco
   - param_value_from_file
+  - busco
+  - gfastats
+  - merqury
+  - purge_dups
+  - minimap2
+  - cat1
+  - gfa_to_fa
   update_time: '2026-05-13'
   versions: 2
 - create_time: '2025-02-03'
@@ -438,14 +438,14 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Data handling
-  - Genome assembly
+  - Sequence alignment
+  - Scaffolding
   - De-novo assembly
   - Phasing
-  - Scaffolding
-  - k-mer counting
   - Sequence assembly validation
-  - Sequence alignment
+  - Genome assembly
+  - k-mer counting
+  - Data handling
   edam_topic:
   - Whole genome sequencing
   id: '1164'
@@ -464,25 +464,25 @@
   - hic
   - qc
   tools:
-  - __EXTRACT_DATASET__
-  - pairtools_sort
+  - pairtools_split
+  - Cut1
+  - gfastats
+  - pick_value
+  - yahs
   - pretext_snapshot
   - bwa_mem2
-  - merqury
-  - yahs
   - busco
-  - param_value_from_file
   - pretext_map
-  - sambamba_merge
+  - param_value_from_file
   - pairtools_dedup
-  - sambamba_flagstat
-  - pick_value
-  - CONVERTER_fasta_to_fai
-  - Cut1
   - pairtools_parse
+  - CONVERTER_fasta_to_fai
   - gfa_to_fa
-  - gfastats
-  - pairtools_split
+  - sambamba_merge
+  - merqury
+  - __EXTRACT_DATASET__
+  - pairtools_sort
+  - sambamba_flagstat
   update_time: '2026-05-13'
   versions: 2
 - create_time: '2025-05-30'
@@ -491,14 +491,14 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Data handling
+  - Phasing
   - Sequence assembly visualisation
+  - Scaffolding
+  - Sequence assembly validation
   - Genome assembly
   - De-novo assembly
-  - Phasing
-  - Scaffolding
   - k-mer counting
-  - Sequence assembly validation
+  - Data handling
   edam_topic:
   - Whole genome sequencing
   id: '1162'
@@ -518,13 +518,13 @@
   - ont
   - qc
   tools:
-  - bandage_image
-  - merqury
-  - gfa_to_fa
-  - gfastats
-  - busco
-  - hifiasm
   - param_value_from_file
+  - busco
+  - gfastats
+  - hifiasm
+  - merqury
+  - bandage_image
+  - gfa_to_fa
   update_time: '2026-05-13'
   versions: 2
 - create_time: '2025-02-05'
@@ -533,10 +533,10 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Differential protein expression profiling
-  - Data handling
   - Genome annotation
+  - Differential protein expression profiling
   - Sequence assembly validation
+  - Data handling
   edam_topic:
   - Genomics
   id: '1096'
@@ -557,12 +557,12 @@
   - qc
   tools:
   - tp_text_file_with_recurring_lines
-  - agat
-  - omark
-  - pick_value
   - busco
+  - agat
+  - pick_value
   - collapse_dataset
   - lftp
+  - omark
   update_time: '2026-05-13'
   versions: 2
 - create_time: '2024-09-03'
@@ -571,14 +571,14 @@
   deprecated: false
   doi: 10.48546/workflowhub.workflow.1114.1
   edam_operation:
-  - Sequence assembly visualisation
-  - Genome assembly
   - Sequencing quality control
-  - De-novo assembly
   - Cross-assembly
-  - Mapping assembly
+  - Sequence assembly visualisation
   - Sequence composition calculation
+  - De-novo assembly
+  - Genome assembly
   - Statistical calculation
+  - Mapping assembly
   edam_topic: []
   id: '1114'
   keep: true
@@ -596,15 +596,15 @@
   - genome_assembly
   - nanopore
   tools:
-  - nanofilt
-  - bandage_image
-  - porechop
-  - flye
-  - split_file_to_collection
-  - fastqc
-  - bandage_info
-  - collapse_dataset
   - fasta-stats
+  - split_file_to_collection
+  - collapse_dataset
+  - fastqc
+  - nanofilt
+  - porechop
+  - bandage_image
+  - flye
+  - bandage_info
   update_time: '2026-05-13'
   versions: 1
 - create_time: '2024-02-14'
@@ -629,10 +629,10 @@
   - genome-annotation
   tools:
   - list_organism
-  - create_or_update
-  - jbrowse
-  - create_account
   - iframe
+  - create_account
+  - jbrowse
+  - create_or_update
   update_time: '2025-11-04'
   versions: 1
 - create_time: '2024-01-09'
@@ -641,14 +641,14 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Data handling
+  - Phasing
+  - Sequence alignment
+  - Scaffolding
+  - Sequence assembly validation
   - Genome assembly
   - De-novo assembly
-  - Phasing
-  - Scaffolding
   - k-mer counting
-  - Sequence assembly validation
-  - Sequence alignment
+  - Data handling
   edam_topic:
   - Whole genome sequencing
   id: '702'
@@ -666,16 +666,16 @@
   - hic
   - name:assembly+qc
   tools:
+  - param_value_from_file
+  - busco
+  - gfastats
   - pretext_map
-  - bwa_mem2
+  - yahs
   - bellerophon
   - merqury
-  - gfa_to_fa
-  - yahs
-  - gfastats
-  - busco
   - pretext_snapshot
-  - param_value_from_file
+  - bwa_mem2
+  - gfa_to_fa
   update_time: '2026-05-13'
   versions: 1
 - create_time: '2024-01-09'
@@ -684,15 +684,15 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Data handling
-  - Genome assembly
-  - k-mer counting
-  - Read binning
-  - Sequence assembly validation
-  - Pairwise sequence alignment
-  - De-novo assembly
   - Scaffolding
+  - De-novo assembly
   - Phasing
+  - Pairwise sequence alignment
+  - Sequence assembly validation
+  - Genome assembly
+  - Read binning
+  - k-mer counting
+  - Data handling
   edam_topic:
   - Whole genome sequencing
   id: '701'
@@ -710,13 +710,13 @@
   - illumina
   - name:assembly+qc
   tools:
-  - minimap2
-  - purge_dups
-  - merqury
-  - gfa_to_fa
-  - gfastats
-  - busco
   - param_value_from_file
+  - busco
+  - gfastats
+  - merqury
+  - purge_dups
+  - minimap2
+  - gfa_to_fa
   update_time: '2026-05-13'
   versions: 1
 - create_time: '2023-11-09'
@@ -744,12 +744,12 @@
   - biodiversity
   - ecology
   tools:
+  - ecology_homogeneity_normality
   - ecology_beta_diversity
   - tool_anonymization
   - ecology_presence_abs_abund
-  - ecology_homogeneity_normality
-  - ecology_stat_presence_abs
   - ecology_link_between_var
+  - ecology_stat_presence_abs
   update_time: '2026-05-13'
   versions: 1
 - create_time: '2023-10-11'
@@ -758,14 +758,14 @@
   deprecated: false
   doi: 10.48546/workflowhub.workflow.608.1
   edam_operation:
-  - Data handling
+  - Phasing
+  - Sequence alignment
+  - Scaffolding
+  - Sequence assembly validation
   - Genome assembly
   - De-novo assembly
-  - Phasing
-  - Scaffolding
   - k-mer counting
-  - Sequence assembly validation
-  - Sequence alignment
+  - Data handling
   edam_topic:
   - Whole genome sequencing
   id: '608'
@@ -783,16 +783,16 @@
   - erga
   - hi-c
   tools:
+  - param_value_from_file
+  - busco
+  - gfastats
   - pretext_map
-  - bwa_mem2
+  - yahs
   - bellerophon
   - merqury
-  - gfa_to_fa
-  - yahs
-  - gfastats
-  - busco
   - pretext_snapshot
-  - param_value_from_file
+  - bwa_mem2
+  - gfa_to_fa
   update_time: '2026-05-13'
   versions: 1
 - create_time: '2020-08-05'
@@ -818,8 +818,8 @@
   - ont
   tools:
   - kraken2
-  - tp_replace_in_line
   - datamash_reverse
+  - tp_replace_in_line
   - taxonomy_krona_chart
   update_time: '2026-05-13'
   versions: 1
@@ -882,11 +882,11 @@
   - training
   tools:
   - tp_text_file_with_recurring_lines
-  - interactive_tool_jupyter_notebook
-  - cat1
   - Remove beginning1
   - collapse_dataset
   - lftp
+  - interactive_tool_jupyter_notebook
+  - cat1
   update_time: '2025-11-06'
   versions: 12
 - create_time: '2025-11-05'
@@ -915,9 +915,9 @@
   - training
   tools:
   - tp_text_file_with_recurring_lines
-  - interactive_tool_jupyter_notebook
   - collapse_dataset
   - lftp
+  - interactive_tool_jupyter_notebook
   update_time: '2025-11-06'
   versions: 15
 - create_time: '2025-11-05'
@@ -945,9 +945,9 @@
   - training
   tools:
   - tp_text_file_with_recurring_lines
-  - interactive_tool_jupyter_notebook
   - collapse_dataset
   - lftp
+  - interactive_tool_jupyter_notebook
   update_time: '2025-11-06'
   versions: 9
 - create_time: '2023-11-09'
@@ -955,9 +955,9 @@
   deprecated: false
   doi: ''
   edam_operation:
+  - Statistical calculation
   - Sequencing quality control
   - Sequence composition calculation
-  - Statistical calculation
   edam_topic: []
   id: afad9a17a80bb26d
   keep: true
@@ -973,23 +973,23 @@
   - biodiversity
   - edna
   tools:
-  - obi_ngsfilter
-  - obi_annotate
-  - join1
   - obi_illumina_pairend
-  - unzip
-  - obi_uniq
-  - Filter1
+  - obi_annotate
   - seq_filter_by_id
+  - join1
   - Cut1
-  - fastq_groomer
-  - obi_stat
-  - fastqc
-  - obi_grep
-  - ncbi_blastn_wrapper
-  - obi_clean
-  - wc_gnu
   - obi_tab
+  - Filter1
+  - fastqc
+  - obi_stat
+  - obi_clean
+  - obi_grep
+  - obi_uniq
+  - obi_ngsfilter
+  - unzip
+  - wc_gnu
+  - ncbi_blastn_wrapper
+  - fastq_groomer
   update_time: '2025-09-12'
   versions: 1
 - create_time: '2023-03-01'
@@ -1013,10 +1013,10 @@
   - earth-system
   - satellite
   tools:
-  - srs_preprocess_s2
   - srs_global_indices
-  - srs_diversity_maps
+  - srs_preprocess_s2
   - srs_spectral_indices
+  - srs_diversity_maps
   update_time: '2024-05-27'
   versions: 5
 - create_time: '2023-03-13'
@@ -1037,9 +1037,9 @@
   tags: []
   tools:
   - tp_cut_tool
-  - obisindicators
-  - csv_to_tabular
   - Filter1
+  - csv_to_tabular
+  - obisindicators
   update_time: '2023-11-10'
   versions: 2
 - create_time: '2023-11-09'
@@ -1059,10 +1059,10 @@
   source: https://usegalaxy.eu
   tags: []
   tools:
-  - srs_preprocess_s2
   - srs_global_indices
-  - srs_diversity_maps
+  - srs_preprocess_s2
   - srs_spectral_indices
+  - srs_diversity_maps
   update_time: '2023-11-09'
   versions: 1
 - create_time: '2021-02-24'
@@ -1083,20 +1083,20 @@
   tags:
   - ecology
   tools:
+  - pampa_plotglm
   - tp_cut_tool
+  - Filter1
+  - pampa_glmcomm
+  - datamash_transpose
+  - regexColumn1
+  - tp_sort_header_tool
+  - pampa_glmsp
   - regex1
   - pampa_presabs
   - pampa_communitymetrics
-  - tp_cat
-  - tp_sort_header_tool
-  - pampa_glmcomm
   - mergeCols1
-  - Filter1
-  - datamash_transpose
-  - pampa_plotglm
-  - pampa_glmsp
   - Count1
-  - regexColumn1
+  - tp_cat
   update_time: '2021-02-24'
   versions: 0
 - create_time: '2019-03-21'
@@ -1118,14 +1118,14 @@
   tags:
   - metadegalaxy
   tools:
-  - phyloseq_abundance
-  - biom_convert
-  - phyloseq_richness
-  - phyloseq_taxonomy
   - phyloseq_DESeq2
+  - phyloseq_abundance
+  - biom_add_metadata
+  - biom_convert
+  - phyloseq_taxonomy
+  - phyloseq_richness
   - symmetricPlot
   - phyloseq_net
-  - biom_add_metadata
   update_time: '2021-04-01'
   versions: 9
 - create_time: '2019-03-21'
@@ -1133,16 +1133,16 @@
   deprecated: false
   doi: ''
   edam_operation:
-  - Formatting
-  - Read mapping
-  - Generation
-  - Sequence alignment
   - Sequencing quality control
-  - DNA mapping
+  - Sequence alignment
   - Chimera detection
+  - Formatting
   - Sequence composition calculation
-  - Genome indexing
+  - DNA mapping
+  - Generation
   - Statistical calculation
+  - Genome indexing
+  - Read mapping
   edam_topic: []
   id: 869440d35a618836
   keep: true
@@ -1156,28 +1156,28 @@
   tags:
   - metadegalaxy
   tools:
-  - trimmomatic
-  - samtools_fastx
   - phyloseq_DESeq2
-  - cat_multi_datasets
-  - vsearch_search
+  - Cut1
+  - uclust2otutable
   - cat1
-  - symmetricPlot
-  - bwa_mem
   - vsearch_dereplication
-  - vsearch_chimera_detection
-  - addValue
-  - phyloseq_richness
-  - phyloseq_taxonomy
   - picard_FilterSamReads
+  - phyloseq_abundance
+  - biom_convert
+  - cat_multi_datasets
   - phyloseq_net
   - biom_add_metadata
+  - bwa_mem
+  - phyloseq_richness
   - vsearch_clustering
-  - phyloseq_abundance
-  - uclust2otutable
-  - biom_convert
-  - Cut1
+  - symmetricPlot
+  - samtools_fastx
+  - vsearch_chimera_detection
+  - trimmomatic
   - fastqc
+  - vsearch_search
+  - addValue
+  - phyloseq_taxonomy
   update_time: '2021-04-01'
   versions: 18
 - create_time: '2019-03-21'
@@ -1185,17 +1185,17 @@
   deprecated: false
   doi: ''
   edam_operation:
-  - Formatting
-  - Read mapping
-  - Sequence merging
-  - Generation
-  - Sequence alignment
   - Sequencing quality control
-  - DNA mapping
+  - Sequence alignment
   - Chimera detection
+  - Formatting
   - Sequence composition calculation
-  - Genome indexing
+  - DNA mapping
+  - Generation
   - Statistical calculation
+  - Genome indexing
+  - Sequence merging
+  - Read mapping
   edam_topic: []
   id: 14e80b7f9f68ec2a
   keep: true
@@ -1209,28 +1209,28 @@
   tags:
   - metadegalaxy
   tools:
-  - iuc_pear
-  - trimmomatic
-  - samtools_fastx
   - phyloseq_DESeq2
-  - vsearch_search
+  - Cut1
+  - uclust2otutable
   - cat1
-  - symmetricPlot
-  - bwa_mem
   - vsearch_dereplication
-  - vsearch_chimera_detection
-  - addValue
-  - phyloseq_richness
-  - phyloseq_taxonomy
   - picard_FilterSamReads
+  - phyloseq_abundance
+  - biom_convert
   - phyloseq_net
   - biom_add_metadata
-  - vsearch_clustering
-  - phyloseq_abundance
-  - uclust2otutable
-  - biom_convert
-  - Cut1
-  - fastqc
+  - bwa_mem
   - picard_MergeSamFiles
+  - phyloseq_richness
+  - vsearch_clustering
+  - symmetricPlot
+  - iuc_pear
+  - samtools_fastx
+  - vsearch_chimera_detection
+  - trimmomatic
+  - fastqc
+  - vsearch_search
+  - addValue
+  - phyloseq_taxonomy
   update_time: '2021-04-01'
   versions: 16
