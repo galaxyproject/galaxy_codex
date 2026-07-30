@@ -1044,7 +1044,7 @@ def fill_lab_tool_section(
     # ensure the request_tools tab is at the bottom
     if request_tools_elem is not None:
         tabs.append(request_tools_elem)
-    
+
     new_lab_section = {
         "id": lab_section["id"],
         "title": lab_section["title"],
