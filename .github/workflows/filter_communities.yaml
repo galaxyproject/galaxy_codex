@@ -27,7 +27,8 @@ jobs:
         id: prepare
         run: |
           # produce a JSON array string, e.g. from a file or script
-          echo '["assembly","biodiversity","earth","genome","imaging","machine-learning","workflow4metabolomics","microgalaxy","proteomics","spoc"]' > communities.json          communities=$(cat communities.json)
+          echo '["assembly","biodiversity","earth","genome","imaging","machine-learning","workflow4metabolomics","microgalaxy","proteomics","spoc"]' > communities.json
+          communities=$(cat communities.json)
           echo "communities=$communities" >> $GITHUB_OUTPUT
 
   community-filter:
