@@ -988,8 +988,11 @@ def fill_lab_tool_section(
     Fill Lab tool section
     """
     tabs = []
-    for element in lab_section["tabs"]:
-        if element["id"] == "request_tools":
+    request_tools_elem = None
+    for element in lab_section.get("tabs", []):
+        if element.get("id") == "request_tools":
+            request_tools_elem = element
+        else:
             tabs.append(element)
 
     for grp_id, group in top_items_per_category.groupby("Category"):
@@ -1037,6 +1040,10 @@ def fill_lab_tool_section(
                 "content": tool_entries,
             }
         )
+
+    # ensure the request_tools tab is at the bottom
+    if request_tools_elem is not None:
+        tabs.append(request_tools_elem)
 
     new_lab_section = {
         "id": lab_section["id"],
