@@ -245,6 +245,7 @@ def export_tutorials_to_tsv(tutorials: list, output_fp: str) -> None:
         df.rename(
             columns={
                 "title": "Title",
+                "id": "ID",
                 "hands_on": "Tutorial",
                 "url": "Link",
                 "slides": "Slides",
@@ -272,6 +273,7 @@ def export_tutorials_to_tsv(tutorials: list, output_fp: str) -> None:
             columns=[
                 "Topic",
                 "Title",
+                "ID",
                 "Link",
                 "EDAM topic",
                 "EDAM operation",
