@@ -7,4 +7,4 @@
 last_update_file="communities/all/community_last_update.tsv"
 
 sed -i "/^$COMMUNITY\t/d" "$last_update_file"
-echo -e "$COMMUNITY\t$(git log -1 --format=%cd -- communities/$COMMUNITY/)" >> $last_update_file
+echo -e "$COMMUNITY\t$(git log -1 --format=%ci -- communities/$COMMUNITY/)" >> $last_update_file
