@@ -135,7 +135,7 @@ def get_youtube_stats(tuto: dict) -> None:
 
 def format_tutorial(tuto: dict, edam_ontology: dict, tools: dict, feedback: dict, plausible_api: str) -> Dict:
     #tuto["url"] = f'https://training.galaxyproject.org/{tuto["url"]}'
-    tuto["url"] = f'gxy.io/GTN:{tuto["id"]}'
+    tuto["url"] = f'gxy.io/GTN:{tuto["short_id"]}'
     tuto["mod_date"] = shared.format_date(tuto["mod_date"])
     tuto["pub_date"] = shared.format_date(tuto["pub_date"])
     add_supported_servers(tuto)
@@ -246,7 +246,7 @@ def export_tutorials_to_tsv(tutorials: list, output_fp: str) -> None:
         df.rename(
             columns={
                 "title": "Title",
-                "id": "ID",
+                "short_id": "short_id",
                 "hands_on": "Tutorial",
                 "url": "Link",
                 "slides": "Slides",
