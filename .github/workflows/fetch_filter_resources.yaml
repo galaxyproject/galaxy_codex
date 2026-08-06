@@ -137,14 +137,14 @@ jobs:
 #          path: communities/all/resources/citations.json
   merge-fetch:
     runs-on: ubuntu-latest
-    if: ${{ !cancelled() && needs.fetch-tools-stepwise.result == 'success' }}
+    if: ${{ !cancelled() && needs.fetch-tools-stepwise.result == 'success' && needs.fetch-tutorials.result == 'success' && needs.fetch-workflows.result == 'success' }}
     needs: 
       - fetch-servers
       - fetch-tools-stepwise
       - fetch-tutorials
       - fetch-workflows
 #      - fetch-citations
-    name: Merge tools
+    name: Merge tools & Push changes
     steps:
       - name: Checkout main
         uses: actions/checkout@v7
