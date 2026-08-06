@@ -211,6 +211,9 @@ def filter_tutorials(
     """
     Filter tutorial
     """
+    if tags is None:
+        tags = []  # Default to an empty list if `tags` is `None`
+
     filtered_tutorials = []
     for tuto in tutorials:
         to_keep = False
