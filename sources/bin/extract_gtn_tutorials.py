@@ -287,7 +287,7 @@ def export_tutorials_to_tsv(
             "inexact_supported_servers",
             "short_tools",
             "edam_operation",
-            "edam_topic"
+            "edam_topic",
         ]:
             df[col] = shared.format_list_column(df[col])
         df = df.rename(
@@ -607,7 +607,7 @@ if __name__ == "__main__":
                     "Deprecated",
                 ],
             )
-            #Export filtered tutorials to metadata folder (file that will be manually updated for curation)
+            # Export filtered tutorials to metadata folder (file that will be manually updated for curation)
             export_tutorials_to_tsv(
                 filtered_tutorials,
                 args.status,
