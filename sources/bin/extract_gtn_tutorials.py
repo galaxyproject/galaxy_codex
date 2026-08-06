@@ -256,7 +256,9 @@ def add_status(tutorial: Dict, tutorial_status: pd.DataFrame) -> None:
     else:
         selected_query = query.iloc[0]
         tutorial["To keep"] = bool(selected_query["To keep"]) if selected_query["To keep"] is not None else None
-        tutorial["Deprecated"] = bool(selected_query["Deprecated"]) if selected_query["Deprecated"] is not None else None
+        tutorial["Deprecated"] = (
+            bool(selected_query["Deprecated"]) if selected_query["Deprecated"] is not None else None
+        )
 
 
 def export_tutorials_to_tsv(
@@ -280,42 +282,45 @@ def export_tutorials_to_tsv(
             visit_duration=lambda df: df.visit_duration / 60,
         )
 
-        for col in ["exact_supported_servers", "inexact_supported_servers", "short_tools", "edam_operation", "edam_topic"]:
+        for col in [
+            "exact_supported_servers",
+            "inexact_supported_servers",
+            "short_tools",
+            "edam_operation",
+            "edam_topic"
+        ]:
             df[col] = shared.format_list_column(df[col])
-        df = (
-            df.rename(
-                columns={
-                    "title": "Title",
-                    "hands_on": "Tutorial",
-                    "url": "Link",
-                    "slides": "Slides",
-                    "mod_date": "Last modification",
-                    "pub_date": "Creation",
-                    "version": "Version",
-                    "short_tools": "Tools",
-                    "exact_supported_servers": "Servers with precise tool versions",
-                    "inexact_supported_servers": "Servers with tool but different versions",
-                    "topic_name_human": "Topic",
-                    "video": "Video",
-                    "edam_topic": "EDAM topic",
-                    "edam_operation": "EDAM operation",
-                    "feedback_number": "Feedback number",
-                    "feedback_mean_note": "Feedback mean note",
-                    "visitors": "Visitors",
-                    "pageviews": "Page views",
-                    "visit_duration": "Visit duration",
-                    "video_versions": "Video versions",
-                    "video_view": "Video views",
-                    "to_keep": "To keep",
-                    "deprecated": "Deprecated",
-                }
-            )
-            .fillna("")
-        )
+        df = df.rename(
+            columns={
+                "title": "Title",
+                "hands_on": "Tutorial",
+                "url": "Link",
+                "slides": "Slides",
+                "mod_date": "Last modification",
+                "pub_date": "Creation",
+                "version": "Version",
+                "short_tools": "Tools",
+                "exact_supported_servers": "Servers with precise tool versions",
+                "inexact_supported_servers": "Servers with tool but different versions",
+                "topic_name_human": "Topic",
+                "video": "Video",
+                "edam_topic": "EDAM topic",
+                "edam_operation": "EDAM operation",
+                "feedback_number": "Feedback number",
+                "feedback_mean_note": "Feedback mean note",
+                "visitors": "Visitors",
+                "pageviews": "Page views",
+                "visit_duration": "Visit duration",
+                "video_versions": "Video versions",
+                "video_view": "Video views",
+                "to_keep": "To keep",
+                "deprecated": "Deprecated",
+            }
+        ).fillna("")
         if to_keep_columns is not None:
             df = df[to_keep_columns]
-    #else:  # Create a DataFrame with the specified headers and save it
-        #df = pd.DataFrame(columns=["Suite ID", "bio.tool name", "EDAM operations", "EDAM topics"])
+    # else:  # Create a DataFrame with the specified headers and save it
+    # df = pd.DataFrame(columns=["Suite ID", "bio.tool name", "EDAM operations", "EDAM topics"])
 
     df.to_csv(output_fp, sep="\t", index=False)
 
@@ -512,7 +517,6 @@ if __name__ == "__main__":
     )
     curatetuto.add_argument("--yml", "-y", required=True, help="Filepath to yml with community extracted tutorials")
 
-
     # Add tutorials to the lab section
     labpop = subparser.add_parser("popLabSection", help="Fill in Lab section tutorials")
     labpop.add_argument(
@@ -566,12 +570,12 @@ if __name__ == "__main__":
                     "Video views",
                     "To keep",
                     "Deprecated",
-                    ]
-                )
+                ]
+            )
         # filter lists
         filtered_tutorials = filter_tutorials(all_tutorials, tags, status)
         if filtered_tutorials:
-            #Export filtered tutorials to resource folder
+            # Export filtered tutorials to resource folder
             shared.export_to_json(filtered_tutorials, args.json)
             shared.export_to_yml(filtered_tutorials, args.yml)
             export_tutorials_to_tsv(
@@ -627,7 +631,7 @@ if __name__ == "__main__":
             print(f"Failed to load {args.status} file with:\n{ex}")
             print("Not assigning tutorial status for this community !")
             status = {}
-        curated_tutorials = curate_tutorials(tutos,status)
+        curated_tutorials = curate_tutorials(tutos, status)
         if curated_tutorials:
             shared.export_to_json(curated_tutorials, args.curated)
             shared.export_to_yml(curated_tutorials, args.yml)
@@ -663,7 +667,6 @@ if __name__ == "__main__":
         else:
             # if there are no ts filtered tutorials
             print("No tutorials left after curation")
-
 
     elif args.command == "popLabSection":
         lab_section = shared.load_yaml(args.lab)
