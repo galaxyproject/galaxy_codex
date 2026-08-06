@@ -203,34 +203,13 @@ def get_tutorials(
     return tutos
 
 
-def filter_tutorials_by_tags(self, tags: dict, status: Dict) -> None:
-    """
-    Filter tutorials by tags
-    """
-    to_keep_wf = []
-    for w in self:
-        if w.Title in status:
-            w.update_status(status[w.title])
-        if w.test_tags(tags) or w.test_name(tags):
-            to_keep_wf.append(w)
-    self = to_keep_wf
-
-
-def update_status(self, wf: dict) -> None:
-    """
-    Update status from status table
-    """
-    self.keep = wf["To keep"]
-    self.deprecated = wf["Deprecated"]
-
-
 def filter_tutorials(
     tutorials: List[Dict],
     ts_cat: List[str],
     tutorials_status: pd.DataFrame,
 ) -> list:
     """
-    Filter tutorials
+    Filter tutorial
     """
     filtered_tutorials = []
     for tuto in tutorials:
@@ -372,7 +351,7 @@ def extract_top_tutorials_per_category(
     return top_tutorials_per_category
 
 
-def curate_tutorials(tutorials: List[Dict], tutorial_status: pd.DataFrame) -> tuple:
+def curate_tutorials(tutorials: List[Dict], tutorial_status: pd.DataFrame) -> list:
     """
     Curate tutorials based on community feedback
     """
