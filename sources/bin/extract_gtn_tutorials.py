@@ -4,7 +4,6 @@ import argparse
 import time
 from datetime import date
 from typing import (
-    Any,
     Dict,
     List,
     Optional,
