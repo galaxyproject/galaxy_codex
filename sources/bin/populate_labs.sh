@@ -69,7 +69,7 @@ fi
 ### Create/Update the tutorial file
 python sources/bin/extract_gtn_tutorials.py \
     popLabSection \
-    --tsv communities/$COMMUNITY/resources/tutorials.tsv \
+    --curated communities/$COMMUNITY/resources/curated_tutorials.tsv \
     --lab $tutorials_section
     
 ##Update the tutorial in the topic sections of the microbiology labs

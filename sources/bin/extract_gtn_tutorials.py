@@ -1,15 +1,16 @@
 #!/usr/bin/env python
 
 import argparse
+import os
 import time
 from datetime import date
 from typing import (
-    Any,
     Dict,
     List,
     Optional,
 )
 
+import numpy as np
 import pandas as pd
 import shared
 import yt_dlp
@@ -202,18 +203,16 @@ def get_tutorials(
     return tutos
 
 
-def filter_tutorials(tutorials: Any, tags: Optional[List[Any]]) -> List[Any]:
-    # def filter_tutorials(tutorials: dict, tags: List) -> List:
+def filter_tutorials(
+    tutorials: List[Dict],
+    tags: Optional[List[str]],
+    tutorials_status: pd.DataFrame,
+) -> list:
     """
-    Filter training based on a list of tags
-    If tags is None or an empty list, returns all tutorials.
+    Filter tutorial
     """
-    # Normalize input: always work with a list
-    if isinstance(tutorials, dict):
-        tutorials = list(tutorials.values())
-    if not tags:
-        # No tags specified, return all tutorials
-        return tutorials
+    if tags is None:
+        tags = []  # Default to an empty list if `tags` is `None`
 
     filtered_tutorials = []
     for tuto in tutorials:
@@ -224,25 +223,57 @@ def filter_tutorials(tutorials: Any, tags: Optional[List[Any]]) -> List[Any]:
                     to_keep = True
         if to_keep:
             filtered_tutorials.append(tuto)
+            add_status(tuto, tutorials_status)
     return filtered_tutorials
 
 
-def export_tutorials_to_tsv(tutorials: list, output_fp: str) -> None:
+def add_status(tutorial: Dict, tutorial_status: pd.DataFrame) -> None:
     """
-    Export tutorials to a TSV file
+    Add status to tutorial
     """
-    df = pd.DataFrame(tutorials).assign(
-        Workflows=lambda df: df.workflows.notna(),
-        exact_supported_servers=lambda df: df.exact_supported_servers.fillna("").apply(list),
-        inexact_supported_servers=lambda df: df.inexact_supported_servers.fillna("").apply(list),
-        visit_duration=lambda df: df.visit_duration / 60,
-    )
+    title = tutorial["title"]
+    query = tutorial_status.query(f'`Title` == "{title}"')
+    if query.empty:
+        tutorial["To keep"] = None
+        tutorial["Deprecated"] = None
+    else:
+        selected_query = query.iloc[0]
+        tutorial["To keep"] = bool(selected_query["To keep"]) if selected_query["To keep"] is not None else None
+        tutorial["Deprecated"] = (
+            bool(selected_query["Deprecated"]) if selected_query["Deprecated"] is not None else None
+        )
 
-    for col in ["exact_supported_servers", "inexact_supported_servers", "short_tools", "edam_operation", "edam_topic"]:
-        df[col] = shared.format_list_column(df[col])
 
-    df = (
-        df.rename(
+def export_tutorials_to_tsv(
+    tutorials: List[Dict], output_fp: str, format_list_col: bool = False, to_keep_columns: Optional[List[str]] = None
+) -> None:
+    """
+    Export tutorial metadata to TSV output file
+
+    :param tutorials: dictionary with tutorials
+    :param output_fp: path to output file
+    :param format_list_col: boolean indicating if list columns should be formatting
+    """
+
+    if tutorials:  # Only proceed if 'tutorials' is not empty
+        df = pd.DataFrame(tutorials).sort_values("title")
+
+        df = pd.DataFrame(tutorials).assign(
+            Workflows=lambda df: df.workflows.notna(),
+            exact_supported_servers=lambda df: df.exact_supported_servers.fillna("").apply(list),
+            inexact_supported_servers=lambda df: df.inexact_supported_servers.fillna("").apply(list),
+            visit_duration=lambda df: df.visit_duration / 60,
+        )
+
+        for col in [
+            "exact_supported_servers",
+            "inexact_supported_servers",
+            "short_tools",
+            "edam_operation",
+            "edam_topic",
+        ]:
+            df[col] = shared.format_list_column(df[col])
+        df = df.rename(
             columns={
                 "title": "Title",
                 "hands_on": "Tutorial",
@@ -265,35 +296,15 @@ def export_tutorials_to_tsv(tutorials: list, output_fp: str) -> None:
                 "visit_duration": "Visit duration",
                 "video_versions": "Video versions",
                 "video_view": "Video views",
+                "to_keep": "To keep",
+                "deprecated": "Deprecated",
             }
-        )
-        .fillna("")
-        .reindex(
-            columns=[
-                "Topic",
-                "Title",
-                "Link",
-                "EDAM topic",
-                "EDAM operation",
-                "Creation",
-                "Last modification",
-                "Version",
-                "Tutorial",
-                "Slides",
-                "Video",
-                "Workflows",
-                "Tools",
-                "Servers with precise tool versions",
-                "Servers with tool but different versions",
-                "Feedback number",
-                "Feedback mean note",
-                "Visitors",
-                "Page views",
-                "Visit duration",
-                "Video views",
-            ]
-        )
-    )
+        ).fillna("")
+        if to_keep_columns is not None:
+            df = df[to_keep_columns]
+    # else:  # Create a DataFrame with the specified headers and save it
+    # df = pd.DataFrame(columns=["Suite ID", "bio.tool name", "EDAM operations", "EDAM topics"])
+
     df.to_csv(output_fp, sep="\t", index=False)
 
 
@@ -341,6 +352,18 @@ def extract_top_tutorials_per_category(
     )
 
     return top_tutorials_per_category
+
+
+def curate_tutorials(tutorials: List[Dict], tutorial_status: pd.DataFrame) -> list:
+    """
+    Curate tutorials based on community feedback
+    """
+    curated_tutorials = []
+    for tutorial in tutorials:
+        add_status(tutorial, tutorial_status)
+        if tutorial["To keep"]:  # only add tutorials that are manually marked as to keep
+            curated_tutorials.append(tutorial)
+    return curated_tutorials
 
 
 def fill_lab_tutorial_section(
@@ -428,6 +451,12 @@ if __name__ == "__main__":
         help="Filepath to yml file with all extracted tutorials, generated by extracttutorials command",
     )
     filtertuto.add_argument(
+        "--json",
+        "-j",
+        required=True,
+        help="Filepath to JSON file with all extracted tutorials, generated by extracttutorials command",
+    )
+    filtertuto.add_argument(
         "--filtered",
         "-f",
         required=True,
@@ -438,12 +467,44 @@ if __name__ == "__main__":
         "-t",
         help="Path to a file with tags to keep in the extraction (one per line)",
     )
+    filtertuto.add_argument(
+        "--status",
+        "-s",
+        help="Path to a TSV file with tutorials status",
+    )
+
+    # Curate tutorials
+    curatetuto = subparser.add_parser("curate", help="Curate training materials based on their status")
+    curatetuto.add_argument(
+        "--filtered",
+        "-f",
+        required=True,
+        help="Filepath to JSON with tutorials filtered based on tags",
+    )
+    curatetuto.add_argument(
+        "--curated",
+        "-c",
+        required=True,
+        help="Filepath to JSON with curated tutorials",
+    )
+    curatetuto.add_argument(
+        "--tsv-curated",
+        "-t",
+        required=True,
+        help="Filepath to TSV with curated tutorials",
+    )
+    curatetuto.add_argument(
+        "--status",
+        "-s",
+        help="Path to a TSV file with tutorial status",
+    )
+    curatetuto.add_argument("--yml", "-y", required=True, help="Filepath to yml with community extracted tutorials")
 
     # Add tutorials to the lab section
     labpop = subparser.add_parser("popLabSection", help="Fill in Lab section tutorials")
     labpop.add_argument(
-        "--tsv",
-        "-t",
+        "--curated",
+        "-c",
         required=True,
         help="Filepath to TSV with curated tutorials",
     )
@@ -461,16 +522,138 @@ if __name__ == "__main__":
 
     elif args.command == "filter":
         all_tutorials = shared.load_json(args.all)
-        # get categories and training to exclude
+        # get categories
         tags = shared.read_file(args.tags) if args.tags else None
-        # filter training lists
-        filtered_tutorials = filter_tutorials(all_tutorials, tags)
-        export_tutorials_to_tsv(filtered_tutorials, args.filtered)
-        shared.export_to_yml(filtered_tutorials, args.yml)
+        # get status if file provided
+        if args.status and os.path.exists(args.status):
+            status = pd.read_csv(args.status, sep="\t").replace(np.nan, None)
+        else:
+            status = pd.DataFrame(
+                columns=[
+                    "Topic",
+                    "Title",
+                    "Link",
+                    "EDAM topic",
+                    "EDAM operation",
+                    "Creation",
+                    "Last modification",
+                    "Version",
+                    "Tutorial",
+                    "Slides",
+                    "Video",
+                    "Workflows",
+                    "Tools",
+                    "Servers with precise tool versions",
+                    "Servers with tool but different versions",
+                    "Feedback number",
+                    "Feedback mean note",
+                    "Visitors",
+                    "Page views",
+                    "Visit duration",
+                    "Video views",
+                    "To keep",
+                    "Deprecated",
+                ]
+            )
+        # filter lists
+        filtered_tutorials = filter_tutorials(all_tutorials, tags, status)
+        if filtered_tutorials:
+            # Export filtered tutorials to resource folder
+            shared.export_to_json(filtered_tutorials, args.json)
+            shared.export_to_yml(filtered_tutorials, args.yml)
+            export_tutorials_to_tsv(
+                filtered_tutorials,
+                args.filtered,
+                to_keep_columns=[
+                    "Topic",
+                    "Title",
+                    "Link",
+                    "EDAM topic",
+                    "EDAM operation",
+                    "Creation",
+                    "Last modification",
+                    "Version",
+                    "Tutorial",
+                    "Slides",
+                    "Video",
+                    "Workflows",
+                    "Tools",
+                    "Servers with precise tool versions",
+                    "Servers with tool but different versions",
+                    "Feedback number",
+                    "Feedback mean note",
+                    "Visitors",
+                    "Page views",
+                    "Visit duration",
+                    "Video views",
+                    "To keep",
+                    "Deprecated",
+                ],
+            )
+            # Export filtered tutorials to metadata folder (file that will be manually updated for curation)
+            export_tutorials_to_tsv(
+                filtered_tutorials,
+                args.status,
+                to_keep_columns=[
+                    "Topic",
+                    "Title",
+                    "Last modification",
+                    "To keep",
+                    "Deprecated",
+                ],
+            )
+        else:
+            # if there are no ts filtered tutorials
+            print(f"No tutorials found for category {args.filtered}")
+
+    elif args.command == "curate":
+        tutos = shared.load_json(args.filtered)
+        try:
+            status = pd.read_csv(args.status, sep="\t").replace(np.nan, None)
+        except Exception as ex:
+            print(f"Failed to load {args.status} file with:\n{ex}")
+            print("Not assigning tutorial status for this community !")
+            status = pd.DataFrame(columns=["Topic", "Title", "Last modification", "To keep", "Deprecated"])
+        curated_tutorials = curate_tutorials(tutos, status)
+        if curated_tutorials:
+            shared.export_to_json(curated_tutorials, args.curated)
+            shared.export_to_yml(curated_tutorials, args.yml)
+            export_tutorials_to_tsv(
+                curated_tutorials,
+                args.tsv_curated,
+                to_keep_columns=[
+                    "Topic",
+                    "Title",
+                    "Link",
+                    "EDAM topic",
+                    "EDAM operation",
+                    "Creation",
+                    "Last modification",
+                    "Version",
+                    "Tutorial",
+                    "Slides",
+                    "Video",
+                    "Workflows",
+                    "Tools",
+                    "Servers with precise tool versions",
+                    "Servers with tool but different versions",
+                    "Feedback number",
+                    "Feedback mean note",
+                    "Visitors",
+                    "Page views",
+                    "Visit duration",
+                    "Video views",
+                    "To keep",
+                    "Deprecated",
+                ],
+            )
+        else:
+            # if there are no ts filtered tutorials
+            print("No tutorials left after curation")
 
     elif args.command == "popLabSection":
         lab_section = shared.load_yaml(args.lab)
-        top_tutorials_per_category = extract_top_tutorials_per_category(args.tsv)
+        top_tutorials_per_category = extract_top_tutorials_per_category(args.curated)
         lab_section = fill_lab_tutorial_section(lab_section, top_tutorials_per_category)
 
         with open(args.lab, "w") as lab_f:
