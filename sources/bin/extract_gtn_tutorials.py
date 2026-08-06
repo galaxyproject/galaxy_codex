@@ -135,6 +135,7 @@ def get_youtube_stats(tuto: dict) -> None:
 
 def format_tutorial(tuto: dict, edam_ontology: dict, tools: dict, feedback: dict, plausible_api: str) -> Dict:
     tuto["url"] = f'https://training.galaxyproject.org/{tuto["url"]}'
+    tuto["purl"] = f'gxy.io/GTN:{tuto["short_id"]}'
     tuto["mod_date"] = shared.format_date(tuto["mod_date"])
     tuto["pub_date"] = shared.format_date(tuto["pub_date"])
     add_supported_servers(tuto)
@@ -245,8 +246,10 @@ def export_tutorials_to_tsv(tutorials: list, output_fp: str) -> None:
         df.rename(
             columns={
                 "title": "Title",
+                "short_id": "ID",
                 "hands_on": "Tutorial",
                 "url": "Link",
+                "purl": "Permanent link",
                 "slides": "Slides",
                 "mod_date": "Last modification",
                 "pub_date": "Creation",
@@ -272,6 +275,8 @@ def export_tutorials_to_tsv(tutorials: list, output_fp: str) -> None:
             columns=[
                 "Topic",
                 "Title",
+                "ID",
+                "Permanent link",
                 "Link",
                 "EDAM topic",
                 "EDAM operation",
@@ -314,7 +319,7 @@ def extract_top_tutorials_per_category(
         df.groupby("Category")
         .agg(
             total_count=(count_column, "sum"),
-            item_count=("Link", "size"),  # Count distinct items if necessary, use 'nunique'
+            item_count=("Permanent link", "size"),  # Count distinct items if necessary, use 'nunique'
         )
         .reset_index()
     )
@@ -328,10 +333,12 @@ def extract_top_tutorials_per_category(
     # Step 5: Assign each tutorial to the first category it appears in
     # Sort by 'Galaxy wrapper id' to ensure we assign based on first appearance
     df_unique = df[df["Category"].isin(top_categories)]  # Filter rows for top 5 categories
-    df_unique = df_unique.sort_values(by=["Link", "Category"])  # Sort by tutorial ID to keep first category only
+    df_unique = df_unique.sort_values(
+        by=["Permanent link", "Category"]
+    )  # Sort by tutorial ID to keep first category only
 
     # Step 6: Remove duplicates, keeping the first appearance of each tutorial
-    df_unique = df_unique.drop_duplicates(subset=["Link"], keep="first")
+    df_unique = df_unique.drop_duplicates(subset=["Permanent link"], keep="first")
 
     # Step 7: Extract top X items per category based on total count
     top_tutorials_per_category = (
@@ -359,7 +366,7 @@ def fill_lab_tutorial_section(
             # Prepare the description with an HTML unordered list and links for each tutorial link (only unique id)
             title = f"{row['Title']}\n (Visitors: {row[count_column]})"
             description = f"Tutorial stored in {row['Topic']} topic on the Galaxy Training Network and covering topics related to {row['EDAM topic']}"
-            link = row["Link"]
+            link = row["Permanent Link"]
 
             # Create the tutorial entry
             tutorial_entry = {
