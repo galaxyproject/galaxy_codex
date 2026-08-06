@@ -134,9 +134,10 @@ def get_youtube_stats(tuto: dict) -> None:
 
 
 def format_tutorial(tuto: dict, edam_ontology: dict, tools: dict, feedback: dict, plausible_api: str) -> Dict:
-    #tuto["url"] = f'https://training.galaxyproject.org/{tuto["url"]}'
-    tuto["url"] = f'gxy.io/GTN:{tuto["short_id"]}'
+    tuto["url"] = f'https://training.galaxyproject.org/{tuto["url"]}'
+    tuto["purl"] = f'gxy.io/GTN:{tuto["short_id"]}'
     tuto["mod_date"] = shared.format_date(tuto["mod_date"])
+    tuto["pub_date"] = shared.format_date(tuto["pub_date"])
     tuto["pub_date"] = shared.format_date(tuto["pub_date"])
     add_supported_servers(tuto)
     get_short_tool_ids(tuto)
