@@ -205,7 +205,7 @@ def get_tutorials(
 
 def filter_tutorials(
     tutorials: List[Dict],
-    ts_cat: List[str],
+    tags: List[str],
     tutorials_status: pd.DataFrame,
 ) -> list:
     """
@@ -610,7 +610,7 @@ if __name__ == "__main__":
         except Exception as ex:
             print(f"Failed to load {args.status} file with:\n{ex}")
             print("Not assigning tutorial status for this community !")
-            status = {}
+            status = pd.DataFrame(columns=["Topic","Title","Last modification","To keep","Deprecated"])
         curated_tutorials = curate_tutorials(tutos, status)
         if curated_tutorials:
             shared.export_to_json(curated_tutorials, args.curated)
