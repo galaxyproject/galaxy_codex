@@ -205,7 +205,7 @@ def get_tutorials(
 
 def filter_tutorials(
     tutorials: List[Dict],
-    tags: List[str],
+    tags: Optional[List[str]],
     tutorials_status: pd.DataFrame,
 ) -> list:
     """
