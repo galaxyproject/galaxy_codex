@@ -247,7 +247,7 @@ def export_tutorials_to_tsv(tutorials: list, output_fp: str) -> None:
         df.rename(
             columns={
                 "title": "Title",
-                "short_id": "short_id",
+                "short_id": "ID",
                 "hands_on": "Tutorial",
                 "url": "Link",
                 "purl": "Permanent link",
@@ -365,7 +365,7 @@ def fill_lab_tutorial_section(
             # Prepare the description with an HTML unordered list and links for each tutorial link (only unique id)
             title = f"{row['Title']}\n (Visitors: {row[count_column]})"
             description = f"Tutorial stored in {row['Topic']} topic on the Galaxy Training Network and covering topics related to {row['EDAM topic']}"
-            link = row["Link"]
+            link = row["Permanent Link"]
 
             # Create the tutorial entry
             tutorial_entry = {
