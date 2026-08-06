@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import argparse
+import os
 import time
 from datetime import date
 from typing import (
@@ -8,8 +9,8 @@ from typing import (
     List,
     Optional,
 )
+
 import numpy as np
-import os
 import pandas as pd
 import shared
 import yt_dlp
