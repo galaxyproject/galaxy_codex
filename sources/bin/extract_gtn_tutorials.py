@@ -333,7 +333,9 @@ def extract_top_tutorials_per_category(
     # Step 5: Assign each tutorial to the first category it appears in
     # Sort by 'Galaxy wrapper id' to ensure we assign based on first appearance
     df_unique = df[df["Category"].isin(top_categories)]  # Filter rows for top 5 categories
-    df_unique = df_unique.sort_values(by=["Permanent link", "Category"])  # Sort by tutorial ID to keep first category only
+    df_unique = df_unique.sort_values(
+        by=["Permanent link", "Category"]
+    )  # Sort by tutorial ID to keep first category only
 
     # Step 6: Remove duplicates, keeping the first appearance of each tutorial
     df_unique = df_unique.drop_duplicates(subset=["Permanent link"], keep="first")
