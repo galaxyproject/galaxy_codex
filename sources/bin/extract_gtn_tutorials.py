@@ -138,7 +138,6 @@ def format_tutorial(tuto: dict, edam_ontology: dict, tools: dict, feedback: dict
     tuto["purl"] = f'gxy.io/GTN:{tuto["short_id"]}'
     tuto["mod_date"] = shared.format_date(tuto["mod_date"])
     tuto["pub_date"] = shared.format_date(tuto["pub_date"])
-    tuto["pub_date"] = shared.format_date(tuto["pub_date"])
     add_supported_servers(tuto)
     get_short_tool_ids(tuto)
     get_edam_topics(tuto, edam_ontology)
