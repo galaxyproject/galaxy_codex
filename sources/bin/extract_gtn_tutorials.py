@@ -203,31 +203,6 @@ def get_tutorials(
     return tutos
 
 
-def filter_tutorials(tutorials: Any, tags: Optional[List[Any]]) -> List[Any]:
-    # def filter_tutorials(tutorials: dict, tags: List) -> List:
-    """
-    Filter training based on a list of tags
-    If tags is None or an empty list, returns all tutorials.
-    """
-    # Normalize input: always work with a list
-    if isinstance(tutorials, dict):
-        tutorials = list(tutorials.values())
-    if not tags:
-        # No tags specified, return all tutorials
-        return tutorials
-
-    filtered_tutorials = []
-    for tuto in tutorials:
-        to_keep = False
-        if "tags" in tuto and tuto["tags"]:
-            for t in tuto["tags"]:
-                if t in tags:
-                    to_keep = True
-        if to_keep:
-            filtered_tutorials.append(tuto)
-    return filtered_tutorials
-
-
 def filter_tutorials_by_tags(self, tags: dict, status: Dict) -> None:
     """
     Filter tutorials by tags
@@ -283,10 +258,6 @@ def add_status(tutorial: Dict, tutorial_status: pd.DataFrame) -> None:
         selected_query = query.iloc[0]
         tutorial["To keep"] = bool(selected_query["To keep"]) if selected_query["To keep"] is not None else None
         tutorial["Deprecated"] = bool(selected_query["Deprecated"]) if selected_query["Deprecated"] is not None else None
-
-
-
-
 
 
 def export_tutorials_to_tsv(
@@ -408,13 +379,6 @@ def curate_tutorials(tutorials: List[Dict], tutorial_status: pd.DataFrame) -> tu
     return curated_tutorials
 
 
-def update_status(self, wf: dict) -> None:
-    """
-    Update status from status table
-    """
-    self.keep = wf["To keep"]
-    self.deprecated = wf["Deprecated"]
-
 def fill_lab_tutorial_section(
     lab_section: dict, top_items_per_category: pd.DataFrame, count_column: str = "Visitors"
 ) -> dict:
@@ -522,7 +486,7 @@ if __name__ == "__main__":
         help="Path to a TSV file with tutorials status",
     )
 
-# Curate tutorials
+    # Curate tutorials
     curatetuto = subparser.add_parser("curate", help="Curate training materials based on their status")
     curatetuto.add_argument(
         "--filtered",
