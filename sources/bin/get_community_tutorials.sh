@@ -15,8 +15,20 @@
                                 filter \
                                 --all "communities/all/resources/tutorials.json" \
                                 --yml "communities/$COMMUNITY/resources/tutorials.yml" \
+                                --json "communities/$COMMUNITY/resources/tutorials.json" \
                                 --filtered "communities/$COMMUNITY/resources/tutorials.tsv" \
-                                --tags "communities/$COMMUNITY/metadata/tutorial_tags"
+                                --tags "communities/$COMMUNITY/metadata/tutorial_tags" \
+                                --status "communities/$COMMUNITY/metadata/tutorials_status.tsv"
+
+                        if [[ -f "communities/$COMMUNITY/resources/tutorials.tsv" ]]; then
+                                python sources/bin/extract_gtn_tutorials.py \
+                                        curate \
+                                        --filtered "communities/$COMMUNITY/resources/tutorials.json" \
+                                        --status "communities/$COMMUNITY/metadata/tutorials_status.tsv" \
+                                        --curated "communities/$COMMUNITY/resources/curated_tutorials.json" \
+                                        --tsv-curated "communities/$COMMUNITY/resources/curated_tutorials.tsv" \
+                                        --yml "communities/$COMMUNITY/resources/curated_tutorials.yml"
+                        fi;
 
                         if [[ -f "communities/$COMMUNITY/resources/tutorials.yml" ]]; then
                                 mkdir -p _data/communities/$COMMUNITY/
