@@ -148,9 +148,9 @@ jobs:
     steps:
       - name: Checkout main
         uses: actions/checkout@v7
-        with:
+        # with:
           # We pass the "PAT" secret to the checkout action; if no PAT secret is available to the workflow runner (eg. Dependabot) we fall back to the default "GITHUB_TOKEN".
-          token: ${{ secrets.PAT || secrets.GH_ACTIONS_PAT }}
+          # token: ${{ secrets.PAT || secrets.GH_ACTIONS_PAT || secrets.GITHUB_TOKEN }}
       - uses: actions/setup-python@v7
         with:
           python-version: '3.11'
