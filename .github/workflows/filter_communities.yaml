@@ -5,7 +5,6 @@ on:
   push:
     branches:
       - 'main'
-      - 'scorrear_PR_too_big'
     paths:
       - 'communities/all/resources/tools.tsv'
 
@@ -26,9 +25,8 @@ jobs:
       - name: Prepare communities JSON
         id: prepare
         run: |
-          # produce a JSON array string, e.g. from a file or script
-          echo '["assembly","biodiversity","earth","genome","imaging","machine-learning","workflow4metabolomics","microgalaxy","proteomics","spoc"]' > communities.json
-          communities=$(cat communities.json)
+          # List all directories in communities/ and format as a JSON array
+          communities=$(ls -d communities/*/ | xargs -n1 basename | jq -R -s -c 'split("\n")[:-1]')
           echo "communities=$communities" >> $GITHUB_OUTPUT
 
   community-filter:
@@ -74,8 +72,13 @@ jobs:
       #  env: 
       #    COMMUNITY: ${{ matrix.community }}
       - name: Populate lab for communities
+        # Should only run for communities who did manual curation of their resources
         run: |
-          bash sources/bin/populate_labs.sh
+          if [ -e "communities/${{ matrix.community }}/resources/curated_tools.tsv" ]; then
+            bash sources/bin/populate_labs.sh
+          else
+            echo "No curation for this community"
+          fi
         env: 
           COMMUNITY: ${{ matrix.community }}
       - name: Create Pull Request
