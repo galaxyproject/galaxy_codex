@@ -1,0 +1,58 @@
+name: Update Community latest update date
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 'main'
+    paths:
+      - 'communities/*/metadata/*.tsv'
+
+jobs:
+  set-matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      communities: ${{ steps.prepare.outputs.communities }}
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v7
+      - name: Prepare communities JSON
+        id: prepare
+        run: |
+          # List all directories in communities/ and format as a JSON array
+          communities=$(ls -d communities/*/ | xargs -n1 basename | jq -R -s -c 'split("\n")[:-1]')
+          echo "communities=$communities" >> $GITHUB_OUTPUT
+  community-filter:
+    needs: set-matrix
+    runs-on: ubuntu-latest
+    name: Extract last update date for each communities
+    strategy:
+      matrix:
+        community: ${{ fromJson(needs.set-matrix.outputs.communities) }}
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.11'
+      - name: Install requirement
+        run: |
+          python -m pip install -r requirements.txt
+          sudo apt-get install jq
+      - name: Filter tools for communities
+        run: | 
+          bash sources/bin/extract_last_update.sh
+        env: 
+          COMMUNITY: ${{ matrix.community }}
+      - name: Commit and push changes
+        uses: stefanzweifel/git-auto-commit-action@v7
+        with:
+          commit_message: "Update community latest update date"
+          branch: main
+          commit_user_name: GitHub Actions
+          commit_user_email: actions@github.com
+          commit_author: GitHub Actions <actions@github.com>
+          repository_initial_branch: main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_ACTIONS_PAT }}
+
