@@ -1,0 +1,807 @@
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/searchbuilder/1.6.0/js/dataTables.searchBuilder.min.js"></script>
+<script src="https://cdn.datatables.net/datetime/1.5.1/js/dataTables.dateTime.min.js"></script>
+
+<script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/searchbuilder/1.6.0/css/searchBuilder.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/datetime/1.5.1/css/dataTables.dateTime.min.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+<style type="text/css">
+  .tooltip {
+    font-family: Georgia;
+    font-size: 18px;
+  }
+  .tooltip .tooltip-inner {
+    background-color: #00FFFF;
+    color: #000000;
+    min-width: 400px;
+  }
+  </style>
+
+<script>
+    $(document).ready(function() {
+    $('#dataframe').DataTable( {
+        "sScrollX": "100%",
+        "dom": "Qlfrtip",
+
+        responsive: {
+            details: {
+                type: 'column'
+            }
+        },
+        "bAutoWidth": false,
+        columnDefs: [ {
+            className: 'control',
+            orderable: false,
+            targets:   [ 0 ],
+            width: 100,
+        },
+        { type: 'natural', targets: 1 } // allow normal sorting
+        ],
+
+    });
+});
+</script>
+
+<div class="display nowrap" style="width:80%" width="100%">
+
+<table class="dataframe display nowrap" id="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Expand</th>
+      <th>Topic</th>
+      <th>Title</th>
+      <th>Link</th>
+      <th>EDAM topic</th>
+      <th>EDAM operation</th>
+      <th>Creation</th>
+      <th>Last modification</th>
+      <th>Version</th>
+      <th>Tutorial</th>
+      <th>Slides</th>
+      <th>Video</th>
+      <th>Workflows</th>
+      <th>Tools</th>
+      <th>Servers with precise tool versions</th>
+      <th>Servers with tool but different versions</th>
+      <th>Feedback number</th>
+      <th>Feedback mean note</th>
+      <th>Visitors</th>
+      <th>Page views</th>
+      <th>Visit duration</th>
+      <th>Video views</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td></td>
+      <td>Single Cell</td>
+      <td>Analysis of plant scRNA-Seq Data with Scanpy</td>
+      <td>https://training.galaxyproject.org//topics/single-cell/tutorials/scrna-plant/tutorial.html</td>
+      <td></td>
+      <td>Expression profile clustering, Principal component visualisation, Differential gene expression analysis</td>
+      <td>2021-04-08</td>
+      <td>2026-06-25</td>
+      <td>8</td>
+      <td>True</td>
+      <td>False</td>
+      <td>True</td>
+      <td>True</td>
+      <td>anndata_import, anndata_manipulate, scanpy_remove_confounders, scanpy_cluster_reduce_dimension, scanpy_filter, scanpy_normalize, scanpy_inspect, scanpy_plot</td>
+      <td>UseGalaxy.org.au, UseGalaxy.be, UseGalaxy.eu, UseGalaxy.org (Main)</td>
+      <td>UseGalaxy.cz, UseGalaxy.fr, UseGalaxy.no</td>
+      <td>0</td>
+      <td></td>
+      <td>3295</td>
+      <td>4091</td>
+      <td>7.233333</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Proteomics</td>
+      <td>Multiomics data analysis using MultiGSEA</td>
+      <td>https://training.galaxyproject.org//topics/proteomics/tutorials/multiGSEA-tutorial/tutorial.html</td>
+      <td></td>
+      <td>Pathway analysis, Gene-set enrichment analysis, Aggregation</td>
+      <td>2025-03-10</td>
+      <td>2025-03-11</td>
+      <td>2</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>tp_grep_tool, multigsea, Filter1</td>
+      <td>UseGalaxy.be, UseGalaxy.eu</td>
+      <td>UseGalaxy.org.au, UseGalaxy.cz</td>
+      <td>0</td>
+      <td></td>
+      <td>661</td>
+      <td>740</td>
+      <td>6.416667</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Single Cell</td>
+      <td>Pre-processing of 10X Single-Cell RNA Datasets</td>
+      <td>https://training.galaxyproject.org//topics/single-cell/tutorials/scrna-preprocessing-tenx/tutorial.html</td>
+      <td></td>
+      <td>Community profiling, Loading, Validation, Sequencing quality control, Sequence alignment</td>
+      <td>2019-09-11</td>
+      <td>2025-04-29</td>
+      <td>13</td>
+      <td>True</td>
+      <td>False</td>
+      <td>True</td>
+      <td>True</td>
+      <td>rna_starsolo, dropletutils, multiqc</td>
+      <td>UseGalaxy.org.au, UseGalaxy.cz, UseGalaxy.eu, UseGalaxy.org (Main)</td>
+      <td>UseGalaxy.be, UseGalaxy.fr, UseGalaxy.no</td>
+      <td>0</td>
+      <td></td>
+      <td>14532</td>
+      <td>18784</td>
+      <td>5.950000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Single Cell</td>
+      <td>Bulk RNA Deconvolution with MuSiC</td>
+      <td>https://training.galaxyproject.org//topics/single-cell/tutorials/bulk-music/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2022-02-11</td>
+      <td>2026-06-25</td>
+      <td>11</td>
+      <td>True</td>
+      <td>False</td>
+      <td>True</td>
+      <td>True</td>
+      <td>music_deconvolution, music_inspect_eset, music_construct_eset</td>
+      <td>UseGalaxy.org.au, UseGalaxy.be, UseGalaxy.cz, UseGalaxy.eu, UseGalaxy.org (Main)</td>
+      <td></td>
+      <td>0</td>
+      <td></td>
+      <td>4684</td>
+      <td>5812</td>
+      <td>4.033333</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Single Cell</td>
+      <td>Generating a single cell matrix using Alevin</td>
+      <td>https://training.galaxyproject.org//topics/single-cell/tutorials/scrna-case_alevin/tutorial.html</td>
+      <td></td>
+      <td>RNA-Seq quantification, Gene expression analysis, Sequence composition calculation</td>
+      <td>2021-03-03</td>
+      <td>2025-11-18</td>
+      <td>25</td>
+      <td>True</td>
+      <td>False</td>
+      <td>True</td>
+      <td>True</td>
+      <td>anndata_manipulate, _dropletBarcodePlot, join1, dropletutils_read_10x, Cut1, _ensembl_gtf2gene_list, sceasy_convert, alevin, dropletutils_empty_drops, anndata_inspect, _salmon_kallisto_mtx_to_10x</td>
+      <td>UseGalaxy.org.au, UseGalaxy.be, UseGalaxy.eu, UseGalaxy.fr, UseGalaxy.org (Main)</td>
+      <td></td>
+      <td>0</td>
+      <td></td>
+      <td>4002</td>
+      <td>6004</td>
+      <td>10.916667</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Single Cell</td>
+      <td>Pre-processing of 10X Single-Cell ATAC-seq Datasets</td>
+      <td>https://training.galaxyproject.org//topics/single-cell/tutorials/scatac-preprocessing-tenx/tutorial.html</td>
+      <td></td>
+      <td>Visualisation, Enrichment analysis, Generation, Principal component visualisation, Sequence composition calculation, Expression profile clustering, Read mapping, Imputation, Genome indexing, Statistical calculation, Mapping, Gene regulatory network analysis, Differential gene expression analysis, Sequencing quality control, Sequence alignment, Peak calling</td>
+      <td>2023-04-24</td>
+      <td>2025-10-16</td>
+      <td>10</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>fastqc, bwa_mem, episcanpy_build_matrix, sinto_fragments, falco, bedtools_sortbed, anndata_inspect, episcanpy_preprocess, sinto_barcode, tp_sorted_uniq, scanpy_plot, macs2_callpeak</td>
+      <td>UseGalaxy.org.au, UseGalaxy.org (Main)</td>
+      <td>UseGalaxy.be, UseGalaxy.cz</td>
+      <td>0</td>
+      <td></td>
+      <td>6860</td>
+      <td>8065</td>
+      <td>2.450000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Single Cell</td>
+      <td>Generating a single cell matrix using Alevin and combining datasets (bash + R)</td>
+      <td>https://training.galaxyproject.org//topics/single-cell/tutorials/alevin-commandline/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2023-12-08</td>
+      <td>2025-04-22</td>
+      <td>5</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td></td>
+      <td></td>
+      <td>UseGalaxy.eu, UseGalaxy.org, UseGalaxy.org.au, UseGalaxy.fr, UseGalaxy.ca</td>
+      <td>0</td>
+      <td></td>
+      <td>810</td>
+      <td>1065</td>
+      <td>9.900000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Single Cell</td>
+      <td>Understanding Barcodes</td>
+      <td>https://training.galaxyproject.org//topics/single-cell/tutorials/scrna-umis/tutorial.html</td>
+      <td></td>
+      <td>Sequencing quality control, Statistical calculation, Sequence composition calculation</td>
+      <td>2019-02-20</td>
+      <td>2026-06-25</td>
+      <td>12</td>
+      <td>True</td>
+      <td>False</td>
+      <td>True</td>
+      <td>True</td>
+      <td>fastqc, seq_filter_by_id, umi_tools_extract</td>
+      <td>UseGalaxy.org.au, UseGalaxy.be, UseGalaxy.cz, UseGalaxy.eu, UseGalaxy.fr, UseGalaxy.org (Main)</td>
+      <td>Galaxy@AuBi, UseGalaxy.no</td>
+      <td>0</td>
+      <td></td>
+      <td>7111</td>
+      <td>8804</td>
+      <td>5.483333</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Single Cell</td>
+      <td>Filter, plot, and explore single cell RNA-seq data with Seurat (R)</td>
+      <td>https://training.galaxyproject.org//topics/single-cell/tutorials/scrna-case_FilterPlotandExploreRStudio/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2023-10-02</td>
+      <td>2025-03-11</td>
+      <td>11</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td></td>
+      <td></td>
+      <td>UseGalaxy.eu, UseGalaxy.org, UseGalaxy.org.au, UseGalaxy.fr, UseGalaxy.ca</td>
+      <td>0</td>
+      <td></td>
+      <td>3981</td>
+      <td>4501</td>
+      <td>3.383333</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Single Cell</td>
+      <td>Removing the effects of the cell cycle</td>
+      <td>https://training.galaxyproject.org//topics/single-cell/tutorials/scrna-case_cell-cycle/tutorial.html</td>
+      <td></td>
+      <td>Expression profile clustering, Principal component visualisation, Differential gene expression analysis</td>
+      <td>2023-01-25</td>
+      <td>2026-06-25</td>
+      <td>16</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>anndata_manipulate, scanpy_cluster_reduce_dimension, cat1, addValue, scanpy_inspect, sort1, anndata_inspect, table_compute, tp_easyjoin_tool, scanpy_regress_variable, scanpy_plot</td>
+      <td></td>
+      <td></td>
+      <td>0</td>
+      <td></td>
+      <td>2470</td>
+      <td>2886</td>
+      <td>3.150000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Single Cell</td>
+      <td>Clustering 3K PBMCs with Scanpy</td>
+      <td>https://training.galaxyproject.org//topics/single-cell/tutorials/scrna-scanpy-pbmc3k/tutorial.html</td>
+      <td></td>
+      <td>Expression profile clustering, Principal component visualisation, Differential gene expression analysis</td>
+      <td>2019-12-19</td>
+      <td>2026-07-28</td>
+      <td>18</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>anndata_import, anndata_manipulate, scanpy_remove_confounders, scanpy_cluster_reduce_dimension, celltypist, scanpy_filter, scanpy_normalize, scanpy_inspect, datamash_ops, anndata_inspect, scanpy_plot</td>
+      <td>UseGalaxy.eu</td>
+      <td></td>
+      <td>0</td>
+      <td></td>
+      <td>4185001</td>
+      <td>9696909</td>
+      <td>8.433333</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Single Cell</td>
+      <td>Comparing inferred cell compositions using MuSiC deconvolution</td>
+      <td>https://training.galaxyproject.org//topics/single-cell/tutorials/bulk-music-4-compare/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2023-01-20</td>
+      <td>2026-06-25</td>
+      <td>11</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>music_compare</td>
+      <td>UseGalaxy.org.au, UseGalaxy.be, UseGalaxy.cz, UseGalaxy.eu, UseGalaxy.org (Main)</td>
+      <td></td>
+      <td>0</td>
+      <td></td>
+      <td>403</td>
+      <td>557</td>
+      <td>12.016667</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Single Cell</td>
+      <td>Single-cell ATAC-seq standard processing with SnapATAC2</td>
+      <td>https://training.galaxyproject.org//topics/single-cell/tutorials/scatac-standard-processing-snapatac2/tutorial.html</td>
+      <td></td>
+      <td>Generation, Principal component visualisation, Expression profile clustering, Read mapping, Genome indexing, Gene expression profiling, Essential dynamics, Differential gene expression analysis, Dimensionality reduction, Sequence alignment</td>
+      <td>2024-07-11</td>
+      <td>2025-07-02</td>
+      <td>5</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>anndata_ops, bwa_mem, anndata_manipulate, scanpy_plot, snapatac2_peaks_and_motif, scanpy_filter, Cut1, scanpy_normalize, snapatac2_plotting, snapatac2_preprocessing, scanpy_inspect, anndata_inspect, snapatac2_clustering, fasta_compute_length, replace_column_with_key_value_file</td>
+      <td></td>
+      <td></td>
+      <td>0</td>
+      <td></td>
+      <td>2461</td>
+      <td>2853</td>
+      <td>4.200000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Single Cell</td>
+      <td>Combining single cell datasets after pre-processing</td>
+      <td>https://training.galaxyproject.org//topics/single-cell/tutorials/scrna-case_alevin-combine-datasets/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2022-09-08</td>
+      <td>2025-11-18</td>
+      <td>23</td>
+      <td>True</td>
+      <td>False</td>
+      <td>True</td>
+      <td>True</td>
+      <td>anndata_ops, anndata_manipulate, tp_replace_in_column, Cut1, Paste1, anndata_inspect</td>
+      <td>UseGalaxy.org.au, UseGalaxy.be, UseGalaxy.eu</td>
+      <td>UseGalaxy.cz, UseGalaxy.org (Main)</td>
+      <td>0</td>
+      <td></td>
+      <td>2833</td>
+      <td>3916</td>
+      <td>11.416667</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Single Cell</td>
+      <td>Filter, plot and explore single-cell RNA-seq data with Scanpy (Python)</td>
+      <td>https://training.galaxyproject.org//topics/single-cell/tutorials/scrna-case-jupyter_basic-pipeline/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2023-08-25</td>
+      <td>2025-03-11</td>
+      <td>13</td>
+      <td>True</td>
+      <td>False</td>
+      <td>True</td>
+      <td>False</td>
+      <td></td>
+      <td></td>
+      <td>UseGalaxy.eu, UseGalaxy.org, UseGalaxy.org.au, UseGalaxy.fr, UseGalaxy.ca</td>
+      <td>0</td>
+      <td></td>
+      <td>3929</td>
+      <td>4618</td>
+      <td>4.700000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Single Cell</td>
+      <td>Evaluating Reference Data for Bulk RNA Deconvolution</td>
+      <td>https://training.galaxyproject.org//topics/single-cell/tutorials/bulk-deconvolution-evaluate/tutorial.html</td>
+      <td></td>
+      <td>Visualisation, Annotation</td>
+      <td>2025-02-02</td>
+      <td>2026-06-25</td>
+      <td>4</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>Cut1, tp_cut_tool, collapse_dataset, tp_easyjoin_tool, Count1, tp_multijoin_tool, datamash_transpose, ggplot2_violin, tp_awk_tool, join1, tp_sed_tool, Add_a_column1, music_construct_eset, Paste1, collection_column_join, bg_column_arrange_by_header, Remove beginning1, ggplot2_point, annotatemyids, music_deconvolution, __DUPLICATE_FILE_TO_COLLECTION__, table_compute</td>
+      <td>UseGalaxy.org.au, UseGalaxy.eu, UseGalaxy.org (Main)</td>
+      <td>UseGalaxy.be, UseGalaxy.cz</td>
+      <td>0</td>
+      <td></td>
+      <td>251</td>
+      <td>281</td>
+      <td>16.850000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Single Cell</td>
+      <td>Filter, plot, and explore single cell RNA-seq data with Seurat</td>
+      <td>https://training.galaxyproject.org//topics/single-cell/tutorials/scrna-case_FilterPlotandExplore_SeuratTools/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2024-04-09</td>
+      <td>2025-03-11</td>
+      <td>10</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>seurat_filter_cells, seurat_run_pca, seurat_find_neighbours, seurat_find_clusters, seurat_normalise_data, seurat_plot, seurat_read10x, retrieve_scxa, seurat_scale_data, seurat_find_markers, seurat_run_umap, seurat_find_variable_genes</td>
+      <td>UseGalaxy.org.au, UseGalaxy.eu, UseGalaxy.fr, UseGalaxy.org (Main)</td>
+      <td></td>
+      <td>0</td>
+      <td></td>
+      <td>2909</td>
+      <td>3444</td>
+      <td>6.133333</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Single Cell</td>
+      <td>Filter, plot and explore single-cell RNA-seq data with Scanpy</td>
+      <td>https://training.galaxyproject.org//topics/single-cell/tutorials/scrna-case_basic-pipeline/tutorial.html</td>
+      <td></td>
+      <td>Expression profile clustering, Principal component visualisation, Differential gene expression analysis</td>
+      <td>2021-03-24</td>
+      <td>2025-04-23</td>
+      <td>24</td>
+      <td>True</td>
+      <td>False</td>
+      <td>True</td>
+      <td>True</td>
+      <td>scanpy_filter_genes, Cut1, scanpy_find_cluster, scanpy_filter_cells, scanpy_find_variable_genes, scanpy_plot, anndata_ops, scanpy_run_pca, anndata_manipulate, scanpy_cluster_reduce_dimension, join1, scanpy_scale_data, scanpy_inspect, scanpy_compute_graph, scanpy_plot_embed, scanpy_run_umap, anndata_inspect, scanpy_filter, scanpy_normalize, interactive_tool_cellxgene_vip, retrieve_scxa, scanpy_normalise_data, scanpy_find_markers, scanpy_run_tsne</td>
+      <td></td>
+      <td></td>
+      <td>0</td>
+      <td></td>
+      <td>6115</td>
+      <td>9443</td>
+      <td>7.700000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Single Cell</td>
+      <td>Multi-sample batch correction with Harmony and SnapATAC2</td>
+      <td>https://training.galaxyproject.org//topics/single-cell/tutorials/scatac-batch-correction-snapatac2/tutorial.html</td>
+      <td></td>
+      <td>Gene expression profiling, Essential dynamics, Dimensionality reduction</td>
+      <td>2025-02-28</td>
+      <td>2025-07-02</td>
+      <td>2</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>__EXTRACT_DATASET__, anndata_manipulate, __FILTER_FROM_FILE__, snapatac2_peaks_and_motif, snapatac2_plotting, collection_element_identifiers, snapatac2_preprocessing, anndata_inspect, snapatac2_clustering, Show beginning1, fasta_compute_length</td>
+      <td>UseGalaxy.org.au, UseGalaxy.eu, UseGalaxy.org (Main)</td>
+      <td></td>
+      <td>0</td>
+      <td></td>
+      <td>857</td>
+      <td>951</td>
+      <td>5.350000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Single Cell</td>
+      <td>Clustering 3K PBMCs with Seurat</td>
+      <td>https://training.galaxyproject.org//topics/single-cell/tutorials/scrna-seurat-pbmc3k/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2025-01-23</td>
+      <td>2025-05-09</td>
+      <td>5</td>
+      <td>True</td>
+      <td>False</td>
+      <td>True</td>
+      <td>True</td>
+      <td>seurat_data, seurat_clustering, seurat_create, Filter1, seurat_plot, Cut1, seurat_preprocessing, seurat_reduce_dimension, csv_to_tabular</td>
+      <td>UseGalaxy.org.au, UseGalaxy.be, UseGalaxy.eu, UseGalaxy.fr, UseGalaxy.org (Main)</td>
+      <td>MISSISSIPPI</td>
+      <td>0</td>
+      <td></td>
+      <td>2766</td>
+      <td>3365</td>
+      <td>5.116667</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Single Cell</td>
+      <td>Scanpy Parameter Iterator</td>
+      <td>https://training.galaxyproject.org//topics/single-cell/tutorials/scanpy_parameter_iterator/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2023-07-19</td>
+      <td>2026-06-25</td>
+      <td>9</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>scanpy_find_cluster, scanpy_parameter_iterator, scanpy_plot_embed, scanpy_run_umap, scanpy_compute_graph, scanpy_run_tsne</td>
+      <td>UseGalaxy.org.au, UseGalaxy.be, UseGalaxy.org (Main)</td>
+      <td></td>
+      <td>0</td>
+      <td></td>
+      <td>391</td>
+      <td>428</td>
+      <td>12.400000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Single Cell</td>
+      <td>Inferring single cell trajectories with Scanpy (Python)</td>
+      <td>https://training.galaxyproject.org//topics/single-cell/tutorials/scrna-case_JUPYTER-trajectories/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2021-04-07</td>
+      <td>2025-03-11</td>
+      <td>20</td>
+      <td>True</td>
+      <td>False</td>
+      <td>True</td>
+      <td>False</td>
+      <td></td>
+      <td></td>
+      <td>UseGalaxy.eu, UseGalaxy.org, UseGalaxy.org.au, UseGalaxy.fr, UseGalaxy.ca</td>
+      <td>0</td>
+      <td></td>
+      <td>5292</td>
+      <td>6160</td>
+      <td>4.000000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Single Cell</td>
+      <td>Batch Correction and Integration with Seurat or Scanpy</td>
+      <td>https://training.galaxyproject.org//topics/single-cell/tutorials/scrna_batch_correction/tutorial.html</td>
+      <td></td>
+      <td>Expression profile clustering, Principal component visualisation, Differential gene expression analysis</td>
+      <td>2026-07-09</td>
+      <td>2026-07-09</td>
+      <td>1</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>scanpy_remove_confounders, seurat_data, scanpy_cluster_reduce_dimension, seurat_clustering, scanpy_filter, scanpy_normalize, seurat_plot, seurat_preprocessing, seurat_reduce_dimension, scanpy_inspect, anndata_inspect, seurat_integrate, scanpy_plot, Count1</td>
+      <td>UseGalaxy.org.au, UseGalaxy.eu</td>
+      <td>UseGalaxy.org (Main)</td>
+      <td>0</td>
+      <td></td>
+      <td>97</td>
+      <td>105</td>
+      <td>5.766667</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Single Cell</td>
+      <td>Matrix Exchange Format to ESet | Creating a single-cell RNA-seq reference dataset for deconvolution</td>
+      <td>https://training.galaxyproject.org//topics/single-cell/tutorials/bulk-music-2-preparescref/tutorial.html</td>
+      <td></td>
+      <td>Annotation</td>
+      <td>2023-01-20</td>
+      <td>2026-06-25</td>
+      <td>9</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>datamash_transpose, music_construct_eset, tp_awk_tool, join1, tp_sed_tool, regex1, Cut1, scanpy_read_10x, tp_cut_tool, retrieve_scxa, annotatemyids, sort1, music_manipulate_eset, anndata_inspect, add_line_to_file, table_compute, tp_easyjoin_tool</td>
+      <td></td>
+      <td>UseGalaxy.cz</td>
+      <td>0</td>
+      <td></td>
+      <td>861</td>
+      <td>1369</td>
+      <td>7.866667</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Single Cell</td>
+      <td>Inferring single cell trajectories with Scanpy</td>
+      <td>https://training.galaxyproject.org//topics/single-cell/tutorials/scrna-case_trajectories/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2023-12-08</td>
+      <td>2025-03-11</td>
+      <td>13</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>anndata_manipulate, scanpy_plot_trajectory, scanpy_run_paga, scanpy_find_cluster, scanpy_run_dpt, scanpy_run_diffmap, scanpy_plot_embed, scanpy_run_fdg, scanpy_compute_graph</td>
+      <td></td>
+      <td>UseGalaxy.org.au, UseGalaxy.be, UseGalaxy.org (Main)</td>
+      <td>0</td>
+      <td></td>
+      <td>1612</td>
+      <td>1989</td>
+      <td>7.600000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Single Cell</td>
+      <td>Inferring single cell trajectories with Monocle3 (R)</td>
+      <td>https://training.galaxyproject.org//topics/single-cell/tutorials/scrna-case_monocle3-rstudio/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2023-04-12</td>
+      <td>2025-03-11</td>
+      <td>13</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td></td>
+      <td></td>
+      <td>UseGalaxy.eu, UseGalaxy.org, UseGalaxy.org.au, UseGalaxy.fr, UseGalaxy.ca</td>
+      <td>0</td>
+      <td></td>
+      <td>7741</td>
+      <td>8706</td>
+      <td>1.650000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Single Cell</td>
+      <td>Bulk matrix to ESet | Creating the bulk RNA-seq dataset for deconvolution</td>
+      <td>https://training.galaxyproject.org//topics/single-cell/tutorials/bulk-music-3-preparebulk/tutorial.html</td>
+      <td></td>
+      <td>Annotation</td>
+      <td>2023-01-20</td>
+      <td>2026-06-25</td>
+      <td>9</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>music_construct_eset, tp_awk_tool, regex1, tp_sed_tool, tp_cut_tool, annotatemyids, sort1, music_manipulate_eset, column_remove_by_header, table_compute, tp_easyjoin_tool</td>
+      <td></td>
+      <td>UseGalaxy.cz</td>
+      <td>0</td>
+      <td></td>
+      <td>901</td>
+      <td>1326</td>
+      <td>10.900000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Single Cell</td>
+      <td>Inferring single cell trajectories with Monocle3</td>
+      <td>https://training.galaxyproject.org//topics/single-cell/tutorials/scrna-case_monocle3-trajectories/tutorial.html</td>
+      <td></td>
+      <td></td>
+      <td>2022-09-30</td>
+      <td>2025-04-23</td>
+      <td>24</td>
+      <td>True</td>
+      <td>False</td>
+      <td>True</td>
+      <td>True</td>
+      <td>monocle3_topmarkers, monocle3_plotCells, datamash_transpose, regexColumn1, monocle3_create, join1, Filter1, Cut1, tp_cut_tool, monocle3_learnGraph, monocle3_orderCells, monocle3_preprocess, anndata_inspect, monocle3_diffExp, monocle3_partition, monocle3_reduceDim</td>
+      <td>UseGalaxy.be, UseGalaxy.eu, UseGalaxy.org (Main)</td>
+      <td></td>
+      <td>0</td>
+      <td></td>
+      <td>4500</td>
+      <td>5520</td>
+      <td>4.333333</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Single Cell</td>
+      <td>Pseudobulk Analysis with Decoupler and EdgeR</td>
+      <td>https://training.galaxyproject.org//topics/single-cell/tutorials/pseudobulk-analysis/tutorial.html</td>
+      <td></td>
+      <td>Differential gene expression analysis, Expression profile clustering, Principal component visualisation</td>
+      <td>2025-02-12</td>
+      <td>2025-05-09</td>
+      <td>8</td>
+      <td>True</td>
+      <td>False</td>
+      <td>True</td>
+      <td>True</td>
+      <td>__EXTRACT_DATASET__, anndata_manipulate, tp_awk_tool, tp_replace_in_column, decoupler_pseudobulk, scanpy_filter, volcanoplot, tp_replace_in_line, column_remove_by_header, anndata_inspect, edger</td>
+      <td>UseGalaxy.org.au, UseGalaxy.be, UseGalaxy.eu, UseGalaxy.fr, UseGalaxy.org (Main)</td>
+      <td>UseGalaxy.cz</td>
+      <td>0</td>
+      <td></td>
+      <td>2588</td>
+      <td>2926</td>
+      <td>2.850000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Single Cell</td>
+      <td>GO Enrichment Analysis on Single-Cell RNA-Seq Data</td>
+      <td>https://training.galaxyproject.org//topics/single-cell/tutorials/GO-enrichment/tutorial.html</td>
+      <td></td>
+      <td>Gene-set enrichment analysis</td>
+      <td>2024-09-17</td>
+      <td>2026-06-25</td>
+      <td>9</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>True</td>
+      <td>goenrichment, Cut1, gprofiler_gost, tp_split_on_column</td>
+      <td>UseGalaxy.be, UseGalaxy.cz, UseGalaxy.eu, UseGalaxy.no, UseGalaxy.org (Main)</td>
+      <td></td>
+      <td>0</td>
+      <td></td>
+      <td>2075781</td>
+      <td>3858155</td>
+      <td>5.733333</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+
+</div>
