@@ -366,7 +366,7 @@ def fill_lab_tutorial_section(
             # Prepare the description with an HTML unordered list and links for each tutorial link (only unique id)
             title = f"{row['Title']}\n (Visitors: {row[count_column]})"
             description = f"Tutorial stored in {row['Topic']} topic on the Galaxy Training Network and covering topics related to {row['EDAM topic']}"
-            link = row["Permanent Link"]
+            link = row["Permanent link"]
 
             # Create the tutorial entry
             tutorial_entry = {

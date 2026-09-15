@@ -12,10 +12,12 @@ mkdir -p communities/$COMMUNITY/lab/sections/
 
 # Files updated weekly (tools, workflows and tutorial)
 ## TOOLS
-if [ "$COMMUNITY" != "microgalaxy" ]; then
-    tools_section="communities/$COMMUNITY/lab/sections/2_tools.yml"
-else
+if [ "$COMMUNITY" == "microgalaxy" ]; then
     tools_section="communities/$COMMUNITY/lab/sections/4_tools.yml"
+elif [ "$COMMUNITY" == "workflow4metabolomics" ]; then
+    tools_section="communities/$COMMUNITY/lab/sections/_tools.yml"
+else
+    tools_section="communities/$COMMUNITY/lab/sections/2_tools.yml"
 fi
 
 ### Copy tools file from the template file if it does not yet exist
@@ -37,10 +39,12 @@ python sources/bin/extract_galaxy_tools.py \
 
 
 ## WORKFLOWS
-if [ "$COMMUNITY" != "microgalaxy" ]; then  
-    workflows_section="communities/$COMMUNITY/lab/sections/3_workflows.yml"
-else
+if [ "$COMMUNITY" == "microgalaxy" ]; then  
     workflows_section="communities/$COMMUNITY/lab/sections/5_workflows.yml"
+elif [ "$COMMUNITY" == "workflow4metabolomics" ]; then
+    workflows_section="communities/$COMMUNITY/lab/sections/_workflows.yml"
+else
+    workflows_section="communities/$COMMUNITY/lab/sections/3_workflows.yml"
 fi
 
 ### Copy workflows file from the template file if it does not yet exist
@@ -55,10 +59,12 @@ python sources/bin/extract_galaxy_workflows.py \
     --lab $workflows_section
 
 ## TUTORIALS
-if [ "$COMMUNITY" != "microgalaxy" ]; then
-    tutorials_section="communities/$COMMUNITY/lab/sections/4_tutorials.yml"
-else
+if [ "$COMMUNITY" == "microgalaxy" ]; then
     tutorials_section="communities/$COMMUNITY/lab/sections/8_tutorials.yml"
+elif [ "$COMMUNITY" == "workflow4metabolomics" ]; then
+    tutorials_section="communities/$COMMUNITY/lab/sections/_tutorials.yml"
+else
+    tutorials_section="communities/$COMMUNITY/lab/sections/4_tutorials.yml"
 fi
 
 ### Copy tutorials file from the template file if it does not yet exist
@@ -106,24 +112,28 @@ if [[ ! -e $data_import_export_section ]]; then
 fi
 
 ## SUPPORT AND HELP
-if [ "$COMMUNITY" != "microgalaxy" ]; then
+if [ "$COMMUNITY" == "microgalaxy" ]; then
     ### This is general enough to be the same between several communities.
     ### Some sections are commented at the bottom and are potential addition for your community
-    support_help_section="communities/$COMMUNITY/lab/sections/5_support_and_help.yml"
-else
     support_help_section="communities/$COMMUNITY/lab/sections/6_support_and_help.yml"
+elif [ "$COMMUNITY" == "workflow4metabolomics" ]; then
+    support_help_section="communities/$COMMUNITY/lab/sections/6_support_and_help.yml"
+else
+    support_help_section="communities/$COMMUNITY/lab/sections/5_support_and_help.yml"
 fi
 if [[ ! -e $support_help_section ]]; then
    cp communities/all/labs/sections_templates/5_support_and_help.yml $support_help_section
 fi
 
 ## COMMUNITY
-if [ "$COMMUNITY" != "microgalaxy" ]; then
+if [ "$COMMUNITY" == "microgalaxy" ]; then
     ### This need manual review to add links that are community specific (matrix, etc)
     ### Some sections are commented at the bottom and are potential addition for your community
-    community_section="communities/$COMMUNITY/lab/sections/6_community.yml"
-else
     community_section="communities/$COMMUNITY/lab/sections/7_community.yml"
+elif [ "$COMMUNITY" == "workflow4metabolomics" ]; then
+    community_section="communities/$COMMUNITY/lab/sections/7_community.yml"
+else
+    community_section="communities/$COMMUNITY/lab/sections/6_community.yml"
 fi
 if [[ ! -e $community_section ]]; then
    cp communities/all/labs/sections_templates/6_community.yml $community_section
