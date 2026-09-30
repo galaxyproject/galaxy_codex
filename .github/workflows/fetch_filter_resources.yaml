@@ -148,9 +148,9 @@ jobs:
     steps:
       - name: Checkout main
         uses: actions/checkout@v7
-        # with:
+        with:
           # We pass the "PAT" secret to the checkout action; if no PAT secret is available to the workflow runner (eg. Dependabot) we fall back to the default "GITHUB_TOKEN".
-          # token: ${{ secrets.PAT || secrets.GH_ACTIONS_PAT || secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GH_ACTIONS_PAT }}
       - uses: actions/setup-python@v7
         with:
           python-version: '3.11'
@@ -199,6 +199,11 @@ jobs:
       - name: Generate tools wordcloud and interactive table
         run: |
           bash sources/bin/format_tools.sh
+      - name: Check PAT
+        env:
+          GH_TOKEN: ${{ secrets.GH_ACTIONS_PAT }}
+        run: |
+          gh api user --jq '.login'
       - name: Commit and push changes
         uses: stefanzweifel/git-auto-commit-action@v7
         with:
