@@ -3,7 +3,7 @@ from unittest.mock import (
     MagicMock,
     patch,
 )
-
+from scholarly import scholarly
 from citation_manager import (
     Paper,
     Papers,
