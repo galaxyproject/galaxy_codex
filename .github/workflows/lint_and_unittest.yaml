@@ -30,6 +30,8 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
+    env:
+      PYTHONPATH: ${{ github.workspace }}/sources/bin
     strategy:
       matrix:
         python-version: ['3.11']
