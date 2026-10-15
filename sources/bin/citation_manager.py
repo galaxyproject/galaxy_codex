@@ -10,7 +10,7 @@ from typing import (
 
 import pandas as pd
 import shared
-#from scholarly import scholarly
+from scholarly import scholarly
 
 SEMANTICSCHOLAR_API_URL_PREFIX = "https://api.semanticscholar.org/graph/v1/paper"
 
