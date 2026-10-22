@@ -1,0 +1,133 @@
+# Example section demonstrating two levels of navigation within a section:
+#   section -> tabs (LC-MS, GC-MS, ... -> subsections (Overview, Tools, ...)
+# Each tab's `content` is replaced entirely by a `subsections` mapping.
+# Subsections CANNOT be nested further, and cannot be mixed with plain items.
+
+id: data_analysis
+title: Data analysis (example)
+tabs:
+
+- id: lcms
+  title: LC-MS
+  heading_md: Data analysis for LC-MS-based metabolomics
+  content:
+    subsections:
+      - id: lcms_overview
+        title: Overview
+        content:
+          - title_md: About LC-MS analysis
+            description_md: >
+              Placeholder overview text for LC-MS data analysis in Galaxy.
+      - id: lcms_tools
+        title: Tools
+        content:
+          - title_md: XCMS
+            description_md: Feature detection and alignment with the XCMS R package.
+            buttons:
+              - link: "{{ galaxy_base_url }}/?tool_id=xcms"
+                tip: Open XCMS
+                icon: run
+          - title_md: CAMERA
+            description_md: Annotation of isotope patterns, adducts and fragments.
+            buttons:
+              - link: "{{ galaxy_base_url }}/?tool_id=camera"
+                tip: Open CAMERA
+                icon: run
+      - id: lcms_workflows
+        title: Workflows
+        content:
+          - title_md: "Mass spectrometry: LC-MS data processing"
+            description_md: >
+              XCMS-based preprocessing combined with CAMERA annotation.
+            buttons:
+              - link: "{{ galaxy_base_url }}/workflows/trs_import?trs_server=workflowhub.eu&run_form=true&trs_id=677"
+                label_md: Import workflow
+                icon: run
+      - id: lcms_tutorials
+        title: Tutorials
+        content:
+          - title_md: "Mass spectrometry: LC-MS preprocessing with XCMS"
+            description_md: >
+              Data import, quality control, and feature detection.
+            buttons:
+              - link: https://training.galaxyproject.org/training-material/topics/metabolomics/tutorials/lcms-preprocessing/tutorial.html
+                tip: View tutorial
+                icon: tutorial
+
+- id: gcms
+  title: GC-MS
+  content:
+    subsections:
+      - id: gcms_overview
+        title: Overview
+        content:
+          - title_md: About GC-MS analysis
+            description_md: >
+              Placeholder overview text for GC-MS data analysis in Galaxy.
+      - id: gcms_tools
+        title: Tools
+        content:
+          - title_md: MapFinder / NIST search
+            description_md: Placeholder for GC-MS annotation tools.
+      - id: gcms_workflows
+        title: Workflows
+        content:
+          - title_md: GC-MS data processing
+            description_md: Placeholder GC-MS workflow entry.
+      - id: gcms_tutorials
+        title: Tutorials
+        content:
+          - title_md: GC-MS analysis tutorial
+            description_md: Placeholder GC-MS tutorial entry.
+
+- id: fiams
+  title: FI-MS
+  content:
+    subsections:
+      - id: fiams_overview
+        title: Overview
+        content:
+          - title_md: About FI-MS analysis
+            description_md: >
+              Placeholder overview text for flow injection analysis MS in Galaxy.
+      - id: fiams_tools
+        title: Tools
+        content:
+          - title_md: Example FI-MS tool
+            description_md: Placeholder FI-MS tool entry.
+      - id: fiams_workflows
+        title: Workflows
+        content:
+          - title_md: FI-MS workflow
+            description_md: Placeholder FI-MS workflow entry.
+      - id: fiams_tutorials
+        title: Tutorials
+        content:
+          - title_md: "Shotgun lipidomics with FI-MS"
+            description_md: Placeholder FI-MS tutorial entry.
+
+- id: nmr
+  title: NMR
+  content:
+    subsections:
+      - id: nmr_overview
+        title: Overview
+        content:
+          - title_md: About NMR analysis
+            description_md: >
+              Placeholder overview text for NMR data analysis in Galaxy.
+      - id: nmr_tools
+        title: Tools
+        content:
+          - title_md: Example NMR tool
+            description_md: Placeholder NMR tool entry.
+      - id: nmr_workflows
+        title: Workflows
+        content:
+          - title_md: NMR workflow
+            description_md: Placeholder NMR workflow entry.
+      - id: nmr_tutorials
+        title: Tutorials
+        content:
+          - title_md: NMR analysis tutorial
+            description_md: Placeholder NMR tutorial entry.
