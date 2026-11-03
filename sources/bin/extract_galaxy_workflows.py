@@ -281,7 +281,7 @@ class Workflows:
                 count += 1
                 # The following workflow (id=f65a2f2a19bea880) caused the request to crash, it was reported to the Galaxy team, in the meantime, we are skipping it
                 print(wf["id"])
-                if wf["id"] == "eac4ff1366556871":
+                if wf["id"] == "c874f91ce31418ea":
                     continue
                 server_wf = shared.get_request_json(
                     f"{server}/api/workflows/{wf['id']}",
