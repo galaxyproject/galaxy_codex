@@ -11,7 +11,10 @@ from unittest.mock import (
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 import shared
-from extract_galaxy_workflows import Workflows
+from extract_galaxy_workflows import (
+    Workflow,
+    Workflows,
+)
 
 
 class TestAddWorkflowsFromWorkflowHub(unittest.TestCase):
@@ -82,3 +85,36 @@ class TestAddWorkflowsFromWorkflowHub(unittest.TestCase):
 # Run the tests
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestGetSourceTags(unittest.TestCase):
+    """Tags can be defined for only one source in workflow_tags (issue #531)."""
+
+    def make_wf(self, source: str, tags: list, name: str = "Some workflow") -> Workflow:
+        wf = Workflow()
+        wf.source = source
+        wf.tags = tags
+        wf.name = name
+        return wf
+
+    def test_both_sections(self) -> None:
+        tags = {"public": ["climate"], "workflowhub": ["pangeo"]}
+        self.assertEqual(self.make_wf("usegalaxy.eu", []).get_source_tags(tags), ["climate"])
+        self.assertEqual(self.make_wf("WorkflowHub", []).get_source_tags(tags), ["pangeo"])
+
+    def test_only_public_section(self) -> None:
+        tags = {"public": ["climate"]}
+        wfhub = self.make_wf("WorkflowHub", ["climate"], name="climate wf")
+        self.assertEqual(wfhub.get_source_tags(tags), [])
+        self.assertFalse(wfhub.test_tags(tags))
+        self.assertFalse(wfhub.test_name(tags))
+        self.assertTrue(self.make_wf("usegalaxy.eu", ["climate"]).test_tags(tags))
+
+    def test_only_workflowhub_section(self) -> None:
+        tags = {"workflowhub": ["pangeo"]}
+        self.assertFalse(self.make_wf("usegalaxy.eu", ["pangeo"]).test_tags(tags))
+        self.assertTrue(self.make_wf("WorkflowHub", ["pangeo"]).test_tags(tags))
+
+    def test_empty_section(self) -> None:
+        tags = {"public": None, "workflowhub": ["pangeo"]}
+        self.assertEqual(self.make_wf("usegalaxy.eu", ["pangeo"]).get_source_tags(tags), [])

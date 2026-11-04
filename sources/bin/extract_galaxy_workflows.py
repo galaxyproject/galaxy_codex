@@ -151,12 +151,15 @@ class Workflow:
     def get_source_tags(self, tags: dict) -> list:
         """
         Get tags based on source
+
+        A community can define tags for only one of the sources (public or workflowhub)
+        in its workflow_tags file: a missing or empty section means no tags for that source.
         """
         if "WorkflowHub" in self.source:
             source = "workflowhub"
         else:
             source = "public"
-        return tags[source]
+        return (tags or {}).get(source) or []
 
     def test_tags(self, tags: dict) -> bool:
         """
