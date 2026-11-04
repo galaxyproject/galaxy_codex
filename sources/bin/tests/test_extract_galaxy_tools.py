@@ -43,6 +43,7 @@ from extract_galaxy_tools import (
     get_all_installed_tool_ids_on_server,
     get_conda_package,
     get_first_commit_for_local_folder,
+    get_galaxy_usage_from_api,
     get_last_url_position,
     get_shed_attribute,
     get_tool_inputs,
@@ -973,3 +974,86 @@ class TestExtractMissingToolsPerServers(unittest.TestCase):
             self.assertIn("all", result["Local_Galaxy"])
         finally:
             os.remove(tmp.name)
+
+
+class TestGetGalaxyUsageFromApi(unittest.TestCase):
+    """Tests for get_galaxy_usage_from_api."""
+
+    def _make_frame(self, tool_ids: List[str], versions: List[str], counts: List[int]) -> Dict[str, Any]:
+        """Helper to build a mock Grafana response frame."""
+        return {
+            "schema": {
+                "fields": [
+                    {"name": "Time", "type": "time"},
+                    {"name": "tool_id", "type": "string"},
+                    {"name": "version", "type": "string"},
+                    {"name": "count", "type": "number"},
+                ]
+            },
+            "data": {
+                "values": [
+                    [1700000000000] * len(tool_ids),
+                    tool_ids,
+                    versions,
+                    counts,
+                ]
+            },
+        }
+
+    def _make_response(self, frames: List[Dict[str, Any]]) -> Dict[str, Any]:
+        return {"results": {"A": {"frames": frames}}}
+
+    @patch("extract_galaxy_tools.requests.post")
+    def test_returns_aggregated_totals(self, mock_post: MagicMock) -> None:
+        """Counts should be summed across versions per tool_id."""
+        mock_post.return_value.json.return_value = self._make_response(
+            [
+                self._make_frame(
+                    tool_ids=["rna_star", "rna_star", "fastp", "fastp", "bwa"],
+                    versions=["2.7.8a", "2.7.8b", "0.20.1", "0.23.2", "0.7.17"],
+                    counts=[100, 200, 300, 400, 500],
+                )
+            ]
+        )
+        result = get_galaxy_usage_from_api("https://stats.example.com/api/ds/query", "test-ds-uid", min_tool_ids=1)
+        self.assertEqual(result, {"rna_star": 300, "fastp": 700, "bwa": 500})
+
+    @patch("extract_galaxy_tools.requests.post")
+    def test_partial_response_returns_empty(self, mock_post: MagicMock) -> None:
+        """A response with too few tools (e.g. server recovering from an outage) is ignored."""
+        mock_post.return_value.json.return_value = self._make_response(
+            [self._make_frame(tool_ids=["fastp", "bwa"], versions=["0.23.2", "0.7.17"], counts=[10, 20])]
+        )
+        result = get_galaxy_usage_from_api("https://stats.example.com/api/ds/query", "test-ds-uid")
+        self.assertEqual(result, {})
+
+    @patch("extract_galaxy_tools.requests.post")
+    def test_full_response_is_kept(self, mock_post: MagicMock) -> None:
+        """A response with enough tools is returned."""
+        tool_ids = [f"tool_{i}" for i in range(100)]
+        mock_post.return_value.json.return_value = self._make_response(
+            [self._make_frame(tool_ids=tool_ids, versions=["1.0"] * 100, counts=[1] * 100)]
+        )
+        result = get_galaxy_usage_from_api("https://stats.example.com/api/ds/query", "test-ds-uid")
+        self.assertEqual(len(result), 100)
+
+    @patch("extract_galaxy_tools.requests.post")
+    def test_no_frames_returns_empty(self, mock_post: MagicMock) -> None:
+        """When the API returns no frames, return empty dict."""
+        mock_post.return_value.json.return_value = self._make_response([])
+        result = get_galaxy_usage_from_api("https://stats.example.com/api/ds/query", "test-ds-uid")
+        self.assertEqual(result, {})
+
+    @patch("extract_galaxy_tools.requests.post")
+    def test_http_error_returns_empty(self, mock_post: MagicMock) -> None:
+        """On HTTP error, return empty dict."""
+        mock_post.return_value.raise_for_status.side_effect = Exception("API error")
+        result = get_galaxy_usage_from_api("https://stats.example.com/api/ds/query", "test-ds-uid")
+        self.assertEqual(result, {})
+
+    @patch("extract_galaxy_tools.requests.post")
+    def test_malformed_response_returns_empty(self, mock_post: MagicMock) -> None:
+        """On malformed JSON, return empty dict."""
+        mock_post.return_value.json.side_effect = ValueError("bad json")
+        result = get_galaxy_usage_from_api("https://stats.example.com/api/ds/query", "test-ds-uid")
+        self.assertEqual(result, {})
