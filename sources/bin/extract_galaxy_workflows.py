@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import argparse
+import sys
 from typing import (
     Any,
     Dict,
@@ -250,10 +251,13 @@ class Workflows:
         if self.test:
             data = data[:10]
         for wf in data:
-            wfhub_wf = shared.get_request_json(
-                f"https://{ prefix }workflowhub.eu{wf['links']['self']}",
-                header,
-            )
+            url = f"https://{ prefix }workflowhub.eu{wf['links']['self']}"
+            try:
+                wfhub_wf = shared.get_request_json(url, header)
+            except (Exception, SystemExit) as ex:
+                # a single broken workflow should not make the whole extraction fail
+                print(f"Skipping WorkflowHub workflow {url}: {ex}", file=sys.stderr)
+                continue
             if wfhub_wf:
                 wf = Workflow()
                 wf.init_from_search(wf=wfhub_wf, source=f"{ prefix }WorkflowHub", tools=self.tools)
@@ -279,13 +283,16 @@ class Workflows:
         for wf in server_wfs:
             if wf["published"] and wf["importable"] and not wf["deleted"] and not wf["hidden"]:
                 count += 1
-                # The following workflow (id=f65a2f2a19bea880) caused the request to crash, it was reported to the Galaxy team, in the meantime, we are skipping it
-                if wf["id"] == "f65a2f2a19bea880":
+                # Some workflows make the server API fail (e.g. id=f65a2f2a19bea880 on usegalaxy.eu, reported to the Galaxy team)
+                # a single broken workflow should not make the whole extraction fail, so we skip it
+                try:
+                    server_wf = shared.get_request_json(
+                        f"{server}/api/workflows/{wf['id']}",
+                        header,
+                    )
+                except (Exception, SystemExit) as ex:
+                    print(f"Skipping workflow {wf['id']} from {server}: {ex}", file=sys.stderr)
                     continue
-                server_wf = shared.get_request_json(
-                    f"{server}/api/workflows/{wf['id']}",
-                    header,
-                )
                 wf = Workflow()
                 wf.init_from_search(wf=server_wf, source=server, tools=self.tools)
                 self.workflows.append(wf)
