@@ -1,0 +1,67 @@
+# Request this as a webpage with:
+# https://site.usegalaxy.org.au/lab/export?content_root=https://raw.githubusercontent.com/galaxyproject/galaxy_codex/tree/main/communities/microgalaxy/base.yml
+
+# -----------------------------------------------------------------------------
+# Use these variables in HTML templates like:
+# "Welcome to the Galaxy {{ site_name }} {{ lab_name }}"
+# To make the content more generic and reusable across sites
+
+# These will be rendered like "Welcome to the Galaxy {{ site_name }} {{ lab_name }}!"
+site_name: France
+lab_name: Workflow4Metabolomics
+analysis_name: Metabolomics
+nationality: European
+
+# Used for rendering tool/workflow links. Trailing '/' will be removed.
+galaxy_base_url: https://workflow4metabolomics.usegalaxy.fr
+subdomain: workflow4metabolomics
+root_domain: usegalaxy.fr
+support_url: https://help.galaxyproject.org/
+general_support: https://galaxyproject.org/support/
+figure_workflow4metabolomics_url: https://ifb-elixirfr.gitlab.io/usegalaxy-fr/welcome//workflow4metabolomics/images/workflow_w4m_HD.png
+
+# This will enable a feedback form on the webpage:
+# feedback_email: help@mygalaxy.org
+quota_request_url: https://community.france-bioinformatique.fr/c/workflow4metabolomics/10
+data_policy_url: https://ifb-elixirfr.gitlab.io/usegalaxy-fr/welcome//common/terms.html
+terms_url: https://ifb-elixirfr.gitlab.io/usegalaxy-fr/welcome//common/terms.html
+galaxy_help_url: https://help.galaxyproject.org
+galaxy_matrix_channel: https://matrix.to/#/#galaxyproject_Lobby:gitter.im
+european_server_matrix_channel: https://matrix.to/#/#usegalaxy-eu_Lobby:gitter.im
+
+help_links:
+  - title: Workflow4Metabolomics community forum
+    url: https://community.france-bioinformatique.fr/c/workflow4metabolomics/10
+  - title: General Galaxy support
+    url: https://galaxyproject.org/support/
+  - title: General Galaxy help forum
+    url: https://help.galaxyproject.org
+  - title: Galaxy Training Community chat
+    url: https://matrix.to/#/#Galaxy-Training-Network_Lobby:gitter.im
+
+intro_extra_md: ""
+conclusion_extra_md: ""
+
+# -----------------------------------------------------------------------------
+# Custom content relative to this file URL
+
+header_logo: static/w4m-lab-logo.png
+custom_css: static/custom.css
+intro_md: templates/intro.html
+conclusion_md: templates/conclusion.html
+footer_md: templates/footer.html
+
+
+# Data (Tools, Workflows etc.) to be rendered into sections/tabs/accordion elements.
+# Either:
+#   1. Relative to this file URL
+#   2. Full URL to fetch globally centralized content
+sections:
+  - sections/1_data_import_and_preparation.yml
+  - sections/2_LCMS.yml
+  - sections/3_GCMS.yml
+  - sections/4_FIAMS.yml
+  - sections/5_NMR.yml
+  - sections/9_citations.yml
+
+# -----------------------------------------------------------------------------
