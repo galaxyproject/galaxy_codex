@@ -890,8 +890,27 @@ class TestGetGalaxyUsageFromApi(unittest.TestCase):
                 )
             ]
         )
-        result = get_galaxy_usage_from_api("https://stats.example.com/api/ds/query", "test-ds-uid")
+        result = get_galaxy_usage_from_api("https://stats.example.com/api/ds/query", "test-ds-uid", min_tool_ids=1)
         self.assertEqual(result, {"rna_star": 300, "fastp": 700, "bwa": 500})
+
+    @patch("extract_galaxy_tools.requests.post")
+    def test_partial_response_returns_empty(self, mock_post: MagicMock) -> None:
+        """A response with too few tools (e.g. server recovering from an outage) is ignored."""
+        mock_post.return_value.json.return_value = self._make_response(
+            [self._make_frame(tool_ids=["fastp", "bwa"], versions=["0.23.2", "0.7.17"], counts=[10, 20])]
+        )
+        result = get_galaxy_usage_from_api("https://stats.example.com/api/ds/query", "test-ds-uid")
+        self.assertEqual(result, {})
+
+    @patch("extract_galaxy_tools.requests.post")
+    def test_full_response_is_kept(self, mock_post: MagicMock) -> None:
+        """A response with enough tools is returned."""
+        tool_ids = [f"tool_{i}" for i in range(100)]
+        mock_post.return_value.json.return_value = self._make_response(
+            [self._make_frame(tool_ids=tool_ids, versions=["1.0"] * 100, counts=[1] * 100)]
+        )
+        result = get_galaxy_usage_from_api("https://stats.example.com/api/ds/query", "test-ds-uid")
+        self.assertEqual(len(result), 100)
 
     @patch("extract_galaxy_tools.requests.post")
     def test_no_frames_returns_empty(self, mock_post: MagicMock) -> None:

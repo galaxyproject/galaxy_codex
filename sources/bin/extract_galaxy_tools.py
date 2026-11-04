@@ -100,13 +100,15 @@ def get_last_url_position(toot_id: str) -> str:
     return toot_id
 
 
-def get_galaxy_usage_from_api(api_url: str, datasource_uid: str) -> Dict[str, int]:
+def get_galaxy_usage_from_api(api_url: str, datasource_uid: str, min_tool_ids: int = 100) -> Dict[str, int]:
     """
     Query tool usage for a Galaxy server from the stats Grafana API.
 
     Runs a single query that returns LAST("count") per tool_id per version,
     then sums across versions to produce a dict of {tool_id: total_jobs}.
-    Returns an empty dict on any failure.
+    Returns an empty dict on any failure, or if fewer than `min_tool_ids` tools are
+    returned (partial response, e.g. while the stats server recovers from an outage),
+    so that we do not report 0 runs for most tools.
     """
     query = (
         '''SELECT LAST("count") AS "count" FROM "tool-usage" WHERE time > now() - 1d GROUP BY "tool_id", "version"'''
@@ -137,6 +139,13 @@ def get_galaxy_usage_from_api(api_url: str, datasource_uid: str) -> Dict[str, in
         totals: Dict[str, int] = {}
         for tid, c in zip(tool_ids, counts):
             totals[tid] = totals.get(tid, 0) + int(c)
+        if len(totals) < min_tool_ids:
+            print(
+                f"Only {len(totals)} tools returned by the Galaxy usage stats API for datasource {datasource_uid} "
+                f"(expected at least {min_tool_ids}), ignoring this partial response",
+                file=sys.stderr,
+            )
+            return {}
         return totals
     except Exception:
         print(
