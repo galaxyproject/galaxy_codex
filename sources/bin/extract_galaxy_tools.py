@@ -35,6 +35,12 @@ from ruamel.yaml.scalarstring import LiteralScalarString
 
 # Config variables
 BIOTOOLS_API_URL = "https://bio.tools"
+GALAXY_STATS_SOURCES = {
+    "eu": {
+        "url": "https://stats.galaxyproject.eu/api/ds/query",
+        "ds_uid": "P9B81C0353945995B",
+    },
+}
 
 USEGALAXY_SERVER_URLS = {
     "UseGalaxy.org (Main)": "https://usegalaxy.org",
@@ -92,6 +98,61 @@ def get_last_url_position(toot_id: str) -> str:
     if "/" in toot_id:
         toot_id = toot_id.split("/")[-1]
     return toot_id
+
+
+def get_galaxy_usage_from_api(api_url: str, datasource_uid: str, min_tool_ids: int = 100) -> Dict[str, int]:
+    """
+    Query tool usage for a Galaxy server from the stats Grafana API.
+
+    Runs a single query that returns LAST("count") per tool_id per version,
+    then sums across versions to produce a dict of {tool_id: total_jobs}.
+    Returns an empty dict on any failure, or if fewer than `min_tool_ids` tools are
+    returned (partial response, e.g. while the stats server recovers from an outage),
+    so that we do not report 0 runs for most tools.
+    """
+    query = (
+        '''SELECT LAST("count") AS "count" FROM "tool-usage" WHERE time > now() - 1d GROUP BY "tool_id", "version"'''
+    )
+    payload = {
+        "queries": [
+            {
+                "refId": "A",
+                "datasource": {"type": "influxdb", "uid": datasource_uid},
+                "query": query,
+                "rawQuery": True,
+                "resultFormat": "table",
+            }
+        ],
+        "from": "now-1d",
+        "to": "now",
+    }
+    try:
+        resp = requests.post(api_url, json=payload, timeout=30)
+        resp.raise_for_status()
+        data = resp.json()
+        frames = data["results"]["A"].get("frames", [])
+        if not frames:
+            return {}
+        vals = frames[0]["data"]["values"]
+        tool_ids: List[str] = vals[1]
+        counts: List[float] = vals[3]
+        totals: Dict[str, int] = {}
+        for tid, c in zip(tool_ids, counts):
+            totals[tid] = totals.get(tid, 0) + int(c)
+        if len(totals) < min_tool_ids:
+            print(
+                f"Only {len(totals)} tools returned by the Galaxy usage stats API for datasource {datasource_uid} "
+                f"(expected at least {min_tool_ids}), ignoring this partial response",
+                file=sys.stderr,
+            )
+            return {}
+        return totals
+    except Exception:
+        print(
+            f"Failed to fetch Galaxy usage stats for datasource {datasource_uid} from API",
+            file=sys.stderr,
+        )
+        return {}
 
 
 def get_tool_stats_from_stats_file(
@@ -1323,6 +1384,10 @@ if __name__ == "__main__":
         for tool in tools:
             tool.setdefault("Related Workflows", [])
             tool.setdefault("Related Tutorials", [])
+        # fetch tool usage from stats API for each configured server
+        galaxy_usage_from_api: Dict[str, Dict[str, int]] = {}
+        for server_name, source in GALAXY_STATS_SOURCES.items():
+            galaxy_usage_from_api[server_name] = get_galaxy_usage_from_api(source["url"], source["ds_uid"])
         for tool in tools:
             tool["EDAM reduced operations"] = reduce_ontology_terms(tool["EDAM operations"], ontology=edam_ontology)
             tool["EDAM reduced topics"] = reduce_ontology_terms(tool["EDAM topics"], ontology=edam_ontology)
@@ -1347,6 +1412,15 @@ if __name__ == "__main__":
                 else:
                     mode = "sum"
                 tool[name] = get_tool_stats_from_stats_file(tool_stats_df, tool["Tool IDs"], mode=mode)
+            # add tool usage from API for each configured server
+            for server_name in GALAXY_STATS_SOURCES:
+                server_usage = galaxy_usage_from_api.get(server_name, {})
+                if not server_usage:
+                    # API unavailable: do not report 0 runs for every tool
+                    continue
+                tool[f"Suite runs (usegalaxy.{server_name}) via API"] = sum(
+                    server_usage.get(tid, 0) for tid in tool["Tool IDs"]
+                )
             tool = aggregate_tool_stats(tool, STATS_SUM)
 
         export_tools_to_json(tools, args.all)
