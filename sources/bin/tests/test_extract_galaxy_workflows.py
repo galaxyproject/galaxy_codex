@@ -82,3 +82,89 @@ class TestAddWorkflowsFromWorkflowHub(unittest.TestCase):
 # Run the tests
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestSkipBrokenWorkflows(unittest.TestCase):
+    """A single workflow failing on the server API should not crash the whole extraction."""
+
+    def setUp(self) -> None:
+        self.wfs = Workflows()
+        self.wfs.tools = {}
+
+    @patch("extract_galaxy_workflows.Workflow.init_from_search")
+    @patch("extract_galaxy_workflows.shared.get_request_json")
+    def test_public_server_broken_workflow_is_skipped(self, mock_get: MagicMock, mock_init: MagicMock) -> None:
+        listing = [
+            {"id": wid, "published": True, "importable": True, "deleted": False, "hidden": False}
+            for wid in ["ok1", "broken", "ok2"]
+        ]
+
+        def side_effect(url: str, headers: Dict[str, str]) -> Dict:
+            if url.endswith("/api/workflows/"):
+                return listing  # type: ignore[return-value]
+            if url.endswith("/broken"):
+                raise ConnectionError("Connection aborted after multiple retries")
+            return {"id": url.rsplit("/", 1)[-1]}
+
+        mock_get.side_effect = side_effect
+        self.wfs.add_workflows_from_a_server("https://usegalaxy.example")
+        self.assertEqual(len(self.wfs.workflows), 2)
+        self.assertEqual([url for url, _ in self.wfs.skipped], ["https://usegalaxy.example/api/workflows/broken"])
+        self.assertEqual([c.kwargs["wf"]["id"] for c in mock_init.call_args_list], ["ok1", "ok2"])
+
+    @patch("extract_galaxy_workflows.Workflow.init_from_search")
+    @patch("extract_galaxy_workflows.shared.get_request_json")
+    def test_public_server_request_exit_is_skipped(self, mock_get: MagicMock, mock_init: MagicMock) -> None:
+        listing = [{"id": "broken", "published": True, "importable": True, "deleted": False, "hidden": False}]
+
+        def side_effect(url: str, headers: Dict[str, str]) -> Dict:
+            if url.endswith("/api/workflows/"):
+                return listing  # type: ignore[return-value]
+            raise SystemExit("Request failed: 500 Server Error")
+
+        mock_get.side_effect = side_effect
+        self.wfs.add_workflows_from_a_server("https://usegalaxy.example")
+        self.assertEqual(self.wfs.workflows, [])
+
+    @patch("extract_galaxy_workflows.Workflow.init_from_search")
+    @patch("extract_galaxy_workflows.shared.get_request_json")
+    def test_workflowhub_broken_workflow_is_skipped(self, mock_get: MagicMock, mock_init: MagicMock) -> None:
+        listing = {"data": [{"links": {"self": f"/workflows/{i}"}} for i in [1, 2, 3]]}
+
+        def side_effect(url: str, headers: Dict[str, str]) -> Dict:
+            if "filter[workflow_type]" in url:
+                return listing
+            if url.endswith("/workflows/2"):
+                raise ConnectionError("Connection aborted after multiple retries")
+            return {"data": {"id": url.rsplit("/", 1)[-1]}}
+
+        mock_get.side_effect = side_effect
+        self.wfs.add_workflows_from_workflowhub()
+        self.assertEqual(len(self.wfs.workflows), 2)
+
+
+class TestReportSkippedWorkflows(unittest.TestCase):
+    """Skipped workflows are reported on the GitHub Actions run, and too many skipped workflows fail the run."""
+
+    def setUp(self) -> None:
+        self.wfs = Workflows()
+        self.wfs.skipped = [("https://usegalaxy.example/api/workflows/broken", "Connection aborted")]
+
+    def test_nothing_skipped(self) -> None:
+        self.assertTrue(Workflows().report_skipped(max_skipped=0))
+
+    def test_under_threshold_writes_summary(self) -> None:
+        import tempfile
+
+        with tempfile.NamedTemporaryFile("r", suffix=".md") as summary:
+            with patch.dict(os.environ, {"GITHUB_STEP_SUMMARY": summary.name}):
+                self.assertTrue(self.wfs.report_skipped(max_skipped=10))
+            content = summary.read()
+        self.assertIn("1 workflow(s) could not be fetched", content)
+        self.assertIn("https://usegalaxy.example/api/workflows/broken", content)
+
+    def test_over_threshold_fails(self) -> None:
+        self.wfs.skipped = self.wfs.skipped * 3
+        with patch.dict(os.environ, {}, clear=False):
+            os.environ.pop("GITHUB_STEP_SUMMARY", None)
+            self.assertFalse(self.wfs.report_skipped(max_skipped=2))

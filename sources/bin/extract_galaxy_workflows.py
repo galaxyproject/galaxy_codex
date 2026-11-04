@@ -1,11 +1,14 @@
 #!/usr/bin/env python
 
 import argparse
+import os
+import sys
 from typing import (
     Any,
     Dict,
     List,
     Optional,
+    Tuple,
 )
 
 import pandas as pd
@@ -218,6 +221,8 @@ class Workflows:
         self.tools: Dict[Any, Any] = {}
         self.test = test
         self.grouped_workflows: Dict[Any, Any] = {}
+        # workflows that could not be fetched: (url, error)
+        self.skipped: List[Tuple[str, str]] = []
 
     def init_by_searching(self, tool_fp: str) -> None:
         self.tools = shared.read_suite_per_tool_id(tool_fp)
@@ -250,10 +255,14 @@ class Workflows:
         if self.test:
             data = data[:10]
         for wf in data:
-            wfhub_wf = shared.get_request_json(
-                f"https://{ prefix }workflowhub.eu{wf['links']['self']}",
-                header,
-            )
+            url = f"https://{ prefix }workflowhub.eu{wf['links']['self']}"
+            try:
+                wfhub_wf = shared.get_request_json(url, header)
+            except (Exception, SystemExit) as ex:
+                # a single broken workflow should not make the whole extraction fail
+                print(f"Skipping WorkflowHub workflow {url}: {ex}", file=sys.stderr)
+                self.skipped.append((url, str(ex)))
+                continue
             if wfhub_wf:
                 wf = Workflow()
                 wf.init_from_search(wf=wfhub_wf, source=f"{ prefix }WorkflowHub", tools=self.tools)
@@ -279,13 +288,17 @@ class Workflows:
         for wf in server_wfs:
             if wf["published"] and wf["importable"] and not wf["deleted"] and not wf["hidden"]:
                 count += 1
-                # The following workflow (id=f65a2f2a19bea880) caused the request to crash, it was reported to the Galaxy team, in the meantime, we are skipping it
-                if wf["id"] == "f65a2f2a19bea880":
+                # Some workflows make the server API fail (e.g. id=f65a2f2a19bea880 on usegalaxy.eu, reported to the Galaxy team)
+                # a single broken workflow should not make the whole extraction fail, so we skip it
+                try:
+                    server_wf = shared.get_request_json(
+                        f"{server}/api/workflows/{wf['id']}",
+                        header,
+                    )
+                except (Exception, SystemExit) as ex:
+                    print(f"Skipping workflow {wf['id']} from {server}: {ex}", file=sys.stderr)
+                    self.skipped.append((f"{server}/api/workflows/{wf['id']}", str(ex)))
                     continue
-                server_wf = shared.get_request_json(
-                    f"{server}/api/workflows/{wf['id']}",
-                    header,
-                )
                 wf = Workflow()
                 wf.init_from_search(wf=server_wf, source=server, tools=self.tools)
                 self.workflows.append(wf)
@@ -307,6 +320,31 @@ class Workflows:
         for url in server_urls:
             print(url)
             self.add_workflows_from_a_server(url)
+
+    def report_skipped(self, max_skipped: int) -> bool:
+        """
+        Report the workflows that could not be fetched, so that they are visible on the GitHub Actions run:
+        a warning annotation per workflow and a table in the job summary.
+        Return False if more than `max_skipped` workflows were skipped (e.g. a server outage).
+        """
+        if not self.skipped:
+            return True
+        for url, error in self.skipped:
+            print(f"::warning title=Workflow skipped::{url}: {error}")
+        summary_fp = os.environ.get("GITHUB_STEP_SUMMARY")
+        if summary_fp:
+            with open(summary_fp, "a") as summary:
+                summary.write(f"### {len(self.skipped)} workflow(s) could not be fetched and were skipped\n\n")
+                summary.write("| Workflow | Error |\n|---|---|\n")
+                for url, error in self.skipped:
+                    summary.write(f"| {url} | {error} |\n")
+        if len(self.skipped) > max_skipped:
+            print(
+                f"::error::{len(self.skipped)} workflows could not be fetched (more than {max_skipped}), "
+                "failing instead of publishing incomplete workflows",
+            )
+            return False
+        return True
 
     def export_workflows_to_dict(self) -> List:
         """
@@ -480,6 +518,12 @@ if __name__ == "__main__":
         required=False,
         help="Run a small test case only on one topic",
     )
+    extract.add_argument(
+        "--max-skipped",
+        type=int,
+        default=10,
+        help="Fail if more than this number of workflows could not be fetched (default: 10)",
+    )
 
     # Filter workflows
     filterwf = subparser.add_parser("filter", help="Filter workflows based on their tags")
@@ -558,6 +602,8 @@ if __name__ == "__main__":
     if args.command == "extract":
         wfs = Workflows(test=args.test)
         wfs.init_by_searching(args.tools)
+        if not wfs.report_skipped(args.max_skipped):
+            sys.exit(1)
         shared.export_to_json(wfs.export_workflows_to_dict(), args.all)
         shared.export_to_yml(wfs.export_workflows_to_dict(), args.yml)
 
