@@ -109,6 +109,7 @@ class TestSkipBrokenWorkflows(unittest.TestCase):
         mock_get.side_effect = side_effect
         self.wfs.add_workflows_from_a_server("https://usegalaxy.example")
         self.assertEqual(len(self.wfs.workflows), 2)
+        self.assertEqual([url for url, _ in self.wfs.skipped], ["https://usegalaxy.example/api/workflows/broken"])
         self.assertEqual([c.kwargs["wf"]["id"] for c in mock_init.call_args_list], ["ok1", "ok2"])
 
     @patch("extract_galaxy_workflows.Workflow.init_from_search")
@@ -140,3 +141,30 @@ class TestSkipBrokenWorkflows(unittest.TestCase):
         mock_get.side_effect = side_effect
         self.wfs.add_workflows_from_workflowhub()
         self.assertEqual(len(self.wfs.workflows), 2)
+
+
+class TestReportSkippedWorkflows(unittest.TestCase):
+    """Skipped workflows are reported on the GitHub Actions run, and too many skipped workflows fail the run."""
+
+    def setUp(self) -> None:
+        self.wfs = Workflows()
+        self.wfs.skipped = [("https://usegalaxy.example/api/workflows/broken", "Connection aborted")]
+
+    def test_nothing_skipped(self) -> None:
+        self.assertTrue(Workflows().report_skipped(max_skipped=0))
+
+    def test_under_threshold_writes_summary(self) -> None:
+        import tempfile
+
+        with tempfile.NamedTemporaryFile("r", suffix=".md") as summary:
+            with patch.dict(os.environ, {"GITHUB_STEP_SUMMARY": summary.name}):
+                self.assertTrue(self.wfs.report_skipped(max_skipped=10))
+            content = summary.read()
+        self.assertIn("1 workflow(s) could not be fetched", content)
+        self.assertIn("https://usegalaxy.example/api/workflows/broken", content)
+
+    def test_over_threshold_fails(self) -> None:
+        self.wfs.skipped = self.wfs.skipped * 3
+        with patch.dict(os.environ, {}, clear=False):
+            os.environ.pop("GITHUB_STEP_SUMMARY", None)
+            self.assertFalse(self.wfs.report_skipped(max_skipped=2))
