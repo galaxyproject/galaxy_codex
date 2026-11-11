@@ -26,17 +26,17 @@
             "qcxms"
         ],
         "tools": [
-            "qcxms_neutral_run",
-            "qcxms_production_run",
-            "openbabel_compound_convert",
-            "Remove failed runs\n__FILTER_FAILED_DATASETS__",
-            "qcxms_getres",
-            "xtb_molecular_optimization",
-            "split_file_to_collection",
-            "ctb_im_conformers",
             "param_value_from_file",
             "tp_cut_tool",
-            "tp_cat"
+            "qcxms_neutral_run",
+            "openbabel_compound_convert",
+            "split_file_to_collection",
+            "tp_cat",
+            "xtb_molecular_optimization",
+            "qcxms_getres",
+            "ctb_im_conformers",
+            "qcxms_production_run",
+            "Remove failed runs\n__FILTER_FAILED_DATASETS__"
         ],
         "update_time": "2025-06-02",
         "versions": 1
@@ -65,12 +65,12 @@
             "metabolomics"
         ],
         "tools": [
-            "cardinal_mz_images",
             "cardinal_filtering",
-            "cardinal_quality_report",
-            "cardinal_data_exporter",
             "Filter1",
-            "cardinal_spectra_plots"
+            "cardinal_quality_report",
+            "cardinal_spectra_plots",
+            "cardinal_data_exporter",
+            "cardinal_mz_images"
         ],
         "update_time": "2025-06-02",
         "versions": 1
@@ -82,9 +82,9 @@
         "doi": null,
         "edam_operation": [
             "Deisotoping",
-            "Annotation",
+            "Visualisation",
             "Mass spectra calibration",
-            "Visualisation"
+            "Annotation"
         ],
         "edam_topic": [],
         "id": "1591",
@@ -108,14 +108,14 @@
         ],
         "tools": [
             "mfassignr_recal",
-            "mfassignr_kmdnoise",
-            "mfassignr_findRecalSeries",
-            "mfassignr_mfassign",
             "mfassignr_mfassignCHO",
             "mfassignr_snplot",
-            "mfassignr_isofiltr",
+            "mfassignr_recallist",
+            "mfassignr_findRecalSeries",
             "mfassignr_histnoise",
-            "mfassignr_recallist"
+            "mfassignr_isofiltr",
+            "mfassignr_kmdnoise",
+            "mfassignr_mfassign"
         ],
         "update_time": "2025-06-02",
         "versions": 1
@@ -144,18 +144,18 @@
             "metabolomics"
         ],
         "tools": [
-            "cardinal_combine",
-            "cardinal_mz_images",
-            "cardinal_quality_report",
-            "maldi_quant_peak_detection",
             "Summary_Statistics1",
             "maldi_quant_preprocessing",
-            "Filter1",
             "join_files_on_column_fuzzy",
             "Grep1",
+            "Filter1",
+            "cardinal_classification",
             "cardinal_preprocessing",
             "cardinal_segmentations",
-            "cardinal_classification"
+            "cardinal_quality_report",
+            "cardinal_combine",
+            "maldi_quant_peak_detection",
+            "cardinal_mz_images"
         ],
         "update_time": "2025-06-02",
         "versions": 1
@@ -167,12 +167,14 @@
         "doi": null,
         "edam_operation": [
             "Peak detection",
-            "Validation",
-            "Mass spectrum visualisation",
-            "Chromatogram visualisation",
+            "Annotation",
             "Chromatographic alignment",
             "Label-free quantification",
-            "Data filtering"
+            "Data filtering",
+            "Chromatogram visualisation",
+            "Validation",
+            "Spectral analysis",
+            "Mass spectrum visualisation"
         ],
         "edam_topic": [],
         "id": "1584",
@@ -192,19 +194,19 @@
             "metabolomics"
         ],
         "tools": [
-            "Univariate",
             "abims_xcms_retcor",
-            "xcms_plot_chromatogram",
-            "Batch_correction",
-            "quality_metrics",
-            "abims_CAMERA_annotateDiffreport",
             "wsdl_hmdb",
+            "abims_CAMERA_annotateDiffreport",
             "abims_xcms_xcmsSet",
-            "abims_xcms_group",
-            "abims_xcms_fillPeaks",
+            "xcms_plot_chromatogram",
             "msnbase_readmsdata",
-            "xcms_merge",
-            "generic_filter"
+            "generic_filter",
+            "abims_xcms_fillPeaks",
+            "abims_xcms_group",
+            "Batch_correction",
+            "Univariate",
+            "quality_metrics",
+            "xcms_merge"
         ],
         "update_time": "2025-06-02",
         "versions": 1
@@ -215,21 +217,21 @@
         "deprecated": false,
         "doi": null,
         "edam_operation": [
-            "Peak detection",
-            "Mass spectrum visualisation",
             "Format validation",
-            "Filtering",
             "Imputation",
-            "Formatting",
-            "Validation",
-            "Correlation",
-            "Chromatogram visualisation",
-            "Chromatographic alignment",
-            "Label-free quantification",
+            "Spectral library search",
             "Clustering",
-            "Data filtering",
             "Standardisation and normalisation",
-            "Spectral library search"
+            "Mass spectrum visualisation",
+            "Peak detection",
+            "Chromatographic alignment",
+            "Filtering",
+            "Label-free quantification",
+            "Data filtering",
+            "Correlation",
+            "Formatting",
+            "Chromatogram visualisation",
+            "Validation"
         ],
         "edam_topic": [],
         "id": "1582",
@@ -251,109 +253,20 @@
             "metabolomics"
         ],
         "tools": [
-            "matchms_similarity",
             "abims_xcms_retcor",
             "ramclustr",
-            "abims_xcms_group",
             "abims_xcms_xcmsSet",
-            "abims_xcms_fillPeaks",
-            "matchms_formatter",
-            "riassigner",
             "msnbase_readmsdata",
             "msconvert",
+            "matchms_similarity",
+            "riassigner",
+            "abims_xcms_fillPeaks",
+            "abims_xcms_group",
+            "matchms_formatter",
             "xcms_merge"
         ],
         "update_time": "2025-06-02",
         "versions": 1
-    },
-    {
-        "create_time": "2025-05-29",
-        "creators": [
-            "workflow4metabolomics"
-        ],
-        "deprecated": false,
-        "doi": null,
-        "edam_operation": [
-            "Peak detection",
-            "Validation",
-            "Mass spectrum visualisation",
-            "Chromatogram visualisation",
-            "Chromatographic alignment",
-            "Label-free quantification",
-            "Data filtering"
-        ],
-        "edam_topic": [],
-        "id": "677",
-        "keep": true,
-        "latest_version": 2,
-        "license": "MIT",
-        "link": "https://workflowhub.eu/workflows/677?version=2",
-        "name": "lcms-preprocessing/main",
-        "number_of_steps": 12,
-        "projects": [
-            "Intergalactic Workflow Commission (IWC)"
-        ],
-        "source": "WorkflowHub",
-        "tags": [
-            "metabolomics"
-        ],
-        "tools": [
-            "abims_xcms_retcor",
-            "xcms_plot_chromatogram",
-            "abims_xcms_group",
-            "abims_xcms_xcmsSet",
-            "checkFormat",
-            "abims_CAMERA_annotateDiffreport",
-            "abims_xcms_fillPeaks",
-            "intens_check",
-            "msnbase_readmsdata",
-            "xcms_merge"
-        ],
-        "update_time": "2026-05-14",
-        "versions": 2
-    },
-    {
-        "create_time": "2025-05-20",
-        "creators": [
-            "workflow4metabolomics"
-        ],
-        "deprecated": false,
-        "doi": null,
-        "edam_operation": [
-            "Peak detection",
-            "Validation",
-            "Mass spectrum visualisation",
-            "Chromatogram visualisation",
-            "Chromatographic alignment",
-            "Label-free quantification",
-            "Data filtering"
-        ],
-        "edam_topic": [],
-        "id": "680",
-        "keep": true,
-        "latest_version": 2,
-        "license": "MIT",
-        "link": "https://workflowhub.eu/workflows/680?version=2",
-        "name": "gcms-metams/main",
-        "number_of_steps": 7,
-        "projects": [
-            "Intergalactic Workflow Commission (IWC)"
-        ],
-        "source": "WorkflowHub",
-        "tags": [
-            "metabolomics"
-        ],
-        "tools": [
-            "xcms_merge",
-            "Multivariate",
-            "xcms_plot_chromatogram",
-            "abims_xcms_xcmsSet",
-            "checkFormat",
-            "msnbase_readmsdata",
-            "metams_runGC"
-        ],
-        "update_time": "2026-05-14",
-        "versions": 2
     },
     {
         "create_time": "2025-04-28",
@@ -388,12 +301,12 @@
         ],
         "tools": [
             "qcxms_neutral_run",
-            "qcxms_production_run",
             "openbabel_compound_convert",
-            "Remove failed runs\n__FILTER_FAILED_DATASETS__",
-            "qcxms_getres",
             "xtb_molecular_optimization",
-            "ctb_im_conformers"
+            "qcxms_getres",
+            "ctb_im_conformers",
+            "qcxms_production_run",
+            "Remove failed runs\n__FILTER_FAILED_DATASETS__"
         ],
         "update_time": "2026-05-13",
         "versions": 3
@@ -409,8 +322,8 @@
         "doi": "10.48546/workflowhub.workflow.888.2",
         "edam_operation": [
             "Annotation",
-            "Format validation",
             "Filtering",
+            "Format validation",
             "Standardisation and normalisation",
             "Spectral library search"
         ],
@@ -438,20 +351,20 @@
             "metabolomics"
         ],
         "tools": [
+            "csv_to_tabular",
+            "matchms_subsetting",
+            "rem_complex",
             "matchms_convert",
             "matchms_filtering",
-            "rem_complex",
             "use_theoretical_mz_annotations",
+            "matchms_remove_key",
             "tabular_to_csv",
-            "matchms_subsetting",
-            "recetox_msfinder",
-            "csv_to_tabular",
-            "msmetaenhancer",
-            "matchms_add_key",
             "tp_find_and_replace",
-            "column_remove_by_header",
+            "matchms_add_key",
+            "recetox_msfinder",
             "matchms_metadata_export",
-            "matchms_remove_key"
+            "msmetaenhancer",
+            "column_remove_by_header"
         ],
         "update_time": "2026-06-25",
         "versions": 2
@@ -465,12 +378,14 @@
         "doi": "",
         "edam_operation": [
             "Peak detection",
-            "Validation",
-            "Mass spectrum visualisation",
-            "Chromatogram visualisation",
+            "Annotation",
             "Chromatographic alignment",
             "Label-free quantification",
-            "Data filtering"
+            "Data filtering",
+            "Chromatogram visualisation",
+            "Validation",
+            "Spectral analysis",
+            "Mass spectrum visualisation"
         ],
         "edam_topic": [],
         "id": "bcd348178335a19b",
@@ -491,20 +406,20 @@
             "dda"
         ],
         "tools": [
-            "mspurity_filterfragspectra",
-            "mspurity_puritya",
-            "mspurity_averagefragspectra",
-            "abims_xcms_group",
             "abims_xcms_xcmsSet",
             "abims_CAMERA_annotateDiffreport",
-            "mspurity_spectralmatching",
-            "abims_xcms_fillPeaks",
-            "mspurity_createdatabase",
-            "mspurity_createmsp",
-            "mspurity_frag4feature",
+            "mspurity_filterfragspectra",
+            "mspurity_puritya",
             "msnbase_readmsdata",
+            "mspurity_createmsp",
+            "mspurity_createdatabase",
+            "metfrag",
+            "abims_xcms_fillPeaks",
+            "abims_xcms_group",
+            "mspurity_averagefragspectra",
             "xcms_merge",
-            "metfrag"
+            "mspurity_frag4feature",
+            "mspurity_spectralmatching"
         ],
         "update_time": "2026-06-25",
         "versions": 6
@@ -518,12 +433,12 @@
         "doi": "",
         "edam_operation": [
             "Peak detection",
-            "Validation",
-            "Mass spectrum visualisation",
-            "Chromatogram visualisation",
             "Chromatographic alignment",
             "Label-free quantification",
-            "Data filtering"
+            "Data filtering",
+            "Chromatogram visualisation",
+            "Validation",
+            "Mass spectrum visualisation"
         ],
         "edam_topic": [],
         "id": "32f903738292a67f",
@@ -542,12 +457,12 @@
             "w4m"
         ],
         "tools": [
-            "xcms_export_samplemetadata",
             "Multivariate",
-            "xcms_plot_chromatogram",
-            "metams_runGC",
             "abims_xcms_xcmsSet",
+            "xcms_plot_chromatogram",
             "msnbase_readmsdata",
+            "xcms_export_samplemetadata",
+            "metams_runGC",
             "xcms_merge"
         ],
         "update_time": "2025-05-27",
@@ -560,12 +475,12 @@
         "doi": "",
         "edam_operation": [
             "Peak detection",
-            "Validation",
-            "Mass spectrum visualisation",
-            "Chromatogram visualisation",
             "Chromatographic alignment",
             "Label-free quantification",
-            "Data filtering"
+            "Data filtering",
+            "Chromatogram visualisation",
+            "Validation",
+            "Mass spectrum visualisation"
         ],
         "edam_topic": [],
         "id": "192ff9aa79217899",
@@ -583,11 +498,11 @@
             "2024"
         ],
         "tools": [
-            "xcms_merge",
-            "abims_xcms_group",
             "abims_xcms_xcmsSet",
             "msnbase_readmsdata",
-            "metams_runGC"
+            "abims_xcms_group",
+            "metams_runGC",
+            "xcms_merge"
         ],
         "update_time": "2024-08-03",
         "versions": 0
@@ -600,21 +515,21 @@
         "deprecated": false,
         "doi": "",
         "edam_operation": [
-            "Peak detection",
-            "Mass spectrum visualisation",
             "Format validation",
-            "Filtering",
             "Imputation",
-            "Formatting",
-            "Validation",
-            "Correlation",
-            "Chromatogram visualisation",
-            "Chromatographic alignment",
-            "Label-free quantification",
+            "Spectral library search",
             "Clustering",
-            "Data filtering",
             "Standardisation and normalisation",
-            "Spectral library search"
+            "Mass spectrum visualisation",
+            "Peak detection",
+            "Chromatographic alignment",
+            "Filtering",
+            "Label-free quantification",
+            "Data filtering",
+            "Correlation",
+            "Formatting",
+            "Chromatogram visualisation",
+            "Validation"
         ],
         "edam_topic": [],
         "id": "1407c1703f360f07",
@@ -632,19 +547,19 @@
             "expospomics"
         ],
         "tools": [
-            "cat1",
             "abims_xcms_retcor",
             "ramclustr",
-            "metams_runGC",
-            "abims_xcms_group",
             "abims_xcms_xcmsSet",
-            "abims_xcms_fillPeaks",
             "matchms",
-            "matchms_formatter",
-            "riassigner",
             "msnbase_readmsdata",
             "msconvert",
-            "xcms_merge"
+            "riassigner",
+            "abims_xcms_fillPeaks",
+            "abims_xcms_group",
+            "cat1",
+            "metams_runGC",
+            "xcms_merge",
+            "matchms_formatter"
         ],
         "update_time": "2023-03-24",
         "versions": 1
@@ -658,12 +573,12 @@
         "doi": "",
         "edam_operation": [
             "Peak detection",
+            "Data filtering",
             "Chromatographic alignment",
+            "Chromatogram visualisation",
             "Label-free quantification",
             "Validation",
-            "Data filtering",
-            "Mass spectrum visualisation",
-            "Chromatogram visualisation"
+            "Mass spectrum visualisation"
         ],
         "edam_topic": [],
         "id": "cca13353d553319e",
@@ -685,13 +600,13 @@
             "2023"
         ],
         "tools": [
+            "mspurity_frag4feature",
             "mspurity_filterfragspectra",
-            "mspurity_averagefragspectra",
+            "mspurity_createdatabase",
             "mspurity_puritya",
             "abims_xcms_group",
-            "mspurity_spectralmatching",
-            "mspurity_createdatabase",
-            "mspurity_frag4feature"
+            "mspurity_averagefragspectra",
+            "mspurity_spectralmatching"
         ],
         "update_time": "2023-03-23",
         "versions": 2
@@ -703,12 +618,14 @@
         "doi": "",
         "edam_operation": [
             "Peak detection",
-            "Validation",
-            "Mass spectrum visualisation",
-            "Chromatogram visualisation",
+            "Annotation",
             "Chromatographic alignment",
             "Label-free quantification",
-            "Data filtering"
+            "Data filtering",
+            "Chromatogram visualisation",
+            "Validation",
+            "Spectral analysis",
+            "Mass spectrum visualisation"
         ],
         "edam_topic": [],
         "id": "06fa7dd6eea42350",
@@ -726,20 +643,20 @@
             "lcms"
         ],
         "tools": [
-            "Univariate",
             "abims_xcms_retcor",
-            "xcms_plot_chromatogram",
-            "Batch_correction",
-            "quality_metrics",
-            "abims_xcms_group",
+            "wsdl_hmdb",
             "abims_xcms_xcmsSet",
             "abims_CAMERA_annotateDiffreport",
-            "wsdl_hmdb",
-            "abims_xcms_fillPeaks",
-            "abims_xcms_summary",
+            "xcms_plot_chromatogram",
             "msnbase_readmsdata",
-            "xcms_merge",
-            "generic_filter"
+            "generic_filter",
+            "abims_xcms_summary",
+            "abims_xcms_fillPeaks",
+            "abims_xcms_group",
+            "Batch_correction",
+            "Univariate",
+            "quality_metrics",
+            "xcms_merge"
         ],
         "update_time": "2021-04-23",
         "versions": 4
@@ -767,13 +684,13 @@
             "esi"
         ],
         "tools": [
-            "mspurity_filterfragspectra",
-            "mspurity_averagefragspectra",
-            "mspurity_puritya",
-            "mspurity_spectralmatching",
+            "mspurity_frag4feature",
             "mspurity_createdatabase",
+            "mspurity_filterfragspectra",
+            "mspurity_puritya",
             "mspurity_createmsp",
-            "mspurity_frag4feature"
+            "mspurity_averagefragspectra",
+            "mspurity_spectralmatching"
         ],
         "update_time": "2021-04-06",
         "versions": 4
@@ -785,12 +702,14 @@
         "doi": "",
         "edam_operation": [
             "Peak detection",
-            "Validation",
-            "Mass spectrum visualisation",
-            "Chromatogram visualisation",
+            "Annotation",
             "Chromatographic alignment",
             "Label-free quantification",
-            "Data filtering"
+            "Data filtering",
+            "Chromatogram visualisation",
+            "Validation",
+            "Spectral analysis",
+            "Mass spectrum visualisation"
         ],
         "edam_topic": [],
         "id": "2ee479308227a926",
@@ -812,15 +731,15 @@
         ],
         "tools": [
             "abims_xcms_retcor",
-            "Batch_correction",
-            "quality_metrics",
-            "abims_xcms_group",
             "abims_xcms_xcmsSet",
             "abims_CAMERA_annotateDiffreport",
-            "abims_xcms_fillPeaks",
             "msnbase_readmsdata",
-            "xcms_merge",
-            "generic_filter"
+            "generic_filter",
+            "abims_xcms_fillPeaks",
+            "abims_xcms_group",
+            "Batch_correction",
+            "quality_metrics",
+            "xcms_merge"
         ],
         "update_time": "2020-09-24",
         "versions": 3
@@ -831,21 +750,21 @@
         "deprecated": false,
         "doi": "",
         "edam_operation": [
-            "Peak detection",
-            "Mass spectrum visualisation",
             "Format validation",
-            "Filtering",
             "Imputation",
-            "Formatting",
-            "Validation",
-            "Correlation",
-            "Chromatogram visualisation",
-            "Chromatographic alignment",
-            "Label-free quantification",
+            "Spectral library search",
             "Clustering",
-            "Data filtering",
             "Standardisation and normalisation",
-            "Spectral library search"
+            "Mass spectrum visualisation",
+            "Peak detection",
+            "Chromatographic alignment",
+            "Filtering",
+            "Label-free quantification",
+            "Data filtering",
+            "Correlation",
+            "Formatting",
+            "Chromatogram visualisation",
+            "Validation"
         ],
         "edam_topic": [],
         "id": "bc8f2b3ecdad343e",
@@ -863,16 +782,16 @@
             "e5020"
         ],
         "tools": [
-            "matchms_similarity",
             "abims_xcms_retcor",
             "ramclustr",
-            "abims_xcms_group",
             "abims_xcms_xcmsSet",
-            "abims_xcms_fillPeaks",
-            "matchms_formatter",
-            "riassigner",
             "msnbase_readmsdata",
             "msconvert",
+            "matchms_similarity",
+            "riassigner",
+            "abims_xcms_fillPeaks",
+            "abims_xcms_group",
+            "matchms_formatter",
             "xcms_merge"
         ],
         "update_time": "2026-04-20",
@@ -885,12 +804,14 @@
         "doi": "",
         "edam_operation": [
             "Peak detection",
-            "Validation",
-            "Mass spectrum visualisation",
-            "Chromatogram visualisation",
+            "Annotation",
             "Chromatographic alignment",
             "Label-free quantification",
-            "Data filtering"
+            "Data filtering",
+            "Chromatogram visualisation",
+            "Validation",
+            "Spectral analysis",
+            "Mass spectrum visualisation"
         ],
         "edam_topic": [],
         "id": "1082e5b455f8f814",
@@ -909,13 +830,13 @@
         ],
         "tools": [
             "abims_xcms_retcor",
-            "xcms_plot_chromatogram",
-            "abims_xcms_group",
             "abims_xcms_xcmsSet",
             "abims_CAMERA_annotateDiffreport",
-            "abims_xcms_fillPeaks",
-            "abims_xcms_summary",
+            "xcms_plot_chromatogram",
             "msnbase_readmsdata",
+            "abims_xcms_summary",
+            "abims_xcms_fillPeaks",
+            "abims_xcms_group",
             "xcms_merge"
         ],
         "update_time": "2026-03-27",
@@ -928,12 +849,14 @@
         "doi": "",
         "edam_operation": [
             "Peak detection",
-            "Validation",
-            "Mass spectrum visualisation",
-            "Chromatogram visualisation",
+            "Annotation",
             "Chromatographic alignment",
             "Label-free quantification",
-            "Data filtering"
+            "Data filtering",
+            "Chromatogram visualisation",
+            "Validation",
+            "Spectral analysis",
+            "Mass spectrum visualisation"
         ],
         "edam_topic": [],
         "id": "6704b925935564aa",
@@ -950,13 +873,13 @@
         ],
         "tools": [
             "abims_xcms_retcor",
-            "xcms_plot_chromatogram",
-            "abims_xcms_group",
             "abims_xcms_xcmsSet",
             "abims_CAMERA_annotateDiffreport",
-            "abims_xcms_fillPeaks",
-            "abims_xcms_summary",
+            "xcms_plot_chromatogram",
             "msnbase_readmsdata",
+            "abims_xcms_summary",
+            "abims_xcms_fillPeaks",
+            "abims_xcms_group",
             "xcms_merge"
         ],
         "update_time": "2026-03-26",
@@ -971,18 +894,18 @@
         "doi": "",
         "edam_operation": [
             "Peak detection",
-            "Imputation",
-            "Conversion",
-            "Correlation",
-            "Alignment",
             "Chromatographic alignment",
-            "Feature extraction",
-            "Clustering",
-            "Quantification",
-            "Format validation",
             "Filtering",
-            "Standardisation and normalisation",
-            "Spectral library search"
+            "Conversion",
+            "Format validation",
+            "Quantification",
+            "Alignment",
+            "Imputation",
+            "Spectral library search",
+            "Feature extraction",
+            "Correlation",
+            "Clustering",
+            "Standardisation and normalisation"
         ],
         "edam_topic": [],
         "id": "3086366b744e8da9",
@@ -1001,22 +924,22 @@
             "lc-esi-ms2viadia"
         ],
         "tools": [
-            "recetox_aplcms_recover_weaker_signals",
-            "rename_annotated_feature",
-            "ramclustr",
-            "recetox_aplcms_generate_feature_table",
+            "recetox_aplcms_compute_clusters",
             "__SAMPLE_SHEET_TO_TABULAR__",
-            "thermo_raw_file_converter",
-            "matchms_formatter",
-            "recetox_aplcms_compute_template",
-            "recetox_aplcms_align_features",
-            "riassigner",
+            "waveica",
+            "ramclustr",
             "matchms_metadata_match",
             "matchms_spectral_similarity",
-            "waveica",
+            "recetox_aplcms_generate_feature_table",
             "recetox_aplcms_correct_time",
-            "recetox_aplcms_compute_clusters",
-            "recetox_aplcms_remove_noise"
+            "riassigner",
+            "rename_annotated_feature",
+            "recetox_aplcms_remove_noise",
+            "thermo_raw_file_converter",
+            "recetox_aplcms_compute_template",
+            "recetox_aplcms_recover_weaker_signals",
+            "matchms_formatter",
+            "recetox_aplcms_align_features"
         ],
         "update_time": "2026-03-04",
         "versions": 29
@@ -1030,12 +953,12 @@
         "doi": "",
         "edam_operation": [
             "Peak detection",
-            "Validation",
-            "Mass spectrum visualisation",
-            "Chromatogram visualisation",
             "Chromatographic alignment",
             "Label-free quantification",
-            "Data filtering"
+            "Data filtering",
+            "Chromatogram visualisation",
+            "Validation",
+            "Mass spectrum visualisation"
         ],
         "edam_topic": [],
         "id": "5ede4dcba9bf9c66",
@@ -1056,13 +979,13 @@
             "metams"
         ],
         "tools": [
-            "xcms_merge",
             "Multivariate",
-            "xcms_plot_chromatogram",
             "abims_xcms_xcmsSet",
-            "checkFormat",
+            "xcms_plot_chromatogram",
             "msnbase_readmsdata",
-            "metams_runGC"
+            "checkFormat",
+            "metams_runGC",
+            "xcms_merge"
         ],
         "update_time": "2025-10-17",
         "versions": 1
@@ -1076,12 +999,14 @@
         "doi": "",
         "edam_operation": [
             "Peak detection",
-            "Validation",
-            "Mass spectrum visualisation",
-            "Chromatogram visualisation",
+            "Annotation",
             "Chromatographic alignment",
             "Label-free quantification",
-            "Data filtering"
+            "Data filtering",
+            "Chromatogram visualisation",
+            "Validation",
+            "Spectral analysis",
+            "Mass spectrum visualisation"
         ],
         "edam_topic": [],
         "id": "a3bbc1284efcd20c",
@@ -1103,14 +1028,14 @@
         ],
         "tools": [
             "abims_xcms_retcor",
-            "xcms_plot_chromatogram",
-            "abims_xcms_group",
             "abims_xcms_xcmsSet",
-            "checkFormat",
             "abims_CAMERA_annotateDiffreport",
-            "abims_xcms_fillPeaks",
-            "intens_check",
+            "xcms_plot_chromatogram",
             "msnbase_readmsdata",
+            "checkFormat",
+            "intens_check",
+            "abims_xcms_fillPeaks",
+            "abims_xcms_group",
             "xcms_merge"
         ],
         "update_time": "2025-10-16",
@@ -1125,8 +1050,8 @@
         "deprecated": false,
         "doi": "",
         "edam_operation": [
-            "Format validation",
             "Filtering",
+            "Format validation",
             "Spectral library search"
         ],
         "edam_topic": [],
@@ -1145,13 +1070,13 @@
             "exposomics"
         ],
         "tools": [
+            "matchms_metadata_match",
+            "matchms_spectral_similarity",
+            "Filter1",
+            "tp_cat",
             "compose_text_param",
             "matchms_networking",
-            "matchms_formatter",
-            "Filter1",
-            "matchms_metadata_match",
-            "tp_cat",
-            "matchms_spectral_similarity"
+            "matchms_formatter"
         ],
         "update_time": "2025-05-15",
         "versions": 29
@@ -1165,12 +1090,12 @@
         "doi": "",
         "edam_operation": [
             "Peak detection",
-            "Validation",
-            "Mass spectrum visualisation",
-            "Chromatogram visualisation",
             "Chromatographic alignment",
             "Label-free quantification",
-            "Data filtering"
+            "Data filtering",
+            "Chromatogram visualisation",
+            "Validation",
+            "Mass spectrum visualisation"
         ],
         "edam_topic": [],
         "id": "2179ba1c33f77f7e",
@@ -1191,13 +1116,13 @@
             "metams"
         ],
         "tools": [
-            "xcms_merge",
             "Multivariate",
-            "xcms_plot_chromatogram",
             "abims_xcms_xcmsSet",
-            "checkFormat",
+            "xcms_plot_chromatogram",
             "msnbase_readmsdata",
-            "metams_runGC"
+            "checkFormat",
+            "metams_runGC",
+            "xcms_merge"
         ],
         "update_time": "2025-04-25",
         "versions": 1
@@ -1227,17 +1152,17 @@
             "metabolomics"
         ],
         "tools": [
-            "qcxms_neutral_run",
-            "qcxms_production_run",
-            "openbabel_compound_convert",
             "__FILTER_FAILED_DATASETS__",
-            "xtb_molecular_optimization",
-            "split_file_to_collection",
-            "ctb_im_conformers",
-            "qcxms_getres",
             "param_value_from_file",
             "tp_cut_tool",
-            "tp_cat"
+            "qcxms_neutral_run",
+            "openbabel_compound_convert",
+            "split_file_to_collection",
+            "tp_cat",
+            "xtb_molecular_optimization",
+            "qcxms_getres",
+            "ctb_im_conformers",
+            "qcxms_production_run"
         ],
         "update_time": "2024-08-12",
         "versions": 2
@@ -1267,16 +1192,113 @@
             "metabolomics"
         ],
         "tools": [
-            "qcxms_neutral_run",
-            "qcxms_production_run",
-            "openbabel_compound_convert",
             "__FILTER_FAILED_DATASETS__",
+            "qcxms_neutral_run",
+            "openbabel_compound_convert",
             "xtb_molecular_optimization",
             "qcxms_getres",
-            "ctb_im_conformers"
+            "ctb_im_conformers",
+            "qcxms_production_run"
         ],
         "update_time": "2024-06-06",
         "versions": 64
+    },
+    {
+        "create_time": "2026-10-22",
+        "creators": [
+            "workflow4metabolomics"
+        ],
+        "deprecated": false,
+        "doi": "",
+        "edam_operation": [
+            "Peak detection",
+            "Chromatographic alignment",
+            "Label-free quantification",
+            "Data filtering",
+            "Chromatogram visualisation",
+            "Validation",
+            "Mass spectrum visualisation"
+        ],
+        "edam_topic": [],
+        "id": "fcc61f54b6e442cc",
+        "keep": true,
+        "latest_version": 1,
+        "license": "MIT",
+        "link": "https://usegalaxy.org/published/workflow?id=fcc61f54b6e442cc",
+        "name": "Mass spectrometry: GCMS with metaMS (release v0.3)",
+        "number_of_steps": null,
+        "projects": [],
+        "source": "https://usegalaxy.org",
+        "tags": [
+            "metabolomics",
+            "ms",
+            "workflow4metabolomics",
+            "gc-ms",
+            "gtn",
+            "metams"
+        ],
+        "tools": [
+            "Multivariate",
+            "abims_xcms_xcmsSet",
+            "xcms_plot_chromatogram",
+            "msnbase_readmsdata",
+            "checkFormat",
+            "metams_runGC",
+            "xcms_merge"
+        ],
+        "update_time": "2026-10-22",
+        "versions": 1
+    },
+    {
+        "create_time": "2026-10-22",
+        "creators": [
+            "workflow4metabolomics"
+        ],
+        "deprecated": false,
+        "doi": "",
+        "edam_operation": [
+            "Peak detection",
+            "Annotation",
+            "Chromatographic alignment",
+            "Label-free quantification",
+            "Data filtering",
+            "Chromatogram visualisation",
+            "Validation",
+            "Spectral analysis",
+            "Mass spectrum visualisation"
+        ],
+        "edam_topic": [],
+        "id": "a4b735a6e6b6086a",
+        "keep": true,
+        "latest_version": 1,
+        "license": "MIT",
+        "link": "https://usegalaxy.org/published/workflow?id=a4b735a6e6b6086a",
+        "name": "Mass spectrometry: LC-MS preprocessing with XCMS (release v1.2)",
+        "number_of_steps": null,
+        "projects": [],
+        "source": "https://usegalaxy.org",
+        "tags": [
+            "metabolomics",
+            "ms",
+            "lc-ms",
+            "workflow4metabolomics",
+            "xcms",
+            "gtn"
+        ],
+        "tools": [
+            "abims_xcms_retcor",
+            "abims_xcms_xcmsSet",
+            "abims_CAMERA_annotateDiffreport",
+            "xcms_plot_chromatogram",
+            "msnbase_readmsdata",
+            "checkFormat",
+            "intens_check",
+            "abims_xcms_fillPeaks",
+            "abims_xcms_group",
+            "xcms_merge"
+        ],
+        "update_time": "2026-10-22",
+        "versions": 1
     },
     {
         "create_time": "2025-05-29",
@@ -1287,12 +1309,14 @@
         "doi": "",
         "edam_operation": [
             "Peak detection",
-            "Validation",
-            "Mass spectrum visualisation",
-            "Chromatogram visualisation",
+            "Annotation",
             "Chromatographic alignment",
             "Label-free quantification",
-            "Data filtering"
+            "Data filtering",
+            "Chromatogram visualisation",
+            "Validation",
+            "Spectral analysis",
+            "Mass spectrum visualisation"
         ],
         "edam_topic": [],
         "id": "650f3eb7647b4508",
@@ -1314,14 +1338,14 @@
         ],
         "tools": [
             "abims_xcms_retcor",
-            "xcms_plot_chromatogram",
-            "abims_xcms_group",
             "abims_xcms_xcmsSet",
-            "checkFormat",
             "abims_CAMERA_annotateDiffreport",
-            "abims_xcms_fillPeaks",
-            "intens_check",
+            "xcms_plot_chromatogram",
             "msnbase_readmsdata",
+            "checkFormat",
+            "intens_check",
+            "abims_xcms_fillPeaks",
+            "abims_xcms_group",
             "xcms_merge"
         ],
         "update_time": "2025-05-29",
@@ -1336,12 +1360,12 @@
         "doi": "",
         "edam_operation": [
             "Peak detection",
-            "Validation",
-            "Mass spectrum visualisation",
-            "Chromatogram visualisation",
             "Chromatographic alignment",
             "Label-free quantification",
-            "Data filtering"
+            "Data filtering",
+            "Chromatogram visualisation",
+            "Validation",
+            "Mass spectrum visualisation"
         ],
         "edam_topic": [],
         "id": "b38215b4ba7a9793",
@@ -1362,13 +1386,13 @@
             "metams"
         ],
         "tools": [
-            "xcms_merge",
             "Multivariate",
-            "xcms_plot_chromatogram",
             "abims_xcms_xcmsSet",
-            "checkFormat",
+            "xcms_plot_chromatogram",
             "msnbase_readmsdata",
-            "metams_runGC"
+            "checkFormat",
+            "metams_runGC",
+            "xcms_merge"
         ],
         "update_time": "2025-05-26",
         "versions": 1
@@ -1382,12 +1406,14 @@
         "doi": "",
         "edam_operation": [
             "Peak detection",
-            "Validation",
-            "Mass spectrum visualisation",
-            "Chromatogram visualisation",
+            "Annotation",
             "Chromatographic alignment",
             "Label-free quantification",
-            "Data filtering"
+            "Data filtering",
+            "Chromatogram visualisation",
+            "Validation",
+            "Spectral analysis",
+            "Mass spectrum visualisation"
         ],
         "edam_topic": [],
         "id": "aeeaf3e06a13bc22",
@@ -1409,13 +1435,13 @@
         ],
         "tools": [
             "abims_xcms_retcor",
-            "xcms_plot_chromatogram",
-            "abims_xcms_group",
             "abims_xcms_xcmsSet",
             "abims_CAMERA_annotateDiffreport",
-            "abims_xcms_fillPeaks",
-            "intens_check",
+            "xcms_plot_chromatogram",
             "msnbase_readmsdata",
+            "intens_check",
+            "abims_xcms_fillPeaks",
+            "abims_xcms_group",
             "xcms_merge"
         ],
         "update_time": "2025-04-25",
@@ -1430,12 +1456,12 @@
         "doi": "",
         "edam_operation": [
             "Peak detection",
-            "Validation",
-            "Mass spectrum visualisation",
-            "Chromatogram visualisation",
             "Chromatographic alignment",
             "Label-free quantification",
-            "Data filtering"
+            "Data filtering",
+            "Chromatogram visualisation",
+            "Validation",
+            "Mass spectrum visualisation"
         ],
         "edam_topic": [],
         "id": "3edd2957ecd26d6c",
@@ -1456,13 +1482,13 @@
             "metams"
         ],
         "tools": [
-            "xcms_merge",
             "Multivariate",
-            "xcms_plot_chromatogram",
             "abims_xcms_xcmsSet",
-            "checkFormat",
+            "xcms_plot_chromatogram",
             "msnbase_readmsdata",
-            "metams_runGC"
+            "checkFormat",
+            "metams_runGC",
+            "xcms_merge"
         ],
         "update_time": "2025-04-25",
         "versions": 1
@@ -1488,18 +1514,18 @@
             "galaxy-training-network"
         ],
         "tools": [
-            "cardinal_combine",
-            "cardinal_mz_images",
-            "cardinal_quality_report",
-            "maldi_quant_peak_detection",
             "Summary_Statistics1",
             "maldi_quant_preprocessing",
-            "Filter1",
             "join_files_on_column_fuzzy",
             "Grep1",
+            "Filter1",
+            "cardinal_classification",
             "cardinal_preprocessing",
+            "cardinal_quality_report",
+            "maldi_quant_peak_detection",
+            "cardinal_combine",
             "cardinal_segmentations",
-            "cardinal_classification"
+            "cardinal_mz_images"
         ],
         "update_time": "2021-03-19",
         "versions": 0
@@ -1511,12 +1537,14 @@
         "doi": "",
         "edam_operation": [
             "Peak detection",
-            "Validation",
-            "Mass spectrum visualisation",
-            "Chromatogram visualisation",
+            "Annotation",
             "Chromatographic alignment",
             "Label-free quantification",
-            "Data filtering"
+            "Data filtering",
+            "Chromatogram visualisation",
+            "Validation",
+            "Spectral analysis",
+            "Mass spectrum visualisation"
         ],
         "edam_topic": [],
         "id": "fa0243ff9b5ca997",
@@ -1533,19 +1561,19 @@
             "galaxy-training-network"
         ],
         "tools": [
-            "Univariate",
             "abims_xcms_retcor",
-            "xcms_plot_chromatogram",
-            "Batch_correction",
-            "quality_metrics",
-            "abims_xcms_group",
+            "wsdl_hmdb",
             "abims_xcms_xcmsSet",
             "abims_CAMERA_annotateDiffreport",
-            "wsdl_hmdb",
-            "abims_xcms_fillPeaks",
+            "xcms_plot_chromatogram",
             "msnbase_readmsdata",
-            "xcms_merge",
-            "generic_filter"
+            "generic_filter",
+            "abims_xcms_fillPeaks",
+            "abims_xcms_group",
+            "Batch_correction",
+            "Univariate",
+            "quality_metrics",
+            "xcms_merge"
         ],
         "update_time": "2021-03-19",
         "versions": 0
@@ -1571,12 +1599,12 @@
             "galaxy-training-network"
         ],
         "tools": [
-            "cardinal_mz_images",
             "cardinal_filtering",
-            "cardinal_quality_report",
-            "cardinal_data_exporter",
             "Filter1",
-            "cardinal_spectra_plots"
+            "cardinal_quality_report",
+            "cardinal_spectra_plots",
+            "cardinal_data_exporter",
+            "cardinal_mz_images"
         ],
         "update_time": "2021-03-19",
         "versions": 0
@@ -1588,12 +1616,14 @@
         "doi": "",
         "edam_operation": [
             "Peak detection",
-            "Validation",
-            "Mass spectrum visualisation",
-            "Chromatogram visualisation",
+            "Annotation",
             "Chromatographic alignment",
             "Label-free quantification",
-            "Data filtering"
+            "Data filtering",
+            "Chromatogram visualisation",
+            "Validation",
+            "Spectral analysis",
+            "Mass spectrum visualisation"
         ],
         "edam_topic": [],
         "id": "f9e5caaf08a450ec",
@@ -1611,12 +1641,12 @@
         ],
         "tools": [
             "abims_xcms_retcor",
-            "xcms_plot_chromatogram",
-            "abims_xcms_group",
             "abims_xcms_xcmsSet",
             "abims_CAMERA_annotateDiffreport",
-            "abims_xcms_fillPeaks",
+            "xcms_plot_chromatogram",
             "msnbase_readmsdata",
+            "abims_xcms_fillPeaks",
+            "abims_xcms_group",
             "xcms_merge"
         ],
         "update_time": "2019-10-30",
@@ -1643,11 +1673,11 @@
             "lcms"
         ],
         "tools": [
+            "wsdl_hmdb",
+            "generic_filter",
             "Univariate",
             "Batch_correction",
-            "quality_metrics",
-            "wsdl_hmdb",
-            "generic_filter"
+            "quality_metrics"
         ],
         "update_time": "2019-10-30",
         "versions": 1
