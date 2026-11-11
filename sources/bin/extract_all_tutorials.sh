@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-if [ ! -z $1 ] 
+set -euo pipefail
+
+if [ -n "${1:-}" ]
 then
         python sources/bin/extract_gtn_tutorials.py \
                 extract \
