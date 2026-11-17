@@ -35,10 +35,15 @@ from ruamel.yaml.scalarstring import LiteralScalarString
 
 # Config variables
 BIOTOOLS_API_URL = "https://bio.tools"
-GALAXY_STATS_SOURCES = {
+# Tool usage from the Galaxy stats (Grafana) API. The `fetchUsage` command (run as its own
+# job in the weekly resource fetching) stores the result in `cache`, which is committed to the
+# repository. The tool extraction only reads this cache, so if the API is unavailable the
+# previously stored numbers are used.
+GALAXY_STATS_SOURCES: Dict[str, Dict[str, Any]] = {
     "eu": {
         "url": "https://stats.galaxyproject.eu/api/ds/query",
         "ds_uid": "P9B81C0353945995B",
+        "cache": Path(__file__).resolve().parent.parent.joinpath("data", "usage_stats", "api", "eu_tool_usage.csv"),
     },
 }
 
@@ -100,7 +105,9 @@ def get_last_url_position(toot_id: str) -> str:
     return toot_id
 
 
-def get_galaxy_usage_from_api(api_url: str, datasource_uid: str, min_tool_ids: int = 100) -> Dict[str, int]:
+def get_galaxy_usage_from_api(
+    api_url: str, datasource_uid: str, min_tool_ids: int = 100, timeout: int = 300, retries: int = 3
+) -> Dict[str, int]:
     """
     Query tool usage for a Galaxy server from the stats Grafana API.
 
@@ -127,9 +134,16 @@ def get_galaxy_usage_from_api(api_url: str, datasource_uid: str, min_tool_ids: i
         "to": "now",
     }
     try:
-        resp = requests.post(api_url, json=payload, timeout=30)
-        resp.raise_for_status()
-        data = resp.json()
+        for attempt in range(1, retries + 1):
+            try:
+                resp = requests.post(api_url, json=payload, timeout=timeout)
+                resp.raise_for_status()
+                data = resp.json()
+                break
+            except Exception as e:
+                print(f"Galaxy usage stats API attempt {attempt}/{retries} failed: {e}", file=sys.stderr)
+                if attempt == retries:
+                    raise
         frames = data["results"]["A"].get("frames", [])
         if not frames:
             return {}
@@ -153,6 +167,31 @@ def get_galaxy_usage_from_api(api_url: str, datasource_uid: str, min_tool_ids: i
             file=sys.stderr,
         )
         return {}
+
+
+def save_galaxy_usage_cache(usage: Dict[str, int], cache_fp: Union[str, Path], fetched_at: str) -> None:
+    """
+    Store tool usage fetched from the Galaxy stats API as CSV (tool_id, count, fetched_at).
+    """
+    cache_fp = Path(cache_fp)
+    cache_fp.parent.mkdir(parents=True, exist_ok=True)
+    df = pd.DataFrame(sorted(usage.items()), columns=["tool_id", "count"])
+    df["fetched_at"] = fetched_at
+    df.to_csv(cache_fp, index=False)
+
+
+def load_galaxy_usage_cache(cache_fp: Union[str, Path]) -> Dict[str, int]:
+    """
+    Load tool usage stored by `save_galaxy_usage_cache`. Returns an empty dict if the cache does not exist.
+    """
+    cache_fp = Path(cache_fp)
+    if not cache_fp.exists():
+        print(f"No Galaxy usage cache found at {cache_fp}", file=sys.stderr)
+        return {}
+    df = pd.read_csv(cache_fp, dtype={"tool_id": str})
+    if not df.empty:
+        print(f"Using Galaxy usage cache {cache_fp} fetched at {df['fetched_at'].iloc[0]}")
+    return dict(zip(df["tool_id"], df["count"].astype(int)))
 
 
 def get_tool_stats_from_stats_file(
@@ -1381,9 +1420,33 @@ if __name__ == "__main__":
         help="Path to folder for generating subfolders (all, tools) with server YAML files with missing tools for a Lab",
     )
 
+    fetchusage = subparser.add_parser(
+        "fetchUsage", help="Fetch tool usage from the Galaxy stats API and store it in the usage cache"
+    )
+    fetchusage.add_argument(
+        "--min-tool-ids",
+        type=int,
+        default=100,
+        help="Minimum number of tools in an API response; smaller (partial) responses are not stored",
+    )
+
     args = parser.parse_args()
 
-    if args.command == "extract":
+    if args.command == "fetchUsage":
+        failed = []
+        fetched_at = pd.Timestamp.now(tz="UTC").strftime("%Y-%m-%dT%H:%M:%SZ")
+        for server_name, source in GALAXY_STATS_SOURCES.items():
+            usage = get_galaxy_usage_from_api(source["url"], source["ds_uid"], min_tool_ids=args.min_tool_ids)
+            if usage:
+                save_galaxy_usage_cache(usage, source["cache"], fetched_at)
+                print(f"Stored usage of {len(usage)} tools for usegalaxy.{server_name} in {source['cache']}")
+            else:
+                print(f"Keeping previous usage cache for usegalaxy.{server_name}", file=sys.stderr)
+                failed.append(server_name)
+        if failed:
+            sys.exit(f"Fetching Galaxy usage stats failed for: {', '.join(failed)}")
+
+    elif args.command == "extract":
         repo_dir = Path(args.repo_dir).expanduser()
         if args.repo_urls:
             repo_list = args.repo_urls
@@ -1419,10 +1482,10 @@ if __name__ == "__main__":
         for tool in tools:
             tool.setdefault("Related Workflows", [])
             tool.setdefault("Related Tutorials", [])
-        # fetch tool usage from stats API for each configured server
+        # load tool usage from the stats API cache for each configured server
         galaxy_usage_from_api: Dict[str, Dict[str, int]] = {}
         for server_name, source in GALAXY_STATS_SOURCES.items():
-            galaxy_usage_from_api[server_name] = get_galaxy_usage_from_api(source["url"], source["ds_uid"])
+            galaxy_usage_from_api[server_name] = load_galaxy_usage_cache(source["cache"])
         for tool in tools:
             tool["EDAM reduced operations"] = reduce_ontology_terms(tool["EDAM operations"], ontology=edam_ontology)
             tool["EDAM reduced topics"] = reduce_ontology_terms(tool["EDAM topics"], ontology=edam_ontology)
@@ -1450,11 +1513,10 @@ if __name__ == "__main__":
             # add tool usage from API for each configured server
             for server_name in GALAXY_STATS_SOURCES:
                 server_usage = galaxy_usage_from_api.get(server_name, {})
-                if not server_usage:
-                    # API unavailable: do not report 0 runs for every tool
-                    continue
-                tool[f"Suite runs (usegalaxy.{server_name}) via API"] = sum(
-                    server_usage.get(tid, 0) for tid in tool["Tool IDs"]
+                # always write the column so that all tool sublists share the same columns;
+                # no usage data available: leave it empty instead of reporting 0 runs for every tool
+                tool[f"Suite runs (usegalaxy.{server_name}) via API"] = (
+                    sum(server_usage.get(tid, 0) for tid in tool["Tool IDs"]) if server_usage else None
                 )
             tool = aggregate_tool_stats(tool, STATS_SUM)
 

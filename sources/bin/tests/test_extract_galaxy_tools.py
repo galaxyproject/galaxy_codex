@@ -51,7 +51,9 @@ from extract_galaxy_tools import (
     get_tool_outputs,
     get_tool_stats_from_stats_file,
     get_xref,
+    load_galaxy_usage_cache,
     parse_tools_from_local,
+    save_galaxy_usage_cache,
     STATS_SUM,
 )
 from requests import HTTPError
@@ -1057,3 +1059,20 @@ class TestGetGalaxyUsageFromApi(unittest.TestCase):
         mock_post.return_value.json.side_effect = ValueError("bad json")
         result = get_galaxy_usage_from_api("https://stats.example.com/api/ds/query", "test-ds-uid")
         self.assertEqual(result, {})
+
+
+class TestGalaxyUsageCache(unittest.TestCase):
+    """Tests for save_galaxy_usage_cache and load_galaxy_usage_cache."""
+
+    def test_roundtrip(self) -> None:
+        """Usage stored in the cache is loaded unchanged."""
+        usage = {"rna_star": 300, "fastp": 700, "bwa": 500}
+        with tempfile.TemporaryDirectory() as tmpdir:
+            cache_fp = Path(tmpdir) / "api" / "eu_tool_usage.csv"
+            save_galaxy_usage_cache(usage, cache_fp, "2026-11-17T06:00:00Z")
+            self.assertEqual(load_galaxy_usage_cache(cache_fp), usage)
+
+    def test_missing_cache_returns_empty(self) -> None:
+        """A missing cache gives an empty dict."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            self.assertEqual(load_galaxy_usage_cache(Path(tmpdir) / "missing.csv"), {})
