@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import argparse
+import sys
 import time
 from datetime import date
 from typing import (
@@ -17,6 +18,8 @@ from owlready2 import get_ontology
 from ruamel.yaml import YAML as ruamelyaml
 
 PLAUSIBLE_REQUEST_NB = 0
+# Tutorials whose visit statistics could not be fetched from Plausible
+PLAUSIBLE_FAILURES: List[str] = []
 
 
 def add_supported_servers(tuto: dict) -> None:
@@ -73,20 +76,27 @@ def get_feedback(tuto: dict, feedback: dict) -> None:
         tuto["feedback_mean_note"] = feedback[title]["mean note"]
 
 
-def get_visit_results(url: str, tuto: dict, plausible_api: str) -> None:
+def get_visit_results(url: str, tuto: dict, plausible_api: str) -> bool:
     """
     Extract visit results from Plausible URL
+    Return False if the request failed
     """
     global PLAUSIBLE_REQUEST_NB
     headers = {"Authorization": f"Bearer {plausible_api}"}
     if PLAUSIBLE_REQUEST_NB > 400:
         time.sleep(3600)
         PLAUSIBLE_REQUEST_NB = 0
-    results = shared.get_request_json(url, headers)
     PLAUSIBLE_REQUEST_NB += 1
+    try:
+        results = shared.get_request_json(url, headers)
+    except (Exception, SystemExit) as ex:
+        # a single failing Plausible request should not make the whole extraction fail
+        print(f"::warning title=Tutorial visits not fetched::{tuto['title']}: {ex}")
+        return False
     if "results" in results:
         for metric in ["visitors", "pageviews", "visit_duration"]:
             tuto[metric] += results["results"][metric]["value"]
+    return True
 
 
 def get_visits(tuto: dict, plausible_api: str) -> None:
@@ -97,12 +107,18 @@ def get_visits(tuto: dict, plausible_api: str) -> None:
     tuto["pageviews"] = 0
     tuto["visit_duration"] = 0
     url_prefix = f"https://plausible.galaxyproject.eu/api/v1/stats/aggregate?site_id=training.galaxyproject.org&period=custom&date={tuto['pub_date']},{date.today()}&metrics=visitors,pageviews,visit_duration&filters=event:page%3D%3D%2Ftraining-material%2Ftopics%2F{tuto['topic_name']}%2Ftutorials%2F{tuto['tutorial_name']}"
+    fetched = True
     if tuto["hands_on"]:
         url = f"{url_prefix}%2Ftutorial.html"
-        get_visit_results(url, tuto, plausible_api)
+        fetched = get_visit_results(url, tuto, plausible_api) and fetched
     if tuto["slides"]:
         url = f"{url_prefix}%slides.html"
-        get_visit_results(url, tuto, plausible_api)
+        fetched = get_visit_results(url, tuto, plausible_api) and fetched
+    if not fetched:
+        # leave the statistics empty rather than reporting partial or zero visits
+        for metric in ["visitors", "pageviews", "visit_duration"]:
+            tuto[metric] = None
+        PLAUSIBLE_FAILURES.append(tuto["title"])
 
 
 def get_youtube_stats(tuto: dict) -> None:
@@ -237,6 +253,9 @@ def export_tutorials_to_tsv(tutorials: list, output_fp: str) -> None:
         exact_supported_servers=lambda df: df.exact_supported_servers.fillna("").apply(list),
         inexact_supported_servers=lambda df: df.inexact_supported_servers.fillna("").apply(list),
         visit_duration=lambda df: df.visit_duration / 60,
+        # keep counts as integers even if the statistics of some tutorials could not be fetched
+        visitors=lambda df: df.visitors.astype("Int64").astype(object),
+        pageviews=lambda df: df.pageviews.astype("Int64").astype(object),
     )
 
     for col in ["exact_supported_servers", "inexact_supported_servers", "short_tools", "edam_operation", "edam_topic"]:
@@ -308,7 +327,7 @@ def extract_top_tutorials_per_category(
     """
     Extract top tutorials per categories
     """
-    tutorials = pd.read_csv(tutorial_fp, sep="\t")
+    tutorials = pd.read_csv(tutorial_fp, sep="\t", dtype={count_column: "Int64"})
 
     # Step 1: Split the categories into separate rows and strip whitespace
     df = tutorials.assign(Category=tutorials["Topic"].str.split(",")).explode("Category")
@@ -419,6 +438,12 @@ if __name__ == "__main__":
         required=False,
         help="Run a small test case only on one topic",
     )
+    extract.add_argument(
+        "--max-failed-visits",
+        type=int,
+        default=20,
+        help="Fail if the visit statistics of more than this number of tutorials could not be fetched (default: 20)",
+    )
 
     # Filter tutorials
     filtertuto = subparser.add_parser("filter", help="Filter training materials based on their tags")
@@ -464,6 +489,12 @@ if __name__ == "__main__":
 
     if args.command == "extract":
         tutorials = get_tutorials(args.tools, args.api, args.test)
+        if len(PLAUSIBLE_FAILURES) > args.max_failed_visits:
+            print(
+                f"::error::Visit statistics of {len(PLAUSIBLE_FAILURES)} tutorials could not be fetched "
+                f"(more than {args.max_failed_visits}), failing instead of publishing incomplete statistics",
+            )
+            sys.exit(1)
         shared.export_to_json(tutorials, args.all)
 
     elif args.command == "filter":

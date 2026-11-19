@@ -251,7 +251,6 @@ class Workflows:
         )
         print(f"Workflows from WorkflowHub: {len(wfhub_wfs['data'])}")
         data = wfhub_wfs["data"]
-        print(data)
         if self.test:
             data = data[:10]
         for wf in data:
