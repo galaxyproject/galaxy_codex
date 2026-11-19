@@ -852,6 +852,61 @@ class TestParseToolsFromLocal(unittest.TestCase):
         self.assertEqual(tools[0]["Suite ID"], "fastp")
 
 
+class TestParseToolsWithoutToolIds(unittest.TestCase):
+    """Suites without tool IDs are skipped, nested tools are found (issue #368)."""
+
+    def setUp(self) -> None:
+        self.tmp = tempfile.TemporaryDirectory()
+        self.repo_path = Path(self.tmp.name) / "repo"
+        self.fastp = Path(__file__).parent / "test-data" / "fastp_test"
+
+    def tearDown(self) -> None:
+        self.tmp.cleanup()
+
+    def write_shed(self, folder: Path, name: str) -> None:
+        folder.mkdir(parents=True, exist_ok=True)
+        (folder / ".shed.yml").write_text(f"name: {name}\nowner: test\ndescription: {name}\ncategories: []\n")
+
+    def parse(self) -> List[Dict[str, Any]]:
+        with patch("extract_galaxy_tools.get_first_commit_for_local_folder", return_value="2024-01-01"), patch(
+            "extract_galaxy_tools.requests.get"
+        ) as mock_get:
+            mock_get.return_value.status_code = 404
+            return parse_tools_from_local(self.repo_path, workers=1)
+
+    def test_suite_definition_without_tools_is_skipped(self) -> None:
+        # e.g. bgruening/galaxytools/tools/homer: only a .shed.yml and a readme
+        self.write_shed(self.repo_path / "tools" / "homer", "homer")
+        shutil.copytree(self.fastp, self.repo_path / "tools" / "fastp")
+        self.assertEqual([t["Suite ID"] for t in self.parse()], ["fastp"])
+
+    def test_tool_collection_suites_are_parsed(self) -> None:
+        # e.g. tools-iuc/tool_collections/samtools/samtools_sort
+        collection = self.repo_path / "tool_collections" / "samtools"
+        self.write_shed(collection, "suite_samtools")
+        shutil.copytree(self.fastp, collection / "fastp")
+        tools = self.parse()
+        self.assertEqual([t["Suite ID"] for t in tools], ["fastp"])
+        self.assertEqual(tools[0]["Tool IDs"], ["fastp"])
+
+    def test_tool_xml_in_subfolder_is_found(self) -> None:
+        # e.g. galaxy-tools-compchem/tools/vmd/hbonds/hbonds.xml, with the .shed.yml in tools/vmd
+        suite = self.repo_path / "tools" / "vmd"
+        self.write_shed(suite, "vmd")
+        shutil.copytree(self.fastp, suite / "hbonds")
+        (suite / "hbonds" / ".shed.yml").unlink()
+        tools = self.parse()
+        self.assertEqual([t["Suite ID"] for t in tools], ["vmd"])
+        self.assertEqual(tools[0]["Tool IDs"], ["fastp"])
+
+    def test_non_tool_xml_in_subfolder_is_ignored(self) -> None:
+        suite = self.repo_path / "tools" / "glimmer_hmm"
+        self.write_shed(suite, "glimmer_hmm")
+        (suite / "sub").mkdir()
+        (suite / "sub" / "tool_dependencies.xml").write_text('<tool_dependency id="dep"/>')
+        self.assertEqual(self.parse(), [])
+
+
 class TestExtractTopToolsPerCategory(unittest.TestCase):
     def test_returns_top_tools(self) -> None:
         data = {

@@ -437,7 +437,7 @@ def get_tool_metadata_from_local(tool_path: Path, repo_path: Path, repo_url: str
         return re.sub(r"@(\w+)@", lambda m: macro_tokens.get(m.group(0), m.group(0)), text)
 
     # parse each tool XML with macro expansion
-    for entry in sorted(tool_path.iterdir()):
+    for entry in _find_tool_xmls(tool_path):
         if entry.name.endswith("xml") and "macro" not in entry.name:
             try:
                 tree = _load_tool_xml_with_macros(entry)
@@ -448,6 +448,10 @@ def get_tool_metadata_from_local(tool_path: Path, repo_path: Path, repo_url: str
                 root = tree.getroot()
             except Exception:
                 print(traceback.format_exc())
+                continue
+
+            # XMLs found in subfolders (e.g. tool_conf.xml, tool_dependencies.xml) are only kept if they are tools
+            if entry.parent != tool_path and root.tag != "tool":
                 continue
 
             # version
@@ -487,6 +491,11 @@ def get_tool_metadata_from_local(tool_path: Path, repo_path: Path, repo_url: str
             for fmt in input_formats:
                 if fmt not in metadata["Tool input formats"]:
                     metadata["Tool input formats"].append(fmt)
+
+    # skip suites without any tool (e.g. suite definitions only listing other repositories)
+    if not metadata["Tool IDs"]:
+        print(f"      Skipping {tool_path.name}: no tool IDs found", file=sys.stderr)
+        return None
 
     # strip +galaxy suffix from version
     if metadata["Suite version"] is not None:
@@ -530,6 +539,32 @@ def get_tool_metadata_from_local(tool_path: Path, repo_path: Path, repo_url: str
     return metadata
 
 
+SKIPPED_SUBFOLDERS = {"test-data", "tool-data", "static", ".git"}
+
+
+def _find_tool_xmls(tool_path: Path) -> List[Path]:
+    """
+    Find the XML files of a tool suite: the ones in the suite folder and the ones in subfolders
+    (e.g. tools/vmd/hbonds/hbonds.xml), skipping test data and nested suites with their own .shed.yml.
+    """
+    xmls = [p for p in sorted(tool_path.iterdir()) if p.is_file() and p.name.endswith("xml")]
+    for sub in sorted(tool_path.iterdir()):
+        if sub.is_dir() and sub.name not in SKIPPED_SUBFOLDERS and not (sub / ".shed.yml").exists():
+            xmls.extend(_find_tool_xmls(sub))
+    return xmls
+
+
+def _find_nested_suites(folder: Path) -> List[Path]:
+    """
+    Find suite folders (with a .shed.yml) nested in a folder, e.g. tool_collections/samtools/samtools_sort
+    """
+    return sorted(
+        p.parent
+        for p in folder.rglob(".shed.yml")
+        if p.parent != folder and not SKIPPED_SUBFOLDERS.intersection(p.relative_to(folder).parts)
+    )
+
+
 def _load_tool_xml_with_macros(xml_path: Path) -> Optional[Any]:
     """Try to load and expand macros using Galaxy's xml_macros (galaxy-util)."""
     try:
@@ -570,10 +605,15 @@ def parse_tools_from_local(repo_path: Path, workers: int = 1, repo_url: str = ""
             for item in items:
                 if (item / ".shed.yml").exists():
                     tool_paths.append(item)
+                    # tool collections (e.g. tool_collections/samtools) contain other suites
+                    tool_paths.extend(_find_nested_suites(item))
                 else:
                     for sub in sorted(item.iterdir()):
                         if sub.is_dir():
                             tool_paths.append(sub)
+                            tool_paths.extend(_find_nested_suites(sub))
+            # remove duplicates while keeping order
+            tool_paths = list(dict.fromkeys(tool_paths))
 
             total = len(tool_paths)
             print(f"    Parsing {total} tools...", flush=True)
