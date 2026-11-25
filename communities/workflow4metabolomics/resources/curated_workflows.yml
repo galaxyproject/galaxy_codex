@@ -22,19 +22,19 @@
   - metabolomics
   - qcxms
   tools:
-  - qcxms_neutral_run
-  - qcxms_production_run
   - openbabel_compound_convert
+  - param_value_from_file
   - 'Remove failed runs
 
     __FILTER_FAILED_DATASETS__'
   - qcxms_getres
-  - xtb_molecular_optimization
-  - split_file_to_collection
   - ctb_im_conformers
-  - param_value_from_file
   - tp_cut_tool
   - tp_cat
+  - qcxms_neutral_run
+  - qcxms_production_run
+  - split_file_to_collection
+  - xtb_molecular_optimization
   update_time: '2025-06-02'
   versions: 1
 - create_time: '2025-06-02'
@@ -58,12 +58,12 @@
   - galaxy
   - metabolomics
   tools:
-  - cardinal_mz_images
   - cardinal_filtering
-  - cardinal_quality_report
   - cardinal_data_exporter
   - Filter1
   - cardinal_spectra_plots
+  - cardinal_mz_images
+  - cardinal_quality_report
   update_time: '2025-06-02'
   versions: 1
 - create_time: '2025-06-02'
@@ -72,9 +72,9 @@
   doi: null
   edam_operation:
   - Deisotoping
-  - Annotation
   - Mass spectra calibration
   - Visualisation
+  - Annotation
   edam_topic: []
   id: '1591'
   keep: true
@@ -95,14 +95,14 @@
   - recalibration
   tools:
   - mfassignr_recal
-  - mfassignr_kmdnoise
-  - mfassignr_findRecalSeries
   - mfassignr_mfassign
-  - mfassignr_mfassignCHO
-  - mfassignr_snplot
-  - mfassignr_isofiltr
-  - mfassignr_histnoise
+  - mfassignr_findRecalSeries
   - mfassignr_recallist
+  - mfassignr_kmdnoise
+  - mfassignr_snplot
+  - mfassignr_histnoise
+  - mfassignr_isofiltr
+  - mfassignr_mfassignCHO
   update_time: '2025-06-02'
   versions: 1
 - create_time: '2025-06-02'
@@ -126,18 +126,18 @@
   - galaxy
   - metabolomics
   tools:
+  - cardinal_segmentations
   - cardinal_combine
-  - cardinal_mz_images
   - cardinal_quality_report
-  - maldi_quant_peak_detection
-  - Summary_Statistics1
+  - cardinal_classification
   - maldi_quant_preprocessing
+  - cardinal_preprocessing
+  - Summary_Statistics1
   - Filter1
   - join_files_on_column_fuzzy
+  - maldi_quant_peak_detection
+  - cardinal_mz_images
   - Grep1
-  - cardinal_preprocessing
-  - cardinal_segmentations
-  - cardinal_classification
   update_time: '2025-06-02'
   versions: 1
 - create_time: '2025-06-02'
@@ -146,12 +146,14 @@
   doi: null
   edam_operation:
   - Peak detection
-  - Validation
-  - Mass spectrum visualisation
-  - Chromatogram visualisation
-  - Chromatographic alignment
-  - Label-free quantification
+  - Spectral analysis
   - Data filtering
+  - Label-free quantification
+  - Annotation
+  - Validation
+  - Chromatographic alignment
+  - Chromatogram visualisation
+  - Mass spectrum visualisation
   edam_topic: []
   id: '1584'
   keep: true
@@ -168,19 +170,19 @@
   - galaxy
   - metabolomics
   tools:
-  - Univariate
-  - abims_xcms_retcor
-  - xcms_plot_chromatogram
   - Batch_correction
-  - quality_metrics
-  - abims_CAMERA_annotateDiffreport
-  - wsdl_hmdb
-  - abims_xcms_xcmsSet
-  - abims_xcms_group
   - abims_xcms_fillPeaks
-  - msnbase_readmsdata
-  - xcms_merge
   - generic_filter
+  - abims_CAMERA_annotateDiffreport
+  - abims_xcms_group
+  - xcms_plot_chromatogram
+  - quality_metrics
+  - msnbase_readmsdata
+  - abims_xcms_xcmsSet
+  - Univariate
+  - xcms_merge
+  - abims_xcms_retcor
+  - wsdl_hmdb
   update_time: '2025-06-02'
   versions: 1
 - create_time: '2025-06-02'
@@ -188,21 +190,21 @@
   deprecated: false
   doi: null
   edam_operation:
-  - Peak detection
-  - Mass spectrum visualisation
   - Format validation
-  - Filtering
-  - Imputation
-  - Formatting
-  - Validation
   - Correlation
-  - Chromatogram visualisation
-  - Chromatographic alignment
+  - Filtering
   - Label-free quantification
   - Clustering
-  - Data filtering
-  - Standardisation and normalisation
+  - Chromatographic alignment
   - Spectral library search
+  - Mass spectrum visualisation
+  - Peak detection
+  - Formatting
+  - Imputation
+  - Data filtering
+  - Validation
+  - Standardisation and normalisation
+  - Chromatogram visualisation
   edam_topic: []
   id: '1582'
   keep: true
@@ -221,94 +223,19 @@
   - galaxy
   - metabolomics
   tools:
-  - matchms_similarity
-  - abims_xcms_retcor
   - ramclustr
-  - abims_xcms_group
-  - abims_xcms_xcmsSet
   - abims_xcms_fillPeaks
+  - abims_xcms_group
   - matchms_formatter
-  - riassigner
   - msnbase_readmsdata
-  - msconvert
+  - matchms_similarity
+  - riassigner
   - xcms_merge
+  - abims_xcms_retcor
+  - msconvert
+  - abims_xcms_xcmsSet
   update_time: '2025-06-02'
   versions: 1
-- create_time: '2025-05-29'
-  creators:
-  - workflow4metabolomics
-  deprecated: false
-  doi: null
-  edam_operation:
-  - Peak detection
-  - Validation
-  - Mass spectrum visualisation
-  - Chromatogram visualisation
-  - Chromatographic alignment
-  - Label-free quantification
-  - Data filtering
-  edam_topic: []
-  id: '677'
-  keep: true
-  latest_version: 2
-  license: MIT
-  link: https://workflowhub.eu/workflows/677?version=2
-  name: lcms-preprocessing/main
-  number_of_steps: 12
-  projects:
-  - Intergalactic Workflow Commission (IWC)
-  source: WorkflowHub
-  tags:
-  - metabolomics
-  tools:
-  - abims_xcms_retcor
-  - xcms_plot_chromatogram
-  - abims_xcms_group
-  - abims_xcms_xcmsSet
-  - checkFormat
-  - abims_CAMERA_annotateDiffreport
-  - abims_xcms_fillPeaks
-  - intens_check
-  - msnbase_readmsdata
-  - xcms_merge
-  update_time: '2026-05-14'
-  versions: 2
-- create_time: '2025-05-20'
-  creators:
-  - workflow4metabolomics
-  deprecated: false
-  doi: null
-  edam_operation:
-  - Peak detection
-  - Validation
-  - Mass spectrum visualisation
-  - Chromatogram visualisation
-  - Chromatographic alignment
-  - Label-free quantification
-  - Data filtering
-  edam_topic: []
-  id: '680'
-  keep: true
-  latest_version: 2
-  license: MIT
-  link: https://workflowhub.eu/workflows/680?version=2
-  name: gcms-metams/main
-  number_of_steps: 7
-  projects:
-  - Intergalactic Workflow Commission (IWC)
-  source: WorkflowHub
-  tags:
-  - metabolomics
-  tools:
-  - xcms_merge
-  - Multivariate
-  - xcms_plot_chromatogram
-  - abims_xcms_xcmsSet
-  - checkFormat
-  - msnbase_readmsdata
-  - metams_runGC
-  update_time: '2026-05-14'
-  versions: 2
 - create_time: '2025-04-28'
   creators:
   - Zargham Ahmad
@@ -336,15 +263,15 @@
   - metabolomics
   - qcxms
   tools:
-  - qcxms_neutral_run
-  - qcxms_production_run
   - openbabel_compound_convert
+  - qcxms_getres
   - 'Remove failed runs
 
     __FILTER_FAILED_DATASETS__'
-  - qcxms_getres
-  - xtb_molecular_optimization
   - ctb_im_conformers
+  - qcxms_neutral_run
+  - qcxms_production_run
+  - xtb_molecular_optimization
   update_time: '2026-05-13'
   versions: 3
 - create_time: '2024-06-06'
@@ -355,11 +282,11 @@
   deprecated: false
   doi: 10.48546/workflowhub.workflow.888.2
   edam_operation:
-  - Annotation
   - Format validation
-  - Filtering
+  - Annotation
   - Standardisation and normalisation
   - Spectral library search
+  - Filtering
   edam_topic:
   - Compound libraries and screening
   - Computational chemistry
@@ -382,20 +309,20 @@
   - cheminformatics
   - metabolomics
   tools:
-  - matchms_convert
-  - matchms_filtering
   - rem_complex
+  - tp_find_and_replace
+  - matchms_metadata_export
+  - matchms_convert
   - use_theoretical_mz_annotations
-  - tabular_to_csv
-  - matchms_subsetting
   - recetox_msfinder
   - csv_to_tabular
-  - msmetaenhancer
-  - matchms_add_key
-  - tp_find_and_replace
-  - column_remove_by_header
-  - matchms_metadata_export
   - matchms_remove_key
+  - matchms_add_key
+  - matchms_subsetting
+  - tabular_to_csv
+  - matchms_filtering
+  - msmetaenhancer
+  - column_remove_by_header
   update_time: '2026-06-25'
   versions: 2
 - create_time: '2022-03-14'
@@ -405,12 +332,14 @@
   doi: ''
   edam_operation:
   - Peak detection
-  - Validation
-  - Mass spectrum visualisation
-  - Chromatogram visualisation
-  - Chromatographic alignment
-  - Label-free quantification
+  - Spectral analysis
   - Data filtering
+  - Label-free quantification
+  - Annotation
+  - Validation
+  - Chromatographic alignment
+  - Chromatogram visualisation
+  - Mass spectrum visualisation
   edam_topic: []
   id: bcd348178335a19b
   keep: true
@@ -429,20 +358,20 @@
   - w4m
   - dda
   tools:
-  - mspurity_filterfragspectra
-  - mspurity_puritya
-  - mspurity_averagefragspectra
-  - abims_xcms_group
-  - abims_xcms_xcmsSet
-  - abims_CAMERA_annotateDiffreport
-  - mspurity_spectralmatching
   - abims_xcms_fillPeaks
+  - mspurity_spectralmatching
+  - abims_CAMERA_annotateDiffreport
+  - abims_xcms_group
   - mspurity_createdatabase
-  - mspurity_createmsp
-  - mspurity_frag4feature
   - msnbase_readmsdata
+  - mspurity_puritya
+  - mspurity_filterfragspectra
   - xcms_merge
   - metfrag
+  - mspurity_createmsp
+  - mspurity_frag4feature
+  - abims_xcms_xcmsSet
+  - mspurity_averagefragspectra
   update_time: '2026-06-25'
   versions: 6
 - create_time: '2021-10-07'
@@ -452,12 +381,12 @@
   doi: ''
   edam_operation:
   - Peak detection
-  - Validation
-  - Mass spectrum visualisation
-  - Chromatogram visualisation
-  - Chromatographic alignment
-  - Label-free quantification
   - Data filtering
+  - Label-free quantification
+  - Validation
+  - Chromatographic alignment
+  - Chromatogram visualisation
+  - Mass spectrum visualisation
   edam_topic: []
   id: 32f903738292a67f
   keep: true
@@ -475,12 +404,12 @@
   - w4m
   tools:
   - xcms_export_samplemetadata
-  - Multivariate
   - xcms_plot_chromatogram
-  - metams_runGC
-  - abims_xcms_xcmsSet
   - msnbase_readmsdata
   - xcms_merge
+  - metams_runGC
+  - abims_xcms_xcmsSet
+  - Multivariate
   update_time: '2025-05-27'
   versions: 13
 - create_time: '2024-06-05'
@@ -489,12 +418,12 @@
   doi: ''
   edam_operation:
   - Peak detection
-  - Validation
-  - Mass spectrum visualisation
-  - Chromatogram visualisation
-  - Chromatographic alignment
-  - Label-free quantification
   - Data filtering
+  - Label-free quantification
+  - Validation
+  - Chromatographic alignment
+  - Chromatogram visualisation
+  - Mass spectrum visualisation
   edam_topic: []
   id: 192ff9aa79217899
   keep: true
@@ -510,11 +439,11 @@
   - metabolomics
   - '2024'
   tools:
-  - xcms_merge
   - abims_xcms_group
-  - abims_xcms_xcmsSet
   - msnbase_readmsdata
   - metams_runGC
+  - xcms_merge
+  - abims_xcms_xcmsSet
   update_time: '2024-08-03'
   versions: 0
 - create_time: '2023-03-22'
@@ -523,21 +452,21 @@
   deprecated: false
   doi: ''
   edam_operation:
-  - Peak detection
-  - Mass spectrum visualisation
   - Format validation
-  - Filtering
-  - Imputation
-  - Formatting
-  - Validation
   - Correlation
-  - Chromatogram visualisation
-  - Chromatographic alignment
+  - Filtering
   - Label-free quantification
   - Clustering
-  - Data filtering
-  - Standardisation and normalisation
+  - Chromatographic alignment
   - Spectral library search
+  - Mass spectrum visualisation
+  - Peak detection
+  - Formatting
+  - Imputation
+  - Data filtering
+  - Validation
+  - Standardisation and normalisation
+  - Chromatogram visualisation
   edam_topic: []
   id: 1407c1703f360f07
   keep: true
@@ -553,19 +482,19 @@
   - metabolomics
   - expospomics
   tools:
-  - cat1
-  - abims_xcms_retcor
   - ramclustr
-  - metams_runGC
-  - abims_xcms_group
-  - abims_xcms_xcmsSet
   - abims_xcms_fillPeaks
   - matchms
+  - abims_xcms_group
   - matchms_formatter
-  - riassigner
   - msnbase_readmsdata
-  - msconvert
+  - riassigner
+  - cat1
   - xcms_merge
+  - abims_xcms_retcor
+  - metams_runGC
+  - msconvert
+  - abims_xcms_xcmsSet
   update_time: '2023-03-24'
   versions: 1
 - create_time: '2023-03-23'
@@ -575,12 +504,12 @@
   doi: ''
   edam_operation:
   - Peak detection
-  - Chromatographic alignment
   - Label-free quantification
   - Validation
-  - Data filtering
-  - Mass spectrum visualisation
+  - Chromatographic alignment
   - Chromatogram visualisation
+  - Mass spectrum visualisation
+  - Data filtering
   edam_topic: []
   id: cca13353d553319e
   keep: true
@@ -600,13 +529,13 @@
   - dda
   - '2023'
   tools:
-  - mspurity_filterfragspectra
-  - mspurity_averagefragspectra
-  - mspurity_puritya
   - abims_xcms_group
-  - mspurity_spectralmatching
   - mspurity_createdatabase
+  - mspurity_filterfragspectra
+  - mspurity_puritya
   - mspurity_frag4feature
+  - mspurity_spectralmatching
+  - mspurity_averagefragspectra
   update_time: '2023-03-23'
   versions: 2
 - create_time: '2020-01-09'
@@ -615,12 +544,14 @@
   doi: ''
   edam_operation:
   - Peak detection
-  - Validation
-  - Mass spectrum visualisation
-  - Chromatogram visualisation
-  - Chromatographic alignment
-  - Label-free quantification
+  - Spectral analysis
   - Data filtering
+  - Label-free quantification
+  - Annotation
+  - Validation
+  - Chromatographic alignment
+  - Chromatogram visualisation
+  - Mass spectrum visualisation
   edam_topic: []
   id: 06fa7dd6eea42350
   keep: true
@@ -636,20 +567,20 @@
   - gtn
   - lcms
   tools:
-  - Univariate
-  - abims_xcms_retcor
-  - xcms_plot_chromatogram
   - Batch_correction
-  - quality_metrics
-  - abims_xcms_group
-  - abims_xcms_xcmsSet
-  - abims_CAMERA_annotateDiffreport
-  - wsdl_hmdb
   - abims_xcms_fillPeaks
-  - abims_xcms_summary
-  - msnbase_readmsdata
-  - xcms_merge
   - generic_filter
+  - abims_CAMERA_annotateDiffreport
+  - abims_xcms_group
+  - xcms_plot_chromatogram
+  - quality_metrics
+  - wsdl_hmdb
+  - msnbase_readmsdata
+  - Univariate
+  - xcms_merge
+  - abims_xcms_retcor
+  - abims_xcms_summary
+  - abims_xcms_xcmsSet
   update_time: '2021-04-23'
   versions: 4
 - create_time: '2020-12-08'
@@ -673,13 +604,13 @@
   - annotation
   - esi
   tools:
-  - mspurity_filterfragspectra
-  - mspurity_averagefragspectra
-  - mspurity_puritya
-  - mspurity_spectralmatching
   - mspurity_createdatabase
+  - mspurity_filterfragspectra
+  - mspurity_puritya
   - mspurity_createmsp
   - mspurity_frag4feature
+  - mspurity_spectralmatching
+  - mspurity_averagefragspectra
   update_time: '2021-04-06'
   versions: 4
 - create_time: '2020-09-16'
@@ -688,12 +619,14 @@
   doi: ''
   edam_operation:
   - Peak detection
-  - Validation
-  - Mass spectrum visualisation
-  - Chromatogram visualisation
-  - Chromatographic alignment
-  - Label-free quantification
+  - Spectral analysis
   - Data filtering
+  - Label-free quantification
+  - Annotation
+  - Validation
+  - Chromatographic alignment
+  - Chromatogram visualisation
+  - Mass spectrum visualisation
   edam_topic: []
   id: 2ee479308227a926
   keep: true
@@ -714,16 +647,16 @@
   - meta-metabolomics
   - liquidchromatography-massspectrometry
   tools:
-  - abims_xcms_retcor
   - Batch_correction
-  - quality_metrics
-  - abims_xcms_group
-  - abims_xcms_xcmsSet
-  - abims_CAMERA_annotateDiffreport
   - abims_xcms_fillPeaks
+  - generic_filter
+  - abims_CAMERA_annotateDiffreport
+  - abims_xcms_group
+  - quality_metrics
   - msnbase_readmsdata
   - xcms_merge
-  - generic_filter
+  - abims_xcms_retcor
+  - abims_xcms_xcmsSet
   update_time: '2020-09-24'
   versions: 3
 - create_time: '2026-04-20'
@@ -731,21 +664,21 @@
   deprecated: false
   doi: ''
   edam_operation:
-  - Peak detection
-  - Mass spectrum visualisation
   - Format validation
-  - Filtering
-  - Imputation
-  - Formatting
-  - Validation
   - Correlation
-  - Chromatogram visualisation
-  - Chromatographic alignment
+  - Filtering
   - Label-free quantification
   - Clustering
-  - Data filtering
-  - Standardisation and normalisation
+  - Chromatographic alignment
   - Spectral library search
+  - Mass spectrum visualisation
+  - Peak detection
+  - Formatting
+  - Imputation
+  - Data filtering
+  - Validation
+  - Standardisation and normalisation
+  - Chromatogram visualisation
   edam_topic: []
   id: bc8f2b3ecdad343e
   keep: true
@@ -762,17 +695,17 @@
   - gc-ms
   - e5020
   tools:
-  - matchms_similarity
-  - abims_xcms_retcor
   - ramclustr
-  - abims_xcms_group
-  - abims_xcms_xcmsSet
   - abims_xcms_fillPeaks
+  - abims_xcms_group
   - matchms_formatter
-  - riassigner
   - msnbase_readmsdata
-  - msconvert
+  - matchms_similarity
+  - riassigner
   - xcms_merge
+  - abims_xcms_retcor
+  - msconvert
+  - abims_xcms_xcmsSet
   update_time: '2026-04-20'
   versions: 1
 - create_time: '2026-03-27'
@@ -781,12 +714,14 @@
   doi: ''
   edam_operation:
   - Peak detection
-  - Validation
-  - Mass spectrum visualisation
-  - Chromatogram visualisation
-  - Chromatographic alignment
-  - Label-free quantification
+  - Spectral analysis
   - Data filtering
+  - Label-free quantification
+  - Annotation
+  - Validation
+  - Chromatographic alignment
+  - Chromatogram visualisation
+  - Mass spectrum visualisation
   edam_topic: []
   id: 1082e5b455f8f814
   keep: true
@@ -802,15 +737,15 @@
   - lc-ms
   - galaxy_training
   tools:
-  - abims_xcms_retcor
-  - xcms_plot_chromatogram
-  - abims_xcms_group
-  - abims_xcms_xcmsSet
-  - abims_CAMERA_annotateDiffreport
   - abims_xcms_fillPeaks
-  - abims_xcms_summary
+  - abims_CAMERA_annotateDiffreport
+  - abims_xcms_group
+  - xcms_plot_chromatogram
   - msnbase_readmsdata
   - xcms_merge
+  - abims_xcms_retcor
+  - abims_xcms_summary
+  - abims_xcms_xcmsSet
   update_time: '2026-03-27'
   versions: 4
 - create_time: '2026-03-26'
@@ -819,12 +754,14 @@
   doi: ''
   edam_operation:
   - Peak detection
-  - Validation
-  - Mass spectrum visualisation
-  - Chromatogram visualisation
-  - Chromatographic alignment
-  - Label-free quantification
+  - Spectral analysis
   - Data filtering
+  - Label-free quantification
+  - Annotation
+  - Validation
+  - Chromatographic alignment
+  - Chromatogram visualisation
+  - Mass spectrum visualisation
   edam_topic: []
   id: 6704b925935564aa
   keep: true
@@ -838,15 +775,15 @@
   tags:
   - metabolomics
   tools:
-  - abims_xcms_retcor
-  - xcms_plot_chromatogram
-  - abims_xcms_group
-  - abims_xcms_xcmsSet
-  - abims_CAMERA_annotateDiffreport
   - abims_xcms_fillPeaks
-  - abims_xcms_summary
+  - abims_CAMERA_annotateDiffreport
+  - abims_xcms_group
+  - xcms_plot_chromatogram
   - msnbase_readmsdata
   - xcms_merge
+  - abims_xcms_retcor
+  - abims_xcms_summary
+  - abims_xcms_xcmsSet
   update_time: '2026-03-26'
   versions: 2
 - create_time: '2024-09-08'
@@ -856,18 +793,18 @@
   doi: ''
   edam_operation:
   - Peak detection
-  - Imputation
-  - Conversion
-  - Correlation
+  - Format validation
   - Alignment
-  - Chromatographic alignment
+  - Correlation
+  - Quantification
+  - Imputation
+  - Filtering
+  - Spectral library search
   - Feature extraction
   - Clustering
-  - Quantification
-  - Format validation
-  - Filtering
+  - Chromatographic alignment
+  - Conversion
   - Standardisation and normalisation
-  - Spectral library search
   edam_topic: []
   id: 3086366b744e8da9
   keep: true
@@ -884,22 +821,22 @@
   - metabolomics
   - lc-esi-ms2viadia
   tools:
-  - recetox_aplcms_recover_weaker_signals
-  - rename_annotated_feature
-  - ramclustr
-  - recetox_aplcms_generate_feature_table
-  - __SAMPLE_SHEET_TO_TABULAR__
-  - thermo_raw_file_converter
-  - matchms_formatter
-  - recetox_aplcms_compute_template
-  - recetox_aplcms_align_features
-  - riassigner
-  - matchms_metadata_match
-  - matchms_spectral_similarity
-  - waveica
-  - recetox_aplcms_correct_time
   - recetox_aplcms_compute_clusters
+  - recetox_aplcms_compute_template
+  - ramclustr
+  - matchms_metadata_match
+  - waveica
   - recetox_aplcms_remove_noise
+  - matchms_formatter
+  - recetox_aplcms_generate_feature_table
+  - recetox_aplcms_correct_time
+  - __SAMPLE_SHEET_TO_TABULAR__
+  - riassigner
+  - matchms_spectral_similarity
+  - rename_annotated_feature
+  - thermo_raw_file_converter
+  - recetox_aplcms_align_features
+  - recetox_aplcms_recover_weaker_signals
   update_time: '2026-03-04'
   versions: 29
 - create_time: '2025-10-16'
@@ -909,12 +846,12 @@
   doi: ''
   edam_operation:
   - Peak detection
-  - Validation
-  - Mass spectrum visualisation
-  - Chromatogram visualisation
-  - Chromatographic alignment
-  - Label-free quantification
   - Data filtering
+  - Label-free quantification
+  - Validation
+  - Chromatographic alignment
+  - Chromatogram visualisation
+  - Mass spectrum visualisation
   edam_topic: []
   id: 5ede4dcba9bf9c66
   keep: true
@@ -933,13 +870,13 @@
   - gtn
   - metams
   tools:
-  - xcms_merge
-  - Multivariate
   - xcms_plot_chromatogram
-  - abims_xcms_xcmsSet
   - checkFormat
   - msnbase_readmsdata
   - metams_runGC
+  - xcms_merge
+  - abims_xcms_xcmsSet
+  - Multivariate
   update_time: '2025-10-17'
   versions: 1
 - create_time: '2025-10-16'
@@ -949,12 +886,14 @@
   doi: ''
   edam_operation:
   - Peak detection
-  - Validation
-  - Mass spectrum visualisation
-  - Chromatogram visualisation
-  - Chromatographic alignment
-  - Label-free quantification
+  - Spectral analysis
   - Data filtering
+  - Label-free quantification
+  - Annotation
+  - Validation
+  - Chromatographic alignment
+  - Chromatogram visualisation
+  - Mass spectrum visualisation
   edam_topic: []
   id: a3bbc1284efcd20c
   keep: true
@@ -973,16 +912,16 @@
   - xcms
   - gtn
   tools:
-  - abims_xcms_retcor
-  - xcms_plot_chromatogram
-  - abims_xcms_group
-  - abims_xcms_xcmsSet
-  - checkFormat
-  - abims_CAMERA_annotateDiffreport
   - abims_xcms_fillPeaks
+  - abims_CAMERA_annotateDiffreport
+  - abims_xcms_group
+  - xcms_plot_chromatogram
   - intens_check
+  - checkFormat
   - msnbase_readmsdata
   - xcms_merge
+  - abims_xcms_retcor
+  - abims_xcms_xcmsSet
   update_time: '2025-10-16'
   versions: 1
 - create_time: '2024-08-07'
@@ -993,8 +932,8 @@
   doi: ''
   edam_operation:
   - Format validation
-  - Filtering
   - Spectral library search
+  - Filtering
   edam_topic: []
   id: 3358c516f5412e92
   keep: true
@@ -1010,13 +949,13 @@
   - gc-ms
   - exposomics
   tools:
-  - compose_text_param
+  - matchms_metadata_match
   - matchms_networking
   - matchms_formatter
-  - Filter1
-  - matchms_metadata_match
   - tp_cat
   - matchms_spectral_similarity
+  - Filter1
+  - compose_text_param
   update_time: '2025-05-15'
   versions: 29
 - create_time: '2024-10-17'
@@ -1026,12 +965,12 @@
   doi: ''
   edam_operation:
   - Peak detection
-  - Validation
-  - Mass spectrum visualisation
-  - Chromatogram visualisation
-  - Chromatographic alignment
-  - Label-free quantification
   - Data filtering
+  - Label-free quantification
+  - Validation
+  - Chromatographic alignment
+  - Chromatogram visualisation
+  - Mass spectrum visualisation
   edam_topic: []
   id: 2179ba1c33f77f7e
   keep: true
@@ -1050,13 +989,13 @@
   - gtn
   - metams
   tools:
-  - xcms_merge
-  - Multivariate
   - xcms_plot_chromatogram
-  - abims_xcms_xcmsSet
   - checkFormat
   - msnbase_readmsdata
   - metams_runGC
+  - xcms_merge
+  - abims_xcms_xcmsSet
+  - Multivariate
   update_time: '2025-04-25'
   versions: 1
 - create_time: '2024-08-05'
@@ -1081,17 +1020,17 @@
   - gc-ms
   - metabolomics
   tools:
-  - qcxms_neutral_run
-  - qcxms_production_run
   - openbabel_compound_convert
-  - __FILTER_FAILED_DATASETS__
-  - xtb_molecular_optimization
-  - split_file_to_collection
-  - ctb_im_conformers
-  - qcxms_getres
   - param_value_from_file
+  - qcxms_getres
+  - ctb_im_conformers
+  - __FILTER_FAILED_DATASETS__
   - tp_cut_tool
   - tp_cat
+  - qcxms_neutral_run
+  - qcxms_production_run
+  - split_file_to_collection
+  - xtb_molecular_optimization
   update_time: '2024-08-12'
   versions: 2
 - create_time: '2024-05-17'
@@ -1116,15 +1055,100 @@
   - gc-ms
   - metabolomics
   tools:
-  - qcxms_neutral_run
-  - qcxms_production_run
   - openbabel_compound_convert
-  - __FILTER_FAILED_DATASETS__
-  - xtb_molecular_optimization
   - qcxms_getres
   - ctb_im_conformers
+  - __FILTER_FAILED_DATASETS__
+  - qcxms_neutral_run
+  - qcxms_production_run
+  - xtb_molecular_optimization
   update_time: '2024-06-06'
   versions: 64
+- create_time: '2026-10-22'
+  creators:
+  - workflow4metabolomics
+  deprecated: false
+  doi: ''
+  edam_operation:
+  - Peak detection
+  - Data filtering
+  - Label-free quantification
+  - Validation
+  - Chromatographic alignment
+  - Chromatogram visualisation
+  - Mass spectrum visualisation
+  edam_topic: []
+  id: fcc61f54b6e442cc
+  keep: true
+  latest_version: 1
+  license: MIT
+  link: https://usegalaxy.org/published/workflow?id=fcc61f54b6e442cc
+  name: 'Mass spectrometry: GCMS with metaMS (release v0.3)'
+  number_of_steps: null
+  projects: []
+  source: https://usegalaxy.org
+  tags:
+  - metabolomics
+  - ms
+  - workflow4metabolomics
+  - gc-ms
+  - gtn
+  - metams
+  tools:
+  - xcms_plot_chromatogram
+  - checkFormat
+  - msnbase_readmsdata
+  - metams_runGC
+  - xcms_merge
+  - abims_xcms_xcmsSet
+  - Multivariate
+  update_time: '2026-10-22'
+  versions: 1
+- create_time: '2026-10-22'
+  creators:
+  - workflow4metabolomics
+  deprecated: false
+  doi: ''
+  edam_operation:
+  - Peak detection
+  - Spectral analysis
+  - Data filtering
+  - Label-free quantification
+  - Annotation
+  - Validation
+  - Chromatographic alignment
+  - Chromatogram visualisation
+  - Mass spectrum visualisation
+  edam_topic: []
+  id: a4b735a6e6b6086a
+  keep: true
+  latest_version: 1
+  license: MIT
+  link: https://usegalaxy.org/published/workflow?id=a4b735a6e6b6086a
+  name: 'Mass spectrometry: LC-MS preprocessing with XCMS (release v1.2)'
+  number_of_steps: null
+  projects: []
+  source: https://usegalaxy.org
+  tags:
+  - metabolomics
+  - ms
+  - lc-ms
+  - workflow4metabolomics
+  - xcms
+  - gtn
+  tools:
+  - abims_xcms_fillPeaks
+  - abims_CAMERA_annotateDiffreport
+  - abims_xcms_group
+  - xcms_plot_chromatogram
+  - intens_check
+  - checkFormat
+  - msnbase_readmsdata
+  - xcms_merge
+  - abims_xcms_retcor
+  - abims_xcms_xcmsSet
+  update_time: '2026-10-22'
+  versions: 1
 - create_time: '2025-05-29'
   creators:
   - workflow4metabolomics
@@ -1132,12 +1156,14 @@
   doi: ''
   edam_operation:
   - Peak detection
-  - Validation
-  - Mass spectrum visualisation
-  - Chromatogram visualisation
-  - Chromatographic alignment
-  - Label-free quantification
+  - Spectral analysis
   - Data filtering
+  - Label-free quantification
+  - Annotation
+  - Validation
+  - Chromatographic alignment
+  - Chromatogram visualisation
+  - Mass spectrum visualisation
   edam_topic: []
   id: 650f3eb7647b4508
   keep: true
@@ -1156,16 +1182,16 @@
   - xcms
   - gtn
   tools:
-  - abims_xcms_retcor
-  - xcms_plot_chromatogram
-  - abims_xcms_group
-  - abims_xcms_xcmsSet
-  - checkFormat
-  - abims_CAMERA_annotateDiffreport
   - abims_xcms_fillPeaks
+  - abims_CAMERA_annotateDiffreport
+  - abims_xcms_group
+  - xcms_plot_chromatogram
   - intens_check
+  - checkFormat
   - msnbase_readmsdata
   - xcms_merge
+  - abims_xcms_retcor
+  - abims_xcms_xcmsSet
   update_time: '2025-05-29'
   versions: 1
 - create_time: '2025-05-22'
@@ -1175,12 +1201,12 @@
   doi: ''
   edam_operation:
   - Peak detection
-  - Validation
-  - Mass spectrum visualisation
-  - Chromatogram visualisation
-  - Chromatographic alignment
-  - Label-free quantification
   - Data filtering
+  - Label-free quantification
+  - Validation
+  - Chromatographic alignment
+  - Chromatogram visualisation
+  - Mass spectrum visualisation
   edam_topic: []
   id: b38215b4ba7a9793
   keep: true
@@ -1199,13 +1225,13 @@
   - gtn
   - metams
   tools:
-  - xcms_merge
-  - Multivariate
   - xcms_plot_chromatogram
-  - abims_xcms_xcmsSet
   - checkFormat
   - msnbase_readmsdata
   - metams_runGC
+  - xcms_merge
+  - abims_xcms_xcmsSet
+  - Multivariate
   update_time: '2025-05-26'
   versions: 1
 - create_time: '2024-09-19'
@@ -1215,12 +1241,14 @@
   doi: ''
   edam_operation:
   - Peak detection
-  - Validation
-  - Mass spectrum visualisation
-  - Chromatogram visualisation
-  - Chromatographic alignment
-  - Label-free quantification
+  - Spectral analysis
   - Data filtering
+  - Label-free quantification
+  - Annotation
+  - Validation
+  - Chromatographic alignment
+  - Chromatogram visualisation
+  - Mass spectrum visualisation
   edam_topic: []
   id: aeeaf3e06a13bc22
   keep: true
@@ -1239,15 +1267,15 @@
   - xcms
   - gtn
   tools:
-  - abims_xcms_retcor
-  - xcms_plot_chromatogram
-  - abims_xcms_group
-  - abims_xcms_xcmsSet
-  - abims_CAMERA_annotateDiffreport
   - abims_xcms_fillPeaks
+  - abims_CAMERA_annotateDiffreport
+  - abims_xcms_group
+  - xcms_plot_chromatogram
   - intens_check
   - msnbase_readmsdata
   - xcms_merge
+  - abims_xcms_retcor
+  - abims_xcms_xcmsSet
   update_time: '2025-04-25'
   versions: 1
 - create_time: '2024-10-31'
@@ -1257,12 +1285,12 @@
   doi: ''
   edam_operation:
   - Peak detection
-  - Validation
-  - Mass spectrum visualisation
-  - Chromatogram visualisation
-  - Chromatographic alignment
-  - Label-free quantification
   - Data filtering
+  - Label-free quantification
+  - Validation
+  - Chromatographic alignment
+  - Chromatogram visualisation
+  - Mass spectrum visualisation
   edam_topic: []
   id: 3edd2957ecd26d6c
   keep: true
@@ -1281,13 +1309,13 @@
   - gtn
   - metams
   tools:
-  - xcms_merge
-  - Multivariate
   - xcms_plot_chromatogram
-  - abims_xcms_xcmsSet
   - checkFormat
   - msnbase_readmsdata
   - metams_runGC
+  - xcms_merge
+  - abims_xcms_xcmsSet
+  - Multivariate
   update_time: '2025-04-25'
   versions: 1
 - create_time: '2021-03-19'
@@ -1309,18 +1337,18 @@
   - metabolomics
   - galaxy-training-network
   tools:
+  - cardinal_segmentations
   - cardinal_combine
-  - cardinal_mz_images
-  - cardinal_quality_report
-  - maldi_quant_peak_detection
-  - Summary_Statistics1
+  - Grep1
+  - cardinal_classification
   - maldi_quant_preprocessing
+  - cardinal_preprocessing
+  - Summary_Statistics1
   - Filter1
   - join_files_on_column_fuzzy
-  - Grep1
-  - cardinal_preprocessing
-  - cardinal_segmentations
-  - cardinal_classification
+  - maldi_quant_peak_detection
+  - cardinal_mz_images
+  - cardinal_quality_report
   update_time: '2021-03-19'
   versions: 0
 - create_time: '2021-03-19'
@@ -1329,12 +1357,14 @@
   doi: ''
   edam_operation:
   - Peak detection
-  - Validation
-  - Mass spectrum visualisation
-  - Chromatogram visualisation
-  - Chromatographic alignment
-  - Label-free quantification
+  - Spectral analysis
   - Data filtering
+  - Label-free quantification
+  - Annotation
+  - Validation
+  - Chromatographic alignment
+  - Chromatogram visualisation
+  - Mass spectrum visualisation
   edam_topic: []
   id: fa0243ff9b5ca997
   keep: true
@@ -1349,19 +1379,19 @@
   - metabolomics
   - galaxy-training-network
   tools:
-  - Univariate
-  - abims_xcms_retcor
-  - xcms_plot_chromatogram
   - Batch_correction
-  - quality_metrics
-  - abims_xcms_group
-  - abims_xcms_xcmsSet
-  - abims_CAMERA_annotateDiffreport
-  - wsdl_hmdb
   - abims_xcms_fillPeaks
-  - msnbase_readmsdata
-  - xcms_merge
   - generic_filter
+  - abims_CAMERA_annotateDiffreport
+  - abims_xcms_group
+  - xcms_plot_chromatogram
+  - quality_metrics
+  - wsdl_hmdb
+  - msnbase_readmsdata
+  - Univariate
+  - xcms_merge
+  - abims_xcms_retcor
+  - abims_xcms_xcmsSet
   update_time: '2021-03-19'
   versions: 0
 - create_time: '2021-03-19'
@@ -1383,12 +1413,12 @@
   - metabolomics
   - galaxy-training-network
   tools:
-  - cardinal_mz_images
   - cardinal_filtering
-  - cardinal_quality_report
   - cardinal_data_exporter
   - Filter1
   - cardinal_spectra_plots
+  - cardinal_mz_images
+  - cardinal_quality_report
   update_time: '2021-03-19'
   versions: 0
 - create_time: '2019-10-30'
@@ -1397,12 +1427,14 @@
   doi: ''
   edam_operation:
   - Peak detection
-  - Validation
-  - Mass spectrum visualisation
-  - Chromatogram visualisation
-  - Chromatographic alignment
-  - Label-free quantification
+  - Spectral analysis
   - Data filtering
+  - Label-free quantification
+  - Annotation
+  - Validation
+  - Chromatographic alignment
+  - Chromatogram visualisation
+  - Mass spectrum visualisation
   edam_topic: []
   id: f9e5caaf08a450ec
   keep: true
@@ -1417,14 +1449,14 @@
   - metabolomics
   - lcms
   tools:
-  - abims_xcms_retcor
-  - xcms_plot_chromatogram
-  - abims_xcms_group
-  - abims_xcms_xcmsSet
-  - abims_CAMERA_annotateDiffreport
   - abims_xcms_fillPeaks
+  - abims_CAMERA_annotateDiffreport
+  - abims_xcms_group
+  - xcms_plot_chromatogram
   - msnbase_readmsdata
   - xcms_merge
+  - abims_xcms_retcor
+  - abims_xcms_xcmsSet
   update_time: '2019-10-30'
   versions: 3
 - create_time: '2019-10-30'
@@ -1446,10 +1478,10 @@
   - metabolomics
   - lcms
   tools:
-  - Univariate
   - Batch_correction
-  - quality_metrics
-  - wsdl_hmdb
   - generic_filter
+  - quality_metrics
+  - Univariate
+  - wsdl_hmdb
   update_time: '2019-10-30'
   versions: 1
